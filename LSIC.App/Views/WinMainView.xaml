@@ -1,10 +1,12 @@
 ﻿<wpf:ChromeWindow x:Class="LSIC.App.Views.WinMainView"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:app="clr-namespace:LSIC.App"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:local="clr-namespace:LSIC.App.Views"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:models="clr-namespace:LSIC.App.Models"
+                  xmlns:views="clr-namespace:LSIC.App.Views"
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
                   Title="WinMainView"
@@ -12,9 +14,189 @@
                   Height="900"
                   MinWidth="1280"
                   MinHeight="900"
-                  d:DataContext="{d:DesignInstance vms:WinStartupViewModel}"
+                  d:DataContext="{d:DesignInstance vms:WinMainViewModel}"
                   Icon="/Resources/Icon/icon.ico"
+                  SnapsToDevicePixels="True"
+                  UseLayoutRounding="True"
                   WindowStartupLocation="CenterScreen"
                   mc:Ignorable="d">
-    <Grid />
+    <DockPanel>
+        <Rectangle Height="1"
+                   DockPanel.Dock="Top"
+                   Fill="{StaticResource BorderBrush}" />
+        <Grid Height="80" DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Image Grid.RowSpan="2"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Source="{StaticResource ATiSImage}"
+                   UseLayoutRounding="True" />
+            <Grid Grid.Row="0"
+                  Grid.Column="1"
+                  Background="{DynamicResource SecondBackgroundBrush}">
+                <!--<Menu x:Name="ToolsMenu"
+                      Height="30"
+                      Margin="3,0"
+                      HorizontalAlignment="Left"
+                      Background="Transparent"
+                      IsMainMenu="True">
+                    <MenuItem Height="{Binding RelativeSource={RelativeSource AncestorType=Menu}, Path=ActualHeight}"
+                              Padding="10,0"
+                              Header="{DynamicResource SystemMenuText}"
+                              InputGestureText="Alt + S">
+                        <MenuItem Header="{DynamicResource ModeText}">
+                            <MenuItem Click="OnProductionModeMenuClick"
+                                      Header="{DynamicResource Enum.DeviceMode.Production}"
+                                      IsChecked="{Binding Device.Mode, Mode=OneWay, Converter={StaticResource IncludeValueToBoolConverter}, ConverterParameter={x:Static app:DeviceMode.Production}}" />
+                            <MenuItem Click="OnEngineeringModeMenuClick"
+                                      Header="{DynamicResource Enum.DeviceMode.Engineering}"
+                                      IsChecked="{Binding Device.Mode, Mode=OneWay, Converter={StaticResource IncludeValueToBoolConverter}, ConverterParameter={x:Static app:DeviceMode.Engineering}}" />
+                            <MenuItem Click="OnAdministratorModeMenuClick"
+                                      Header="{DynamicResource Enum.DeviceMode.Administrator}"
+                                      IsChecked="{Binding Device.Mode, Mode=OneWay, Converter={StaticResource IncludeValueToBoolConverter}, ConverterParameter={x:Static app:DeviceMode.Administrator}}" />
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource LanguageText}">
+                            <MenuItem Click="OnLanguageChineseClick"
+                                      Header="{DynamicResource ChineseText}"
+                                      IsChecked="{Binding Device.SystemSetting.Language, Mode=OneWay, Converter={StaticResource IncludeValueToBoolConverter}, ConverterParameter={x:Static wpf:LanguageType.ZH_CN}}" />
+                            <MenuItem Click="OnLanguageEnglishClick"
+                                      Header="{DynamicResource EnglishText}"
+                                      IsChecked="{Binding Device.SystemSetting.Language, Mode=OneWay, Converter={StaticResource IncludeValueToBoolConverter}, ConverterParameter={x:Static wpf:LanguageType.EN_US}}" />
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Height="{Binding RelativeSource={RelativeSource AncestorType=Menu}, Path=ActualHeight}"
+                              Padding="10,0"
+                              Header="{DynamicResource ControlMenuText}"
+                              InputGestureText="Alt + H">
+                        <MenuItem Click="OnSystemBoardButtonClick" Header="{DynamicResource HVControlBoardText}" />
+                        <MenuItem Click="OnIOControllerBoardButtonClick" Header="{DynamicResource LVControlBoardText}" />
+                        <MenuItem Click="OnVerticalBoardButtonClick" Header="{DynamicResource VerticalAdapterBoardText}" />
+                        <MenuItem Click="OnOvenControlButtonClick" Header="{DynamicResource OvenControlText}" />
+                    </MenuItem>
+                    <MenuItem Height="{Binding RelativeSource={RelativeSource AncestorType=Menu}, Path=ActualHeight}"
+                              Padding="10,0"
+                              Header="{DynamicResource HelpMenuText}"
+                              InputGestureText="Alt + H">
+                        <MenuItem Click="OnAboutButtonClick" Header="{DynamicResource AboutText}" />
+                        <MenuItem Click="OnFirmwareInfoButtonClick" Header="{DynamicResource FirmwareInfoText}" />
+                        <MenuItem Click="OnSelfCheckButtonClick" Header="{DynamicResource FirmwareSelfCheckText}" />
+                        <MenuItem Click="OnFirmwareToolButtonClick"
+                                  Header="{DynamicResource FirmwareUpgradeText}"
+                                  Visibility="{Binding Device.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Administrator'}" />
+                    </MenuItem>
+                </Menu>
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           Text="{Binding Device.SystemConfig.DeviceInfo.Title}" />
+                <TextBlock Margin="0,0,10,0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Text="{Binding Device.Mode, Converter={StaticResource EnumToResourceTextConverter}}" />-->
+            </Grid>
+            <Grid Grid.Row="1"
+                  Grid.Column="1"
+                  Background="{DynamicResource BackgroundBrush}">
+                <StackPanel Height="80"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+
+                    <Button Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            Padding="0"
+                            wpf:IconHelper.Geometry="{StaticResource Geometry.Ic}"
+                            wpf:IconHelper.Height="14"
+                            wpf:IconHelper.Width="14"
+                            Command="{Binding IcEditCommand}"
+                            ToolTip="{app:Lang {x:Static app:LangKey.IcEditText}}" />
+
+                    <Button Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            Padding="0"
+                            wpf:IconHelper.Geometry="{StaticResource Geometry.PatternConvert}"
+                            wpf:IconHelper.Height="14"
+                            wpf:IconHelper.Width="14"
+                            Command="{Binding PatternConvertCommand}"
+                            ToolTip="{app:Lang {x:Static app:LangKey.PatternFormatConvertText}}" />
+
+                    <Button Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            Padding="0"
+                            wpf:IconHelper.Geometry="{StaticResource Geometry.TriggerSet}"
+                            wpf:IconHelper.Height="14"
+                            wpf:IconHelper.Width="14"
+                            Command="{Binding SetTriggerChanneCommand}"
+                            ToolTip="{app:Lang {x:Static app:LangKey.TriggerSetText}}" />
+
+                    <Button Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            Padding="0"
+                            wpf:IconHelper.Geometry="{StaticResource Geometry.Thermometer}"
+                            wpf:IconHelper.Height="14"
+                            wpf:IconHelper.Width="14"
+                            Command="{Binding OvenControlCommand}"
+                            ToolTip="{app:Lang {x:Static app:LangKey.OvenControlText}}" />
+
+                    <Button Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            Padding="0"
+                            wpf:IconHelper.Geometry="{StaticResource Geometry.Mute}"
+                            wpf:IconHelper.Height="14"
+                            wpf:IconHelper.Width="14"
+                            Command="{Binding CloseAlarmCommand}"
+                            ToolTip="{app:Lang {x:Static app:LangKey.CloseAlarmText}}" />
+                </StackPanel>
+
+                <!--<ItemsControl HorizontalAlignment="Right"
+                              Background="Transparent"
+                              BorderThickness="0"
+                              ItemsSource="{Binding Device.Ovens}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type model:IOven}">
+                            <StackPanel Margin="0,0,16,0"
+                                        Orientation="Horizontal"
+                                        ToolTip="{Binding Mode, Converter={StaticResource EnumToResourceTextConverter}, Mode=OneWay}">
+                                <Ellipse Width="8" Height="8">
+                                    <Ellipse.Fill>
+                                        <MultiBinding Converter="{StaticResource OvenStateToBrushConverter}">
+                                            <Binding Path="Mode" />
+                                            <Binding Path="ErrorCount" />
+                                        </MultiBinding>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Margin="5,0,8,0" Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Pv, Converter={StaticResource ScaledIntToTemperatureConverter}, Mode=OneWay, TargetNullValue='N/A'}" />
+                                <TextBlock Margin="5,0,0,0" Text="℃" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>-->
+            </Grid>
+        </Grid>
+
+        <Grid Height="30" DockPanel.Dock="Bottom">
+            <TextBlock Margin="0,0,10,0"
+                       HorizontalAlignment="Right"
+                       Text="{Binding Now, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss}'}" />
+        </Grid>
+    </DockPanel>
 </wpf:ChromeWindow>

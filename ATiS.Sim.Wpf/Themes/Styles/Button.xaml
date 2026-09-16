@@ -10,6 +10,7 @@
            BasedOn="{StaticResource ButtonBase.Base}"
            TargetType="{x:Type Button}">
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
         <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
         <Setter Property="Template">
@@ -21,17 +22,18 @@
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}"
-                                SnapsToDevicePixels="True">
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                             <StackPanel Margin="{TemplateBinding Padding}"
                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                        Orientation="Horizontal">
+                                        Orientation="Horizontal"
+                                        UseLayoutRounding="True">
                                 <Path x:Name="PathMain"
                                       Width="{TemplateBinding wpf:IconHelper.Width}"
                                       Height="{TemplateBinding wpf:IconHelper.Height}"
                                       Data="{TemplateBinding wpf:IconHelper.Geometry}"
                                       Fill="{TemplateBinding Foreground}"
-                                      SnapsToDevicePixels="True"
+                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                       Stretch="Uniform" />
                                 <ContentPresenter x:Name="ContentPresenterMain"
                                                   Margin="6,0,0,0"
@@ -99,7 +101,7 @@
                                   Height="{TemplateBinding wpf:IconHelper.Height}"
                                   Data="{TemplateBinding wpf:IconHelper.Geometry}"
                                   Fill="{TemplateBinding Foreground}"
-                                  SnapsToDevicePixels="True"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                   Stretch="Uniform" />
                         </ContentControl>
                     </Border>

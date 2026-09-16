@@ -29,7 +29,7 @@
         {
             try
             {
-               await ViewModel.StartCheck();
+                await ViewModel.StartCheck();
             }
             catch
             {
@@ -39,6 +39,7 @@
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+            MessageBus.Default.UnregisterAll(this);
 
             if (Application.Current.MainWindow == null)
             {

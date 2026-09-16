@@ -14,7 +14,7 @@
 
         public async Task StartCheck()
         {
-            await Task.Delay(3000);
+            await Task.Delay(10);
             MessageBus.Default.Send(MsgArgs.From(WinStartupMessage.Initialized, []));
         }
     }
