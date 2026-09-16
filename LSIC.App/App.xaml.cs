@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using LSIC.App.Views;
 using System.Windows;
 
 namespace LSIC.App
@@ -9,6 +8,13 @@ namespace LSIC.App
     /// </summary>
     public partial class App : Application
     {
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            new WinStartupView().Show();
+        }
     }
 
 }

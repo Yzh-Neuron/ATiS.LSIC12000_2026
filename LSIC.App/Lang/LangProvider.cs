@@ -1,8 +1,4 @@
-﻿using System;
-using System.Windows.Markup;
-using ATiS.Sim.Wpf;
-
-namespace LSIC.App
+﻿namespace LSIC.App
 {
     public sealed partial class LangProvider : LanguageProviderBase
     {
