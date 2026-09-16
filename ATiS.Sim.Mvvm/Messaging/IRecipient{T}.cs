@@ -5,12 +5,12 @@ namespace ATiS.Sim.Mvvm
 {
     public interface IRecipient<in TMessage>
     {
-        MessageResult? Receive(TMessage message);
+        MessageResult? Receive(TMessage e);
     }
 
     public interface IRecipientAsync<in TMessage>
     {
-        ValueTask<MessageResult?> ReceiveAsync(TMessage message);
+        ValueTask<MessageResult?> ReceiveAsync(TMessage e);
     }
 
     internal readonly struct Unit : IEquatable<Unit>

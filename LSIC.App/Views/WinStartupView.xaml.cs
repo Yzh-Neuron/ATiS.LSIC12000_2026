@@ -2,16 +2,40 @@
 {
     public partial class WinStartupView : IRecipient<MsgArgs<WinStartupMessage>>
     {
+        public WinStartupViewModel ViewModel { get; }
         public WinStartupView()
         {
             InitializeComponent();
-        }
+            ViewModel = new WinStartupViewModel();
+            DataContext = ViewModel;
 
-        public MessageResult Receive(MsgArgs<WinStartupMessage> message)
+            MessageBus.Default.Register(this);
+            Loaded += OnLoaded;
+        }
+        public MessageResult Receive(MsgArgs<WinStartupMessage> e)
         {
-            throw new NotImplementedException();
-        }
+            if (e.Message is WinStartupMessage.Initialized)
+            {
+                WinMainView main = new WinMainView();
+                Application.Current.MainWindow = main;
+                main.Show();
+                main.Activate();
+                Close();
+            }
 
+            return MessageResult.From(null);
+        }
+        private async void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+               await ViewModel.StartCheck();
+            }
+            catch
+            {
+                // ignore
+            }
+        }
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
@@ -21,6 +45,5 @@
                 Application.Current.Shutdown();
             }
         }
-
     }
 }

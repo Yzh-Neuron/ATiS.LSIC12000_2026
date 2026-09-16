@@ -15,6 +15,7 @@
                   IsShowTitleBar="False"
                   ResizeMode="NoResize"
                   TitleBarHeight="60"
+                  WindowStartupLocation="CenterScreen"
                   mc:Ignorable="d">
     <Window.Resources>
         <DataTemplate x:Key="LogoDataTemplate">
