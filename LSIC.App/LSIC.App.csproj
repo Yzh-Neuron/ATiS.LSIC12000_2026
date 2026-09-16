@@ -29,6 +29,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\ATiS.Sim.Communication\ATiS.Sim.Communication.csproj" />
+	  <ProjectReference Include="..\ATiS.Sim.Log\ATiS.Sim.Log.csproj" />
+	  <ProjectReference Include="..\ATiS.Sim.Mvvm\ATiS.Sim.Mvvm.csproj" />
+	  <ProjectReference Include="..\ATiS.Sim.Wpf\ATiS.Sim.Wpf.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Update="Lang\LangProvider.tt">
 	    <Generator>TextTemplatingFileGenerator</Generator>
 	    <LastGenOutput>LangProvider.cs</LastGenOutput>
