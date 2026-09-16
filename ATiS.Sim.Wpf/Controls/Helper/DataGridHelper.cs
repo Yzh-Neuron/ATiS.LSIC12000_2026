@@ -1,0 +1,191 @@
+﻿using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace ATiS.Sim.Wpf
+{
+    public class DataGridHelper
+    {
+        public static readonly DependencyProperty TextColumnStyleProperty = DependencyProperty.RegisterAttached(
+            "TextColumnStyle", typeof(Style), typeof(DataGridHelper), new PropertyMetadata(default(Style), OnTextColumnStyleChanged));
+        public static void SetTextColumnStyle(DependencyObject element, Style value) => element.SetValue(TextColumnStyleProperty, value);
+        public static Style GetTextColumnStyle(DependencyObject element) => (Style)element.GetValue(TextColumnStyleProperty);
+        public static readonly DependencyProperty EditingTextColumnStyleProperty = DependencyProperty.RegisterAttached(
+            "EditingTextColumnStyle", typeof(Style), typeof(DataGridHelper), new PropertyMetadata(default(Style), OnTextColumnStyleChanged));
+        public static void SetEditingTextColumnStyle(DependencyObject element, Style value) => element.SetValue(EditingTextColumnStyleProperty, value);
+        public static Style GetEditingTextColumnStyle(DependencyObject element) => (Style)element.GetValue(EditingTextColumnStyleProperty);
+        private static void OnTextColumnStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var grid = (DataGrid)d;
+            if (e.OldValue == null && e.NewValue != null && e.NewValue != DependencyProperty.UnsetValue)
+            {
+                UpdateTextColumnStyles(grid);
+            }
+        }
+        private static void UpdateTextColumnStyles(DataGrid grid)
+        {
+            var textColumnStyle = GetTextColumnStyle(grid);
+            var editingTextColumnStyle = GetEditingTextColumnStyle(grid);
+
+            //非编辑状态模板
+            if (textColumnStyle != null)
+            {
+                foreach (var column in grid.Columns.OfType<DataGridTextColumn>())
+                {
+                    var elementStyle = new Style
+                    {
+                        BasedOn = column.ElementStyle,
+                        TargetType = textColumnStyle.TargetType
+                    };
+
+                    foreach (var setter in textColumnStyle.Setters.OfType<Setter>())
+                    {
+                        elementStyle.Setters.Add(setter);
+                    }
+
+                    column.ElementStyle = elementStyle;
+                }
+            }
+
+            //编辑状态模板
+            if (editingTextColumnStyle != null)
+            {
+                foreach (var column in grid.Columns.OfType<DataGridTextColumn>())
+                {
+                    var editingElementStyle = new Style
+                    {
+                        BasedOn = column.EditingElementStyle,
+                        TargetType = editingTextColumnStyle.TargetType
+                    };
+
+                    foreach (var setter in editingTextColumnStyle.Setters.OfType<Setter>())
+                    {
+                        editingElementStyle.Setters.Add(setter);
+                    }
+
+                    column.EditingElementStyle = editingElementStyle;
+                }
+            }
+        }
+
+        public static readonly DependencyProperty ComboBoxColumnStyleProperty = DependencyProperty.RegisterAttached(
+            "ComboBoxColumnStyle", typeof(Style), typeof(DataGridHelper), new PropertyMetadata(default(Style), OnComboBoxColumnStyleChanged));
+        public static void SetComboBoxColumnStyle(DependencyObject element, Style value) => element.SetValue(ComboBoxColumnStyleProperty, value);
+        public static Style GetComboBoxColumnStyle(DependencyObject element) => (Style)element.GetValue(ComboBoxColumnStyleProperty);
+        public static readonly DependencyProperty EditingComboBoxColumnStyleProperty = DependencyProperty.RegisterAttached(
+            "EditingComboBoxColumnStyle", typeof(Style), typeof(DataGridHelper), new PropertyMetadata(default(Style), OnComboBoxColumnStyleChanged));
+        public static void SetEditingComboBoxColumnStyle(DependencyObject element, Style value) => element.SetValue(EditingComboBoxColumnStyleProperty, value);
+        public static Style GetEditingComboBoxColumnStyle(DependencyObject element) => (Style)element.GetValue(EditingComboBoxColumnStyleProperty);
+        private static void OnComboBoxColumnStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var grid = (DataGrid)d;
+            if (e.OldValue == null && e.NewValue != null && e.NewValue != DependencyProperty.UnsetValue)
+            {
+                UpdateComboBoxColumnStyles(grid);
+            }
+        }
+        private static void UpdateComboBoxColumnStyles(DataGrid grid)
+        {
+            var comboBoxColumnStyle = GetComboBoxColumnStyle(grid);
+            var editingComboBoxColumnStyle = GetEditingComboBoxColumnStyle(grid);
+
+            if (comboBoxColumnStyle != null)
+            {
+                foreach (var column in grid.Columns.OfType<DataGridComboBoxColumn>())
+                {
+                    var elementStyle = new Style
+                    {
+                        BasedOn = column.ElementStyle,
+                        TargetType = comboBoxColumnStyle.TargetType
+                    };
+
+                    foreach (var setter in comboBoxColumnStyle.Setters.OfType<Setter>())
+                    {
+                        elementStyle.Setters.Add(setter);
+                    }
+
+                    column.ElementStyle = elementStyle;
+                }
+            }
+
+            if (editingComboBoxColumnStyle != null)
+            {
+                foreach (var column in grid.Columns.OfType<DataGridComboBoxColumn>())
+                {
+                    var editingElementStyle = new Style
+                    {
+                        BasedOn = column.EditingElementStyle,
+                        TargetType = editingComboBoxColumnStyle.TargetType
+                    };
+
+                    foreach (var setter in editingComboBoxColumnStyle.Setters.OfType<Setter>())
+                    {
+                        editingElementStyle.Setters.Add(setter);
+                    }
+
+                    column.EditingElementStyle = editingElementStyle;
+                }
+            }
+        }
+
+        public static readonly DependencyProperty CheckBoxColumnStyleProperty = DependencyProperty.RegisterAttached(
+            "CheckBoxColumnStyle", typeof(Style), typeof(DataGridHelper), new PropertyMetadata(default(Style), OnCheckBoxColumnStyleChanged));
+        public static void SetCheckBoxColumnStyle(DependencyObject element, Style value) => element.SetValue(CheckBoxColumnStyleProperty, value);
+        public static Style GetCheckBoxColumnStyle(DependencyObject element) => (Style)element.GetValue(CheckBoxColumnStyleProperty);
+        public static readonly DependencyProperty EditingCheckBoxColumnStyleProperty = DependencyProperty.RegisterAttached(
+            "EditingCheckBoxColumnStyle", typeof(Style), typeof(DataGridHelper), new PropertyMetadata(default(Style), OnCheckBoxColumnStyleChanged));
+        public static void SetEditingCheckBoxColumnStyle(DependencyObject element, Style value) => element.SetValue(EditingCheckBoxColumnStyleProperty, value);
+        public static Style GetEditingCheckBoxColumnStyle(DependencyObject element) => (Style)element.GetValue(EditingCheckBoxColumnStyleProperty);
+        private static void OnCheckBoxColumnStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var grid = (DataGrid)d;
+            if (e.OldValue == null && e.NewValue != null && e.NewValue!= DependencyProperty.UnsetValue)
+            {
+                UpdateCheckBoxColumnStyles(grid);
+            }
+        }
+        private static void UpdateCheckBoxColumnStyles(DataGrid grid)
+        {
+            var checkBoxColumnStyle = GetCheckBoxColumnStyle(grid);
+            var editingCheckBoxColumnStyle = GetEditingCheckBoxColumnStyle(grid);
+
+            if (checkBoxColumnStyle != null)
+            {
+                foreach (var column in grid.Columns.OfType<DataGridCheckBoxColumn>())
+                {
+                    var elementStyle = new Style
+                    {
+                        BasedOn = column.ElementStyle,
+                        TargetType = checkBoxColumnStyle.TargetType
+                    };
+
+                    foreach (var setter in checkBoxColumnStyle.Setters.OfType<Setter>())
+                    {
+                        elementStyle.Setters.Add(setter);
+                    }
+
+                    column.ElementStyle = elementStyle;
+                }
+            }
+
+            if (editingCheckBoxColumnStyle != null)
+            {
+                foreach (var column in grid.Columns.OfType<DataGridCheckBoxColumn>())
+                {
+                    var editingElementStyle = new Style
+                    {
+                        BasedOn = column.EditingElementStyle,
+                        TargetType = editingCheckBoxColumnStyle.TargetType
+                    };
+
+                    foreach (var setter in editingCheckBoxColumnStyle.Setters.OfType<Setter>())
+                    {
+                        editingElementStyle.Setters.Add(setter);
+                    }
+
+                    column.EditingElementStyle = editingElementStyle;
+                }
+            }
+        }
+    }
+}

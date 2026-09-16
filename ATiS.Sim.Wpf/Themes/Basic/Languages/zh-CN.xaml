@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Info">消息</sys:String>
+    <sys:String x:Key="Warning">警告</sys:String>
+    <sys:String x:Key="Error">错误</sys:String>
+    <sys:String x:Key="Fatal">致命</sys:String>
+    <sys:String x:Key="Success">成功</sys:String>
+    <sys:String x:Key="Question">询问</sys:String>
+
+    <sys:String x:Key="ConfirmText">确认</sys:String>
+    <sys:String x:Key="CancelText">取消</sys:String>
+    <sys:String x:Key="YesText">是</sys:String>
+    <sys:String x:Key="NoText">否</sys:String>
+
+    <sys:String x:Key="NullDataSet">无数据</sys:String>
+    <sys:String x:Key="ClearText">清除</sys:String>
+</ResourceDictionary>

@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="clr-namespace:ATiS.Sim.Wpf">
+    <wpf:ThicknessSplitConverter x:Key="ThicknessSplitConverter" />
+    <wpf:CornerRadiusSplitConverter x:Key="CornerRadiusSplitConverter" />
+    <wpf:RatioToPercentMultiConverter x:Key="RatioToPercentMultiConverter"/>
+    <wpf:CalendarLangToConverter x:Key="CalendarLangToConverter"/>
+    <wpf:ListViewLastColumnToTrueConverter x:Key="ListViewLastColumnToTrueConverter"/>
+
+    <!--外部用-->
+    <wpf:BoolToVisibilityConverter x:Key="TrueToVisibilityConverter" IsTrueToVisible="True"/>
+    <wpf:BoolToVisibilityConverter x:Key="FalseToVisibilityConverter" IsTrueToVisible="False"/>
+    <wpf:NullObjectToVisibilityConverter x:Key="NullToVisibilityConverter" IsNullToVisible="True"/>
+    <wpf:NullObjectToVisibilityConverter x:Key="NotNullToVisibilityConverter" IsNullToVisible="False"/>
+    <wpf:IncludeValueToBoolConverter x:Key="IncludeValueToTrueConverter" IsInclueToTrue="True"/>
+    <wpf:IncludeValueToBoolConverter x:Key="IncludeValueToFalseConverter" IsInclueToTrue="False"/>
+    <wpf:IncludeValueToVisibilityConverter x:Key="IncludeValueToVisibilityConverter" IsInclueToVisible="True"/>
+    <wpf:IncludeValueToVisibilityConverter x:Key="IncludeValueToCollapsedConverter" IsInclueToVisible="False"/>
+    <wpf:InvertBoolConverter x:Key="InvertBoolConverter" />
+    <wpf:BoolToStringConverter x:Key="TrueToTrueStringConverter"/>
+</ResourceDictionary>
