@@ -11,5 +11,16 @@
         {
             throw new NotImplementedException();
         }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            if (Application.Current.MainWindow == null)
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
     }
 }

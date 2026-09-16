@@ -30,6 +30,9 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Icon\icon.ico" />
+	  <None Remove="Resources\Image\DeviceTopView.png" />
+	  <None Remove="Resources\Image\HighVoltage.png" />
+	  <None Remove="Resources\Image\Technology.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -41,6 +44,9 @@
 
 	<ItemGroup>
 	  <Resource Include="Resources\Icon\icon.ico" />
+	  <Resource Include="Resources\Image\DeviceTopView.png" />
+	  <Resource Include="Resources\Image\HighVoltage.png" />
+	  <Resource Include="Resources\Image\Technology.png" />
 	</ItemGroup>
 
 	<ItemGroup>
