@@ -9,6 +9,9 @@
                   Title="WinStartupView"
                   Width="800"
                   Height="450"
+                  
+                  IsShowTitleBar="False"
+                  Icon="/Resources/Icon/icon.ico"
                   d:DataContext="{d:DesignInstance vms:WinStartupViewModel}"
                   mc:Ignorable="d">
     <Grid />

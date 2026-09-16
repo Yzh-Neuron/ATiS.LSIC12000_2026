@@ -817,6 +817,7 @@
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
 		<Setter Property="ShadowMargin" Value="5" />
+		<Setter Property="IsShowTitleBar" Value="True" />
 		<Setter Property="TitleBarHeight" Value="{Binding Path=(SystemParameters.WindowNonClientFrameThickness).Top}" />
 		<Setter Property="TitleBarBackground" Value="{DynamicResource SecondBackgroundBrush}" />
 		<Setter Property="TitleBarForeground" Value="{DynamicResource ForegroundBrush}" />
@@ -835,7 +836,7 @@
 									<RowDefinition Height="*" />
 								</Grid.RowDefinitions>
 								<!--  标题栏  -->
-								<Grid Name="PART_TitleBar" Height="{TemplateBinding TitleBarHeight}" Background="{TemplateBinding TitleBarBackground}" TextElement.Foreground="{TemplateBinding TitleBarForeground}">
+								<Grid Name="PART_TitleBar" Height="{TemplateBinding TitleBarHeight}" Background="{TemplateBinding TitleBarBackground}" Visibility="Visible" TextElement.Foreground="{TemplateBinding TitleBarForeground}">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="Auto" />
 										<ColumnDefinition Width="Auto" />
@@ -880,6 +881,9 @@
 						<Trigger Property="ResizeMode" Value="CanMinimize">
 							<Setter TargetName="ButtonMax" Property="Visibility" Value="Collapsed" />
 							<Setter TargetName="ButtonRestore" Property="Visibility" Value="Collapsed" />
+						</Trigger>
+						<Trigger Property="IsShowTitleBar" Value="False">
+							<Setter TargetName="PART_TitleBar" Property="Visibility" Value="Collapsed" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
