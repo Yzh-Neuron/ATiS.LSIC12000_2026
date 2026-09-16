@@ -5,14 +5,184 @@
                   xmlns:local="clr-namespace:LSIC.App.Views"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
+                  xmlns:models="clr-namespace:LSIC.App.Models"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
                   Title="WinStartupView"
-                  Width="800"
-                  Height="450"
-                  
-                  IsShowTitleBar="False"
-                  Icon="/Resources/Icon/icon.ico"
+                  Width="380"
+                  Height="520"
                   d:DataContext="{d:DesignInstance vms:WinStartupViewModel}"
+                  Icon="/Resources/Icon/icon.ico"
+                  IsShowTitleBar="False"
                   mc:Ignorable="d">
-    <Grid />
+    <Window.Resources>
+        <DataTemplate x:Key="LogoDataTemplate">
+            <Grid Height="96"
+                  TextBlock.FontSize="80"
+                  TextBlock.FontWeight="Medium"
+                  HorizontalAlignment="Center">
+                <Grid.Resources>
+                    <PathGeometry x:Key="DotPath">
+                        <PathFigure StartPoint="84 48">
+                            <ArcSegment Point="6 12"
+                                        Size="60 60"
+                                        IsLargeArc="False"
+                                        SweepDirection="Clockwise"/>
+                            <ArcSegment Point="52 4"
+                                        Size="30 30"
+                                        IsLargeArc="False"
+                                        SweepDirection="Clockwise"/>
+                            <ArcSegment Point="146 2.5"
+                                        Size="70 70"
+                                        IsLargeArc="False"
+                                        SweepDirection="Clockwise"/>
+                            <ArcSegment Point="107 14"
+                                        Size="40 100"
+                                        IsLargeArc="False"
+                                        SweepDirection="Counterclockwise"/>
+                            <LineSegment Point="107 14" />
+                        </PathFigure>
+                    </PathGeometry>
+
+                    <Storyboard x:Key="DotStoryboard">
+                        <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.Height)"
+                                         Storyboard.TargetName="Dot"
+                                         To="16"
+                                         Duration="0:0:1.6"/>
+                        <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                         Storyboard.TargetName="Dot"
+                                         To="16"
+                                         Duration="0:0:1.6"/>
+                        <DoubleAnimationUsingPath PathGeometry="{StaticResource DotPath}"
+                                                  Storyboard.TargetProperty="(Canvas.Left)"
+                                                  Storyboard.TargetName="Dot"
+                                                  Source="X"
+                                                  Duration="0:0:4" />
+                        <DoubleAnimationUsingPath PathGeometry="{StaticResource DotPath}"
+                                                  Storyboard.TargetProperty="(Canvas.Top)"
+                                                  Storyboard.TargetName="Dot"
+                                                  Source="Y"
+                                                  Duration="0:0:4"/>
+                    </Storyboard>
+
+                    <SolidColorBrush x:Key="IconBrush" Color="#1C49E3" />
+
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="FontFamily" Value="{StaticResource Fonts.Roboto}"/>
+                        <Setter Property="Foreground" Value="{StaticResource IconBrush}"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.Triggers>
+                    <EventTrigger RoutedEvent="Control.Loaded">
+                        <BeginStoryboard Storyboard="{StaticResource DotStoryboard}"/>
+                    </EventTrigger>
+                </Grid.Triggers>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="A"/>
+                <TextBlock Text="T"
+                           Grid.Column="1"/>
+                <Rectangle Width="12"
+                           Height="40"
+                           Grid.Column="2"
+                           Margin="7 0 7 20"
+                           VerticalAlignment="Bottom"
+                           Fill="{StaticResource IconBrush}"/>
+                <TextBlock Text="S"
+                           Grid.Column="4"/>
+                <Border Grid.Column="5"
+                        Width="14"
+                        Height="14"
+                        CornerRadius="7"
+                        BorderThickness="1.2"
+                        BorderBrush="Black"
+                        VerticalAlignment="Top"
+                        Margin="0 18 0 0">
+                    <TextBlock Text="R"
+                               FontSize="10"
+                               Foreground="Black"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontWeight="Bold"/>
+                </Border>
+                <Canvas Grid.ColumnSpan="4"
+                        Grid.Column="0">
+                    <Ellipse x:Name="Dot"
+                             Canvas.Left="50"
+                             Canvas.Top="20"
+                             Fill="Red"
+                             Width="60"
+                             Height="60"/>
+                </Canvas>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="CheckItemDataTemplate"
+                      DataType="{x:Type models:CheckItem}">
+            <Grid Height="30"
+                  Width="260">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Name}"
+                           VerticalAlignment="Center"
+                           FontWeight="Black"
+                           FontSize="12.6" />
+                <Border Grid.Column="2"
+                        Margin="0 5">
+                    <ContentControl x:Name="PART_Content"/>
+                </Border>
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Connected}" Value="{x:Null}">
+                    <Setter TargetName="PART_Content" Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <wpf:LoadingCircle Width="20"
+                                                   Height="20"
+                                                   DotCount="6"
+                                                   DotDiameter="3.6"
+                                                   DotInterval="20"
+                                                   DotOffSet="60"
+                                                   DotDelayTime="100"
+                                                   DotSpeed="4"
+                                                   Foreground="Gray"/>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Connected}" Value="True">
+                    <Setter TargetName="PART_Content" Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <Path Data="M 1.9166054,8.2930691 A 0.88553157,0.88553157 0 1 0 0.66575293,9.5468764 L 6.6781036,15.540347 16.16924,4.1115655 A 0.88512236,0.88512236 0 1 0 14.807462,2.9804921 L 6.5541982,12.918272 Z"
+                                      Fill="Lime"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Connected}" Value="False">
+                    <Setter TargetName="PART_Content" Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <Path Data="M 7.8697429,7.0002879 13.807811,1.0617387 A 0.61557088,0.61511068 0 1 0 12.937262,0.19184115 L 6.9998112,6.1303905 1.0617435,0.19122485 A 0.61557066,0.61511047 0 1 0 0.19119516,1.0611224 L 6.1292628,6.9996716 0.19119516,12.938221 A 0.61557068,0.61511048 0 1 0 1.0617435,13.808118 L 6.9998112,7.8695691 12.937262,13.808118 a 0.61557068,0.61511049 0 1 0 0.870549,-0.869897 L 7.8697429,7.0002879 v 9.8e-6 z"
+                                      Fill="Red"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </Window.Resources>
 </wpf:ChromeWindow>
