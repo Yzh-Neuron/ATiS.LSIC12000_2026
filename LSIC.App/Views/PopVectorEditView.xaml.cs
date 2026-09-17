@@ -26,8 +26,13 @@
         {
 
         }
-    }
 
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            MessageBus.Default.UnregisterAll(this);
+        }
+    }
 
 }
 
