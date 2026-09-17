@@ -105,7 +105,8 @@
                                           Grid.Row="0"
                                           Margin="0"
                                           Background="{TemplateBinding wpf:TabControlHelper.HeaderPanelBackground}"
-                                          IsItemsHost="true" />
+                                          IsItemsHost="true"
+                                          Visibility="Hidden" />
 
                                 <Border x:Name="separator"
                                         Grid.Row="0"
@@ -157,9 +158,18 @@
                             <Setter TargetName="separator" Property="Grid.Row" Value="0" />
                             <Setter TargetName="separator" Property="BorderThickness" Value="1,0,0,0" />
                         </Trigger>
-                        <Trigger Property="wpf:TabControlHelper.HasSeparator" Value="True">
-                            <Setter TargetName="separator" Property="Visibility" Value="Visible" />
+                        <Trigger Property="HasItems" Value="True">
+                            <Setter TargetName="headerPanel" Property="Visibility" Value="Visible" />
                         </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="wpf:TabControlHelper.HasSeparator" Value="True" />
+                                <Condition Property="HasItems" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="separator" Property="Visibility" Value="Visible" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

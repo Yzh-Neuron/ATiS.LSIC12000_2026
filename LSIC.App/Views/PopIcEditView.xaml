@@ -9,12 +9,67 @@
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
                   Title="PopTemplateView"
-                  Width="572"
-                  Height="636"
+                  Width="980"
+                  Height="700"
                   d:DataContext="{d:DesignInstance vms:PopIcEditViewModel}"
                   Icon="/Resources/Icon/icon.ico"
                   ResizeMode="NoResize"
                   WindowStartupLocation="CenterOwner"
                   mc:Ignorable="d">
-    <Grid />
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36" />
+            <RowDefinition Height="5" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Border BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource DefaultCornerRadius}">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="12.5"
+                       Text="{app:Lang {x:Static app:LangKey.IcLibraryText}}" />
+        </Border>
+
+        <ListBox Grid.Row="2" Grid.Column="0" />
+
+        <Border Grid.Row="0"
+                Grid.Column="2"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource DefaultCornerRadius}">
+            <StackPanel HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <Button Margin="5,0,0,0"
+                        Content="{app:Lang {x:Static app:LangKey.CreateNewText}}"
+                        Style="{StaticResource Button.Borderless}" />
+                <Button Margin="5,0,0,0"
+                        Content="{app:Lang {x:Static app:LangKey.SaveText}}"
+                        Style="{StaticResource Button.Borderless}" />
+                <Button Margin="5,0,0,0"
+                        Content="{app:Lang {x:Static app:LangKey.SaveAsText}}"
+                        Style="{StaticResource Button.Borderless}" />
+                <Button Margin="5,0,0,0"
+                        Content="{app:Lang {x:Static app:LangKey.DeleteText}}"
+                        Style="{StaticResource Button.Borderless}" />
+                <Button Margin="5,0,0,0"
+                        Content="{app:Lang {x:Static app:LangKey.ExportText}}"
+                        Style="{StaticResource Button.Borderless}" />
+                <Button Margin="5,0,0,0"
+                        Content="{app:Lang {x:Static app:LangKey.ImportText}}"
+                        Style="{StaticResource Button.Borderless}" />
+            </StackPanel>
+        </Border>
+
+        <TabControl Grid.Row="2"
+                    Grid.Column="2"
+                    wpf:TabControlHelper.HeaderHeight="20" />
+    </Grid>
 </wpf:ChromeWindow>

@@ -20,7 +20,7 @@
                   WindowStartupLocation="CenterScreen"
                   mc:Ignorable="d">
     <DockPanel>
-        <!--顶部工具栏-->
+        <!--  顶部工具栏  -->
         <Border Height="80"
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="0,1,0,1"
@@ -38,9 +38,7 @@
                        RenderOptions.BitmapScalingMode="HighQuality"
                        Source="{StaticResource Image.ATiS}"
                        UseLayoutRounding="True" />
-                <Grid Grid.Row="0"
-                      Grid.Column="1"
-                      Background="{DynamicResource SecondBackgroundBrush}">
+                <Grid Grid.Row="0" Grid.Column="1">
                     <Menu x:Name="ToolsMenu"
                           Margin="5,0"
                           HorizontalAlignment="Left"
@@ -127,14 +125,14 @@
             </Grid>
         </Border>
 
-        <!--底部状态栏-->
+        <!--  底部状态栏  -->
         <Grid Height="30" DockPanel.Dock="Bottom">
             <TextBlock Margin="0,0,10,0"
                        HorizontalAlignment="Right"
                        Text="{Binding Now, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss}'}" />
         </Grid>
 
-        <!--内容-->
+        <!--  内容  -->
         <Border Background="AliceBlue" />
     </DockPanel>
 </wpf:ChromeWindow>

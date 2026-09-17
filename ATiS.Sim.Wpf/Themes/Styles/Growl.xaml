@@ -151,5 +151,5 @@
         </Setter>
     </Style>
 
-    <Style BasedOn="{StaticResource Growl.Default}" TargetType="{x:Type wpf:UiVoid}" />
+    <Style BasedOn="{StaticResource Growl.Default}" TargetType="{x:Type wpf:Growl}" />
 </ResourceDictionary>

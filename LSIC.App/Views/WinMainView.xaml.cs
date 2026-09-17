@@ -16,9 +16,8 @@ namespace LSIC.App.Views
             switch (e.Message)
             {
                 case WinMainMessage.OpenIcEditView:
-                    PopTemplateView popTemplateView = new PopTemplateView() { Owner = this };
-                    popTemplateView.ShowDialog();
-
+                    PopIcEditView pop = new PopIcEditView() { Owner = this };
+                    pop.ShowDialog();
                     break;
                 case WinMainMessage.Start:
                     break;
