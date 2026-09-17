@@ -50,7 +50,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="Lang\LangProvider.tt">
+	  <None Update="Common\LangProvider.tt">
 	    <Generator>TextTemplatingFileGenerator</Generator>
 	    <LastGenOutput>LangProvider.cs</LastGenOutput>
 	  </None>
@@ -61,10 +61,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Lang\LangProvider.cs">
+	  <Compile Update="Common\LangProvider.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>LangProvider.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\PopIcEditView.xaml.cs">
+	    <SubType>Code</SubType>
 	  </Compile>
 	</ItemGroup>
 

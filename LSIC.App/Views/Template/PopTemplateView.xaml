@@ -11,7 +11,7 @@
                   Title="PopTemplateView"
                   Width="572"
                   Height="636"
-                  d:DataContext="{d:DesignInstance vms:WinTemplateViewModel}"
+                  d:DataContext="{d:DesignInstance vms:PopTemplateViewModel}"
                   Icon="/Resources/Icon/icon.ico"
                   ResizeMode="NoResize"
                   WindowStartupLocation="CenterOwner"
