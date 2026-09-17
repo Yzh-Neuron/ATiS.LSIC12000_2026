@@ -1,9 +1,8 @@
-﻿<Window x:Class="LSIC.App.Views.WinTemplateView"
+﻿<wpf:ChromeWindow x:Class="LSIC.App.Views.WinTemplateView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:app="clr-namespace:LSIC.App"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:LSIC.App.Views"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:models="clr-namespace:LSIC.App.Models"
         xmlns:views="clr-namespace:LSIC.App.Views"
@@ -20,4 +19,4 @@
         WindowStartupLocation="CenterOwner"
         mc:Ignorable="d">
     <Grid />
-</Window>
+</wpf:ChromeWindow>

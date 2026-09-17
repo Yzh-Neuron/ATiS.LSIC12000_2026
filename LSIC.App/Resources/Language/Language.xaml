@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Resources/Language/English/English.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Resources/Language/Chinese/Chinese.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Resources/Language/English.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Resources/Language/Chinese.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace ATiS.Sim.Mvvm
 {
@@ -12,14 +13,13 @@ namespace ATiS.Sim.Mvvm
             Result = result;
             Tag = tag;
         }
-        public static MessageResult From(object? result)
-        {
-            return new MessageResult(result, null);
-        }
-
-        public static MessageResult From(object? result, object? tag)
+        public static MessageResult From(object? result, object? tag = null)
         {
             return new MessageResult(result, tag);
+        }
+        public static MessageResult Null()
+        {
+            return new MessageResult(null, null);
         }
     }
 }

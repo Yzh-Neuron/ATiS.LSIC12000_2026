@@ -8,7 +8,6 @@
             InitializeComponent();
             ViewModel = new WinStartupViewModel();
             DataContext = ViewModel;
-
             MessageBus.Default.Register(this);
             Loaded += OnLoaded;
         }
@@ -27,6 +26,7 @@
         }
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
+            Loaded -= OnLoaded;
             try
             {
                 await ViewModel.StartCheck();

@@ -3,7 +3,6 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:app="clr-namespace:LSIC.App"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                  xmlns:local="clr-namespace:LSIC.App.Views"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:models="clr-namespace:LSIC.App.Models"
                   xmlns:views="clr-namespace:LSIC.App.Views"
@@ -115,7 +114,7 @@
                             wpf:IconHelper.Geometry="{StaticResource Geometry.Ic}"
                             wpf:IconHelper.Height="14"
                             wpf:IconHelper.Width="14"
-                            Command="{Binding IcEditCommand}"
+                            Command="{Binding OpenIcEditViewCommand}"
                             ToolTip="{app:Lang {x:Static app:LangKey.IcEditText}}" />
 
                     <Button Width="32"
@@ -198,5 +197,7 @@
                        HorizontalAlignment="Right"
                        Text="{Binding Now, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss}'}" />
         </Grid>
+
+        <Border Background="AliceBlue" />
     </DockPanel>
 </wpf:ChromeWindow>
