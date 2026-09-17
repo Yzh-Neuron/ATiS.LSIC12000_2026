@@ -81,8 +81,8 @@
                                 <Grid Name="PART_TitleBar"
                                       Height="{TemplateBinding TitleBarHeight}"
                                       Background="{TemplateBinding TitleBarBackground}"
-                                      Visibility="Visible"
-                                      TextElement.Foreground="{TemplateBinding TitleBarForeground}">
+                                      TextElement.Foreground="{TemplateBinding TitleBarForeground}"
+                                      Visibility="Visible">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
@@ -164,8 +164,8 @@
                             <Setter TargetName="ButtonMax" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="ButtonRestore" Property="Visibility" Value="Collapsed" />
                         </Trigger>
-                        <Trigger  Property="IsShowTitleBar"  Value="False">
-                            <Setter TargetName="PART_TitleBar"  Property="Visibility" Value="Collapsed" />
+                        <Trigger Property="IsShowTitleBar" Value="False">
+                            <Setter TargetName="PART_TitleBar" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

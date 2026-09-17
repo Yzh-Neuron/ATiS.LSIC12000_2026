@@ -1,8 +1,9 @@
-﻿
-Basic/Brushes.xaml
+﻿Basic/Brushes.xaml
 Basic/Converters.xaml
 Basic/Effects.xaml
+Basic/Fonts.xaml
 Basic/Geometries.xaml
+Basic/Images.xaml
 Basic/Sizes.xaml
 Styles/Bases/Control.Base.xaml
 Styles/Bases/ButtonBase.Base.xaml
@@ -29,4 +30,5 @@ Styles/TabControl.xaml
 Styles/StateBlock.xaml
 Styles/LoadingCircle.xaml
 Styles/Growl.xaml
+Styles/MessagePop.xaml
 Styles/UiVoid.xaml

@@ -26,5 +26,6 @@
         <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/UiVoid.xaml" />
         <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/DataGrid.xaml" />
         <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/Growl.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/MessagePop.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

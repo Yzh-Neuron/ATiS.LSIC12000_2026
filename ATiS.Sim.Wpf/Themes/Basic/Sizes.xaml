@@ -10,10 +10,10 @@
 
 
     <sys:Double x:Key="DefaultScrollBarThumbSize">8</sys:Double>
-    <sys:Double x:Key="DefaultScrollBarThumbRadius">0</sys:Double>
+    <sys:Double x:Key="DefaultScrollBarThumbRadius">4</sys:Double>
     <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">30</sys:Double>
 
-    <CornerRadius x:Key="DefaultCheckBoxCornerRadius">0</CornerRadius>
+    <CornerRadius x:Key="DefaultCheckBoxCornerRadius">2</CornerRadius>
 
     <sys:Double x:Key="DefaultCalendarDayButtonRadius">5</sys:Double>
 

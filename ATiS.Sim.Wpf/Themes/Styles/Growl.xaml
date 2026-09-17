@@ -6,7 +6,7 @@
         <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/Button.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style BasedOn="{StaticResource Control.Base}" TargetType="{x:Type wpf:Growl}">
+    <Style x:Key="Growl.Default" BasedOn="{StaticResource Control.Base}" TargetType="{x:Type wpf:Growl}">
         <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
@@ -150,4 +150,6 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style BasedOn="{StaticResource Growl.Default}" TargetType="{x:Type wpf:UiVoid}" />
 </ResourceDictionary>

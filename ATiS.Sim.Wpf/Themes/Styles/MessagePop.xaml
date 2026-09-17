@@ -1,0 +1,146 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="clr-namespace:ATiS.Sim.Wpf">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/ChromeWindow.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--#region Icon-->
+    <DrawingImage x:Key="SuccessIcon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="{StaticResource SuccessBrush}" Geometry="{StaticResource Geometry.Success}" />
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="InfoIcon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="{StaticResource InfoBrush}" Geometry="{StaticResource Geometry.Information}" />
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="WarningIcon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="{StaticResource WarningBrush}" Geometry="{StaticResource Geometry.Warning}" />
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="ErrorIcon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="{StaticResource ErrorBrush}" Geometry="{StaticResource Geometry.Error}" />
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="FatalIcon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="{StaticResource FatalBrush}" Geometry="{StaticResource Geometry.Fatal}" />
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="QuestionIcon">
+        <DrawingImage.Drawing>
+            <GeometryDrawing Brush="{StaticResource QuestionBrush}" Geometry="{StaticResource Geometry.Question}" />
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <!--#endregion-->
+
+    <!--  普通消息模板：确定  -->
+    <DataTemplate x:Key="NormalMessageTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollViewer Grid.Row="0"
+                          Grid.ColumnSpan="2"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <TextBlock Text="{Binding Message, RelativeSource={RelativeSource AncestorType=wpf:MessagePop}}" TextWrapping="Wrap" />
+            </ScrollViewer>
+            <Button Grid.Row="2"
+                    Width="80"
+                    HorizontalAlignment="Center"
+                    Command="{Binding Source={x:Static wpf:ControlCommands.Confirm}}"
+                    Content="{wpf:Lg {x:Static wpf:LgK.ConfirmText}}" />
+        </Grid>
+    </DataTemplate>
+
+    <!--  问答模板：确定/取消  -->
+    <DataTemplate x:Key="QuestionMessageTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Row="0"
+                          Grid.ColumnSpan="2"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <TextBlock Text="{Binding Message, RelativeSource={RelativeSource AncestorType=wpf:MessagePop}}" TextWrapping="Wrap" />
+            </ScrollViewer>
+            <Button Grid.Row="2"
+                    Grid.Column="0"
+                    Width="80"
+                    HorizontalAlignment="Left"
+                    Command="{Binding Source={x:Static wpf:ControlCommands.Confirm}}"
+                    Content="{wpf:Lg {x:Static wpf:LgK.ConfirmText}}" />
+            <Button Grid.Row="2"
+                    Grid.Column="1"
+                    Width="80"
+                    HorizontalAlignment="Right"
+                    Command="{Binding Source={x:Static wpf:ControlCommands.Cancel}}"
+                    Content="{wpf:Lg {x:Static wpf:LgK.CancelText}}" />
+        </Grid>
+    </DataTemplate>
+
+    <!--  MessagePop 窗口样式  -->
+    <Style BasedOn="{StaticResource ChromeWindow.Default}" TargetType="{x:Type wpf:MessagePop}">
+        <Setter Property="Icon" Value="{StaticResource InfoIcon}" />
+        <Setter Property="ResizeMode" Value="NoResize" />
+        <Setter Property="MaxWidth" Value="320" />
+        <Setter Property="MinWidth" Value="240" />
+        <Setter Property="MinHeight" Value="160" />
+        <Setter Property="MaxHeight" Value="240" />
+        <Setter Property="SizeToContent" Value="WidthAndHeight" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="ContentTemplate" Value="{StaticResource NormalMessageTemplate}" />
+        <Style.Triggers>
+            <Trigger Property="Type" Value="Success">
+                <Setter Property="Title" Value="{wpf:Lg {x:Static wpf:LgK.Success}}" />
+                <Setter Property="Icon" Value="{StaticResource SuccessIcon}" />
+            </Trigger>
+            <Trigger Property="Type" Value="Info">
+                <Setter Property="Title" Value="{wpf:Lg {x:Static wpf:LgK.Info}}" />
+                <Setter Property="Icon" Value="{StaticResource InfoIcon}" />
+            </Trigger>
+            <Trigger Property="Type" Value="Warning">
+                <Setter Property="Title" Value="{wpf:Lg {x:Static wpf:LgK.Warning}}" />
+                <Setter Property="Icon" Value="{StaticResource WarningIcon}" />
+            </Trigger>
+            <Trigger Property="Type" Value="Error">
+                <Setter Property="Title" Value="{wpf:Lg {x:Static wpf:LgK.Error}}" />
+                <Setter Property="Icon" Value="{StaticResource ErrorIcon}" />
+            </Trigger>
+            <Trigger Property="Type" Value="Fatal">
+                <Setter Property="Title" Value="{wpf:Lg {x:Static wpf:LgK.Fatal}}" />
+                <Setter Property="Icon" Value="{StaticResource FatalIcon}" />
+            </Trigger>
+            <Trigger Property="Type" Value="Question">
+                <Setter Property="Title" Value="{wpf:Lg {x:Static wpf:LgK.Question}}" />
+                <Setter Property="Icon" Value="{StaticResource QuestionIcon}" />
+                <Setter Property="ContentTemplate" Value="{StaticResource QuestionMessageTemplate}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--<Style BasedOn="{StaticResource MessagePop.Default}" TargetType="{x:Type wpf:MessagePop}" />-->
+</ResourceDictionary>

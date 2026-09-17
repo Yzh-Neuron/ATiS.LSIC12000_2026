@@ -3,11 +3,11 @@ global using System.Windows;
 global using System.Threading.Tasks;
 global using System.Windows.Markup;
 global using System.Collections.ObjectModel;
-global using System.Collections.Generic;
 global using System.Linq;
 global using System.Reflection;
 global using System.Threading;
 global using System.Windows.Input;
+global using System.Diagnostics;
 
 global using ATiS.Sim.Wpf;
 global using ATiS.Sim.Mvvm;
