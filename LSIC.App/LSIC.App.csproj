@@ -69,6 +69,16 @@
 	  <Compile Update="Views\PopIcEditView.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
+	  <Compile Update="Views\PopAboutView.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Views\PopVectorEditView.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Models\Main\" />
 	</ItemGroup>
 
 </Project>

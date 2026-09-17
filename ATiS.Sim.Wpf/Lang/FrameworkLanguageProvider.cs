@@ -3,7 +3,7 @@ using System.Windows.Markup;
 
 namespace ATiS.Sim.Wpf
 {
-    public sealed partial class FrameworkLanguageProvider : LanguageProviderBase
+    internal sealed partial class FrameworkLanguageProvider : LanguageProviderBase
     {
         public static FrameworkLanguageProvider Instance { get; } = new();
         public UiLanguage CurrentLanguage => GlobalLanguageManager.CurrentLanguage;
@@ -51,7 +51,7 @@ namespace ATiS.Sim.Wpf
         }
     }
 
-    public static class LgK
+    internal static class LgK
     {
         /// <summary>消息</summary>
         public const string Info = nameof(Info);
@@ -81,7 +81,7 @@ namespace ATiS.Sim.Wpf
 
 
     [MarkupExtensionReturnType(typeof(object))]
-    public class LgExtension : MarkupExtension
+    internal class LgExtension : MarkupExtension
     {
         public string PropertyName { get; }
 

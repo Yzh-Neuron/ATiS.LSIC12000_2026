@@ -51,5 +51,16 @@
             MessageBus.Default.UnregisterAll(this);
             Application.Current.Shutdown();
         }
+
+        private void OnAboutButtonClick(object sender, RoutedEventArgs e)
+        {
+            var pop = new PopAboutView
+            {
+                Owner = this
+            };
+
+            pop.ShowDialog();
+        }
+
     }
 }

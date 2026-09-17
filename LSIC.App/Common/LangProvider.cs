@@ -2405,7 +2405,8 @@
         {
             var binding = new System.Windows.Data.Binding(PropertyName)
             {
-                Source = LangProvider.Instance
+                Source = LangProvider.Instance,
+                Mode = System.Windows.Data.BindingMode.OneWay
             };
             return binding.ProvideValue(serviceProvider);
         }
