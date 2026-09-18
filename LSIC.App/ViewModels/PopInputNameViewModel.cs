@@ -9,10 +9,16 @@
         public string Name
         {
             get => _name;
-            set => SetProperty(ref _name, value, true);
+            set
+            {
+                if (SetProperty(ref _name, value, true))
+                {
+                    ConfirmCommand.NotifyCanExecuteChanged();
+                }
+            }
         }
-        public ICommand ConfirmCommand { get; }
-        public ICommand CancelCommand { get; }
+        public IRelayCommand ConfirmCommand { get; }
+        public IRelayCommand CancelCommand { get; }
         public PopInputNameViewModel(IEnumerable<string> filters)
         {
             _filters = filters;

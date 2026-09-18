@@ -28,7 +28,50 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{Binding Path=(wpf:BorderHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                            CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}"
+                            SnapsToDevicePixels="true">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="{DynamicResource ThirdBackgroundBrush}" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="true">
+                <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource ContrastForegroundBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value=".4" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ListBoxItem.General"
+           BasedOn="{StaticResource Control.Base}"
+           TargetType="{x:Type ListBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="MinHeight" Value="{StaticResource DefaultControlHeight}" />
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType=ItemsControl}}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Margin" Value="2,2,2,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border x:Name="Bd"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}"
                             SnapsToDevicePixels="true">
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -67,14 +110,14 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBox}">
                     <wpf:ClipBorder x:Name="Bd"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}"
-                            SnapsToDevicePixels="true">
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}"
+                                    SnapsToDevicePixels="true">
                         <wpf:StateBlock HorizontalContentAlignment="Stretch"
-                                         VerticalContentAlignment="Stretch"
-                                         IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                        VerticalContentAlignment="Stretch"
+                                        IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                             <wpf:StateBlock.CheckedContent>
                                 <ScrollViewer Padding="{TemplateBinding Padding}"
                                               Focusable="false"
@@ -93,6 +136,13 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="ListBox.General"
+           BasedOn="{StaticResource ListBox.Default}"
+           TargetType="{x:Type ListBox}">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItem.General}" />
+        <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
     </Style>
 
     <Style BasedOn="{StaticResource ListBox.Default}" TargetType="{x:Type ListBox}" />

@@ -26,13 +26,15 @@
             CreateNewCommand = new RelayCommand(CreateNew);
             SaveCommand = new RelayCommand(Save, CanSave);
             //SaveAsCommand = new RelayCommand(SaveAs, CanSaveAs);
-            //DeleteCommand = new RelayCommand(Delete, CanDelete);
+            DeleteCommand = new RelayCommand(Delete, CanDelete);
             //ImportCommand = new RelayCommand(Import, CanImport);
             //ExportCommand = new RelayCommand(Export, CanExport);
         }
+
+
         private void CreateNew()
         {
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.InputName, [LangProvider.Instance.CreateNewText, Ics.Select(i => i.Name)])).FirstOrDefault();
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.InputName, [LangProvider.Instance.CreateNewText, Ics.Select(i => i.Name)])).First();
 
             if (msgResult.Result is string name)
             {
@@ -43,11 +45,32 @@
         }
         private void Save()
         {
-          
+
         }
         private bool CanSave()
         {
             return true;
+        }
+
+
+
+        private bool CanDelete()
+        {
+            return SelectedIc != null ;
+        }
+
+        private void Delete()
+        {
+            Ic ic = SelectedIc;
+
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.DeleteAskMessage, MessageType.Question])).First();
+
+            if (msgResult.Result is not true)
+            {
+                return;
+            }
+
+            Ics.Remove(ic);
         }
     }
 }

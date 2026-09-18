@@ -17,8 +17,7 @@ namespace LSIC.App.Views
             {
                 case WinMainMessage.OpenIcEditView:
                     {
-                        PopIcEditView pop = new PopIcEditView() { Owner = this };
-                        pop.ShowDialog();
+                        WindowUtility.ShowOrActivate<PopIcEditView>();
                         break;
                     }
                 case WinMainMessage.Start:

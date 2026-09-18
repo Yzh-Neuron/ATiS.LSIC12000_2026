@@ -46,7 +46,7 @@
                         <MenuItem Padding="10,0"
                                   Header="{app:Lang {x:Static app:LangKey.HelpMenuText}}"
                                   InputGestureText="Alt + H">
-                            <MenuItem Click="OnAboutButtonClick" Header="{DynamicResource AboutText}" />
+                            <MenuItem Click="OnAboutButtonClick" Header="{app:Lang {x:Static app:LangKey.AboutText}}" />
                         </MenuItem>
                     </Menu>
                 </Grid>

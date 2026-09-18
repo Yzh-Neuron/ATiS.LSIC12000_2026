@@ -43,10 +43,12 @@
         <Button Grid.Row="2"
                 Grid.Column="0"
                 HorizontalAlignment="Left"
+                Command="{Binding ConfirmCommand}"
                 Style="{StaticResource Button.Confirm}" />
         <Button Grid.Row="2"
                 Grid.Column="1"
                 HorizontalAlignment="Right"
+                Command="{Binding CancelCommand}"
                 Style="{StaticResource Button.Cancel}" />
     </Grid>
 </wpf:ChromeWindow>

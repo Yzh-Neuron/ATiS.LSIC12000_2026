@@ -37,7 +37,32 @@
                        Text="{app:Lang {x:Static app:LangKey.IcLibraryText}}" />
         </Border>
 
-        <ListBox Grid.Row="2" Grid.Column="0" />
+        <ListBox Grid.Row="2"
+                 Grid.Column="0"
+                 ItemsSource="{Binding Ics}"
+                 SelectedItem="{Binding SelectedIc}"
+                 Style="{StaticResource ListBox.General}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Path Grid.Column="0"
+                              Width="15"
+                              Data="{StaticResource Geometry.Ic}"
+                              Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Path=Foreground}"
+                              SnapsToDevicePixels="True"
+                              Stretch="Uniform" />
+                        <TextBlock Grid.Column="1"
+                                   Margin="10,0"
+                                   Text="{Binding Name}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <Border Grid.Row="0"
                 Grid.Column="2"
@@ -58,6 +83,7 @@
                         Content="{app:Lang {x:Static app:LangKey.SaveAsText}}"
                         Style="{StaticResource Button.Borderless}" />
                 <Button Margin="5,0,0,0"
+                        Command="{Binding DeleteCommand}"
                         Content="{app:Lang {x:Static app:LangKey.DeleteText}}"
                         Style="{StaticResource Button.Borderless}" />
                 <Button Margin="5,0,0,0"
