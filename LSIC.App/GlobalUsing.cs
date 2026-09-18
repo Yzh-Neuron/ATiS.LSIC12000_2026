@@ -8,6 +8,8 @@ global using System.Reflection;
 global using System.Threading;
 global using System.Windows.Input;
 global using System.Diagnostics;
+global using System.ComponentModel;
+
 
 global using ATiS.Sim.Wpf;
 global using ATiS.Sim.Mvvm;

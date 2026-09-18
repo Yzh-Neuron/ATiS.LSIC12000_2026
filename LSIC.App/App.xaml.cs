@@ -9,13 +9,13 @@
         {
             //注册语言模块
             GlobalLanguageManager.RegisterLanguageResources(UiLanguage.Chinese, [
-            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Resources/Language/Chinese/Message.xaml")},
-            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Resources/Language/Chinese/UI.xaml")}
+            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Themes/Basic/Language/zh-CN/Message.xaml")},
+            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Themes/Basic/Language/zh-CN/UI.xaml")}
             ]);
 
             GlobalLanguageManager.RegisterLanguageResources(UiLanguage.English, [
-            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Resources/Language/English/Message.xaml")},
-            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Resources/Language/English/UI.xaml")}
+            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Themes/Basic/Language/en-US/Message.xaml")},
+            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Themes/Basic/Language/en-US/UI.xaml")}
             ]);
         }
 

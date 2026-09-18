@@ -50,7 +50,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="Common\LangProvider.tt">
+	  <None Update="Lang\LangProvider.tt">
 	    <Generator>TextTemplatingFileGenerator</Generator>
 	    <LastGenOutput>LangProvider.cs</LastGenOutput>
 	  </None>
@@ -61,7 +61,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Common\LangProvider.cs">
+	  <Compile Update="Lang\LangProvider.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>LangProvider.tt</DependentUpon>
@@ -79,6 +79,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Models\Main\" />
+	  <Folder Include="Themes\Styles\" />
 	</ItemGroup>
 
 </Project>

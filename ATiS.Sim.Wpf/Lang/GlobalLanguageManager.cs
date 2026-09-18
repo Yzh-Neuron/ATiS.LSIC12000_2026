@@ -194,6 +194,12 @@ namespace ATiS.Sim.Wpf
         /// <param name="language">目标语言</param>
         public static void SwitchLanguage(UiLanguage language)
         {
+            var dispatcher = Application.Current?.Dispatcher;
+            if (dispatcher != null && !dispatcher.CheckAccess())
+            {
+                dispatcher.Invoke(() => _instance.InternalSwitchLanguage(language));
+                return;
+            }
             _instance.InternalSwitchLanguage(language);
         }
 

@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <!--<ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Language/en-US/Message.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Language/en-US/UI.xaml"/>-->
+
+        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Converters.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Geometries.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Icon.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Image.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

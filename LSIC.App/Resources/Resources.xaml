@@ -1,8 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Resources/Geometries.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Resources/Icon/Icon.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Resources/Image/Image.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Resources/Language/Language.xaml"/>
-    </ResourceDictionary.MergedDictionaries>
-</ResourceDictionary>

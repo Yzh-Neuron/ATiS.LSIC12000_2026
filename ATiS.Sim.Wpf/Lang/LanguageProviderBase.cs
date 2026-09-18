@@ -15,7 +15,7 @@ namespace ATiS.Sim.Wpf
             GlobalLanguageManager.RegisterLanguageProvider(this);
         }
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected string GetString(string key)
+        public string GetString(string key)
         {
             if (_languageManager == null)
             {

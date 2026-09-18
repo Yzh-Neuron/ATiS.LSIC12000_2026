@@ -26,33 +26,5 @@ namespace ATiS.Sim.Wpf
 
             return default;
         }
-
-        /// <summary>
-        /// 根据资源键获取字符串资源
-        /// </summary>
-        public static string ResourceString(this string resourceKey)
-        {
-            return resourceKey.Resource<string>()!;
-        }
-
-        /// <summary>
-        /// 根据资源键获取格式化字符串资源
-        /// </summary>
-        public static string ResourceFormat(this string resourceKey, params object[] args)
-        {
-            var source = resourceKey.ResourceString();
-            return string.Format(source, args);
-        }
-
-        /// <summary>
-        /// 根据枚举值获取资源字符串 资源键格式为 Enum.枚举类型名称.枚举值
-        /// </summary>
-        public static string ResourceString<T>(this T value) where T : Enum
-        {
-            string resourceKey = $"{nameof(Enum)}.{value.GetType().Name}.{value}";
-            string result = ResourceString(resourceKey);
-
-            return resourceKey.Equals(result) ? value.ToString() : result;
-        }
     }
 }
