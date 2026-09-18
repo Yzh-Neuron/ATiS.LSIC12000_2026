@@ -48,6 +48,7 @@
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
                 <Button Margin="5,0,0,0"
+                        Command="{Binding CreateNewCommand}"
                         Content="{app:Lang {x:Static app:LangKey.CreateNewText}}"
                         Style="{StaticResource Button.Borderless}" />
                 <Button Margin="5,0,0,0"
@@ -79,7 +80,7 @@
             <wpf:StateBlock.CheckedContent>
                 <TabControl wpf:TabControlHelper.HeaderHeight="20">
                     <TabItem Header="{app:Lang {x:Static app:LangKey.BaseSettingText}}">
-                        <Grid Margin="20" Grid.IsSharedSizeScope="True">
+                        <!--<Grid Margin="20" Grid.IsSharedSizeScope="True">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -174,7 +175,7 @@
                                         Content="· · ·"
                                         DockPanel.Dock="Right" />
                             </Grid>
-                        </Grid>
+                        </Grid>-->
                     </TabItem>
                     <TabItem Header="电源设置" />
                     <TabItem Header="基础设置" />

@@ -9,17 +9,18 @@
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
                   Title="PopInputNameView"
-                  Width="572"
-                  Height="636"
+                  Width="300"
+                  Height="Auto"
                   d:DataContext="{d:DesignInstance vms:PopInputNameViewModel}"
                   Icon="/Resources/Icon/icon.ico"
                   ResizeMode="NoResize"
+                  SizeToContent="Height"
                   WindowStartupLocation="CenterOwner"
                   mc:Ignorable="d">
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="10" />
+            <RowDefinition Height="20" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -29,7 +30,7 @@
 
         <DockPanel Grid.Row="0"
                    Grid.ColumnSpan="2"
-                   HorizontalAlignment="Center"
+                   HorizontalAlignment="Stretch"
                    VerticalAlignment="Center">
             <TextBlock>
                 <Run Text="{app:Lang {x:Static app:LangKey.NameText}}" />

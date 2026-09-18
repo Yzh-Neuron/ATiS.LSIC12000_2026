@@ -14,7 +14,18 @@
 
         public MessageResult Receive(MsgArgs<PopIcEditMessage> e)
         {
-            throw new NotImplementedException();
+            switch (e.Message)
+            {
+                case PopIcEditMessage.InputName:
+                    {
+                        string title = e.Args[0] as string;
+                        IEnumerable<string> filters = e.Args[1] as IEnumerable<string>;
+                        PopInputNameView pop = new PopInputNameView(title, filters) { Owner = this };
+                        pop.ShowDialog();
+                        return MessageResult.From(pop.NameResult);
+                    }
+            }
+            return MessageResult.Null();
         }
 
         protected override void OnClosed(EventArgs e)

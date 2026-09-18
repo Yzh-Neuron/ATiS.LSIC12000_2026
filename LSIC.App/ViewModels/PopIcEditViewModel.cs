@@ -32,7 +32,7 @@
         }
         private void CreateNew()
         {
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(WinMainMessage.InputName, [LangProvider.Instance.CreateNewText, Ics.Select(i => i.Name)])).FirstOrDefault();
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.InputName, [LangProvider.Instance.CreateNewText, Ics.Select(i => i.Name)])).FirstOrDefault();
 
             if (msgResult.Result is string name)
             {

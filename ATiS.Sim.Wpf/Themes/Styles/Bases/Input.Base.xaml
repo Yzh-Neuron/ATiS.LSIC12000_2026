@@ -3,7 +3,7 @@
                     xmlns:wpf="clr-namespace:ATiS.Sim.Wpf">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/Bases/Control.Base.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/ToolTip.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="Input.Base"
@@ -17,9 +17,22 @@
         <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
                 <Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <ToolTip Style="{StaticResource ToolTip.ErrorBubble}">
+                            <ToolTip.Content>
+                                <Binding Converter="{StaticResource ValidationErrorsToStringConverter}"
+                                         Path="PlacementTarget.(Validation.Errors)"
+                                         RelativeSource="{RelativeSource Self}" />
+                            </ToolTip.Content>
+                        </ToolTip>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
             </Trigger>
         </Style.Triggers>
     </Style>

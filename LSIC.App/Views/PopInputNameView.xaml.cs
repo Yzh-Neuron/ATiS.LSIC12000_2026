@@ -2,9 +2,9 @@
 {
     public partial class PopInputNameView : IRecipient<MsgArgs<PopInputNameMessage>>
     {
-        public string? NameResult { get; private set; }
+        public string NameResult { get; private set; }
         public PopInputNameViewModel ViewModel { get; }
-        public PopInputNameView(string title, IList<string> filters = null)
+        public PopInputNameView(string title, IEnumerable<string> filters = null)
         {
             InitializeComponent();
             ViewModel = new PopInputNameViewModel(filters);

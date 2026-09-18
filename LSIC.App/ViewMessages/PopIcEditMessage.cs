@@ -2,6 +2,7 @@
 {
     public enum PopIcEditMessage
     {
+        InputName,
         ImportIc,
         ExportIc,
         Message,

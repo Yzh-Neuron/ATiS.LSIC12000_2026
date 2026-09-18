@@ -6,7 +6,9 @@
     <wpf:RatioToPercentMultiConverter x:Key="RatioToPercentMultiConverter"/>
     <wpf:CalendarLangToConverter x:Key="CalendarLangToConverter"/>
     <wpf:ListViewLastColumnToTrueConverter x:Key="ListViewLastColumnToTrueConverter"/>
-
+    <wpf:ValidationErrorsToStringConverter x:Key="ValidationErrorsToStringConverter"/>
+    <wpf:ToolTipCenterOffsetConverter x:Key="ToolTipCenterOffsetConverter"/>
+    
     <!--外部用-->
     <wpf:BoolToVisibilityConverter x:Key="TrueToVisibilityConverter" IsTrueToVisible="True"/>
     <wpf:BoolToVisibilityConverter x:Key="FalseToVisibilityConverter" IsTrueToVisible="False"/>

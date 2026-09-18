@@ -6,9 +6,58 @@
         <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/Bases/Control.Base.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <Style x:Key="ToolTip.ErrorBubble"
+           BasedOn="{StaticResource Control.Base}"
+           TargetType="{x:Type ToolTip}">
+        <Setter Property="Placement" Value="Top" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalOffset" Value="-2" />
+        <Setter Property="HorizontalOffset">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource ToolTipCenterOffsetConverter}">
+                    <Binding Path="PlacementTarget.ActualWidth" RelativeSource="{RelativeSource Self}" />
+                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <wpf:SimplePanel>
+                        <Border Margin="0,0,0,10"
+                                Padding="10,5"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{StaticResource DefaultCornerRadius}"
+                                Effect="{StaticResource EffectShadow3}">
+                            <ContentPresenter x:Name="ContentPresenter"
+                                              Margin="{TemplateBinding Padding}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Content="{TemplateBinding ContentControl.Content}"
+                                              ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
+                                              ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
+                        </Border>
+
+                        <Polyline Margin="0,0,0,0"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Bottom"
+                                  Fill="{TemplateBinding Background}"
+                                  Points="0,0  6,10 12,0"
+                                  Stroke="{TemplateBinding BorderBrush}" />
+                    </wpf:SimplePanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="ToolTip.Default"
            BasedOn="{StaticResource Control.Base}"
-           TargetType="ToolTip">
+           TargetType="{x:Type ToolTip}">
         <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
         <Setter Property="BorderThickness" Value="1" />
