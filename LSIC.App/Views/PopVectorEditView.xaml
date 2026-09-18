@@ -60,16 +60,16 @@
         <Button Grid.Row="0"
                 Grid.Column="2"
                 Click="OnChoosePatternFileButtonClick"
-                Content="..." />
+                Style="{StaticResource Button.ChooseFile}" />
         <Button Grid.Row="1"
                 Grid.Column="2"
                 Click="OnChooseRegisterFileButtonClick"
-                Content="..." />
+                Style="{StaticResource Button.ChooseFile}" />
 
         <Button Grid.Row="2"
                 Grid.ColumnSpan="3"
                 Width="80"
                 Command="{Binding ConfirmCommand}"
-                Content="{app:Lang {x:Static app:LangKey.ConfirmText}}" />
+                Style="{StaticResource Button.Confirm}" />
     </Grid>
 </wpf:ChromeWindow>

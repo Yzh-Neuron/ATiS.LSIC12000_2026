@@ -46,9 +46,6 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="mainBorder" Property="Visibility" Value="Visible" />
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
-                        </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="contentPresenter" Property="Opacity" Value="0.4" />
@@ -124,6 +121,9 @@
                     </wpf:SimplePanel>
 
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+                        </Trigger>
                         <Trigger Property="TabStripPlacement" Value="Bottom">
                             <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
                             <Setter TargetName="RowDefinition1" Property="Height" Value="Auto" />
