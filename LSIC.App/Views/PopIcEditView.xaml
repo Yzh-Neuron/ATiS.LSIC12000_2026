@@ -68,111 +68,118 @@
             </StackPanel>
         </Border>
 
-        <TabControl Grid.Row="2"
-                    Grid.Column="2"
-                    wpf:TabControlHelper.HeaderHeight="20">
-            <TabItem Header="{app:Lang {x:Static app:LangKey.BaseSettingText}}">
-                <Grid Margin="20" Grid.IsSharedSizeScope="True">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+        <wpf:StateBlock Grid.Row="2"
+                        Grid.Column="2"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+            <wpf:StateBlock.UnCheckedContent>
+                <wpf:UiVoid BorderThickness="1" />
+            </wpf:StateBlock.UnCheckedContent>
+            <wpf:StateBlock.CheckedContent>
+                <TabControl wpf:TabControlHelper.HeaderHeight="20">
+                    <TabItem Header="{app:Lang {x:Static app:LangKey.BaseSettingText}}">
+                        <Grid Margin="20" Grid.IsSharedSizeScope="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
 
-                    <Grid HorizontalAlignment="Left">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{app:Lang {x:Static app:LangKey.LogIntervalText}}" />
-                        <TextBlock Grid.Column="1"
-                                   Margin="3,0,10,0"
-                                   Text=":" />
-                        <TextBox Grid.Column="2"
-                                 Width="100"
-                                 Height="30" />
-                        <ComboBox Grid.Column="3"
-                                  Width="75"
+                            <Grid HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{app:Lang {x:Static app:LangKey.LogIntervalText}}" />
+                                <TextBlock Grid.Column="1"
+                                           Margin="3,0,10,0"
+                                           Text=":" />
+                                <TextBox Grid.Column="2"
+                                         Width="100"
+                                         Height="30" />
+                                <ComboBox Grid.Column="3"
+                                          Width="75"
+                                          Height="30"
+                                          Margin="5,0,0,0"
+                                          wpf:LanguageHelper.Auto="True"
+                                          DisplayMemberPath="Value"
+                                          DockPanel.Dock="Right"
+                                          ItemsSource="{Binding Source={x:Type app:TimeUnit}, Converter={StaticResource EnumToTextPairsConverter}}"
+                                          SelectedValue="{Binding SelectedIc.BaseSetting.LogInterval.Unit}"
+                                          SelectedValuePath="Key" />
+                            </Grid>
+
+                            <Grid Grid.Row="1"
                                   Height="30"
-                                  Margin="5,0,0,0"
-                                  wpf:LanguageHelper.Auto="True"
-                                  DisplayMemberPath="Value"
-                                  DockPanel.Dock="Right"
-                                  ItemsSource="{Binding Source={x:Type app:TimeUnit}, Converter={StaticResource EnumToTextPairsConverter}}"
-                                  SelectedValue="{Binding SelectedIc.BaseSetting.LogInterval.Unit}"
-                                  SelectedValuePath="Key" />
-                    </Grid>
+                                  Margin="0,20,0,0"
+                                  HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{app:Lang {x:Static app:LangKey.ErrorLogIntervalText}}" />
+                                <TextBlock Grid.Column="1"
+                                           Margin="3,0,10,0"
+                                           Text=":" />
+                                <TextBox Grid.Column="2"
+                                         Width="100"
+                                         Height="30"
+                                         Text="{Binding SelectedIc.BaseSetting.ErrorLogInterval.Value}" />
+                                <ComboBox Grid.Column="3"
+                                          Width="60"
+                                          Height="30"
+                                          Margin="5,0"
+                                          DisplayMemberPath="Value"
+                                          DockPanel.Dock="Right"
+                                          ItemsSource="{Binding Source={x:Type app:TimeUnit}, Converter={StaticResource EnumToTextPairsConverter}}"
+                                          SelectedValue="{Binding SelectedIc.BaseSetting.ErrorLogInterval.Unit}"
+                                          SelectedValuePath="Key" />
+                                <CheckBox Grid.Column="4"
+                                          DockPanel.Dock="Right"
+                                          IsChecked="{Binding SelectedIc.BaseSetting.ErrorLogEnable}" />
+                            </Grid>
 
-                    <Grid Grid.Row="1"
-                          Height="30"
-                          Margin="0,20,0,0"
-                          HorizontalAlignment="Left">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{app:Lang {x:Static app:LangKey.ErrorLogIntervalText}}" />
-                        <TextBlock Grid.Column="1"
-                                   Margin="3,0,10,0"
-                                   Text=":" />
-                        <TextBox Grid.Column="2"
-                                 Width="100"
-                                 Height="30"
-                                 Text="{Binding SelectedIc.BaseSetting.ErrorLogInterval.Value}">
-              
-                        </TextBox>
-                        <ComboBox Grid.Column="3"
-                                  Width="60"
+                            <Grid Grid.Row="2"
+                                  Width="580"
                                   Height="30"
-                                  Margin="5,0"
-                                  DisplayMemberPath="Value"
-                                  DockPanel.Dock="Right"
-                                  ItemsSource="{Binding Source={x:Type app:TimeUnit}, Converter={StaticResource EnumToTextPairsConverter}}"
-                                  SelectedValue="{Binding SelectedIc.BaseSetting.ErrorLogInterval.Unit}"
-                                  SelectedValuePath="Key" />
-                        <CheckBox Grid.Column="4"
-                                  DockPanel.Dock="Right"
-                                  IsChecked="{Binding SelectedIc.BaseSetting.ErrorLogEnable}" />
-                    </Grid>
-
-                    <Grid Grid.Row="2"
-                          Width="580"
-                          Height="30"
-                          Margin="0,20,0,0"
-                          HorizontalAlignment="Left">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{app:Lang {x:Static app:LangKey.DutConfigFileText}}" />
-                        <TextBlock Grid.Column="1"
-                                   Margin="3,0,10,0"
-                                   Text=":" />
-                        <TextBox Grid.Column="2"
-                                 Height="30"
-                                 IsReadOnly="True"
-                                 Text="{Binding SelectedIc.BaseSetting.DutConfigFile, Mode=OneWay}" />
-                        <Button Grid.Column="3"
-                                Width="30"
-                                Height="30"
-                                Margin="5,0,0,0"
-                                Command="{Binding SelectDutConfigFileCommand}"
-                                Content="· · ·"
-                                DockPanel.Dock="Right"/>
-                    </Grid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="电源设置" />
-            <TabItem Header="基础设置" />
-        </TabControl>
+                                  Margin="0,20,0,0"
+                                  HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{app:Lang {x:Static app:LangKey.DutConfigFileText}}" />
+                                <TextBlock Grid.Column="1"
+                                           Margin="3,0,10,0"
+                                           Text=":" />
+                                <TextBox Grid.Column="2"
+                                         Height="30"
+                                         IsReadOnly="True"
+                                         Text="{Binding SelectedIc.BaseSetting.DutConfigFile, Mode=OneWay}" />
+                                <Button Grid.Column="3"
+                                        Width="30"
+                                        Height="30"
+                                        Margin="5,0,0,0"
+                                        Command="{Binding SelectDutConfigFileCommand}"
+                                        Content="· · ·"
+                                        DockPanel.Dock="Right" />
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="电源设置" />
+                    <TabItem Header="基础设置" />
+                </TabControl>
+            </wpf:StateBlock.CheckedContent>
+        </wpf:StateBlock>
     </Grid>
 </wpf:ChromeWindow>

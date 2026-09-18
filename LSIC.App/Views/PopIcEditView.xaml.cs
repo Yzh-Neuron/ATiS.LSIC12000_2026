@@ -23,21 +23,4 @@
             MessageBus.Default.UnregisterAll(this);
         }
     }
-
-
-}
-
-namespace LSIC.App.ViewModels
-{
-    public class PopIcEditViewModel : ObservableObject
-    {
-
-    }
-}
-
-namespace LSIC.App.ViewMessages
-{
-    public class PopIcEditMessage
-    {
-    }
 }

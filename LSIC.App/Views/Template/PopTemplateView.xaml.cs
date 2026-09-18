@@ -37,7 +37,7 @@ namespace LSIC.App.ViewModels
 
 namespace LSIC.App.ViewMessages
 {
-    public class PopTemplateMessage
+    public enum PopTemplateMessage
     {
     }
 }

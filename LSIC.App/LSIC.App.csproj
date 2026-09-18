@@ -72,6 +72,9 @@
 	  <Compile Update="Views\PopAboutView.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
+	  <Compile Update="Views\PopInputNameView.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
 	  <Compile Update="Views\PopVectorEditView.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
@@ -79,6 +82,11 @@
 
 	<ItemGroup>
 	  <Folder Include="Models\Main\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="ATiS.Base" Version="1.1.6" />
+	  <PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
 	</ItemGroup>
 
 </Project>

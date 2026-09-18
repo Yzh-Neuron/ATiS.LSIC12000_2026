@@ -2,6 +2,7 @@
 {
     public enum WinMainMessage
     {
+        InputName,
         OpenIcEditView,
         Start,
         Pause,

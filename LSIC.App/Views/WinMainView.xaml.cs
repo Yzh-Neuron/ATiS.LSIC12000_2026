@@ -15,10 +15,20 @@ namespace LSIC.App.Views
         {
             switch (e.Message)
             {
+                case WinMainMessage.InputName:
+                    {
+                        string title = e.Args[0] as string;
+                        List<string> filters = e.Args[1] as List<string>;
+                        PopInputNameView pop = new PopInputNameView(title, filters);
+                        pop.ShowDialog();
+                        return MessageResult.From(pop.NameResult);
+                    }
                 case WinMainMessage.OpenIcEditView:
-                    PopIcEditView pop = new PopIcEditView() { Owner = this };
-                    pop.ShowDialog();
-                    break;
+                    {
+                        PopIcEditView pop = new PopIcEditView() { Owner = this };
+                        pop.ShowDialog();
+                        break;
+                    }
                 case WinMainMessage.Start:
                     break;
                 case WinMainMessage.Pause:
@@ -58,7 +68,7 @@ namespace LSIC.App.Views
 
         private void OnAboutButtonClick(object sender, RoutedEventArgs e)
         {
-       
+
             var pop = new PopAboutView
             {
                 Owner = this
