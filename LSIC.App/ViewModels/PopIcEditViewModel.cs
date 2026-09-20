@@ -34,8 +34,9 @@ namespace LSIC.App.ViewModels
             if (msgResult.Result is string name)
             {
                 var ic = new DirtyObserver<Ic>(new Ic(name));
-                Ics.Add(ic);
+                ic.MarkDirty();
                 SelectedIc = ic;
+                Ics.Add(ic);
             }
         }
         private void Save()
@@ -81,17 +82,13 @@ namespace LSIC.App.ViewModels
                     item.Dispose();
                 }
             }
+
+            DeleteCommand?.NotifyCanExecuteChanged();
         }
         private void OnIsDirtyChanged(object sender, EventArgs e)
         {
-            NotifyCanExecuteChanged();
-        }
-        private void NotifyCanExecuteChanged()
-        {
-            CreateNewCommand?.NotifyCanExecuteChanged();
             SaveCommand?.NotifyCanExecuteChanged();
             SaveAsCommand?.NotifyCanExecuteChanged();
-            DeleteCommand?.NotifyCanExecuteChanged();
             ImportCommand?.NotifyCanExecuteChanged();
             ExportCommand?.NotifyCanExecuteChanged();
         }

@@ -18,7 +18,7 @@
                   mc:Ignorable="d">
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="36" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="5" />
             <RowDefinition />
         </Grid.RowDefinitions>
@@ -39,6 +39,7 @@
         <!--  左侧器件集合栏  -->
         <ListBox Grid.Row="2"
                  Grid.Column="0"
+                 HorizontalContentAlignment="Stretch"
                  ItemsSource="{Binding Ics}"
                  SelectedItem="{Binding SelectedIc}"
                  Style="{StaticResource ListBox.General}">
@@ -58,7 +59,14 @@
                               Stretch="Uniform" />
                         <TextBlock Grid.Column="1"
                                    Margin="10,0"
-                                   Text="{Binding Name}" />
+                                   Text="{Binding Target.Name}" />
+                        <Path Grid.Column="2"
+                              Width="15"
+                              Data="{StaticResource Geometry.Changed}"
+                              Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Path=Foreground}"
+                              SnapsToDevicePixels="True"
+                              Stretch="Uniform"
+                              Visibility="{Binding IsDirty, Converter={StaticResource TrueToVisibilityConverter}}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -101,12 +109,12 @@
                         Grid.Column="2"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch"
-                        IsChecked="{Binding SelectedIc,Converter={StaticResource NullObjectToFalseConverter}}">
+                        IsChecked="{Binding SelectedIc, Converter={StaticResource NullObjectToFalseConverter}}">
             <wpf:StateBlock.UnCheckedContent>
                 <wpf:UiVoid BorderThickness="1" />
             </wpf:StateBlock.UnCheckedContent>
             <wpf:StateBlock.CheckedContent>
-                <TabControl wpf:TabControlHelper.HeaderHeight="20">
+                <TabControl wpf:TabControlHelper.HeaderHeight="25">
                     <TabItem Header="{app:Lang {x:Static app:LangKey.BaseSettingText}}">
                         <!--<Grid Margin="20" Grid.IsSharedSizeScope="True">
                             <Grid.RowDefinitions>

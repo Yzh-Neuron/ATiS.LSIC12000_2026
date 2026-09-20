@@ -24,6 +24,13 @@
                         pop.ShowDialog();
                         return MessageResult.From(pop.NameResult);
                     }
+                case PopIcEditMessage.Message:
+                    {
+                        string message = e.Args[0] as string;
+                        MessageType type = (MessageType)e.Args[1];
+                        return MessageResult.From(MessagePop.Show(message, type));
+                    }
+                    
             }
             return MessageResult.Null();
         }
