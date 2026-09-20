@@ -50,6 +50,56 @@
             set => SetProperty(ref _thermostatSettings, value);
         }
 
+        //临时变量
+
+        ///// <summary>
+        ///// 更新老化板配置文件路径
+        ///// </summary>
+        ///// <param name="bibFile"></param>
+        //private void UpdateBurnInBoardFile(string bibFile)
+        //{
+        //    try
+        //    {
+        //        if (!string.IsNullOrEmpty(bibFile) && File.Exists(bibFile))
+        //        {
+        //            var boards = BurnInBoardParser.Parse2(bibFile);
+
+        //            //所有温控模块的去重创建新的温控对象
+        //            var thermostats = boards
+        //                .SelectMany(board => board.Duts)
+        //                .Select(dut => dut.Thermostat?.Id)
+        //                .Where(id => id.HasValue)
+        //                .Select(id => id.Value)
+        //                .Distinct()
+        //                .Select(id => new Thermostat(id))
+        //                .ToList();
+
+        //            var thermostatMap = thermostats.ToDictionary(t => t.Id);
+
+        //            foreach (var dut in boards.SelectMany(board => board.Duts))
+        //            {
+        //                if (dut.Thermostat != null)
+        //                {
+        //                    //保证温控对象是唯一的
+        //                    dut.Thermostat = thermostatMap[dut.Thermostat.Id];
+        //                }
+        //            }
+
+        //            BurnInBoards = boards;
+        //            Thermostats = new(thermostats);
+        //            return;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+
+        //    BurnInBoards = null;
+        //    Thermostats?.Clear();
+        //}
+
+
         //流程
         public Process Process { get; set; } = new Process();
         public Ic(string name)

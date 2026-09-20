@@ -4,7 +4,7 @@
     {
         public static string GetString<T>(this T value) where T : Enum
         {
-            string obj = $"{"Enum"}_{value.GetType().Name}_{value}";
+            string obj = $"{"Enum"}.{value.GetType().Name}.{value}";
             return LangProvider.Instance.GetString(obj);
         }
     }

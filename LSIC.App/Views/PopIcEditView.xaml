@@ -16,6 +16,9 @@
                   ResizeMode="NoResize"
                   WindowStartupLocation="CenterOwner"
                   mc:Ignorable="d">
+    <Window.Resources>
+        <wpf:BindingProxy x:Key="MainDataContext" Data="{Binding}" />
+    </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -109,14 +112,17 @@
                         Grid.Column="2"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch"
+                        d:IsChecked="true"
                         IsChecked="{Binding SelectedIc, Converter={StaticResource NullObjectToFalseConverter}}">
             <wpf:StateBlock.UnCheckedContent>
                 <wpf:UiVoid BorderThickness="1" />
             </wpf:StateBlock.UnCheckedContent>
             <wpf:StateBlock.CheckedContent>
-                <TabControl wpf:TabControlHelper.HeaderHeight="25">
+                <TabControl d:DataContext="{d:DesignInstance models:Ic}"
+                            wpf:TabControlHelper.HeaderHeight="{StaticResource DefaultControlHeight}"
+                            DataContext="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedIc.Target}">
                     <TabItem Header="{app:Lang {x:Static app:LangKey.BaseSettingText}}">
-                        <!--<Grid Margin="20" Grid.IsSharedSizeScope="True">
+                        <Grid Margin="20" Grid.IsSharedSizeScope="True">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -138,21 +144,21 @@
                                            Text=":" />
                                 <TextBox Grid.Column="2"
                                          Width="100"
-                                         Height="30" />
+                                         Text="{Binding LogInterval.Value}" />
+
                                 <ComboBox Grid.Column="3"
                                           Width="75"
-                                          Height="30"
                                           Margin="5,0,0,0"
                                           wpf:LanguageHelper.Auto="True"
                                           DisplayMemberPath="Value"
                                           DockPanel.Dock="Right"
                                           ItemsSource="{Binding Source={x:Type app:TimeUnit}, Converter={StaticResource EnumToTextPairsConverter}}"
-                                          SelectedValue="{Binding SelectedIc.BaseSetting.LogInterval.Unit}"
+                                          SelectedValue="{Binding LogInterval.Unit}"
                                           SelectedValuePath="Key" />
                             </Grid>
 
                             <Grid Grid.Row="1"
-                                  Height="30"
+                                  Height="{StaticResource DefaultControlHeight}"
                                   Margin="0,20,0,0"
                                   HorizontalAlignment="Left">
                                 <Grid.ColumnDefinitions>
@@ -168,25 +174,24 @@
                                            Text=":" />
                                 <TextBox Grid.Column="2"
                                          Width="100"
-                                         Height="30"
-                                         Text="{Binding SelectedIc.BaseSetting.ErrorLogInterval.Value}" />
+                                         Text="{Binding ErrorLogInterval.Value}"
+                                         Visibility="{Binding ErrorLogEnable, Converter={StaticResource TrueToVisibilityConverter}}" />
                                 <ComboBox Grid.Column="3"
-                                          Width="60"
-                                          Height="30"
+                                          Width="75"
                                           Margin="5,0"
                                           DisplayMemberPath="Value"
                                           DockPanel.Dock="Right"
                                           ItemsSource="{Binding Source={x:Type app:TimeUnit}, Converter={StaticResource EnumToTextPairsConverter}}"
-                                          SelectedValue="{Binding SelectedIc.BaseSetting.ErrorLogInterval.Unit}"
-                                          SelectedValuePath="Key" />
+                                          SelectedValue="{Binding ErrorLogInterval.Unit}"
+                                          SelectedValuePath="Key"
+                                          Visibility="{Binding ErrorLogEnable, Converter={StaticResource TrueToVisibilityConverter}}" />
                                 <CheckBox Grid.Column="4"
                                           DockPanel.Dock="Right"
-                                          IsChecked="{Binding SelectedIc.BaseSetting.ErrorLogEnable}" />
+                                          IsChecked="{Binding ErrorLogEnable}" />
                             </Grid>
 
                             <Grid Grid.Row="2"
                                   Width="580"
-                                  Height="30"
                                   Margin="0,20,0,0"
                                   HorizontalAlignment="Left">
                                 <Grid.ColumnDefinitions>
@@ -199,19 +204,16 @@
                                 <TextBlock Grid.Column="1"
                                            Margin="3,0,10,0"
                                            Text=":" />
-                                <TextBox Grid.Column="2"
-                                         Height="30"
-                                         IsReadOnly="True"
-                                         Text="{Binding SelectedIc.BaseSetting.DutConfigFile, Mode=OneWay}" />
+                                <wpf:TextBox Grid.Column="2"
+                                             wpf:WidgetHelper.ShowClearButton="True"
+                                             Text="{Binding BurnInBoardFile, Mode=TwoWay}" />
                                 <Button Grid.Column="3"
-                                        Width="30"
-                                        Height="30"
                                         Margin="5,0,0,0"
-                                        Command="{Binding SelectDutConfigFileCommand}"
-                                        Content="· · ·"
-                                        DockPanel.Dock="Right" />
+                                        Command="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectBurnInBoardFileCommand}"
+                                        DockPanel.Dock="Right"
+                                        Style="{StaticResource Button.ChooseFile}" />
                             </Grid>
-                        </Grid>-->
+                        </Grid>
                     </TabItem>
                     <TabItem Header="电源设置" />
                     <TabItem Header="基础设置" />

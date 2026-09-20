@@ -5,6 +5,9 @@
     <Compile Update="Views\Template\PopTemplateView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\CtrBurnInBoardView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\WinMainView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

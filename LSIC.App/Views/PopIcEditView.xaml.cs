@@ -1,4 +1,6 @@
-﻿namespace LSIC.App.Views
+﻿using Microsoft.Win32;
+
+namespace LSIC.App.Views
 {
     public partial class PopIcEditView : IRecipient<MsgArgs<PopIcEditMessage>>
     {
@@ -30,7 +32,23 @@
                         MessageType type = (MessageType)e.Args[1];
                         return MessageResult.From(MessagePop.Show(message, type));
                     }
-                    
+                case PopIcEditMessage.SelectFile:
+                    {
+                        string filter = e.Args[0] as string;
+                        string current = e.Args[1] as string;
+                        string initialDirectory = Path.Exists(current) ? Path.GetDirectoryName(current)! : Path.GetFullPath(".\\Samples");
+                        OpenFileDialog dialog = new OpenFileDialog
+                        {
+                            Filter = filter!,
+                            Multiselect = false,
+                            InitialDirectory = initialDirectory
+                        };
+                        if (dialog.ShowDialog() is true)
+                        {
+                            return MessageResult.From(dialog.FileName);
+                        }
+                        break;
+                    }
             }
             return MessageResult.Null();
         }

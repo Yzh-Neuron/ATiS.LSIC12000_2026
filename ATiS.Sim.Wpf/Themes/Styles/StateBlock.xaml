@@ -23,10 +23,14 @@
                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                             <ContentPresenter Name="ContentPresenterChecked"
                                               ContentSource="CheckedContent"
+                                              DataContext="{TemplateBinding DataContext}"
                                               Visibility="Collapsed" />
-                            <ContentPresenter Name="ContentPresenterUnChecked" ContentSource="UnCheckedContent" />
+                            <ContentPresenter Name="ContentPresenterUnChecked"
+                                              ContentSource="UnCheckedContent"
+                                              DataContext="{TemplateBinding DataContext}" />
                             <ContentPresenter Name="ContentPresenterIndeterminate"
                                               ContentSource="IndeterminateContent"
+                                              DataContext="{TemplateBinding DataContext}"
                                               Visibility="Collapsed" />
                         </wpf:SimplePanel>
                     </Border>

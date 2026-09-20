@@ -6,6 +6,9 @@
            BasedOn="{StaticResource {x:Type Button}}"
            TargetType="{x:Type Button}">
         <Setter Property="Content" Value="..." />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Height" Value="{StaticResource DefaultControlHeight}" />
+        <Setter Property="Width" Value="{StaticResource DefaultControlHeight}" />
     </Style>
 
     <Style x:Key="Button.Confirm"

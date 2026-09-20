@@ -14,6 +14,7 @@ namespace ATiS.Sim.Wpf
                 }
 
                 SetCurrentValue(TextProperty, string.Empty);
+                GetBindingExpression(TextProperty)?.UpdateSource();
             }));
         }
     }

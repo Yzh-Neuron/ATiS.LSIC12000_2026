@@ -35,7 +35,7 @@
                         <ContentPresenter x:Name="contentPresenter"
                                           Margin="{TemplateBinding Padding}"
                                           HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"
+                                          VerticalAlignment="Center" 
                                           ContentSource="Header"
                                           Focusable="False"
                                           RecognizesAccessKey="True"
@@ -46,11 +46,9 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="mainBorder" Property="Visibility" Value="Visible" />
                         </Trigger>
-
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="contentPresenter" Property="Opacity" Value="0.4" />
                         </Trigger>
-
                         <DataTrigger Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType=TabControl}}" Value="Top">
                             <Setter TargetName="mainBorder" Property="BorderThickness" Value="0,0,0,3" />
                         </DataTrigger>

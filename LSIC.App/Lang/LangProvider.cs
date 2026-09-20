@@ -5,6 +5,580 @@
         public static LangProvider Instance { get; } = new();
         public UiLanguage CurrentLanguage => GlobalLanguageManager.CurrentLanguage;
 
+        /// <summary>生产模式</summary>
+        public string Enum_DeviceMode_Production => GetString("Enum.DeviceMode.Production");
+        /// <summary>工程模式</summary>
+        public string Enum_DeviceMode_Engineering => GetString("Enum.DeviceMode.Engineering");
+        /// <summary>管理员模式</summary>
+        public string Enum_DeviceMode_Administrator => GetString("Enum.DeviceMode.Administrator");
+        /// <summary>待机中</summary>
+        public string Enum_OvenMode_Off => GetString("Enum.OvenMode.Off");
+        /// <summary>待机中</summary>
+        public string Enum_OvenMode_Standby => GetString("Enum.OvenMode.Standby");
+        /// <summary>定值运行中</summary>
+        public string Enum_OvenMode_Constant => GetString("Enum.OvenMode.Constant");
+        /// <summary>程式运行中</summary>
+        public string Enum_OvenMode_Run => GetString("Enum.OvenMode.Run");
+        /// <summary>离线</summary>
+        public string Enum_OvenMode_Offline => GetString("Enum.OvenMode.Offline");
+        /// <summary>秒</summary>
+        public string Enum_TimeUnit_Second => GetString("Enum.TimeUnit.Second");
+        /// <summary>分钟</summary>
+        public string Enum_TimeUnit_Minute => GetString("Enum.TimeUnit.Minute");
+        /// <summary>小时</summary>
+        public string Enum_TimeUnit_Hour => GetString("Enum.TimeUnit.Hour");
+        /// <summary>天</summary>
+        public string Enum_TimeUnit_Day => GetString("Enum.TimeUnit.Day");
+        /// <summary>时间</summary>
+        public string Enum_RunMode_Time => GetString("Enum.RunMode.Time");
+        /// <summary>次数</summary>
+        public string Enum_RunMode_Times => GetString("Enum.RunMode.Times");
+        /// <summary>风冷</summary>
+        public string Enum_CoolingMode_Air => GetString("Enum.CoolingMode.Air");
+        /// <summary>水冷</summary>
+        public string Enum_CoolingMode_Water => GetString("Enum.CoolingMode.Water");
+        /// <summary>查询版本</summary>
+        public string Enum_ZoneFunctionCode_Version => GetString("Enum.ZoneFunctionCode.Version");
+        /// <summary>同步时间</summary>
+        public string Enum_ZoneFunctionCode_SyncTime => GetString("Enum.ZoneFunctionCode.SyncTime");
+        /// <summary>插板状态</summary>
+        public string Enum_ZoneFunctionCode_PlugedState => GetString("Enum.ZoneFunctionCode.PlugedState");
+        /// <summary>老化控制</summary>
+        public string Enum_ZoneFunctionCode_BurnControl => GetString("Enum.ZoneFunctionCode.BurnControl");
+        /// <summary>老化流程</summary>
+        public string Enum_ZoneFunctionCode_BurnProcess => GetString("Enum.ZoneFunctionCode.BurnProcess");
+        /// <summary>向量错误</summary>
+        public string Enum_ZoneFunctionCode_PatternError => GetString("Enum.ZoneFunctionCode.PatternError");
+        /// <summary>电源状态</summary>
+        public string Enum_ZoneFunctionCode_PowerState => GetString("Enum.ZoneFunctionCode.PowerState");
+        /// <summary>触发通道</summary>
+        public string Enum_ZoneFunctionCode_TriggerChannel => GetString("Enum.ZoneFunctionCode.TriggerChannel");
+        /// <summary>温控系数</summary>
+        public string Enum_ZoneFunctionCode_ThermostatPID => GetString("Enum.ZoneFunctionCode.ThermostatPID");
+        /// <summary>器件发送标志</summary>
+        public string Enum_ZoneFunctionCode_ConfigFlag => GetString("Enum.ZoneFunctionCode.ConfigFlag");
+        /// <summary>设置电源方案</summary>
+        public string Enum_ZoneFunctionCode_SetDpsPlan => GetString("Enum.ZoneFunctionCode.SetDpsPlan");
+        /// <summary>设置向量数据</summary>
+        public string Enum_ZoneFunctionCode_SetPattern => GetString("Enum.ZoneFunctionCode.SetPattern");
+        /// <summary>设置地址数据</summary>
+        public string Enum_ZoneFunctionCode_SetRegister => GetString("Enum.ZoneFunctionCode.SetRegister");
+        /// <summary>设置老化步次</summary>
+        public string Enum_ZoneFunctionCode_SetStep => GetString("Enum.ZoneFunctionCode.SetStep");
+        /// <summary>设置上电方案</summary>
+        public string Enum_ZoneFunctionCode_SetPowerUp => GetString("Enum.ZoneFunctionCode.SetPowerUp");
+        /// <summary>设置下电方案</summary>
+        public string Enum_ZoneFunctionCode_SetPowerDown => GetString("Enum.ZoneFunctionCode.SetPowerDown");
+        /// <summary>设置独立温控</summary>
+        public string Enum_ZoneFunctionCode_Thermostat => GetString("Enum.ZoneFunctionCode.Thermostat");
+        /// <summary>固件自检</summary>
+        public string Enum_ZoneFunctionCode_SelfCheck => GetString("Enum.ZoneFunctionCode.SelfCheck");
+        /// <summary>查询版本</summary>
+        public string Enum_LVControlBoardCode_Version => GetString("Enum.LVControlBoardCode.Version");
+        /// <summary>同步时间</summary>
+        public string Enum_LVControlBoardCode_SyncTime => GetString("Enum.LVControlBoardCode.SyncTime");
+        /// <summary>三色报警灯</summary>
+        public string Enum_LVControlBoardCode_LightAlarm => GetString("Enum.LVControlBoardCode.LightAlarm");
+        /// <summary>烟雾探测器</summary>
+        public string Enum_LVControlBoardCode_Smoke => GetString("Enum.LVControlBoardCode.Smoke");
+        /// <summary>急停按钮</summary>
+        public string Enum_LVControlBoardCode_Emergency => GetString("Enum.LVControlBoardCode.Emergency");
+        /// <summary>烘箱门状态</summary>
+        public string Enum_LVControlBoardCode_OvenDoor => GetString("Enum.LVControlBoardCode.OvenDoor");
+        /// <summary>强电门状态</summary>
+        public string Enum_LVControlBoardCode_PowerDoor => GetString("Enum.LVControlBoardCode.PowerDoor");
+        /// <summary>系统供电</summary>
+        public string Enum_LVControlBoardCode_SystemPower => GetString("Enum.LVControlBoardCode.SystemPower");
+        /// <summary>触发通道</summary>
+        public string Enum_LVControlBoardCode_TriggerChannel => GetString("Enum.LVControlBoardCode.TriggerChannel");
+        /// <summary>固件自检</summary>
+        public string Enum_LVControlBoardCode_SelfCheck => GetString("Enum.LVControlBoardCode.SelfCheck");
+        /// <summary>查询版本</summary>
+        public string Enum_VerticalAdapterBoardCode_Version => GetString("Enum.VerticalAdapterBoardCode.Version");
+        /// <summary>同步时间</summary>
+        public string Enum_VerticalAdapterBoardCode_SyncTime => GetString("Enum.VerticalAdapterBoardCode.SyncTime");
+        /// <summary>BMC供电</summary>
+        public string Enum_VerticalAdapterBoardCode_BmcPower => GetString("Enum.VerticalAdapterBoardCode.BmcPower");
+        /// <summary>一级电源</summary>
+        public string Enum_VerticalAdapterBoardCode_PrePower => GetString("Enum.VerticalAdapterBoardCode.PrePower");
+        /// <summary>触发通道</summary>
+        public string Enum_VerticalAdapterBoardCode_TriggerChannel => GetString("Enum.VerticalAdapterBoardCode.TriggerChannel");
+        /// <summary>固件自检</summary>
+        public string Enum_VerticalAdapterBoardCode_SelfCheck => GetString("Enum.VerticalAdapterBoardCode.SelfCheck");
+        /// <summary>初始化中</summary>
+        public string Enum_ZoneState_Init => GetString("Enum.ZoneState.Init");
+        /// <summary>空闲</summary>
+        public string Enum_ZoneState_Idle => GetString("Enum.ZoneState.Idle");
+        /// <summary>就绪</summary>
+        public string Enum_ZoneState_Ready => GetString("Enum.ZoneState.Ready");
+        /// <summary>老化中</summary>
+        public string Enum_ZoneState_Burning => GetString("Enum.ZoneState.Burning");
+        /// <summary>老化暂停</summary>
+        public string Enum_ZoneState_Suspend => GetString("Enum.ZoneState.Suspend");
+        /// <summary>老化停止</summary>
+        public string Enum_ZoneState_Stop => GetString("Enum.ZoneState.Stop");
+        /// <summary>老化完成</summary>
+        public string Enum_ZoneState_Finish => GetString("Enum.ZoneState.Finish");
+        /// <summary>上电中</summary>
+        public string Enum_ZoneState_PowerUp => GetString("Enum.ZoneState.PowerUp");
+        /// <summary>下电中</summary>
+        public string Enum_ZoneState_PowerDown => GetString("Enum.ZoneState.PowerDown");
+        /// <summary>自检中</summary>
+        public string Enum_ZoneState_SelfCheck => GetString("Enum.ZoneState.SelfCheck");
+        /// <summary>升级中</summary>
+        public string Enum_ZoneState_Upgrading => GetString("Enum.ZoneState.Upgrading");
+        /// <summary>离线</summary>
+        public string Enum_ZoneState_Offline => GetString("Enum.ZoneState.Offline");
+        /// <summary>传输中</summary>
+        public string Enum_ZoneState_IcSending => GetString("Enum.ZoneState.IcSending");
+        /// <summary>错误</summary>
+        public string Enum_ZoneState_Error => GetString("Enum.ZoneState.Error");
+        /// <summary>空闲</summary>
+        public string Enum_DutState_Idle => GetString("Enum.DutState.Idle");
+        /// <summary>测试中</summary>
+        public string Enum_DutState_Test => GetString("Enum.DutState.Test");
+        /// <summary>通过</summary>
+        public string Enum_DutState_Pass => GetString("Enum.DutState.Pass");
+        /// <summary>错误</summary>
+        public string Enum_DutState_Fail => GetString("Enum.DutState.Fail");
+        /// <summary>忽略</summary>
+        public string Enum_DutState_Ignore => GetString("Enum.DutState.Ignore");
+        /// <summary>驱动板</summary>
+        public string Enum_BoardType_DriverBoard => GetString("Enum.BoardType.DriverBoard");
+        /// <summary>底板</summary>
+        public string Enum_BoardType_BaseBoard => GetString("Enum.BoardType.BaseBoard");
+        /// <summary>数字板</summary>
+        public string Enum_BoardType_DigitalBoard => GetString("Enum.BoardType.DigitalBoard");
+        /// <summary>模拟板</summary>
+        public string Enum_BoardType_AnalogBoard => GetString("Enum.BoardType.AnalogBoard");
+        /// <summary>二级电源控制板</summary>
+        public string Enum_BoardType_DPSControlBoard => GetString("Enum.BoardType.DPSControlBoard");
+        /// <summary>DPS</summary>
+        public string Enum_BoardType_DPS => GetString("Enum.BoardType.DPS");
+        /// <summary>VIH</summary>
+        public string Enum_BoardType_VIH => GetString("Enum.BoardType.VIH");
+        /// <summary>一级电源控制板</summary>
+        public string Enum_BoardType_PPSControlBoard => GetString("Enum.BoardType.PPSControlBoard");
+        /// <summary>温度采集板</summary>
+        public string Enum_BoardType_TempAcquisitionBoard => GetString("Enum.BoardType.TempAcquisitionBoard");
+        /// <summary>BMC</summary>
+        public string Enum_BoardType_BMC => GetString("Enum.BoardType.BMC");
+        /// <summary>全砖 10V10A</summary>
+        public string Enum_BoardType_FB10V10A => GetString("Enum.BoardType.FB10V10A");
+        /// <summary>全砖 06V25A</summary>
+        public string Enum_BoardType_FB06V25A => GetString("Enum.BoardType.FB06V25A");
+        /// <summary>全砖 06V50A</summary>
+        public string Enum_BoardType_FB06V50A => GetString("Enum.BoardType.FB06V50A");
+        /// <summary>半砖 20V20A</summary>
+        public string Enum_BoardType_HB20V20A => GetString("Enum.BoardType.HB20V20A");
+        /// <summary>半砖 45V10A</summary>
+        public string Enum_BoardType_HB45V10A => GetString("Enum.BoardType.HB45V10A");
+        /// <summary>竖向转接板</summary>
+        public string Enum_BoardType_VerticalAdapterBoard => GetString("Enum.BoardType.VerticalAdapterBoard");
+        /// <summary>老化转接板</summary>
+        public string Enum_BoardType_BIBAdapterBoard => GetString("Enum.BoardType.BIBAdapterBoard");
+        /// <summary>I/O控制板</summary>
+        public string Enum_BoardType_IOControllerBoard => GetString("Enum.BoardType.IOControllerBoard");
+        /// <summary>辅助板</summary>
+        public string Enum_BoardType_AuxiliaryBoard => GetString("Enum.BoardType.AuxiliaryBoard");
+        /// <summary>强电控制板</summary>
+        public string Enum_BoardType_HVControlBoard => GetString("Enum.BoardType.HVControlBoard");
+        /// <summary>弱电控制板</summary>
+        public string Enum_BoardType_LVControlBoard => GetString("Enum.BoardType.LVControlBoard");
+        /// <summary>老化板</summary>
+        public string Enum_BoardType_BurnInBoard => GetString("Enum.BoardType.BurnInBoard");
+        /// <summary>工作中</summary>
+        public string Enum_DpsState_Output => GetString("Enum.DpsState.Output");
+        /// <summary>过压</summary>
+        public string Enum_DpsState_Ovp => GetString("Enum.DpsState.Ovp");
+        /// <summary>欠压</summary>
+        public string Enum_DpsState_Uvp => GetString("Enum.DpsState.Uvp");
+        /// <summary>过流</summary>
+        public string Enum_DpsState_Ocp => GetString("Enum.DpsState.Ocp");
+        /// <summary>关闭</summary>
+        public string Enum_DpsState_Idle => GetString("Enum.DpsState.Idle");
+        /// <summary>向量加载错误</summary>
+        public string Enum_PatternErrorType_Load => GetString("Enum.PatternErrorType.Load");
+        /// <summary>向量解码错误</summary>
+        public string Enum_PatternErrorType_Decode => GetString("Enum.PatternErrorType.Decode");
+        /// <summary>向量运行超时</summary>
+        public string Enum_PatternErrorType_Timeout => GetString("Enum.PatternErrorType.Timeout");
+        /// <summary>关闭</summary>
+        public string Enum_TriggerOutputType_Close => GetString("Enum.TriggerOutputType.Close");
+        /// <summary>信号</summary>
+        public string Enum_TriggerOutputType_Signal => GetString("Enum.TriggerOutputType.Signal");
+        /// <summary>Sync</summary>
+        public string Enum_TriggerOutputType_Sync => GetString("Enum.TriggerOutputType.Sync");
+        /// <summary>升级中</summary>
+        public string Enum_UpgradeState_Updating => GetString("Enum.UpgradeState.Updating");
+        /// <summary>升级完成</summary>
+        public string Enum_UpgradeState_Finish => GetString("Enum.UpgradeState.Finish");
+        /// <summary>擦除中</summary>
+        public string Enum_UpgradeState_Erase => GetString("Enum.UpgradeState.Erase");
+        /// <summary>切换板卡失败</summary>
+        public string Enum_UpgradeState_SwitchBoardFail => GetString("Enum.UpgradeState.SwitchBoardFail");
+        /// <summary>写入更新时间失败</summary>
+        public string Enum_UpgradeState_WriteTimeFail => GetString("Enum.UpgradeState.WriteTimeFail");
+        /// <summary>读取FLASH ID失败</summary>
+        public string Enum_UpgradeState_ReadFlashIdFail => GetString("Enum.UpgradeState.ReadFlashIdFail");
+        /// <summary>更新超时</summary>
+        public string Enum_UpgradeState_TimeOut => GetString("Enum.UpgradeState.TimeOut");
+        /// <summary>其他</summary>
+        public string Enum_UpgradeState_Other => GetString("Enum.UpgradeState.Other");
+        /// <summary>通信错误</summary>
+        public string Enum_UpgradeState_CommunicateFail => GetString("Enum.UpgradeState.CommunicateFail");
+        /// <summary>数据校验失败</summary>
+        public string Enum_UpgradeState_DataVerifyFail => GetString("Enum.UpgradeState.DataVerifyFail");
+        /// <summary>错误</summary>
+        public string Enum_UpgradeState_Error => GetString("Enum.UpgradeState.Error");
+        /// <summary>红灯</summary>
+        public string Enum_LightAlarmState_Red => GetString("Enum.LightAlarmState.Red");
+        /// <summary>黄灯</summary>
+        public string Enum_LightAlarmState_Yellow => GetString("Enum.LightAlarmState.Yellow");
+        /// <summary>绿灯</summary>
+        public string Enum_LightAlarmState_Green => GetString("Enum.LightAlarmState.Green");
+        /// <summary>报警</summary>
+        public string Enum_LightAlarmState_Alarm => GetString("Enum.LightAlarmState.Alarm");
+        /// <summary>默认</summary>
+        public string Enum_DpsPlanPurpose_Default => GetString("Enum.DpsPlanPurpose.Default");
+        /// <summary>上电</summary>
+        public string Enum_DpsPlanPurpose_PowerUp => GetString("Enum.DpsPlanPurpose.PowerUp");
+        /// <summary>下电</summary>
+        public string Enum_DpsPlanPurpose_PowerDown => GetString("Enum.DpsPlanPurpose.PowerDown");
+        /// <summary>跟踪</summary>
+        public string Enum_LogLevel_Trace => GetString("Enum.LogLevel.Trace");
+        /// <summary>调试</summary>
+        public string Enum_LogLevel_Debug => GetString("Enum.LogLevel.Debug");
+        /// <summary>消息</summary>
+        public string Enum_LogLevel_Info => GetString("Enum.LogLevel.Info");
+        /// <summary>警告</summary>
+        public string Enum_LogLevel_Warn => GetString("Enum.LogLevel.Warn");
+        /// <summary>错误</summary>
+        public string Enum_LogLevel_Error => GetString("Enum.LogLevel.Error");
+        /// <summary>异常</summary>
+        public string Enum_LogLevel_Fatal => GetString("Enum.LogLevel.Fatal");
+        /// <summary>查询版本</summary>
+        public string Enum_HVControlBoardCode_Version => GetString("Enum.HVControlBoardCode.Version");
+        /// <summary>同步时间</summary>
+        public string Enum_HVControlBoardCode_SyncTime => GetString("Enum.HVControlBoardCode.SyncTime");
+        /// <summary>三色报警灯</summary>
+        public string Enum_HVControlBoardCode_LightAlarm => GetString("Enum.HVControlBoardCode.LightAlarm");
+        /// <summary>烟雾报警器</summary>
+        public string Enum_HVControlBoardCode_Smoke => GetString("Enum.HVControlBoardCode.Smoke");
+        /// <summary>急停按钮</summary>
+        public string Enum_HVControlBoardCode_Emergency => GetString("Enum.HVControlBoardCode.Emergency");
+        /// <summary>门的状态</summary>
+        public string Enum_HVControlBoardCode_Door => GetString("Enum.HVControlBoardCode.Door");
+        /// <summary>强电控制</summary>
+        public string Enum_HVControlBoardCode_HighVoltage => GetString("Enum.HVControlBoardCode.HighVoltage");
+        /// <summary>固件自检</summary>
+        public string Enum_HVControlBoardCode_SelfCheck => GetString("Enum.HVControlBoardCode.SelfCheck");
+        /// <summary>检测板 1</summary>
+        public string Enum_HVStateErrorType_AC1 => GetString("Enum.HVStateErrorType.AC1");
+        /// <summary>检测板 2</summary>
+        public string Enum_HVStateErrorType_AC2 => GetString("Enum.HVStateErrorType.AC2");
+        /// <summary>检测板 3</summary>
+        public string Enum_HVStateErrorType_AC3 => GetString("Enum.HVStateErrorType.AC3");
+        /// <summary>检测板 4</summary>
+        public string Enum_HVStateErrorType_AC4 => GetString("Enum.HVStateErrorType.AC4");
+        /// <summary>检测板 5</summary>
+        public string Enum_HVStateErrorType_AC5 => GetString("Enum.HVStateErrorType.AC5");
+        /// <summary>检测板 6</summary>
+        public string Enum_HVStateErrorType_AC6 => GetString("Enum.HVStateErrorType.AC6");
+        /// <summary>关闭</summary>
+        public string Enum_HVState_Close => GetString("Enum.HVState.Close");
+        /// <summary>上电中</summary>
+        public string Enum_HVState_PowerUp => GetString("Enum.HVState.PowerUp");
+        /// <summary>下电中</summary>
+        public string Enum_HVState_PowerDown => GetString("Enum.HVState.PowerDown");
+        /// <summary>开启</summary>
+        public string Enum_HVState_Open => GetString("Enum.HVState.Open");
+        /// <summary>离线</summary>
+        public string Enum_HVState_Offline => GetString("Enum.HVState.Offline");
+        /// <summary>错误</summary>
+        public string Enum_HVState_Error => GetString("Enum.HVState.Error");
+        /// <summary>设备门</summary>
+        public string Enum_DoorType_Default => GetString("Enum.DoorType.Default");
+        /// <summary>烘箱门</summary>
+        public string Enum_DoorType_Oven => GetString("Enum.DoorType.Oven");
+        /// <summary>强电门</summary>
+        public string Enum_DoorType_Power => GetString("Enum.DoorType.Power");
+        /// <summary>通讯状态</summary>
+        public string Enum_FirmwareSelfCheckItem_ConnectionState => GetString("Enum.FirmwareSelfCheckItem.ConnectionState");
+        /// <summary>环境变量</summary>
+        public string Enum_FirmwareSelfCheckItem_EnviormentVariables => GetString("Enum.FirmwareSelfCheckItem.EnviormentVariables");
+        /// <summary>配置文件</summary>
+        public string Enum_FirmwareSelfCheckItem_ConfigFiles => GetString("Enum.FirmwareSelfCheckItem.ConfigFiles");
+        /// <summary>输出电压</summary>
+        public string Enum_FirmwareSelfCheckItem_OutputVoltage => GetString("Enum.FirmwareSelfCheckItem.OutputVoltage");
+        /// <summary>输入电压</summary>
+        public string Enum_FirmwareSelfCheckItem_InputVoltage => GetString("Enum.FirmwareSelfCheckItem.InputVoltage");
+        /// <summary>输出电流</summary>
+        public string Enum_FirmwareSelfCheckItem_OutputCurrent => GetString("Enum.FirmwareSelfCheckItem.OutputCurrent");
+        /// <summary>输入电流</summary>
+        public string Enum_FirmwareSelfCheckItem_InputCurrent => GetString("Enum.FirmwareSelfCheckItem.InputCurrent");
+        /// <summary>输出温度</summary>
+        public string Enum_FirmwareSelfCheckItem_OutputTemperature => GetString("Enum.FirmwareSelfCheckItem.OutputTemperature");
+        /// <summary>扩展IO</summary>
+        public string Enum_FirmwareSelfCheckItem_ExpandIO => GetString("Enum.FirmwareSelfCheckItem.ExpandIO");
+        /// <summary>数模转换</summary>
+        public string Enum_FirmwareSelfCheckItem_DAC => GetString("Enum.FirmwareSelfCheckItem.DAC");
+        /// <summary>FPGA</summary>
+        public string Enum_FirmwareSelfCheckItem_FPGA => GetString("Enum.FirmwareSelfCheckItem.FPGA");
+        /// <summary>闪存</summary>
+        public string Enum_FirmwareSelfCheckItem_Flash => GetString("Enum.FirmwareSelfCheckItem.Flash");
+        /// <summary>模数转换</summary>
+        public string Enum_FirmwareSelfCheckItem_ADC => GetString("Enum.FirmwareSelfCheckItem.ADC");
+        /// <summary>差分信号</summary>
+        public string Enum_FirmwareSelfCheckItem_LVDS => GetString("Enum.FirmwareSelfCheckItem.LVDS");
+        /// <summary>EEPROM</summary>
+        public string Enum_FirmwareSelfCheckItem_EEPROM => GetString("Enum.FirmwareSelfCheckItem.EEPROM");
+        /// <summary>读寄存器</summary>
+        public string Enum_FirmwareSelfCheckItem_ReadRegister => GetString("Enum.FirmwareSelfCheckItem.ReadRegister");
+        /// <summary>写寄存器</summary>
+        public string Enum_FirmwareSelfCheckItem_WriteRegister => GetString("Enum.FirmwareSelfCheckItem.WriteRegister");
+        /// <summary>通过</summary>
+        public string Enum_FirmwareSelfCheckResult_Pass => GetString("Enum.FirmwareSelfCheckResult.Pass");
+        /// <summary>通讯异常</summary>
+        public string Enum_FirmwareSelfCheckResult_ConnectionError => GetString("Enum.FirmwareSelfCheckResult.ConnectionError");
+        /// <summary>环境变量丢失</summary>
+        public string Enum_FirmwareSelfCheckResult_EnviormentVariablesLost => GetString("Enum.FirmwareSelfCheckResult.EnviormentVariablesLost");
+        /// <summary>配置文件丢失</summary>
+        public string Enum_FirmwareSelfCheckResult_ConfigFilesLost => GetString("Enum.FirmwareSelfCheckResult.ConfigFilesLost");
+        /// <summary>配置文件错误</summary>
+        public string Enum_FirmwareSelfCheckResult_ConfigFilesError => GetString("Enum.FirmwareSelfCheckResult.ConfigFilesError");
+        /// <summary>电压过高</summary>
+        public string Enum_FirmwareSelfCheckResult_VoltageTooHigh => GetString("Enum.FirmwareSelfCheckResult.VoltageTooHigh");
+        /// <summary>电压过低</summary>
+        public string Enum_FirmwareSelfCheckResult_VoltageTooLow => GetString("Enum.FirmwareSelfCheckResult.VoltageTooLow");
+        /// <summary>电流过高</summary>
+        public string Enum_FirmwareSelfCheckResult_CurrentTooHigh => GetString("Enum.FirmwareSelfCheckResult.CurrentTooHigh");
+        /// <summary>电流过低</summary>
+        public string Enum_FirmwareSelfCheckResult_CurrentTooLow => GetString("Enum.FirmwareSelfCheckResult.CurrentTooLow");
+        /// <summary>温度过高</summary>
+        public string Enum_FirmwareSelfCheckResult_TemperatureTooHigh => GetString("Enum.FirmwareSelfCheckResult.TemperatureTooHigh");
+        /// <summary>温度过低</summary>
+        public string Enum_FirmwareSelfCheckResult_TemperatureTooLow => GetString("Enum.FirmwareSelfCheckResult.TemperatureTooLow");
+        /// <summary>内存地址错误</summary>
+        public string Enum_FirmwareSelfCheckResult_MemoryAddressError => GetString("Enum.FirmwareSelfCheckResult.MemoryAddressError");
+        /// <summary>数据读取错误</summary>
+        public string Enum_FirmwareSelfCheckResult_DataReadError => GetString("Enum.FirmwareSelfCheckResult.DataReadError");
+        /// <summary>数据写入错误</summary>
+        public string Enum_FirmwareSelfCheckResult_DataWriteError => GetString("Enum.FirmwareSelfCheckResult.DataWriteError");
+        /// <summary>位于左侧</summary>
+        public string Enum_TriggerVerticalDirection_Left => GetString("Enum.TriggerVerticalDirection.Left");
+        /// <summary>位于右侧</summary>
+        public string Enum_TriggerVerticalDirection_Right => GetString("Enum.TriggerVerticalDirection.Right");
+        /// <summary>未捕获到的异常, {0}</summary>
+        public string UnhandledExceptionMessage => GetString("UnhandledExceptionMessage");
+        /// <summary>程序已运行</summary>
+        public string AppHasLaunchedMessage => GetString("AppHasLaunchedMessage");
+        /// <summary>程序启动</summary>
+        public string AppStartMessage => GetString("AppStartMessage");
+        /// <summary>程序退出</summary>
+        public string AppExitMessage => GetString("AppExitMessage");
+        /// <summary>Config.ini 配置文件已发生修改。上次文件修改日期：{0}，当前文件修改日期：{1}</summary>
+        public string ConfigModifiedMessage => GetString("ConfigModifiedMessage");
+        /// <summary>加密锁和设备不匹配, 请联系售后人员</summary>
+        public string IllegalDongleMessage => GetString("IllegalDongleMessage");
+        /// <summary>设备授权已到期 [ {0:yyyy/MM/dd HH:mm:ss} ], 请联系售后人员</summary>
+        public string DongleExpireMessage => GetString("DongleExpireMessage");
+        /// <summary>文件导入成功</summary>
+        public string FileImportSuccessMessage => GetString("FileImportSuccessMessage");
+        /// <summary>文件导入失败</summary>
+        public string FileImportFailureMessage => GetString("FileImportFailureMessage");
+        /// <summary>文件导出成功</summary>
+        public string FileExportSuccessMessage => GetString("FileExportSuccessMessage");
+        /// <summary>文件导出失败</summary>
+        public string FileExportFailureMessage => GetString("FileExportFailureMessage");
+        /// <summary>文件创建成功</summary>
+        public string FileCreatedSuccessMessage => GetString("FileCreatedSuccessMessage");
+        /// <summary>文件创建失败</summary>
+        public string FileCreatedFailureMessage => GetString("FileCreatedFailureMessage");
+        /// <summary>文件删除成功</summary>
+        public string FileDeletedSuccessMessage => GetString("FileDeletedSuccessMessage");
+        /// <summary>文件删除失败</summary>
+        public string FileDeletedFailureMessage => GetString("FileDeletedFailureMessage");
+        /// <summary>文件不存在</summary>
+        public string FileNotExistMessage => GetString("FileNotExistMessage");
+        /// <summary>文件已存在</summary>
+        public string FileExistMessage => GetString("FileExistMessage");
+        /// <summary>文件保存成功</summary>
+        public string FileSaveSuccessMessage => GetString("FileSaveSuccessMessage");
+        /// <summary>文件保存失败</summary>
+        public string FileSaveFailureMessage => GetString("FileSaveFailureMessage");
+        /// <summary>文件另存成功</summary>
+        public string FileSaveAsSuccessMessage => GetString("FileSaveAsSuccessMessage");
+        /// <summary>文件另存失败</summary>
+        public string FileSaveAsFailureMessage => GetString("FileSaveAsFailureMessage");
+        /// <summary>文件刷新成功</summary>
+        public string FileRefreshSuccessMessage => GetString("FileRefreshSuccessMessage");
+        /// <summary>文件刷新失败</summary>
+        public string FileRefreshFailureMessage => GetString("FileRefreshFailureMessage");
+        /// <summary>{0} 区初始化失败，{1}</summary>
+        public string ZoneInitFailureMessage => GetString("ZoneInitFailureMessage");
+        /// <summary>确定删除所选项目?</summary>
+        public string DeleteAskMessage => GetString("DeleteAskMessage");
+        /// <summary>器件库可能包含重要的数据文件, 是否删除?</summary>
+        public string DeleteIcLibraryMessage => GetString("DeleteIcLibraryMessage");
+        /// <summary>已存在同名器件库, 是否重命名?</summary>
+        public string ImportIcLibraryExistMessage => GetString("ImportIcLibraryExistMessage");
+        /// <summary>已存在同名器件文件, 是否覆盖?</summary>
+        public string ImportIcFileExistMessage => GetString("ImportIcFileExistMessage");
+        /// <summary>器件 [ {0} ] 已被修改, 是否保存当前修改</summary>
+        public string IcFileUnsavedMessage => GetString("IcFileUnsavedMessage");
+        /// <summary>器件 [ {0} ] 不存在</summary>
+        public string IcFileNotExistMessage => GetString("IcFileNotExistMessage");
+        /// <summary>器件 [ {0} ] 正在执行老化, 请停止老化后重试</summary>
+        public string IcFileInUsedMessage => GetString("IcFileInUsedMessage");
+        /// <summary>器件库 [ {0} ] 中的器件正在执行老化, 请停止老化后重试</summary>
+        public string IcLibraryInUsedMessage => GetString("IcLibraryInUsedMessage");
+        /// <summary>器件库 [ {0} ] 不存在器件 [ {1} ]</summary>
+        public string IcLibraryNotExistIcFileMessage => GetString("IcLibraryNotExistIcFileMessage");
+        /// <summary>器件库 [ {0} ] 不存在</summary>
+        public string IcLibraryNotExistMessage => GetString("IcLibraryNotExistMessage");
+        /// <summary>器件 [ {0} ] 已被修改，状态将被重置到空闲，请重新选择器件</summary>
+        public string IcFileModifiedReselectMessage => GetString("IcFileModifiedReselectMessage");
+        /// <summary>器件 [ {0} ] 已被删除，状态将被重置到空闲，请重新选择器件</summary>
+        public string IcFileDeletedReselectMessage => GetString("IcFileDeletedReselectMessage");
+        /// <summary>名称不可以为空或包含空格</summary>
+        public string NameNotNullMessage => GetString("NameNotNullMessage");
+        /// <summary>名称不可以超过 {0} 位长度</summary>
+        public string NameNotExceedMessage => GetString("NameNotExceedMessage");
+        /// <summary>名称不能包含下列任何字符 \ / : * ? . " > < |</summary>
+        public string NameIllegalMessage => GetString("NameIllegalMessage");
+        /// <summary>名称已存在</summary>
+        public string NameExistMessage => GetString("NameExistMessage");
+        /// <summary>设备配置文件解析失败, 第 {0} 行</summary>
+        public string DeviceConfigParseFailureMessage => GetString("DeviceConfigParseFailureMessage");
+        /// <summary>初始化中...</summary>
+        public string InitMessage => GetString("InitMessage");
+        /// <summary>初始化完成</summary>
+        public string InitEndMessage => GetString("InitEndMessage");
+        /// <summary>老化过程中不允许关闭</summary>
+        public string ClosingAppWhenAnyZoneRunMessage => GetString("ClosingAppWhenAnyZoneRunMessage");
+        /// <summary>值必须介于 {0}</summary>
+        public string MustBeInRangMessage => GetString("MustBeInRangMessage");
+        /// <summary>下电方案的设置电压必须设置为 0</summary>
+        public string PowerDownValueMustZeroMessage => GetString("PowerDownValueMustZeroMessage");
+        /// <summary>仅支持英文字母、数字和下划线</summary>
+        public string ValidStringRuleMessage => GetString("ValidStringRuleMessage");
+        /// <summary>文件 [ {0} ] 解析失败, 第 {1} 行 {2} 列</summary>
+        public string FileParseErrorMessage => GetString("FileParseErrorMessage");
+        /// <summary>文件 [ {0} ] 长度不正确, 预期长度为 {1} 字节</summary>
+        public string FileLengthErrorMessage => GetString("FileLengthErrorMessage");
+        /// <summary>ABM 文件 [ {0} ] 不匹配，请使用该上位机软件中的向量转换工具生成的 ABM 文件</summary>
+        public string AbmFileNotMatchMessage => GetString("AbmFileNotMatchMessage");
+        /// <summary>检测到循环配置，移动步次顺序会清除所有循环配置, 是否继续?</summary>
+        public string AskMoveStepMessage => GetString("AskMoveStepMessage");
+        /// <summary>检测到循环配置，删除任意步次会清除所有循环配置, 是否继续?</summary>
+        public string AskDeleteStepMessage => GetString("AskDeleteStepMessage");
+        /// <summary>检测到烟雾，所有老化即将停止，随后强电将关闭，消除烟雾报警状态后才可重新开启强电 !</summary>
+        public string SmokyPromptMessage => GetString("SmokyPromptMessage");
+        /// <summary>检测到烘箱离线，请立即检查烘箱通信状态 !</summary>
+        public string OvenOfflinePromptMessage => GetString("OvenOfflinePromptMessage");
+        /// <summary>检测到{0} [ {1} ] 已打开，请立即检查{2}状态 !</summary>
+        public string DoorOpenedPromptMessage => GetString("DoorOpenedPromptMessage");
+        /// <summary>{0} [ {1} ] 已关闭 !</summary>
+        public string DoorClosedPromptMessage => GetString("DoorClosedPromptMessage");
+        /// <summary>检测到烘箱异常报警 [ {0} ]，请立即检查烘箱状态 !</summary>
+        public string OvenErrorPromptMessage => GetString("OvenErrorPromptMessage");
+        /// <summary>检测到急停按钮 [ {0} ] 被按下，请确认是否人为操作 !</summary>
+        public string EmoPressedPromptMessage => GetString("EmoPressedPromptMessage");
+        /// <summary>是否执行 [ 停止烘箱 ] 操作 ?</summary>
+        public string AskOvenPowerOffMessage => GetString("AskOvenPowerOffMessage");
+        /// <summary>是否执行 [ 一键降温 ] 操作 ?</summary>
+        public string AskOvenOneClickCoolMessage => GetString("AskOvenOneClickCoolMessage");
+        /// <summary>是否执行 [ 开锁 ] 操作 ?</summary>
+        public string AskOvenDoorUnlockMessage => GetString("AskOvenDoorUnlockMessage");
+        /// <summary>自检错误，请联系售后人员</summary>
+        public string DeviceCheckFailMessage => GetString("DeviceCheckFailMessage");
+        /// <summary>报文解析错误，{0}</summary>
+        public string AnalysisFrameErrorMessage => GetString("AnalysisFrameErrorMessage");
+        /// <summary>CRC32不匹配，{0}</summary>
+        public string Crc32NotMatchMessage => GetString("Crc32NotMatchMessage");
+        /// <summary>帧尾不匹配</summary>
+        public string FrameEndingNotMatchMessage => GetString("FrameEndingNotMatchMessage");
+        /// <summary>老化板插入</summary>
+        public string PlugedMessage => GetString("PlugedMessage");
+        /// <summary>老化板卸下</summary>
+        public string UnplugedMessage => GetString("UnplugedMessage");
+        /// <summary>请设置 [ {0} ]</summary>
+        public string PleaseSetMessage => GetString("PleaseSetMessage");
+        /// <summary>至少需要配置一个步次</summary>
+        public string AtleastOneStepMessage => GetString("AtleastOneStepMessage");
+        /// <summary>至少需要配置一个子步次</summary>
+        public string AtleastOneSubStepMessage => GetString("AtleastOneSubStepMessage");
+        /// <summary>至少需要配置一个启用的电源</summary>
+        public string AtleastEnableOneDpsMessage => GetString("AtleastEnableOneDpsMessage");
+        /// <summary>当前状态 [ {0} ]</summary>
+        public string StateMessage => GetString("StateMessage");
+        /// <summary>向量 [ {0} ] 运行错误, 请检查步次 [ {1} ], 子步次 [ {2} ] 中的向量配置</summary>
+        public string PatternErrorMessage => GetString("PatternErrorMessage");
+        /// <summary>设备异常; 请联系售后人员! 错误码 [ {0} ]</summary>
+        public string DeviceErrorMessage => GetString("DeviceErrorMessage");
+        /// <summary>器件配置错误, 请检查后重试! {0}</summary>
+        public string IcErrorMessage => GetString("IcErrorMessage");
+        /// <summary>发送器件数据 [ {0} ]</summary>
+        public string SendIcDataMessage => GetString("SendIcDataMessage");
+        /// <summary>当前步次 [ {0} ] ; 子步次 [ {1} ]</summary>
+        public string CurrentStepMessage => GetString("CurrentStepMessage");
+        /// <summary>BMC供电异常, {0} {1}V</summary>
+        public string BmcPowerErrorMessage => GetString("BmcPowerErrorMessage");
+        /// <summary>一级电源异常, PPS {0} {1}</summary>
+        public string PrePowerErrorMessage => GetString("PrePowerErrorMessage");
+        /// <summary>检测到烟雾，老化已停止</summary>
+        public string StopOnSmokyMeesage => GetString("StopOnSmokyMeesage");
+        /// <summary>检测到烘箱异常，老化已停止</summary>
+        public string StopOnOvenErrorMessage => GetString("StopOnOvenErrorMessage");
+        /// <summary>检测到急停按钮被按下，老化已停止</summary>
+        public string StopOnEmergencyMessage => GetString("StopOnEmergencyMessage");
+        /// <summary>检测到烘箱门 [ {0} ] 被打开，老化已暂停</summary>
+        public string SuspendOnOvenDoorOpenMessage => GetString("SuspendOnOvenDoorOpenMessage");
+        /// <summary>检测到烘箱离线，老化已暂停</summary>
+        public string SuspendOnOvenOfflineMessage => GetString("SuspendOnOvenOfflineMessage");
+        /// <summary>检测到强电门 [ {0} ] 被打开，老化已暂停</summary>
+        public string SuspendOnPowerDoorOpenMessage => GetString("SuspendOnPowerDoorOpenMessage");
+        /// <summary>检测到设备门 [ {0} ] 被打开，老化已暂停</summary>
+        public string SuspendOnDefaultDoorOpenMessage => GetString("SuspendOnDefaultDoorOpenMessage");
+        /// <summary>三色报警灯 [ {0} ]</summary>
+        public string LightAlarmMessage => GetString("LightAlarmMessage");
+        /// <summary>系统供电异常: {0} {1}V</summary>
+        public string SystemPowerErrorMessage => GetString("SystemPowerErrorMessage");
+        /// <summary>确认终止所有区的老化吗?</summary>
+        public string AbortAllZonesBurnAskMessage => GetString("AbortAllZonesBurnAskMessage");
+        /// <summary>门 [ {0}] 的类型与配置文件中不匹配，请检查配置文件</summary>
+        public string DoorTypeNotMatchMessage => GetString("DoorTypeNotMatchMessage");
+        /// <summary>确认要开启强电吗？</summary>
+        public string OpenHighVoltageAskMessage => GetString("OpenHighVoltageAskMessage");
+        /// <summary>确认要关闭强电吗？</summary>
+        public string CloseHighVoltageAskMessage => GetString("CloseHighVoltageAskMessage");
+        /// <summary>急停按钮 [ {0} ] 被按下</summary>
+        public string EMOIsPressedMessage => GetString("EMOIsPressedMessage");
+        /// <summary>[ {0} ] 已被打开</summary>
+        public string DoorIsOpenedMessage => GetString("DoorIsOpenedMessage");
+        /// <summary>有老化区处于老化过程中不允许升级固件</summary>
+        public string UpgradeFirmwareWhenAnyZoneRunMessage => GetString("UpgradeFirmwareWhenAnyZoneRunMessage");
+        /// <summary>当前日志文件未找到对应的日志规则，无法查看。请检查配置文件或将该文件放到正确的路径下。</summary>
+        public string LogRuleNotFoundErrorMessage => GetString("LogRuleNotFoundErrorMessage");
+        /// <summary>当前日志文件与已经添加的日志文件规则不一致，无法合并查看。可以清除已经添加的日志文件后重试。</summary>
+        public string LogRuleNotSameErrorMessage => GetString("LogRuleNotSameErrorMessage");
+        /// <summary>当前日志文件所在文件夹与已经添加的日志文件所在文件夹不一致，无法合并查看。可以清除已经添加的日志文件后重试。</summary>
+        public string LogFolderNotSameErrorMessage => GetString("LogFolderNotSameErrorMessage");
+        /// <summary>指令 {0} 请求失败。{1}</summary>
+        public string OvenCommandErrorMessage => GetString("OvenCommandErrorMessage");
+        /// <summary>指令 {0} 请求成功。{1}</summary>
+        public string OvenCommandSuccessMessage => GetString("OvenCommandSuccessMessage");
+        /// <summary>连接成功</summary>
+        public string ConnectedMessage => GetString("ConnectedMessage");
+        /// <summary>断开连接</summary>
+        public string DisconnectedMessage => GetString("DisconnectedMessage");
+        /// <summary>自检信息：{0}</summary>
+        public string FirmwareSelfCheckMessage => GetString("FirmwareSelfCheckMessage");
+        /// <summary>工作线程已启动!</summary>
+        public string WorkerThreadStartedMessage => GetString("WorkerThreadStartedMessage");
+        /// <summary>工作线程已退出!</summary>
+        public string WorkerThreadEndedMessage => GetString("WorkerThreadEndedMessage");
         /// <summary>见微知著·科技赋能·创造非凡价值</summary>
         public string ConceptText => GetString("ConceptText");
         /// <summary>许可认证</summary>
@@ -745,220 +1319,297 @@
         public string VerticalBoardDirectionText => GetString("VerticalBoardDirectionText");
         /// <summary>竖向板索引</summary>
         public string VerticalBoardIndexText => GetString("VerticalBoardIndexText");
-        /// <summary>未捕获到的异常, {0}</summary>
-        public string UnhandledExceptionMessage => GetString("UnhandledExceptionMessage");
-        /// <summary>程序已运行</summary>
-        public string AppHasLaunchedMessage => GetString("AppHasLaunchedMessage");
-        /// <summary>程序启动</summary>
-        public string AppStartMessage => GetString("AppStartMessage");
-        /// <summary>程序退出</summary>
-        public string AppExitMessage => GetString("AppExitMessage");
-        /// <summary>Config.ini 配置文件已发生修改。上次文件修改日期：{0}，当前文件修改日期：{1}</summary>
-        public string ConfigModifiedMessage => GetString("ConfigModifiedMessage");
-        /// <summary>加密锁和设备不匹配, 请联系售后人员</summary>
-        public string IllegalDongleMessage => GetString("IllegalDongleMessage");
-        /// <summary>设备授权已到期 [ {0:yyyy/MM/dd HH:mm:ss} ], 请联系售后人员</summary>
-        public string DongleExpireMessage => GetString("DongleExpireMessage");
-        /// <summary>文件导入成功</summary>
-        public string FileImportSuccessMessage => GetString("FileImportSuccessMessage");
-        /// <summary>文件导入失败</summary>
-        public string FileImportFailureMessage => GetString("FileImportFailureMessage");
-        /// <summary>文件导出成功</summary>
-        public string FileExportSuccessMessage => GetString("FileExportSuccessMessage");
-        /// <summary>文件导出失败</summary>
-        public string FileExportFailureMessage => GetString("FileExportFailureMessage");
-        /// <summary>文件创建成功</summary>
-        public string FileCreatedSuccessMessage => GetString("FileCreatedSuccessMessage");
-        /// <summary>文件创建失败</summary>
-        public string FileCreatedFailureMessage => GetString("FileCreatedFailureMessage");
-        /// <summary>文件删除成功</summary>
-        public string FileDeletedSuccessMessage => GetString("FileDeletedSuccessMessage");
-        /// <summary>文件删除失败</summary>
-        public string FileDeletedFailureMessage => GetString("FileDeletedFailureMessage");
-        /// <summary>文件不存在</summary>
-        public string FileNotExistMessage => GetString("FileNotExistMessage");
-        /// <summary>文件已存在</summary>
-        public string FileExistMessage => GetString("FileExistMessage");
-        /// <summary>文件保存成功</summary>
-        public string FileSaveSuccessMessage => GetString("FileSaveSuccessMessage");
-        /// <summary>文件保存失败</summary>
-        public string FileSaveFailureMessage => GetString("FileSaveFailureMessage");
-        /// <summary>文件另存成功</summary>
-        public string FileSaveAsSuccessMessage => GetString("FileSaveAsSuccessMessage");
-        /// <summary>文件另存失败</summary>
-        public string FileSaveAsFailureMessage => GetString("FileSaveAsFailureMessage");
-        /// <summary>文件刷新成功</summary>
-        public string FileRefreshSuccessMessage => GetString("FileRefreshSuccessMessage");
-        /// <summary>文件刷新失败</summary>
-        public string FileRefreshFailureMessage => GetString("FileRefreshFailureMessage");
-        /// <summary>{0} 区初始化失败，{1}</summary>
-        public string ZoneInitFailureMessage => GetString("ZoneInitFailureMessage");
-        /// <summary>确定删除所选项目?</summary>
-        public string DeleteAskMessage => GetString("DeleteAskMessage");
-        /// <summary>器件库可能包含重要的数据文件, 是否删除?</summary>
-        public string DeleteIcLibraryMessage => GetString("DeleteIcLibraryMessage");
-        /// <summary>已存在同名器件库, 是否重命名?</summary>
-        public string ImportIcLibraryExistMessage => GetString("ImportIcLibraryExistMessage");
-        /// <summary>已存在同名器件文件, 是否覆盖?</summary>
-        public string ImportIcFileExistMessage => GetString("ImportIcFileExistMessage");
-        /// <summary>器件 [ {0} ] 已被修改, 是否保存当前修改</summary>
-        public string IcFileUnsavedMessage => GetString("IcFileUnsavedMessage");
-        /// <summary>器件 [ {0} ] 不存在</summary>
-        public string IcFileNotExistMessage => GetString("IcFileNotExistMessage");
-        /// <summary>器件 [ {0} ] 正在执行老化, 请停止老化后重试</summary>
-        public string IcFileInUsedMessage => GetString("IcFileInUsedMessage");
-        /// <summary>器件库 [ {0} ] 中的器件正在执行老化, 请停止老化后重试</summary>
-        public string IcLibraryInUsedMessage => GetString("IcLibraryInUsedMessage");
-        /// <summary>器件库 [ {0} ] 不存在器件 [ {1} ]</summary>
-        public string IcLibraryNotExistIcFileMessage => GetString("IcLibraryNotExistIcFileMessage");
-        /// <summary>器件库 [ {0} ] 不存在</summary>
-        public string IcLibraryNotExistMessage => GetString("IcLibraryNotExistMessage");
-        /// <summary>器件 [ {0} ] 已被修改，状态将被重置到空闲，请重新选择器件</summary>
-        public string IcFileModifiedReselectMessage => GetString("IcFileModifiedReselectMessage");
-        /// <summary>器件 [ {0} ] 已被删除，状态将被重置到空闲，请重新选择器件</summary>
-        public string IcFileDeletedReselectMessage => GetString("IcFileDeletedReselectMessage");
-        /// <summary>名称不可以为空或包含空格</summary>
-        public string NameNotNullMessage => GetString("NameNotNullMessage");
-        /// <summary>名称不可以超过 {0} 位长度</summary>
-        public string NameNotExceedMessage => GetString("NameNotExceedMessage");
-        /// <summary>名称不能包含下列任何字符 \ / : * ? . " > < |</summary>
-        public string NameIllegalMessage => GetString("NameIllegalMessage");
-        /// <summary>名称已存在</summary>
-        public string NameExistMessage => GetString("NameExistMessage");
-        /// <summary>设备配置文件解析失败, 第 {0} 行</summary>
-        public string DeviceConfigParseFailureMessage => GetString("DeviceConfigParseFailureMessage");
-        /// <summary>初始化中...</summary>
-        public string InitMessage => GetString("InitMessage");
-        /// <summary>初始化完成</summary>
-        public string InitEndMessage => GetString("InitEndMessage");
-        /// <summary>老化过程中不允许关闭</summary>
-        public string ClosingAppWhenAnyZoneRunMessage => GetString("ClosingAppWhenAnyZoneRunMessage");
-        /// <summary>值必须介于 {0}</summary>
-        public string MustBeInRangMessage => GetString("MustBeInRangMessage");
-        /// <summary>下电方案的设置电压必须设置为 0</summary>
-        public string PowerDownValueMustZeroMessage => GetString("PowerDownValueMustZeroMessage");
-        /// <summary>仅支持英文字母、数字和下划线</summary>
-        public string ValidStringRuleMessage => GetString("ValidStringRuleMessage");
-        /// <summary>文件 [ {0} ] 解析失败, 第 {1} 行 {2} 列</summary>
-        public string FileParseErrorMessage => GetString("FileParseErrorMessage");
-        /// <summary>文件 [ {0} ] 长度不正确, 预期长度为 {1} 字节</summary>
-        public string FileLengthErrorMessage => GetString("FileLengthErrorMessage");
-        /// <summary>ABM 文件 [ {0} ] 不匹配，请使用该上位机软件中的向量转换工具生成的 ABM 文件</summary>
-        public string AbmFileNotMatchMessage => GetString("AbmFileNotMatchMessage");
-        /// <summary>检测到循环配置，移动步次顺序会清除所有循环配置, 是否继续?</summary>
-        public string AskMoveStepMessage => GetString("AskMoveStepMessage");
-        /// <summary>检测到循环配置，删除任意步次会清除所有循环配置, 是否继续?</summary>
-        public string AskDeleteStepMessage => GetString("AskDeleteStepMessage");
-        /// <summary>检测到烟雾，所有老化即将停止，随后强电将关闭，消除烟雾报警状态后才可重新开启强电 !</summary>
-        public string SmokyPromptMessage => GetString("SmokyPromptMessage");
-        /// <summary>检测到烘箱离线，请立即检查烘箱通信状态 !</summary>
-        public string OvenOfflinePromptMessage => GetString("OvenOfflinePromptMessage");
-        /// <summary>检测到{0} [ {1} ] 已打开，请立即检查{2}状态 !</summary>
-        public string DoorOpenedPromptMessage => GetString("DoorOpenedPromptMessage");
-        /// <summary>{0} [ {1} ] 已关闭 !</summary>
-        public string DoorClosedPromptMessage => GetString("DoorClosedPromptMessage");
-        /// <summary>检测到烘箱异常报警 [ {0} ]，请立即检查烘箱状态 !</summary>
-        public string OvenErrorPromptMessage => GetString("OvenErrorPromptMessage");
-        /// <summary>检测到急停按钮 [ {0} ] 被按下，请确认是否人为操作 !</summary>
-        public string EmoPressedPromptMessage => GetString("EmoPressedPromptMessage");
-        /// <summary>是否执行 [ 停止烘箱 ] 操作 ?</summary>
-        public string AskOvenPowerOffMessage => GetString("AskOvenPowerOffMessage");
-        /// <summary>是否执行 [ 一键降温 ] 操作 ?</summary>
-        public string AskOvenOneClickCoolMessage => GetString("AskOvenOneClickCoolMessage");
-        /// <summary>是否执行 [ 开锁 ] 操作 ?</summary>
-        public string AskOvenDoorUnlockMessage => GetString("AskOvenDoorUnlockMessage");
-        /// <summary>自检错误，请联系售后人员</summary>
-        public string DeviceCheckFailMessage => GetString("DeviceCheckFailMessage");
-        /// <summary>报文解析错误，{0}</summary>
-        public string AnalysisFrameErrorMessage => GetString("AnalysisFrameErrorMessage");
-        /// <summary>CRC32不匹配，{0}</summary>
-        public string Crc32NotMatchMessage => GetString("Crc32NotMatchMessage");
-        /// <summary>帧尾不匹配</summary>
-        public string FrameEndingNotMatchMessage => GetString("FrameEndingNotMatchMessage");
-        /// <summary>老化板插入</summary>
-        public string PlugedMessage => GetString("PlugedMessage");
-        /// <summary>老化板卸下</summary>
-        public string UnplugedMessage => GetString("UnplugedMessage");
-        /// <summary>请设置 [ {0} ]</summary>
-        public string PleaseSetMessage => GetString("PleaseSetMessage");
-        /// <summary>至少需要配置一个步次</summary>
-        public string AtleastOneStepMessage => GetString("AtleastOneStepMessage");
-        /// <summary>至少需要配置一个子步次</summary>
-        public string AtleastOneSubStepMessage => GetString("AtleastOneSubStepMessage");
-        /// <summary>至少需要配置一个启用的电源</summary>
-        public string AtleastEnableOneDpsMessage => GetString("AtleastEnableOneDpsMessage");
-        /// <summary>当前状态 [ {0} ]</summary>
-        public string StateMessage => GetString("StateMessage");
-        /// <summary>向量 [ {0} ] 运行错误, 请检查步次 [ {1} ], 子步次 [ {2} ] 中的向量配置</summary>
-        public string PatternErrorMessage => GetString("PatternErrorMessage");
-        /// <summary>设备异常; 请联系售后人员! 错误码 [ {0} ]</summary>
-        public string DeviceErrorMessage => GetString("DeviceErrorMessage");
-        /// <summary>器件配置错误, 请检查后重试! {0}</summary>
-        public string IcErrorMessage => GetString("IcErrorMessage");
-        /// <summary>发送器件数据 [ {0} ]</summary>
-        public string SendIcDataMessage => GetString("SendIcDataMessage");
-        /// <summary>当前步次 [ {0} ] ; 子步次 [ {1} ]</summary>
-        public string CurrentStepMessage => GetString("CurrentStepMessage");
-        /// <summary>BMC供电异常, {0} {1}V</summary>
-        public string BmcPowerErrorMessage => GetString("BmcPowerErrorMessage");
-        /// <summary>一级电源异常, PPS {0} {1}</summary>
-        public string PrePowerErrorMessage => GetString("PrePowerErrorMessage");
-        /// <summary>检测到烟雾，老化已停止</summary>
-        public string StopOnSmokyMeesage => GetString("StopOnSmokyMeesage");
-        /// <summary>检测到烘箱异常，老化已停止</summary>
-        public string StopOnOvenErrorMessage => GetString("StopOnOvenErrorMessage");
-        /// <summary>检测到急停按钮被按下，老化已停止</summary>
-        public string StopOnEmergencyMessage => GetString("StopOnEmergencyMessage");
-        /// <summary>检测到烘箱门 [ {0} ] 被打开，老化已暂停</summary>
-        public string SuspendOnOvenDoorOpenMessage => GetString("SuspendOnOvenDoorOpenMessage");
-        /// <summary>检测到烘箱离线，老化已暂停</summary>
-        public string SuspendOnOvenOfflineMessage => GetString("SuspendOnOvenOfflineMessage");
-        /// <summary>检测到强电门 [ {0} ] 被打开，老化已暂停</summary>
-        public string SuspendOnPowerDoorOpenMessage => GetString("SuspendOnPowerDoorOpenMessage");
-        /// <summary>检测到设备门 [ {0} ] 被打开，老化已暂停</summary>
-        public string SuspendOnDefaultDoorOpenMessage => GetString("SuspendOnDefaultDoorOpenMessage");
-        /// <summary>三色报警灯 [ {0} ]</summary>
-        public string LightAlarmMessage => GetString("LightAlarmMessage");
-        /// <summary>系统供电异常: {0} {1}V</summary>
-        public string SystemPowerErrorMessage => GetString("SystemPowerErrorMessage");
-        /// <summary>确认终止所有区的老化吗?</summary>
-        public string AbortAllZonesBurnAskMessage => GetString("AbortAllZonesBurnAskMessage");
-        /// <summary>门 [ {0}] 的类型与配置文件中不匹配，请检查配置文件</summary>
-        public string DoorTypeNotMatchMessage => GetString("DoorTypeNotMatchMessage");
-        /// <summary>确认要开启强电吗？</summary>
-        public string OpenHighVoltageAskMessage => GetString("OpenHighVoltageAskMessage");
-        /// <summary>确认要关闭强电吗？</summary>
-        public string CloseHighVoltageAskMessage => GetString("CloseHighVoltageAskMessage");
-        /// <summary>急停按钮 [ {0} ] 被按下</summary>
-        public string EMOIsPressedMessage => GetString("EMOIsPressedMessage");
-        /// <summary>[ {0} ] 已被打开</summary>
-        public string DoorIsOpenedMessage => GetString("DoorIsOpenedMessage");
-        /// <summary>有老化区处于老化过程中不允许升级固件</summary>
-        public string UpgradeFirmwareWhenAnyZoneRunMessage => GetString("UpgradeFirmwareWhenAnyZoneRunMessage");
-        /// <summary>当前日志文件未找到对应的日志规则，无法查看。请检查配置文件或将该文件放到正确的路径下。</summary>
-        public string LogRuleNotFoundErrorMessage => GetString("LogRuleNotFoundErrorMessage");
-        /// <summary>当前日志文件与已经添加的日志文件规则不一致，无法合并查看。可以清除已经添加的日志文件后重试。</summary>
-        public string LogRuleNotSameErrorMessage => GetString("LogRuleNotSameErrorMessage");
-        /// <summary>当前日志文件所在文件夹与已经添加的日志文件所在文件夹不一致，无法合并查看。可以清除已经添加的日志文件后重试。</summary>
-        public string LogFolderNotSameErrorMessage => GetString("LogFolderNotSameErrorMessage");
-        /// <summary>指令 {0} 请求失败。{1}</summary>
-        public string OvenCommandErrorMessage => GetString("OvenCommandErrorMessage");
-        /// <summary>指令 {0} 请求成功。{1}</summary>
-        public string OvenCommandSuccessMessage => GetString("OvenCommandSuccessMessage");
-        /// <summary>连接成功</summary>
-        public string ConnectedMessage => GetString("ConnectedMessage");
-        /// <summary>断开连接</summary>
-        public string DisconnectedMessage => GetString("DisconnectedMessage");
-        /// <summary>自检信息：{0}</summary>
-        public string FirmwareSelfCheckMessage => GetString("FirmwareSelfCheckMessage");
-        /// <summary>工作线程已启动!</summary>
-        public string WorkerThreadStartedMessage => GetString("WorkerThreadStartedMessage");
-        /// <summary>工作线程已退出!</summary>
-        public string WorkerThreadEndedMessage => GetString("WorkerThreadEndedMessage");
 
         protected override void OnLanguageChanged()
         {
             OnPropertyChanged(nameof(CurrentLanguage));
+            OnPropertyChanged(nameof(Enum_DeviceMode_Production));
+            OnPropertyChanged(nameof(Enum_DeviceMode_Engineering));
+            OnPropertyChanged(nameof(Enum_DeviceMode_Administrator));
+            OnPropertyChanged(nameof(Enum_OvenMode_Off));
+            OnPropertyChanged(nameof(Enum_OvenMode_Standby));
+            OnPropertyChanged(nameof(Enum_OvenMode_Constant));
+            OnPropertyChanged(nameof(Enum_OvenMode_Run));
+            OnPropertyChanged(nameof(Enum_OvenMode_Offline));
+            OnPropertyChanged(nameof(Enum_TimeUnit_Second));
+            OnPropertyChanged(nameof(Enum_TimeUnit_Minute));
+            OnPropertyChanged(nameof(Enum_TimeUnit_Hour));
+            OnPropertyChanged(nameof(Enum_TimeUnit_Day));
+            OnPropertyChanged(nameof(Enum_RunMode_Time));
+            OnPropertyChanged(nameof(Enum_RunMode_Times));
+            OnPropertyChanged(nameof(Enum_CoolingMode_Air));
+            OnPropertyChanged(nameof(Enum_CoolingMode_Water));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_Version));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SyncTime));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_PlugedState));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_BurnControl));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_BurnProcess));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_PatternError));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_PowerState));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_TriggerChannel));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_ThermostatPID));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_ConfigFlag));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SetDpsPlan));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SetPattern));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SetRegister));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SetStep));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SetPowerUp));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SetPowerDown));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_Thermostat));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SelfCheck));
+            OnPropertyChanged(nameof(Enum_LVControlBoardCode_Version));
+            OnPropertyChanged(nameof(Enum_LVControlBoardCode_SyncTime));
+            OnPropertyChanged(nameof(Enum_LVControlBoardCode_LightAlarm));
+            OnPropertyChanged(nameof(Enum_LVControlBoardCode_Smoke));
+            OnPropertyChanged(nameof(Enum_LVControlBoardCode_Emergency));
+            OnPropertyChanged(nameof(Enum_LVControlBoardCode_OvenDoor));
+            OnPropertyChanged(nameof(Enum_LVControlBoardCode_PowerDoor));
+            OnPropertyChanged(nameof(Enum_LVControlBoardCode_SystemPower));
+            OnPropertyChanged(nameof(Enum_LVControlBoardCode_TriggerChannel));
+            OnPropertyChanged(nameof(Enum_LVControlBoardCode_SelfCheck));
+            OnPropertyChanged(nameof(Enum_VerticalAdapterBoardCode_Version));
+            OnPropertyChanged(nameof(Enum_VerticalAdapterBoardCode_SyncTime));
+            OnPropertyChanged(nameof(Enum_VerticalAdapterBoardCode_BmcPower));
+            OnPropertyChanged(nameof(Enum_VerticalAdapterBoardCode_PrePower));
+            OnPropertyChanged(nameof(Enum_VerticalAdapterBoardCode_TriggerChannel));
+            OnPropertyChanged(nameof(Enum_VerticalAdapterBoardCode_SelfCheck));
+            OnPropertyChanged(nameof(Enum_ZoneState_Init));
+            OnPropertyChanged(nameof(Enum_ZoneState_Idle));
+            OnPropertyChanged(nameof(Enum_ZoneState_Ready));
+            OnPropertyChanged(nameof(Enum_ZoneState_Burning));
+            OnPropertyChanged(nameof(Enum_ZoneState_Suspend));
+            OnPropertyChanged(nameof(Enum_ZoneState_Stop));
+            OnPropertyChanged(nameof(Enum_ZoneState_Finish));
+            OnPropertyChanged(nameof(Enum_ZoneState_PowerUp));
+            OnPropertyChanged(nameof(Enum_ZoneState_PowerDown));
+            OnPropertyChanged(nameof(Enum_ZoneState_SelfCheck));
+            OnPropertyChanged(nameof(Enum_ZoneState_Upgrading));
+            OnPropertyChanged(nameof(Enum_ZoneState_Offline));
+            OnPropertyChanged(nameof(Enum_ZoneState_IcSending));
+            OnPropertyChanged(nameof(Enum_ZoneState_Error));
+            OnPropertyChanged(nameof(Enum_DutState_Idle));
+            OnPropertyChanged(nameof(Enum_DutState_Test));
+            OnPropertyChanged(nameof(Enum_DutState_Pass));
+            OnPropertyChanged(nameof(Enum_DutState_Fail));
+            OnPropertyChanged(nameof(Enum_DutState_Ignore));
+            OnPropertyChanged(nameof(Enum_BoardType_DriverBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_BaseBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_DigitalBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_AnalogBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_DPSControlBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_DPS));
+            OnPropertyChanged(nameof(Enum_BoardType_VIH));
+            OnPropertyChanged(nameof(Enum_BoardType_PPSControlBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_TempAcquisitionBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_BMC));
+            OnPropertyChanged(nameof(Enum_BoardType_FB10V10A));
+            OnPropertyChanged(nameof(Enum_BoardType_FB06V25A));
+            OnPropertyChanged(nameof(Enum_BoardType_FB06V50A));
+            OnPropertyChanged(nameof(Enum_BoardType_HB20V20A));
+            OnPropertyChanged(nameof(Enum_BoardType_HB45V10A));
+            OnPropertyChanged(nameof(Enum_BoardType_VerticalAdapterBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_BIBAdapterBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_IOControllerBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_AuxiliaryBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_HVControlBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_LVControlBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_BurnInBoard));
+            OnPropertyChanged(nameof(Enum_DpsState_Output));
+            OnPropertyChanged(nameof(Enum_DpsState_Ovp));
+            OnPropertyChanged(nameof(Enum_DpsState_Uvp));
+            OnPropertyChanged(nameof(Enum_DpsState_Ocp));
+            OnPropertyChanged(nameof(Enum_DpsState_Idle));
+            OnPropertyChanged(nameof(Enum_PatternErrorType_Load));
+            OnPropertyChanged(nameof(Enum_PatternErrorType_Decode));
+            OnPropertyChanged(nameof(Enum_PatternErrorType_Timeout));
+            OnPropertyChanged(nameof(Enum_TriggerOutputType_Close));
+            OnPropertyChanged(nameof(Enum_TriggerOutputType_Signal));
+            OnPropertyChanged(nameof(Enum_TriggerOutputType_Sync));
+            OnPropertyChanged(nameof(Enum_UpgradeState_Updating));
+            OnPropertyChanged(nameof(Enum_UpgradeState_Finish));
+            OnPropertyChanged(nameof(Enum_UpgradeState_Erase));
+            OnPropertyChanged(nameof(Enum_UpgradeState_SwitchBoardFail));
+            OnPropertyChanged(nameof(Enum_UpgradeState_WriteTimeFail));
+            OnPropertyChanged(nameof(Enum_UpgradeState_ReadFlashIdFail));
+            OnPropertyChanged(nameof(Enum_UpgradeState_TimeOut));
+            OnPropertyChanged(nameof(Enum_UpgradeState_Other));
+            OnPropertyChanged(nameof(Enum_UpgradeState_CommunicateFail));
+            OnPropertyChanged(nameof(Enum_UpgradeState_DataVerifyFail));
+            OnPropertyChanged(nameof(Enum_UpgradeState_Error));
+            OnPropertyChanged(nameof(Enum_LightAlarmState_Red));
+            OnPropertyChanged(nameof(Enum_LightAlarmState_Yellow));
+            OnPropertyChanged(nameof(Enum_LightAlarmState_Green));
+            OnPropertyChanged(nameof(Enum_LightAlarmState_Alarm));
+            OnPropertyChanged(nameof(Enum_DpsPlanPurpose_Default));
+            OnPropertyChanged(nameof(Enum_DpsPlanPurpose_PowerUp));
+            OnPropertyChanged(nameof(Enum_DpsPlanPurpose_PowerDown));
+            OnPropertyChanged(nameof(Enum_LogLevel_Trace));
+            OnPropertyChanged(nameof(Enum_LogLevel_Debug));
+            OnPropertyChanged(nameof(Enum_LogLevel_Info));
+            OnPropertyChanged(nameof(Enum_LogLevel_Warn));
+            OnPropertyChanged(nameof(Enum_LogLevel_Error));
+            OnPropertyChanged(nameof(Enum_LogLevel_Fatal));
+            OnPropertyChanged(nameof(Enum_HVControlBoardCode_Version));
+            OnPropertyChanged(nameof(Enum_HVControlBoardCode_SyncTime));
+            OnPropertyChanged(nameof(Enum_HVControlBoardCode_LightAlarm));
+            OnPropertyChanged(nameof(Enum_HVControlBoardCode_Smoke));
+            OnPropertyChanged(nameof(Enum_HVControlBoardCode_Emergency));
+            OnPropertyChanged(nameof(Enum_HVControlBoardCode_Door));
+            OnPropertyChanged(nameof(Enum_HVControlBoardCode_HighVoltage));
+            OnPropertyChanged(nameof(Enum_HVControlBoardCode_SelfCheck));
+            OnPropertyChanged(nameof(Enum_HVStateErrorType_AC1));
+            OnPropertyChanged(nameof(Enum_HVStateErrorType_AC2));
+            OnPropertyChanged(nameof(Enum_HVStateErrorType_AC3));
+            OnPropertyChanged(nameof(Enum_HVStateErrorType_AC4));
+            OnPropertyChanged(nameof(Enum_HVStateErrorType_AC5));
+            OnPropertyChanged(nameof(Enum_HVStateErrorType_AC6));
+            OnPropertyChanged(nameof(Enum_HVState_Close));
+            OnPropertyChanged(nameof(Enum_HVState_PowerUp));
+            OnPropertyChanged(nameof(Enum_HVState_PowerDown));
+            OnPropertyChanged(nameof(Enum_HVState_Open));
+            OnPropertyChanged(nameof(Enum_HVState_Offline));
+            OnPropertyChanged(nameof(Enum_HVState_Error));
+            OnPropertyChanged(nameof(Enum_DoorType_Default));
+            OnPropertyChanged(nameof(Enum_DoorType_Oven));
+            OnPropertyChanged(nameof(Enum_DoorType_Power));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_ConnectionState));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_EnviormentVariables));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_ConfigFiles));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_OutputVoltage));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_InputVoltage));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_OutputCurrent));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_InputCurrent));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_OutputTemperature));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_ExpandIO));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_DAC));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_FPGA));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_Flash));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_ADC));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_LVDS));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_EEPROM));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_ReadRegister));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_WriteRegister));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_Pass));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_ConnectionError));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_EnviormentVariablesLost));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_ConfigFilesLost));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_ConfigFilesError));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_VoltageTooHigh));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_VoltageTooLow));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_CurrentTooHigh));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_CurrentTooLow));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_TemperatureTooHigh));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_TemperatureTooLow));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_MemoryAddressError));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_DataReadError));
+            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_DataWriteError));
+            OnPropertyChanged(nameof(Enum_TriggerVerticalDirection_Left));
+            OnPropertyChanged(nameof(Enum_TriggerVerticalDirection_Right));
+            OnPropertyChanged(nameof(UnhandledExceptionMessage));
+            OnPropertyChanged(nameof(AppHasLaunchedMessage));
+            OnPropertyChanged(nameof(AppStartMessage));
+            OnPropertyChanged(nameof(AppExitMessage));
+            OnPropertyChanged(nameof(ConfigModifiedMessage));
+            OnPropertyChanged(nameof(IllegalDongleMessage));
+            OnPropertyChanged(nameof(DongleExpireMessage));
+            OnPropertyChanged(nameof(FileImportSuccessMessage));
+            OnPropertyChanged(nameof(FileImportFailureMessage));
+            OnPropertyChanged(nameof(FileExportSuccessMessage));
+            OnPropertyChanged(nameof(FileExportFailureMessage));
+            OnPropertyChanged(nameof(FileCreatedSuccessMessage));
+            OnPropertyChanged(nameof(FileCreatedFailureMessage));
+            OnPropertyChanged(nameof(FileDeletedSuccessMessage));
+            OnPropertyChanged(nameof(FileDeletedFailureMessage));
+            OnPropertyChanged(nameof(FileNotExistMessage));
+            OnPropertyChanged(nameof(FileExistMessage));
+            OnPropertyChanged(nameof(FileSaveSuccessMessage));
+            OnPropertyChanged(nameof(FileSaveFailureMessage));
+            OnPropertyChanged(nameof(FileSaveAsSuccessMessage));
+            OnPropertyChanged(nameof(FileSaveAsFailureMessage));
+            OnPropertyChanged(nameof(FileRefreshSuccessMessage));
+            OnPropertyChanged(nameof(FileRefreshFailureMessage));
+            OnPropertyChanged(nameof(ZoneInitFailureMessage));
+            OnPropertyChanged(nameof(DeleteAskMessage));
+            OnPropertyChanged(nameof(DeleteIcLibraryMessage));
+            OnPropertyChanged(nameof(ImportIcLibraryExistMessage));
+            OnPropertyChanged(nameof(ImportIcFileExistMessage));
+            OnPropertyChanged(nameof(IcFileUnsavedMessage));
+            OnPropertyChanged(nameof(IcFileNotExistMessage));
+            OnPropertyChanged(nameof(IcFileInUsedMessage));
+            OnPropertyChanged(nameof(IcLibraryInUsedMessage));
+            OnPropertyChanged(nameof(IcLibraryNotExistIcFileMessage));
+            OnPropertyChanged(nameof(IcLibraryNotExistMessage));
+            OnPropertyChanged(nameof(IcFileModifiedReselectMessage));
+            OnPropertyChanged(nameof(IcFileDeletedReselectMessage));
+            OnPropertyChanged(nameof(NameNotNullMessage));
+            OnPropertyChanged(nameof(NameNotExceedMessage));
+            OnPropertyChanged(nameof(NameIllegalMessage));
+            OnPropertyChanged(nameof(NameExistMessage));
+            OnPropertyChanged(nameof(DeviceConfigParseFailureMessage));
+            OnPropertyChanged(nameof(InitMessage));
+            OnPropertyChanged(nameof(InitEndMessage));
+            OnPropertyChanged(nameof(ClosingAppWhenAnyZoneRunMessage));
+            OnPropertyChanged(nameof(MustBeInRangMessage));
+            OnPropertyChanged(nameof(PowerDownValueMustZeroMessage));
+            OnPropertyChanged(nameof(ValidStringRuleMessage));
+            OnPropertyChanged(nameof(FileParseErrorMessage));
+            OnPropertyChanged(nameof(FileLengthErrorMessage));
+            OnPropertyChanged(nameof(AbmFileNotMatchMessage));
+            OnPropertyChanged(nameof(AskMoveStepMessage));
+            OnPropertyChanged(nameof(AskDeleteStepMessage));
+            OnPropertyChanged(nameof(SmokyPromptMessage));
+            OnPropertyChanged(nameof(OvenOfflinePromptMessage));
+            OnPropertyChanged(nameof(DoorOpenedPromptMessage));
+            OnPropertyChanged(nameof(DoorClosedPromptMessage));
+            OnPropertyChanged(nameof(OvenErrorPromptMessage));
+            OnPropertyChanged(nameof(EmoPressedPromptMessage));
+            OnPropertyChanged(nameof(AskOvenPowerOffMessage));
+            OnPropertyChanged(nameof(AskOvenOneClickCoolMessage));
+            OnPropertyChanged(nameof(AskOvenDoorUnlockMessage));
+            OnPropertyChanged(nameof(DeviceCheckFailMessage));
+            OnPropertyChanged(nameof(AnalysisFrameErrorMessage));
+            OnPropertyChanged(nameof(Crc32NotMatchMessage));
+            OnPropertyChanged(nameof(FrameEndingNotMatchMessage));
+            OnPropertyChanged(nameof(PlugedMessage));
+            OnPropertyChanged(nameof(UnplugedMessage));
+            OnPropertyChanged(nameof(PleaseSetMessage));
+            OnPropertyChanged(nameof(AtleastOneStepMessage));
+            OnPropertyChanged(nameof(AtleastOneSubStepMessage));
+            OnPropertyChanged(nameof(AtleastEnableOneDpsMessage));
+            OnPropertyChanged(nameof(StateMessage));
+            OnPropertyChanged(nameof(PatternErrorMessage));
+            OnPropertyChanged(nameof(DeviceErrorMessage));
+            OnPropertyChanged(nameof(IcErrorMessage));
+            OnPropertyChanged(nameof(SendIcDataMessage));
+            OnPropertyChanged(nameof(CurrentStepMessage));
+            OnPropertyChanged(nameof(BmcPowerErrorMessage));
+            OnPropertyChanged(nameof(PrePowerErrorMessage));
+            OnPropertyChanged(nameof(StopOnSmokyMeesage));
+            OnPropertyChanged(nameof(StopOnOvenErrorMessage));
+            OnPropertyChanged(nameof(StopOnEmergencyMessage));
+            OnPropertyChanged(nameof(SuspendOnOvenDoorOpenMessage));
+            OnPropertyChanged(nameof(SuspendOnOvenOfflineMessage));
+            OnPropertyChanged(nameof(SuspendOnPowerDoorOpenMessage));
+            OnPropertyChanged(nameof(SuspendOnDefaultDoorOpenMessage));
+            OnPropertyChanged(nameof(LightAlarmMessage));
+            OnPropertyChanged(nameof(SystemPowerErrorMessage));
+            OnPropertyChanged(nameof(AbortAllZonesBurnAskMessage));
+            OnPropertyChanged(nameof(DoorTypeNotMatchMessage));
+            OnPropertyChanged(nameof(OpenHighVoltageAskMessage));
+            OnPropertyChanged(nameof(CloseHighVoltageAskMessage));
+            OnPropertyChanged(nameof(EMOIsPressedMessage));
+            OnPropertyChanged(nameof(DoorIsOpenedMessage));
+            OnPropertyChanged(nameof(UpgradeFirmwareWhenAnyZoneRunMessage));
+            OnPropertyChanged(nameof(LogRuleNotFoundErrorMessage));
+            OnPropertyChanged(nameof(LogRuleNotSameErrorMessage));
+            OnPropertyChanged(nameof(LogFolderNotSameErrorMessage));
+            OnPropertyChanged(nameof(OvenCommandErrorMessage));
+            OnPropertyChanged(nameof(OvenCommandSuccessMessage));
+            OnPropertyChanged(nameof(ConnectedMessage));
+            OnPropertyChanged(nameof(DisconnectedMessage));
+            OnPropertyChanged(nameof(FirmwareSelfCheckMessage));
+            OnPropertyChanged(nameof(WorkerThreadStartedMessage));
+            OnPropertyChanged(nameof(WorkerThreadEndedMessage));
             OnPropertyChanged(nameof(ConceptText));
             OnPropertyChanged(nameof(LicenseCertificationText));
             OnPropertyChanged(nameof(MachineCodeText));
@@ -1329,116 +1980,585 @@
             OnPropertyChanged(nameof(TriggerChannelSettingInfoText));
             OnPropertyChanged(nameof(VerticalBoardDirectionText));
             OnPropertyChanged(nameof(VerticalBoardIndexText));
-            OnPropertyChanged(nameof(UnhandledExceptionMessage));
-            OnPropertyChanged(nameof(AppHasLaunchedMessage));
-            OnPropertyChanged(nameof(AppStartMessage));
-            OnPropertyChanged(nameof(AppExitMessage));
-            OnPropertyChanged(nameof(ConfigModifiedMessage));
-            OnPropertyChanged(nameof(IllegalDongleMessage));
-            OnPropertyChanged(nameof(DongleExpireMessage));
-            OnPropertyChanged(nameof(FileImportSuccessMessage));
-            OnPropertyChanged(nameof(FileImportFailureMessage));
-            OnPropertyChanged(nameof(FileExportSuccessMessage));
-            OnPropertyChanged(nameof(FileExportFailureMessage));
-            OnPropertyChanged(nameof(FileCreatedSuccessMessage));
-            OnPropertyChanged(nameof(FileCreatedFailureMessage));
-            OnPropertyChanged(nameof(FileDeletedSuccessMessage));
-            OnPropertyChanged(nameof(FileDeletedFailureMessage));
-            OnPropertyChanged(nameof(FileNotExistMessage));
-            OnPropertyChanged(nameof(FileExistMessage));
-            OnPropertyChanged(nameof(FileSaveSuccessMessage));
-            OnPropertyChanged(nameof(FileSaveFailureMessage));
-            OnPropertyChanged(nameof(FileSaveAsSuccessMessage));
-            OnPropertyChanged(nameof(FileSaveAsFailureMessage));
-            OnPropertyChanged(nameof(FileRefreshSuccessMessage));
-            OnPropertyChanged(nameof(FileRefreshFailureMessage));
-            OnPropertyChanged(nameof(ZoneInitFailureMessage));
-            OnPropertyChanged(nameof(DeleteAskMessage));
-            OnPropertyChanged(nameof(DeleteIcLibraryMessage));
-            OnPropertyChanged(nameof(ImportIcLibraryExistMessage));
-            OnPropertyChanged(nameof(ImportIcFileExistMessage));
-            OnPropertyChanged(nameof(IcFileUnsavedMessage));
-            OnPropertyChanged(nameof(IcFileNotExistMessage));
-            OnPropertyChanged(nameof(IcFileInUsedMessage));
-            OnPropertyChanged(nameof(IcLibraryInUsedMessage));
-            OnPropertyChanged(nameof(IcLibraryNotExistIcFileMessage));
-            OnPropertyChanged(nameof(IcLibraryNotExistMessage));
-            OnPropertyChanged(nameof(IcFileModifiedReselectMessage));
-            OnPropertyChanged(nameof(IcFileDeletedReselectMessage));
-            OnPropertyChanged(nameof(NameNotNullMessage));
-            OnPropertyChanged(nameof(NameNotExceedMessage));
-            OnPropertyChanged(nameof(NameIllegalMessage));
-            OnPropertyChanged(nameof(NameExistMessage));
-            OnPropertyChanged(nameof(DeviceConfigParseFailureMessage));
-            OnPropertyChanged(nameof(InitMessage));
-            OnPropertyChanged(nameof(InitEndMessage));
-            OnPropertyChanged(nameof(ClosingAppWhenAnyZoneRunMessage));
-            OnPropertyChanged(nameof(MustBeInRangMessage));
-            OnPropertyChanged(nameof(PowerDownValueMustZeroMessage));
-            OnPropertyChanged(nameof(ValidStringRuleMessage));
-            OnPropertyChanged(nameof(FileParseErrorMessage));
-            OnPropertyChanged(nameof(FileLengthErrorMessage));
-            OnPropertyChanged(nameof(AbmFileNotMatchMessage));
-            OnPropertyChanged(nameof(AskMoveStepMessage));
-            OnPropertyChanged(nameof(AskDeleteStepMessage));
-            OnPropertyChanged(nameof(SmokyPromptMessage));
-            OnPropertyChanged(nameof(OvenOfflinePromptMessage));
-            OnPropertyChanged(nameof(DoorOpenedPromptMessage));
-            OnPropertyChanged(nameof(DoorClosedPromptMessage));
-            OnPropertyChanged(nameof(OvenErrorPromptMessage));
-            OnPropertyChanged(nameof(EmoPressedPromptMessage));
-            OnPropertyChanged(nameof(AskOvenPowerOffMessage));
-            OnPropertyChanged(nameof(AskOvenOneClickCoolMessage));
-            OnPropertyChanged(nameof(AskOvenDoorUnlockMessage));
-            OnPropertyChanged(nameof(DeviceCheckFailMessage));
-            OnPropertyChanged(nameof(AnalysisFrameErrorMessage));
-            OnPropertyChanged(nameof(Crc32NotMatchMessage));
-            OnPropertyChanged(nameof(FrameEndingNotMatchMessage));
-            OnPropertyChanged(nameof(PlugedMessage));
-            OnPropertyChanged(nameof(UnplugedMessage));
-            OnPropertyChanged(nameof(PleaseSetMessage));
-            OnPropertyChanged(nameof(AtleastOneStepMessage));
-            OnPropertyChanged(nameof(AtleastOneSubStepMessage));
-            OnPropertyChanged(nameof(AtleastEnableOneDpsMessage));
-            OnPropertyChanged(nameof(StateMessage));
-            OnPropertyChanged(nameof(PatternErrorMessage));
-            OnPropertyChanged(nameof(DeviceErrorMessage));
-            OnPropertyChanged(nameof(IcErrorMessage));
-            OnPropertyChanged(nameof(SendIcDataMessage));
-            OnPropertyChanged(nameof(CurrentStepMessage));
-            OnPropertyChanged(nameof(BmcPowerErrorMessage));
-            OnPropertyChanged(nameof(PrePowerErrorMessage));
-            OnPropertyChanged(nameof(StopOnSmokyMeesage));
-            OnPropertyChanged(nameof(StopOnOvenErrorMessage));
-            OnPropertyChanged(nameof(StopOnEmergencyMessage));
-            OnPropertyChanged(nameof(SuspendOnOvenDoorOpenMessage));
-            OnPropertyChanged(nameof(SuspendOnOvenOfflineMessage));
-            OnPropertyChanged(nameof(SuspendOnPowerDoorOpenMessage));
-            OnPropertyChanged(nameof(SuspendOnDefaultDoorOpenMessage));
-            OnPropertyChanged(nameof(LightAlarmMessage));
-            OnPropertyChanged(nameof(SystemPowerErrorMessage));
-            OnPropertyChanged(nameof(AbortAllZonesBurnAskMessage));
-            OnPropertyChanged(nameof(DoorTypeNotMatchMessage));
-            OnPropertyChanged(nameof(OpenHighVoltageAskMessage));
-            OnPropertyChanged(nameof(CloseHighVoltageAskMessage));
-            OnPropertyChanged(nameof(EMOIsPressedMessage));
-            OnPropertyChanged(nameof(DoorIsOpenedMessage));
-            OnPropertyChanged(nameof(UpgradeFirmwareWhenAnyZoneRunMessage));
-            OnPropertyChanged(nameof(LogRuleNotFoundErrorMessage));
-            OnPropertyChanged(nameof(LogRuleNotSameErrorMessage));
-            OnPropertyChanged(nameof(LogFolderNotSameErrorMessage));
-            OnPropertyChanged(nameof(OvenCommandErrorMessage));
-            OnPropertyChanged(nameof(OvenCommandSuccessMessage));
-            OnPropertyChanged(nameof(ConnectedMessage));
-            OnPropertyChanged(nameof(DisconnectedMessage));
-            OnPropertyChanged(nameof(FirmwareSelfCheckMessage));
-            OnPropertyChanged(nameof(WorkerThreadStartedMessage));
-            OnPropertyChanged(nameof(WorkerThreadEndedMessage));
         }
     }
 
     public static class LangKey
     {
+        /// <summary>生产模式</summary>
+        public const string Enum_DeviceMode_Production = nameof(Enum_DeviceMode_Production);
+        /// <summary>工程模式</summary>
+        public const string Enum_DeviceMode_Engineering = nameof(Enum_DeviceMode_Engineering);
+        /// <summary>管理员模式</summary>
+        public const string Enum_DeviceMode_Administrator = nameof(Enum_DeviceMode_Administrator);
+        /// <summary>待机中</summary>
+        public const string Enum_OvenMode_Off = nameof(Enum_OvenMode_Off);
+        /// <summary>待机中</summary>
+        public const string Enum_OvenMode_Standby = nameof(Enum_OvenMode_Standby);
+        /// <summary>定值运行中</summary>
+        public const string Enum_OvenMode_Constant = nameof(Enum_OvenMode_Constant);
+        /// <summary>程式运行中</summary>
+        public const string Enum_OvenMode_Run = nameof(Enum_OvenMode_Run);
+        /// <summary>离线</summary>
+        public const string Enum_OvenMode_Offline = nameof(Enum_OvenMode_Offline);
+        /// <summary>秒</summary>
+        public const string Enum_TimeUnit_Second = nameof(Enum_TimeUnit_Second);
+        /// <summary>分钟</summary>
+        public const string Enum_TimeUnit_Minute = nameof(Enum_TimeUnit_Minute);
+        /// <summary>小时</summary>
+        public const string Enum_TimeUnit_Hour = nameof(Enum_TimeUnit_Hour);
+        /// <summary>天</summary>
+        public const string Enum_TimeUnit_Day = nameof(Enum_TimeUnit_Day);
+        /// <summary>时间</summary>
+        public const string Enum_RunMode_Time = nameof(Enum_RunMode_Time);
+        /// <summary>次数</summary>
+        public const string Enum_RunMode_Times = nameof(Enum_RunMode_Times);
+        /// <summary>风冷</summary>
+        public const string Enum_CoolingMode_Air = nameof(Enum_CoolingMode_Air);
+        /// <summary>水冷</summary>
+        public const string Enum_CoolingMode_Water = nameof(Enum_CoolingMode_Water);
+        /// <summary>查询版本</summary>
+        public const string Enum_ZoneFunctionCode_Version = nameof(Enum_ZoneFunctionCode_Version);
+        /// <summary>同步时间</summary>
+        public const string Enum_ZoneFunctionCode_SyncTime = nameof(Enum_ZoneFunctionCode_SyncTime);
+        /// <summary>插板状态</summary>
+        public const string Enum_ZoneFunctionCode_PlugedState = nameof(Enum_ZoneFunctionCode_PlugedState);
+        /// <summary>老化控制</summary>
+        public const string Enum_ZoneFunctionCode_BurnControl = nameof(Enum_ZoneFunctionCode_BurnControl);
+        /// <summary>老化流程</summary>
+        public const string Enum_ZoneFunctionCode_BurnProcess = nameof(Enum_ZoneFunctionCode_BurnProcess);
+        /// <summary>向量错误</summary>
+        public const string Enum_ZoneFunctionCode_PatternError = nameof(Enum_ZoneFunctionCode_PatternError);
+        /// <summary>电源状态</summary>
+        public const string Enum_ZoneFunctionCode_PowerState = nameof(Enum_ZoneFunctionCode_PowerState);
+        /// <summary>触发通道</summary>
+        public const string Enum_ZoneFunctionCode_TriggerChannel = nameof(Enum_ZoneFunctionCode_TriggerChannel);
+        /// <summary>温控系数</summary>
+        public const string Enum_ZoneFunctionCode_ThermostatPID = nameof(Enum_ZoneFunctionCode_ThermostatPID);
+        /// <summary>器件发送标志</summary>
+        public const string Enum_ZoneFunctionCode_ConfigFlag = nameof(Enum_ZoneFunctionCode_ConfigFlag);
+        /// <summary>设置电源方案</summary>
+        public const string Enum_ZoneFunctionCode_SetDpsPlan = nameof(Enum_ZoneFunctionCode_SetDpsPlan);
+        /// <summary>设置向量数据</summary>
+        public const string Enum_ZoneFunctionCode_SetPattern = nameof(Enum_ZoneFunctionCode_SetPattern);
+        /// <summary>设置地址数据</summary>
+        public const string Enum_ZoneFunctionCode_SetRegister = nameof(Enum_ZoneFunctionCode_SetRegister);
+        /// <summary>设置老化步次</summary>
+        public const string Enum_ZoneFunctionCode_SetStep = nameof(Enum_ZoneFunctionCode_SetStep);
+        /// <summary>设置上电方案</summary>
+        public const string Enum_ZoneFunctionCode_SetPowerUp = nameof(Enum_ZoneFunctionCode_SetPowerUp);
+        /// <summary>设置下电方案</summary>
+        public const string Enum_ZoneFunctionCode_SetPowerDown = nameof(Enum_ZoneFunctionCode_SetPowerDown);
+        /// <summary>设置独立温控</summary>
+        public const string Enum_ZoneFunctionCode_Thermostat = nameof(Enum_ZoneFunctionCode_Thermostat);
+        /// <summary>固件自检</summary>
+        public const string Enum_ZoneFunctionCode_SelfCheck = nameof(Enum_ZoneFunctionCode_SelfCheck);
+        /// <summary>查询版本</summary>
+        public const string Enum_LVControlBoardCode_Version = nameof(Enum_LVControlBoardCode_Version);
+        /// <summary>同步时间</summary>
+        public const string Enum_LVControlBoardCode_SyncTime = nameof(Enum_LVControlBoardCode_SyncTime);
+        /// <summary>三色报警灯</summary>
+        public const string Enum_LVControlBoardCode_LightAlarm = nameof(Enum_LVControlBoardCode_LightAlarm);
+        /// <summary>烟雾探测器</summary>
+        public const string Enum_LVControlBoardCode_Smoke = nameof(Enum_LVControlBoardCode_Smoke);
+        /// <summary>急停按钮</summary>
+        public const string Enum_LVControlBoardCode_Emergency = nameof(Enum_LVControlBoardCode_Emergency);
+        /// <summary>烘箱门状态</summary>
+        public const string Enum_LVControlBoardCode_OvenDoor = nameof(Enum_LVControlBoardCode_OvenDoor);
+        /// <summary>强电门状态</summary>
+        public const string Enum_LVControlBoardCode_PowerDoor = nameof(Enum_LVControlBoardCode_PowerDoor);
+        /// <summary>系统供电</summary>
+        public const string Enum_LVControlBoardCode_SystemPower = nameof(Enum_LVControlBoardCode_SystemPower);
+        /// <summary>触发通道</summary>
+        public const string Enum_LVControlBoardCode_TriggerChannel = nameof(Enum_LVControlBoardCode_TriggerChannel);
+        /// <summary>固件自检</summary>
+        public const string Enum_LVControlBoardCode_SelfCheck = nameof(Enum_LVControlBoardCode_SelfCheck);
+        /// <summary>查询版本</summary>
+        public const string Enum_VerticalAdapterBoardCode_Version = nameof(Enum_VerticalAdapterBoardCode_Version);
+        /// <summary>同步时间</summary>
+        public const string Enum_VerticalAdapterBoardCode_SyncTime = nameof(Enum_VerticalAdapterBoardCode_SyncTime);
+        /// <summary>BMC供电</summary>
+        public const string Enum_VerticalAdapterBoardCode_BmcPower = nameof(Enum_VerticalAdapterBoardCode_BmcPower);
+        /// <summary>一级电源</summary>
+        public const string Enum_VerticalAdapterBoardCode_PrePower = nameof(Enum_VerticalAdapterBoardCode_PrePower);
+        /// <summary>触发通道</summary>
+        public const string Enum_VerticalAdapterBoardCode_TriggerChannel = nameof(Enum_VerticalAdapterBoardCode_TriggerChannel);
+        /// <summary>固件自检</summary>
+        public const string Enum_VerticalAdapterBoardCode_SelfCheck = nameof(Enum_VerticalAdapterBoardCode_SelfCheck);
+        /// <summary>初始化中</summary>
+        public const string Enum_ZoneState_Init = nameof(Enum_ZoneState_Init);
+        /// <summary>空闲</summary>
+        public const string Enum_ZoneState_Idle = nameof(Enum_ZoneState_Idle);
+        /// <summary>就绪</summary>
+        public const string Enum_ZoneState_Ready = nameof(Enum_ZoneState_Ready);
+        /// <summary>老化中</summary>
+        public const string Enum_ZoneState_Burning = nameof(Enum_ZoneState_Burning);
+        /// <summary>老化暂停</summary>
+        public const string Enum_ZoneState_Suspend = nameof(Enum_ZoneState_Suspend);
+        /// <summary>老化停止</summary>
+        public const string Enum_ZoneState_Stop = nameof(Enum_ZoneState_Stop);
+        /// <summary>老化完成</summary>
+        public const string Enum_ZoneState_Finish = nameof(Enum_ZoneState_Finish);
+        /// <summary>上电中</summary>
+        public const string Enum_ZoneState_PowerUp = nameof(Enum_ZoneState_PowerUp);
+        /// <summary>下电中</summary>
+        public const string Enum_ZoneState_PowerDown = nameof(Enum_ZoneState_PowerDown);
+        /// <summary>自检中</summary>
+        public const string Enum_ZoneState_SelfCheck = nameof(Enum_ZoneState_SelfCheck);
+        /// <summary>升级中</summary>
+        public const string Enum_ZoneState_Upgrading = nameof(Enum_ZoneState_Upgrading);
+        /// <summary>离线</summary>
+        public const string Enum_ZoneState_Offline = nameof(Enum_ZoneState_Offline);
+        /// <summary>传输中</summary>
+        public const string Enum_ZoneState_IcSending = nameof(Enum_ZoneState_IcSending);
+        /// <summary>错误</summary>
+        public const string Enum_ZoneState_Error = nameof(Enum_ZoneState_Error);
+        /// <summary>空闲</summary>
+        public const string Enum_DutState_Idle = nameof(Enum_DutState_Idle);
+        /// <summary>测试中</summary>
+        public const string Enum_DutState_Test = nameof(Enum_DutState_Test);
+        /// <summary>通过</summary>
+        public const string Enum_DutState_Pass = nameof(Enum_DutState_Pass);
+        /// <summary>错误</summary>
+        public const string Enum_DutState_Fail = nameof(Enum_DutState_Fail);
+        /// <summary>忽略</summary>
+        public const string Enum_DutState_Ignore = nameof(Enum_DutState_Ignore);
+        /// <summary>驱动板</summary>
+        public const string Enum_BoardType_DriverBoard = nameof(Enum_BoardType_DriverBoard);
+        /// <summary>底板</summary>
+        public const string Enum_BoardType_BaseBoard = nameof(Enum_BoardType_BaseBoard);
+        /// <summary>数字板</summary>
+        public const string Enum_BoardType_DigitalBoard = nameof(Enum_BoardType_DigitalBoard);
+        /// <summary>模拟板</summary>
+        public const string Enum_BoardType_AnalogBoard = nameof(Enum_BoardType_AnalogBoard);
+        /// <summary>二级电源控制板</summary>
+        public const string Enum_BoardType_DPSControlBoard = nameof(Enum_BoardType_DPSControlBoard);
+        /// <summary>DPS</summary>
+        public const string Enum_BoardType_DPS = nameof(Enum_BoardType_DPS);
+        /// <summary>VIH</summary>
+        public const string Enum_BoardType_VIH = nameof(Enum_BoardType_VIH);
+        /// <summary>一级电源控制板</summary>
+        public const string Enum_BoardType_PPSControlBoard = nameof(Enum_BoardType_PPSControlBoard);
+        /// <summary>温度采集板</summary>
+        public const string Enum_BoardType_TempAcquisitionBoard = nameof(Enum_BoardType_TempAcquisitionBoard);
+        /// <summary>BMC</summary>
+        public const string Enum_BoardType_BMC = nameof(Enum_BoardType_BMC);
+        /// <summary>全砖 10V10A</summary>
+        public const string Enum_BoardType_FB10V10A = nameof(Enum_BoardType_FB10V10A);
+        /// <summary>全砖 06V25A</summary>
+        public const string Enum_BoardType_FB06V25A = nameof(Enum_BoardType_FB06V25A);
+        /// <summary>全砖 06V50A</summary>
+        public const string Enum_BoardType_FB06V50A = nameof(Enum_BoardType_FB06V50A);
+        /// <summary>半砖 20V20A</summary>
+        public const string Enum_BoardType_HB20V20A = nameof(Enum_BoardType_HB20V20A);
+        /// <summary>半砖 45V10A</summary>
+        public const string Enum_BoardType_HB45V10A = nameof(Enum_BoardType_HB45V10A);
+        /// <summary>竖向转接板</summary>
+        public const string Enum_BoardType_VerticalAdapterBoard = nameof(Enum_BoardType_VerticalAdapterBoard);
+        /// <summary>老化转接板</summary>
+        public const string Enum_BoardType_BIBAdapterBoard = nameof(Enum_BoardType_BIBAdapterBoard);
+        /// <summary>I/O控制板</summary>
+        public const string Enum_BoardType_IOControllerBoard = nameof(Enum_BoardType_IOControllerBoard);
+        /// <summary>辅助板</summary>
+        public const string Enum_BoardType_AuxiliaryBoard = nameof(Enum_BoardType_AuxiliaryBoard);
+        /// <summary>强电控制板</summary>
+        public const string Enum_BoardType_HVControlBoard = nameof(Enum_BoardType_HVControlBoard);
+        /// <summary>弱电控制板</summary>
+        public const string Enum_BoardType_LVControlBoard = nameof(Enum_BoardType_LVControlBoard);
+        /// <summary>老化板</summary>
+        public const string Enum_BoardType_BurnInBoard = nameof(Enum_BoardType_BurnInBoard);
+        /// <summary>工作中</summary>
+        public const string Enum_DpsState_Output = nameof(Enum_DpsState_Output);
+        /// <summary>过压</summary>
+        public const string Enum_DpsState_Ovp = nameof(Enum_DpsState_Ovp);
+        /// <summary>欠压</summary>
+        public const string Enum_DpsState_Uvp = nameof(Enum_DpsState_Uvp);
+        /// <summary>过流</summary>
+        public const string Enum_DpsState_Ocp = nameof(Enum_DpsState_Ocp);
+        /// <summary>关闭</summary>
+        public const string Enum_DpsState_Idle = nameof(Enum_DpsState_Idle);
+        /// <summary>向量加载错误</summary>
+        public const string Enum_PatternErrorType_Load = nameof(Enum_PatternErrorType_Load);
+        /// <summary>向量解码错误</summary>
+        public const string Enum_PatternErrorType_Decode = nameof(Enum_PatternErrorType_Decode);
+        /// <summary>向量运行超时</summary>
+        public const string Enum_PatternErrorType_Timeout = nameof(Enum_PatternErrorType_Timeout);
+        /// <summary>关闭</summary>
+        public const string Enum_TriggerOutputType_Close = nameof(Enum_TriggerOutputType_Close);
+        /// <summary>信号</summary>
+        public const string Enum_TriggerOutputType_Signal = nameof(Enum_TriggerOutputType_Signal);
+        /// <summary>Sync</summary>
+        public const string Enum_TriggerOutputType_Sync = nameof(Enum_TriggerOutputType_Sync);
+        /// <summary>升级中</summary>
+        public const string Enum_UpgradeState_Updating = nameof(Enum_UpgradeState_Updating);
+        /// <summary>升级完成</summary>
+        public const string Enum_UpgradeState_Finish = nameof(Enum_UpgradeState_Finish);
+        /// <summary>擦除中</summary>
+        public const string Enum_UpgradeState_Erase = nameof(Enum_UpgradeState_Erase);
+        /// <summary>切换板卡失败</summary>
+        public const string Enum_UpgradeState_SwitchBoardFail = nameof(Enum_UpgradeState_SwitchBoardFail);
+        /// <summary>写入更新时间失败</summary>
+        public const string Enum_UpgradeState_WriteTimeFail = nameof(Enum_UpgradeState_WriteTimeFail);
+        /// <summary>读取FLASH ID失败</summary>
+        public const string Enum_UpgradeState_ReadFlashIdFail = nameof(Enum_UpgradeState_ReadFlashIdFail);
+        /// <summary>更新超时</summary>
+        public const string Enum_UpgradeState_TimeOut = nameof(Enum_UpgradeState_TimeOut);
+        /// <summary>其他</summary>
+        public const string Enum_UpgradeState_Other = nameof(Enum_UpgradeState_Other);
+        /// <summary>通信错误</summary>
+        public const string Enum_UpgradeState_CommunicateFail = nameof(Enum_UpgradeState_CommunicateFail);
+        /// <summary>数据校验失败</summary>
+        public const string Enum_UpgradeState_DataVerifyFail = nameof(Enum_UpgradeState_DataVerifyFail);
+        /// <summary>错误</summary>
+        public const string Enum_UpgradeState_Error = nameof(Enum_UpgradeState_Error);
+        /// <summary>红灯</summary>
+        public const string Enum_LightAlarmState_Red = nameof(Enum_LightAlarmState_Red);
+        /// <summary>黄灯</summary>
+        public const string Enum_LightAlarmState_Yellow = nameof(Enum_LightAlarmState_Yellow);
+        /// <summary>绿灯</summary>
+        public const string Enum_LightAlarmState_Green = nameof(Enum_LightAlarmState_Green);
+        /// <summary>报警</summary>
+        public const string Enum_LightAlarmState_Alarm = nameof(Enum_LightAlarmState_Alarm);
+        /// <summary>默认</summary>
+        public const string Enum_DpsPlanPurpose_Default = nameof(Enum_DpsPlanPurpose_Default);
+        /// <summary>上电</summary>
+        public const string Enum_DpsPlanPurpose_PowerUp = nameof(Enum_DpsPlanPurpose_PowerUp);
+        /// <summary>下电</summary>
+        public const string Enum_DpsPlanPurpose_PowerDown = nameof(Enum_DpsPlanPurpose_PowerDown);
+        /// <summary>跟踪</summary>
+        public const string Enum_LogLevel_Trace = nameof(Enum_LogLevel_Trace);
+        /// <summary>调试</summary>
+        public const string Enum_LogLevel_Debug = nameof(Enum_LogLevel_Debug);
+        /// <summary>消息</summary>
+        public const string Enum_LogLevel_Info = nameof(Enum_LogLevel_Info);
+        /// <summary>警告</summary>
+        public const string Enum_LogLevel_Warn = nameof(Enum_LogLevel_Warn);
+        /// <summary>错误</summary>
+        public const string Enum_LogLevel_Error = nameof(Enum_LogLevel_Error);
+        /// <summary>异常</summary>
+        public const string Enum_LogLevel_Fatal = nameof(Enum_LogLevel_Fatal);
+        /// <summary>查询版本</summary>
+        public const string Enum_HVControlBoardCode_Version = nameof(Enum_HVControlBoardCode_Version);
+        /// <summary>同步时间</summary>
+        public const string Enum_HVControlBoardCode_SyncTime = nameof(Enum_HVControlBoardCode_SyncTime);
+        /// <summary>三色报警灯</summary>
+        public const string Enum_HVControlBoardCode_LightAlarm = nameof(Enum_HVControlBoardCode_LightAlarm);
+        /// <summary>烟雾报警器</summary>
+        public const string Enum_HVControlBoardCode_Smoke = nameof(Enum_HVControlBoardCode_Smoke);
+        /// <summary>急停按钮</summary>
+        public const string Enum_HVControlBoardCode_Emergency = nameof(Enum_HVControlBoardCode_Emergency);
+        /// <summary>门的状态</summary>
+        public const string Enum_HVControlBoardCode_Door = nameof(Enum_HVControlBoardCode_Door);
+        /// <summary>强电控制</summary>
+        public const string Enum_HVControlBoardCode_HighVoltage = nameof(Enum_HVControlBoardCode_HighVoltage);
+        /// <summary>固件自检</summary>
+        public const string Enum_HVControlBoardCode_SelfCheck = nameof(Enum_HVControlBoardCode_SelfCheck);
+        /// <summary>检测板 1</summary>
+        public const string Enum_HVStateErrorType_AC1 = nameof(Enum_HVStateErrorType_AC1);
+        /// <summary>检测板 2</summary>
+        public const string Enum_HVStateErrorType_AC2 = nameof(Enum_HVStateErrorType_AC2);
+        /// <summary>检测板 3</summary>
+        public const string Enum_HVStateErrorType_AC3 = nameof(Enum_HVStateErrorType_AC3);
+        /// <summary>检测板 4</summary>
+        public const string Enum_HVStateErrorType_AC4 = nameof(Enum_HVStateErrorType_AC4);
+        /// <summary>检测板 5</summary>
+        public const string Enum_HVStateErrorType_AC5 = nameof(Enum_HVStateErrorType_AC5);
+        /// <summary>检测板 6</summary>
+        public const string Enum_HVStateErrorType_AC6 = nameof(Enum_HVStateErrorType_AC6);
+        /// <summary>关闭</summary>
+        public const string Enum_HVState_Close = nameof(Enum_HVState_Close);
+        /// <summary>上电中</summary>
+        public const string Enum_HVState_PowerUp = nameof(Enum_HVState_PowerUp);
+        /// <summary>下电中</summary>
+        public const string Enum_HVState_PowerDown = nameof(Enum_HVState_PowerDown);
+        /// <summary>开启</summary>
+        public const string Enum_HVState_Open = nameof(Enum_HVState_Open);
+        /// <summary>离线</summary>
+        public const string Enum_HVState_Offline = nameof(Enum_HVState_Offline);
+        /// <summary>错误</summary>
+        public const string Enum_HVState_Error = nameof(Enum_HVState_Error);
+        /// <summary>设备门</summary>
+        public const string Enum_DoorType_Default = nameof(Enum_DoorType_Default);
+        /// <summary>烘箱门</summary>
+        public const string Enum_DoorType_Oven = nameof(Enum_DoorType_Oven);
+        /// <summary>强电门</summary>
+        public const string Enum_DoorType_Power = nameof(Enum_DoorType_Power);
+        /// <summary>通讯状态</summary>
+        public const string Enum_FirmwareSelfCheckItem_ConnectionState = nameof(Enum_FirmwareSelfCheckItem_ConnectionState);
+        /// <summary>环境变量</summary>
+        public const string Enum_FirmwareSelfCheckItem_EnviormentVariables = nameof(Enum_FirmwareSelfCheckItem_EnviormentVariables);
+        /// <summary>配置文件</summary>
+        public const string Enum_FirmwareSelfCheckItem_ConfigFiles = nameof(Enum_FirmwareSelfCheckItem_ConfigFiles);
+        /// <summary>输出电压</summary>
+        public const string Enum_FirmwareSelfCheckItem_OutputVoltage = nameof(Enum_FirmwareSelfCheckItem_OutputVoltage);
+        /// <summary>输入电压</summary>
+        public const string Enum_FirmwareSelfCheckItem_InputVoltage = nameof(Enum_FirmwareSelfCheckItem_InputVoltage);
+        /// <summary>输出电流</summary>
+        public const string Enum_FirmwareSelfCheckItem_OutputCurrent = nameof(Enum_FirmwareSelfCheckItem_OutputCurrent);
+        /// <summary>输入电流</summary>
+        public const string Enum_FirmwareSelfCheckItem_InputCurrent = nameof(Enum_FirmwareSelfCheckItem_InputCurrent);
+        /// <summary>输出温度</summary>
+        public const string Enum_FirmwareSelfCheckItem_OutputTemperature = nameof(Enum_FirmwareSelfCheckItem_OutputTemperature);
+        /// <summary>扩展IO</summary>
+        public const string Enum_FirmwareSelfCheckItem_ExpandIO = nameof(Enum_FirmwareSelfCheckItem_ExpandIO);
+        /// <summary>数模转换</summary>
+        public const string Enum_FirmwareSelfCheckItem_DAC = nameof(Enum_FirmwareSelfCheckItem_DAC);
+        /// <summary>FPGA</summary>
+        public const string Enum_FirmwareSelfCheckItem_FPGA = nameof(Enum_FirmwareSelfCheckItem_FPGA);
+        /// <summary>闪存</summary>
+        public const string Enum_FirmwareSelfCheckItem_Flash = nameof(Enum_FirmwareSelfCheckItem_Flash);
+        /// <summary>模数转换</summary>
+        public const string Enum_FirmwareSelfCheckItem_ADC = nameof(Enum_FirmwareSelfCheckItem_ADC);
+        /// <summary>差分信号</summary>
+        public const string Enum_FirmwareSelfCheckItem_LVDS = nameof(Enum_FirmwareSelfCheckItem_LVDS);
+        /// <summary>EEPROM</summary>
+        public const string Enum_FirmwareSelfCheckItem_EEPROM = nameof(Enum_FirmwareSelfCheckItem_EEPROM);
+        /// <summary>读寄存器</summary>
+        public const string Enum_FirmwareSelfCheckItem_ReadRegister = nameof(Enum_FirmwareSelfCheckItem_ReadRegister);
+        /// <summary>写寄存器</summary>
+        public const string Enum_FirmwareSelfCheckItem_WriteRegister = nameof(Enum_FirmwareSelfCheckItem_WriteRegister);
+        /// <summary>通过</summary>
+        public const string Enum_FirmwareSelfCheckResult_Pass = nameof(Enum_FirmwareSelfCheckResult_Pass);
+        /// <summary>通讯异常</summary>
+        public const string Enum_FirmwareSelfCheckResult_ConnectionError = nameof(Enum_FirmwareSelfCheckResult_ConnectionError);
+        /// <summary>环境变量丢失</summary>
+        public const string Enum_FirmwareSelfCheckResult_EnviormentVariablesLost = nameof(Enum_FirmwareSelfCheckResult_EnviormentVariablesLost);
+        /// <summary>配置文件丢失</summary>
+        public const string Enum_FirmwareSelfCheckResult_ConfigFilesLost = nameof(Enum_FirmwareSelfCheckResult_ConfigFilesLost);
+        /// <summary>配置文件错误</summary>
+        public const string Enum_FirmwareSelfCheckResult_ConfigFilesError = nameof(Enum_FirmwareSelfCheckResult_ConfigFilesError);
+        /// <summary>电压过高</summary>
+        public const string Enum_FirmwareSelfCheckResult_VoltageTooHigh = nameof(Enum_FirmwareSelfCheckResult_VoltageTooHigh);
+        /// <summary>电压过低</summary>
+        public const string Enum_FirmwareSelfCheckResult_VoltageTooLow = nameof(Enum_FirmwareSelfCheckResult_VoltageTooLow);
+        /// <summary>电流过高</summary>
+        public const string Enum_FirmwareSelfCheckResult_CurrentTooHigh = nameof(Enum_FirmwareSelfCheckResult_CurrentTooHigh);
+        /// <summary>电流过低</summary>
+        public const string Enum_FirmwareSelfCheckResult_CurrentTooLow = nameof(Enum_FirmwareSelfCheckResult_CurrentTooLow);
+        /// <summary>温度过高</summary>
+        public const string Enum_FirmwareSelfCheckResult_TemperatureTooHigh = nameof(Enum_FirmwareSelfCheckResult_TemperatureTooHigh);
+        /// <summary>温度过低</summary>
+        public const string Enum_FirmwareSelfCheckResult_TemperatureTooLow = nameof(Enum_FirmwareSelfCheckResult_TemperatureTooLow);
+        /// <summary>内存地址错误</summary>
+        public const string Enum_FirmwareSelfCheckResult_MemoryAddressError = nameof(Enum_FirmwareSelfCheckResult_MemoryAddressError);
+        /// <summary>数据读取错误</summary>
+        public const string Enum_FirmwareSelfCheckResult_DataReadError = nameof(Enum_FirmwareSelfCheckResult_DataReadError);
+        /// <summary>数据写入错误</summary>
+        public const string Enum_FirmwareSelfCheckResult_DataWriteError = nameof(Enum_FirmwareSelfCheckResult_DataWriteError);
+        /// <summary>位于左侧</summary>
+        public const string Enum_TriggerVerticalDirection_Left = nameof(Enum_TriggerVerticalDirection_Left);
+        /// <summary>位于右侧</summary>
+        public const string Enum_TriggerVerticalDirection_Right = nameof(Enum_TriggerVerticalDirection_Right);
+        /// <summary>未捕获到的异常, {0}</summary>
+        public const string UnhandledExceptionMessage = nameof(UnhandledExceptionMessage);
+        /// <summary>程序已运行</summary>
+        public const string AppHasLaunchedMessage = nameof(AppHasLaunchedMessage);
+        /// <summary>程序启动</summary>
+        public const string AppStartMessage = nameof(AppStartMessage);
+        /// <summary>程序退出</summary>
+        public const string AppExitMessage = nameof(AppExitMessage);
+        /// <summary>Config.ini 配置文件已发生修改。上次文件修改日期：{0}，当前文件修改日期：{1}</summary>
+        public const string ConfigModifiedMessage = nameof(ConfigModifiedMessage);
+        /// <summary>加密锁和设备不匹配, 请联系售后人员</summary>
+        public const string IllegalDongleMessage = nameof(IllegalDongleMessage);
+        /// <summary>设备授权已到期 [ {0:yyyy/MM/dd HH:mm:ss} ], 请联系售后人员</summary>
+        public const string DongleExpireMessage = nameof(DongleExpireMessage);
+        /// <summary>文件导入成功</summary>
+        public const string FileImportSuccessMessage = nameof(FileImportSuccessMessage);
+        /// <summary>文件导入失败</summary>
+        public const string FileImportFailureMessage = nameof(FileImportFailureMessage);
+        /// <summary>文件导出成功</summary>
+        public const string FileExportSuccessMessage = nameof(FileExportSuccessMessage);
+        /// <summary>文件导出失败</summary>
+        public const string FileExportFailureMessage = nameof(FileExportFailureMessage);
+        /// <summary>文件创建成功</summary>
+        public const string FileCreatedSuccessMessage = nameof(FileCreatedSuccessMessage);
+        /// <summary>文件创建失败</summary>
+        public const string FileCreatedFailureMessage = nameof(FileCreatedFailureMessage);
+        /// <summary>文件删除成功</summary>
+        public const string FileDeletedSuccessMessage = nameof(FileDeletedSuccessMessage);
+        /// <summary>文件删除失败</summary>
+        public const string FileDeletedFailureMessage = nameof(FileDeletedFailureMessage);
+        /// <summary>文件不存在</summary>
+        public const string FileNotExistMessage = nameof(FileNotExistMessage);
+        /// <summary>文件已存在</summary>
+        public const string FileExistMessage = nameof(FileExistMessage);
+        /// <summary>文件保存成功</summary>
+        public const string FileSaveSuccessMessage = nameof(FileSaveSuccessMessage);
+        /// <summary>文件保存失败</summary>
+        public const string FileSaveFailureMessage = nameof(FileSaveFailureMessage);
+        /// <summary>文件另存成功</summary>
+        public const string FileSaveAsSuccessMessage = nameof(FileSaveAsSuccessMessage);
+        /// <summary>文件另存失败</summary>
+        public const string FileSaveAsFailureMessage = nameof(FileSaveAsFailureMessage);
+        /// <summary>文件刷新成功</summary>
+        public const string FileRefreshSuccessMessage = nameof(FileRefreshSuccessMessage);
+        /// <summary>文件刷新失败</summary>
+        public const string FileRefreshFailureMessage = nameof(FileRefreshFailureMessage);
+        /// <summary>{0} 区初始化失败，{1}</summary>
+        public const string ZoneInitFailureMessage = nameof(ZoneInitFailureMessage);
+        /// <summary>确定删除所选项目?</summary>
+        public const string DeleteAskMessage = nameof(DeleteAskMessage);
+        /// <summary>器件库可能包含重要的数据文件, 是否删除?</summary>
+        public const string DeleteIcLibraryMessage = nameof(DeleteIcLibraryMessage);
+        /// <summary>已存在同名器件库, 是否重命名?</summary>
+        public const string ImportIcLibraryExistMessage = nameof(ImportIcLibraryExistMessage);
+        /// <summary>已存在同名器件文件, 是否覆盖?</summary>
+        public const string ImportIcFileExistMessage = nameof(ImportIcFileExistMessage);
+        /// <summary>器件 [ {0} ] 已被修改, 是否保存当前修改</summary>
+        public const string IcFileUnsavedMessage = nameof(IcFileUnsavedMessage);
+        /// <summary>器件 [ {0} ] 不存在</summary>
+        public const string IcFileNotExistMessage = nameof(IcFileNotExistMessage);
+        /// <summary>器件 [ {0} ] 正在执行老化, 请停止老化后重试</summary>
+        public const string IcFileInUsedMessage = nameof(IcFileInUsedMessage);
+        /// <summary>器件库 [ {0} ] 中的器件正在执行老化, 请停止老化后重试</summary>
+        public const string IcLibraryInUsedMessage = nameof(IcLibraryInUsedMessage);
+        /// <summary>器件库 [ {0} ] 不存在器件 [ {1} ]</summary>
+        public const string IcLibraryNotExistIcFileMessage = nameof(IcLibraryNotExistIcFileMessage);
+        /// <summary>器件库 [ {0} ] 不存在</summary>
+        public const string IcLibraryNotExistMessage = nameof(IcLibraryNotExistMessage);
+        /// <summary>器件 [ {0} ] 已被修改，状态将被重置到空闲，请重新选择器件</summary>
+        public const string IcFileModifiedReselectMessage = nameof(IcFileModifiedReselectMessage);
+        /// <summary>器件 [ {0} ] 已被删除，状态将被重置到空闲，请重新选择器件</summary>
+        public const string IcFileDeletedReselectMessage = nameof(IcFileDeletedReselectMessage);
+        /// <summary>名称不可以为空或包含空格</summary>
+        public const string NameNotNullMessage = nameof(NameNotNullMessage);
+        /// <summary>名称不可以超过 {0} 位长度</summary>
+        public const string NameNotExceedMessage = nameof(NameNotExceedMessage);
+        /// <summary>名称不能包含下列任何字符 \ / : * ? . " > < |</summary>
+        public const string NameIllegalMessage = nameof(NameIllegalMessage);
+        /// <summary>名称已存在</summary>
+        public const string NameExistMessage = nameof(NameExistMessage);
+        /// <summary>设备配置文件解析失败, 第 {0} 行</summary>
+        public const string DeviceConfigParseFailureMessage = nameof(DeviceConfigParseFailureMessage);
+        /// <summary>初始化中...</summary>
+        public const string InitMessage = nameof(InitMessage);
+        /// <summary>初始化完成</summary>
+        public const string InitEndMessage = nameof(InitEndMessage);
+        /// <summary>老化过程中不允许关闭</summary>
+        public const string ClosingAppWhenAnyZoneRunMessage = nameof(ClosingAppWhenAnyZoneRunMessage);
+        /// <summary>值必须介于 {0}</summary>
+        public const string MustBeInRangMessage = nameof(MustBeInRangMessage);
+        /// <summary>下电方案的设置电压必须设置为 0</summary>
+        public const string PowerDownValueMustZeroMessage = nameof(PowerDownValueMustZeroMessage);
+        /// <summary>仅支持英文字母、数字和下划线</summary>
+        public const string ValidStringRuleMessage = nameof(ValidStringRuleMessage);
+        /// <summary>文件 [ {0} ] 解析失败, 第 {1} 行 {2} 列</summary>
+        public const string FileParseErrorMessage = nameof(FileParseErrorMessage);
+        /// <summary>文件 [ {0} ] 长度不正确, 预期长度为 {1} 字节</summary>
+        public const string FileLengthErrorMessage = nameof(FileLengthErrorMessage);
+        /// <summary>ABM 文件 [ {0} ] 不匹配，请使用该上位机软件中的向量转换工具生成的 ABM 文件</summary>
+        public const string AbmFileNotMatchMessage = nameof(AbmFileNotMatchMessage);
+        /// <summary>检测到循环配置，移动步次顺序会清除所有循环配置, 是否继续?</summary>
+        public const string AskMoveStepMessage = nameof(AskMoveStepMessage);
+        /// <summary>检测到循环配置，删除任意步次会清除所有循环配置, 是否继续?</summary>
+        public const string AskDeleteStepMessage = nameof(AskDeleteStepMessage);
+        /// <summary>检测到烟雾，所有老化即将停止，随后强电将关闭，消除烟雾报警状态后才可重新开启强电 !</summary>
+        public const string SmokyPromptMessage = nameof(SmokyPromptMessage);
+        /// <summary>检测到烘箱离线，请立即检查烘箱通信状态 !</summary>
+        public const string OvenOfflinePromptMessage = nameof(OvenOfflinePromptMessage);
+        /// <summary>检测到{0} [ {1} ] 已打开，请立即检查{2}状态 !</summary>
+        public const string DoorOpenedPromptMessage = nameof(DoorOpenedPromptMessage);
+        /// <summary>{0} [ {1} ] 已关闭 !</summary>
+        public const string DoorClosedPromptMessage = nameof(DoorClosedPromptMessage);
+        /// <summary>检测到烘箱异常报警 [ {0} ]，请立即检查烘箱状态 !</summary>
+        public const string OvenErrorPromptMessage = nameof(OvenErrorPromptMessage);
+        /// <summary>检测到急停按钮 [ {0} ] 被按下，请确认是否人为操作 !</summary>
+        public const string EmoPressedPromptMessage = nameof(EmoPressedPromptMessage);
+        /// <summary>是否执行 [ 停止烘箱 ] 操作 ?</summary>
+        public const string AskOvenPowerOffMessage = nameof(AskOvenPowerOffMessage);
+        /// <summary>是否执行 [ 一键降温 ] 操作 ?</summary>
+        public const string AskOvenOneClickCoolMessage = nameof(AskOvenOneClickCoolMessage);
+        /// <summary>是否执行 [ 开锁 ] 操作 ?</summary>
+        public const string AskOvenDoorUnlockMessage = nameof(AskOvenDoorUnlockMessage);
+        /// <summary>自检错误，请联系售后人员</summary>
+        public const string DeviceCheckFailMessage = nameof(DeviceCheckFailMessage);
+        /// <summary>报文解析错误，{0}</summary>
+        public const string AnalysisFrameErrorMessage = nameof(AnalysisFrameErrorMessage);
+        /// <summary>CRC32不匹配，{0}</summary>
+        public const string Crc32NotMatchMessage = nameof(Crc32NotMatchMessage);
+        /// <summary>帧尾不匹配</summary>
+        public const string FrameEndingNotMatchMessage = nameof(FrameEndingNotMatchMessage);
+        /// <summary>老化板插入</summary>
+        public const string PlugedMessage = nameof(PlugedMessage);
+        /// <summary>老化板卸下</summary>
+        public const string UnplugedMessage = nameof(UnplugedMessage);
+        /// <summary>请设置 [ {0} ]</summary>
+        public const string PleaseSetMessage = nameof(PleaseSetMessage);
+        /// <summary>至少需要配置一个步次</summary>
+        public const string AtleastOneStepMessage = nameof(AtleastOneStepMessage);
+        /// <summary>至少需要配置一个子步次</summary>
+        public const string AtleastOneSubStepMessage = nameof(AtleastOneSubStepMessage);
+        /// <summary>至少需要配置一个启用的电源</summary>
+        public const string AtleastEnableOneDpsMessage = nameof(AtleastEnableOneDpsMessage);
+        /// <summary>当前状态 [ {0} ]</summary>
+        public const string StateMessage = nameof(StateMessage);
+        /// <summary>向量 [ {0} ] 运行错误, 请检查步次 [ {1} ], 子步次 [ {2} ] 中的向量配置</summary>
+        public const string PatternErrorMessage = nameof(PatternErrorMessage);
+        /// <summary>设备异常; 请联系售后人员! 错误码 [ {0} ]</summary>
+        public const string DeviceErrorMessage = nameof(DeviceErrorMessage);
+        /// <summary>器件配置错误, 请检查后重试! {0}</summary>
+        public const string IcErrorMessage = nameof(IcErrorMessage);
+        /// <summary>发送器件数据 [ {0} ]</summary>
+        public const string SendIcDataMessage = nameof(SendIcDataMessage);
+        /// <summary>当前步次 [ {0} ] ; 子步次 [ {1} ]</summary>
+        public const string CurrentStepMessage = nameof(CurrentStepMessage);
+        /// <summary>BMC供电异常, {0} {1}V</summary>
+        public const string BmcPowerErrorMessage = nameof(BmcPowerErrorMessage);
+        /// <summary>一级电源异常, PPS {0} {1}</summary>
+        public const string PrePowerErrorMessage = nameof(PrePowerErrorMessage);
+        /// <summary>检测到烟雾，老化已停止</summary>
+        public const string StopOnSmokyMeesage = nameof(StopOnSmokyMeesage);
+        /// <summary>检测到烘箱异常，老化已停止</summary>
+        public const string StopOnOvenErrorMessage = nameof(StopOnOvenErrorMessage);
+        /// <summary>检测到急停按钮被按下，老化已停止</summary>
+        public const string StopOnEmergencyMessage = nameof(StopOnEmergencyMessage);
+        /// <summary>检测到烘箱门 [ {0} ] 被打开，老化已暂停</summary>
+        public const string SuspendOnOvenDoorOpenMessage = nameof(SuspendOnOvenDoorOpenMessage);
+        /// <summary>检测到烘箱离线，老化已暂停</summary>
+        public const string SuspendOnOvenOfflineMessage = nameof(SuspendOnOvenOfflineMessage);
+        /// <summary>检测到强电门 [ {0} ] 被打开，老化已暂停</summary>
+        public const string SuspendOnPowerDoorOpenMessage = nameof(SuspendOnPowerDoorOpenMessage);
+        /// <summary>检测到设备门 [ {0} ] 被打开，老化已暂停</summary>
+        public const string SuspendOnDefaultDoorOpenMessage = nameof(SuspendOnDefaultDoorOpenMessage);
+        /// <summary>三色报警灯 [ {0} ]</summary>
+        public const string LightAlarmMessage = nameof(LightAlarmMessage);
+        /// <summary>系统供电异常: {0} {1}V</summary>
+        public const string SystemPowerErrorMessage = nameof(SystemPowerErrorMessage);
+        /// <summary>确认终止所有区的老化吗?</summary>
+        public const string AbortAllZonesBurnAskMessage = nameof(AbortAllZonesBurnAskMessage);
+        /// <summary>门 [ {0}] 的类型与配置文件中不匹配，请检查配置文件</summary>
+        public const string DoorTypeNotMatchMessage = nameof(DoorTypeNotMatchMessage);
+        /// <summary>确认要开启强电吗？</summary>
+        public const string OpenHighVoltageAskMessage = nameof(OpenHighVoltageAskMessage);
+        /// <summary>确认要关闭强电吗？</summary>
+        public const string CloseHighVoltageAskMessage = nameof(CloseHighVoltageAskMessage);
+        /// <summary>急停按钮 [ {0} ] 被按下</summary>
+        public const string EMOIsPressedMessage = nameof(EMOIsPressedMessage);
+        /// <summary>[ {0} ] 已被打开</summary>
+        public const string DoorIsOpenedMessage = nameof(DoorIsOpenedMessage);
+        /// <summary>有老化区处于老化过程中不允许升级固件</summary>
+        public const string UpgradeFirmwareWhenAnyZoneRunMessage = nameof(UpgradeFirmwareWhenAnyZoneRunMessage);
+        /// <summary>当前日志文件未找到对应的日志规则，无法查看。请检查配置文件或将该文件放到正确的路径下。</summary>
+        public const string LogRuleNotFoundErrorMessage = nameof(LogRuleNotFoundErrorMessage);
+        /// <summary>当前日志文件与已经添加的日志文件规则不一致，无法合并查看。可以清除已经添加的日志文件后重试。</summary>
+        public const string LogRuleNotSameErrorMessage = nameof(LogRuleNotSameErrorMessage);
+        /// <summary>当前日志文件所在文件夹与已经添加的日志文件所在文件夹不一致，无法合并查看。可以清除已经添加的日志文件后重试。</summary>
+        public const string LogFolderNotSameErrorMessage = nameof(LogFolderNotSameErrorMessage);
+        /// <summary>指令 {0} 请求失败。{1}</summary>
+        public const string OvenCommandErrorMessage = nameof(OvenCommandErrorMessage);
+        /// <summary>指令 {0} 请求成功。{1}</summary>
+        public const string OvenCommandSuccessMessage = nameof(OvenCommandSuccessMessage);
+        /// <summary>连接成功</summary>
+        public const string ConnectedMessage = nameof(ConnectedMessage);
+        /// <summary>断开连接</summary>
+        public const string DisconnectedMessage = nameof(DisconnectedMessage);
+        /// <summary>自检信息：{0}</summary>
+        public const string FirmwareSelfCheckMessage = nameof(FirmwareSelfCheckMessage);
+        /// <summary>工作线程已启动!</summary>
+        public const string WorkerThreadStartedMessage = nameof(WorkerThreadStartedMessage);
+        /// <summary>工作线程已退出!</summary>
+        public const string WorkerThreadEndedMessage = nameof(WorkerThreadEndedMessage);
         /// <summary>见微知著·科技赋能·创造非凡价值</summary>
         public const string ConceptText = nameof(ConceptText);
         /// <summary>许可认证</summary>
@@ -2179,216 +3299,6 @@
         public const string VerticalBoardDirectionText = nameof(VerticalBoardDirectionText);
         /// <summary>竖向板索引</summary>
         public const string VerticalBoardIndexText = nameof(VerticalBoardIndexText);
-        /// <summary>未捕获到的异常, {0}</summary>
-        public const string UnhandledExceptionMessage = nameof(UnhandledExceptionMessage);
-        /// <summary>程序已运行</summary>
-        public const string AppHasLaunchedMessage = nameof(AppHasLaunchedMessage);
-        /// <summary>程序启动</summary>
-        public const string AppStartMessage = nameof(AppStartMessage);
-        /// <summary>程序退出</summary>
-        public const string AppExitMessage = nameof(AppExitMessage);
-        /// <summary>Config.ini 配置文件已发生修改。上次文件修改日期：{0}，当前文件修改日期：{1}</summary>
-        public const string ConfigModifiedMessage = nameof(ConfigModifiedMessage);
-        /// <summary>加密锁和设备不匹配, 请联系售后人员</summary>
-        public const string IllegalDongleMessage = nameof(IllegalDongleMessage);
-        /// <summary>设备授权已到期 [ {0:yyyy/MM/dd HH:mm:ss} ], 请联系售后人员</summary>
-        public const string DongleExpireMessage = nameof(DongleExpireMessage);
-        /// <summary>文件导入成功</summary>
-        public const string FileImportSuccessMessage = nameof(FileImportSuccessMessage);
-        /// <summary>文件导入失败</summary>
-        public const string FileImportFailureMessage = nameof(FileImportFailureMessage);
-        /// <summary>文件导出成功</summary>
-        public const string FileExportSuccessMessage = nameof(FileExportSuccessMessage);
-        /// <summary>文件导出失败</summary>
-        public const string FileExportFailureMessage = nameof(FileExportFailureMessage);
-        /// <summary>文件创建成功</summary>
-        public const string FileCreatedSuccessMessage = nameof(FileCreatedSuccessMessage);
-        /// <summary>文件创建失败</summary>
-        public const string FileCreatedFailureMessage = nameof(FileCreatedFailureMessage);
-        /// <summary>文件删除成功</summary>
-        public const string FileDeletedSuccessMessage = nameof(FileDeletedSuccessMessage);
-        /// <summary>文件删除失败</summary>
-        public const string FileDeletedFailureMessage = nameof(FileDeletedFailureMessage);
-        /// <summary>文件不存在</summary>
-        public const string FileNotExistMessage = nameof(FileNotExistMessage);
-        /// <summary>文件已存在</summary>
-        public const string FileExistMessage = nameof(FileExistMessage);
-        /// <summary>文件保存成功</summary>
-        public const string FileSaveSuccessMessage = nameof(FileSaveSuccessMessage);
-        /// <summary>文件保存失败</summary>
-        public const string FileSaveFailureMessage = nameof(FileSaveFailureMessage);
-        /// <summary>文件另存成功</summary>
-        public const string FileSaveAsSuccessMessage = nameof(FileSaveAsSuccessMessage);
-        /// <summary>文件另存失败</summary>
-        public const string FileSaveAsFailureMessage = nameof(FileSaveAsFailureMessage);
-        /// <summary>文件刷新成功</summary>
-        public const string FileRefreshSuccessMessage = nameof(FileRefreshSuccessMessage);
-        /// <summary>文件刷新失败</summary>
-        public const string FileRefreshFailureMessage = nameof(FileRefreshFailureMessage);
-        /// <summary>{0} 区初始化失败，{1}</summary>
-        public const string ZoneInitFailureMessage = nameof(ZoneInitFailureMessage);
-        /// <summary>确定删除所选项目?</summary>
-        public const string DeleteAskMessage = nameof(DeleteAskMessage);
-        /// <summary>器件库可能包含重要的数据文件, 是否删除?</summary>
-        public const string DeleteIcLibraryMessage = nameof(DeleteIcLibraryMessage);
-        /// <summary>已存在同名器件库, 是否重命名?</summary>
-        public const string ImportIcLibraryExistMessage = nameof(ImportIcLibraryExistMessage);
-        /// <summary>已存在同名器件文件, 是否覆盖?</summary>
-        public const string ImportIcFileExistMessage = nameof(ImportIcFileExistMessage);
-        /// <summary>器件 [ {0} ] 已被修改, 是否保存当前修改</summary>
-        public const string IcFileUnsavedMessage = nameof(IcFileUnsavedMessage);
-        /// <summary>器件 [ {0} ] 不存在</summary>
-        public const string IcFileNotExistMessage = nameof(IcFileNotExistMessage);
-        /// <summary>器件 [ {0} ] 正在执行老化, 请停止老化后重试</summary>
-        public const string IcFileInUsedMessage = nameof(IcFileInUsedMessage);
-        /// <summary>器件库 [ {0} ] 中的器件正在执行老化, 请停止老化后重试</summary>
-        public const string IcLibraryInUsedMessage = nameof(IcLibraryInUsedMessage);
-        /// <summary>器件库 [ {0} ] 不存在器件 [ {1} ]</summary>
-        public const string IcLibraryNotExistIcFileMessage = nameof(IcLibraryNotExistIcFileMessage);
-        /// <summary>器件库 [ {0} ] 不存在</summary>
-        public const string IcLibraryNotExistMessage = nameof(IcLibraryNotExistMessage);
-        /// <summary>器件 [ {0} ] 已被修改，状态将被重置到空闲，请重新选择器件</summary>
-        public const string IcFileModifiedReselectMessage = nameof(IcFileModifiedReselectMessage);
-        /// <summary>器件 [ {0} ] 已被删除，状态将被重置到空闲，请重新选择器件</summary>
-        public const string IcFileDeletedReselectMessage = nameof(IcFileDeletedReselectMessage);
-        /// <summary>名称不可以为空或包含空格</summary>
-        public const string NameNotNullMessage = nameof(NameNotNullMessage);
-        /// <summary>名称不可以超过 {0} 位长度</summary>
-        public const string NameNotExceedMessage = nameof(NameNotExceedMessage);
-        /// <summary>名称不能包含下列任何字符 \ / : * ? . " > < |</summary>
-        public const string NameIllegalMessage = nameof(NameIllegalMessage);
-        /// <summary>名称已存在</summary>
-        public const string NameExistMessage = nameof(NameExistMessage);
-        /// <summary>设备配置文件解析失败, 第 {0} 行</summary>
-        public const string DeviceConfigParseFailureMessage = nameof(DeviceConfigParseFailureMessage);
-        /// <summary>初始化中...</summary>
-        public const string InitMessage = nameof(InitMessage);
-        /// <summary>初始化完成</summary>
-        public const string InitEndMessage = nameof(InitEndMessage);
-        /// <summary>老化过程中不允许关闭</summary>
-        public const string ClosingAppWhenAnyZoneRunMessage = nameof(ClosingAppWhenAnyZoneRunMessage);
-        /// <summary>值必须介于 {0}</summary>
-        public const string MustBeInRangMessage = nameof(MustBeInRangMessage);
-        /// <summary>下电方案的设置电压必须设置为 0</summary>
-        public const string PowerDownValueMustZeroMessage = nameof(PowerDownValueMustZeroMessage);
-        /// <summary>仅支持英文字母、数字和下划线</summary>
-        public const string ValidStringRuleMessage = nameof(ValidStringRuleMessage);
-        /// <summary>文件 [ {0} ] 解析失败, 第 {1} 行 {2} 列</summary>
-        public const string FileParseErrorMessage = nameof(FileParseErrorMessage);
-        /// <summary>文件 [ {0} ] 长度不正确, 预期长度为 {1} 字节</summary>
-        public const string FileLengthErrorMessage = nameof(FileLengthErrorMessage);
-        /// <summary>ABM 文件 [ {0} ] 不匹配，请使用该上位机软件中的向量转换工具生成的 ABM 文件</summary>
-        public const string AbmFileNotMatchMessage = nameof(AbmFileNotMatchMessage);
-        /// <summary>检测到循环配置，移动步次顺序会清除所有循环配置, 是否继续?</summary>
-        public const string AskMoveStepMessage = nameof(AskMoveStepMessage);
-        /// <summary>检测到循环配置，删除任意步次会清除所有循环配置, 是否继续?</summary>
-        public const string AskDeleteStepMessage = nameof(AskDeleteStepMessage);
-        /// <summary>检测到烟雾，所有老化即将停止，随后强电将关闭，消除烟雾报警状态后才可重新开启强电 !</summary>
-        public const string SmokyPromptMessage = nameof(SmokyPromptMessage);
-        /// <summary>检测到烘箱离线，请立即检查烘箱通信状态 !</summary>
-        public const string OvenOfflinePromptMessage = nameof(OvenOfflinePromptMessage);
-        /// <summary>检测到{0} [ {1} ] 已打开，请立即检查{2}状态 !</summary>
-        public const string DoorOpenedPromptMessage = nameof(DoorOpenedPromptMessage);
-        /// <summary>{0} [ {1} ] 已关闭 !</summary>
-        public const string DoorClosedPromptMessage = nameof(DoorClosedPromptMessage);
-        /// <summary>检测到烘箱异常报警 [ {0} ]，请立即检查烘箱状态 !</summary>
-        public const string OvenErrorPromptMessage = nameof(OvenErrorPromptMessage);
-        /// <summary>检测到急停按钮 [ {0} ] 被按下，请确认是否人为操作 !</summary>
-        public const string EmoPressedPromptMessage = nameof(EmoPressedPromptMessage);
-        /// <summary>是否执行 [ 停止烘箱 ] 操作 ?</summary>
-        public const string AskOvenPowerOffMessage = nameof(AskOvenPowerOffMessage);
-        /// <summary>是否执行 [ 一键降温 ] 操作 ?</summary>
-        public const string AskOvenOneClickCoolMessage = nameof(AskOvenOneClickCoolMessage);
-        /// <summary>是否执行 [ 开锁 ] 操作 ?</summary>
-        public const string AskOvenDoorUnlockMessage = nameof(AskOvenDoorUnlockMessage);
-        /// <summary>自检错误，请联系售后人员</summary>
-        public const string DeviceCheckFailMessage = nameof(DeviceCheckFailMessage);
-        /// <summary>报文解析错误，{0}</summary>
-        public const string AnalysisFrameErrorMessage = nameof(AnalysisFrameErrorMessage);
-        /// <summary>CRC32不匹配，{0}</summary>
-        public const string Crc32NotMatchMessage = nameof(Crc32NotMatchMessage);
-        /// <summary>帧尾不匹配</summary>
-        public const string FrameEndingNotMatchMessage = nameof(FrameEndingNotMatchMessage);
-        /// <summary>老化板插入</summary>
-        public const string PlugedMessage = nameof(PlugedMessage);
-        /// <summary>老化板卸下</summary>
-        public const string UnplugedMessage = nameof(UnplugedMessage);
-        /// <summary>请设置 [ {0} ]</summary>
-        public const string PleaseSetMessage = nameof(PleaseSetMessage);
-        /// <summary>至少需要配置一个步次</summary>
-        public const string AtleastOneStepMessage = nameof(AtleastOneStepMessage);
-        /// <summary>至少需要配置一个子步次</summary>
-        public const string AtleastOneSubStepMessage = nameof(AtleastOneSubStepMessage);
-        /// <summary>至少需要配置一个启用的电源</summary>
-        public const string AtleastEnableOneDpsMessage = nameof(AtleastEnableOneDpsMessage);
-        /// <summary>当前状态 [ {0} ]</summary>
-        public const string StateMessage = nameof(StateMessage);
-        /// <summary>向量 [ {0} ] 运行错误, 请检查步次 [ {1} ], 子步次 [ {2} ] 中的向量配置</summary>
-        public const string PatternErrorMessage = nameof(PatternErrorMessage);
-        /// <summary>设备异常; 请联系售后人员! 错误码 [ {0} ]</summary>
-        public const string DeviceErrorMessage = nameof(DeviceErrorMessage);
-        /// <summary>器件配置错误, 请检查后重试! {0}</summary>
-        public const string IcErrorMessage = nameof(IcErrorMessage);
-        /// <summary>发送器件数据 [ {0} ]</summary>
-        public const string SendIcDataMessage = nameof(SendIcDataMessage);
-        /// <summary>当前步次 [ {0} ] ; 子步次 [ {1} ]</summary>
-        public const string CurrentStepMessage = nameof(CurrentStepMessage);
-        /// <summary>BMC供电异常, {0} {1}V</summary>
-        public const string BmcPowerErrorMessage = nameof(BmcPowerErrorMessage);
-        /// <summary>一级电源异常, PPS {0} {1}</summary>
-        public const string PrePowerErrorMessage = nameof(PrePowerErrorMessage);
-        /// <summary>检测到烟雾，老化已停止</summary>
-        public const string StopOnSmokyMeesage = nameof(StopOnSmokyMeesage);
-        /// <summary>检测到烘箱异常，老化已停止</summary>
-        public const string StopOnOvenErrorMessage = nameof(StopOnOvenErrorMessage);
-        /// <summary>检测到急停按钮被按下，老化已停止</summary>
-        public const string StopOnEmergencyMessage = nameof(StopOnEmergencyMessage);
-        /// <summary>检测到烘箱门 [ {0} ] 被打开，老化已暂停</summary>
-        public const string SuspendOnOvenDoorOpenMessage = nameof(SuspendOnOvenDoorOpenMessage);
-        /// <summary>检测到烘箱离线，老化已暂停</summary>
-        public const string SuspendOnOvenOfflineMessage = nameof(SuspendOnOvenOfflineMessage);
-        /// <summary>检测到强电门 [ {0} ] 被打开，老化已暂停</summary>
-        public const string SuspendOnPowerDoorOpenMessage = nameof(SuspendOnPowerDoorOpenMessage);
-        /// <summary>检测到设备门 [ {0} ] 被打开，老化已暂停</summary>
-        public const string SuspendOnDefaultDoorOpenMessage = nameof(SuspendOnDefaultDoorOpenMessage);
-        /// <summary>三色报警灯 [ {0} ]</summary>
-        public const string LightAlarmMessage = nameof(LightAlarmMessage);
-        /// <summary>系统供电异常: {0} {1}V</summary>
-        public const string SystemPowerErrorMessage = nameof(SystemPowerErrorMessage);
-        /// <summary>确认终止所有区的老化吗?</summary>
-        public const string AbortAllZonesBurnAskMessage = nameof(AbortAllZonesBurnAskMessage);
-        /// <summary>门 [ {0}] 的类型与配置文件中不匹配，请检查配置文件</summary>
-        public const string DoorTypeNotMatchMessage = nameof(DoorTypeNotMatchMessage);
-        /// <summary>确认要开启强电吗？</summary>
-        public const string OpenHighVoltageAskMessage = nameof(OpenHighVoltageAskMessage);
-        /// <summary>确认要关闭强电吗？</summary>
-        public const string CloseHighVoltageAskMessage = nameof(CloseHighVoltageAskMessage);
-        /// <summary>急停按钮 [ {0} ] 被按下</summary>
-        public const string EMOIsPressedMessage = nameof(EMOIsPressedMessage);
-        /// <summary>[ {0} ] 已被打开</summary>
-        public const string DoorIsOpenedMessage = nameof(DoorIsOpenedMessage);
-        /// <summary>有老化区处于老化过程中不允许升级固件</summary>
-        public const string UpgradeFirmwareWhenAnyZoneRunMessage = nameof(UpgradeFirmwareWhenAnyZoneRunMessage);
-        /// <summary>当前日志文件未找到对应的日志规则，无法查看。请检查配置文件或将该文件放到正确的路径下。</summary>
-        public const string LogRuleNotFoundErrorMessage = nameof(LogRuleNotFoundErrorMessage);
-        /// <summary>当前日志文件与已经添加的日志文件规则不一致，无法合并查看。可以清除已经添加的日志文件后重试。</summary>
-        public const string LogRuleNotSameErrorMessage = nameof(LogRuleNotSameErrorMessage);
-        /// <summary>当前日志文件所在文件夹与已经添加的日志文件所在文件夹不一致，无法合并查看。可以清除已经添加的日志文件后重试。</summary>
-        public const string LogFolderNotSameErrorMessage = nameof(LogFolderNotSameErrorMessage);
-        /// <summary>指令 {0} 请求失败。{1}</summary>
-        public const string OvenCommandErrorMessage = nameof(OvenCommandErrorMessage);
-        /// <summary>指令 {0} 请求成功。{1}</summary>
-        public const string OvenCommandSuccessMessage = nameof(OvenCommandSuccessMessage);
-        /// <summary>连接成功</summary>
-        public const string ConnectedMessage = nameof(ConnectedMessage);
-        /// <summary>断开连接</summary>
-        public const string DisconnectedMessage = nameof(DisconnectedMessage);
-        /// <summary>自检信息：{0}</summary>
-        public const string FirmwareSelfCheckMessage = nameof(FirmwareSelfCheckMessage);
-        /// <summary>工作线程已启动!</summary>
-        public const string WorkerThreadStartedMessage = nameof(WorkerThreadStartedMessage);
-        /// <summary>工作线程已退出!</summary>
-        public const string WorkerThreadEndedMessage = nameof(WorkerThreadEndedMessage);
     }
 
     [MarkupExtensionReturnType(typeof(object))]

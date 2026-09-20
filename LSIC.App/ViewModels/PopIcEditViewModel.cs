@@ -17,9 +17,13 @@ namespace LSIC.App.ViewModels
         public IRelayCommand DeleteCommand { get; private set; }
         public IRelayCommand ImportCommand { get; private set; }
         public IRelayCommand ExportCommand { get; private set; }
+        public IRelayCommand SelectBurnInBoardFileCommand { get; private set; }
         public PopIcEditViewModel()
         {
             Ics.CollectionChanged += OnIcsCollectionChanged;
+
+            SelectBurnInBoardFileCommand = new RelayCommand(SelectBurnInBoardFile);
+
             CreateNewCommand = new RelayCommand(CreateNew);
             SaveCommand = new RelayCommand(Save, CanSave);
             //SaveAsCommand = new RelayCommand(SaveAs, CanSaveAs);
@@ -64,6 +68,19 @@ namespace LSIC.App.ViewModels
         {
             return SelectedIc != null;
         }
+        private void SelectBurnInBoardFile()
+        {
+            string filter = $"{LangProvider.Instance.DutConfigFileText}|*.elm";
+            string currentFile = SelectedIc.Target.BurnInBoardFile;
+
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.SelectFile, [filter, currentFile])).First();
+
+            if (msgResult.Result is string filePath)
+            {
+                SelectedIc.Target.BurnInBoardFile = filePath;
+            }
+        }
+
         private void OnIcsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)
