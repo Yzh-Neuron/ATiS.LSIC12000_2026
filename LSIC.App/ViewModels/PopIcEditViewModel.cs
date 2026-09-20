@@ -1,28 +1,25 @@
-﻿namespace LSIC.App.ViewModels
+﻿using System.Collections.Specialized;
+
+namespace LSIC.App.ViewModels
 {
-    public class PopIcEditViewModel : ObservableObject
+    public class PopIcEditViewModel : ObservableObject, IDisposable
     {
-        private ObservableCollection<Ic> _ics;
-        public ObservableCollection<Ic> Ics
-        {
-            get => _ics;
-            set => SetProperty(ref _ics, value);
-        }
-        private Ic _selectedIc;
-        public Ic SelectedIc
+        public ObservableCollection<DirtyObserver<Ic>> Ics { get; } = new();
+        private DirtyObserver<Ic> _selectedIc;
+        public DirtyObserver<Ic> SelectedIc
         {
             get => _selectedIc;
             set => SetProperty(ref _selectedIc, value);
         }
-        public ICommand CreateNewCommand { get; private set; }
-        public ICommand SaveCommand { get; private set; }
-        public ICommand SaveAsCommand { get; private set; }
-        public ICommand DeleteCommand { get; private set; }
-        public ICommand ImportCommand { get; private set; }
-        public ICommand ExportCommand { get; private set; }
+        public IRelayCommand CreateNewCommand { get; private set; }
+        public IRelayCommand SaveCommand { get; private set; }
+        public IRelayCommand SaveAsCommand { get; private set; }
+        public IRelayCommand DeleteCommand { get; private set; }
+        public IRelayCommand ImportCommand { get; private set; }
+        public IRelayCommand ExportCommand { get; private set; }
         public PopIcEditViewModel()
         {
-            Ics = new ObservableCollection<Ic>();
+            Ics.CollectionChanged += OnIcsCollectionChanged;
             CreateNewCommand = new RelayCommand(CreateNew);
             SaveCommand = new RelayCommand(Save, CanSave);
             //SaveAsCommand = new RelayCommand(SaveAs, CanSaveAs);
@@ -30,15 +27,13 @@
             //ImportCommand = new RelayCommand(Import, CanImport);
             //ExportCommand = new RelayCommand(Export, CanExport);
         }
-
-
         private void CreateNew()
         {
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.InputName, [LangProvider.Instance.CreateNewText, Ics.Select(i => i.Name)])).First();
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.InputName, [LangProvider.Instance.CreateNewText, Ics.Select(i => i.Target.Name)])).First();
 
             if (msgResult.Result is string name)
             {
-                Ic ic = new Ic(name);
+                var ic = new DirtyObserver<Ic>(new Ic(name));
                 Ics.Add(ic);
                 SelectedIc = ic;
             }
@@ -51,17 +46,9 @@
         {
             return true;
         }
-
-
-
-        private bool CanDelete()
-        {
-            return SelectedIc != null ;
-        }
-
         private void Delete()
         {
-            Ic ic = SelectedIc;
+            var ic = SelectedIc;
 
             var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.DeleteAskMessage, MessageType.Question])).First();
 
@@ -69,8 +56,56 @@
             {
                 return;
             }
-
+            SelectedIc = null;
             Ics.Remove(ic);
+        }
+        private bool CanDelete()
+        {
+            return SelectedIc != null;
+        }
+        private void OnIcsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (var item in e.NewItems.Cast<DirtyObserver<Ic>>())
+                {
+                    item.IsDirtyChanged += OnIsDirtyChanged;
+                }
+            }
+
+            if (e.OldItems != null)
+            {
+                foreach (var item in e.OldItems.Cast<DirtyObserver<Ic>>())
+                {
+                    item.IsDirtyChanged -= OnIsDirtyChanged;
+                    item.Dispose();
+                }
+            }
+        }
+        private void OnIsDirtyChanged(object sender, EventArgs e)
+        {
+            NotifyCanExecuteChanged();
+        }
+        private void NotifyCanExecuteChanged()
+        {
+            CreateNewCommand?.NotifyCanExecuteChanged();
+            SaveCommand?.NotifyCanExecuteChanged();
+            SaveAsCommand?.NotifyCanExecuteChanged();
+            DeleteCommand?.NotifyCanExecuteChanged();
+            ImportCommand?.NotifyCanExecuteChanged();
+            ExportCommand?.NotifyCanExecuteChanged();
+        }
+        public void Dispose()
+        {
+            Ics.CollectionChanged -= OnIcsCollectionChanged;
+
+            foreach (var item in Ics)
+            {
+                item.IsDirtyChanged -= OnIsDirtyChanged;
+                item.Dispose();
+            }
+
+            Ics.Clear();
         }
     }
 }

@@ -12,30 +12,35 @@ namespace ATiS.Sim.Mvvm
         event EventHandler? ManualDirtyRequested;
     }
 
-    public sealed class DirtyObserver : IDisposable
+    public sealed class DirtyObserver<T> : ObservableObject, IDisposable where T : class
     {
         private bool _disposed;
         private readonly HashSet<INotifyPropertyChanged> _trackedInpc = new();
         private readonly HashSet<INotifyCollectionChanged> _trackedInc = new();
         private readonly HashSet<IManualDirtyNotifier> _trackedManual = new();
-
-        public bool IsDirty { get; private set; }
-        public DirtyObserver(object rootTarget)
+        private bool _isDirty;
+        public bool IsDirty
         {
-            if (rootTarget == null)
+            get => _isDirty;
+            set
             {
-                throw new ArgumentNullException(nameof(rootTarget));
+                if (SetProperty(ref _isDirty, value))
+                {
+                    IsDirtyChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
-
+        }
+        public T? Target { get; private set; }
+        public event EventHandler? IsDirtyChanged;
+        public DirtyObserver(T rootTarget)
+        {
+            ArgumentNullException.ThrowIfNull(rootTarget);
             SubscribeRecursive(rootTarget, new HashSet<object>());
+            Target = rootTarget;
         }
         public void MarkDirty()
         {
-            if (_disposed)
-            {
-                return;
-            }
-            IsDirty = true;
+            SetDirty();
         }
         public void Reset()
         {
@@ -45,7 +50,14 @@ namespace ATiS.Sim.Mvvm
             }
             IsDirty = false;
         }
-
+        private void SetDirty()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+            IsDirty = true;
+        }
         private void SubscribeRecursive(object? obj, HashSet<object> visited)
         {
             if (_disposed || obj == null)
@@ -148,14 +160,33 @@ namespace ATiS.Sim.Mvvm
                 }
             }
         }
-
         private void OnAnyPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (_disposed)
             {
                 return;
             }
-            IsDirty = true;
+            SetDirty();
+
+            // 反射取出该属性的新值并递归订阅
+            if (sender != null && !string.IsNullOrEmpty(e.PropertyName))
+            {
+                try
+                {
+                    PropertyInfo? prop = sender.GetType().GetProperty(e.PropertyName, BindingFlags.Public | BindingFlags.Instance);
+                    if (prop != null && prop.GetIndexParameters().Length == 0 && prop.CanRead)
+                    {
+                        object? newValue = prop.GetValue(sender);
+                        if (newValue != null)
+                        {
+                            SubscribeRecursive(newValue, new HashSet<object>());
+                        }
+                    }
+                }
+                catch
+                {
+                }
+            }
         }
         private void OnAnyCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
@@ -163,7 +194,7 @@ namespace ATiS.Sim.Mvvm
             {
                 return;
             }
-            IsDirty = true;
+            SetDirty();
 
             switch (e.Action)
             {
@@ -200,7 +231,9 @@ namespace ATiS.Sim.Mvvm
                     {
                         HashSet<object> visited = new();
                         foreach (var item in e.NewItems)
+                        {
                             SubscribeRecursive(item, visited);
+                        }
                     }
                     break;
 
@@ -226,9 +259,8 @@ namespace ATiS.Sim.Mvvm
             {
                 return;
             }
-            IsDirty = true;
+            SetDirty();
         }
-
         public void Dispose()
         {
             if (_disposed)
@@ -254,6 +286,10 @@ namespace ATiS.Sim.Mvvm
                 manual.ManualDirtyRequested -= OnManualDirtyRequested;
             }
             _trackedManual.Clear();
+
+            IsDirtyChanged = null;
+            Target = null;
+
         }
     }
 }

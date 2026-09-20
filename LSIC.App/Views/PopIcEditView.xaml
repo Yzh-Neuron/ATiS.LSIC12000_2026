@@ -27,7 +27,6 @@
             <ColumnDefinition Width="5" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-
         <Border BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="1"
                 CornerRadius="{StaticResource DefaultCornerRadius}">
@@ -37,6 +36,7 @@
                        Text="{app:Lang {x:Static app:LangKey.IcLibraryText}}" />
         </Border>
 
+        <!--  左侧器件集合栏  -->
         <ListBox Grid.Row="2"
                  Grid.Column="0"
                  ItemsSource="{Binding Ics}"
@@ -64,6 +64,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
+        <!--  上方工具栏  -->
         <Border Grid.Row="0"
                 Grid.Column="2"
                 BorderBrush="{DynamicResource BorderBrush}"
@@ -95,11 +96,12 @@
             </StackPanel>
         </Border>
 
+        <!--  器件编辑区  -->
         <wpf:StateBlock Grid.Row="2"
                         Grid.Column="2"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch"
-                        IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                        IsChecked="{Binding SelectedIc,Converter={StaticResource NullObjectToFalseConverter}}">
             <wpf:StateBlock.UnCheckedContent>
                 <wpf:UiVoid BorderThickness="1" />
             </wpf:StateBlock.UnCheckedContent>

@@ -14,10 +14,13 @@
     <wpf:BoolToVisibilityConverter x:Key="FalseToVisibilityConverter" IsTrueToVisible="False"/>
     <wpf:NullObjectToVisibilityConverter x:Key="NullToVisibilityConverter" IsNullToVisible="True"/>
     <wpf:NullObjectToVisibilityConverter x:Key="NotNullToVisibilityConverter" IsNullToVisible="False"/>
+    <wpf:NullObjectToBoolConverter x:Key="NullObjectToTrueConverter"/>
+    <wpf:NullObjectToBoolConverter x:Key="NullObjectToFalseConverter"/>
     <wpf:IncludeValueToBoolConverter x:Key="IncludeValueToTrueConverter" IsInclueToTrue="True"/>
     <wpf:IncludeValueToBoolConverter x:Key="IncludeValueToFalseConverter" IsInclueToTrue="False"/>
     <wpf:IncludeValueToVisibilityConverter x:Key="IncludeValueToVisibilityConverter" IsInclueToVisible="True"/>
     <wpf:IncludeValueToVisibilityConverter x:Key="IncludeValueToCollapsedConverter" IsInclueToVisible="False"/>
     <wpf:InvertBoolConverter x:Key="InvertBoolConverter" />
     <wpf:BoolToStringConverter x:Key="TrueToTrueStringConverter"/>
+    
 </ResourceDictionary>
