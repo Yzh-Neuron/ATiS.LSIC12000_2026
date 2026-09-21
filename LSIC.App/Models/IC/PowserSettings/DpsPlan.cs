@@ -11,11 +11,16 @@
             get => _name;
             set => SetProperty(ref _name, value);
         }
-        private ObservableCollection<DpsSetting> _dpssSettings;
+        private ObservableCollection<DpsSetting> _dpssSettings = new();
         public ObservableCollection<DpsSetting> DpssSettings
         {
             get => _dpssSettings;
             set => SetProperty(ref _dpssSettings, value);
+        }
+
+        public DpsPlan(string name)
+        {
+            Name = name;
         }
 
     }

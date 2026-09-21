@@ -44,7 +44,7 @@
     <sys:String x:Key="NameNotExceedMessage">Name cannot exceed {0} characters</sys:String>
     <sys:String x:Key="NameIllegalMessage">Cannot contain any of the following characters \ / : * ? . &quot; &gt; &lt; |</sys:String>
     <sys:String x:Key="NameExistMessage">Name already exists</sys:String>
-    <sys:String x:Key="DeviceConfigParseFailureMessage">Config File Error: Line {0}</sys:String>
+    <sys:String x:Key="DeviceConfigParseFailureMessage">Config File Error: {0}</sys:String>
     <sys:String x:Key="InitMessage">Initializing ...</sys:String>
     <sys:String x:Key="InitEndMessage">Initialization complete</sys:String>
     <sys:String x:Key="ClosingAppWhenAnyZoneRunMessage">Can not close app when burning!</sys:String>

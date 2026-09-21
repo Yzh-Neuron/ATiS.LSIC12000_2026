@@ -3,14 +3,15 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:app="clr-namespace:LSIC.App"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:models="clr-namespace:LSIC.App.Models"
                   xmlns:views="clr-namespace:LSIC.App.Views"
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
                   Title="PopTemplateView"
-                  Width="980"
-                  Height="700"
+                  Width="1150"
+                  Height="850"
                   d:DataContext="{d:DesignInstance vms:PopIcEditViewModel}"
                   Icon="/Resources/Icon/icon.ico"
                   ResizeMode="NoResize"
@@ -22,12 +23,12 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
-            <RowDefinition Height="5" />
+            <RowDefinition Height="10" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Border BorderBrush="{DynamicResource BorderBrush}"
@@ -85,7 +86,7 @@
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
                 <Button Margin="5,0,0,0"
-                        Command="{Binding CreateNewCommand}"
+                        Command="{Binding CreateIcCommand}"
                         Content="{app:Lang {x:Static app:LangKey.CreateNewText}}"
                         Style="{StaticResource Button.Borderless}" />
                 <Button Margin="5,0,0,0"
@@ -95,7 +96,7 @@
                         Content="{app:Lang {x:Static app:LangKey.SaveAsText}}"
                         Style="{StaticResource Button.Borderless}" />
                 <Button Margin="5,0,0,0"
-                        Command="{Binding DeleteCommand}"
+                        Command="{Binding DeleteIcCommand}"
                         Content="{app:Lang {x:Static app:LangKey.DeleteText}}"
                         Style="{StaticResource Button.Borderless}" />
                 <Button Margin="5,0,0,0"
@@ -118,9 +119,8 @@
                 <wpf:UiVoid BorderThickness="1" />
             </wpf:StateBlock.UnCheckedContent>
             <wpf:StateBlock.CheckedContent>
-                <TabControl d:DataContext="{d:DesignInstance models:Ic}"
-                            wpf:TabControlHelper.HeaderHeight="{StaticResource DefaultControlHeight}"
-                            DataContext="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedIc.Target}">
+                <TabControl d:DataContext="{d:DesignInstance models:Ic}" DataContext="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedIc.Target}">
+                    <!--  基础设置  -->
                     <TabItem Header="{app:Lang {x:Static app:LangKey.BaseSettingText}}">
                         <Grid Margin="20" Grid.IsSharedSizeScope="True">
                             <Grid.RowDefinitions>
@@ -215,7 +215,122 @@
                             </Grid>
                         </Grid>
                     </TabItem>
-                    <TabItem Header="电源设置" />
+                    <!--  电源设置  -->
+                    <TabItem Header="{app:Lang {x:Static app:LangKey.DpsSettingText}}">
+                        <Grid Margin="10" Grid.IsSharedSizeScope="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <ListView Width="140"
+                                          wpf:ListViewHelper.CanUserResizeColumns="False"
+                                          ItemsSource="{Binding DpsPlans}"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                          SelectedItem="{Binding Data.SelectedDpsPlan, Source={StaticResource MainDataContext}}">
+                                    <i:Interaction.Behaviors>
+                                        <wpf:AutoSelectFirstBehavior />
+                                    </i:Interaction.Behaviors>
+                                    <ListView.View>
+                                        <GridView AllowsColumnReorder="False">
+                                            <GridViewColumn Width="70"
+                                                            DisplayMemberBinding="{Binding Name}"
+                                                            Header="{app:Lang {x:Static app:LangKey.NameText}}" />
+                                            <GridViewColumn Width="70"
+                                                            DisplayMemberBinding="{Binding DpssSettings.Count}"
+                                                            Header="{app:Lang {x:Static app:LangKey.QuantityText}}" />
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+
+                                <wpf:SimplePanel Grid.Row="1"
+                                                 Margin="0,10,0,0"
+                                                 HorizontalAlignment="Stretch">
+                                    <Button HorizontalAlignment="Left"
+                                            Command="{Binding Data.CreateDpsPlanCommand, Source={StaticResource MainDataContext}}"
+                                            Content="{app:Lang {x:Static app:LangKey.CreateNewText}}" />
+                                    <Button HorizontalAlignment="Right"
+                                            Command="{Binding Data.DeleteDpsPlanCommand, Source={StaticResource MainDataContext}}"
+                                            Content="{app:Lang {x:Static app:LangKey.DeleteText}}" />
+                                </wpf:SimplePanel>
+                            </Grid>
+
+                            <Grid Grid.Column="2"
+                                  d:DataContext="{d:DesignInstance models:DpsPlan}"
+                                  DataContext="{Binding Data.SelectedDpsPlan, Source={StaticResource MainDataContext}}"
+                                  Visibility="{Binding Converter={StaticResource NotNullToVisibilityConverter}, Path=.}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <DataGrid CanUserSortColumns="False"
+                                          IsReadOnly="True"
+                                          ItemsSource="{Binding DpssSettings}"
+                                          SelectionMode="Single">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Width="80"
+                                                            Binding="{Binding Name}"
+                                                            Header="{app:Lang {x:Static app:LangKey.DpsText}}" />
+
+                                        <DataGridTextColumn Width="*"
+                                                            Binding="{Binding Uvp, Converter={StaticResource IntegerToDecimalConverter1000}}"
+                                                            Header="{app:Lang {x:Static app:LangKey.VoltageFloorWithUnitText}}" />
+
+                                        <DataGridTextColumn Width="*"
+                                                            Binding="{Binding Vol, Converter={StaticResource IntegerToDecimalConverter1000}}"
+                                                            Header="{app:Lang {x:Static app:LangKey.SetVoltageWithUnitText}}" />
+
+                                        <DataGridTextColumn Width="*"
+                                                            Binding="{Binding Ovp, Converter={StaticResource IntegerToDecimalConverter1000}}"
+                                                            Header="{app:Lang {x:Static app:LangKey.VoltageCeilingWithUnitText}}" />
+
+                                        <DataGridTextColumn Width="*"
+                                                            Binding="{Binding Ocp, Converter={StaticResource IntegerToDecimalConverter1000}}"
+                                                            Header="{app:Lang {x:Static app:LangKey.CurrentCeilingWithUnitText}}" />
+
+                                        <DataGridTextColumn Width="*"
+                                                            Binding="{Binding Raise, Converter={StaticResource IntegerToIntegerConverter}}"
+                                                            Header="{app:Lang {x:Static app:LangKey.RaiseTimeWithUnitText}}" />
+
+                                        <DataGridTextColumn Width="*"
+                                                            Binding="{Binding Delay, Converter={StaticResource IntegerToIntegerConverter}}"
+                                                            Header="{app:Lang {x:Static app:LangKey.DelayWithUnitText}}" />
+
+                                        <DataGridTemplateColumn Width="80" Header="{app:Lang {x:Static app:LangKey.SequenceSettingText}}">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate DataType="{x:Type models:DpsSetting}">
+                                                    <StackPanel HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"
+                                                                Orientation="Horizontal">
+                                                        <Button Margin="0,0,5,0" />
+                                                        <Button />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <wpf:SimplePanel Grid.Row="1"
+                                                 Margin="0,10,0,0"
+                                                 HorizontalAlignment="Stretch">
+                                    <Button HorizontalAlignment="Left"
+                                            Command="{Binding Data.CreateDpsSettingCommand, Source={StaticResource MainDataContext}}"
+                                            Content="{app:Lang {x:Static app:LangKey.CreateNewText}}" />
+                                    <Button HorizontalAlignment="Right"
+                                            Command="{Binding Data.DeleteDpsSettingCommand, Source={StaticResource MainDataContext}}"
+                                            Content="{app:Lang {x:Static app:LangKey.DeleteText}}" />
+                                </wpf:SimplePanel>
+                            </Grid>
+
+                        </Grid>
+                    </TabItem>
                     <TabItem Header="基础设置" />
                 </TabControl>
             </wpf:StateBlock.CheckedContent>

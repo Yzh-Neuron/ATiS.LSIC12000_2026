@@ -42,6 +42,20 @@ namespace ATiS.Sim.Mvvm
         }
 
         [RequiresUnreferencedCode("The type of the current instance cannot be statically discovered.")]
+        public void ValidateProperty([CallerMemberName] string propertyName = null!)
+        {
+            ArgumentNullException.ThrowIfNull(propertyName);
+
+            if (ValidationMetaCache.TryGetValue(GetType(), out var cache)
+                && cache.TryGetValue(propertyName, out ValidationMeta? meta)
+                && meta != null)
+            {
+                object? value = meta.Property.GetValue(this);  
+                ValidateProperty(value, propertyName);         
+            }
+        }
+
+        [RequiresUnreferencedCode("The type of the current instance cannot be statically discovered.")]
         private void ValidateProperty(object? value, [CallerMemberName] string propertyName = null!)
         {
             ArgumentNullException.ThrowIfNull(propertyName);
@@ -96,7 +110,7 @@ namespace ATiS.Sim.Mvvm
                 ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
             }
         }
-        private void ValidateAllProperties()
+        public void ValidateAllProperties()
         {
             Type runtimeType = GetType();
             bool isFirstCreate = false;

@@ -34,7 +34,7 @@
         <Setter Property="BorderThickness" Value="0,0,0,1" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Padding" Value="12,0" />
+        <Setter Property="Padding" Value="{StaticResource DefaultControlPadding}" />
         <Setter Property="MinHeight" Value="{Binding Path=(wpf:ListViewHelper.ColumnHeaderHeight), RelativeSource={RelativeSource AncestorType=ListView}}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -55,9 +55,13 @@
 
                         <Thumb x:Name="PART_HeaderGripper"
                                HorizontalAlignment="Right"
+                               IsHitTestVisible="False"
                                Style="{StaticResource Thumb.GridViewColumnHeaderGripper}" />
                     </wpf:SimplePanel>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="wpf:ListViewHelper.CanUserResizeColumns" Value="True">
+                            <Setter TargetName="PART_HeaderGripper" Property="IsHitTestVisible" Value="True" />
+                        </Trigger>
                         <DataTrigger Value="true">
                             <DataTrigger.Binding>
                                 <MultiBinding Converter="{StaticResource ListViewLastColumnToTrueConverter}">
@@ -172,9 +176,7 @@
                                                 <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" />
                                             </wpf:StateBlock.CheckedContent>
                                             <wpf:StateBlock.UnCheckedContent>
-                                                <wpf:UiVoid Background="{DynamicResource SecondBackgroundBrush}"
-                                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                                            BorderThickness="{TemplateBinding BorderThickness}" />
+                                                <wpf:UiVoid />
                                             </wpf:StateBlock.UnCheckedContent>
                                         </wpf:StateBlock>
                                         <ScrollBar x:Name="PART_VerticalScrollBar"

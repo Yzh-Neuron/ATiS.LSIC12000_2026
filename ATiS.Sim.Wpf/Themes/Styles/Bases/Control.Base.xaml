@@ -8,6 +8,7 @@
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="FontSize" Value="{StaticResource TextFontSize}" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
     </Style>
 
 </ResourceDictionary>

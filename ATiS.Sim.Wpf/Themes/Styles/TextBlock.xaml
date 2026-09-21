@@ -10,6 +10,7 @@
         <Setter Property="TextAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
     </Style>
 
     <Style BasedOn="{StaticResource TextBlock.Default}" TargetType="{x:Type TextBlock}" />

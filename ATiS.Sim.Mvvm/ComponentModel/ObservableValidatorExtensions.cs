@@ -9,60 +9,62 @@ namespace ATiS.Sim.Mvvm
 {
     public static class ObservableValidatorExtensions
     {
+        private static readonly Dictionary<Type, PropertyInfo[]> RecursivePropertiesCache = new();
         public static List<ValidationResult> GetAllErrorsRecursive(this ObservableValidator target)
         {
-            List<ValidationResult> errors = [.. target.GetErrors()];
-
-            PropertyInfo[] properties = target.GetType()
-                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => !p.GetIndexParameters().Any())
-                .ToArray();
-
-            foreach (PropertyInfo property in properties)
+            ArgumentNullException.ThrowIfNull(target);
+            var visited = new HashSet<object>(ReferenceEqualityComparer.Instance);
+            return GetAllErrorsRecursive(target, visited);
+        }
+        private static List<ValidationResult> GetAllErrorsRecursive(ObservableValidator target, HashSet<object> visited)
+        {
+            // 防成环
+            if (!visited.Add(target))
             {
-                Type propType = property.PropertyType;
+                return new List<ValidationResult>();
+            }
+
+            target.ValidateAllProperties();
+            List<ValidationResult> errors = [.. target.GetErrors()];
+            foreach (PropertyInfo property in GetRecursiveProperties(target.GetType()))
+            {
                 object? value = property.GetValue(target);
+                if (value == null) continue;
 
-                if (value != null)
+                if (value is ObservableValidator child)
                 {
-                    if (value is ObservableValidator child)
-                    {
-                        errors.AddRange(child.GetAllErrorsRecursive());
-                        continue;
-                    }
+                    errors.AddRange(GetAllErrorsRecursive(child, visited));
+                    continue;
+                }
 
-                    if (propType != typeof(string) && value is IEnumerable enumerable)
+                if (value is IEnumerable enumerable)
+                {
+                    foreach (object item in enumerable)
                     {
-                        Type? elementType = GetEnumerableElementType(propType);
-                        if (elementType == null || !typeof(ObservableValidator).IsAssignableFrom(elementType))
+                        if (item is ObservableValidator itemValidator)
                         {
-                            continue;
-                        }
-
-                        foreach (object item in enumerable)
-                        {
-                            if (item is ObservableValidator npcItem)
-                            {
-                                errors.AddRange(npcItem.GetAllErrorsRecursive());
-                            }
+                            errors.AddRange(GetAllErrorsRecursive(itemValidator, visited));
                         }
                     }
                 }
             }
+
             return errors;
         }
-        private static Type? GetEnumerableElementType(Type type)
+        private static PropertyInfo[] GetRecursiveProperties(Type type)
         {
-            if (type.IsArray)
+            if (RecursivePropertiesCache.TryGetValue(type, out PropertyInfo[]? cached))
             {
-                return type.GetElementType();
+                return cached;
             }
 
-            Type? ienum = type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>)
-                ? type
-                : type.GetInterfaces().FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+            cached = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => !p.GetIndexParameters().Any())
+                .Where(p => typeof(ObservableValidator).IsAssignableFrom(p.PropertyType) || (p.PropertyType != typeof(string) && typeof(IEnumerable).IsAssignableFrom(p.PropertyType)))
+                .ToArray();
 
-            return ienum?.GetGenericArguments()[0];
+            RecursivePropertiesCache[type] = cached;
+            return cached;
         }
     }
 

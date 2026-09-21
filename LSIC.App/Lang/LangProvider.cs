@@ -449,7 +449,7 @@
         public string NameIllegalMessage => GetString("NameIllegalMessage");
         /// <summary>名称已存在</summary>
         public string NameExistMessage => GetString("NameExistMessage");
-        /// <summary>设备配置文件解析失败, 第 {0} 行</summary>
+        /// <summary>设备配置文件解析失败, {0}</summary>
         public string DeviceConfigParseFailureMessage => GetString("DeviceConfigParseFailureMessage");
         /// <summary>初始化中...</summary>
         public string InitMessage => GetString("InitMessage");
@@ -1319,6 +1319,8 @@
         public string VerticalBoardDirectionText => GetString("VerticalBoardDirectionText");
         /// <summary>竖向板索引</summary>
         public string VerticalBoardIndexText => GetString("VerticalBoardIndexText");
+        /// <summary>电源编辑</summary>
+        public string DpsEditText => GetString("DpsEditText");
 
         protected override void OnLanguageChanged()
         {
@@ -1980,6 +1982,7 @@
             OnPropertyChanged(nameof(TriggerChannelSettingInfoText));
             OnPropertyChanged(nameof(VerticalBoardDirectionText));
             OnPropertyChanged(nameof(VerticalBoardIndexText));
+            OnPropertyChanged(nameof(DpsEditText));
         }
     }
 
@@ -2429,7 +2432,7 @@
         public const string NameIllegalMessage = nameof(NameIllegalMessage);
         /// <summary>名称已存在</summary>
         public const string NameExistMessage = nameof(NameExistMessage);
-        /// <summary>设备配置文件解析失败, 第 {0} 行</summary>
+        /// <summary>设备配置文件解析失败, {0}</summary>
         public const string DeviceConfigParseFailureMessage = nameof(DeviceConfigParseFailureMessage);
         /// <summary>初始化中...</summary>
         public const string InitMessage = nameof(InitMessage);
@@ -3299,6 +3302,8 @@
         public const string VerticalBoardDirectionText = nameof(VerticalBoardDirectionText);
         /// <summary>竖向板索引</summary>
         public const string VerticalBoardIndexText = nameof(VerticalBoardIndexText);
+        /// <summary>电源编辑</summary>
+        public const string DpsEditText = nameof(DpsEditText);
     }
 
     [MarkupExtensionReturnType(typeof(object))]

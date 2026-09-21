@@ -1,6 +1,4 @@
-﻿using Microsoft.Win32;
-
-namespace LSIC.App.Views
+﻿namespace LSIC.App.Views
 {
     public partial class PopIcEditView : IRecipient<MsgArgs<PopIcEditMessage>>
     {
@@ -48,6 +46,19 @@ namespace LSIC.App.Views
                             return MessageResult.From(dialog.FileName);
                         }
                         break;
+                    }
+
+                case PopIcEditMessage.CreateDpsSetting:
+                case PopIcEditMessage.EditDpsSetting:
+                    {
+                        IEnumerable<DpsInfo> optional = e.Args[0] as IEnumerable<DpsInfo>;
+                        DpsSetting dps = e.Args[1] as DpsSetting;
+                        PopDpsSettingEditView pop = new PopDpsSettingEditView(optional, dps)
+                        {
+                            Owner = this
+                        };
+                        pop.ShowDialog();
+                        return MessageResult.From(pop.DpsSetting);
                     }
             }
             return MessageResult.Null();

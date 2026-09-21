@@ -8,6 +8,7 @@
 
         SelectFile,
         Message,
-
+        CreateDpsSetting,
+        EditDpsSetting,
     }
 }

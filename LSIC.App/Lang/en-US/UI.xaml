@@ -406,4 +406,6 @@
     <sys:String x:Key="TriggerChannelSettingInfoText">Trigger Channel Setting</sys:String>
     <sys:String x:Key="VerticalBoardDirectionText">Vert. Board Dir.</sys:String>
     <sys:String x:Key="VerticalBoardIndexText">Vert. Board Index</sys:String>
+    
+    <sys:String x:Key="DpsEditText">Dps Edit</sys:String>
 </ResourceDictionary>

@@ -1,7 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:cvt="clr-namespace:LSIC.App.Converter"
+                    xmlns:cvt="clr-namespace:LSIC.App.Converters"
                     xmlns:models="clr-namespace:LSIC.App.Models">
 
     <cvt:EnumToTextPairsConverter x:Key="EnumToTextPairsConverter" />
+    
+    <cvt:IntegerToIntegerConverter x:Key="IntegerToIntegerConverter" />
+    <cvt:IntegerToDecimalConverter x:Key="IntegerToDecimalConverter1000" Scale="1000" />
+    <cvt:IntegerToDecimalConverter x:Key="IntegerToDecimalConverter10"   Scale="10"   />
+
+    <cvt:IntegerRangeConverter x:Key="IntegerRangeConverter" />
+    <cvt:RangeToStringConverter x:Key="RangeToStringConverter"/>
 </ResourceDictionary>

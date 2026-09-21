@@ -50,6 +50,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Update="Config.ini">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Lang\LangProvider.tt">
 	    <Generator>TextTemplatingFileGenerator</Generator>
 	    <LastGenOutput>LangProvider.cs</LastGenOutput>
@@ -75,12 +78,16 @@
 	  <Compile Update="Views\PopInputNameView.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
+	  <Compile Update="Views\PopDpsSettingEditView.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
 	  <Compile Update="Views\PopVectorEditView.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Attach\" />
 	  <Folder Include="Models\Main\" />
 	</ItemGroup>
 

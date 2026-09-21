@@ -50,6 +50,16 @@
             set => SetProperty(ref _thermostatSettings, value);
         }
 
+
+        //电源信息
+        private ObservableCollection<DpsPlan> _dpsPlans = new();
+        public ObservableCollection<DpsPlan> DpsPlans
+        {
+            get => _dpsPlans;
+            private set => SetProperty(ref _dpsPlans, value);
+        }
+
+
         //临时变量
 
         ///// <summary>

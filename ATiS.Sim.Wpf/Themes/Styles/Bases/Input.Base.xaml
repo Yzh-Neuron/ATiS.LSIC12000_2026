@@ -17,7 +17,6 @@
         <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
                 <Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />

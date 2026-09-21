@@ -44,7 +44,7 @@
     <sys:String x:Key="NameNotExceedMessage">名称不可以超过 {0} 位长度</sys:String>
     <sys:String x:Key="NameIllegalMessage">名称不能包含下列任何字符 \ / : * ? . &quot; &gt; &lt; |</sys:String>
     <sys:String x:Key="NameExistMessage">名称已存在</sys:String>
-    <sys:String x:Key="DeviceConfigParseFailureMessage">设备配置文件解析失败, 第 {0} 行</sys:String>
+    <sys:String x:Key="DeviceConfigParseFailureMessage">设备配置文件解析失败, {0}</sys:String>
     <sys:String x:Key="InitMessage">初始化中...</sys:String>
     <sys:String x:Key="InitEndMessage">初始化完成</sys:String>
     <sys:String x:Key="ClosingAppWhenAnyZoneRunMessage">老化过程中不允许关闭</sys:String>

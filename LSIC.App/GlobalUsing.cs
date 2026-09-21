@@ -13,7 +13,10 @@ global using System.Collections.Generic;
 global using System.IO;
 global using System.Text;
 global using System.ComponentModel.DataAnnotations;
-
+global using System.Collections.Specialized;
+global using System.Globalization;
+global using System.Windows.Data;
+global using Microsoft.Win32;
 
 global using ATiS.Base;
 global using ATiS.Sim.Wpf;

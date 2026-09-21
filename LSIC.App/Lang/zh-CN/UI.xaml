@@ -197,7 +197,7 @@
     <sys:String x:Key="CurrentRegistersText">当前寄存器</sys:String>
     <sys:String x:Key="CurrentStepText">当前步次</sys:String>
     <sys:String x:Key="CurrentDpsPlanText">当前电源方案</sys:String>
-    
+
     <sys:String x:Key="DutText">工位</sys:String>
     <sys:String x:Key="DutEditText">工位编辑</sys:String>
     <sys:String x:Key="RowText">行</sys:String>
@@ -227,7 +227,7 @@
     <sys:String x:Key="TotalPageFormatText">共 {0} 页</sys:String>
     <sys:String x:Key="RefreshText">刷新</sys:String>
 
-    <!--固件信息相关-->
+    <!--  固件信息相关  -->
     <sys:String x:Key="ControlNodeText">控制节点</sys:String>
     <sys:String x:Key="BurnZoneInfoText">老化区信息</sys:String>
     <sys:String x:Key="BorderInfoText">板卡信息</sys:String>
@@ -272,7 +272,7 @@
     <sys:String x:Key="UpgradeText">升级</sys:String>
     <sys:String x:Key="ProgressText">进度</sys:String>
     <sys:String x:Key="FirmwareUpgradePromptText">注意：升级过程中请勿关闭上位机或设备电源！</sys:String>
-        
+
     <sys:String x:Key="CheckZoneControllerConnectionText">请检查当前区和I/O控制板通信</sys:String>
     <sys:String x:Key="ThiLightAlarmText">三色报警灯</sys:String>
     <sys:String x:Key="SmokeAlarmText">烟雾报警器</sys:String>
@@ -280,7 +280,7 @@
     <sys:String x:Key="EmergencyButtonText">急停按钮</sys:String>
 
     <sys:String x:Key="ParameterValidateErrorText">参数校验失败</sys:String>
-    
+
     <sys:String x:Key="RunScriptText">运行脚本</sys:String>
 
     <sys:String x:Key="BatchExportText">批量导出</sys:String>
@@ -355,7 +355,7 @@
     <sys:String x:Key="FatalText">异常</sys:String>
     <sys:String x:Key="FrameFilterText">帧过滤器</sys:String>
 
-    <!--日志数据查看-->
+    <!--  日志数据查看  -->
     <sys:String x:Key="LogFileText">日志文件</sys:String>
     <sys:String x:Key="CsvFileText">CSV文件</sys:String>
     <sys:String x:Key="SelectCurveDataText">选择曲线数据</sys:String>
@@ -406,4 +406,6 @@
     <sys:String x:Key="TriggerChannelSettingInfoText">触发通道设置信息</sys:String>
     <sys:String x:Key="VerticalBoardDirectionText">竖向板位置</sys:String>
     <sys:String x:Key="VerticalBoardIndexText">竖向板索引</sys:String>
+
+    <sys:String x:Key="DpsEditText">电源编辑</sys:String>
 </ResourceDictionary>

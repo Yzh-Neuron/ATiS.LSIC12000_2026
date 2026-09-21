@@ -36,14 +36,9 @@
         public int CurDefault { get; private set; }
 
         /// <summary>
-        /// 电压下限
+        /// 电压极限范围（maxOvp minUvp）
         /// </summary>
-        public int MinUvp { get; private set; }
-
-        /// <summary>
-        /// 电压上限
-        /// </summary>
-        public int MaxOvp { get; private set; }
+        public Range VolLimitRange { get; private set; }
 
         /// <summary>
         /// 最大功率

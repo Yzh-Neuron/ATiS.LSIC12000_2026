@@ -8,7 +8,7 @@
                   xmlns:views="clr-namespace:LSIC.App.Views"
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
-                  Title="WinTemplate"
+                  Title="{app:Lang {x:Static app:LangKey.DpsEditText}}"
                   Width="1280"
                   Height="900"
                   MinWidth="1280"

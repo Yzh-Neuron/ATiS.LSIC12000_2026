@@ -13,9 +13,10 @@
 
     string[] xamlPaths =
     {
-        Path.Combine(templateDir, @"..\..\LSIC.App\Themes\Basic\Language\zh-CN\Enum.xaml"),
-        Path.Combine(templateDir, @"..\..\LSIC.App\Themes\Basic\Language\zh-CN\Message.xaml"),
-        Path.Combine(templateDir, @"..\..\LSIC.App\Themes\Basic\Language\zh-CN\UI.xaml"),
+    
+        Path.Combine(templateDir, @"..\..\LSIC.App\Lang\zh-CN\Enum.xaml"),
+        Path.Combine(templateDir, @"..\..\LSIC.App\Lang\zh-CN\Message.xaml"),
+        Path.Combine(templateDir, @"..\..\LSIC.App\Lang\zh-CN\UI.xaml"),
     };
 
     var kvs = new List<(string Key, string Prop, string Comment)>();
