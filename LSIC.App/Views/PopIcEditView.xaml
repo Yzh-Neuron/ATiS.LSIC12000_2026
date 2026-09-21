@@ -269,10 +269,11 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <DataGrid CanUserSortColumns="False"
+                                <DataGrid wpf:DataGridDragSort.IsEnabled="True"
+                                          CanUserSortColumns="False"
                                           IsReadOnly="True"
                                           ItemsSource="{Binding DpssSettings}"
-                                          SelectionMode="Single">
+                                          >
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="80"
                                                             Binding="{Binding Name}"

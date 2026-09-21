@@ -139,7 +139,7 @@ namespace ATiS.Sim.Wpf
         private static void OnCheckBoxColumnStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var grid = (DataGrid)d;
-            if (e.OldValue == null && e.NewValue != null && e.NewValue!= DependencyProperty.UnsetValue)
+            if (e.OldValue == null && e.NewValue != null && e.NewValue != DependencyProperty.UnsetValue)
             {
                 UpdateCheckBoxColumnStyles(grid);
             }
@@ -187,5 +187,18 @@ namespace ATiS.Sim.Wpf
                 }
             }
         }
+
+
+        //附加选择模式（防止xaml抛异常）
+        public static DataGridSelectionUnit GetSelectionUnit(DependencyObject obj)
+        {
+            return (DataGridSelectionUnit)obj.GetValue(SelectionUnitProperty);
+        }
+        public static void SetSelectionUnit(DependencyObject obj, DataGridSelectionUnit value)
+        {
+            obj.SetValue(SelectionUnitProperty, value);
+        }
+        public static readonly DependencyProperty SelectionUnitProperty =DependencyProperty.RegisterAttached(
+             "SelectionUnit", typeof(DataGridSelectionUnit), typeof(DataGridHelper), new FrameworkPropertyMetadata(DataGridSelectionUnit.FullRow,FrameworkPropertyMetadataOptions.Inherits ));
     }
 }
