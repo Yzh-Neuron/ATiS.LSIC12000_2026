@@ -1,4 +1,6 @@
-﻿namespace LSIC.App.Views
+﻿using System.Windows.Controls;
+
+namespace LSIC.App.Views
 {
     public partial class PopIcEditView : IRecipient<MsgArgs<PopIcEditMessage>>
     {
@@ -66,6 +68,9 @@
 
         protected override void OnClosed(EventArgs e)
         {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
             base.OnClosed(e);
             MessageBus.Default.UnregisterAll(this);
             ViewModel?.Dispose();

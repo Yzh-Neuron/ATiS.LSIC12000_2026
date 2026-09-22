@@ -17,9 +17,13 @@
                 }
             }
         }
-
         public int Id { get; private set; }
-        public string Name { get; private set; }
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value, true);
+        }
 
         private int _vol;
         [ValidationMetadata(Method = nameof(ValidateVol))]
@@ -81,7 +85,27 @@
 
             return dpsSetting;
         }
-
+        public DpsSetting Clone()
+        {
+            var setting = Create(DpsInfo);
+            setting.Vol = Vol;
+            setting.Uvp = Uvp;
+            setting.Ovp = Ovp;
+            setting.Ocp = Ocp;
+            setting.Raise = Raise;
+            setting.Delay = Delay;
+            return setting;
+        }
+        public void Copy(DpsSetting copy)
+        {
+            Vol = copy.Vol;
+            Uvp = copy.Uvp;
+            Ovp = copy.Ovp;
+            Ocp = copy.Ocp;
+            Raise = copy.Raise;
+            Delay = copy.Delay;
+            DpsInfo = copy.DpsInfo;
+        }
         private DpsSetting()
         {
 

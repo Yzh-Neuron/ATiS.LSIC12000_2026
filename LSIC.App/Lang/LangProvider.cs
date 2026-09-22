@@ -3309,7 +3309,12 @@
     [MarkupExtensionReturnType(typeof(object))]
     public class LangExtension : MarkupExtension
     {
+        [ConstructorArgument("PropertyName")]
         public string PropertyName { get; }
+
+        public LangExtension()
+        {
+        }
 
         public LangExtension(string propertyName)
         {

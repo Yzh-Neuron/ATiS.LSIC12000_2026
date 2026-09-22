@@ -30,3 +30,5 @@ global using LSIC.App.Views;
 
 global using OxyPlot;
 global using OxyPlot.Axes;
+
+

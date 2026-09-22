@@ -32,11 +32,32 @@ namespace ATiS.Sim.Wpf
 
             if ((bool)e.NewValue)
             {
-                Attach(grid);
+                grid.Loaded += OnLoaded;
+                grid.Unloaded += OnUnloaded;
+                if (grid.IsLoaded)
+                {
+                    Attach(grid);
+                }
             }
             else
             {
+                grid.Loaded -= OnLoaded;
+                grid.Unloaded -= OnUnloaded;
                 Detach(grid);
+            }
+        }
+        private static void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is DataGrid g && (bool)g.GetValue(IsEnabledProperty))
+            {
+                Attach(g);
+            }
+        }
+        private static void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is DataGrid g)
+            {
+                Detach(grid: g);
             }
         }
         private static void Attach(DataGrid grid)
@@ -53,7 +74,6 @@ namespace ATiS.Sim.Wpf
             grid.Drop += OnDrop;
             grid.AllowDrop = true;
         }
-
         private static void Detach(DataGrid grid)
         {
             if (!(bool)grid.GetValue(IsSubscribedProperty))

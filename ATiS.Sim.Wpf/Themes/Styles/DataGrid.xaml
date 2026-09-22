@@ -248,6 +248,7 @@
     <Style x:Key="DataGridColumnHeader.Default"
            BasedOn="{StaticResource Control.Base}"
            TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />

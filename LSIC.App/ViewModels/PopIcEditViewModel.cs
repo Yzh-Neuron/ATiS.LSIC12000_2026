@@ -1,4 +1,6 @@
-﻿namespace LSIC.App.ViewModels
+﻿using System.Runtime.InteropServices;
+
+namespace LSIC.App.ViewModels
 {
     public class PopIcEditViewModel : ObservableObject, IDisposable
     {
@@ -60,6 +62,7 @@
         }
         public IRelayCommand CreateDpsSettingCommand { get; private set; }
         public IRelayCommand DeleteDpsSettingCommand { get; private set; }
+        public IRelayCommand EditDpsSettingCommand { get; private set; }
 
         public PopIcEditViewModel()
         {
@@ -75,7 +78,7 @@
             DeleteDpsPlanCommand = new RelayCommand(DeleteDpsPlan, CanDeleteDpsPlan);
             CreateDpsSettingCommand = new RelayCommand(CreateDpsSetting, CanCreateDpsSetting);
             DeleteDpsSettingCommand = new RelayCommand(DeleteDpsSetting, CanDeleteDpsSetting);
-
+            EditDpsSettingCommand = new RelayCommand<DpsSetting>(EditDpsSetting);
 #if DEBUG
             DirtyObserver<Ic> ic = new(new Ic("test ic"));
             Ics.Add(ic);
@@ -194,11 +197,25 @@
 
 
         }
+        private void EditDpsSetting(DpsSetting dpsSetting)
+        {
+            if (dpsSetting != null)
+            {
+                var clone = dpsSetting.Clone();
+
+                List<DpsInfo> optional = Device.Instance.SystemConfig.DpsInfos.Except(SelectedDpsPlan.DpssSettings.Select(i => i.DpsInfo)).ToList();
+                optional.Add(clone.DpsInfo);
+
+                var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditDpsSetting, [optional, clone])).First();
+                if (msgResult.Result is DpsSetting dps)
+                {
+                    dpsSetting.Copy(dps);
+                }
+            }
+        }
+
+
         #endregion
-
-
-
-
 
         private void OnIcsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
