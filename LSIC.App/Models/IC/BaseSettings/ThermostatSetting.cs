@@ -18,9 +18,9 @@
             set => SetProperty(ref _targetTemperature, value);
         }
 
-        public static ThermostatSetting Create(int id)
+        public ThermostatSetting(int id)
         {
-            return new ThermostatSetting { Id = id };
+            Id = id;
         }
     }
 }

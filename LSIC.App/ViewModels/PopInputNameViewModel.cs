@@ -41,6 +41,8 @@
         {
             MessageBus.Default.Send(MsgArgs.From(PopInputNameMessage.Cancel, []));
         }
+
+        #region validate methods
         private ValidationResult ValidateInputName(string value)
         {
             if (value.IsNullOrEmptyOrWhiteSpace())
@@ -66,6 +68,6 @@
 
             return ValidationResult.Success;
         }
-
+        #endregion
     }
 }

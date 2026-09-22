@@ -73,27 +73,25 @@
             set => SetProperty(ref _delay, value, true);
         }
 
-        public static DpsSetting Create(DpsInfo dpsInfo)
+        public DpsSetting(DpsInfo dpsInfo)
         {
-            DpsSetting dpsSetting = new DpsSetting
-            {
-                DpsInfo = dpsInfo,
-                Vol = dpsInfo.VolDefault,
-                Delay = dpsInfo.DelayDefault,
-                Raise = dpsInfo.RiseDefault,
-            };
-
-            return dpsSetting;
+            DpsInfo = dpsInfo;
+            Vol = dpsInfo.VolDefault;
+            Delay = dpsInfo.DelayDefault;
+            Raise = dpsInfo.RiseDefault;
         }
+
         public DpsSetting Clone()
         {
-            var setting = Create(DpsInfo);
-            setting.Vol = Vol;
-            setting.Uvp = Uvp;
-            setting.Ovp = Ovp;
-            setting.Ocp = Ocp;
-            setting.Raise = Raise;
-            setting.Delay = Delay;
+            var setting = new DpsSetting(DpsInfo)
+            {
+                Vol = Vol,
+                Uvp = Uvp,
+                Ovp = Ovp,
+                Ocp = Ocp,
+                Raise = Raise,
+                Delay = Delay
+            };
             return setting;
         }
         public void Copy(DpsSetting copy)
@@ -105,10 +103,6 @@
             Raise = copy.Raise;
             Delay = copy.Delay;
             DpsInfo = copy.DpsInfo;
-        }
-        private DpsSetting()
-        {
-
         }
 
         #region validate methods
@@ -169,7 +163,6 @@
             }
             return ValidationResult.Success;
         }
-
         #endregion
     }
 }

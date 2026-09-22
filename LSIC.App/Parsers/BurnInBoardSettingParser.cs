@@ -1,8 +1,8 @@
 ﻿namespace LSIC.App
 {
-    public static class DutSettingsParser
+    public static class BurnInBoardSettingParser
     {
-        public static DutSetting[] Parse(string file)
+        public static BurnInBoardSetting Parse(string file)
         {
             if (string.IsNullOrWhiteSpace(file) || !File.Exists(file))
             {
@@ -20,7 +20,7 @@
             reader.SkipWhiteSpace();
             int columns = reader.ReadNumber<int>();
 
-            DutSetting[] dutSettings = new DutSetting[rows * columns];
+            var boardSetting = new BurnInBoardSetting(rows, columns);
 
             for (int i = 0; i < rows; i++)
             {
@@ -32,12 +32,12 @@
                 for (int j = 0; j < columns; j++)
                 {
                     DutSetting dut = ReadDut(reader, i, j);
-                    dutSettings[i * columns + j] = dut;
+                    boardSetting.DutSettings[i * columns + j] = dut;
                 }
             }
             reader.SkipWhiteSpace();
             reader.ReadEnd();
-            return dutSettings;
+            return boardSetting;
         }
 
         private static DutSetting ReadDut(CharReader reader, int row, int column)
@@ -154,7 +154,7 @@
                 reader.ReadWhiteSpace();
                 thermostatChannel = reader.ReadNumber<int>();
             }
-            return DutSetting.Create(id, row, column, cs, drs.ToArray(), dpss.ToArray(), thermostatChannel);
+            return new DutSetting(id, row, column, cs, drs.ToArray(), dpss.ToArray(), thermostatChannel);
         }
     }
 }

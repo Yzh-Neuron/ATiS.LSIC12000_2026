@@ -120,6 +120,7 @@
             </wpf:StateBlock.UnCheckedContent>
             <wpf:StateBlock.CheckedContent>
                 <TabControl d:DataContext="{d:DesignInstance models:Ic}" DataContext="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedIc.Target}">
+
                     <!--  基础设置  -->
                     <TabItem Header="{app:Lang {x:Static app:LangKey.BaseSettingText}}">
                         <Grid Margin="20" Grid.IsSharedSizeScope="True">
@@ -127,8 +128,8 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <Grid HorizontalAlignment="Left">
@@ -213,8 +214,48 @@
                                         DockPanel.Dock="Right"
                                         Style="{StaticResource Button.ChooseFile}" />
                             </Grid>
+
+                            <wpf:MatrixListBox x:Name="PART_List"
+                                               Grid.Row="3"
+                                               Width="400"
+                                               Height="400"
+                                               Margin="0,20,0,0"
+                                               CellHeight="60"
+                                               CellWidth="80"
+                                               Cols="{Binding BurnInBoardSetting.Column}"
+                                               Grid.IsSharedSizeScope="True"
+                                               HeaderHeight="30"
+                                               HeaderWidth="30"
+                                               ItemsSource="{Binding BurnInBoardSetting.DutSettings}"
+                                               Rows="{Binding BurnInBoardSetting.Row}"
+                                               SelectedItem="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedDutSetting}">
+                                <wpf:MatrixListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <wpf:SimplePanel>
+                                            <Path Margin="10"
+                                                  Data="{StaticResource Geometry.Chip}"
+                                                  Fill="Blue"
+                                                  Stretch="Fill" />
+
+                                            <Grid Margin="1" Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Converter={StaticResource TrueToVisibilityConverter}}">
+                                                <Path Data="M 0 10 L 0 0 10 0 M 48 0 L 58 0 58 10 M 58 30 L 58 40 48 40 M 10 40 L 0 40 0 30"
+                                                      Stretch="Uniform"
+                                                      Stroke="Red"
+                                                      StrokeThickness="3" />
+                                            </Grid>
+
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       Foreground="White"
+                                                       IsHitTestVisible="False"
+                                                       Text="{Binding Id}" />
+                                        </wpf:SimplePanel>
+                                    </DataTemplate>
+                                </wpf:MatrixListBox.ItemTemplate>
+                            </wpf:MatrixListBox>
                         </Grid>
                     </TabItem>
+
                     <!--  电源设置  -->
                     <TabItem Header="{app:Lang {x:Static app:LangKey.DpsSettingText}}">
                         <Grid Margin="10" Grid.IsSharedSizeScope="True">
@@ -332,6 +373,7 @@
 
                         </Grid>
                     </TabItem>
+
                     <TabItem Header="基础设置" />
                 </TabControl>
             </wpf:StateBlock.CheckedContent>

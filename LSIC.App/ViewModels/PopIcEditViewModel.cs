@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace LSIC.App.ViewModels
+﻿namespace LSIC.App.ViewModels
 {
     public class PopIcEditViewModel : ObservableObject, IDisposable
     {
@@ -27,6 +25,14 @@ namespace LSIC.App.ViewModels
         public IRelayCommand ImportIcCommand { get; private set; }
         public IRelayCommand ExportIcCommand { get; private set; }
         public IRelayCommand SelectBurnInBoardFileCommand { get; private set; }
+
+        //工位
+        private DutSetting _selectedDutSetting;
+        public DutSetting SelectedDutSetting
+        {
+            get => _selectedDutSetting;
+            set => SetProperty(ref _selectedDutSetting, value);
+        }
 
         //Dps电源
         private DpsPlan _selectedDpsPlan;
@@ -179,7 +185,7 @@ namespace LSIC.App.ViewModels
             DpsInfo first = optional.FirstOrDefault();
             if (first != null)
             {
-                var create = DpsSetting.Create(first);
+                var create = new DpsSetting(first);
                 var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.CreateDpsSetting, [optional, create])).First();
                 if (msgResult.Result is DpsSetting dps)
                 {

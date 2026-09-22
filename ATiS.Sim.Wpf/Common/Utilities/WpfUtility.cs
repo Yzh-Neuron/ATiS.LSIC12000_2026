@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ATiS.Sim.Wpf
@@ -10,6 +11,14 @@ namespace ATiS.Sim.Wpf
     /// </summary>
     public static class WpfUtility
     {
+        /// <summary>
+        /// 获取控件的模板
+        /// </summary>
+        public static T? FindTemplatePart<T>(this Control templatedParent, string name) where T : DependencyObject
+        {
+            return templatedParent.Template.FindName(name, templatedParent) as T;
+        }
+
         /// <summary>
         /// 根据点击位置获取子元素
         /// </summary>

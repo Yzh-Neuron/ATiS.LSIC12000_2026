@@ -67,7 +67,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="TabControl.Default" TargetType="{x:Type TabControl}">
+    <Style x:Key="TabControl.Default" TargetType="{x:Type TabControl}" BasedOn="{StaticResource Control.Base}">
         <Setter Property="wpf:TabControlHelper.HasSeparator" Value="True" />
         <Setter Property="wpf:TabControlHelper.HeaderPanelBackground" Value="{DynamicResource BackgroundBrush}" />
         <Setter Property="wpf:TabControlHelper.HeaderHeight" Value="30" />
