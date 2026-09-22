@@ -1,8 +1,8 @@
 ﻿namespace LSIC.App
 {
-    public static class DutInfoParser
+    public static class DutSettingsParser
     {
-        public static DutInfo Parse(string file, int? zoneId)
+        public static DutSetting[] Parse(string file)
         {
             if (string.IsNullOrWhiteSpace(file) || !File.Exists(file))
             {
@@ -20,7 +20,7 @@
             reader.SkipWhiteSpace();
             int columns = reader.ReadNumber<int>();
 
-            DutInfo board = new DutInfo(zoneId, rows, columns);
+            DutSetting[] dutSettings = new DutSetting[rows * columns];
 
             for (int i = 0; i < rows; i++)
             {
@@ -31,16 +31,16 @@
 
                 for (int j = 0; j < columns; j++)
                 {
-                    Dut dut = ReadDut(reader, zoneId, i, j);
-                    board.Duts[i * columns + j] = dut;
+                    DutSetting dut = ReadDut(reader, i, j);
+                    dutSettings[i * columns + j] = dut;
                 }
             }
             reader.SkipWhiteSpace();
             reader.ReadEnd();
-            return board;
+            return dutSettings;
         }
 
-        private static Dut ReadDut(CharReader reader, int? zoneId, int row, int column)
+        private static DutSetting ReadDut(CharReader reader, int row, int column)
         {
             reader.SkipWhiteSpace();
             reader.ReadExpected($"C{column}");
@@ -154,7 +154,7 @@
                 reader.ReadWhiteSpace();
                 thermostatChannel = reader.ReadNumber<int>();
             }
-            return new Dut(zoneId, id, row, column, cs, drs.ToArray(), dpss.ToArray(), thermostatChannel);
+            return DutSetting.Create(id, row, column, cs, drs.ToArray(), dpss.ToArray(), thermostatChannel);
         }
     }
 }
