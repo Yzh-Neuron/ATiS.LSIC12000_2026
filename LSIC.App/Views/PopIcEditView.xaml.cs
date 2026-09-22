@@ -68,6 +68,7 @@
         {
             base.OnClosed(e);
             MessageBus.Default.UnregisterAll(this);
+            ViewModel?.Dispose();
         }
     }
 }
