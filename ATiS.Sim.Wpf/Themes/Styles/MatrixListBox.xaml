@@ -7,7 +7,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/ScrollViewer.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/Bases/Control.Base.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/ToggleButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!--  列头默认模板 C{index}  -->
@@ -113,6 +113,19 @@
                                             <RowDefinition x:Name="PART_ColumnHeaderRow" Height="30" />
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
+
+                                        <Border Margin="-1"
+                                                BorderBrush="{Binding BorderBrush}"
+                                                BorderThickness="0,0,1,1">
+                                            <ToggleButton x:Name="PART_SelectAllToggleBtn"
+                                                          Padding="0"
+                                                          wpf:IconHelper.CheckedGeometry="{StaticResource Geometry.SelectAll}"
+                                                          wpf:IconHelper.Geometry="{StaticResource Geometry.SelectAll}"
+                                                          wpf:IconHelper.Height="12"
+                                                          wpf:IconHelper.Width="12"
+                                                          Foreground="{DynamicResource BorderBrush}"
+                                                          Style="{StaticResource ToggleButton.Icon}" />
+                                        </Border>
 
                                         <!--  列头  -->
                                         <ScrollViewer Grid.Row="0"

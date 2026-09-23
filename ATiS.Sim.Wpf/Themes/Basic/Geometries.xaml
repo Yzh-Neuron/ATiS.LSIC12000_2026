@@ -2,6 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
 
+    <Geometry x:Key="Geometry.SelectAll" o:Freeze="True">
+        M 0,8  L 8,0 L 8,8  Z
+    </Geometry>
+
     <Geometry x:Key="Geometry.Checked" o:Freeze="True">
         M 0,2 3,5 8,0
     </Geometry>

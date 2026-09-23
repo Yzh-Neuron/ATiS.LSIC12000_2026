@@ -87,7 +87,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Attach\" />
 	  <Folder Include="Models\Main\" />
 	</ItemGroup>
 

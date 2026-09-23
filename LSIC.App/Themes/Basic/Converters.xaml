@@ -11,5 +11,5 @@
 
     <cvt:IntegerRangeConverter x:Key="IntegerRangeConverter" />
     <cvt:RangeToStringConverter x:Key="RangeToStringConverter"/>
-    <cvt:DutSettingWrapperConverter x:Key="DutSettingWrapperConverter"/>
+    <cvt:EnumerableToStringConverter x:Key="EnumerableToStringConverter"/>
 </ResourceDictionary>

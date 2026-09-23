@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="LSIC.App.Views.ThermostatBadge"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:LSIC.App.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
+             HorizontalAlignment="Right"
+             VerticalAlignment="Top"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="Padding" Value="2,0" />
+            <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SecondBorderBrush}" />
+        </Style>
+    </UserControl.Resources>
+
+    <wpf:SimplePanel>
+        <Border x:Name="DisabledPanel" Visibility="Collapsed">
+            <TextBlock Text="N/A" />
+        </Border>
+
+        <Border x:Name="EnabledPanel"
+                Background="{Binding EnableBackground, RelativeSource={RelativeSource AncestorType={x:Type local:ThermostatBadge}}}"
+                Visibility="Collapsed">
+            <TextBlock Text="{Binding Temperature, RelativeSource={RelativeSource AncestorType={x:Type local:ThermostatBadge}}, Converter={StaticResource IntegerToDecimalConverter10}, StringFormat={}{0}℃}" />
+        </Border>
+    </wpf:SimplePanel>
+</UserControl>

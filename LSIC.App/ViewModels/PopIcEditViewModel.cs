@@ -27,11 +27,11 @@
         public IRelayCommand SelectBurnInBoardFileCommand { get; private set; }
 
         //工位
-        private DutSetting _selectedDutSetting;
-        public DutSetting SelectedDutSetting
+        private DutSettingWrapper _dutSettingWrapper;
+        public DutSettingWrapper DutSettingWrapper
         {
-            get => _selectedDutSetting;
-            set => SetProperty(ref _selectedDutSetting, value);
+            get => _dutSettingWrapper;
+            set => SetProperty(ref _dutSettingWrapper, value);
         }
 
         //Dps电源
@@ -69,6 +69,9 @@
         public IRelayCommand CreateDpsSettingCommand { get; private set; }
         public IRelayCommand DeleteDpsSettingCommand { get; private set; }
         public IRelayCommand EditDpsSettingCommand { get; private set; }
+
+
+
 
         public PopIcEditViewModel()
         {

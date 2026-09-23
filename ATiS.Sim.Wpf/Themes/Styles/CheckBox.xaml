@@ -26,14 +26,18 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+
                         <Border Width="16"
                                 Height="16"
                                 Background="{TemplateBinding Background}"
                                 CornerRadius="{StaticResource DefaultCheckBoxCornerRadius}" />
+
                         <wpf:SimplePanel x:Name="markGrid"
                                          Grid.Column="0"
                                          Width="16"
                                          Height="16">
+
+                            <!--  正常  -->
                             <Path x:Name="path"
                                   Width="11"
                                   Height="11"
@@ -44,7 +48,19 @@
                                   StrokeThickness="2"
                                   UseLayoutRounding="True"
                                   Visibility="Hidden" />
+
+                            <!--  不定态  -->
+                            <Path x:Name="pathIndeterminate"
+                                  Width="11"
+                                  Height="2"
+                                  Data="M 0,1 L 11,1"
+                                  Stretch="Uniform"
+                                  Stroke="{DynamicResource ContrastForegroundBrush}"
+                                  StrokeThickness="2"
+                                  Visibility="Hidden" />
                         </wpf:SimplePanel>
+
+
                         <Border x:Name="border"
                                 Width="16"
                                 Height="16"
@@ -77,6 +93,13 @@
                             <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
                             <Setter Property="BorderBrush" Value="{DynamicResource SecondBorderBrush}" />
                         </Trigger>
+
+                        <Trigger Property="IsChecked" Value="{x:Null}">
+                            <Setter TargetName="pathIndeterminate" Property="Visibility" Value="Visible" />
+                            <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource SecondBorderBrush}" />
+                        </Trigger>
+
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.4" />
                         </Trigger>

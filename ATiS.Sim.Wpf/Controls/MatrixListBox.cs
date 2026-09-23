@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace ATiS.Sim.Wpf
@@ -142,6 +144,8 @@ namespace ATiS.Sim.Wpf
         private TranslateTransform? _rowHeaderTranslate;
         private ColumnDefinition? _rowHeaderColumn;
         private RowDefinition? _columnHeaderRow;
+        private ToggleButton ?_selectAllToggleBtn;
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -151,12 +155,18 @@ namespace ATiS.Sim.Wpf
                 _scrollViewer.ScrollChanged -= OnScrollChanged;
             }
 
+            if (_selectAllToggleBtn != null)
+            {
+                _selectAllToggleBtn.Click -= OnSelectAllClicked;
+            }
+
             _scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
 
             _columnHeaderTranslate = null;
             _rowHeaderTranslate = null;
             _rowHeaderColumn = null;
             _columnHeaderRow = null;
+            _selectAllToggleBtn = null;
 
             if (_scrollViewer != null)
             {
@@ -167,6 +177,12 @@ namespace ATiS.Sim.Wpf
                 _rowHeaderTranslate = _scrollViewer.FindTemplatePart<TranslateTransform>("PART_RowHeaderTranslate");
                 _rowHeaderColumn = _scrollViewer.FindTemplatePart<ColumnDefinition>("PART_RowHeaderColumn");
                 _columnHeaderRow = _scrollViewer.FindTemplatePart<RowDefinition>("PART_ColumnHeaderRow");
+                _selectAllToggleBtn = _scrollViewer.FindTemplatePart<ToggleButton>("PART_SelectAllToggleBtn");
+
+                if (_selectAllToggleBtn != null)
+                {
+                    _selectAllToggleBtn.Click += OnSelectAllClicked;
+                }
 
                 _scrollViewer.ScrollChanged += OnScrollChanged;
             }
@@ -174,6 +190,19 @@ namespace ATiS.Sim.Wpf
             UpdateHeaderGridLength();
             UpdateHeaderOffsets();
         }
+
+        private void OnSelectAllClicked(object sender, RoutedEventArgs e)
+        {
+            if (_selectAllToggleBtn?.IsChecked == true)
+            {
+                SelectAll();
+            }
+            else 
+            {
+                UnselectAll();
+            }
+        }
+
         private void UpdateHeaderGridLength()
         {
             if (_rowHeaderColumn != null)
