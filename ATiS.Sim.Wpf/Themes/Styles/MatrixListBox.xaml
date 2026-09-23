@@ -12,20 +12,26 @@
 
     <!--  列头默认模板 C{index}  -->
     <DataTemplate x:Key="MatrixListBox.ColumnHeader.Default">
-        <Grid Width="{Binding CellWidth, RelativeSource={RelativeSource AncestorType=wpf:MatrixListBox}}" Height="{Binding HeaderHeight, RelativeSource={RelativeSource AncestorType=wpf:MatrixListBox}}">
+        <Border Width="{Binding CellWidth, RelativeSource={RelativeSource AncestorType=wpf:MatrixListBox}}"
+                Height="{Binding HeaderHeight, RelativeSource={RelativeSource AncestorType=wpf:MatrixListBox}}"
+                BorderBrush="{Binding BorderBrush, RelativeSource={RelativeSource AncestorType=wpf:MatrixListBox}}"
+                BorderThickness="0,0,1,0">
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Text="{Binding ., StringFormat={}C{0}}" />
-        </Grid>
+        </Border>
     </DataTemplate>
 
     <!--  行头默认模板 R{index}  -->
     <DataTemplate x:Key="MatrixListBox.RowHeader.Default">
-        <Grid Width="{Binding HeaderWidth, RelativeSource={RelativeSource AncestorType=wpf:MatrixListBox}}" Height="{Binding CellHeight, RelativeSource={RelativeSource AncestorType=wpf:MatrixListBox}}">
+        <Border Width="{Binding HeaderWidth, RelativeSource={RelativeSource AncestorType=wpf:MatrixListBox}}"
+                Height="{Binding CellHeight, RelativeSource={RelativeSource AncestorType=wpf:MatrixListBox}}"
+                BorderBrush="{Binding BorderBrush, RelativeSource={RelativeSource AncestorType=wpf:MatrixListBox}}"
+                BorderThickness="0,0,0,1">
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Text="{Binding ., StringFormat={}R{0}}" />
-        </Grid>
+        </Border>
     </DataTemplate>
 
     <!--  项模板  -->
@@ -90,101 +96,103 @@
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}"
                                     SnapsToDevicePixels="True">
-                        <Grid Margin="{TemplateBinding BorderThickness}">
-                            <ScrollViewer x:Name="PART_ScrollViewer"
-                                          Padding="{TemplateBinding Padding}"
-                                          CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
-                                          Focusable="False"
-                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                                <ScrollViewer.Template>
-                                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
-                                        <Grid d:DataContext="{d:DesignInstance wpf:MatrixListBox}" DataContext="{TemplateBinding DataContext}">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition x:Name="PART_RowHeaderColumn" Width="30" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition x:Name="PART_ColumnHeaderRow" Height="30" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
+                        <ScrollViewer x:Name="PART_ScrollViewer"
+                                      Padding="{TemplateBinding Padding}"
+                                      CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
+                                      Focusable="False"
+                                      HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                      VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                            <ScrollViewer.Template>
+                                <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                                    <Grid d:DataContext="{d:DesignInstance wpf:MatrixListBox}" DataContext="{TemplateBinding DataContext}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition x:Name="PART_RowHeaderColumn" Width="30" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition x:Name="PART_ColumnHeaderRow" Height="30" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
 
-                                            <!--  列头  -->
-                                            <ScrollViewer Grid.Row="0"
-                                                          Grid.Column="1"
-                                                          Focusable="False"
-                                                          HorizontalScrollBarVisibility="Hidden"
-                                                          VerticalScrollBarVisibility="Disabled">
-                                                <ItemsControl ItemTemplate="{Binding ColumnHeaderTemplate}" ItemsSource="{Binding ColumnHeaders}">
-                                                    <ItemsControl.RenderTransform>
-                                                        <TranslateTransform x:Name="PART_ColumnHeaderTranslate" />
-                                                    </ItemsControl.RenderTransform>
-                                                    <ItemsControl.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <StackPanel Orientation="Horizontal" />
-                                                        </ItemsPanelTemplate>
-                                                    </ItemsControl.ItemsPanel>
-                                                </ItemsControl>
-                                            </ScrollViewer>
+                                        <!--  列头  -->
+                                        <ScrollViewer Grid.Row="0"
+                                                      Grid.Column="1"
+                                                      Focusable="False"
+                                                      HorizontalScrollBarVisibility="Hidden"
+                                                      VerticalScrollBarVisibility="Disabled">
+                                            <ItemsControl ItemTemplate="{Binding ColumnHeaderTemplate}" ItemsSource="{Binding ColumnHeaders}">
+                                                <ItemsControl.RenderTransform>
+                                                    <TranslateTransform x:Name="PART_ColumnHeaderTranslate" />
+                                                </ItemsControl.RenderTransform>
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Horizontal" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                            </ItemsControl>
+                                        </ScrollViewer>
 
-                                            <!--  行头  -->
-                                            <ScrollViewer Grid.Row="1"
-                                                          Grid.Column="0"
-                                                          VerticalAlignment="Top"
-                                                          Focusable="False"
-                                                          HorizontalScrollBarVisibility="Disabled"
-                                                          VerticalScrollBarVisibility="Hidden">
-                                                <ItemsControl ItemTemplate="{Binding RowHeaderTemplate}" ItemsSource="{Binding RowHeaders}">
-                                                    <ItemsControl.RenderTransform>
-                                                        <TranslateTransform x:Name="PART_RowHeaderTranslate" />
-                                                    </ItemsControl.RenderTransform>
-                                                    <ItemsControl.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <StackPanel Orientation="Vertical" />
-                                                        </ItemsPanelTemplate>
-                                                    </ItemsControl.ItemsPanel>
-                                                </ItemsControl>
-                                            </ScrollViewer>
+                                        <!--  行头  -->
+                                        <ScrollViewer Grid.Row="1"
+                                                      Grid.Column="0"
+                                                      VerticalAlignment="Top"
+                                                      Focusable="False"
+                                                      HorizontalScrollBarVisibility="Disabled"
+                                                      VerticalScrollBarVisibility="Hidden">
+                                            <ItemsControl ItemTemplate="{Binding RowHeaderTemplate}" ItemsSource="{Binding RowHeaders}">
+                                                <ItemsControl.RenderTransform>
+                                                    <TranslateTransform x:Name="PART_RowHeaderTranslate" />
+                                                </ItemsControl.RenderTransform>
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Vertical" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                            </ItemsControl>
+                                        </ScrollViewer>
 
-                                            <!--  单元格内容  -->
-                                            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
-                                                                    Grid.Row="1"
-                                                                    Grid.Column="1"
-                                                                    CanContentScroll="{TemplateBinding CanContentScroll}" />
+                                        <!--  单元格内容  -->
+                                        <Border Grid.Row="1"
+                                                Grid.Column="1"
+                                                BorderBrush="{Binding BorderBrush}"
+                                                BorderThickness="1,1,0,0">
+                                            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" />
+                                        </Border>
 
-                                            <!--  垂直滚动条  -->
-                                            <ScrollBar x:Name="PART_VerticalScrollBar"
-                                                       Grid.Row="0"
-                                                       Grid.RowSpan="2"
-                                                       Grid.Column="1"
-                                                       HorizontalAlignment="Right"
-                                                       Maximum="{TemplateBinding ScrollableHeight}"
-                                                       Orientation="Vertical"
-                                                       Style="{StaticResource ScrollBar.Base}"
-                                                       ViewportSize="{TemplateBinding ViewportHeight}"
-                                                       Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
-                                                       Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                                        <!--  垂直滚动条  -->
+                                        <ScrollBar x:Name="PART_VerticalScrollBar"
+                                                   Grid.Row="0"
+                                                   Grid.RowSpan="2"
+                                                   Grid.Column="1"
+                                                   HorizontalAlignment="Right"
+                                                   Maximum="{TemplateBinding ScrollableHeight}"
+                                                   Orientation="Vertical"
+                                                   Style="{StaticResource ScrollBar.Base}"
+                                                   ViewportSize="{TemplateBinding ViewportHeight}"
+                                                   Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                                   Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
 
-                                            <!--  水平滚动条  -->
-                                            <ScrollBar x:Name="PART_HorizontalScrollBar"
-                                                       Grid.Row="1"
-                                                       Grid.Column="0"
-                                                       Grid.ColumnSpan="2"
-                                                       Maximum="{TemplateBinding ScrollableWidth}"
-                                                       Orientation="Horizontal"
-                                                       Style="{StaticResource ScrollBar.Base}"
-                                                       ViewportSize="{TemplateBinding ViewportWidth}"
-                                                       Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
-                                                       Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
-                                        </Grid>
-                                    </ControlTemplate>
-                                </ScrollViewer.Template>
+                                        <!--  水平滚动条  -->
+                                        <ScrollBar x:Name="PART_HorizontalScrollBar"
+                                                   Grid.Row="1"
+                                                   Grid.Column="0"
+                                                   Grid.ColumnSpan="2"
+                                                   VerticalAlignment="Bottom"
+                                                   Maximum="{TemplateBinding ScrollableWidth}"
+                                                   Orientation="Horizontal"
+                                                   Style="{StaticResource ScrollBar.Base}"
+                                                   ViewportSize="{TemplateBinding ViewportWidth}"
+                                                   Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                                   Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </ScrollViewer.Template>
 
-                                <ItemsPresenter HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                            </ScrollViewer>
-                        </Grid>
+                            <ItemsPresenter HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </ScrollViewer>
+
                     </wpf:ClipBorder>
                 </ControlTemplate>
             </Setter.Value>

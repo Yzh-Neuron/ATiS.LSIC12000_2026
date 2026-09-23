@@ -129,7 +129,6 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <Grid HorizontalAlignment="Left">
@@ -215,44 +214,86 @@
                                         Style="{StaticResource Button.ChooseFile}" />
                             </Grid>
 
-                            <wpf:MatrixListBox x:Name="PART_List"
-                                               Grid.Row="3"
-                                               Width="400"
-                                               Height="400"
-                                               Margin="0,20,0,0"
-                                               CellHeight="60"
-                                               CellWidth="80"
-                                               Cols="{Binding BurnInBoardSetting.Column}"
-                                               Grid.IsSharedSizeScope="True"
-                                               HeaderHeight="30"
-                                               HeaderWidth="30"
-                                               ItemsSource="{Binding BurnInBoardSetting.DutSettings}"
-                                               Rows="{Binding BurnInBoardSetting.Row}"
-                                               SelectedItem="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedDutSetting}">
-                                <wpf:MatrixListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <wpf:SimplePanel>
-                                            <Path Margin="10"
-                                                  Data="{StaticResource Geometry.Chip}"
-                                                  Fill="Blue"
-                                                  Stretch="Fill" />
+                            <Grid Grid.Row="3"
+                                  MinWidth="600"
+                                  MaxWidth="800"
+                                  Margin="0,20,0,0"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <wpf:MatrixListBox x:Name="PART_DutSettingsList"
+                                                   wpf:BorderHelper.CornerRadius="4,4,0,0"
+                                                   BorderThickness="1"
+                                                   CellHeight="80"
+                                                   CellWidth="80"
+                                                   Cols="{Binding BurnInBoardSetting.Column}"
+                                                   Grid.IsSharedSizeScope="True"
+                                                   HeaderHeight="30"
+                                                   HeaderWidth="30"
+                                                   ItemsSource="{Binding BurnInBoardSetting.DutSettings}"
+                                                   Rows="{Binding BurnInBoardSetting.Row}"
+                                                   SelectedItem="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedDutSetting}">
+                                    <wpf:MatrixListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <wpf:SimplePanel Margin="5">
+                                                <Path Data="{StaticResource Geometry.SelectCpu}"
+                                                      Stretch="Fill"
+                                                      Stroke="{DynamicResource ErrorBrush}"
+                                                      StrokeThickness="2"
+                                                      Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Converter={StaticResource TrueToVisibilityConverter}}" />
 
-                                            <Grid Margin="1" Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Converter={StaticResource TrueToVisibilityConverter}}">
-                                                <Path Data="M 0 10 L 0 0 10 0 M 48 0 L 58 0 58 10 M 58 30 L 58 40 48 40 M 10 40 L 0 40 0 30"
-                                                      Stretch="Uniform"
-                                                      Stroke="Red"
-                                                      StrokeThickness="3" />
-                                            </Grid>
+                                                <Path Margin="5"
+                                                      Data="{StaticResource Geometry.Cpu}"
+                                                      Fill="{DynamicResource PrimaryBrush}"
+                                                      Stretch="Fill" />
 
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center"
-                                                       Foreground="White"
-                                                       IsHitTestVisible="False"
-                                                       Text="{Binding Id}" />
-                                        </wpf:SimplePanel>
-                                    </DataTemplate>
-                                </wpf:MatrixListBox.ItemTemplate>
-                            </wpf:MatrixListBox>
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="{DynamicResource ForegroundBrush}"
+                                                           IsHitTestVisible="False"
+                                                           Text="{Binding Id}" />
+
+                                                <Border Margin="0,5,5,0"
+                                                        Padding="5,0"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Top"
+                                                        Background="AliceBlue"
+                                                        BorderBrush="Black"
+                                                        BorderThickness="1"
+                                                        CornerRadius="5">
+                                                    <TextBlock MaxWidth="35"
+                                                               HorizontalAlignment="Right"
+                                                               VerticalAlignment="Center"
+                                                               Foreground="{DynamicResource ForegroundBrush}"
+                                                               IsHitTestVisible="False"
+                                                               Text="{Binding ThermostatSetting.TargetTemperature, Converter={StaticResource IntegerToDecimalConverter10}, StringFormat={}{0}℃}"
+                                                               TextAlignment="Right" />
+                                                </Border>
+                                            </wpf:SimplePanel>
+                                        </DataTemplate>
+                                    </wpf:MatrixListBox.ItemTemplate>
+                                </wpf:MatrixListBox>
+
+                                <Border Grid.Row="1"
+                                        BorderBrush="{DynamicResource BorderBrush}"
+                                        BorderThickness="1,0,1,1"
+                                        CornerRadius="0,0,4,4">
+                                    <Grid Margin="10" d:DataContext="{d:DesignInstance views:DutSettingWrapper}" DataContext="{Binding ElementName=PART_DutSettingsList, Path=SelectedItems, Converter={StaticResource DutSettingWrapperConverter}}">
+                                        <StackPanel HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    Orientation="Horizontal"
+                                                    Visibility="{Binding IsValid, Converter={StaticResource TrueToVisibilityConverter}}">
+                                            <TextBlock Text="{app:Lang {x:Static app:LangKey.ThermostatEnableText}}" />
+                                            <CheckBox Margin="5,0,0,0"
+                                                      IsChecked="{Binding Enable}"
+                                                      IsEnabled="{Binding Enable, Converter={StaticResource NullObjectToFalseConverter}}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </Grid>
                         </Grid>
                     </TabItem>
 
@@ -370,7 +411,6 @@
                                             Content="{app:Lang {x:Static app:LangKey.DeleteText}}" />
                                 </wpf:SimplePanel>
                             </Grid>
-
                         </Grid>
                     </TabItem>
 
