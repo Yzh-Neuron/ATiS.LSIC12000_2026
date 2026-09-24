@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using System.Threading.Tasks;
 
 namespace ATiS.Sim.Mvvm
 {
-    public class AsyncRelayCommand : IRelayCommand
+    public class AsyncRelayCommand : ICommand
     {
         public AsyncRelayCommand(Func<Task> execute)
         {
@@ -23,7 +24,11 @@ namespace ATiS.Sim.Mvvm
         private Task? _executionTask;
         private readonly Func<Task>? _execute;
         private readonly Func<bool>? _canExecute;
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool CanExecute(object? parameter)
@@ -38,10 +43,7 @@ namespace ATiS.Sim.Mvvm
                 AwaitAndThrowIfFailed(_executionTask);
             }
         }
-        public void NotifyCanExecuteChanged()
-        {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-        }
+
         internal static async void AwaitAndThrowIfFailed(Task executionTask)
         {
             await executionTask;

@@ -1,7 +1,7 @@
 ﻿namespace LSIC.App.Models
 {
     /// <summary>
-    /// 流程
+    /// 流程(完成)
     /// </summary>
     public class Process : ObservableObject
     {
@@ -10,11 +10,12 @@
             var powerOn = StepPower.PowerOn();
             var powerOff = StepPower.PowerOff();
             StepItems.Add(powerOn);
-            StepItems.Add(powerOff);
 #if DEBUG
             StepItems.Add(new StepVector("步骤1"));
             StepItems.Add(new StepVector("步骤2"));
 #endif
+            StepItems.Add(powerOff);
+
         }
 
         /// <summary>
@@ -115,7 +116,6 @@
         /// </summary>
         public bool CanMove(int oldIndex, int newIndex)
         {
-            Debug.WriteLine(oldIndex + " " + newIndex);
             int count = StepItems.Count;
 
             //固定流程不可移动

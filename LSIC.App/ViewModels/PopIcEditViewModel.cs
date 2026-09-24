@@ -9,27 +9,17 @@ namespace LSIC.App.ViewModels
         public DirtyObserver<Ic> SelectedIc
         {
             get => _selectedIc;
-            set
-            {
-                if (SetProperty(ref _selectedIc, value))
-                {
-                    CreateDpsPlanCommand?.NotifyCanExecuteChanged();
-                    DeleteDpsPlanCommand?.NotifyCanExecuteChanged();
-
-                    CreateStepItemCommand?.NotifyCanExecuteChanged();
-                    DeleteStepItemCommand?.NotifyCanExecuteChanged();
-                }
-            }
+            set => SetProperty(ref _selectedIc, value);
         }
 
         //器件
-        public IRelayCommand CreateIcCommand { get; private set; }
-        public IRelayCommand SaveIcCommand { get; private set; }
-        public IRelayCommand SaveAsIcCommand { get; private set; }
-        public IRelayCommand DeleteIcCommand { get; private set; }
-        public IRelayCommand ImportIcCommand { get; private set; }
-        public IRelayCommand ExportIcCommand { get; private set; }
-        public IRelayCommand SelectBurnInBoardFileCommand { get; private set; }
+        public ICommand CreateIcCommand { get; private set; }
+        public ICommand SaveIcCommand { get; private set; }
+        public ICommand SaveAsIcCommand { get; private set; }
+        public ICommand DeleteIcCommand { get; private set; }
+        public ICommand ImportIcCommand { get; private set; }
+        public ICommand ExportIcCommand { get; private set; }
+        public ICommand SelectBurnInBoardFileCommand { get; private set; }
 
         //工位
         private DutSettingWrapper _dutSettingWrapper;
@@ -44,60 +34,36 @@ namespace LSIC.App.ViewModels
         public DpsPlan SelectedDpsPlan
         {
             get => _selectedDpsPlan;
-            set
-            {
-                if (SetProperty(ref _selectedDpsPlan, value))
-                {
-                    CreateDpsPlanCommand?.NotifyCanExecuteChanged();
-                    DeleteDpsPlanCommand?.NotifyCanExecuteChanged();
-                    CreateDpsSettingCommand?.NotifyCanExecuteChanged();
-                    DeleteDpsSettingCommand?.NotifyCanExecuteChanged();
-                }
-            }
+            set => SetProperty(ref _selectedDpsPlan, value);
         }
-        public IRelayCommand CreateDpsPlanCommand { get; private set; }
-        public IRelayCommand DeleteDpsPlanCommand { get; private set; }
+        public ICommand CreateDpsPlanCommand { get; private set; }
+        public ICommand DeleteDpsPlanCommand { get; private set; }
         private DpsSetting _selectedDpsSetting;
         public DpsSetting SelectedDpsSetting
         {
             get => _selectedDpsSetting;
-            set
-            {
-                if (SetProperty(ref _selectedDpsSetting, value))
-                {
-                    CreateDpsSettingCommand?.NotifyCanExecuteChanged();
-                    DeleteDpsSettingCommand?.NotifyCanExecuteChanged();
-                }
-            }
+            set => SetProperty(ref _selectedDpsSetting, value);
         }
-        public IRelayCommand CreateDpsSettingCommand { get; private set; }
-        public IRelayCommand DeleteDpsSettingCommand { get; private set; }
-        public IRelayCommand EditDpsSettingCommand { get; private set; }
+        public ICommand CreateDpsSettingCommand { get; private set; }
+        public ICommand DeleteDpsSettingCommand { get; private set; }
+        public ICommand EditDpsSettingCommand { get; private set; }
 
         //流程
         private StepItem _selectedStepItem;
         public StepItem SelectedStepItem
         {
             get => _selectedStepItem;
-            set
-            {
-                if (SetProperty(ref _selectedStepItem, value))
-                {
-                    CreateStepItemCommand?.NotifyCanExecuteChanged();
-                    DeleteStepItemCommand?.NotifyCanExecuteChanged();
-                }
-            }
+            set => SetProperty(ref _selectedStepItem, value);
         }
-        public IRelayCommand CreateStepItemCommand { get; private set; }
-        public IRelayCommand DeleteStepItemCommand { get; private set; }
-        public IRelayCommand MakeLoopCommand { get; private set; }
-        public IRelayCommand RemoveLoopCommand { get; private set; }
-        public IRelayCommand CanDragStepCommand { get; private set; }
-        public IRelayCommand CanDropStepCommand { get; private set; }
-        public IRelayCommand DropStepCommand { get; private set; }
+        public ICommand CreateStepItemCommand { get; private set; }
+        public ICommand DeleteStepItemCommand { get; private set; }
+        public ICommand MakeLoopCommand { get; private set; }
+        public ICommand RemoveLoopCommand { get; private set; }
+        public ICommand CanDragStepCommand { get; private set; }
+        public ICommand CanDropStepCommand { get; private set; }
+        public ICommand DropStepCommand { get; private set; }
         public PopIcEditViewModel()
         {
-            Ics.CollectionChanged += OnIcsCollectionChanged;
             SelectBurnInBoardFileCommand = new RelayCommand(SelectBurnInBoardFile);
 
             //Ic
@@ -120,7 +86,6 @@ namespace LSIC.App.ViewModels
             CanDragStepCommand = new RelayCommand<StepItem>(null, CanDragStep);
             CanDropStepCommand = new RelayCommand<DragDropArgs>(null, CanDropStep);
             DropStepCommand = new RelayCommand<DragDropArgs>(DropStep);
-
 
 #if DEBUG
             DirtyObserver<Ic> ic = new(new Ic("test ic"));
@@ -343,41 +308,10 @@ namespace LSIC.App.ViewModels
         }
         #endregion
 
-        private void OnIcsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.NewItems != null)
-            {
-                foreach (var item in e.NewItems.Cast<DirtyObserver<Ic>>())
-                {
-                    item.IsDirtyChanged += OnIsDirtyChanged;
-                }
-            }
-
-            if (e.OldItems != null)
-            {
-                foreach (var item in e.OldItems.Cast<DirtyObserver<Ic>>())
-                {
-                    item.IsDirtyChanged -= OnIsDirtyChanged;
-                    item.Dispose();
-                }
-            }
-
-            DeleteIcCommand?.NotifyCanExecuteChanged();
-        }
-        private void OnIsDirtyChanged(object sender, EventArgs e)
-        {
-            SaveIcCommand?.NotifyCanExecuteChanged();
-            SaveAsIcCommand?.NotifyCanExecuteChanged();
-            ImportIcCommand?.NotifyCanExecuteChanged();
-            ExportIcCommand?.NotifyCanExecuteChanged();
-        }
         public void Dispose()
         {
-            Ics.CollectionChanged -= OnIcsCollectionChanged;
-
             foreach (var item in Ics)
             {
-                item.IsDirtyChanged -= OnIsDirtyChanged;
                 item.Dispose();
             }
 

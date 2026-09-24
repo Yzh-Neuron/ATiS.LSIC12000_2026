@@ -11,16 +11,10 @@ namespace LSIC.App.ViewModels
         public string Name
         {
             get => _name;
-            set
-            {
-                if (SetProperty(ref _name, value, true))
-                {
-                    ConfirmCommand.NotifyCanExecuteChanged();
-                }
-            }
+            set => SetProperty(ref _name, value, true);
         }
-        public IRelayCommand ConfirmCommand { get; }
-        public IRelayCommand CancelCommand { get; }
+        public ICommand ConfirmCommand { get; }
+        public ICommand CancelCommand { get; }
         public PopInputNameViewModel(IEnumerable<string> filters)
         {
             _filters = filters;
@@ -46,13 +40,13 @@ namespace LSIC.App.ViewModels
 
         #region validate methods
         private ValidationResult ValidateInputName(string value)
-      {
+        {
             if (value.IsNullOrEmptyOrWhiteSpace())
             {
                 return new ValidationResult(LangProvider.Instance.NameNotNullMessage);
             }
 
-            if (_filters.Contains(value,StringComparer.OrdinalIgnoreCase))
+            if (_filters.Contains(value, StringComparer.OrdinalIgnoreCase))
             {
                 return new ValidationResult(LangProvider.Instance.NameExistMessage);
             }

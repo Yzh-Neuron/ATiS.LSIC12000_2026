@@ -38,6 +38,7 @@
             </TextBlock>
             <TextBox x:Name="InputBox"
                      Margin="10,0,0,0"
+                     wpf:FocusHelper.FocusOnLoad="True"
                      Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
         <Button Grid.Row="2"

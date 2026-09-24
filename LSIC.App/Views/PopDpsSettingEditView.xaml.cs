@@ -56,8 +56,8 @@ namespace LSIC.App.ViewModels
     {
         public IEnumerable<DpsInfo> DpsInfos { get; private set; }
         public DpsSetting DpsSetting { get; private set; }
-        public IRelayCommand ConfirmCommand { get; }
-        public IRelayCommand CancelCommand { get; }
+        public ICommand ConfirmCommand { get; }
+        public ICommand CancelCommand { get; }
         public PopDpsSettingEditViewModel(IEnumerable<DpsInfo> dpsInfos, DpsSetting dpsSetting)
         {
             DpsInfos = dpsInfos;

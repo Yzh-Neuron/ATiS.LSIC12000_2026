@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace ATiS.Sim.Mvvm
 {
@@ -22,7 +23,11 @@ namespace ATiS.Sim.Mvvm
 
         private Action<T?>? _execute;
         private Predicate<T?>? _canExecute;
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool CanExecute(T? parameter)
@@ -58,11 +63,7 @@ namespace ATiS.Sim.Mvvm
 
             Execute(result);
         }
-        public void NotifyCanExecuteChanged()
-        {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-        }
-
+  
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool TryGetCommandArgument(object? parameter, out T? result)
         {

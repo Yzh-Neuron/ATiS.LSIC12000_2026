@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace ATiS.Sim.Mvvm
 {
-    public class RelayCommand : IRelayCommand
+    public class RelayCommand : ICommand
     {
         public RelayCommand(Action execute)
         {
@@ -20,7 +21,11 @@ namespace ATiS.Sim.Mvvm
 
         private Action? _execute;
         private Func<bool>? _canExecute;
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool CanExecute(object? parameter)
@@ -30,10 +35,6 @@ namespace ATiS.Sim.Mvvm
         public void Execute(object? parameter)
         {
             _execute?.Invoke();
-        }
-        public void NotifyCanExecuteChanged()
-        {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using System.Threading.Tasks;
 
 namespace ATiS.Sim.Mvvm
@@ -23,7 +24,11 @@ namespace ATiS.Sim.Mvvm
         private Task? _executionTask;
         private readonly Func<T?, Task>? _execute;
         private readonly Predicate<T?>? _canExecute;
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool CanExecute(T? parameter)
@@ -63,10 +68,6 @@ namespace ATiS.Sim.Mvvm
             }
 
             Execute(result);
-        }
-        public void NotifyCanExecuteChanged()
-        {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
