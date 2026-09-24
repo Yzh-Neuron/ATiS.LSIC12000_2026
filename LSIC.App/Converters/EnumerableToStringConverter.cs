@@ -13,7 +13,7 @@ namespace LSIC.App.Converters
 
             if (parameter is not string path || string.IsNullOrWhiteSpace(path))
             {
-                var list = new List<string?>();
+                var list = new List<string>();
                 foreach (var item in source)
                 {
                     list.Add(item?.ToString());
@@ -22,7 +22,7 @@ namespace LSIC.App.Converters
             }
 
             var names = path.Split('.');
-            var result = new List<string?>();
+            var result = new List<string>();
             foreach (var item in source)
             {
                 object obj = item;

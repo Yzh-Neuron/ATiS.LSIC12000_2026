@@ -363,7 +363,7 @@
     <sys:String x:Key="SystemPowerText">系统供电</sys:String>
     <sys:String x:Key="ThermostatIndexText">温控索引</sys:String>
     <sys:String x:Key="ThermostatMonitorText">独立温控监视</sys:String>
-    <sys:String x:Key="ThermostatEnableText">独立温控使能</sys:String>
+    <sys:String x:Key="ThermostatEnableText">温控使能</sys:String>
     <sys:String x:Key="ThermostatEnableClosedText">独立温控使能关闭</sys:String>
     <sys:String x:Key="ProportionalCoefficientText">比列系数(Kp)</sys:String>
     <sys:String x:Key="IntegralCoefficientText">积分系数(Ki)</sys:String>

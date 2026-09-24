@@ -20,7 +20,22 @@
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
                 <Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
-                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors), Converter={StaticResource ValidationErrorsToStringConverter}}" />
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ValidationErrorsToStringConverter}">
+                            <Binding Path="(Validation.Errors)" RelativeSource="{RelativeSource Self}" />
+                            <Binding FallbackValue="{x:Null}"
+                                     Path="(Validation.Errors)/"
+                                     RelativeSource="{RelativeSource Self}" />
+
+                            <!--<Binding Path="(Validation.Errors)" RelativeSource="{RelativeSource Self}" />
+                            <Binding FallbackValue="{x:Null}"
+                                     Path="(Validation.Errors)[0]"
+                                     RelativeSource="{RelativeSource Self}" />-->
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+
                 <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
             </Trigger>
         </Style.Triggers>

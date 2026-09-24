@@ -1,8 +1,10 @@
-﻿namespace LSIC.App.ViewModels
+﻿using System.Text.RegularExpressions;
+
+namespace LSIC.App.ViewModels
 {
     public class PopInputNameViewModel : ObservableValidator
     {
-        private static readonly char[] IllegalChars = ['\\', '/', ':', '*', '?', '.', '\"', '<', '>', '|'];
+        private static readonly Regex regex = new Regex(@"^[_a-zA-Z0-9]*$");
         private readonly IEnumerable<string> _filters;
         private string _name;
         [ValidationMetadata(Method = nameof(ValidateInputName))]
@@ -44,13 +46,13 @@
 
         #region validate methods
         private ValidationResult ValidateInputName(string value)
-        {
+      {
             if (value.IsNullOrEmptyOrWhiteSpace())
             {
                 return new ValidationResult(LangProvider.Instance.NameNotNullMessage);
             }
 
-            if (_filters.Contains(value))
+            if (_filters.Contains(value,StringComparer.OrdinalIgnoreCase))
             {
                 return new ValidationResult(LangProvider.Instance.NameExistMessage);
             }
@@ -61,9 +63,9 @@
                 return new ValidationResult(string.Format(LangProvider.Instance.NameNotExceedMessage, len));
             }
 
-            if (value.Any(i => IllegalChars.Contains(i)))
+            if (!regex.IsMatch(value))
             {
-                return new ValidationResult(string.Format(LangProvider.Instance.NameIllegalMessage, len));
+                return new ValidationResult(LangProvider.Instance.ValidStringRuleMessage);
             }
 
             return ValidationResult.Success;

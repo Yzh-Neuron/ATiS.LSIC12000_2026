@@ -47,5 +47,10 @@
         /// 是否固定块(视图用)
         /// </summary>
         public virtual bool IsFixed => false;
+
+        public StepItem(string name)
+        {
+            Name = name;
+        }
     }
 }

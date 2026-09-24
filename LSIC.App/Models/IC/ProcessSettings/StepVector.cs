@@ -6,6 +6,11 @@
     public class StepVector : StepItem
     {
         private RunStrategy _runStrategy;
+
+        public StepVector(string name) : base(name)
+        {
+        }
+
         public RunStrategy RunStrategy
         {
             get => _runStrategy;

@@ -1,37 +1,66 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace ATiS.Sim.Wpf
 {
-    public class ValidationErrorsToStringConverter : IValueConverter
+    public class ValidationErrorsToStringConverter : IMultiValueConverter
     {
-        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object?[]? values, Type? targetType, object? parameter, CultureInfo culture)
         {
-            if (value is IEnumerable<ValidationError> errors)
+            var messages = new List<string>();
+
+            if (values is { Length: > 0 } && values[0] is IEnumerable errors)
             {
-                var messages = errors
-                    .Select(e => e.ErrorContent?.ToString())
-                    .Where(m => !string.IsNullOrWhiteSpace(m))
-                    .ToList();
-
-                if (messages.Count == 0)
+                foreach (var item in errors)
                 {
-                    return null;
+                    if (item is ValidationError ve)
+                    {
+                        AppendContent(ve.ErrorContent, messages);
+                    }
                 }
-
-                string sep = parameter as string ?? Environment.NewLine;
-                return string.Join(sep, messages);
             }
-            return null;
+
+            if (messages.Count == 0) return null;
+
+            string sep = parameter as string ?? Environment.NewLine;
+            return string.Join(sep, messages);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        private static void AppendContent(object? content, List<string> messages)
         {
-            throw new NotSupportedException();
+            switch (content)
+            {
+                case null:
+                    break;
+
+                case string s:
+                    if (!string.IsNullOrWhiteSpace(s)) messages.Add(s);
+                    break;
+
+                case IEnumerable enumerable:
+                    foreach (var o in enumerable)
+                    {
+                        var msg = o switch
+                        {
+                            System.ComponentModel.DataAnnotations.ValidationResult vr => vr.ErrorMessage,
+                            _ => o?.ToString()
+                        };
+                        if (!string.IsNullOrWhiteSpace(msg)) messages.Add(msg!);
+                    }
+                    break;
+
+                default:
+                    var m = content.ToString();
+                    if (!string.IsNullOrWhiteSpace(m)) messages.Add(m);
+                    break;
+            }
         }
+
+        public object[] ConvertBack(object? value, Type[]? targetTypes, object? parameter, CultureInfo culture)
+            => throw new NotSupportedException();
     }
 }

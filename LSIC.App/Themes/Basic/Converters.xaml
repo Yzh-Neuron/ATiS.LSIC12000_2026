@@ -12,4 +12,5 @@
     <cvt:IntegerRangeConverter x:Key="IntegerRangeConverter" />
     <cvt:RangeToStringConverter x:Key="RangeToStringConverter"/>
     <cvt:EnumerableToStringConverter x:Key="EnumerableToStringConverter"/>
+    <cvt:TempTestConverter x:Key="TempTestConverter"/>
 </ResourceDictionary>

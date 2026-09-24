@@ -1,4 +1,6 @@
-﻿namespace LSIC.App.ViewModels
+﻿using System.Collections;
+
+namespace LSIC.App.ViewModels
 {
     public class PopIcEditViewModel : ObservableObject, IDisposable
     {
@@ -13,6 +15,9 @@
                 {
                     CreateDpsPlanCommand?.NotifyCanExecuteChanged();
                     DeleteDpsPlanCommand?.NotifyCanExecuteChanged();
+
+                    CreateStepItemCommand?.NotifyCanExecuteChanged();
+                    DeleteStepItemCommand?.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -52,7 +57,6 @@
         }
         public IRelayCommand CreateDpsPlanCommand { get; private set; }
         public IRelayCommand DeleteDpsPlanCommand { get; private set; }
-
         private DpsSetting _selectedDpsSetting;
         public DpsSetting SelectedDpsSetting
         {
@@ -70,14 +74,30 @@
         public IRelayCommand DeleteDpsSettingCommand { get; private set; }
         public IRelayCommand EditDpsSettingCommand { get; private set; }
 
-
-
-
+        //流程
+        private StepItem _selectedStepItem;
+        public StepItem SelectedStepItem
+        {
+            get => _selectedStepItem;
+            set
+            {
+                if (SetProperty(ref _selectedStepItem, value))
+                {
+                    CreateStepItemCommand?.NotifyCanExecuteChanged();
+                    DeleteStepItemCommand?.NotifyCanExecuteChanged();
+                }
+            }
+        }
+        public IRelayCommand CreateStepItemCommand { get; private set; }
+        public IRelayCommand DeleteStepItemCommand { get; private set; }
+        public IRelayCommand MakeLoopCommand { get; private set; }
+        public IRelayCommand RemoveLoopCommand { get; private set; }
         public PopIcEditViewModel()
         {
             Ics.CollectionChanged += OnIcsCollectionChanged;
-
             SelectBurnInBoardFileCommand = new RelayCommand(SelectBurnInBoardFile);
+
+            //Ic
             CreateIcCommand = new RelayCommand(CreateIc);
             SaveIcCommand = new RelayCommand(SaveIc, CanSaveIc);
             DeleteIcCommand = new RelayCommand(DeleteIc, CanDeleteIc);
@@ -88,6 +108,14 @@
             CreateDpsSettingCommand = new RelayCommand(CreateDpsSetting, CanCreateDpsSetting);
             DeleteDpsSettingCommand = new RelayCommand(DeleteDpsSetting, CanDeleteDpsSetting);
             EditDpsSettingCommand = new RelayCommand<DpsSetting>(EditDpsSetting);
+
+            //流程
+            CreateStepItemCommand = new RelayCommand(CreateStepItem, CanStepItem);
+            DeleteStepItemCommand = new RelayCommand<IList>(DeleteStepItem, CanDeleteStepItem);
+            MakeLoopCommand = new RelayCommand<IList>(MakeLoop, CanMakeLoop);
+            RemoveLoopCommand = new RelayCommand<IList>(RemoveLoop, CanRemoveLoop);
+
+
 #if DEBUG
             DirtyObserver<Ic> ic = new(new Ic("test ic"));
             Ics.Add(ic);
@@ -98,7 +126,20 @@
             SelectedDpsPlan = dpsPlan;
 #endif
         }
+        private void SelectBurnInBoardFile()
+        {
+            string filter = $"{LangProvider.Instance.DutConfigFileText}|*.elm";
+            string currentFile = SelectedIc.Target.BurnInBoardFile;
 
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.SelectFile, [filter, currentFile])).First();
+
+            if (msgResult.Result is string filePath)
+            {
+                SelectedIc.Target.BurnInBoardFile = filePath;
+            }
+        }
+
+        #region IC相关命令
         private void CreateIc()
         {
             var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.InputName, [LangProvider.Instance.CreateNewText, Ics.Select(i => i.Target.Name)])).First();
@@ -136,20 +177,10 @@
         {
             return SelectedIc != null;
         }
-        private void SelectBurnInBoardFile()
-        {
-            string filter = $"{LangProvider.Instance.DutConfigFileText}|*.elm";
-            string currentFile = SelectedIc.Target.BurnInBoardFile;
 
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.SelectFile, [filter, currentFile])).First();
+        #endregion
 
-            if (msgResult.Result is string filePath)
-            {
-                SelectedIc.Target.BurnInBoardFile = filePath;
-            }
-        }
-
-        #region Dps电源
+        #region Dps相关命令
         private bool CanCreateDpsPlan()
         {
             return SelectedIc != null;
@@ -224,6 +255,61 @@
         }
 
 
+        #endregion
+
+        #region 流程相关命令
+        private bool CanStepItem()
+        {
+            return SelectedIc != null;
+        }
+        private void CreateStepItem()
+        {
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.InputName, [LangProvider.Instance.CreateNewText, SelectedIc.Target.Process.StepItems.Select(i => i.Name)])).First();
+
+            if (msgResult.Result is string name)
+            {
+                StepVector stepVector = new StepVector(name);
+                SelectedIc.Target.Process.AddVector(stepVector);
+                SelectedStepItem = stepVector;
+            }
+        }
+        private bool CanDeleteStepItem(IList obj)
+        {
+            var stepItems = obj?.Cast<StepItem>();
+            if (SelectedIc != null && stepItems?.Count() > 0 && stepItems.All(i => !i.IsFixed))
+            {
+                return true;
+            }
+            return false;
+        }
+        private void DeleteStepItem(IList obj)
+        {
+            var stepItems = obj.Cast<StepItem>().ToList();
+            SelectedIc.Target.Process.RemoveVector(stepItems);
+        }
+        private bool CanRemoveLoop(IList obj)
+        {
+            var stepItems = obj.Cast<StepItem>();
+            if (SelectedIc != null && stepItems?.Count() > 0 && stepItems.All(i => !i.IsFixed))
+            {
+                return true;
+            }
+
+            return false;
+        }
+        private void RemoveLoop(IList obj)
+        {
+
+        }
+        private bool CanMakeLoop(IList obj)
+        {
+            return true;
+        }
+        private void MakeLoop(IList obj)
+        {
+            var stepItems = obj.Cast<StepItem>()?.ToList();
+            SelectedIc.Target.Process.MakeLoop(stepItems);
+        }
         #endregion
 
         private void OnIcsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

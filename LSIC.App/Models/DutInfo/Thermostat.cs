@@ -1,4 +1,7 @@
-﻿namespace LSIC.App.Models
+﻿using OxyPlot;
+using OxyPlot.Axes;
+
+namespace LSIC.App.Models
 {
     /// <summary>
     /// 恒温器

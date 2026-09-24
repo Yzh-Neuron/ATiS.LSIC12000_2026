@@ -46,14 +46,15 @@
 
             if (!IsValid)
             {
+                DutSettingTemplate = _dutSettings.FirstOrDefault();
                 return;
             }
 
-            if (_dutSettings.All(t => t.ThermostatSetting!.Enable))
+            if (_dutSettings.All(t => t.ThermostatSetting?.Enable == true))
             {
                 _enable = true;
             }
-            else if (_dutSettings.All(t => !t.ThermostatSetting!.Enable))
+            else if (_dutSettings.All(t => !t.ThermostatSetting?.Enable == false))
             {
                 _enable = false;
             }
@@ -63,7 +64,7 @@
             }
 
             var templateTemp = DutSettingTemplate.ThermostatSetting.TargetTemperature;
-            _targetTemperature = _dutSettings.All(t => t.ThermostatSetting!.TargetTemperature == templateTemp) ? templateTemp : null;
+            _targetTemperature = _dutSettings.All(t => t.ThermostatSetting?.TargetTemperature == templateTemp) ? templateTemp : null;
         }
         private void ApplyThermostat(Action<ThermostatSetting> action)
         {

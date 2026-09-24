@@ -3,10 +3,12 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:app="clr-namespace:LSIC.App"
                   xmlns:bhs="clr-namespace:LSIC.App.Behaviors"
+                  xmlns:ctrs="clr-namespace:LSIC.App.Controls"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:models="clr-namespace:LSIC.App.Models"
+                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
                   xmlns:views="clr-namespace:LSIC.App.Views"
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
@@ -220,7 +222,8 @@
                                   MaxWidth="800"
                                   Margin="0,20,0,0"
                                   HorizontalAlignment="Left"
-                                  VerticalAlignment="Stretch">
+                                  VerticalAlignment="Stretch"
+                                  Visibility="{Binding BurnInBoardSetting, Converter={StaticResource NotNullToVisibilityConverter}}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition Height="Auto" MinHeight="160" />
@@ -238,6 +241,7 @@
                                                    Rows="{Binding BurnInBoardSetting.Row}">
                                     <i:Interaction.Behaviors>
                                         <bhs:DutSelectionBehavior SelectedWrapper="{Binding Source={StaticResource MainDataContext}, Path=Data.DutSettingWrapper, Mode=TwoWay}" />
+                                        <wpf:AutoSelectFirstBehavior />
                                     </i:Interaction.Behaviors>
                                     <wpf:MatrixListBox.ItemTemplate>
                                         <DataTemplate>
@@ -248,7 +252,7 @@
                                                       StrokeThickness="2"
                                                       Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Converter={StaticResource TrueToVisibilityConverter}}" />
 
-                                                <Path Margin="8"
+                                                <Path Margin="10"
                                                       Data="{StaticResource Geometry.Cpu}"
                                                       Fill="{DynamicResource PrimaryBrush}"
                                                       Stretch="Fill" />
@@ -277,33 +281,39 @@
                                           VerticalAlignment="Top"
                                           Visibility="{Binding ., Converter={StaticResource NotNullToVisibilityConverter}}">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="30" />
+                                            <RowDefinition Height="Auto" />
                                             <RowDefinition Height="30" />
                                             <RowDefinition Height="30" />
                                             <RowDefinition MinHeight="30" />
                                         </Grid.RowDefinitions>
-                                        <StackPanel Height="{StaticResource DefaultControlHeight}"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Top"
-                                                    Orientation="Horizontal">
-                                            <TextBlock Text="{app:Lang {x:Static app:LangKey.ThermostatEnableText}}" />
-                                            <TextBlock Margin="3,0,10,0" Text="(℃):" />
-                                            <TextBox Width="100"
-                                                     Margin="0,0,5,0"
-                                                     Text="{Binding TargetTemperature, Converter={StaticResource IntegerToDecimalConverter10}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                     Visibility="{Binding Enable, Converter={StaticResource TrueToVisibilityConverter}}" />
-                                            <CheckBox IsChecked="{Binding Enable}" />
-                                        </StackPanel>
-
+                                        <wpf:SimplePanel Height="30" Visibility="{Binding IsValid, Converter={StaticResource TrueToVisibilityConverter}}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{app:Lang {x:Static app:LangKey.ThermostatIndexText}}" />
+                                                <TextBlock Margin="3,0,10,0" Text=":" />
+                                                <TextBlock Width="100"
+                                                           Margin="0,0,5,0"
+                                                           Text="{Binding DutSettingTemplate.ThermostatSetting.Id}" />
+                                            </StackPanel>
+                                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                                <TextBlock Text="{app:Lang {x:Static app:LangKey.ThermostatEnableText}}" />
+                                                <TextBlock Margin="3,0,10,0" Text="(℃):" />
+                                                <TextBox Width="100"
+                                                         Margin="0,0,5,0"
+                                                         VerticalAlignment="Center"
+                                                         Text="{Binding TargetTemperature, Converter={StaticResource IntegerToDecimalConverter10}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                         Visibility="{Binding Enable, Converter={StaticResource TrueToVisibilityConverter}}" />
+                                                <CheckBox IsChecked="{Binding Enable}" />
+                                            </StackPanel>
+                                        </wpf:SimplePanel>
                                         <TextBlock Grid.Row="1">
+                                            <Run Text="{app:Lang {x:Static app:LangKey.DutText}}" />
+                                            <Run Text="{Binding DutSettingTemplate.Id, Mode=OneWay}" />
                                             <Run Text="[" />
                                             <Run Text="{app:Lang {x:Static app:LangKey.RowText}}" />
                                             <Run Text="{Binding DutSettingTemplate.Row, Mode=OneWay}" />
                                             <Run Text="{app:Lang {x:Static app:LangKey.ColumnText}}" />
                                             <Run Text="{Binding DutSettingTemplate.Column, Mode=OneWay}" />
                                             <Run Text="]" />
-                                            <Run Text="{app:Lang {x:Static app:LangKey.DutText}}" />
-                                            <Run Text="{Binding DutSettingTemplate.Id, Mode=OneWay}" />
                                             <Run Text="   " />
                                             <Run Text="{app:Lang {x:Static app:LangKey.BelongChipSelectText}}" />
                                             <Run Text="[" />
@@ -445,7 +455,206 @@
                         </Grid>
                     </TabItem>
 
-                    <TabItem Header="基础设置" />
+                    <!--  流程设置  -->
+                    <TabItem Header="{app:Lang {x:Static app:LangKey.ProcessSettingText}}">
+                        <TabItem.Resources>
+                            <sys:Double x:Key="StepItemHeight">28</sys:Double>
+                        </TabItem.Resources>
+                        <Grid Margin="10" Grid.IsSharedSizeScope="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="350" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <wpf:ClipBorder Grid.Column="0"
+                                            BorderBrush="{DynamicResource BorderBrush}"
+                                            BorderThickness="1"
+                                            CornerRadius="{StaticResource DefaultCornerRadius}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <Button Margin="5"
+                                            HorizontalAlignment="Stretch"
+                                            Command="{Binding Data.MakeLoopCommand, Source={StaticResource MainDataContext}}"
+                                            CommandParameter="{Binding ElementName=StepListBox, Path=SelectedItems}"
+                                            Content="将选中步骤设置为循环" />
+
+                                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="80" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!--  循环槽  -->
+                                            <ctrs:LoopSlotControl Grid.Column="0"
+                                                                  VerticalAlignment="Top"
+                                                                  BorderBrush="{DynamicResource BorderBrush}"
+                                                                  BorderThickness="0,1,0,0"
+                                                                  ItemsSource="{Binding Process.LoopSlots}"
+                                                                  RowCount="{Binding Process.StepItems.Count}"
+                                                                  RowHeight="{StaticResource StepItemHeight}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <ctrs:LoopSlotPanel RowCount="{Binding RowCount, RelativeSource={RelativeSource AncestorType=ctrs:LoopSlotControl}}" RowHeight="{Binding RowHeight, RelativeSource={RelativeSource AncestorType=ctrs:LoopSlotControl}}" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <wpf:SimplePanel HorizontalAlignment="Right">
+                                                            <Grid Width="40"
+                                                                  Margin="0,8"
+                                                                  HorizontalAlignment="Right">
+                                                                <Border BorderBrush="#8B98A8"
+                                                                        BorderThickness="1,1,0,1"
+                                                                        CornerRadius="4,0,0,4" />
+
+                                                                <Path Width="8"
+                                                                      Height="8"
+                                                                      Margin="-2,0,0,-4"
+                                                                      HorizontalAlignment="Right"
+                                                                      VerticalAlignment="Bottom"
+                                                                      Data="M 0,0 L 0,8 L  8,4 Z"
+                                                                      Fill="#8B98A8" />
+                                                            </Grid>
+
+
+                                                            <Button Width="28"
+                                                                    Height="28"
+                                                                    Margin="0,0,26,0"
+                                                                    Padding="0"
+                                                                    Background="#F3F5F8"
+                                                                    HorizontalAlignment="Left"
+                                                                    wpf:IconHelper.Geometry="{StaticResource Geometry.Loop}"
+                                                                    wpf:IconHelper.Width="14"
+                                                                    BorderBrush="#8B98A8"
+                                                                    BorderThickness="1"
+                                                                    Opacity="1" >
+                                                                <Button.Style>
+                                                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource Button.Default }">
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+                                                                                <Setter Property="Background" Value="#DCDFE3" />
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Button.Style>
+                                                            </Button>
+                                                        </wpf:SimplePanel>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ctrs:LoopSlotControl>
+
+                                            <!--  步骤  -->
+                                            <ListBox x:Name="StepListBox"
+                                                     Grid.Column="1"
+                                                     wpf:BorderHelper.CornerRadius="0"
+                                                     Background="Transparent"
+                                                     BorderThickness="1,1,0,0"
+                                                     ItemsSource="{Binding Process.StepItems}"
+                                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                                     SelectionMode="Extended">
+                                                <ListBox.Resources>
+                                                    <!--  向量  -->
+                                                    <DataTemplate DataType="{x:Type models:StepVector}">
+                                                        <Border Height="{StaticResource StepItemHeight}">
+                                                            <Grid Margin="10,2">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                    <ColumnDefinition Width="*" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <Path Grid.Column="0"
+                                                                      Width="18"
+                                                                      Height="11"
+                                                                      Data="{StaticResource Geometry.StepVector}"
+                                                                      Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Path=Foreground}"
+                                                                      SnapsToDevicePixels="True"
+                                                                      Stretch="Uniform" />
+                                                                <TextBlock Grid.Column="1"
+                                                                           Margin="10,0"
+                                                                           Text="{Binding Name}" />
+                                                            </Grid>
+                                                        </Border>
+                                                    </DataTemplate>
+
+                                                    <!--  电源步  -->
+                                                    <DataTemplate DataType="{x:Type models:StepPower}">
+                                                        <Grid x:Name="mainContainer" Margin="10,2">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <Path x:Name="IconPath"
+                                                                  Grid.Column="0"
+                                                                  Width="18"
+                                                                  Height="11"
+                                                                  Data="{StaticResource Geometry.StepPower}"
+                                                                  Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Path=Foreground}"
+                                                                  SnapsToDevicePixels="True"
+                                                                  Stretch="Uniform" />
+                                                            <TextBlock x:Name="NameText"
+                                                                       Grid.Column="1"
+                                                                       Margin="10,0"
+                                                                       Text="{Binding Name}" />
+                                                        </Grid>
+
+                                                    </DataTemplate>
+                                                </ListBox.Resources>
+
+                                                <ListBox.ItemContainerStyle>
+                                                    <Style BasedOn="{StaticResource ListBoxItem.General}" TargetType="{x:Type ListBoxItem}">
+                                                        <Setter Property="Padding" Value="0" />
+                                                        <Setter Property="Margin" Value="0" />
+                                                        <Setter Property="wpf:BorderHelper.CornerRadius" Value="0" />
+                                                        <Setter Property="Height" Value="{StaticResource StepItemHeight}" />
+                                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                        <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
+                                                        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                                                        <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsInLoop}" Value="true">
+                                                                <Setter Property="Background" Value="#F3F5F8" />
+                                                 
+                                                            </DataTrigger>
+                                                            <Trigger Property="IsSelected" Value="true">
+                                                                <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                                                                <Setter Property="Foreground" Value="{DynamicResource ContrastForegroundBrush}" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ListBox.ItemContainerStyle>
+                                            </ListBox>
+
+                                        </Grid>
+                                    </ScrollViewer>
+                                </Grid>
+                            </wpf:ClipBorder>
+
+
+                            <wpf:SimplePanel Grid.Row="1"
+                                             Grid.Column="0"
+                                             Margin="0,10,0,0"
+                                             HorizontalAlignment="Stretch">
+                                <Button HorizontalAlignment="Left"
+                                        Command="{Binding Data.CreateStepItemCommand, Source={StaticResource MainDataContext}}"
+                                        Content="{app:Lang {x:Static app:LangKey.CreateNewText}}" />
+                                <Button HorizontalAlignment="Right"
+                                        Command="{Binding Data.DeleteStepItemCommand, Source={StaticResource MainDataContext}}"
+                                        Content="{app:Lang {x:Static app:LangKey.DeleteText}}" />
+                            </wpf:SimplePanel>
+                        </Grid>
+                    </TabItem>
                 </TabControl>
             </wpf:StateBlock.CheckedContent>
         </wpf:StateBlock>

@@ -20,7 +20,7 @@
             get => _vector;
             set => SetProperty(ref _vector, value);
         }
-        public StepPower(StepItemType itemType = StepItemType.PowerOn)
+        public StepPower(StepItemType itemType = StepItemType.PowerOn) : base(itemType.ToString())
         {
             if (itemType != StepItemType.PowerOn && itemType != StepItemType.PowerOff)
             {
