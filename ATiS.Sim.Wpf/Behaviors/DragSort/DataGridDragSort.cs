@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace ATiS.Sim.Wpf
 {
@@ -109,17 +108,9 @@ namespace ATiS.Sim.Wpf
         }
         private static void OnMouseMove(object sender, MouseEventArgs e)
         {
-            if (sender is not DataGrid grid)
-            {
-                return;
-            }
-
-            if (e.LeftButton != MouseButtonState.Pressed)
-            {
-                return;
-            }
-
-            if (e.OriginalSource is not DependencyObject src)
+            if (sender is not DataGrid grid 
+                || e.LeftButton != MouseButtonState.Pressed
+                || e.OriginalSource is not DependencyObject src)
             {
                 return;
             }
@@ -152,7 +143,9 @@ namespace ATiS.Sim.Wpf
                 return;
             }
 
-            if (!e.Data.GetDataPresent(typeof(DataGridRow)) || grid.ItemsSource is not IList list || list.IsReadOnly)
+            if (!e.Data.GetDataPresent(typeof(DataGridRow)) 
+                || grid.ItemsSource is not IList list 
+                || list.IsReadOnly)
             {
                 e.Effects = DragDropEffects.None;
                 ClearAdorner(grid);
@@ -287,43 +280,5 @@ namespace ATiS.Sim.Wpf
             }
         }
         private readonly record struct DropSpot(DataGridRow? Anchor, bool Below, double LineY);
-    }
-
-    public sealed class DragInsertAdorner : Adorner
-    {
-        private static readonly Pen Pen = CreatePen();
-        private double _lineY;
-
-        public DragInsertAdorner(UIElement adornedElement) : base(adornedElement)
-        {
-            IsHitTestVisible = false;
-        }
-
-        public double LineY
-        {
-            get => _lineY;
-            set
-            {
-                if (Math.Abs(_lineY - value) > 0.01)
-                {
-                    _lineY = value;
-                    InvalidateVisual();
-                }
-            }
-        }
-
-        private static Pen CreatePen()
-        {
-            //ForegroundBrush PrimaryBrush
-            Brush brush = (Application.Current.TryFindResource("ForegroundBrush") as Brush) ?? new SolidColorBrush(Colors.Black);
-            var pen = new Pen(brush, 1);
-            return pen;
-        }
-
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            double width = AdornedElement.RenderSize.Width;
-            drawingContext.DrawLine(Pen, new Point(0, _lineY + 0.5), new Point(width, _lineY + 0.5));
-        }
     }
 }

@@ -54,7 +54,7 @@
             {
                 _enable = true;
             }
-            else if (_dutSettings.All(t => !t.ThermostatSetting?.Enable == false))
+            else if (_dutSettings.All(t => t.ThermostatSetting?.Enable == false))
             {
                 _enable = false;
             }

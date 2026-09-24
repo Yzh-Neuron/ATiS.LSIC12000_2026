@@ -92,6 +92,9 @@ namespace LSIC.App.ViewModels
         public IRelayCommand DeleteStepItemCommand { get; private set; }
         public IRelayCommand MakeLoopCommand { get; private set; }
         public IRelayCommand RemoveLoopCommand { get; private set; }
+        public IRelayCommand CanDragStepCommand { get; private set; }
+        public IRelayCommand CanDropStepCommand { get; private set; }
+        public IRelayCommand DropStepCommand { get; private set; }
         public PopIcEditViewModel()
         {
             Ics.CollectionChanged += OnIcsCollectionChanged;
@@ -114,6 +117,9 @@ namespace LSIC.App.ViewModels
             DeleteStepItemCommand = new RelayCommand<IList>(DeleteStepItem, CanDeleteStepItem);
             MakeLoopCommand = new RelayCommand<IList>(MakeLoop, CanMakeLoop);
             RemoveLoopCommand = new RelayCommand<IList>(RemoveLoop, CanRemoveLoop);
+            CanDragStepCommand = new RelayCommand<StepItem>(null, CanDragStep);
+            CanDropStepCommand = new RelayCommand<DragDropArgs>(null, CanDropStep);
+            DropStepCommand = new RelayCommand<DragDropArgs>(DropStep);
 
 
 #if DEBUG
@@ -309,6 +315,31 @@ namespace LSIC.App.ViewModels
         {
             var stepItems = obj.Cast<StepItem>()?.ToList();
             SelectedIc.Target.Process.MakeLoop(stepItems);
+        }
+        private bool CanDragStep(StepItem item)
+        {
+            return SelectedIc != null && item is { IsFixed: false };
+        }
+        private bool CanDropStep(DragDropArgs args)
+        {
+            return SelectedIc != null
+                && args is not null
+                && SelectedIc.Target.Process.CanMove(args.FromIndex, args.ToIndex);
+        }
+        private void DropStep(DragDropArgs args)
+        {
+            if (SelectedIc == null || args is null)
+            {
+                return;
+            }
+
+            if (!SelectedIc.Target.Process.CanMove(args.FromIndex, args.ToIndex))
+            {
+                return;
+            }
+
+            SelectedIc.Target.Process.Move(args.FromIndex, args.ToIndex);
+            SelectedIc.MarkDirty();
         }
         #endregion
 

@@ -1,4 +1,4 @@
-﻿namespace LSIC.App.Models
+﻿﻿namespace LSIC.App.Models
 {
     /// <summary>
     /// 流程
@@ -88,6 +88,74 @@
             var loop = new Loop(StepItems[range.Value.Start]) { End = StepItems[range.Value.End] };
             Loops.Add(loop);
 
+            Refresh();
+        }
+
+        /// <summary>
+        /// 拖动排序前校验：固定块不可移动，且重排后所有循环区间仍然合法（首尾有序、不含固定块）且互不交叠。
+        /// </summary>
+        public bool CanMove(int oldIndex, int newIndex)
+        {
+            int count = StepItems.Count;
+            if (oldIndex < 1 || oldIndex > count - 2)
+            {
+                return false;
+            }
+            if (newIndex < 1 || newIndex > count - 2)
+            {
+                return false;
+            }
+            if (oldIndex == newIndex)
+            {
+                return false;
+            }
+
+            // 模拟移动后的顺序
+            List<StepItem> simulated = StepItems.ToList();
+            StepItem moving = simulated[oldIndex];
+            simulated.RemoveAt(oldIndex);
+            simulated.Insert(newIndex, moving);
+
+            var ranges = new List<IntClosedRange>();
+            foreach (Loop loop in Loops)
+            {
+                int start = simulated.IndexOf(loop.Start);
+                int end = simulated.IndexOf(loop.End);
+                if (start < 0 || end < 0 || start >= end)
+                {
+                    return false;
+                }
+                // 循环区间不能触及固定的首尾块
+                if (start <= 0 || end >= count - 1)
+                {
+                    return false;
+                }
+                ranges.Add(new IntClosedRange(start, end));
+            }
+
+            // 循环只允许并列：按起点排序后两两不得交叠
+            ranges.Sort((a, b) => a.Start.CompareTo(b.Start));
+            for (int i = 1; i < ranges.Count; i++)
+            {
+                if (ranges[i].IsOverlapWith(ranges[i - 1]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 拖动排序：校验通过后移动条目并重算循环视图。
+        /// </summary>
+        public void Move(int oldIndex, int newIndex)
+        {
+            if (!CanMove(oldIndex, newIndex))
+            {
+                throw new InvalidOperationException("当前拖动会破坏循环结构（交叉、嵌套或包含固定块），已取消。");
+            }
+
+            StepItems.Move(oldIndex, newIndex);
             Refresh();
         }
 

@@ -74,4 +74,11 @@
             ViewModel?.Dispose();
         }
     }
+    public class PopPopIcEditViewModelProxy : BindingProxy<PopIcEditViewModel>
+    {
+        protected override Freezable CreateInstanceCore()
+        {
+            return new PopPopIcEditViewModelProxy();
+        }
+    }
 }

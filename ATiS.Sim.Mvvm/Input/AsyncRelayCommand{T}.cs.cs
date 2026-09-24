@@ -10,26 +10,25 @@ namespace ATiS.Sim.Mvvm
         {
             ArgumentNullException.ThrowIfNull(execute);
 
-            this.execute = execute;
+            _execute = execute;
         }
-        public AsyncRelayCommand(Func<T?, Task> execute, Predicate<T?> canExecute)
+        public AsyncRelayCommand(Func<T?, Task>? execute, Predicate<T?> canExecute)
         {
-            ArgumentNullException.ThrowIfNull(execute);
             ArgumentNullException.ThrowIfNull(canExecute);
 
-            this.execute = execute;
-            this.canExecute = canExecute;
+            _execute = execute;
+            _canExecute = canExecute;
         }
 
         private Task? _executionTask;
-        private readonly Func<T?, Task> execute;
-        private readonly Predicate<T?>? canExecute;
+        private readonly Func<T?, Task>? _execute;
+        private readonly Predicate<T?>? _canExecute;
         public event EventHandler? CanExecuteChanged;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool CanExecute(T? parameter)
         {
-            bool canExecute = this.canExecute?.Invoke(parameter) != false;
+            bool canExecute = this._canExecute?.Invoke(parameter) != false;
             return canExecute && (_executionTask is not { IsCompleted: false });
         }
 
@@ -50,8 +49,11 @@ namespace ATiS.Sim.Mvvm
         }
         public void Execute(T? parameter)
         {
-            _executionTask = execute(parameter);
-            AsyncRelayCommand.AwaitAndThrowIfFailed(_executionTask);
+            if (_execute != null)
+            {
+                _executionTask = _execute.Invoke(parameter);
+                AsyncRelayCommand.AwaitAndThrowIfFailed(_executionTask);
+            }
         }
         public void Execute(object? parameter)
         {

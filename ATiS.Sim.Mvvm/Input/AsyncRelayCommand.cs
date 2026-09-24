@@ -10,31 +10,33 @@ namespace ATiS.Sim.Mvvm
         {
             ArgumentNullException.ThrowIfNull(execute);
 
-            this.execute = execute;
+            _execute = execute;
         }
-        public AsyncRelayCommand(Func<Task> execute, Func<bool> canExecute)
+        public AsyncRelayCommand(Func<Task>? execute, Func<bool> canExecute)
         {
-            ArgumentNullException.ThrowIfNull(execute);
             ArgumentNullException.ThrowIfNull(canExecute);
 
-            this.execute = execute;
-            this.canExecute = canExecute;
+            _execute = execute;
+            _canExecute = canExecute;
         }
 
         private Task? _executionTask;
-        private readonly Func<Task> execute;
-        private readonly Func<bool>? canExecute;
+        private readonly Func<Task>? _execute;
+        private readonly Func<bool>? _canExecute;
         public event EventHandler? CanExecuteChanged;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool CanExecute(object? parameter)
         {
-            return (canExecute?.Invoke() != false) && (_executionTask is not { IsCompleted: false });
+            return (_canExecute?.Invoke() != false) && (_executionTask is not { IsCompleted: false });
         }
         public void Execute(object? parameter)
         {
-            _executionTask = execute();
-            AwaitAndThrowIfFailed(_executionTask);
+            if (_execute != null)
+            {
+                _executionTask = _execute.Invoke();
+                AwaitAndThrowIfFailed(_executionTask);
+            }
         }
         public void NotifyCanExecuteChanged()
         {

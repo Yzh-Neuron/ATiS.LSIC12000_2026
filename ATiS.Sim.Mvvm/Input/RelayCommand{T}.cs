@@ -10,25 +10,24 @@ namespace ATiS.Sim.Mvvm
         {
             ArgumentNullException.ThrowIfNull(execute);
 
-            this.execute = execute;
+            _execute = execute;
         }
-        public RelayCommand(Action<T?> execute, Predicate<T?> canExecute)
+        public RelayCommand(Action<T?>? execute, Predicate<T?> canExecute)
         {
-            ArgumentNullException.ThrowIfNull(execute);
             ArgumentNullException.ThrowIfNull(canExecute);
 
-            this.execute = execute;
-            this.canExecute = canExecute;
+            _execute = execute;
+            _canExecute = canExecute;
         }
 
-        private Action<T?> execute;
-        private Predicate<T?>? canExecute;
+        private Action<T?>? _execute;
+        private Predicate<T?>? _canExecute;
         public event EventHandler? CanExecuteChanged;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool CanExecute(T? parameter)
         {
-            return canExecute?.Invoke(parameter) != false;
+            return _canExecute?.Invoke(parameter) != false;
         }
         public bool CanExecute(object? parameter)
         {
@@ -48,7 +47,7 @@ namespace ATiS.Sim.Mvvm
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Execute(T? parameter)
         {
-            execute(parameter);
+            _execute?.Invoke(parameter);
         }
         public void Execute(object? parameter)
         {

@@ -10,16 +10,15 @@ namespace ATiS.Sim.Mvvm
             ArgumentNullException.ThrowIfNull(execute);
             _execute = execute;
         }
-        public RelayCommand(Action execute, Func<bool> canExecute)
+        public RelayCommand(Action? execute, Func<bool> canExecute)
         {
-            ArgumentNullException.ThrowIfNull(execute);
             ArgumentNullException.ThrowIfNull(canExecute);
 
             _execute = execute;
             _canExecute = canExecute;
         }
 
-        private Action _execute;
+        private Action? _execute;
         private Func<bool>? _canExecute;
         public event EventHandler? CanExecuteChanged;
 
@@ -30,7 +29,7 @@ namespace ATiS.Sim.Mvvm
         }
         public void Execute(object? parameter)
         {
-            _execute();
+            _execute?.Invoke();
         }
         public void NotifyCanExecuteChanged()
         {

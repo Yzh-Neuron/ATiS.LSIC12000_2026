@@ -21,7 +21,7 @@
                   WindowStartupLocation="CenterOwner"
                   mc:Ignorable="d">
     <Window.Resources>
-        <wpf:BindingProxy x:Key="MainDataContext" Data="{Binding}" />
+        <views:PopPopIcEditViewModelProxy x:Key="MainDataContext" Data="{Binding}" />
     </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -472,6 +472,7 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
+                            <!--  左侧步骤列表  -->
                             <wpf:ClipBorder Grid.Column="0"
                                             BorderBrush="{DynamicResource BorderBrush}"
                                             BorderThickness="1"
@@ -512,7 +513,7 @@
                                                     <DataTemplate>
                                                         <wpf:SimplePanel HorizontalAlignment="Right">
                                                             <Grid Width="40"
-                                                                  Margin="0,8"
+                                                                  Margin="0,10"
                                                                   HorizontalAlignment="Right">
                                                                 <Border BorderBrush="#8B98A8"
                                                                         BorderThickness="1,1,0,1"
@@ -526,21 +527,19 @@
                                                                       Data="M 0,0 L 0,8 L  8,4 Z"
                                                                       Fill="#8B98A8" />
                                                             </Grid>
-
-
                                                             <Button Width="28"
                                                                     Height="28"
                                                                     Margin="0,0,26,0"
                                                                     Padding="0"
-                                                                    Background="#F3F5F8"
                                                                     HorizontalAlignment="Left"
                                                                     wpf:IconHelper.Geometry="{StaticResource Geometry.Loop}"
                                                                     wpf:IconHelper.Width="14"
+                                                                    Background="#F3F5F8"
                                                                     BorderBrush="#8B98A8"
                                                                     BorderThickness="1"
-                                                                    Opacity="1" >
+                                                                    Opacity="1">
                                                                 <Button.Style>
-                                                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource Button.Default }">
+                                                                    <Style BasedOn="{StaticResource Button.Default}" TargetType="{x:Type Button}">
                                                                         <Style.Triggers>
                                                                             <Trigger Property="IsMouseOver" Value="True">
                                                                                 <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
@@ -559,12 +558,17 @@
                                             <ListBox x:Name="StepListBox"
                                                      Grid.Column="1"
                                                      wpf:BorderHelper.CornerRadius="0"
+                                                     wpf:ListBoxDragSort.CanDragCommand="{Binding Source={StaticResource MainDataContext}, Path=Data.CanDragStepCommand}"
+                                                     wpf:ListBoxDragSort.CanDropCommand="{Binding Source={StaticResource MainDataContext}, Path=Data.CanDropStepCommand}"
+                                                     wpf:ListBoxDragSort.DropCommand="{Binding Source={StaticResource MainDataContext}, Path=Data.DropStepCommand}"
+                                                     wpf:ListBoxDragSort.IsEnabled="True"
                                                      Background="Transparent"
                                                      BorderThickness="1,1,0,0"
                                                      ItemsSource="{Binding Process.StepItems}"
                                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                      SelectionMode="Extended">
+
                                                 <ListBox.Resources>
                                                     <!--  向量  -->
                                                     <DataTemplate DataType="{x:Type models:StepVector}">
@@ -625,7 +629,7 @@
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding IsInLoop}" Value="true">
                                                                 <Setter Property="Background" Value="#F3F5F8" />
-                                                 
+
                                                             </DataTrigger>
                                                             <Trigger Property="IsSelected" Value="true">
                                                                 <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
@@ -641,7 +645,7 @@
                                 </Grid>
                             </wpf:ClipBorder>
 
-
+                            <!--  右侧步骤详情  -->
                             <wpf:SimplePanel Grid.Row="1"
                                              Grid.Column="0"
                                              Margin="0,10,0,0"
