@@ -1,9 +1,9 @@
-﻿﻿namespace LSIC.App.Models
+﻿namespace LSIC.App.Models
 {
     /// <summary>
     /// 流程
     /// </summary>
-    public class Process
+    public class Process : ObservableObject
     {
         public Process()
         {
@@ -11,6 +11,10 @@
             var powerOff = StepPower.PowerOff();
             StepItems.Add(powerOn);
             StepItems.Add(powerOff);
+#if DEBUG
+            StepItems.Add(new StepVector("步骤1"));
+            StepItems.Add(new StepVector("步骤2"));
+#endif
         }
 
         /// <summary>
@@ -23,10 +27,16 @@
         /// </summary>
         public ObservableCollection<Loop> Loops { get; } = new();
 
+        private List<LoopSlot> _loopSlots;
+
         /// <summary>
-        /// 循环槽位
+        /// 循环槽位（界面用）
         /// </summary>
-        public ObservableCollection<LoopSlot> LoopSlots { get; } = new();
+        public List<LoopSlot> LoopSlots
+        {
+            get => _loopSlots;
+            set => SetProperty(ref _loopSlots, value);
+        }
 
         /// <summary>
         /// 插入顺序
@@ -34,16 +44,15 @@
         public int NewItemInsertIndex => StepItems.Count - 1;
 
         /// <summary>
-        /// 新增一个向量条目：永远插在固定下电尾之前
+        /// 新增向量步骤(在上下电之间)
         /// </summary>
         public void AddVector(StepVector stepVector)
         {
             StepItems.Insert(NewItemInsertIndex, stepVector);
-            Refresh();
         }
 
         /// <summary>
-        /// 移除向量条目
+        /// 移除向量步骤
         /// </summary>
         /// <param name="stepItems"></param>
         public void RemoveVector(IList<StepItem> stepItems)
@@ -51,19 +60,27 @@
             stepItems = stepItems.Where(t => !t.IsFixed).ToList();
             var affected = Loops.Where(loop => stepItems.Any(item => InLoop(loop, item)));
 
-            //移除循环
+            bool needRefresh = false;
+
+            //移除向量步骤所在的循环
             foreach (var loop in affected)
             {
-                Loops.Remove(loop);
+                if (Loops.Remove(loop))
+                {
+                    needRefresh = true;
+                }
             }
 
-            //移除向量
+            //移除向量步骤
             foreach (var item in stepItems)
             {
                 StepItems.Remove(item);
             }
 
-            Refresh();
+            if (needRefresh)
+            {
+                Refresh();
+            }
         }
 
         /// <summary>
@@ -73,14 +90,16 @@
         /// <exception cref="InvalidOperationException"></exception>
         public void MakeLoop(IList<StepItem> stepItems)
         {
-            IntClosedRange? range = LoopResolver.RangeOf(this, stepItems);
+            //选中步骤生成闭区间
+            IntClosedRange? range = this.RangeOf(stepItems);
 
             if (range is null)
             {
                 throw new InvalidOperationException(stepItems is { Count: > 0 } ? "请选择连续的中段向量条目（不能包含固定上电 / 下电块）。" : "请先选中一个或多个连续的向量条目。");
             }
 
-            if (LoopResolver.IsBlocked(this, range.Value))
+            //判断是否有重叠
+            if (this.IsBlocked(range.Value))
             {
                 throw new InvalidOperationException("循环只能并列，不能嵌套或交叉，请重新选择连续条目。");
             }
@@ -92,25 +111,32 @@
         }
 
         /// <summary>
-        /// 拖动排序前校验：固定块不可移动，且重排后所有循环区间仍然合法（首尾有序、不含固定块）且互不交叠。
+        /// 是否可以排序
         /// </summary>
         public bool CanMove(int oldIndex, int newIndex)
         {
+            Debug.WriteLine(oldIndex + " " + newIndex);
             int count = StepItems.Count;
+
+            //固定流程不可移动
             if (oldIndex < 1 || oldIndex > count - 2)
             {
                 return false;
             }
+
+            //不能移动到固定流程中
             if (newIndex < 1 || newIndex > count - 2)
             {
                 return false;
             }
+
+            //不能移动到自己上面
             if (oldIndex == newIndex)
             {
                 return false;
             }
 
-            // 模拟移动后的顺序
+            // 模拟步骤移动后的结果
             List<StepItem> simulated = StepItems.ToList();
             StepItem moving = simulated[oldIndex];
             simulated.RemoveAt(oldIndex);
@@ -121,22 +147,22 @@
             {
                 int start = simulated.IndexOf(loop.Start);
                 int end = simulated.IndexOf(loop.End);
-                if (start < 0 || end < 0 || start >= end)
-                {
-                    return false;
-                }
-                // 循环区间不能触及固定的首尾块
-                if (start <= 0 || end >= count - 1)
+
+                //模拟后的结果
+                //1、起点不能大于终点
+                //2、正常范围必须是排除首尾
+                if (start <= 0 || start >= end || end >= count - 1)
                 {
                     return false;
                 }
                 ranges.Add(new IntClosedRange(start, end));
             }
 
-            // 循环只允许并列：按起点排序后两两不得交叠
+            // 循环闭区间按照起点排序
             ranges.Sort((a, b) => a.Start.CompareTo(b.Start));
             for (int i = 1; i < ranges.Count; i++)
             {
+                //每个区间不能重叠
                 if (ranges[i].IsOverlapWith(ranges[i - 1]))
                 {
                     return false;
@@ -146,7 +172,7 @@
         }
 
         /// <summary>
-        /// 拖动排序：校验通过后移动条目并重算循环视图。
+        /// 排序
         /// </summary>
         public void Move(int oldIndex, int newIndex)
         {
@@ -160,12 +186,14 @@
         }
 
         /// <summary>
-        /// 任何编辑后统一重算
+        /// 重新计算循环视图
         /// </summary>
         public void Refresh()
         {
-            List<LoopSlot> slots = LoopResolver.BuildSlots(this);
+            //生成循环视图
+            List<LoopSlot> slots = this.BuildSlots();
 
+            //提取视图中的所有子步骤
             var inLoop = new HashSet<StepItem>();
             foreach (var slot in slots)
             {
@@ -175,16 +203,13 @@
                 }
             }
 
+            //更新步骤中的是否在循环中的状态
             foreach (var item in StepItems)
             {
                 item.IsInLoop = !item.IsFixed && inLoop.Contains(item);
             }
 
-            LoopSlots.Clear();
-            foreach (var slot in slots)
-            {
-                LoopSlots.Add(slot);
-            }
+            LoopSlots = slots;
         }
 
         /// <summary>

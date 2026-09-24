@@ -113,7 +113,7 @@ namespace LSIC.App.ViewModels
             EditDpsSettingCommand = new RelayCommand<DpsSetting>(EditDpsSetting);
 
             //流程
-            CreateStepItemCommand = new RelayCommand(CreateStepItem, CanStepItem);
+            CreateStepItemCommand = new RelayCommand(CreateStepItem, CanCreateStepItem);
             DeleteStepItemCommand = new RelayCommand<IList>(DeleteStepItem, CanDeleteStepItem);
             MakeLoopCommand = new RelayCommand<IList>(MakeLoop, CanMakeLoop);
             RemoveLoopCommand = new RelayCommand<IList>(RemoveLoop, CanRemoveLoop);
@@ -264,7 +264,7 @@ namespace LSIC.App.ViewModels
         #endregion
 
         #region 流程相关命令
-        private bool CanStepItem()
+        private bool CanCreateStepItem()
         {
             return SelectedIc != null;
         }

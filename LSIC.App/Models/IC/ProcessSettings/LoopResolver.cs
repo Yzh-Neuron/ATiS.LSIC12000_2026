@@ -10,9 +10,9 @@
         /// </summary>
         /// <param name="process"></param>
         /// <returns></returns>
-        public static List<LoopSlot> BuildSlots(Process process)
+        public static List<LoopSlot> BuildSlots(this Process process)
         {
-            return ResolveRanges(process)
+            return process.ResolveRanges()
                 .Select(x => new LoopSlot { Loop = x.Loop, Range = x.Range })
                 .OrderBy(slot => slot.Row)
                 .ToList();
@@ -24,14 +24,14 @@
         /// <param name="process"></param>
         /// <param name="selected"></param>
         /// <returns></returns>
-        public static IntClosedRange? RangeOf(Process process, IList<StepItem> selected)
+        public static IntClosedRange? RangeOf(this Process process, IList<StepItem> selected)
         {
             if (selected is null || selected.Count == 0)
             {
                 return null;
             }
 
-            // 固定块不允许进循环
+            //固定块不允许进循环
             if (selected.Any(item => item.IsFixed))
             {
                 return null;
@@ -49,6 +49,7 @@
                 return null;
             }
 
+            //相邻索引必须差 1
             for (int i = 1; i < indexes.Count; i++)
             {
                 if (indexes[i] != indexes[i - 1] + 1)
@@ -65,9 +66,9 @@
         /// <param name="process">流程</param>
         /// <param name="candidate">候选区间</param>
         /// <returns></returns>
-        public static bool IsBlocked(Process process, IntClosedRange candidate)
+        public static bool IsBlocked(this Process process, IntClosedRange candidate)
         {
-            foreach (var existing in ResolveRanges(process))
+            foreach (var existing in process.ResolveRanges())
             {
                 if (existing.Range.IsOverlapWith(candidate))
                 {
@@ -78,16 +79,18 @@
         }
 
         /// <summary>
-        /// 获取流程中的所有循环
+        /// 获取流程中的所有（循环对象，和对应的闭区间）
         /// </summary>
-        private static List<(Loop Loop, IntClosedRange Range)> ResolveRanges(Process process)
+        private static List<(Loop Loop, IntClosedRange Range)> ResolveRanges(this Process process)
         {
+            //存放流程中的步骤索引
             var index = new Dictionary<StepItem, int>();
             for (int i = 0; i < process.StepItems.Count; i++)
             {
                 index[process.StepItems[i]] = i;
             }
 
+            //循环所对应的闭区间
             var result = new List<(Loop, IntClosedRange)>();
             foreach (var loop in process.Loops)
             {
@@ -96,13 +99,14 @@
                     throw new InvalidOperationException("循环引用了流程中不存在的条目。");
                 }
 
+                //该区间在 所有步骤的总和之内
                 var range = new IntClosedRange(start, end);
                 if (!range.IsValid(process.StepItems.Count))
                 {
                     throw new InvalidOperationException("循环区间非法：首条目必须排在末条目之前，且不能越界。");
                 }
 
-                // 循环只能落在 [1,Count-1]
+                // 循环只能落在 [1,Count-1]（排除电源）
                 if (start <= 0 || end >= process.StepItems.Count - 1)
                 {
                     throw new InvalidOperationException("循环不能包含固定的上电 / 下电块。");

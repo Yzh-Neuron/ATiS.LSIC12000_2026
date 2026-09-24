@@ -564,6 +564,7 @@
                                                      wpf:ListBoxDragSort.IsEnabled="True"
                                                      Background="Transparent"
                                                      BorderThickness="1,1,0,0"
+                                                     SelectedItem="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedStepItem}" 
                                                      ItemsSource="{Binding Process.StepItems}"
                                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
