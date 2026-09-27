@@ -583,7 +583,7 @@
                                                                             </TextBlock>
                                                                         </wpf:StateBlock.UnCheckedContent>
                                                                         <wpf:StateBlock.CheckedContent>
-                                                                            <TextBlock Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Foreground}">
+                                                                            <TextBlock>
                                                                                 <Run Text="{Binding Loop.RunStrategy.Count}" />
                                                                                 <Run Text="{app:Lang {x:Static app:LangKey.TimesText}}" />
                                                                             </TextBlock>
@@ -848,10 +848,10 @@
 
                                                     <Button Grid.Column="3"
                                                             Margin="10,0,0,0"
-                                                            Foreground="{DynamicResource PrimaryBrush}"
                                                             Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditRunStrategyCommand}"
                                                             CommandParameter="{Binding RunStrategy}"
                                                             Content="{app:Lang {x:Static app:LangKey.EditText}}"
+                                                            Foreground="{DynamicResource PrimaryBrush}"
                                                             Style="{StaticResource Button.Link}" />
                                                 </Grid>
                                             </DataTemplate>

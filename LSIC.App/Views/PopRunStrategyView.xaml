@@ -10,7 +10,7 @@
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
                   Title="{app:Lang {x:Static app:LangKey.DpsEditText}}"
-                  MinWidth="350"
+                  MinWidth="150"
                   d:DataContext="{d:DesignInstance vms:PopRunStrategyViewModel}"
                   Icon="/Resources/Icon/icon.ico"
                   ResizeMode="NoResize"
@@ -30,12 +30,12 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0"
+        <StackPanel Grid.Row="0" 
                     Grid.ColumnSpan="2"
                     Orientation="Horizontal">
             <TextBlock Width="55" Text="{app:Lang {x:Static app:LangKey.LoopModeText}}" />
             <TextBlock Margin="3,0,10,0" Text=":" />
-            <ComboBox Width="75"
+            <ComboBox Width="100"
                       DisplayMemberPath="Value"
                       ItemsSource="{Binding Source={x:Type app:RunMode}, Converter={StaticResource EnumToTextPairsConverter}, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValue="{Binding RunStrategy.Mode}"
