@@ -16,60 +16,80 @@
                   SizeToContent="Height"
                   WindowStartupLocation="CenterOwner"
                   mc:Ignorable="d">
-    <Grid Margin="10" VerticalAlignment="Center">
+
+    <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0"
-                   Grid.Column="0"
-                   VerticalAlignment="Center">
-            <Run Text="{app:Lang {x:Static app:LangKey.PatternFileText}}" />
-            <Run Text=":" />
-        </TextBlock>
-        <TextBlock Grid.Row="1"
-                   Grid.Column="0"
-                   VerticalAlignment="Center">
-            <Run Text="{app:Lang {x:Static app:LangKey.RegisterFileText}}" />
-            <Run Text=":" />
-        </TextBlock>
+        <Grid Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       VerticalAlignment="Center">
+                <Run Text="{app:Lang {x:Static app:LangKey.PatternFileText}}" />
+                <Run Text=":" />
+            </TextBlock>
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       VerticalAlignment="Center">
+                <Run Text="{app:Lang {x:Static app:LangKey.RegisterFileText}}" />
+                <Run Text=":" />
+            </TextBlock>
 
 
-        <TextBox Grid.Row="0"
-                 Grid.Column="1"
-                 Margin="5,0"
-                 VerticalAlignment="Center"
-                 IsReadOnly="True"
-                 IsReadOnlyCaretVisible="True"
-                 Text="{Binding Clone.PatternFile}" />
-        <TextBox Grid.Row="1"
-                 Grid.Column="1"
-                 Margin="5"
-                 VerticalAlignment="Center"
-                 IsReadOnly="True"
-                 IsReadOnlyCaretVisible="True"
-                 Text="{Binding Clone.RegisterFile}" />
+            <TextBox Grid.Row="0"
+                     Grid.Column="1"
+                     Margin="5,0"
+                     VerticalAlignment="Center"
+                     IsReadOnly="True"
+                     IsReadOnlyCaretVisible="True"
+                     Text="{Binding Vector.PatternFile}" />
+            <TextBox Grid.Row="1"
+                     Grid.Column="1"
+                     Margin="5"
+                     VerticalAlignment="Center"
+                     IsReadOnly="True"
+                     IsReadOnlyCaretVisible="True"
+                     Text="{Binding Vector.RegisterFile}" />
 
-        <Button Grid.Row="0"
-                Grid.Column="2"
-                Click="OnChoosePatternFileButtonClick"
-                Style="{StaticResource Button.ChooseFile}" />
-        <Button Grid.Row="1"
-                Grid.Column="2"
-                Click="OnChooseRegisterFileButtonClick"
-                Style="{StaticResource Button.ChooseFile}" />
+            <Button Grid.Row="0"
+                    Grid.Column="2"
+                    Command="{Binding SelectPatternFileCommand}"
+                    Style="{StaticResource Button.ChooseFile}" />
+            <Button Grid.Row="1"
+                    Grid.Column="2"
+                    Command="{Binding SelectRegisterFileCommand}"
+                    Style="{StaticResource Button.ChooseFile}" />
+        </Grid>
+
 
         <Button Grid.Row="2"
-                Grid.ColumnSpan="3"
-                Width="80"
+                Grid.Column="0"
+                HorizontalAlignment="Left"
                 Command="{Binding ConfirmCommand}"
                 Style="{StaticResource Button.Confirm}" />
+        <Button Grid.Row="2"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Command="{Binding CancelCommand}"
+                Style="{StaticResource Button.Cancel}" />
     </Grid>
+
+
 </wpf:ChromeWindow>

@@ -4,6 +4,7 @@ namespace LSIC.App.ViewModels
 {
     public class PopIcEditViewModel : ObservableObject, IDisposable
     {
+        //器件
         public ObservableCollection<DirtyObserver<Ic>> Ics { get; } = new();
         private DirtyObserver<Ic> _selectedIc;
         public DirtyObserver<Ic> SelectedIc
@@ -11,8 +12,6 @@ namespace LSIC.App.ViewModels
             get => _selectedIc;
             set => SetProperty(ref _selectedIc, value);
         }
-
-        //器件
         public ICommand CreateIcCommand { get; private set; }
         public ICommand SaveIcCommand { get; private set; }
         public ICommand SaveAsIcCommand { get; private set; }
@@ -61,8 +60,18 @@ namespace LSIC.App.ViewModels
         public ICommand CanDragStepCommand { get; private set; }
         public ICommand CanDropStepCommand { get; private set; }
         public ICommand DropStepCommand { get; private set; }
-        public ICommand EditLoopRunStrategyCommand { get; private set; }
         public ICommand RemoveLoopCommand { get; private set; }
+        private Vector _selectedVector;
+        public Vector SelectedVector
+        {
+            get => _selectedVector;
+            set => SetProperty(ref _selectedVector, value);
+        }
+        public ICommand CreateVectorCommand { get; private set; }
+        public ICommand DeleteVectorCommand { get; private set; }
+        public ICommand EditVectorCommand { get; private set; }
+        public ICommand EditRunStrategyCommand { get; private set; }
+
         public PopIcEditViewModel()
         {
             SelectBurnInBoardFileCommand = new RelayCommand(SelectBurnInBoardFile);
@@ -86,8 +95,12 @@ namespace LSIC.App.ViewModels
             CanDragStepCommand = new RelayCommand<StepItem>(null, CanDragStep);
             CanDropStepCommand = new RelayCommand<DragDropArgs>(null, CanDropStep);
             DropStepCommand = new RelayCommand<DragDropArgs>(DropStep);
-            EditLoopRunStrategyCommand = new RelayCommand<Loop>(EditLoopRunStrategy, CanEditLoopRunStrategy);
             RemoveLoopCommand = new RelayCommand<Loop>(RemoveLoop, CanRemoveLoop);
+            CreateVectorCommand = new RelayCommand(CreateVector, CanCreateVector);
+            DeleteVectorCommand = new RelayCommand(DeleteVector, CanDeleteVector);
+            EditVectorCommand = new RelayCommand<Vector>(EditVector);
+            EditRunStrategyCommand = new RelayCommand<RunStrategy>(EditRunStrategy);
+
 
 #if DEBUG
             DirtyObserver<Ic> ic = new(new Ic("test ic"));
@@ -164,7 +177,6 @@ namespace LSIC.App.ViewModels
 
             if (msgResult.Result is string name)
             {
-
                 DpsPlan dpsPlan = new DpsPlan(name);
                 SelectedIc.Target.DpsPlans.Add(dpsPlan);
                 SelectedDpsPlan = dpsPlan;
@@ -290,19 +302,6 @@ namespace LSIC.App.ViewModels
             SelectedIc.Target.Process.Move(args.FromIndex, args.ToIndex);
             SelectedIc.MarkDirty();
         }
-        private bool CanEditLoopRunStrategy(Loop loop)
-        {
-            return loop?.RunStrategy != null;
-        }
-        private void EditLoopRunStrategy(Loop loop)
-        {
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [(RunStrategy)loop.RunStrategy.Clone()])).First();
-
-            if (msgResult.Result is RunStrategy clone)
-            {
-                loop.RunStrategy.Copy(clone);
-            }
-        }
         private bool CanRemoveLoop(Loop obj)
         {
             return SelectedIc?.Target?.Process != null;
@@ -311,7 +310,55 @@ namespace LSIC.App.ViewModels
         {
             SelectedIc.Target.Process.RemoveLoop(loop);
         }
+        private void EditRunStrategy(RunStrategy strategy)
+        {
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [(RunStrategy)strategy.Clone()])).First();
 
+            if (msgResult.Result is RunStrategy clone)
+            {
+                strategy.Copy(clone);
+            }
+        }
+
+        private bool CanDeleteVector()
+        {
+            return SelectedVector != null;
+        }
+        private void DeleteVector()
+        {
+            var vector = SelectedVector;
+            SelectedStepItem.Vectors.Remove(SelectedVector);
+            SelectedVector = null;
+        }
+        private bool CanCreateVector()
+        {
+            if (SelectedStepItem.Vectors.Count > 0)
+            {
+                if (SelectedStepItem is StepPower)
+                {
+                    return false;
+                }
+            }
+          
+            return true;
+        }
+        private void CreateVector()
+        {
+            var vector = new Vector();
+            SelectedStepItem.Vectors.Add(new Vector());
+            SelectedVector = vector;
+        }
+        private void EditVector(Vector vector)
+        {
+            if (vector != null)
+            {
+                var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditVector, [(Vector)vector.Clone()])).First();
+                if (msgResult.Result is Vector clone)
+                {
+                    vector.Copy(clone);
+                }
+            }
+        }
         #endregion
 
         public void Dispose()

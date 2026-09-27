@@ -10,5 +10,6 @@
         CreateDpsSetting,
         EditDpsSetting,
         EditRunStrategy,
+        EditVector,
     }
 }

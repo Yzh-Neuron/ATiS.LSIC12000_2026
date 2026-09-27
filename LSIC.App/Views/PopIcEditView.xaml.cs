@@ -60,6 +60,16 @@
                         pop.ShowDialog();
                         return MessageResult.From(pop.DpsSetting);
                     }
+                case PopIcEditMessage.EditVector:
+                    {
+                        Vector vector = e.Args[0] as Vector;
+                        PopVectorEditView pop = new PopVectorEditView(vector)
+                        {
+                            Owner = this
+                        };
+                        pop.ShowDialog();
+                        return MessageResult.From(pop.Vector);
+                    }
                 case PopIcEditMessage.EditRunStrategy:
                     {
                         RunStrategy  runStrategy = e.Args[0] as RunStrategy;

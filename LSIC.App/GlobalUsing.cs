@@ -8,7 +8,6 @@ global using System.Reflection;
 global using System.Threading;
 global using System.Windows.Input;
 global using System.Diagnostics;
-global using System.ComponentModel;
 global using System.Collections.Generic;
 global using System.IO;
 global using System.Text;
@@ -26,5 +25,7 @@ global using LSIC.App.Models;
 global using LSIC.App.ViewMessages;
 global using LSIC.App.ViewModels;
 global using LSIC.App.Views;
+global using Vector = LSIC.App.Models.Vector;
+
 
 

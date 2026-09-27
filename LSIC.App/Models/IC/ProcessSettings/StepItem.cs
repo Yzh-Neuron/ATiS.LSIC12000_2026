@@ -39,6 +39,11 @@
         }
 
         /// <summary>
+        /// 子步次（有序）
+        /// </summary>
+        public ObservableCollection<Vector> Vectors { get; } = new();
+
+        /// <summary>
         /// 条目类型(界面选择模板)
         /// </summary>
         public abstract StepItemType ItemType { get; }

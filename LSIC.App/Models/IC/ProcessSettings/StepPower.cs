@@ -14,12 +14,6 @@
             get => _timeout;
             set => SetProperty(ref _timeout, value);
         }
-        private Vector _vector = new();
-        public Vector Vector
-        {
-            get => _vector;
-            set => SetProperty(ref _vector, value);
-        }
         public StepPower(StepItemType itemType = StepItemType.PowerOn) : base(itemType.ToString())
         {
             if (itemType != StepItemType.PowerOn && itemType != StepItemType.PowerOff)
@@ -29,7 +23,6 @@
 
             _itemType = itemType;
         }
-
         public static StepPower PowerOn()
         {
             return new(StepItemType.PowerOn);
