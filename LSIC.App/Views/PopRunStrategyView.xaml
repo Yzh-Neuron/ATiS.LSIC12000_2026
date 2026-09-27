@@ -36,18 +36,19 @@
             <TextBlock Width="55" Text="{app:Lang {x:Static app:LangKey.LoopModeText}}" />
             <TextBlock Margin="3,0,10,0" Text=":" />
             <ComboBox Width="75"
-                      ItemsSource="{Binding Source={x:Type app:RunMode}, Converter={StaticResource EnumToTextPairsConverter}}"
-                      SelectedValue="{Binding SelectedStep.LoopStrategy.Mode}"
+                      DisplayMemberPath="Value"
+                      ItemsSource="{Binding Source={x:Type app:RunMode}, Converter={StaticResource EnumToTextPairsConverter}, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding RunStrategy.Mode}"
                       SelectedValuePath="Key" />
         </StackPanel>
 
         <wpf:SimplePanel Grid.Row="2" Grid.ColumnSpan="2">
-            <StackPanel Orientation="Horizontal" Visibility="{Binding SelectedStep.LoopStrategy.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Time'}">
+            <StackPanel Orientation="Horizontal" Visibility="{Binding RunStrategy.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Time'}">
                 <TextBlock Width="55" Text="{app:Lang {x:Static app:LangKey.LoopTimeText}}" />
                 <TextBlock Margin="3,0,10,0" Text=":" />
                 <TextBox Grid.Column="2"
                          Width="100"
-                         Text="{Binding SelectedStep.LoopStrategy.Time.Value}" />
+                         Text="{Binding RunStrategy.Time.Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToIntegerConverter}}" />
 
                 <ComboBox Grid.Column="3"
                           Width="75"
@@ -55,9 +56,17 @@
                           wpf:LanguageHelper.Auto="True"
                           DisplayMemberPath="Value"
                           ItemsSource="{Binding Source={x:Type app:TimeUnit}, Converter={StaticResource EnumToTextPairsConverter}}"
-                          SelectedValue="{Binding SelectedStep.LoopStrategy.Time.Unit}"
+                          SelectedValue="{Binding RunStrategy.Time.Unit, UpdateSourceTrigger=PropertyChanged}"
                           SelectedValuePath="Key" />
 
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Visibility="{Binding RunStrategy.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Times'}">
+                <TextBlock Width="55" Text="{app:Lang {x:Static app:LangKey.LoopTimesText}}" />
+                <TextBlock Margin="3,0,10,0" Text=":" />
+                <TextBox Grid.Column="2"
+                         Width="100"
+                         Text="{Binding RunStrategy.Count, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToIntegerConverter}}" />
             </StackPanel>
         </wpf:SimplePanel>
 

@@ -3,47 +3,44 @@
     /// <summary>
     /// 运行策略
     /// </summary>
-    public class RunStrategy : ObservableObject
+    public class RunStrategy : ObservableValidator
     {
-        public RunStrategy()
-        {
-            Time = new Time();
-        }
-
-        public string Info
-        {
-            get
-            {
-                return Mode switch
-                {
-                    RunMode.Time => Time.ToString(),
-                    RunMode.Times => $"{Count} {LangProvider.Instance.TimesText}",
-                    _ => throw new ArgumentOutOfRangeException()
-                };
-            }
-        }
-
         private RunMode _mode;
         public RunMode Mode
         {
             get => _mode;
-            set => SetProperty(ref _mode, value);
+            set
+            {
+                if (SetProperty(ref _mode, value))
+                {
+                    OnPropertyChanged(nameof(Info));
+                }
+            }
         }
-
         private Time _time;
         public Time Time
         {
             get => _time;
-            set => SetProperty(ref _time, value);
+            set
+            {
+                if (SetProperty(ref _time, value))
+                {
+                    OnPropertyChanged(nameof(Info));
+                }
+            }
         }
-
         private int _count = 1;
         public int Count
         {
             get => _count;
-            set => SetProperty(ref _count, value);
+            set
+            {
+                if (SetProperty(ref _count, value,true))
+                {
+                    OnPropertyChanged(nameof(Info));
+                }
+            }
         }
-
         public int TotalSecondsOrCount
         {
             get
@@ -56,15 +53,37 @@
                 };
             }
         }
-
-        protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+        public string Info
         {
-            base.OnPropertyChanged(e);
-
-            if (e.PropertyName is nameof(Mode) or nameof(Time) or nameof(Count))
+            get
             {
-                OnPropertyChanged(nameof(Info));
+                return Mode switch
+                {
+                    RunMode.Time => Time.ToString(),
+                    RunMode.Times => $"{Count} {LangProvider.Instance.TimesText}",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
             }
+        }
+        public RunStrategy()
+        {
+            Time = new Time();
+        }
+        public object Clone()
+        {
+            var runStrategy = new RunStrategy()
+            {
+                Mode = Mode,
+                Time = (Time)Time.Clone(),
+                Count = Count,
+            };
+            return runStrategy;
+        }
+        public void Copy(RunStrategy runStrategy)
+        {
+            Mode = runStrategy.Mode;
+            Count = runStrategy.Count;
+            Time.Copy(runStrategy.Time);
         }
     }
 }

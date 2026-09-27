@@ -2,11 +2,12 @@
 {
     public partial class PopRunStrategyView : IRecipient<MsgArgs<PopRunStrategyMessage>>
     {
+        public RunStrategy RunStrategy { get; private set; }
         public PopRunStrategyViewModel ViewModel { get; }
-        public PopRunStrategyView()
+        public PopRunStrategyView(RunStrategy runStrategy)
         {
             InitializeComponent();
-            ViewModel = new PopRunStrategyViewModel();
+            ViewModel = new PopRunStrategyViewModel(runStrategy);
             DataContext = ViewModel;
 
             MessageBus.Default.Register(this);
@@ -14,7 +15,31 @@
 
         public MessageResult Receive(MsgArgs<PopRunStrategyMessage> e)
         {
-            throw new NotImplementedException();
+            switch (e.Message)
+            {
+                case PopRunStrategyMessage.Confirm:
+                    {
+                        RunStrategy = e.Args[0] as RunStrategy;
+                        Close();
+                        break;
+                    }
+                case PopRunStrategyMessage.Cancel:
+                    {
+                        RunStrategy = null;
+                        Close();
+                        break;
+                    }
+                case PopRunStrategyMessage.ShowValidateError:
+                    {
+                        List<ValidationResult> errors = e.Args[0] as List<ValidationResult>;
+                        MessagePop.Show(errors.ToMessageString(), MessageType.Error);
+                        break;
+                    }
+                default:
+                    break;
+            }
+
+            return MessageResult.Null();
         }
 
         protected override void OnClosed(EventArgs e)
@@ -31,7 +56,34 @@ namespace LSIC.App.ViewModels
 {
     public class PopRunStrategyViewModel : ObservableObject
     {
+        public RunStrategy RunStrategy { get; private set; }
+        public ICommand ConfirmCommand { get; }
+        public ICommand CancelCommand { get; }
+        public PopRunStrategyViewModel(RunStrategy runStrategy)
+        {
+            RunStrategy = runStrategy;
 
+
+            ConfirmCommand = new RelayCommand(Confirm);
+            CancelCommand = new RelayCommand(Cancel);
+        }
+        private void Confirm()
+        {
+            List<ValidationResult> errors = RunStrategy.GetAllErrorsRecursive();
+            if (errors.Count > 0)
+            {
+                MessageBus.Default.Send(MsgArgs.From(PopRunStrategyMessage.ShowValidateError, [errors]));
+            }
+            else
+            {
+                MessageBus.Default.Send(MsgArgs.From(PopRunStrategyMessage.Confirm, [RunStrategy]));
+            }
+
+        }
+        private void Cancel()
+        {
+            MessageBus.Default.Send(MsgArgs.From(PopRunStrategyMessage.Cancel, []));
+        }
     }
 }
 
@@ -39,5 +91,8 @@ namespace LSIC.App.ViewMessages
 {
     public enum PopRunStrategyMessage
     {
+        Confirm,
+        Cancel,
+        ShowValidateError
     }
 }

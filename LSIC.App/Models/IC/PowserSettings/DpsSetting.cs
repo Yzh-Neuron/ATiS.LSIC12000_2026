@@ -1,6 +1,6 @@
 ﻿namespace LSIC.App.Models
 {
-    public class DpsSetting : ObservableValidator
+    public class DpsSetting : ObservableValidator, ICloneable
     {
         private DpsInfo _dpsInfo;
         public DpsInfo DpsInfo
@@ -80,8 +80,7 @@
             Delay = dpsInfo.DelayDefault;
             Raise = dpsInfo.RiseDefault;
         }
-
-        public DpsSetting Clone()
+        public object Clone()
         {
             var setting = new DpsSetting(DpsInfo)
             {

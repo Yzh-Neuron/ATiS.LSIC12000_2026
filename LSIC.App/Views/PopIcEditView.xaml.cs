@@ -60,15 +60,22 @@
                         pop.ShowDialog();
                         return MessageResult.From(pop.DpsSetting);
                     }
+                case PopIcEditMessage.EditRunStrategy:
+                    {
+                        RunStrategy  runStrategy = e.Args[0] as RunStrategy;
+                        PopRunStrategyView pop = new PopRunStrategyView(runStrategy)
+                        {
+                            Owner = this
+                        };
+                        pop.ShowDialog();
+                        return MessageResult.From(pop.RunStrategy);
+                    }
             }
             return MessageResult.Null();
         }
 
         protected override void OnClosed(EventArgs e)
         {
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
             base.OnClosed(e);
             MessageBus.Default.UnregisterAll(this);
             ViewModel?.Dispose();

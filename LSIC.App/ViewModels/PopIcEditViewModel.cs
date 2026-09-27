@@ -62,6 +62,7 @@ namespace LSIC.App.ViewModels
         public ICommand CanDragStepCommand { get; private set; }
         public ICommand CanDropStepCommand { get; private set; }
         public ICommand DropStepCommand { get; private set; }
+        public ICommand EditLoopRunStrategyCommand { get; private set; }
         public PopIcEditViewModel()
         {
             SelectBurnInBoardFileCommand = new RelayCommand(SelectBurnInBoardFile);
@@ -86,6 +87,7 @@ namespace LSIC.App.ViewModels
             CanDragStepCommand = new RelayCommand<StepItem>(null, CanDragStep);
             CanDropStepCommand = new RelayCommand<DragDropArgs>(null, CanDropStep);
             DropStepCommand = new RelayCommand<DragDropArgs>(DropStep);
+            EditLoopRunStrategyCommand = new RelayCommand<Loop>(EditLoopRunStrategy);
 
 #if DEBUG
             DirtyObserver<Ic> ic = new(new Ic("test ic"));
@@ -212,7 +214,7 @@ namespace LSIC.App.ViewModels
         {
             if (dpsSetting != null)
             {
-                var clone = dpsSetting.Clone();
+                var clone = (DpsSetting)dpsSetting.Clone();
 
                 List<DpsInfo> optional = Device.Instance.SystemConfig.DpsInfos.Except(SelectedDpsPlan.DpssSettings.Select(i => i.DpsInfo)).ToList();
                 optional.Add(clone.DpsInfo);
@@ -231,7 +233,7 @@ namespace LSIC.App.ViewModels
         #region 流程相关命令
         private bool CanCreateStepItem()
         {
-            return SelectedIc != null;
+            return SelectedIc?.Target?.Process != null;
         }
         private void CreateStepItem()
         {
@@ -247,7 +249,9 @@ namespace LSIC.App.ViewModels
         private bool CanDeleteStepItem(IList obj)
         {
             var stepItems = obj?.Cast<StepItem>();
-            if (SelectedIc != null && stepItems?.Count() > 0 && stepItems.All(i => !i.IsFixed))
+            if (SelectedIc?.Target?.Process != null
+                && stepItems?.Count() > 0
+                && stepItems.All(i => !i.IsFixed))
             {
                 return true;
             }
@@ -258,53 +262,54 @@ namespace LSIC.App.ViewModels
             var stepItems = obj.Cast<StepItem>().ToList();
             SelectedIc.Target.Process.RemoveVector(stepItems);
         }
-        private bool CanRemoveLoop(IList obj)
+        private bool CanMakeLoop(IList obj)
         {
-            var stepItems = obj.Cast<StepItem>();
-            if (SelectedIc != null && stepItems?.Count() > 0 && stepItems.All(i => !i.IsFixed))
+            var stepItems = obj?.Cast<StepItem>();
+            if (SelectedIc?.Target?.Process != null
+                && stepItems?.Count() > 1
+                && stepItems.All(i => !i.IsFixed))
             {
                 return true;
             }
-
             return false;
-        }
-        private void RemoveLoop(IList obj)
-        {
-
-        }
-        private bool CanMakeLoop(IList obj)
-        {
-            return true;
         }
         private void MakeLoop(IList obj)
         {
             var stepItems = obj.Cast<StepItem>()?.ToList();
             SelectedIc.Target.Process.MakeLoop(stepItems);
         }
+        private bool CanRemoveLoop(IList obj)
+        {
+            return true;
+        }
+        private void RemoveLoop(IList obj)
+        {
+
+        }
         private bool CanDragStep(StepItem item)
         {
-            return SelectedIc != null && item is { IsFixed: false };
+            return SelectedIc?.Target?.Process != null && item is { IsFixed: false };
         }
         private bool CanDropStep(DragDropArgs args)
         {
-            return SelectedIc != null
-                && args is not null
-                && SelectedIc.Target.Process.CanMove(args.FromIndex, args.ToIndex);
+            return args is not null && SelectedIc?.Target?.Process?.CanMove(args.FromIndex, args.ToIndex) == true;
         }
         private void DropStep(DragDropArgs args)
         {
-            if (SelectedIc == null || args is null)
-            {
-                return;
-            }
-
-            if (!SelectedIc.Target.Process.CanMove(args.FromIndex, args.ToIndex))
-            {
-                return;
-            }
-
             SelectedIc.Target.Process.Move(args.FromIndex, args.ToIndex);
             SelectedIc.MarkDirty();
+        }
+        private void EditLoopRunStrategy(Loop loop)
+        {
+            if (loop?.RunStrategy != null)
+            {
+                var clone = (RunStrategy)loop.RunStrategy.Clone();
+                var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [clone])).First();
+                if (msgResult.Result is RunStrategy runStrategy)
+                {
+                    loop.RunStrategy.Copy(runStrategy);
+                }
+            }
         }
         #endregion
 

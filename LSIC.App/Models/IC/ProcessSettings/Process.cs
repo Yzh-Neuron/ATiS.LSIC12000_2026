@@ -58,8 +58,8 @@
         /// <param name="stepItems"></param>
         public void RemoveVector(IList<StepItem> stepItems)
         {
-            stepItems = stepItems.Where(t => !t.IsFixed).ToList();
-            var affected = Loops.Where(loop => stepItems.Any(item => InLoop(loop, item)));
+           var steps = stepItems.Where(t => !t.IsFixed);
+            var affected = Loops.Where(loop => steps.Any(item => InLoop(loop, item))).ToList();
 
             bool needRefresh = false;
 

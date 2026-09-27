@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using System.Windows.Data;
-
-namespace LSIC.App.Converters
+﻿namespace LSIC.App.Converters
 {
     public class EnumToTextPairsConverter : IValueConverter
     {

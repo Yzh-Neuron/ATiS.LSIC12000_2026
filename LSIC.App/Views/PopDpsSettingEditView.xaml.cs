@@ -82,7 +82,6 @@ namespace LSIC.App.ViewModels
         {
             MessageBus.Default.Send(MsgArgs.From(PopDpsSettingEditMessage.Cancel, []));
         }
-
     }
 }
 

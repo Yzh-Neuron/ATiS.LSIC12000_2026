@@ -537,6 +537,8 @@
                                                                     Background="#F3F5F8"
                                                                     BorderBrush="#8B98A8"
                                                                     BorderThickness="1"
+                                                                    Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditLoopRunStrategyCommand}"
+                                                                    CommandParameter="{Binding Loop}"
                                                                     Opacity="1">
                                                                 <Button.Style>
                                                                     <Style BasedOn="{StaticResource Button.Default}" TargetType="{x:Type Button}">
@@ -562,12 +564,13 @@
                                                      wpf:ListBoxDragSort.CanDropCommand="{Binding Source={StaticResource MainDataContext}, Path=Data.CanDropStepCommand}"
                                                      wpf:ListBoxDragSort.DropCommand="{Binding Source={StaticResource MainDataContext}, Path=Data.DropStepCommand}"
                                                      wpf:ListBoxDragSort.IsEnabled="True"
+                                                     wpf:MouseWheelBubble.IsEnabled="True"
                                                      Background="Transparent"
                                                      BorderThickness="1,1,0,0"
-                                                     SelectedItem="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedStepItem}" 
                                                      ItemsSource="{Binding Process.StepItems}"
                                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                                     SelectedItem="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedStepItem}"
                                                      SelectionMode="Extended">
 
                                                 <ListBox.Resources>
@@ -652,8 +655,8 @@
                                              Margin="0,10,0,0"
                                              HorizontalAlignment="Stretch">
                                 <Button HorizontalAlignment="Left"
-                                        CommandParameter="{Binding ElementName=StepListBox,Path=SelectedItems}"
                                         Command="{Binding Data.CreateStepItemCommand, Source={StaticResource MainDataContext}}"
+                                        CommandParameter="{Binding ElementName=StepListBox, Path=SelectedItems}"
                                         Content="{app:Lang {x:Static app:LangKey.CreateNewText}}" />
                                 <Button HorizontalAlignment="Right"
                                         Command="{Binding Data.DeleteStepItemCommand, Source={StaticResource MainDataContext}}"
