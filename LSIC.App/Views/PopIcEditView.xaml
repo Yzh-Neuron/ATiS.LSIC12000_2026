@@ -491,6 +491,11 @@
 
                                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                                         <Grid>
+                                            <Grid.Resources>
+                                                <SolidColorBrush x:Key="LoopLineBrush" Color="#8B98A8" />
+                                                <SolidColorBrush x:Key="LoopHoverBrush" Color="#F3F5F8" />
+                                                <SolidColorBrush x:Key="LoopPressedBrush" Color="#E3E6EA" />
+                                            </Grid.Resources>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="2*" />
                                                 <ColumnDefinition Width="3*" />
@@ -512,62 +517,88 @@
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
                                                         <wpf:SimplePanel HorizontalAlignment="Stretch">
+                                                            <!--  循环括号线  -->
                                                             <Grid Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type ctrs:LoopSlotControl}}, Path=ActualWidth, Converter={StaticResource DivideConverter}, ConverterParameter='2'}"
                                                                   Margin="0,8"
                                                                   HorizontalAlignment="Right">
-                                                                <Border BorderBrush="#8B98A8"
+                                                                <Border BorderBrush="{DynamicResource LoopLineBrush}"
                                                                         BorderThickness="1,1,0,1"
                                                                         CornerRadius="4,0,0,4" />
-
                                                                 <Path Width="8"
                                                                       Height="8"
                                                                       Margin="-2,0,0,-4"
                                                                       HorizontalAlignment="Right"
                                                                       VerticalAlignment="Bottom"
-                                                                      Data="M 0,0 L 0,8 L  8,4 Z"
-                                                                      Fill="#8B98A8" />
+                                                                      Data="M0,0 L0,8 L8,4 Z"
+                                                                      Fill="{DynamicResource LoopLineBrush}" />
                                                             </Grid>
-                                                            <Button Margin="0,0,0,0"
-                                                                    HorizontalAlignment="Center"
-                                                                    wpf:IconHelper.Geometry="{StaticResource Geometry.Loop}"
-                                                                    wpf:IconHelper.Height="10"
-                                                                    wpf:IconHelper.Width="10"
-                                                                    BorderBrush="#8B98A8"
-                                                                    BorderThickness="1"
-                                                                    Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditLoopRunStrategyCommand}"
-                                                                    CommandParameter="{Binding Loop}"
-                                                                    Cursor="Hand"
-                                                                    Foreground="{DynamicResource ForegroundBrush}"
-                                                                    Opacity="1">
-                                                                <wpf:StateBlock HorizontalContentAlignment="Stretch"
-                                                                                VerticalContentAlignment="Stretch"
-                                                                                IsChecked="{Binding Loop.RunStrategy.Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
-                                                                    <wpf:StateBlock.UnCheckedContent>
-                                                                        <TextBlock>
-                                                                            <Run Text="{Binding Loop.RunStrategy.Time.Value}" />
-                                                                            <Run Text="{Binding Loop.RunStrategy.Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
-                                                                        </TextBlock>
-                                                                    </wpf:StateBlock.UnCheckedContent>
-                                                                    <wpf:StateBlock.CheckedContent>
-                                                                        <TextBlock>
-                                                                            <Run Text="{Binding Loop.RunStrategy.Count}" />
-                                                                            <Run Text="{app:Lang {x:Static app:LangKey.TimesText}}" />
-                                                                        </TextBlock>
-                                                                    </wpf:StateBlock.CheckedContent>
-                                                                </wpf:StateBlock>
-                                                                <Button.Style>
-                                                                    <Style BasedOn="{StaticResource Button.Default}" TargetType="{x:Type Button}">
-                                                                        <Style.Triggers>
-                                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                                <Setter Property="Background" Value="#F3F5F8" />
-                                                                            </Trigger>
-                                                                            <Trigger Property="IsPressed" Value="True">
-                                                                                <Setter Property="Background" Value="#E3E6EA" />
-                                                                            </Trigger>
-                                                                        </Style.Triggers>
-                                                                    </Style>
-                                                                </Button.Style>
-                                                            </Button>
+
+                                                            <wpf:SimplePanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <!--  编辑按钮  -->
+                                                                <Button wpf:IconHelper.Geometry="{StaticResource Geometry.Loop}"
+                                                                        wpf:IconHelper.Height="10"
+                                                                        wpf:IconHelper.Width="10"
+                                                                        Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditLoopRunStrategyCommand}"
+                                                                        CommandParameter="{Binding Loop}">
+                                                                    <Button.Style>
+                                                                        <Style BasedOn="{StaticResource Button.Base}" TargetType="{x:Type Button}">
+                                                                            <Setter Property="BorderBrush" Value="{DynamicResource LoopLineBrush}" />
+                                                                            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+
+                                                                            <Style.Triggers>
+                                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                                    <Setter Property="Background" Value="{DynamicResource LoopHoverBrush}" />
+                                                                                    <Setter Property="Opacity" Value="1" />
+                                                                                </Trigger>
+                                                                                <Trigger Property="IsPressed" Value="True">
+                                                                                    <Setter Property="Background" Value="{DynamicResource LoopPressedBrush}" />
+                                                                                    <Setter Property="Opacity" Value="1" />
+                                                                                </Trigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </Button.Style>
+
+                                                                    <wpf:StateBlock IsChecked="{Binding Loop.RunStrategy.Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
+                                                                        <wpf:StateBlock.UnCheckedContent>
+                                                                            <TextBlock Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Foreground}">
+                                                                                <Run Text="{Binding Loop.RunStrategy.Time.Value}" />
+                                                                                <Run Text="{Binding Loop.RunStrategy.Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
+                                                                            </TextBlock>
+                                                                        </wpf:StateBlock.UnCheckedContent>
+                                                                        <wpf:StateBlock.CheckedContent>
+                                                                            <TextBlock Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Foreground}">
+                                                                                <Run Text="{Binding Loop.RunStrategy.Count}" />
+                                                                                <Run Text="{app:Lang {x:Static app:LangKey.TimesText}}" />
+                                                                            </TextBlock>
+                                                                        </wpf:StateBlock.CheckedContent>
+                                                                    </wpf:StateBlock>
+                                                                </Button>
+
+                                                                <!--  解散按钮  -->
+                                                                <Button Height="Auto"
+                                                                        Margin="0,-5,-7,0"
+                                                                        Padding="0"
+                                                                        HorizontalAlignment="Right"
+                                                                        VerticalAlignment="Top"
+                                                                        wpf:IconHelper.Geometry="{StaticResource Geometry.CloseSmall}"
+                                                                        wpf:IconHelper.Height="14"
+                                                                        wpf:IconHelper.Width="14"
+                                                                        Background="{DynamicResource SecondBackgroundBrush}"
+                                                                        Command="{Binding Source={StaticResource MainDataContext}, Path=Data.RemoveLoopCommand}"
+                                                                        CommandParameter="{Binding Loop}"
+                                                                        Cursor="Hand">
+                                                                    <Button.Style>
+                                                                        <Style BasedOn="{StaticResource Button.Icon}" TargetType="Button">
+                                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=wpf:SimplePanel}, Path=IsMouseOver}" Value="True">
+                                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </Button.Style>
+                                                                </Button>
+                                                            </wpf:SimplePanel>
                                                         </wpf:SimplePanel>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
@@ -649,7 +680,7 @@
                                                         <Setter Property="BorderThickness" Value="0,0,0,1" />
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding IsInLoop}" Value="true">
-                                                                <Setter Property="Background" Value="#F3F5F8" />
+                                                                <Setter Property="Background" Value="{StaticResource LoopHoverBrush}" />
 
                                                             </DataTrigger>
                                                             <Trigger Property="IsSelected" Value="true">
@@ -665,8 +696,6 @@
                                     </ScrollViewer>
                                 </Grid>
                             </wpf:ClipBorder>
-
-                            <!--  右侧步骤详情  -->
                             <wpf:SimplePanel Grid.Row="1"
                                              Grid.Column="0"
                                              Margin="0,10,0,0"
@@ -680,6 +709,43 @@
                                         CommandParameter="{Binding ElementName=StepListBox, Path=SelectedItems}"
                                         Content="{app:Lang {x:Static app:LangKey.DeleteText}}" />
                             </wpf:SimplePanel>
+
+                            <!--  右侧步骤详情  -->
+                            <Border Grid.Column="2"
+                                    BorderBrush="{DynamicResource BorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="{StaticResource DefaultCornerRadius}"
+                                    Visibility="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedStepItem, Converter={StaticResource NullObjectToFalseConverter}}">
+                                <ContentControl Content="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedStepItem, Mode=OneWay}">
+                                    <ContentControl.Resources>
+                                        <!--  电源步  -->
+                                        <DataTemplate DataType="{x:Type models:StepPower}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Width="18"
+                                                      Height="11"
+                                                      Data="{StaticResource Geometry.StepPower}"
+                                                      Fill="{DynamicResource ForegroundBrush}"
+                                                      Stretch="Uniform" />
+                                                <TextBlock Margin="10,0" Text="{Binding Name}" />
+                                                <TextBlock Text="{Binding Timeout}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+
+                                        <!--  向量步  -->
+                                        <DataTemplate DataType="{x:Type models:StepVector}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Width="18"
+                                                      Height="11"
+                                                      Data="{StaticResource Geometry.StepVector}"
+                                                      Fill="{DynamicResource ForegroundBrush}"
+                                                      Stretch="Uniform" />
+                                                <TextBlock Margin="10,0" Text="{Binding Name}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+
+                                    </ContentControl.Resources>
+                                </ContentControl>
+                            </Border>
                         </Grid>
                     </TabItem>
                 </TabControl>

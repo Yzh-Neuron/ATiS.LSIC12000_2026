@@ -2,7 +2,7 @@
 {
     public partial class PopRunStrategyView : IRecipient<MsgArgs<PopRunStrategyMessage>>
     {
-        public bool? Result { get; private set; }
+        public RunStrategy? RunStrategy { get; private set; }
         public PopRunStrategyViewModel ViewModel { get; }
         public PopRunStrategyView(RunStrategy runStrategy)
         {
@@ -19,19 +19,13 @@
             {
                 case PopRunStrategyMessage.Confirm:
                     {
-                        Result = true;
+                        RunStrategy = e.Args[0] as RunStrategy;
                         Close();
                         break;
                     }
                 case PopRunStrategyMessage.Cancel:
                     {
-                        Result = false;
-                        Close();
-                        break;
-                    }
-                case PopRunStrategyMessage.TerminateLoop:
-                    {
-                        Result = null;
+                        RunStrategy = null;
                         Close();
                         break;
                     }
@@ -63,19 +57,13 @@ namespace LSIC.App.ViewModels
         public RunStrategy RunStrategy { get; private set; }
         public ICommand ConfirmCommand { get; }
         public ICommand CancelCommand { get; }
-        public ICommand TerminateLoopCommand { get; }
-
         public PopRunStrategyViewModel(RunStrategy runStrategy)
         {
             RunStrategy = runStrategy;
             ConfirmCommand = new RelayCommand(Confirm);
             CancelCommand = new RelayCommand(Cancel);
-            TerminateLoopCommand = new RelayCommand(TerminateLoop);
         }
-        private void TerminateLoop()
-        {
-            MessageBus.Default.Send(MsgArgs.From(PopRunStrategyMessage.TerminateLoop, []));
-        }
+    
         private void Confirm()
         {
             List<ValidationResult> errors = RunStrategy.GetAllErrorsRecursive();
@@ -102,7 +90,6 @@ namespace LSIC.App.ViewMessages
     {
         Confirm,
         Cancel,
-        TerminateLoop,
         ShowValidateError
     }
 }

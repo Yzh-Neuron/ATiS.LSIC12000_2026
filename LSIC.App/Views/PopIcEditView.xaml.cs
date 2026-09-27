@@ -68,7 +68,7 @@
                             Owner = this
                         };
                         pop.ShowDialog();
-                        return MessageResult.From(pop.Result);
+                        return MessageResult.From(pop.RunStrategy);
                     }
             }
             return MessageResult.Null();

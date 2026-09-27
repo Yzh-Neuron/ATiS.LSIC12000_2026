@@ -62,6 +62,7 @@ namespace LSIC.App.ViewModels
         public ICommand CanDropStepCommand { get; private set; }
         public ICommand DropStepCommand { get; private set; }
         public ICommand EditLoopRunStrategyCommand { get; private set; }
+        public ICommand RemoveLoopCommand { get; private set; }
         public PopIcEditViewModel()
         {
             SelectBurnInBoardFileCommand = new RelayCommand(SelectBurnInBoardFile);
@@ -86,6 +87,7 @@ namespace LSIC.App.ViewModels
             CanDropStepCommand = new RelayCommand<DragDropArgs>(null, CanDropStep);
             DropStepCommand = new RelayCommand<DragDropArgs>(DropStep);
             EditLoopRunStrategyCommand = new RelayCommand<Loop>(EditLoopRunStrategy, CanEditLoopRunStrategy);
+            RemoveLoopCommand = new RelayCommand<Loop>(RemoveLoop, CanRemoveLoop);
 
 #if DEBUG
             DirtyObserver<Ic> ic = new(new Ic("test ic"));
@@ -225,7 +227,6 @@ namespace LSIC.App.ViewModels
             }
         }
 
-
         #endregion
 
         #region 流程相关命令
@@ -289,33 +290,28 @@ namespace LSIC.App.ViewModels
             SelectedIc.Target.Process.Move(args.FromIndex, args.ToIndex);
             SelectedIc.MarkDirty();
         }
-        private bool CanEditLoopRunStrategy(Loop obj)
+        private bool CanEditLoopRunStrategy(Loop loop)
         {
-            return SelectedIc?.Target?.Process != null ;
+            return loop?.RunStrategy != null;
         }
-
         private void EditLoopRunStrategy(Loop loop)
         {
-            if (loop?.RunStrategy != null)
-            {
-                var clone = (RunStrategy)loop.RunStrategy.Clone();
-                var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [clone])).First();
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [(RunStrategy)loop.RunStrategy.Clone()])).First();
 
-                switch (msgResult.Result)
-                {
-                    case true:
-                        {
-                            loop.RunStrategy.Copy(clone);
-                            break;
-                        }
-                    case null:
-                        {
-                            SelectedIc.Target.Process.RemoveLoop(loop);
-                            break;
-                        }
-                }
+            if (msgResult.Result is RunStrategy clone)
+            {
+                loop.RunStrategy.Copy(clone);
             }
         }
+        private bool CanRemoveLoop(Loop obj)
+        {
+            return SelectedIc?.Target?.Process != null;
+        }
+        private void RemoveLoop(Loop loop)
+        {
+            SelectedIc.Target.Process.RemoveLoop(loop);
+        }
+
         #endregion
 
         public void Dispose()
