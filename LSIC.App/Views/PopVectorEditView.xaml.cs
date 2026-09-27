@@ -105,7 +105,7 @@ namespace LSIC.App.ViewModels
 
             if (msgResult.Result is string filePath)
             {
-                Vector.PatternFile = filePath;
+                Vector.RegisterFile = filePath;
             }
         }
         private void Confirm()

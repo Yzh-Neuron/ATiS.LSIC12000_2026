@@ -15,4 +15,5 @@
     <cvt:EnumerableToStringConverter x:Key="EnumerableToStringConverter"/>
     <cvt:TempTestConverter x:Key="TempTestConverter"/>
     <cvt:DivideConverter x:Key="DivideConverter"/>
+    <cvt:FilePathToFileNameConverter x:Key="FilePathToFileNameConverter"/>
 </ResourceDictionary>
