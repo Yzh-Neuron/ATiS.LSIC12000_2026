@@ -5,12 +5,7 @@
     /// </summary>
     public class StepVector : StepItem
     {
-        private RunStrategy _runStrategy;
-        public RunStrategy RunStrategy
-        {
-            get => _runStrategy;
-            set => SetProperty(ref _runStrategy, value);
-        }
+        public RunStrategy RunStrategy { get; } = new();
         public override StepItemType ItemType => StepItemType.Vector;
         public StepVector(string name) : base(name)
         {

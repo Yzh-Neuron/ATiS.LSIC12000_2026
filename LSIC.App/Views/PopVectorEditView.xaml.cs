@@ -9,7 +9,6 @@
             InitializeComponent();
             ViewModel = new PopVectorEditViewModel(vector);
             DataContext = ViewModel;
-            Vector = vector;
 
             MessageBus.Default.Register(this);
         }

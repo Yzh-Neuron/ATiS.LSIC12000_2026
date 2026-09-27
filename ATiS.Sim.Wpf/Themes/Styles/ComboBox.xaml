@@ -244,6 +244,8 @@
            TargetType="{x:Type ComboBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Padding" Value="{StaticResource DefaultControlPadding}" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
@@ -298,7 +300,7 @@
                 <Setter Property="IsTabStop" Value="false" />
                 <Setter Property="Template" Value="{StaticResource Template.ComboBoxEditable}" />
             </Trigger>
-            
+
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
                 <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
@@ -311,5 +313,6 @@
         </Style.Triggers>
     </Style>
 
+    <Style BasedOn="{StaticResource ComboBoxItem.Default}" TargetType="{x:Type ComboBoxItem}" />
     <Style BasedOn="{StaticResource ComboBox.Default}" TargetType="{x:Type ComboBox}" />
 </ResourceDictionary>

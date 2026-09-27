@@ -236,7 +236,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border Margin="{TemplateBinding Padding}"
-                            Background="Transparent"
+                            Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="0,0,1,0"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -251,6 +251,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Padding" Value="{StaticResource DefaultControlPadding}" />
         <Setter Property="Template">
@@ -258,7 +259,7 @@
                 <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
                     <wpf:SimplePanel>
                         <Border Padding="{TemplateBinding Padding}"
-                                Background="Transparent"
+                                Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}">
                             <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
@@ -455,6 +456,8 @@
     <Style x:Key="DataGrid.Default"
            BasedOn="{StaticResource Control.Base}"
            TargetType="{x:Type DataGrid}">
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="wpf:DataGridHelper.SelectionUnit" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectionUnit, Mode=OneWay}" />
         <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />

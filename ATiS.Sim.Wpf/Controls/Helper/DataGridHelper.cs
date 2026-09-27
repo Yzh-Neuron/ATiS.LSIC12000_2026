@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace ATiS.Sim.Wpf
 {
@@ -198,7 +199,7 @@ namespace ATiS.Sim.Wpf
         {
             obj.SetValue(SelectionUnitProperty, value);
         }
-        public static readonly DependencyProperty SelectionUnitProperty =DependencyProperty.RegisterAttached(
-             "SelectionUnit", typeof(DataGridSelectionUnit), typeof(DataGridHelper), new FrameworkPropertyMetadata(DataGridSelectionUnit.FullRow,FrameworkPropertyMetadataOptions.Inherits ));
+        public static readonly DependencyProperty SelectionUnitProperty = DependencyProperty.RegisterAttached(
+             "SelectionUnit", typeof(DataGridSelectionUnit), typeof(DataGridHelper), new FrameworkPropertyMetadata(DataGridSelectionUnit.FullRow, FrameworkPropertyMetadataOptions.Inherits));
     }
 }

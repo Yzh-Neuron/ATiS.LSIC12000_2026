@@ -61,6 +61,7 @@
                         return MessageResult.From(pop.DpsSetting);
                     }
                 case PopIcEditMessage.EditVector:
+                case PopIcEditMessage.CreateVector:
                     {
                         Vector vector = e.Args[0] as Vector;
                         PopVectorEditView pop = new PopVectorEditView(vector)

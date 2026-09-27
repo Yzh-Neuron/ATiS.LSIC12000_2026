@@ -424,7 +424,7 @@
                                                             Binding="{Binding Delay, Converter={StaticResource IntegerToIntegerConverter}}"
                                                             Header="{app:Lang {x:Static app:LangKey.DelayWithUnitText}}" />
 
-                                        <DataGridTemplateColumn Width="90">
+                                        <DataGridTemplateColumn Width="80">
                                             <DataGridTemplateColumn.Header>
                                                 <TextBlock HorizontalAlignment="Center" Text="{app:Lang {x:Static app:LangKey.EditText}}" />
                                             </DataGridTemplateColumn.Header>
@@ -434,7 +434,30 @@
                                                             Padding="10,0"
                                                             Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditDpsSettingCommand}"
                                                             CommandParameter="{Binding .}"
-                                                            Content="{app:Lang {x:Static app:LangKey.EditText}}" />
+                                                            Content="{app:Lang {x:Static app:LangKey.EditText}}">
+                                                        <Button.Style>
+                                                            <Style BasedOn="{StaticResource Button.Link}" TargetType="{x:Type Button}">
+                                                                <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+                                                                <Style.Triggers>
+                                                                    <MultiDataTrigger>
+                                                                        <MultiDataTrigger.Conditions>
+                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=IsSelected}" Value="True" />
+                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=(Selector.IsSelectionActive)}" Value="True" />
+                                                                        </MultiDataTrigger.Conditions>
+                                                                        <Setter Property="Foreground" Value="{DynamicResource ContrastForegroundBrush}" />
+                                                                    </MultiDataTrigger>
+
+                                                                    <MultiDataTrigger>
+                                                                        <MultiDataTrigger.Conditions>
+                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=IsSelected}" Value="True" />
+                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=(Selector.IsSelectionActive)}" Value="False" />
+                                                                        </MultiDataTrigger.Conditions>
+                                                                        <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+                                                                    </MultiDataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+                                                    </Button>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -481,13 +504,11 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-
                                     <Button Margin="5"
                                             HorizontalAlignment="Stretch"
                                             Command="{Binding Data.MakeLoopCommand, Source={StaticResource MainDataContext}}"
                                             CommandParameter="{Binding ElementName=StepListBox, Path=SelectedItems}"
                                             Content="将选中步骤设置为循环" />
-
                                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                                         <Grid>
                                             <Grid.Resources>
@@ -499,7 +520,6 @@
                                                 <ColumnDefinition Width="2*" />
                                                 <ColumnDefinition Width="3*" />
                                             </Grid.ColumnDefinitions>
-
                                             <!--  循环槽  -->
                                             <ctrs:LoopSlotControl Grid.Column="0"
                                                                   VerticalAlignment="Top"
@@ -543,7 +563,6 @@
                                                                         <Style BasedOn="{StaticResource Button.Base}" TargetType="{x:Type Button}">
                                                                             <Setter Property="BorderBrush" Value="{DynamicResource LoopLineBrush}" />
                                                                             <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-
                                                                             <Style.Triggers>
                                                                                 <Trigger Property="IsMouseOver" Value="True">
                                                                                     <Setter Property="Background" Value="{DynamicResource LoopHoverBrush}" />
@@ -556,7 +575,6 @@
                                                                             </Style.Triggers>
                                                                         </Style>
                                                                     </Button.Style>
-
                                                                     <wpf:StateBlock IsChecked="{Binding Loop.RunStrategy.Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
                                                                         <wpf:StateBlock.UnCheckedContent>
                                                                             <TextBlock Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Foreground}">
@@ -602,7 +620,6 @@
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ctrs:LoopSlotControl>
-
                                             <!--  步骤  -->
                                             <ListBox x:Name="StepListBox"
                                                      Grid.Column="1"
@@ -713,98 +730,143 @@
                             <Grid Grid.Column="2"
                                   d:DataContext="{d:DesignInstance models:StepItem}"
                                   DataContext="{Binding Data.SelectedStepItem, Source={StaticResource MainDataContext}}"
-                                  Visibility="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedStepItem, Converter={StaticResource NullObjectToFalseConverter}}">
+                                  Visibility="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedStepItem, Converter={StaticResource NotNullToVisibilityConverter}}">
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
-                                    <RowDefinition />
                                 </Grid.RowDefinitions>
 
                                 <!--  公共信息  -->
                                 <Border BorderBrush="{DynamicResource BorderBrush}"
                                         BorderThickness="1"
                                         CornerRadius="{StaticResource DefaultCornerRadius}">
-                                    <ContentControl Content="{Binding .}">
+                                    <Grid Margin="20" Grid.IsSharedSizeScope="True">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid HorizontalAlignment="Left">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentStepText}}" />
+                                            <TextBlock Grid.Column="1"
+                                                       Margin="3,0,10,0"
+                                                       Text=":" />
+                                            <TextBlock Grid.Column="3"
+                                                       Width="80"
+                                                       Text="{Binding Name}" />
+                                        </Grid>
+
+                                        <Grid Grid.Row="1"
+                                              Margin="0,20,0,0"
+                                              HorizontalAlignment="Left">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{app:Lang {x:Static app:LangKey.DpsPlanText}}" />
+                                            <TextBlock Grid.Column="1"
+                                                       Margin="3,0,10,0"
+                                                       Text=":" />
+                                            <ComboBox Grid.Column="2"
+                                                      Width="100"
+                                                      DisplayMemberPath="Name"
+                                                      ItemsSource="{Binding Data.SelectedIc.Target.DpsPlans, Source={StaticResource MainDataContext}}"
+                                                      SelectedValue="{Binding DpsPlan}"
+                                                      SelectedValuePath="Name" />
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+
+                                <!--  具体信息  -->
+                                <Border Grid.Row="1"
+                                        Margin="0,10,0,0"
+                                        BorderBrush="{DynamicResource BorderBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="{StaticResource DefaultCornerRadius}">
+                                    <ContentControl Margin="20"
+                                                    HorizontalAlignment="Left"
+                                                    Content="{Binding .}">
                                         <ContentControl.Resources>
                                             <!--  电源步显示  -->
                                             <DataTemplate DataType="{x:Type models:StepPower}">
-                                                <Grid Margin="20" Grid.IsSharedSizeScope="True">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="Auto" />
-                                                        <RowDefinition Height="Auto" />
-                                                        <RowDefinition Height="Auto" />
-                                                        <RowDefinition Height="*" />
-                                                    </Grid.RowDefinitions>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{app:Lang {x:Static app:LangKey.PatternTimeoutText}}" />
+                                                    <TextBlock Grid.Column="1"
+                                                               Margin="3,0,10,0"
+                                                               Text=":" />
+                                                    <TextBox Grid.Column="2"
+                                                             Width="100"
+                                                             Text="{Binding Timeout}" />
 
-                                                    <Grid HorizontalAlignment="Left">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                        </Grid.ColumnDefinitions>
-                                                        <TextBlock Width="55" Text="{app:Lang {x:Static app:LangKey.CurrentStepText}}" />
-                                                        <TextBlock Grid.Column="1"
-                                                                   Margin="3,0,10,0"
-                                                                   Text=":" />
-                                                        <Path Grid.Column="2"
-                                                              Width="18"
-                                                              Height="11"
-                                                              Data="{StaticResource Geometry.StepPower}"
-                                                              Fill="{DynamicResource ForegroundBrush}"
-                                                              SnapsToDevicePixels="True"
-                                                              Stretch="Uniform" />
-                                                        <TextBlock Grid.Column="3"
-                                                                   Width="80"
-                                                                   Margin="10,0"
-                                                                   Text="{Binding Name}" />
-                                                    </Grid>
-
-                                                    <Grid Grid.Row="2"
-                                                          Margin="0,20,0,0"
-                                                          HorizontalAlignment="Left">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                        </Grid.ColumnDefinitions>
-                                                        <TextBlock Text="{app:Lang {x:Static app:LangKey.PatternTimeoutText}}" />
-                                                        <TextBlock Grid.Column="1"
-                                                                   Margin="3,0,10,0"
-                                                                   Text=":" />
-                                                        <TextBox Grid.Column="2"
-                                                                 Width="100"
-                                                                 Text="{Binding Timeout}" />
-
-                                                        <TextBlock Grid.Column="3"
-                                                                   Margin="5,0,0,0"
-                                                                   Text="{app:Lang {x:Static app:LangKey.Enum_TimeUnit_Second}}" />
-                                                    </Grid>
+                                                    <TextBlock Grid.Column="3"
+                                                               Margin="5,0,0,0"
+                                                               Text="{app:Lang {x:Static app:LangKey.Enum_TimeUnit_Second}}" />
                                                 </Grid>
                                             </DataTemplate>
 
                                             <!--  向量步显示  -->
                                             <DataTemplate DataType="{x:Type models:StepVector}">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Path Width="18"
-                                                          Height="11"
-                                                          Data="{StaticResource Geometry.StepVector}"
-                                                          Fill="{DynamicResource ForegroundBrush}"
-                                                          Stretch="Uniform" />
-                                                    <TextBlock Margin="10,0" Text="{Binding Name}" />
-                                                </StackPanel>
+                                                <Grid Height="{StaticResource DefaultControlHeight}">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{app:Lang {x:Static app:LangKey.RunStrategyText}}" />
+                                                    <TextBlock Grid.Column="1"
+                                                               Margin="3,0,10,0"
+                                                               Text=":" />
+                                                    <wpf:StateBlock Grid.Column="2" IsChecked="{Binding RunStrategy.Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
+                                                        <wpf:StateBlock.UnCheckedContent>
+                                                            <TextBlock Foreground="Black">
+                                                                <Run Text="{Binding RunStrategy.Time.Value}" />
+                                                                <Run Text="{Binding RunStrategy.Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
+                                                            </TextBlock>
+                                                        </wpf:StateBlock.UnCheckedContent>
+                                                        <wpf:StateBlock.CheckedContent>
+                                                            <TextBlock Foreground="Black">
+                                                                <Run Text="{Binding RunStrategy.Count}" />
+                                                                <Run Text="{app:Lang {x:Static app:LangKey.TimesText}}" />
+                                                            </TextBlock>
+                                                        </wpf:StateBlock.CheckedContent>
+                                                    </wpf:StateBlock>
+
+                                                    <Button Grid.Column="3"
+                                                            Margin="10,0,0,0"
+                                                            Foreground="{DynamicResource PrimaryBrush}"
+                                                            Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditRunStrategyCommand}"
+                                                            CommandParameter="{Binding RunStrategy}"
+                                                            Content="{app:Lang {x:Static app:LangKey.EditText}}"
+                                                            Style="{StaticResource Button.Link}" />
+                                                </Grid>
                                             </DataTemplate>
                                         </ContentControl.Resources>
                                     </ContentControl>
                                 </Border>
 
                                 <!--  向量  -->
-                                <DataGrid Grid.Row="1"
+                                <DataGrid Grid.Row="2"
                                           Margin="0,10,0,0"
                                           wpf:DataGridDragSort.IsEnabled="True"
                                           CanUserSortColumns="False"
                                           IsReadOnly="True"
-                                          ItemsSource="{Binding Vectors}">
+                                          ItemsSource="{Binding Vectors}"
+                                          SelectedItem="{Binding Data.SelectedVector, Source={StaticResource MainDataContext}}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="*"
                                                             Binding="{Binding PatternFile, Converter={StaticResource FilePathToFileNameConverter}}"
@@ -814,7 +876,7 @@
                                                             Binding="{Binding RegisterFile, Converter={StaticResource FilePathToFileNameConverter}}"
                                                             Header="{app:Lang {x:Static app:LangKey.RegisterFileText}}" />
 
-                                        <DataGridTemplateColumn Width="90">
+                                        <DataGridTemplateColumn Width="80">
                                             <DataGridTemplateColumn.Header>
                                                 <TextBlock HorizontalAlignment="Center" Text="{app:Lang {x:Static app:LangKey.EditText}}" />
                                             </DataGridTemplateColumn.Header>
@@ -824,10 +886,34 @@
                                                             Padding="10,0"
                                                             Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditVectorCommand}"
                                                             CommandParameter="{Binding .}"
-                                                            Content="{app:Lang {x:Static app:LangKey.EditText}}" />
+                                                            Content="{app:Lang {x:Static app:LangKey.EditText}}">
+                                                        <Button.Style>
+                                                            <Style BasedOn="{StaticResource Button.Link}" TargetType="{x:Type Button}">
+                                                                <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+                                                                <Style.Triggers>
+                                                                    <MultiDataTrigger>
+                                                                        <MultiDataTrigger.Conditions>
+                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=IsSelected}" Value="True" />
+                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=(Selector.IsSelectionActive)}" Value="True" />
+                                                                        </MultiDataTrigger.Conditions>
+                                                                        <Setter Property="Foreground" Value="{DynamicResource ContrastForegroundBrush}" />
+                                                                    </MultiDataTrigger>
+
+                                                                    <MultiDataTrigger>
+                                                                        <MultiDataTrigger.Conditions>
+                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=IsSelected}" Value="True" />
+                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=(Selector.IsSelectionActive)}" Value="False" />
+                                                                        </MultiDataTrigger.Conditions>
+                                                                        <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+                                                                    </MultiDataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Button.Style>
+                                                    </Button>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
+
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>

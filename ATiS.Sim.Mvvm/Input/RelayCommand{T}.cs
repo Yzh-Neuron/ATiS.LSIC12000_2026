@@ -63,7 +63,7 @@ namespace ATiS.Sim.Mvvm
 
             Execute(result);
         }
-  
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool TryGetCommandArgument(object? parameter, out T? result)
         {
@@ -96,6 +96,7 @@ namespace ATiS.Sim.Mvvm
                 {
                     return new ArgumentException($"Parameter \"{nameof(parameter)}\" (object) must not be null, as the command type requires an argument of type {typeof(T)}.", nameof(parameter));
                 }
+
 
                 return new ArgumentException($"Parameter \"{nameof(parameter)}\" (object) cannot be of type {parameter.GetType()}, as the command type requires an argument of type {typeof(T)}.", nameof(parameter));
             }

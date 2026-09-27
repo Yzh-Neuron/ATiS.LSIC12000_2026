@@ -37,6 +37,7 @@ namespace LSIC.App.ViewModels
         }
         public ICommand CreateDpsPlanCommand { get; private set; }
         public ICommand DeleteDpsPlanCommand { get; private set; }
+
         private DpsSetting _selectedDpsSetting;
         public DpsSetting SelectedDpsSetting
         {
@@ -61,6 +62,7 @@ namespace LSIC.App.ViewModels
         public ICommand CanDropStepCommand { get; private set; }
         public ICommand DropStepCommand { get; private set; }
         public ICommand RemoveLoopCommand { get; private set; }
+
         private Vector _selectedVector;
         public Vector SelectedVector
         {
@@ -71,7 +73,6 @@ namespace LSIC.App.ViewModels
         public ICommand DeleteVectorCommand { get; private set; }
         public ICommand EditVectorCommand { get; private set; }
         public ICommand EditRunStrategyCommand { get; private set; }
-
         public PopIcEditViewModel()
         {
             SelectBurnInBoardFileCommand = new RelayCommand(SelectBurnInBoardFile);
@@ -99,8 +100,9 @@ namespace LSIC.App.ViewModels
             CreateVectorCommand = new RelayCommand(CreateVector, CanCreateVector);
             DeleteVectorCommand = new RelayCommand(DeleteVector, CanDeleteVector);
             EditVectorCommand = new RelayCommand<Vector>(EditVector);
-            EditRunStrategyCommand = new RelayCommand<RunStrategy>(EditRunStrategy);
 
+            //编辑策略
+            EditRunStrategyCommand = new RelayCommand<RunStrategy>(EditRunStrategy);
 
 #if DEBUG
             DirtyObserver<Ic> ic = new(new Ic("test ic"));
@@ -332,21 +334,27 @@ namespace LSIC.App.ViewModels
         }
         private bool CanCreateVector()
         {
-            if (SelectedStepItem.Vectors.Count > 0)
+            if (SelectedStepItem == null)
             {
-                if (SelectedStepItem is StepPower)
-                {
-                    return false;
-                }
+                return false;
             }
-          
+
+            if (SelectedStepItem.Vectors.Count > 0 && SelectedStepItem is StepPower)
+            {
+                return false;
+            }
+
             return true;
         }
         private void CreateVector()
         {
             var vector = new Vector();
-            SelectedStepItem.Vectors.Add(new Vector());
-            SelectedVector = vector;
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.CreateVector, [vector])).First();
+            if (msgResult.Result is Vector vec)
+            {
+                SelectedStepItem.Vectors.Add(vec);
+                SelectedVector = vec;
+            }
         }
         private void EditVector(Vector vector)
         {

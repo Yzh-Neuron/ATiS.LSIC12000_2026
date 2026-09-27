@@ -9,7 +9,10 @@
         Message,
         CreateDpsSetting,
         EditDpsSetting,
-        EditRunStrategy,
+        CreateVector,
         EditVector,
+        EditRunStrategy,
+
+
     }
 }
