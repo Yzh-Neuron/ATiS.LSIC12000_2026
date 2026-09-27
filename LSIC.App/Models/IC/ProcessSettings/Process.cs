@@ -58,7 +58,7 @@
         /// <param name="stepItems"></param>
         public void RemoveVector(IList<StepItem> stepItems)
         {
-           var steps = stepItems.Where(t => !t.IsFixed);
+            var steps = stepItems.Where(t => !t.IsFixed);
             var affected = Loops.Where(loop => steps.Any(item => InLoop(loop, item))).ToList();
 
             bool needRefresh = false;
@@ -108,6 +108,15 @@
             var loop = new Loop(StepItems[range.Value.Start]) { End = StepItems[range.Value.End] };
             Loops.Add(loop);
 
+            Refresh();
+        }
+
+        /// <summary>
+        /// 移除循环
+        /// </summary>
+        public void RemoveLoop(Loop loop)
+        {
+            Loops.Remove(loop);
             Refresh();
         }
 

@@ -2,7 +2,7 @@
 {
     public partial class PopRunStrategyView : IRecipient<MsgArgs<PopRunStrategyMessage>>
     {
-        public RunStrategy RunStrategy { get; private set; }
+        public bool? Result { get; private set; }
         public PopRunStrategyViewModel ViewModel { get; }
         public PopRunStrategyView(RunStrategy runStrategy)
         {
@@ -19,13 +19,19 @@
             {
                 case PopRunStrategyMessage.Confirm:
                     {
-                        RunStrategy = e.Args[0] as RunStrategy;
+                        Result = true;
                         Close();
                         break;
                     }
                 case PopRunStrategyMessage.Cancel:
                     {
-                        RunStrategy = null;
+                        Result = false;
+                        Close();
+                        break;
+                    }
+                case PopRunStrategyMessage.TerminateLoop:
+                    {
+                        Result = null;
                         Close();
                         break;
                     }
@@ -48,8 +54,6 @@
             MessageBus.Default.UnregisterAll(this);
         }
     }
-
-
 }
 
 namespace LSIC.App.ViewModels
@@ -59,13 +63,18 @@ namespace LSIC.App.ViewModels
         public RunStrategy RunStrategy { get; private set; }
         public ICommand ConfirmCommand { get; }
         public ICommand CancelCommand { get; }
+        public ICommand TerminateLoopCommand { get; }
+
         public PopRunStrategyViewModel(RunStrategy runStrategy)
         {
             RunStrategy = runStrategy;
-
-
             ConfirmCommand = new RelayCommand(Confirm);
             CancelCommand = new RelayCommand(Cancel);
+            TerminateLoopCommand = new RelayCommand(TerminateLoop);
+        }
+        private void TerminateLoop()
+        {
+            MessageBus.Default.Send(MsgArgs.From(PopRunStrategyMessage.TerminateLoop, []));
         }
         private void Confirm()
         {
@@ -93,6 +102,7 @@ namespace LSIC.App.ViewMessages
     {
         Confirm,
         Cancel,
+        TerminateLoop,
         ShowValidateError
     }
 }

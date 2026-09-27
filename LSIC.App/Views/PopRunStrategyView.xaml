@@ -67,18 +67,27 @@
                 <TextBox Grid.Column="2"
                          Width="100"
                          Text="{Binding RunStrategy.Count, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToIntegerConverter}}" />
+                <TextBlock Margin="5,0,0,0" Text="{app:Lang {x:Static app:LangKey.TimesText}}" />
             </StackPanel>
         </wpf:SimplePanel>
+
+
+        <StackPanel Grid.Row="4"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button Command="{Binding ConfirmCommand}" Style="{StaticResource Button.Confirm}" />
+            <Button Margin="5,0,0,0"
+                    Command="{Binding CancelCommand}"
+                    Style="{StaticResource Button.Cancel}" />
+        </StackPanel>
 
         <Button Grid.Row="4"
                 Grid.Column="0"
                 HorizontalAlignment="Left"
-                Command="{Binding ConfirmCommand}"
+                Command="{Binding TerminateLoopCommand}"
+                Content="解散循环"
                 Style="{StaticResource Button.Confirm}" />
-        <Button Grid.Row="4"
-                Grid.Column="1"
-                HorizontalAlignment="Right"
-                Command="{Binding CancelCommand}"
-                Style="{StaticResource Button.Cancel}" />
+
     </Grid>
 </wpf:ChromeWindow>

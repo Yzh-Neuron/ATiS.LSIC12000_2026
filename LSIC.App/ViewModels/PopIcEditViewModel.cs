@@ -58,7 +58,6 @@ namespace LSIC.App.ViewModels
         public ICommand CreateStepItemCommand { get; private set; }
         public ICommand DeleteStepItemCommand { get; private set; }
         public ICommand MakeLoopCommand { get; private set; }
-        public ICommand RemoveLoopCommand { get; private set; }
         public ICommand CanDragStepCommand { get; private set; }
         public ICommand CanDropStepCommand { get; private set; }
         public ICommand DropStepCommand { get; private set; }
@@ -83,11 +82,10 @@ namespace LSIC.App.ViewModels
             CreateStepItemCommand = new RelayCommand(CreateStepItem, CanCreateStepItem);
             DeleteStepItemCommand = new RelayCommand<IList>(DeleteStepItem, CanDeleteStepItem);
             MakeLoopCommand = new RelayCommand<IList>(MakeLoop, CanMakeLoop);
-            RemoveLoopCommand = new RelayCommand<IList>(RemoveLoop, CanRemoveLoop);
             CanDragStepCommand = new RelayCommand<StepItem>(null, CanDragStep);
             CanDropStepCommand = new RelayCommand<DragDropArgs>(null, CanDropStep);
             DropStepCommand = new RelayCommand<DragDropArgs>(DropStep);
-            EditLoopRunStrategyCommand = new RelayCommand<Loop>(EditLoopRunStrategy);
+            EditLoopRunStrategyCommand = new RelayCommand<Loop>(EditLoopRunStrategy, CanEditLoopRunStrategy);
 
 #if DEBUG
             DirtyObserver<Ic> ic = new(new Ic("test ic"));
@@ -278,14 +276,6 @@ namespace LSIC.App.ViewModels
             var stepItems = obj.Cast<StepItem>()?.ToList();
             SelectedIc.Target.Process.MakeLoop(stepItems);
         }
-        private bool CanRemoveLoop(IList obj)
-        {
-            return true;
-        }
-        private void RemoveLoop(IList obj)
-        {
-
-        }
         private bool CanDragStep(StepItem item)
         {
             return SelectedIc?.Target?.Process != null && item is { IsFixed: false };
@@ -299,15 +289,30 @@ namespace LSIC.App.ViewModels
             SelectedIc.Target.Process.Move(args.FromIndex, args.ToIndex);
             SelectedIc.MarkDirty();
         }
+        private bool CanEditLoopRunStrategy(Loop obj)
+        {
+            return SelectedIc?.Target?.Process != null ;
+        }
+
         private void EditLoopRunStrategy(Loop loop)
         {
             if (loop?.RunStrategy != null)
             {
                 var clone = (RunStrategy)loop.RunStrategy.Clone();
                 var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [clone])).First();
-                if (msgResult.Result is RunStrategy runStrategy)
+
+                switch (msgResult.Result)
                 {
-                    loop.RunStrategy.Copy(runStrategy);
+                    case true:
+                        {
+                            loop.RunStrategy.Copy(clone);
+                            break;
+                        }
+                    case null:
+                        {
+                            SelectedIc.Target.Process.RemoveLoop(loop);
+                            break;
+                        }
                 }
             }
         }

@@ -13,7 +13,11 @@
             {
                 if (SetProperty(ref _mode, value))
                 {
-                    OnPropertyChanged(nameof(Info));
+                    if (_mode == RunMode.Times)
+                    {
+                        Time = new Time();
+                    }
+
                 }
             }
         }
@@ -21,25 +25,13 @@
         public Time Time
         {
             get => _time;
-            set
-            {
-                if (SetProperty(ref _time, value))
-                {
-                    OnPropertyChanged(nameof(Info));
-                }
-            }
+            set => SetProperty(ref _time, value);
         }
         private int _count = 1;
         public int Count
         {
             get => _count;
-            set
-            {
-                if (SetProperty(ref _count, value,true))
-                {
-                    OnPropertyChanged(nameof(Info));
-                }
-            }
+            set => SetProperty(ref _count, value, true);
         }
         public int TotalSecondsOrCount
         {
@@ -49,18 +41,6 @@
                 {
                     RunMode.Time => Time.TotalSeconds,
                     RunMode.Times => Count,
-                    _ => throw new ArgumentOutOfRangeException()
-                };
-            }
-        }
-        public string Info
-        {
-            get
-            {
-                return Mode switch
-                {
-                    RunMode.Time => Time.ToString(),
-                    RunMode.Times => $"{Count} {LangProvider.Instance.TimesText}",
                     _ => throw new ArgumentOutOfRangeException()
                 };
             }
