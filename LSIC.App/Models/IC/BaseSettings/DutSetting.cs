@@ -10,7 +10,7 @@
 
         public int[] Dpss { get; private set; }
 
-        public ThermostatSetting ThermostatSetting { get; set; }
+        public ThermostatSetting ThermostatSetting { get;private set; }
 
         public int Row { get; private set; }
 

@@ -12,6 +12,12 @@ namespace LSIC.App.ViewModels
             get => _selectedIc;
             set => SetProperty(ref _selectedIc, value);
         }
+        private DutSettingWrapper _dutSettingWrapper;
+        public DutSettingWrapper DutSettingWrapper
+        {
+            get => _dutSettingWrapper;
+            set => SetProperty(ref _dutSettingWrapper, value);
+        }
         public ICommand CreateIcCommand { get; private set; }
         public ICommand SaveIcCommand { get; private set; }
         public ICommand SaveAsIcCommand { get; private set; }
@@ -19,14 +25,6 @@ namespace LSIC.App.ViewModels
         public ICommand ImportIcCommand { get; private set; }
         public ICommand ExportIcCommand { get; private set; }
         public ICommand SelectBurnInBoardFileCommand { get; private set; }
-
-        //工位
-        private DutSettingWrapper _dutSettingWrapper;
-        public DutSettingWrapper DutSettingWrapper
-        {
-            get => _dutSettingWrapper;
-            set => SetProperty(ref _dutSettingWrapper, value);
-        }
 
         //Dps电源
         private DpsPlan _selectedDpsPlan;
@@ -171,7 +169,7 @@ namespace LSIC.App.ViewModels
         #region Dps相关命令
         private bool CanCreateDpsPlan()
         {
-            return SelectedIc != null;
+            return SelectedIc?.Target?.DpsPlans != null;
         }
         private void CreateDpsPlan()
         {
@@ -186,19 +184,19 @@ namespace LSIC.App.ViewModels
         }
         private bool CanDeleteDpsPlan()
         {
-            return SelectedDpsPlan != null;
+            return SelectedIc?.Target?.DpsPlans != null && SelectedDpsPlan != null;
         }
         private void DeleteDpsPlan()
         {
             var dpsPlan = SelectedDpsPlan;
             SelectedIc.Target.DpsPlans.Remove(dpsPlan);
-            SelectedDpsPlan = null;
+            SelectedDpsPlan = SelectedIc.Target.DpsPlans.LastOrDefault();
         }
 
 
         private bool CanCreateDpsSetting()
         {
-            return SelectedDpsPlan != null;
+            return SelectedDpsPlan?.DpssSettings != null;
         }
         private void CreateDpsSetting()
         {
@@ -217,12 +215,13 @@ namespace LSIC.App.ViewModels
         }
         private bool CanDeleteDpsSetting()
         {
-            return SelectedDpsSetting != null;
+            return SelectedDpsPlan?.DpssSettings != null && SelectedDpsSetting != null;
         }
         private void DeleteDpsSetting()
         {
-
-
+            var dpsSetting = SelectedDpsSetting;
+            SelectedDpsPlan.DpssSettings.Remove(dpsSetting);
+            SelectedDpsSetting = SelectedDpsPlan.DpssSettings.LastOrDefault();
         }
         private void EditDpsSetting(DpsSetting dpsSetting)
         {
@@ -293,7 +292,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanDragStep(StepItem item)
         {
-            return SelectedIc?.Target?.Process != null && item is { IsFixed: false };
+            return item is { IsFixed: false };
         }
         private bool CanDropStep(DragDropArgs args)
         {
@@ -302,24 +301,14 @@ namespace LSIC.App.ViewModels
         private void DropStep(DragDropArgs args)
         {
             SelectedIc.Target.Process.Move(args.FromIndex, args.ToIndex);
-            SelectedIc.MarkDirty();
         }
         private bool CanRemoveLoop(Loop obj)
         {
-            return SelectedIc?.Target?.Process != null;
+            return SelectedIc != null;
         }
         private void RemoveLoop(Loop loop)
         {
             SelectedIc.Target.Process.RemoveLoop(loop);
-        }
-        private void EditRunStrategy(RunStrategy strategy)
-        {
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [(RunStrategy)strategy.Clone()])).First();
-
-            if (msgResult.Result is RunStrategy clone)
-            {
-                strategy.Copy(clone);
-            }
         }
 
         private bool CanDeleteVector()
@@ -367,6 +356,16 @@ namespace LSIC.App.ViewModels
                 }
             }
         }
+        private void EditRunStrategy(RunStrategy strategy)
+        {
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [(RunStrategy)strategy.Clone()])).First();
+
+            if (msgResult.Result is RunStrategy clone)
+            {
+                strategy.Copy(clone);
+            }
+        }
+
         #endregion
 
         public void Dispose()

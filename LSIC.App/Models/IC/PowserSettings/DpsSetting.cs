@@ -75,10 +75,10 @@
 
         public DpsSetting(DpsInfo dpsInfo)
         {
-            DpsInfo = dpsInfo;
             Vol = dpsInfo.VolDefault;
             Delay = dpsInfo.DelayDefault;
             Raise = dpsInfo.RiseDefault;
+            DpsInfo = dpsInfo;
         }
         public object Clone()
         {

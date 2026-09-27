@@ -2,7 +2,7 @@
 {
     public partial class PopRunStrategyView : IRecipient<MsgArgs<PopRunStrategyMessage>>
     {
-        public RunStrategy? RunStrategy { get; private set; }
+        public RunStrategy RunStrategy { get; private set; }
         public PopRunStrategyViewModel ViewModel { get; }
         public PopRunStrategyView(RunStrategy runStrategy)
         {

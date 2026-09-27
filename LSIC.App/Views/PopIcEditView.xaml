@@ -12,7 +12,7 @@
                   xmlns:views="clr-namespace:LSIC.App.Views"
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
-                  Title="PopTemplateView"
+                  Title="{app:Lang {x:Static app:LangKey.IcEditText}}"
                   Width="1150"
                   Height="850"
                   d:DataContext="{d:DesignInstance vms:PopIcEditViewModel}"
@@ -147,7 +147,7 @@
                                            Text=":" />
                                 <TextBox Grid.Column="2"
                                          Width="100"
-                                         Text="{Binding LogInterval.Value}" />
+                                         Text="{Binding LogInterval.Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToIntegerConverter}}" />
 
                                 <ComboBox Grid.Column="3"
                                           Width="75"
@@ -177,7 +177,7 @@
                                            Text=":" />
                                 <TextBox Grid.Column="2"
                                          Width="100"
-                                         Text="{Binding ErrorLogInterval.Value}"
+                                         Text="{Binding ErrorLogInterval.Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToIntegerConverter}}"
                                          Visibility="{Binding ErrorLogEnable, Converter={StaticResource TrueToVisibilityConverter}}" />
                                 <ComboBox Grid.Column="3"
                                           Width="75"
@@ -264,8 +264,8 @@
                                                            Text="{Binding Id}" />
 
                                                 <views:ThermostatBadge Margin="0,5,3,0"
-                                                                       Temperature="{Binding ThermostatSetting.TargetTemperature}"
-                                                                       TemperatureEnabled="{Binding ThermostatSetting.Enable}" />
+                                                                       Temperature="{Binding ThermostatSetting.TargetTemperature, Mode=OneWay}"
+                                                                       TemperatureEnabled="{Binding ThermostatSetting.Enable, Mode=OneWay}" />
                                             </wpf:SimplePanel>
                                         </DataTemplate>
                                     </wpf:MatrixListBox.ItemTemplate>
@@ -276,9 +276,11 @@
                                         BorderBrush="{DynamicResource BorderBrush}"
                                         BorderThickness="1,0,1,1"
                                         CornerRadius="0,0,4,4"
-                                        DataContext="{Binding Source={StaticResource MainDataContext}, Path=Data.DutSettingWrapper}">
+                                        DataContext="{Binding Source={StaticResource MainDataContext}, Path=Data.DutSettingWrapper}"
+                                        Validation.ErrorTemplate="{x:Null}">
                                     <Grid Margin="10"
                                           VerticalAlignment="Top"
+                                          Validation.ErrorTemplate="{x:Null}"
                                           Visibility="{Binding ., Converter={StaticResource NotNullToVisibilityConverter}}">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -300,7 +302,7 @@
                                                 <TextBox Width="100"
                                                          Margin="0,0,5,0"
                                                          VerticalAlignment="Center"
-                                                         Text="{Binding TargetTemperature, Converter={StaticResource IntegerToDecimalConverter10}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                         Text="{Binding TargetTemperature, Converter={StaticResource IntegerToDecimalConverter10}, UpdateSourceTrigger=PropertyChanged}"
                                                          Visibility="{Binding Enable, Converter={StaticResource TrueToVisibilityConverter}}" />
                                                 <CheckBox IsChecked="{Binding Enable}" />
                                             </StackPanel>
@@ -394,7 +396,8 @@
                                 <DataGrid wpf:DataGridDragSort.IsEnabled="True"
                                           CanUserSortColumns="False"
                                           IsReadOnly="True"
-                                          ItemsSource="{Binding DpssSettings}">
+                                          ItemsSource="{Binding DpssSettings}"
+                                          SelectedItem="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedDpsSetting}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="80"
                                                             Binding="{Binding Name}"

@@ -28,6 +28,7 @@
         /// </summary>
         public ObservableCollection<Loop> Loops { get; } = new();
 
+        //视图用
         private List<LoopSlot> _loopSlots;
 
         /// <summary>
@@ -116,7 +117,7 @@
         /// </summary>
         public void RemoveLoop(Loop loop)
         {
-            if (loop!=null && Loops.Remove(loop))
+            if (loop != null && Loops.Remove(loop))
             {
                 Refresh();
 

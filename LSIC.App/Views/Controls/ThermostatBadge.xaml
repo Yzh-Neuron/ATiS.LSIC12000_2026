@@ -2,33 +2,44 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:LSIC.App.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:LSIC.App.Views"
              xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
              HorizontalAlignment="Right"
              VerticalAlignment="Top"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <Style TargetType="{x:Type Border}">
+    <UserControl.Style>
+        <Style BasedOn="{StaticResource Control.Error}" TargetType="{x:Type UserControl}">
             <Setter Property="Padding" Value="2,0" />
-            <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+            <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource SecondBorderBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type UserControl}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter Margin="{TemplateBinding Padding}" SnapsToDevicePixels="True" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
-    </UserControl.Resources>
+    </UserControl.Style>
 
     <wpf:SimplePanel>
-        <Border x:Name="DisabledPanel" Visibility="Collapsed">
-            <TextBlock Text="N/A" />
-        </Border>
+        <TextBlock x:Name="DisabledTextBlock"
+                   Text="N/A"
+                   Visibility="Collapsed" />
 
-        <Border x:Name="EnabledPanel"
-                Background="{Binding EnableBackground, RelativeSource={RelativeSource AncestorType={x:Type local:ThermostatBadge}}}"
-                Visibility="Collapsed">
-            <TextBlock Text="{Binding Temperature, RelativeSource={RelativeSource AncestorType={x:Type local:ThermostatBadge}}, Converter={StaticResource IntegerToDecimalConverter10}, StringFormat={}{0}℃}" />
-        </Border>
+        <TextBlock x:Name="EnabledTextBlock"
+                   Text="{Binding Temperature, RelativeSource={RelativeSource AncestorType={x:Type views:ThermostatBadge}}, Converter={StaticResource IntegerToDecimalConverter10}, StringFormat={}{0}℃}"
+                   Visibility="Collapsed" />
     </wpf:SimplePanel>
 </UserControl>

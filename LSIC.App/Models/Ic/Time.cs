@@ -25,7 +25,7 @@
             {
                 if (SetProperty(ref _unit, value))
                 {
-                    ValidateAllProperties();
+                    ValidateProperty(nameof(Value));
                 }
             }
         }
@@ -71,7 +71,7 @@
             };
             return timeValue > 0 && timeValue <= max
                 ? ValidationResult.Success
-                : new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangMessage, $"0 ~ {max} {Unit.GetString()}"), [LangProvider.Instance.LoopTimeText]);
+                : new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangMessage, $"1 ~ {max} {Unit.GetString()}"), [LangProvider.Instance.LoopTimeText]);
 
         }
 

@@ -10,7 +10,7 @@
         }
 
         //记录间隔时间
-        private Time _logInterval;
+        private Time _logInterval = new();
         public Time LogInterval
         {
             get => _logInterval;
@@ -22,7 +22,7 @@
             get => _errorLogEnable;
             set => SetProperty(ref _errorLogEnable, value);
         }
-        private Time _errorLogInterval;
+        private Time _errorLogInterval = new();
         public Time ErrorLogInterval
         {
             get => _errorLogInterval;
@@ -45,15 +45,10 @@
         }
 
         //Dps电源方案
-        private ObservableCollection<DpsPlan> _dpsPlans = new();
-        public ObservableCollection<DpsPlan> DpsPlans
-        {
-            get => _dpsPlans;
-            private set => SetProperty(ref _dpsPlans, value);
-        }
+        public ObservableCollection<DpsPlan> DpsPlans { get; } = new();
 
         //流程
-        public Process Process { get; set; } = new Process();
+        public Process Process { get; } = new Process();
         public Ic(string name)
         {
             Name = name;

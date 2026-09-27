@@ -17,11 +17,14 @@
                     {
                         Time = new Time();
                     }
-
+                    else
+                    {
+                        Count = 1;
+                    }
                 }
             }
         }
-        private Time _time;
+        private Time _time = new();
         public Time Time
         {
             get => _time;
@@ -44,10 +47,6 @@
                     _ => throw new ArgumentOutOfRangeException()
                 };
             }
-        }
-        public RunStrategy()
-        {
-            Time = new Time();
         }
         public object Clone()
         {

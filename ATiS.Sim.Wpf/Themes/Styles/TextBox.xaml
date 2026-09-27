@@ -55,6 +55,7 @@
                         <Button Name="ButtonClear"
                                 Grid.Column="2"
                                 Width="Auto"
+                                Cursor="Hand"
                                 Height="Auto"
                                 Padding="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                                 HorizontalAlignment="Stretch"

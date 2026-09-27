@@ -4,7 +4,7 @@
     /// <summary>
     /// 包装多个 DutSetting，用于界面批量设置独立温控。
     /// </summary>
-    public class DutSettingWrapper : ObservableObject
+    public class DutSettingWrapper : ObservableValidator
     {
         private readonly IReadOnlyList<DutSetting> _dutSettings;
         public bool IsValid { get; }
@@ -18,18 +18,20 @@
             {
                 if (SetProperty(ref _enable, value) && value.HasValue)
                 {
+                    ValidateProperty(nameof(TargetTemperature));
                     ApplyThermostat(t => t.Enable = value.Value);
                 }
             }
         }
 
         private int? _targetTemperature = 250;
+        [ValidationMetadata(Method = nameof(ValidateTargetTemperature))]
         public int? TargetTemperature
         {
             get => _targetTemperature;
             set
             {
-                if (SetProperty(ref _targetTemperature, value) && value.HasValue)
+                if (SetProperty(ref _targetTemperature, value, true) && value.HasValue)
                 {
                     ApplyThermostat(t => t.TargetTemperature = value.Value);
                 }
@@ -76,5 +78,23 @@
                 }
             }
         }
+
+        #region validate methods
+        private ValidationResult ValidateTargetTemperature(int? targetTemperature)
+        {
+            if (targetTemperature == null || Enable == null || Enable != true)
+            {
+                return ValidationResult.Success;
+            }
+
+            Device.Instance.SystemConfig.ThermostatInfo.TempRange.TryGetValue(0, out Limit limit);
+            if (!limit.Contains(targetTemperature.Value))
+            {
+                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangMessage, limit.GetRangString(10, "", 10, "℃")), [LangProvider.Instance.ThermostatIndexText]);
+            }
+            return ValidationResult.Success;
+        }
+
+        #endregion 
     }
 }
