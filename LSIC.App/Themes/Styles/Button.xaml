@@ -15,14 +15,14 @@
     <Style x:Key="Button.Confirm"
            BasedOn="{StaticResource {x:Type Button}}"
            TargetType="{x:Type Button}">
-        <Setter Property="Width" Value="80" />
+        <Setter Property="Width" Value="60" />
         <Setter Property="Content" Value="{app:Lang {x:Static app:LangKey.ConfirmText}}" />
     </Style>
 
     <Style x:Key="Button.Cancel"
            BasedOn="{StaticResource {x:Type Button}}"
            TargetType="{x:Type Button}">
-        <Setter Property="Width" Value="80" />
+        <Setter Property="Width" Value="60" />
         <Setter Property="Content" Value="{app:Lang {x:Static app:LangKey.CancelText}}" />
     </Style>
 
@@ -32,8 +32,6 @@
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Padding" Value="2,0" />
-        <Setter Property="Height" Value="22" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
