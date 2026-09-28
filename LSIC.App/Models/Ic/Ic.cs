@@ -52,6 +52,7 @@
         public Ic(string name)
         {
             Name = name;
+            ValidateAllProperties();
         }
 
         #region validate methods

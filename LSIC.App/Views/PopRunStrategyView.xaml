@@ -9,8 +9,8 @@
                   xmlns:views="clr-namespace:LSIC.App.Views"
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
-                  Title="{app:Lang {x:Static app:LangKey.DpsEditText}}"
-                  MinWidth="150"
+                  Title="{app:Lang {x:Static app:LangKey.RunStrategyText}}"
+                  MinWidth="350"
                   d:DataContext="{d:DesignInstance vms:PopRunStrategyViewModel}"
                   Icon="/Resources/Icon/icon.ico"
                   ResizeMode="NoResize"
@@ -33,7 +33,7 @@
         <StackPanel Grid.Row="0" 
                     Grid.ColumnSpan="2"
                     Orientation="Horizontal">
-            <TextBlock Width="55" Text="{app:Lang {x:Static app:LangKey.LoopModeText}}" />
+            <TextBlock Width="55" Text="{app:Lang {x:Static app:LangKey.RunModeText}}" />
             <TextBlock Margin="3,0,10,0" Text=":" />
             <ComboBox Width="100"
                       DisplayMemberPath="Value"
@@ -44,7 +44,7 @@
 
         <wpf:SimplePanel Grid.Row="2" Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal" Visibility="{Binding RunStrategy.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Time'}">
-                <TextBlock Width="55" Text="{app:Lang {x:Static app:LangKey.LoopTimeText}}" />
+                <TextBlock Width="55" Text="{app:Lang {x:Static app:LangKey.RunTimeText}}" />
                 <TextBlock Margin="3,0,10,0" Text=":" />
                 <TextBox Grid.Column="2"
                          Width="100"
@@ -62,7 +62,7 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Visibility="{Binding RunStrategy.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Times'}">
-                <TextBlock Width="55" Text="{app:Lang {x:Static app:LangKey.LoopTimesText}}" />
+                <TextBlock Width="55" Text="{app:Lang {x:Static app:LangKey.RunTimesText}}" />
                 <TextBlock Margin="3,0,10,0" Text=":" />
                 <TextBox Grid.Column="2"
                          Width="100"

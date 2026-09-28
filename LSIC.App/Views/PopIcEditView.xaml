@@ -393,7 +393,8 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <DataGrid wpf:DataGridDragSort.IsEnabled="True"
+                                <DataGrid wpf:DataGridDoubleClick.Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditDpsSettingCommand}"
+                                          wpf:DataGridDragSort.IsEnabled="True"
                                           CanUserSortColumns="False"
                                           IsReadOnly="True"
                                           ItemsSource="{Binding DpssSettings}"
@@ -426,44 +427,6 @@
                                         <DataGridTextColumn Width="*"
                                                             Binding="{Binding Delay, Converter={StaticResource IntegerToIntegerConverter}}"
                                                             Header="{app:Lang {x:Static app:LangKey.DelayWithUnitText}}" />
-
-                                        <DataGridTemplateColumn Width="80">
-                                            <DataGridTemplateColumn.Header>
-                                                <TextBlock HorizontalAlignment="Center" Text="{app:Lang {x:Static app:LangKey.EditText}}" />
-                                            </DataGridTemplateColumn.Header>
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button Height="22"
-                                                            Padding="10,0"
-                                                            Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditDpsSettingCommand}"
-                                                            CommandParameter="{Binding .}"
-                                                            Content="{app:Lang {x:Static app:LangKey.EditText}}">
-                                                        <Button.Style>
-                                                            <Style BasedOn="{StaticResource Button.Link}" TargetType="{x:Type Button}">
-                                                                <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
-                                                                <Style.Triggers>
-                                                                    <MultiDataTrigger>
-                                                                        <MultiDataTrigger.Conditions>
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=IsSelected}" Value="True" />
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=(Selector.IsSelectionActive)}" Value="True" />
-                                                                        </MultiDataTrigger.Conditions>
-                                                                        <Setter Property="Foreground" Value="{DynamicResource ContrastForegroundBrush}" />
-                                                                    </MultiDataTrigger>
-
-                                                                    <MultiDataTrigger>
-                                                                        <MultiDataTrigger.Conditions>
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=IsSelected}" Value="True" />
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=(Selector.IsSelectionActive)}" Value="False" />
-                                                                        </MultiDataTrigger.Conditions>
-                                                                        <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
-                                                                    </MultiDataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Button.Style>
-                                                    </Button>
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
 
@@ -836,15 +799,23 @@
                                                                Text=":" />
                                                     <wpf:StateBlock Grid.Column="2" IsChecked="{Binding RunStrategy.Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
                                                         <wpf:StateBlock.UnCheckedContent>
-                                                            <TextBlock Foreground="Black">
-                                                                <Run Text="{Binding RunStrategy.Time.Value}" />
-                                                                <Run Text="{Binding RunStrategy.Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
+                                                            <TextBlock Style="{StaticResource TextBlock.Error}">
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding Converter="{StaticResource TimeToStringConverter}">
+                                                                        <Binding Path="RunStrategy.Time.Value" />
+                                                                        <Binding Path="RunStrategy.Time.Unit" />
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
                                                             </TextBlock>
                                                         </wpf:StateBlock.UnCheckedContent>
                                                         <wpf:StateBlock.CheckedContent>
-                                                            <TextBlock Foreground="Black">
-                                                                <Run Text="{Binding RunStrategy.Count}" />
-                                                                <Run Text="{app:Lang {x:Static app:LangKey.TimesText}}" />
+                                                            <TextBlock Style="{StaticResource TextBlock.Error}">
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding Converter="{StaticResource TextJoinConverter}">
+                                                                        <Binding Path="RunStrategy.Count" />
+                                                                        <Binding Path="TimesText" Source="{x:Static app:LangProvider.Instance}" />
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
                                                             </TextBlock>
                                                         </wpf:StateBlock.CheckedContent>
                                                     </wpf:StateBlock>
@@ -865,6 +836,7 @@
                                 <!--  向量  -->
                                 <DataGrid Grid.Row="2"
                                           Margin="0,10,0,0"
+                                          wpf:DataGridDoubleClick.Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditVectorCommand}"
                                           wpf:DataGridDragSort.IsEnabled="True"
                                           CanUserSortColumns="False"
                                           IsReadOnly="True"
@@ -873,50 +845,13 @@
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="*"
                                                             Binding="{Binding PatternFile, Converter={StaticResource FilePathToFileNameConverter}}"
+                                                            ElementStyle="{StaticResource TextBlock.Error}"
                                                             Header="{app:Lang {x:Static app:LangKey.PatternFileText}}" />
 
                                         <DataGridTextColumn Width="*"
                                                             Binding="{Binding RegisterFile, Converter={StaticResource FilePathToFileNameConverter}}"
+                                                            ElementStyle="{StaticResource TextBlock.Error}"
                                                             Header="{app:Lang {x:Static app:LangKey.RegisterFileText}}" />
-
-                                        <DataGridTemplateColumn Width="80">
-                                            <DataGridTemplateColumn.Header>
-                                                <TextBlock HorizontalAlignment="Center" Text="{app:Lang {x:Static app:LangKey.EditText}}" />
-                                            </DataGridTemplateColumn.Header>
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button Height="22"
-                                                            Padding="10,0"
-                                                            Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditVectorCommand}"
-                                                            CommandParameter="{Binding .}"
-                                                            Content="{app:Lang {x:Static app:LangKey.EditText}}">
-                                                        <Button.Style>
-                                                            <Style BasedOn="{StaticResource Button.Link}" TargetType="{x:Type Button}">
-                                                                <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
-                                                                <Style.Triggers>
-                                                                    <MultiDataTrigger>
-                                                                        <MultiDataTrigger.Conditions>
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=IsSelected}" Value="True" />
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=(Selector.IsSelectionActive)}" Value="True" />
-                                                                        </MultiDataTrigger.Conditions>
-                                                                        <Setter Property="Foreground" Value="{DynamicResource ContrastForegroundBrush}" />
-                                                                    </MultiDataTrigger>
-
-                                                                    <MultiDataTrigger>
-                                                                        <MultiDataTrigger.Conditions>
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=IsSelected}" Value="True" />
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=(Selector.IsSelectionActive)}" Value="False" />
-                                                                        </MultiDataTrigger.Conditions>
-                                                                        <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
-                                                                    </MultiDataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Button.Style>
-                                                    </Button>
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>

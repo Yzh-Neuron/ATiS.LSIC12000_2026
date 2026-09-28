@@ -67,6 +67,8 @@
 
             var templateTemp = DutSettingTemplate.ThermostatSetting.TargetTemperature;
             _targetTemperature = _dutSettings.All(t => t.ThermostatSetting?.TargetTemperature == templateTemp) ? templateTemp : null;
+
+            ValidateAllProperties();
         }
         private void ApplyThermostat(Action<ThermostatSetting> action)
         {

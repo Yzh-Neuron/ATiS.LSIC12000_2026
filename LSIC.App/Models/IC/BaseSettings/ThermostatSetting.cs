@@ -29,6 +29,7 @@
         public ThermostatSetting(int id)
         {
             Id = id;
+            ValidateAllProperties();
         }
 
 

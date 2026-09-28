@@ -2,6 +2,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/Bases/Themes.Basic.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/Bases/Control.Base.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="TextBlock.Default" TargetType="{x:Type TextBlock}">
@@ -11,6 +12,25 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+    </Style>
+
+    <Style x:Key="TextBlock.Error" BasedOn="{StaticResource TextBlock.Default}" TargetType="{x:Type TextBlock}">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
+                <Setter Property="Foreground" Value="{DynamicResource ErrorBrush}" />
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ValidationErrorsToStringConverter}">
+                            <Binding Path="(Validation.Errors)" RelativeSource="{RelativeSource Self}" />
+                            <Binding FallbackValue="{x:Null}"
+                                    Path="(Validation.Errors)/"
+                                    RelativeSource="{RelativeSource Self}" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style BasedOn="{StaticResource TextBlock.Default}" TargetType="{x:Type TextBlock}" />

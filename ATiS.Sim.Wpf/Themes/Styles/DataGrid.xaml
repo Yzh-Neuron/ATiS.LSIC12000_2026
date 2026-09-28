@@ -7,6 +7,7 @@
         <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/ToggleButton.xaml" />
         <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/ComboBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/CheckBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/TextBlock.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <wpf:DataGridLastColumnToTrueConverter x:Key="DataGridLastColumnToTrueConverter" />
@@ -51,8 +52,13 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="TextBlock.DataGridColumn" TargetType="TextBlock">
+    <Style x:Key="TextBlock.DataGridColumn" TargetType="{x:Type TextBlock}">
+        <Setter Property="TextWrapping" Value="NoWrap" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
     </Style>
 
     <Style x:Key="TextBox.DataGridEditingColumn" TargetType="TextBox">

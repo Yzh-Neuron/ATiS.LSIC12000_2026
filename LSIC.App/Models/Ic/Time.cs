@@ -4,11 +4,13 @@
     {
         public Time()
         {
+            ValidateAllProperties();
         }
         public Time(int value, TimeUnit unit)
         {
             Value = value;
             Unit = unit;
+            ValidateAllProperties();
         }
         private int _value = 1;
         [ValidationMetadata(Method = nameof(ValidateValue))]

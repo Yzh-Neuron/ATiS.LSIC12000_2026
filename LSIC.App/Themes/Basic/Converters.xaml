@@ -16,4 +16,6 @@
     <cvt:TempTestConverter x:Key="TempTestConverter"/>
     <cvt:DivideConverter x:Key="DivideConverter"/>
     <cvt:FilePathToFileNameConverter x:Key="FilePathToFileNameConverter"/>
+    <cvt:TimeToStringConverter x:Key="TimeToStringConverter"/>
+    <cvt:TextJoinConverter x:Key="TextJoinConverter"/>
 </ResourceDictionary>

@@ -22,10 +22,6 @@ namespace ATiS.Sim.Mvvm
         [Display(AutoGenerateField = false)]
         public bool HasErrors => _totalErrors > 0;
         public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
-        public ObservableValidator()
-        {
-            ValidateAllProperties();
-        }
 
         [RequiresUnreferencedCode("The type of the current instance cannot be statically discovered.")]
         protected bool SetProperty<T>([NotNullIfNotNull(nameof(newValue))] ref T field, T newValue, bool validate, [CallerMemberName] string propertyName = null!)

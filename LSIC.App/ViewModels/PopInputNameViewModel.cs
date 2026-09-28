@@ -20,6 +20,7 @@ namespace LSIC.App.ViewModels
             _filters = filters;
             ConfirmCommand = new RelayCommand(Confirm, CanConfirm);
             CancelCommand = new RelayCommand(Cancel);
+            ValidateAllProperties();
         }
         private void Confirm()
         {

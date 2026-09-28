@@ -3,7 +3,7 @@
     /// <summary>
     /// 步
     /// </summary>
-    public abstract class StepItem : ObservableObject
+    public abstract class StepItem : ObservableValidator
     {
         private string _name = string.Empty;
 
