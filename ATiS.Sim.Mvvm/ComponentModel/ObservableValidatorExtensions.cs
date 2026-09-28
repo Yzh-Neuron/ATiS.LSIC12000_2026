@@ -14,9 +14,15 @@ namespace ATiS.Sim.Mvvm
         {
             ArgumentNullException.ThrowIfNull(target);
             var visited = new HashSet<object>(ReferenceEqualityComparer.Instance);
-            return GetAllErrorsRecursive(target, visited);
+            return GetAllErrorsRecursive(target, visited, true);
         }
-        private static List<ValidationResult> GetAllErrorsRecursive(ObservableValidator target, HashSet<object> visited)
+        public static List<ValidationResult> GetAllExistingErrorsRecursive(this ObservableValidator target)
+        {
+            ArgumentNullException.ThrowIfNull(target);
+            var visited = new HashSet<object>(ReferenceEqualityComparer.Instance);
+            return GetAllErrorsRecursive(target, visited, validate: false);
+        }
+        private static List<ValidationResult> GetAllErrorsRecursive(ObservableValidator target, HashSet<object> visited, bool validate)
         {
             // 防成环
             if (!visited.Add(target))
@@ -24,7 +30,11 @@ namespace ATiS.Sim.Mvvm
                 return new List<ValidationResult>();
             }
 
-            target.ValidateAllProperties();
+            if (validate)
+            {
+                target.ValidateAllProperties();
+            }
+
             List<ValidationResult> errors = [.. target.GetErrors()];
             foreach (PropertyInfo property in GetRecursiveProperties(target.GetType()))
             {
@@ -33,7 +43,7 @@ namespace ATiS.Sim.Mvvm
 
                 if (value is ObservableValidator child)
                 {
-                    errors.AddRange(GetAllErrorsRecursive(child, visited));
+                    errors.AddRange(GetAllErrorsRecursive(child, visited, validate));
                     continue;
                 }
 
@@ -43,7 +53,7 @@ namespace ATiS.Sim.Mvvm
                     {
                         if (item is ObservableValidator itemValidator)
                         {
-                            errors.AddRange(GetAllErrorsRecursive(itemValidator, visited));
+                            errors.AddRange(GetAllErrorsRecursive(itemValidator, visited, validate));
                         }
                     }
                 }

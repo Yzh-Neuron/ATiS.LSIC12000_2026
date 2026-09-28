@@ -1,14 +1,5 @@
-using System.IO;
-using System.Text;
-using ATiS.Base;
-using LSIC.App.Models;
-
 namespace LSIC.App
 {
-    /// <summary>
-    /// IC 器件解析器：读取(Parse)与序列化(Serialize)。
-    /// 采用块语法，文件编码 gb2312。
-    /// </summary>
     public static class IcParser
     {
         #region 块名
@@ -344,19 +335,9 @@ namespace LSIC.App
             ExecuteStrategy strategy = new ExecuteStrategy
             {
                 Mode = ReadEnumField<ExecuteMode>(reader, nameof(ExecuteStrategy.Mode)),
+                Time = ReadTimeField(reader, nameof(ExecuteStrategy.Time)),
                 Count = ReadIntField(reader, nameof(ExecuteStrategy.Count)),
             };
-
-            // Time：值 + 单位
-            reader.SkipWhiteSpace();
-            reader.ReadExpected(nameof(ExecuteStrategy.Time));
-            reader.ReadWhiteSpace();
-            int value = reader.ReadNumber<int>();
-            reader.ReadWhiteSpace();
-            TimeUnit unit = reader.ReadEnum<TimeUnit>();
-            reader.SkipWhiteSpace();
-            reader.ReadExpected(';');
-            strategy.Time = new Time(value, unit);
 
             ReadBlockClose(reader);
             return strategy;

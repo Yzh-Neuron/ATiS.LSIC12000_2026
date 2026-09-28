@@ -2,6 +2,7 @@
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:app="clr-namespace:LSIC.App"
+                  xmlns:attachs="clr-namespace:LSIC.App.Attachs"
                   xmlns:bhs="clr-namespace:LSIC.App.Behaviors"
                   xmlns:ctrs="clr-namespace:LSIC.App.Controls"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -544,9 +545,9 @@
                                                                     </Button.Style>
                                                                     <wpf:StateBlock DataContext="{Binding Loop.ExecuteStrategy}" IsChecked="{Binding Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
                                                                         <wpf:StateBlock.UnCheckedContent>
-                                                                            <TextBlock>
-                                                                                <Run Text="{Binding Time.Value}" />
-                                                                                <Run Text="{Binding Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
+                                                                            <TextBlock DataContext="{Binding Time}" Style="{StaticResource TextBlock.Error}">
+                                                                                <Run Text="{Binding Value}" />
+                                                                                <Run Text="{Binding Unit, Converter={StaticResource EnumToTextConverter}}" />
                                                                             </TextBlock>
                                                                         </wpf:StateBlock.UnCheckedContent>
                                                                         <wpf:StateBlock.CheckedContent>
@@ -605,50 +606,55 @@
                                                      SelectionMode="Extended"
                                                      Validation.ErrorTemplate="{x:Null}">
                                                 <ListBox.Resources>
-                                                    <!--  向量  -->
-                                                    <DataTemplate DataType="{x:Type models:StepVector}">
+                                                    <DataTemplate DataType="{x:Type models:StepItem}">
                                                         <Border Height="{StaticResource StepItemHeight}">
                                                             <Grid Margin="10,2">
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="Auto" />
                                                                     <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
                                                                 </Grid.ColumnDefinitions>
-                                                                <Path Grid.Column="0"
-                                                                      Width="18"
-                                                                      Height="11"
-                                                                      Data="{StaticResource Geometry.StepVector}"
+                                                                <Path x:Name="IconPath"
+                                                                      Grid.Column="0"
+                                                                      Width="16"
+                                                                      Height="12"
+                                                                      Data="{StaticResource Geometry.StepPower}"
                                                                       Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Path=Foreground}"
                                                                       SnapsToDevicePixels="True"
-                                                                      Stretch="Uniform" />
+                                                                      Stretch="Uniform"
+                                                                      Validation.ErrorTemplate="{x:Null}" />
                                                                 <TextBlock Grid.Column="1"
                                                                            Margin="10,0"
                                                                            Text="{Binding Name}" />
+                                                                <Path x:Name="errorPath"
+                                                                      Grid.Column="2"
+                                                                      Width="17"
+                                                                      Height="12"
+                                                                      attachs:ValidationWatcher.Source="{Binding .}"
+                                                                      Data="{StaticResource Geometry.ErrorTip}"
+                                                                      Fill="{DynamicResource ErrorBrush}"
+                                                                      SnapsToDevicePixels="True"
+                                                                      Stretch="Uniform"
+                                                                      ToolTip="{Binding Path=(attachs:ValidationWatcher.Errors), RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
+                                                                      ToolTipService.InitialShowDelay="0"
+                                                                      Validation.ErrorTemplate="{x:Null}"
+                                                                      Visibility="Collapsed">
+                                                                    <Path.Resources>
+                                                                        <Style BasedOn="{StaticResource ToolTip.ErrorBubble}" TargetType="{x:Type ToolTip}" />
+                                                                    </Path.Resources>
+                                                                </Path>
                                                             </Grid>
                                                         </Border>
+                                                        <DataTemplate.Triggers>
+                                                            <DataTrigger Binding="{Binding ItemType}" Value="Vector">
+                                                                <Setter TargetName="IconPath" Property="Data" Value="{StaticResource Geometry.StepVector}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Path=(attachs:ValidationWatcher.HasErrors), RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
+                                                                <Setter TargetName="errorPath" Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                        </DataTemplate.Triggers>
                                                     </DataTemplate>
 
-                                                    <!--  电源步  -->
-                                                    <DataTemplate DataType="{x:Type models:StepPower}">
-                                                        <Grid x:Name="mainContainer" Margin="10,2">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="Auto" />
-                                                                <ColumnDefinition Width="*" />
-                                                            </Grid.ColumnDefinitions>
-                                                            <Path x:Name="IconPath"
-                                                                  Grid.Column="0"
-                                                                  Width="18"
-                                                                  Height="12"
-                                                                  Data="{StaticResource Geometry.StepPower}"
-                                                                  Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Path=Foreground}"
-                                                                  SnapsToDevicePixels="True"
-                                                                  Stretch="Uniform" />
-                                                            <TextBlock x:Name="NameText"
-                                                                       Grid.Column="1"
-                                                                       Margin="10,0"
-                                                                       Text="{Binding Name}" />
-                                                        </Grid>
-
-                                                    </DataTemplate>
                                                 </ListBox.Resources>
                                                 <ListBox.ItemContainerStyle>
                                                     <Style BasedOn="{StaticResource ListBoxItem.General}" TargetType="{x:Type ListBoxItem}">
@@ -660,6 +666,7 @@
                                                         <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
                                                         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
                                                         <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                                        <Setter Property="attachs:ValidationWatcher.Source" Value="{Binding .}" />
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding IsInLoop}" Value="true">
                                                                 <Setter Property="Background" Value="{StaticResource LoopHoverBrush}" />
@@ -803,9 +810,9 @@
                                                                         DataContext="{Binding ExecuteStrategy}"
                                                                         IsChecked="{Binding Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
                                                             <wpf:StateBlock.UnCheckedContent>
-                                                                <TextBlock>
-                                                                    <Run Text="{Binding Time.Value}" />
-                                                                    <Run Text="{Binding Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
+                                                                <TextBlock DataContext="{Binding Time}" Style="{StaticResource TextBlock.Error}">
+                                                                    <Run Text="{Binding Value}" />
+                                                                    <Run Text="{Binding Unit, Converter={StaticResource EnumToTextConverter}}" />
                                                                 </TextBlock>
                                                             </wpf:StateBlock.UnCheckedContent>
                                                             <wpf:StateBlock.CheckedContent>
@@ -839,13 +846,35 @@
                                           IsReadOnly="True"
                                           ItemsSource="{Binding Vectors}"
                                           SelectedItem="{Binding Data.SelectedVector, Source={StaticResource MainDataContext}}">
+                                    <DataGrid.Style>
+                                        <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding HasErrors}" Value="true">
+                                                    <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
+                                                    <Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
+                                                    <Setter Property="ToolTip">
+                                                        <Setter.Value>
+                                                            <MultiBinding Converter="{StaticResource ValidationErrorsToStringConverter}">
+                                                                <Binding Path="(Validation.Errors)" RelativeSource="{RelativeSource Self}" />
+                                                                <Binding FallbackValue="{x:Null}"
+                                                                         Path="(Validation.Errors)/"
+                                                                         RelativeSource="{RelativeSource Self}" />
+                                                            </MultiBinding>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.Style>
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="*"
                                                             Binding="{Binding PatternFile, Converter={StaticResource FilePathToFileNameConverter}}"
+                                                            ElementStyle="{StaticResource TextBlock.Error}"
                                                             Header="{app:Lang {x:Static app:LangKey.PatternFileText}}" />
 
                                         <DataGridTextColumn Width="*"
                                                             Binding="{Binding RegisterFile, Converter={StaticResource FilePathToFileNameConverter}}"
+                                                            ElementStyle="{StaticResource TextBlock.Error}"
                                                             Header="{app:Lang {x:Static app:LangKey.RegisterFileText}}" />
                                     </DataGrid.Columns>
                                 </DataGrid>

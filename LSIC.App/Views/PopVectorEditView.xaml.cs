@@ -109,6 +109,10 @@ namespace LSIC.App.ViewModels
         }
         private void Confirm()
         {
+#if DEBUG
+            MessageBus.Default.Send(MsgArgs.From(PopVectorEditMessage.Confirm, [Vector]));
+#endif
+
             List<ValidationResult> errors = Vector.GetAllErrorsRecursive();
             if (errors.Count > 0)
             {

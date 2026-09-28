@@ -4,21 +4,16 @@
     {
         public static string ToMessageString(this IEnumerable<ValidationResult> errors)
         {
-            StringBuilder builder = new StringBuilder();
-
-            foreach (ValidationResult error in errors)
+            var lines = errors.Select(error =>
             {
                 string members = string.Join(">", error.MemberNames ?? Enumerable.Empty<string>());
-
                 if (members.Length > 0)
                 {
-                    builder.Append(members).Append(": ");
+                    return $"{members}: {error.ErrorMessage}";
                 }
-
-                builder.Append(error.ErrorMessage).Append('\n');
-            }
-
-            return builder.ToString();
+                return error.ErrorMessage;
+            });
+            return string.Join(Environment.NewLine, lines);
         }
     }
 }

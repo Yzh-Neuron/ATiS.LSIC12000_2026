@@ -1,6 +1,5 @@
 ﻿namespace LSIC.App.Models
 {
-
     /// <summary>
     /// 包装多个 DutSetting，用于界面批量设置独立温控。
     /// </summary>
