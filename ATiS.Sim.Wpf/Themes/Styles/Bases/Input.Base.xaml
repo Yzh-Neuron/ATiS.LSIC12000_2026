@@ -7,7 +7,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="Input.Base"
-           BasedOn="{StaticResource Control.Error}"
+           BasedOn="{StaticResource Control.Base}"
            TargetType="{x:Type Control}">
         <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
         <Setter Property="MinHeight" Value="{StaticResource DefaultControlHeight}" />
@@ -17,5 +17,21 @@
         <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ValidationErrorsToStringConverter}">
+                            <Binding Path="(Validation.Errors)" RelativeSource="{RelativeSource Self}" />
+                            <Binding FallbackValue="{x:Null}"
+                                     Path="(Validation.Errors)/"
+                                     RelativeSource="{RelativeSource Self}" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

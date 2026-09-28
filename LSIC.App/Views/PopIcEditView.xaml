@@ -520,7 +520,7 @@
                                                             </Grid>
 
                                                             <wpf:SimplePanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <!--  编辑按钮  -->
+                                                                <!--  编辑循环策略按钮  -->
                                                                 <Button wpf:IconHelper.Geometry="{StaticResource Geometry.Loop}"
                                                                         wpf:IconHelper.Height="10"
                                                                         wpf:IconHelper.Width="10"
@@ -542,16 +542,16 @@
                                                                             </Style.Triggers>
                                                                         </Style>
                                                                     </Button.Style>
-                                                                    <wpf:StateBlock IsChecked="{Binding Loop.ExecuteStrategy.Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
+                                                                    <wpf:StateBlock DataContext="{Binding Loop.ExecuteStrategy}" IsChecked="{Binding Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
                                                                         <wpf:StateBlock.UnCheckedContent>
-                                                                            <TextBlock Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Foreground}">
-                                                                                <Run Text="{Binding Loop.ExecuteStrategy.Time.Value}" />
-                                                                                <Run Text="{Binding Loop.ExecuteStrategy.Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
+                                                                            <TextBlock>
+                                                                                <Run Text="{Binding Time.Value}" />
+                                                                                <Run Text="{Binding Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
                                                                             </TextBlock>
                                                                         </wpf:StateBlock.UnCheckedContent>
                                                                         <wpf:StateBlock.CheckedContent>
                                                                             <TextBlock>
-                                                                                <Run Text="{Binding Loop.ExecuteStrategy.Count}" />
+                                                                                <Run Text="{Binding Count}" />
                                                                                 <Run Text="{app:Lang {x:Static app:LangKey.TimesText}}" />
                                                                             </TextBlock>
                                                                         </wpf:StateBlock.CheckedContent>
@@ -602,8 +602,8 @@
                                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                      SelectedItem="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedStepItem}"
-                                                     SelectionMode="Extended">
-
+                                                     SelectionMode="Extended"
+                                                     Validation.ErrorTemplate="{x:Null}">
                                                 <ListBox.Resources>
                                                     <!--  向量  -->
                                                     <DataTemplate DataType="{x:Type models:StepVector}">
@@ -650,7 +650,6 @@
 
                                                     </DataTemplate>
                                                 </ListBox.Resources>
-
                                                 <ListBox.ItemContainerStyle>
                                                     <Style BasedOn="{StaticResource ListBoxItem.General}" TargetType="{x:Type ListBoxItem}">
                                                         <Setter Property="Padding" Value="0" />
@@ -674,7 +673,6 @@
                                                     </Style>
                                                 </ListBox.ItemContainerStyle>
                                             </ListBox>
-
                                         </Grid>
                                     </ScrollViewer>
                                 </Grid>
@@ -697,6 +695,7 @@
                             <Grid Grid.Column="2"
                                   d:DataContext="{d:DesignInstance models:StepItem}"
                                   DataContext="{Binding Data.SelectedStepItem, Source={StaticResource MainDataContext}}"
+                                  Validation.ErrorTemplate="{x:Null}"
                                   Visibility="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedStepItem, Converter={StaticResource NotNullToVisibilityConverter}}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -704,7 +703,7 @@
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
-                                <!--  公共信息  -->
+                                <!--  步骤详情  -->
                                 <wpf:SimplePanel>
                                     <Border BorderBrush="{StaticResource BorderBrush}"
                                             BorderThickness="1"
@@ -759,9 +758,11 @@
                                                       SelectedValuePath="Name" />
                                         </Grid>
 
-                                        <ContentControl Grid.Row="2" Margin="0,20,0,0"
+                                        <ContentControl Grid.Row="2"
+                                                        Margin="0,20,0,0"
                                                         HorizontalAlignment="Left"
-                                                        Content="{Binding .}">
+                                                        Content="{Binding .}"
+                                                        Validation.ErrorTemplate="{x:Null}">
                                             <ContentControl.Resources>
                                                 <!--  电源步显示  -->
                                                 <DataTemplate DataType="{x:Type models:StepPower}">
@@ -779,7 +780,6 @@
                                                         <TextBox Grid.Column="2"
                                                                  Width="100"
                                                                  Text="{Binding Timeout}" />
-
                                                         <TextBlock Grid.Column="3"
                                                                    Margin="5,0,0,0"
                                                                    Text="{app:Lang {x:Static app:LangKey.Enum_TimeUnit_Second}}" />
@@ -799,25 +799,19 @@
                                                         <TextBlock Grid.Column="1"
                                                                    Margin="3,0,10,0"
                                                                    Text=":" />
-                                                        <wpf:StateBlock Grid.Column="2" IsChecked="{Binding ExecuteStrategy.Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
+                                                        <wpf:StateBlock Grid.Column="2"
+                                                                        DataContext="{Binding ExecuteStrategy}"
+                                                                        IsChecked="{Binding Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
                                                             <wpf:StateBlock.UnCheckedContent>
-                                                                <TextBlock Style="{StaticResource TextBlock.Error}">
-                                                                    <TextBlock.Text>
-                                                                        <MultiBinding Converter="{StaticResource TimeToStringConverter}">
-                                                                            <Binding Path="ExecuteStrategy.Time.Value" />
-                                                                            <Binding Path="ExecuteStrategy.Time.Unit" />
-                                                                        </MultiBinding>
-                                                                    </TextBlock.Text>
+                                                                <TextBlock>
+                                                                    <Run Text="{Binding Time.Value}" />
+                                                                    <Run Text="{Binding Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
                                                                 </TextBlock>
                                                             </wpf:StateBlock.UnCheckedContent>
                                                             <wpf:StateBlock.CheckedContent>
-                                                                <TextBlock Style="{StaticResource TextBlock.Error}">
-                                                                    <TextBlock.Text>
-                                                                        <MultiBinding Converter="{StaticResource TextJoinConverter}">
-                                                                            <Binding Path="ExecuteStrategy.Count" />
-                                                                            <Binding Path="TimesText" Source="{x:Static app:LangProvider.Instance}" />
-                                                                        </MultiBinding>
-                                                                    </TextBlock.Text>
+                                                                <TextBlock>
+                                                                    <Run Text="{Binding Count}" />
+                                                                    <Run Text="{app:Lang {x:Static app:LangKey.TimesText}}" />
                                                                 </TextBlock>
                                                             </wpf:StateBlock.CheckedContent>
                                                         </wpf:StateBlock>
@@ -836,7 +830,7 @@
                                     </Grid>
                                 </wpf:SimplePanel>
 
-                                <!--  向量  -->
+                                <!--  向量集合  -->
                                 <DataGrid Grid.Row="2"
                                           Margin="0,10,0,0"
                                           wpf:DataGridDoubleClick.Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditVectorCommand}"
@@ -848,12 +842,10 @@
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="*"
                                                             Binding="{Binding PatternFile, Converter={StaticResource FilePathToFileNameConverter}}"
-                                                            ElementStyle="{StaticResource TextBlock.Error}"
                                                             Header="{app:Lang {x:Static app:LangKey.PatternFileText}}" />
 
                                         <DataGridTextColumn Width="*"
                                                             Binding="{Binding RegisterFile, Converter={StaticResource FilePathToFileNameConverter}}"
-                                                            ElementStyle="{StaticResource TextBlock.Error}"
                                                             Header="{app:Lang {x:Static app:LangKey.RegisterFileText}}" />
                                     </DataGrid.Columns>
                                 </DataGrid>

@@ -63,7 +63,7 @@
         }
 
         #region validate methods
-        private ValidationResult ValidateVectors(ObservableCollection<Vector> value)
+        protected ValidationResult ValidateVectors(ObservableCollection<Vector> value)
         {
             if (this is StepVector && value is not { Count: > 0 })
             {

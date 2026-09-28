@@ -460,7 +460,7 @@
 
     <!--  DataGrid  -->
     <Style x:Key="DataGrid.Default"
-           BasedOn="{StaticResource Control.Error}"
+           BasedOn="{StaticResource Control.Base}"
            TargetType="{x:Type DataGrid}">
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />

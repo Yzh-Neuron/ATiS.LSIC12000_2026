@@ -1,588 +1,543 @@
-﻿//using System.Collections.Generic;
-//using System.Collections.ObjectModel;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using ATiS.Base;
-//using LSIC.App.Models;
-
-//namespace LSIC.App
-//{
-//    public static class IcParser
-//    {
-//        public static void Parse(ref IcFile ic)
-//        {
-//            using CharReader reader = new CharReader(ic.Path, Encoding.GetEncoding("gb2312"));
-
-//            ic.BaseSetting = ReadBaseSetting(reader, nameof(ic.BaseSetting));
-//            ic.PowerSetting = ReadPowerSetting(reader, nameof(ic.PowerSetting));
-//            ic.ProcessSetting = ReadProcessSetting(reader, nameof(ic.ProcessSetting));
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadEnd();
-//        }
-
-//        public static async Task ParseAsync(IcFile ic)
-//        {
-//            using CharReader reader = new CharReader(ic.Path, Encoding.GetEncoding("gb2312"));
-
-//            ic.BaseSetting = ReadBaseSetting(reader, nameof(ic.BaseSetting));
-//            ic.PowerSetting = ReadPowerSetting(reader, nameof(ic.PowerSetting));
-//            ic.ProcessSetting = ReadProcessSetting(reader, nameof(ic.ProcessSetting));
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadEnd();
-
-//            await Task.CompletedTask;
-//        }
-
-//        public static string Serialize(this IcFile ic)
-//        {
-//            StringBuilder sb = new StringBuilder();
-
-//            基础设置
-//           BaseSetting baseSet = ic.BaseSetting;
-//            sb.AppendLine($"{nameof(ic.BaseSetting)} {{");
-//            sb.AppendLine($"\t{nameof(baseSet.LogInterval)} {baseSet.LogInterval.Value} {baseSet.LogInterval.Unit};");
-//            sb.AppendLine($"\t{nameof(baseSet.ErrorLogEnable)} {baseSet.ErrorLogEnable.ToString()};");
-//            sb.AppendLine($"\t{nameof(baseSet.ErrorLogInterval)} {baseSet.ErrorLogInterval.Value} {baseSet.ErrorLogInterval.Unit};");
-//            sb.AppendLine($"\t{nameof(baseSet.DutConfigFile)} \"{baseSet.DutConfigFile}\";");
-//            sb.AppendLine($"\t{nameof(baseSet.ThermostatSettings)} {{");
-//            foreach (ThermostatSetting thermostat in baseSet.ThermostatSettings)
-//            {
-//                sb.AppendLine($"\t\t{nameof(ThermostatSetting)} \"{thermostat.Id}\" {{");
-//                sb.AppendLine($"\t\t\t{nameof(thermostat.Enable)} {thermostat.Enable};");
-//                sb.AppendLine($"\t\t\t{nameof(thermostat.TargetTemperature)} {thermostat.TargetTemperature};");
-//                sb.AppendLine("\t\t}");
-//            }
-//            sb.AppendLine("\t}");
-//            sb.AppendLine($"}}");
-
-//            电源设置
-//           PowerSetting poweSet = ic.PowerSetting;
-//            sb.AppendLine($"{nameof(ic.PowerSetting)} {{");
-//            sb.AppendLine($"\t{nameof(poweSet.DpsPlans)} {{");
-//            foreach (DpsPlan dpsPlan in poweSet.DpsPlans)
-//            {
-//                sb.AppendLine($"\t\t{nameof(DpsPlan)} \"{dpsPlan.Name}\" {{");
-//                sb.AppendLine($"\t\t\t{nameof(dpsPlan.Purpose)} {dpsPlan.Purpose};");
-//                sb.AppendLine($"\t\t\t{nameof(dpsPlan.PatternFile)} \"{dpsPlan.PatternFile}\";");
-//                sb.AppendLine($"\t\t\t{nameof(dpsPlan.RegisterFile)} \"{dpsPlan.RegisterFile}\";");
-//                sb.AppendLine($"\t\t\t{nameof(dpsPlan.PatternTimeout)} {dpsPlan.PatternTimeout};");
-//                sb.AppendLine($"\t\t\t{nameof(dpsPlan.Dpss)} {{");
-//                foreach (Dps dps in dpsPlan.Dpss)
-//                {
-//                    sb.AppendLine($"\t\t\t\t{nameof(Dps)} {{");
-//                    sb.AppendLine($"\t\t\t\t\t{nameof(dps.Enable)} {dps.Enable};");
-//                    sb.AppendLine($"\t\t\t\t\t{nameof(dps.Id)} {dps.Id};");
-//                    sb.AppendLine($"\t\t\t\t\t{nameof(dps.Vol)} {dps.Vol};");
-//                    sb.AppendLine($"\t\t\t\t\t{nameof(dps.Uvp)} {dps.Uvp};");
-//                    sb.AppendLine($"\t\t\t\t\t{nameof(dps.Ovp)} {dps.Ovp};");
-//                    sb.AppendLine($"\t\t\t\t\t{nameof(dps.Ocp)} {dps.Ocp};");
-//                    sb.AppendLine($"\t\t\t\t\t{nameof(dps.Raise)} {dps.Raise};");
-//                    sb.AppendLine($"\t\t\t\t\t{nameof(dps.Delay)} {dps.Delay};");
-//                    sb.AppendLine("\t\t\t\t}");
-//                }
-//                sb.AppendLine("\t\t\t}");
-//                sb.AppendLine("\t\t}");
-//            }
-//            sb.AppendLine("\t}");
-//            sb.AppendLine("}");
-
-//            流程设置
-//           ProcessSetting procSet = ic.ProcessSetting;
-//            sb.AppendLine($"{nameof(ic.ProcessSetting)} {{");
-//            sb.AppendLine($"\t{nameof(procSet.Steps)} {{");
-//            foreach (Step step in procSet.Steps)
-//            {
-//                sb.AppendLine($"\t\t{nameof(Step)} \"{step.Name}\" {{");
-//                sb.AppendLine($"\t\t\t{nameof(step.ExecuteStrategy)} {{");
-//                sb.AppendLine($"\t\t\t\t{nameof(step.ExecuteStrategy.Mode)} {step.ExecuteStrategy.Mode};");
-//                sb.AppendLine($"\t\t\t\t{nameof(step.ExecuteStrategy.Time)} {step.ExecuteStrategy.Time.Value} {step.ExecuteStrategy.Time.Unit};");
-//                sb.AppendLine($"\t\t\t\t{nameof(step.ExecuteStrategy.Count)} {step.ExecuteStrategy.Count};");
-//                sb.AppendLine("\t\t\t}");
-//                sb.AppendLine($"\t\t\t{nameof(step.LoopStrategy)} {{");
-//                sb.AppendLine($"\t\t\t\t{nameof(step.LoopStrategy.Enable)} {step.LoopStrategy.Enable.ToString()};");
-//                sb.AppendLine($"\t\t\t\t{nameof(step.LoopStrategy.Target)} \"{step.LoopStrategy.Target}\";");
-//                sb.AppendLine($"\t\t\t\t{nameof(step.LoopStrategy.Mode)} {step.LoopStrategy.Mode};");
-//                sb.AppendLine($"\t\t\t\t{nameof(step.LoopStrategy.Time)} {step.LoopStrategy.Time.Value} {step.LoopStrategy.Time.Unit};");
-//                sb.AppendLine($"\t\t\t\t{nameof(step.LoopStrategy.Count)} {step.LoopStrategy.Count};");
-//                sb.AppendLine("\t\t\t}");
-//                sb.AppendLine($"\t\t\t{nameof(step.DpsPlan)} \"{step.DpsPlan}\";");
-//                sb.AppendLine($"\t\t\t{nameof(step.SubSteps)} {{");
-//                foreach (SubStep vectorStep in step.SubSteps)
-//                {
-//                    sb.AppendLine($"\t\t\t\t{nameof(SubStep)} \"{vectorStep.Name}\" {{");
-//                    sb.AppendLine($"\t\t\t\t\t{nameof(vectorStep.PatternFile)} \"{vectorStep.PatternFile}\";");
-//                    sb.AppendLine($"\t\t\t\t\t{nameof(vectorStep.RegisterFile)} \"{vectorStep.RegisterFile}\";");
-//                    sb.AppendLine("\t\t\t\t}");
-//                }
-//                sb.AppendLine("\t\t\t}");
-//                sb.AppendLine("\t\t}");
-//            }
-//            sb.AppendLine("\t}");
-//            sb.AppendLine("}");
-
-//            return sb.ToString();
-//        }
-
-//        private static BaseSetting ReadBaseSetting(CharReader reader, string propertyName)
-//        {
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(propertyName);
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected("{");
-
-//            BaseSetting baseSet = new BaseSetting();
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(baseSet.LogInterval));
-//            reader.ReadWhiteSpace();
-//            baseSet.LogInterval = reader.ReadTime();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(baseSet.ErrorLogEnable));
-//            reader.ReadWhiteSpace();
-//            baseSet.ErrorLogEnable = reader.ReadBool();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(baseSet.ErrorLogInterval));
-//            reader.ReadWhiteSpace();
-//            baseSet.ErrorLogInterval = reader.ReadTime();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(baseSet.DutConfigFile));
-//            reader.ReadWhiteSpace();
-//            baseSet.DutConfigFile = reader.ReadStringWrap('\"');
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.ReadWhiteSpace();
-//            reader.ReadExpected(nameof(baseSet.ThermostatSettings));
-//            reader.ReadWhiteSpace();
-//            reader.ReadExpected('{');
-//            reader.ReadWhiteSpace();
-//            while (!reader.Try('}'))
-//            {
-//                ThermostatSetting source = ReadThermostatSetting(reader);
-
-//                ThermostatSetting target = baseSet.ThermostatSettings.FirstOrDefault(t => t.Id == source.Id);
-//                if (target != null)
-//                {
-//                    target.Enable = source.Enable;
-//                    target.TargetTemperature = source.TargetTemperature;
-//                }
-
-//                reader.SkipWhiteSpace();
-//            }
-//            reader.ReadExpected('}');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('}');
-
-//            return baseSet;
-//        }
-
-//        private static ThermostatSetting ReadThermostatSetting(CharReader reader)
-//        {
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(ThermostatSetting));
-//            reader.ReadWhiteSpace();
-
-//            int id = int.Parse(reader.ReadStringWrap('\"'));
-//            ThermostatSetting thermostatSetting = new ThermostatSetting(id);
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected("{");
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(thermostatSetting.Enable));
-//            reader.ReadWhiteSpace();
-//            thermostatSetting.Enable = reader.ReadBool();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(thermostatSetting.TargetTemperature));
-//            reader.ReadWhiteSpace();
-//            thermostatSetting.TargetTemperature = reader.ReadNumber<int>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('}');
-//            return thermostatSetting;
-//        }
-
-//        private static PowerSetting ReadPowerSetting(CharReader reader, string propertyName)
-//        {
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(propertyName);
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected("{");
-
-//            PowerSetting powerSet = new PowerSetting();
-
-//            List<DpsPlan> dpsPlans = new List<DpsPlan>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(powerSet.DpsPlans));
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('{');
-//            reader.SkipWhiteSpace();
-//            while (!reader.Try('}'))
-//            {
-//                dpsPlans.Add(ReadDpsPlan(reader, powerSet));
-//                reader.SkipWhiteSpace();
-//            }
-//            reader.ReadExpected('}');
-//            powerSet.DpsPlans = new ObservableCollection<DpsPlan>(dpsPlans);
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('}');
-
-//            return powerSet;
-//        }
-
-//        private static ProcessSetting ReadProcessSetting(CharReader reader, string propertyName)
-//        {
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(propertyName);
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected("{");
-
-//            ProcessSetting processSet = new ProcessSetting();
-
-//            List<Step> steps = new List<Step>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(processSet.Steps));
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('{');
-//            reader.SkipWhiteSpace();
-//            while (!reader.Try('}'))
-//            {
-//                Step step = ReadStep(reader);
-//                steps.Add(step);
-//                reader.SkipWhiteSpace();
-//            }
-//            reader.ReadExpected('}');
-//            processSet.Steps = new ObservableCollection<Step>(steps);
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('}');
-
-//            return processSet;
-//        }
-
-//        private static DpsPlan ReadDpsPlan(CharReader reader, PowerSetting powerSetting)
-//        {
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(DpsPlan));
-//            reader.ReadWhiteSpace();
-//            DpsPlan dpsPlan = new DpsPlan(powerSetting)
-//            {
-//                Name = reader.ReadStringWrap('\"')
-//            };
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('{');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(dpsPlan.Purpose));
-//            reader.ReadWhiteSpace();
-//            dpsPlan.Purpose = reader.ReadEnum<DpsPlanPurpose>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(dpsPlan.PatternFile));
-//            reader.ReadWhiteSpace();
-//            dpsPlan.PatternFile = reader.ReadStringWrap('\"');
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(dpsPlan.RegisterFile));
-//            reader.ReadWhiteSpace();
-//            dpsPlan.RegisterFile = reader.ReadStringWrap('\"');
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(dpsPlan.PatternTimeout));
-//            reader.ReadWhiteSpace();
-//            dpsPlan.PatternTimeout = reader.ReadNumber<int>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            dpsPlan.Dpss.Clear();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(dpsPlan.Dpss));
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('{');
-
-//            reader.SkipWhiteSpace();
-//            while (!reader.Try('}'))
-//            {
-//                Dps dps = ReadDps(reader, dpsPlan);
-//                dpsPlan.Dpss.Add(dps);
-//                reader.SkipWhiteSpace();
-//            }
-//            reader.ReadExpected('}');
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('}');
-//            return dpsPlan;
-//        }
-
-//        private static Dps ReadDps(CharReader reader, DpsPlan dpsPlan)
-//        {
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(Dps));
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected("{");
-
-//            Dps dps = new Dps(dpsPlan);
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(dps.Enable));
-//            reader.ReadWhiteSpace();
-//            dps.Enable = reader.ReadBool();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(dps.Id));
-//            reader.ReadWhiteSpace();
-//            dps.Id = reader.ReadNumber<int>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(dps.Vol));
-//            reader.ReadWhiteSpace();
-//            dps.Vol = reader.ReadNumber<int>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(dps.Uvp));
-//            reader.ReadWhiteSpace();
-//            dps.Uvp = reader.ReadNumber<int>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(dps.Ovp));
-//            reader.ReadWhiteSpace();
-//            dps.Ovp = reader.ReadNumber<int>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(dps.Ocp));
-//            reader.ReadWhiteSpace();
-//            dps.Ocp = reader.ReadNumber<int>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(dps.Raise));
-//            reader.ReadWhiteSpace();
-//            dps.Raise = reader.ReadNumber<int>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(dps.Delay));
-//            reader.ReadWhiteSpace();
-//            dps.Delay = reader.ReadNumber<int>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('}');
-//            return dps;
-//        }
-
-//        private static Step ReadStep(CharReader reader)
-//        {
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(Step));
-//            reader.ReadWhiteSpace();
-//            Step step = new Step()
-//            {
-//                Name = reader.ReadStringWrap('\"')
-//            };
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('{');
-
-//            step.ExecuteStrategy = ReadRunStrategy(reader);
-
-//            reader.SkipWhiteSpace();
-
-//            step.LoopStrategy = ReadLoopStrategy(reader);
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(step.DpsPlan));
-//            reader.ReadWhiteSpace();
-//            step.DpsPlan = reader.ReadStringWrap('\"');
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(step.SubSteps));
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('{');
-//            reader.SkipWhiteSpace();
-//            List<SubStep> vectorSteps = new List<SubStep>();
-//            while (!reader.Try('}'))
-//            {
-//                SubStep vectorStep = ReadSubStep(reader);
-//                vectorSteps.Add(vectorStep);
-//                reader.SkipWhiteSpace();
-//            }
-//            reader.ReadExpected('}');
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('}');
-//            foreach (SubStep vectorStep in vectorSteps)
-//            {
-//                step.SubSteps.Add(vectorStep);
-//            }
-//            return step;
-//        }
-
-//        private static ExecuteStrategy ReadRunStrategy(CharReader reader)
-//        {
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(ExecuteStrategy));
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('{');
-
-//            ExecuteStrategy strategy = new ExecuteStrategy();
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(strategy.Mode));
-//            reader.ReadWhiteSpace();
-//            strategy.Mode = reader.ReadEnum<ExecuteMode>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(strategy.Time));
-//            reader.ReadWhiteSpace();
-//            int value = reader.ReadNumber<int>();
-//            reader.ReadWhiteSpace();
-//            TimeUnit unit = reader.ReadEnum<TimeUnit>();
-//            strategy.Time = new Time(value, unit);
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(strategy.Count));
-//            reader.ReadWhiteSpace();
-//            strategy.Count = reader.ReadNumber<int>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('}');
-//            return strategy;
-//        }
-
-//        private static LoopStrategy ReadLoopStrategy(CharReader reader)
-//        {
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(LoopStrategy));
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('{');
-
-//            LoopStrategy strategy = new LoopStrategy();
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(strategy.Enable));
-//            reader.ReadWhiteSpace();
-//            strategy.Enable = reader.ReadBool();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(strategy.Target));
-//            reader.ReadWhiteSpace();
-//            strategy.Target = reader.ReadStringWrap('\"');
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(strategy.Mode));
-//            reader.ReadWhiteSpace();
-//            strategy.Mode = reader.ReadEnum<ExecuteMode>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(strategy.Time));
-//            reader.ReadWhiteSpace();
-//            int value = reader.ReadNumber<int>();
-//            reader.ReadWhiteSpace();
-//            TimeUnit unit = reader.ReadEnum<TimeUnit>();
-//            strategy.Time = new Time(value, unit);
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(strategy.Count));
-//            reader.ReadWhiteSpace();
-//            strategy.Count = reader.ReadNumber<int>();
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('}');
-//            return strategy;
-//        }
-
-//        private static SubStep ReadSubStep(CharReader reader)
-//        {
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(SubStep));
-//            reader.ReadWhiteSpace();
-//            SubStep subStep = new SubStep()
-//            {
-//                Name = reader.ReadStringWrap('\"')
-//            };
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('{');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(subStep.PatternFile));
-//            reader.ReadWhiteSpace();
-//            subStep.PatternFile = reader.ReadStringWrap('\"');
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(subStep.RegisterFile));
-//            reader.ReadWhiteSpace();
-//            subStep.RegisterFile = reader.ReadStringWrap('\"');
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected(';');
-
-//            reader.SkipWhiteSpace();
-//            reader.ReadExpected('}');
-
-//            return subStep;
-//        }
-
-//        private static Time ReadTime(this CharReader reader)
-//        {
-//            reader.SkipWhiteSpace();
-//            int value = reader.ReadNumber<int>();
-//            reader.ReadWhiteSpace();
-//            TimeUnit unit = reader.ReadEnum<TimeUnit>();
-//            return new Time(value, unit);
-//        }
-//    }
-//}
+using System.IO;
+using System.Text;
+using ATiS.Base;
+using LSIC.App.Models;
+
+namespace LSIC.App
+{
+    /// <summary>
+    /// IC 器件解析器：读取(Parse)与序列化(Serialize)。
+    /// 采用块语法，文件编码 gb2312。
+    /// </summary>
+    public static class IcParser
+    {
+        #region 块名
+
+        private const string BaseSettingBlock = "BaseSetting";
+        private const string PowerSettingBlock = "PowerSetting";
+        private const string ProcessSettingBlock = "ProcessSetting";
+
+        private const string DpsPlansBlock = "DpsPlans";
+        private const string DpsPlanBlock = "DpsPlan";
+        private const string DpssBlock = "Dpss";
+        private const string DpsBlock = "Dps";
+
+        private const string StepsBlock = "Steps";
+        private const string StepVectorBlock = "StepVector";
+        private const string StepPowerBlock = "StepPower";
+        private const string VectorsBlock = "Vectors";
+        private const string VectorBlock = "Vector";
+        private const string LoopsBlock = "Loops";
+        private const string LoopBlock = "Loop";
+        private const string ExecuteStrategyBlock = "ExecuteStrategy";
+
+        #endregion
+
+        #region Parse
+
+        /// <summary>
+        /// 读取 IC 文件并构建 <see cref="Ic"/>。
+        /// </summary>
+        public static Ic Parse(string path)
+        {
+            using CharReader reader = new CharReader(path, Encoding.GetEncoding("gb2312"));
+
+            Ic ic = new Ic(Path.GetFileNameWithoutExtension(path));
+
+            ReadBaseSetting(reader, ic);
+            ReadPowerSetting(reader, ic);
+            ReadProcessSetting(reader, ic);
+
+            reader.SkipWhiteSpace();
+            reader.ReadEnd();
+            return ic;
+        }
+
+        /// <summary>
+        /// 异步读取 IC 文件。
+        /// </summary>
+        public static Task<Ic> ParseAsync(string path) => Task.FromResult(Parse(path));
+
+        #endregion
+
+        #region Serialize
+
+        /// <summary>
+        /// 将 <see cref="Ic"/> 序列化为文本。
+        /// </summary>
+        public static string Serialize(this Ic ic)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            WriteBaseSetting(sb, ic);
+            WritePowerSetting(sb, ic);
+            WriteProcessSetting(sb, ic);
+
+            return sb.ToString();
+        }
+
+        #endregion
+
+        #region 基础设置
+
+        private static void ReadBaseSetting(CharReader reader, Ic ic)
+        {
+            ReadBlockOpen(reader, BaseSettingBlock);
+
+            ic.LogInterval = ReadTimeField(reader, nameof(ic.LogInterval));
+
+            ic.ErrorLogEnable = ReadBoolField(reader, nameof(ic.ErrorLogEnable));
+
+            ic.ErrorLogInterval = ReadTimeField(reader, nameof(ic.ErrorLogInterval));
+
+            ic.BurnInBoardFile = ReadStringField(reader, nameof(ic.BurnInBoardFile));
+
+            ReadBlockClose(reader);
+        }
+
+        private static void WriteBaseSetting(StringBuilder sb, Ic ic)
+        {
+            sb.AppendLine($"{BaseSettingBlock} {{");
+            AppendTimeField(sb, 1, nameof(ic.LogInterval), ic.LogInterval);
+            AppendBoolField(sb, 1, nameof(ic.ErrorLogEnable), ic.ErrorLogEnable);
+            AppendTimeField(sb, 1, nameof(ic.ErrorLogInterval), ic.ErrorLogInterval);
+            AppendStringField(sb, 1, nameof(ic.BurnInBoardFile), ic.BurnInBoardFile);
+            sb.AppendLine("}");
+        }
+
+        #endregion
+
+        #region 电源设置
+
+        private static void ReadPowerSetting(CharReader reader, Ic ic)
+        {
+            ReadBlockOpen(reader, PowerSettingBlock);
+
+            ReadBlockOpen(reader, DpsPlansBlock);
+            reader.SkipWhiteSpace();
+            while (!reader.Try('}'))
+            {
+                ic.DpsPlans.Add(ReadDpsPlan(reader));
+                reader.SkipWhiteSpace();
+            }
+            reader.ReadExpected('}');
+
+            ReadBlockClose(reader);
+        }
+
+        private static DpsPlan ReadDpsPlan(CharReader reader)
+        {
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(DpsPlanBlock);
+            reader.ReadWhiteSpace();
+
+            DpsPlan dpsPlan = new DpsPlan(reader.ReadStringWrap('"'));
+            reader.SkipWhiteSpace();
+            reader.ReadExpected('{');
+
+            ReadBlockOpen(reader, DpssBlock);
+            reader.SkipWhiteSpace();
+            while (!reader.Try('}'))
+            {
+                dpsPlan.DpssSettings.Add(ReadDpsSetting(reader));
+                reader.SkipWhiteSpace();
+            }
+            reader.ReadExpected('}');
+
+            ReadBlockClose(reader);
+            return dpsPlan;
+        }
+
+        private static DpsSetting ReadDpsSetting(CharReader reader)
+        {
+            ReadBlockOpen(reader, DpsBlock);
+
+            int id = ReadIntField(reader, nameof(DpsSetting.Id));
+            DpsInfo dpsInfo = Device.Instance.SystemConfig.DpsInfos.FirstOrDefault(i => i.Id == id)
+                ?? throw new InvalidOperationException($"找不到 Id 为 {id} 的电源规格(DpsInfo)。");
+
+            DpsSetting dpsSetting = new DpsSetting(dpsInfo)
+            {
+                Vol = ReadIntField(reader, nameof(DpsSetting.Vol)),
+                Uvp = ReadIntField(reader, nameof(DpsSetting.Uvp)),
+                Ovp = ReadIntField(reader, nameof(DpsSetting.Ovp)),
+                Ocp = ReadIntField(reader, nameof(DpsSetting.Ocp)),
+                Raise = ReadIntField(reader, nameof(DpsSetting.Raise)),
+                Delay = ReadIntField(reader, nameof(DpsSetting.Delay)),
+            };
+
+            ReadBlockClose(reader);
+            return dpsSetting;
+        }
+
+        private static void WritePowerSetting(StringBuilder sb, Ic ic)
+        {
+            sb.AppendLine($"{PowerSettingBlock} {{");
+
+            sb.AppendLine($"\t{DpsPlansBlock} {{");
+            foreach (DpsPlan dpsPlan in ic.DpsPlans)
+            {
+                sb.AppendLine($"\t\t{DpsPlanBlock} \"{dpsPlan.Name}\" {{");
+                sb.AppendLine($"\t\t\t{DpssBlock} {{");
+                foreach (DpsSetting dps in dpsPlan.DpssSettings)
+                {
+                    sb.AppendLine($"\t\t\t\t{DpsBlock} {{");
+                    AppendIntField(sb, 5, nameof(DpsSetting.Id), dps.Id);
+                    AppendIntField(sb, 5, nameof(DpsSetting.Vol), dps.Vol);
+                    AppendIntField(sb, 5, nameof(DpsSetting.Uvp), dps.Uvp);
+                    AppendIntField(sb, 5, nameof(DpsSetting.Ovp), dps.Ovp);
+                    AppendIntField(sb, 5, nameof(DpsSetting.Ocp), dps.Ocp);
+                    AppendIntField(sb, 5, nameof(DpsSetting.Raise), dps.Raise);
+                    AppendIntField(sb, 5, nameof(DpsSetting.Delay), dps.Delay);
+                    sb.AppendLine("\t\t\t\t}");
+                }
+                sb.AppendLine("\t\t\t}");
+                sb.AppendLine("\t\t}");
+            }
+            sb.AppendLine("\t}");
+
+            sb.AppendLine("}");
+        }
+
+        #endregion
+
+        #region 流程设置
+
+        private static void ReadProcessSetting(CharReader reader, Ic ic)
+        {
+            ReadBlockOpen(reader, ProcessSettingBlock);
+
+            Models.Process process = ic.Process;
+            process.StepItems.Clear();
+            process.Loops.Clear();
+
+            // 步骤
+            ReadBlockOpen(reader, StepsBlock);
+            reader.SkipWhiteSpace();
+            while (!reader.Try('}'))
+            {
+                process.StepItems.Add(ReadStepItem(reader));
+                reader.SkipWhiteSpace();
+            }
+            reader.ReadExpected('}');
+
+            // 循环
+            ReadBlockOpen(reader, LoopsBlock);
+            reader.SkipWhiteSpace();
+            while (!reader.Try('}'))
+            {
+                process.Loops.Add(ReadLoop(reader, process));
+                reader.SkipWhiteSpace();
+            }
+            reader.ReadExpected('}');
+
+            ReadBlockClose(reader);
+
+            process.Refresh();
+        }
+
+        private static StepItem ReadStepItem(CharReader reader)
+        {
+            reader.SkipWhiteSpace();
+            if (reader.Try(StepVectorBlock))
+            {
+                return ReadStepVector(reader);
+            }
+            if (reader.Try(StepPowerBlock))
+            {
+                return ReadStepPower(reader);
+            }
+            throw new InvalidOperationException("无法识别的流程步骤类型。");
+        }
+
+        private static StepVector ReadStepVector(CharReader reader)
+        {
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(StepVectorBlock);
+            reader.ReadWhiteSpace();
+
+            StepVector step = new StepVector(reader.ReadStringWrap('"'));
+            reader.SkipWhiteSpace();
+            reader.ReadExpected('{');
+
+            // 执行策略
+            step.ExecuteStrategy.Copy(ReadExecuteStrategy(reader));
+
+            // 电源方案
+            step.DpsPlan = ReadStringField(reader, nameof(StepItem.DpsPlan));
+
+            // 向量
+            ReadBlockOpen(reader, VectorsBlock);
+            reader.SkipWhiteSpace();
+            while (!reader.Try('}'))
+            {
+                step.Vectors.Add(ReadVector(reader));
+                reader.SkipWhiteSpace();
+            }
+            reader.ReadExpected('}');
+
+            ReadBlockClose(reader);
+            return step;
+        }
+
+        private static StepPower ReadStepPower(CharReader reader)
+        {
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(StepPowerBlock);
+            reader.ReadWhiteSpace();
+
+            StepPower step = new StepPower(reader.ReadEnum<StepItemType>());
+            reader.SkipWhiteSpace();
+            reader.ReadExpected('{');
+
+            step.Timeout = ReadIntField(reader, nameof(StepPower.Timeout));
+
+            ReadBlockClose(reader);
+            return step;
+        }
+
+        private static Vector ReadVector(CharReader reader)
+        {
+            ReadBlockOpen(reader, VectorBlock);
+
+            string patternFile = ReadStringField(reader, nameof(Vector.PatternFile));
+            string registerFile = ReadStringField(reader, nameof(Vector.RegisterFile));
+
+            ReadBlockClose(reader);
+
+            return new Vector
+            {
+                PatternFile = patternFile,
+                RegisterFile = registerFile,
+            };
+        }
+
+        private static Loop ReadLoop(CharReader reader, Models.Process process)
+        {
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(LoopBlock);
+            reader.ReadWhiteSpace();
+
+            string startName = reader.ReadStringWrap('"');
+            reader.ReadWhiteSpace();
+            string endName = reader.ReadStringWrap('"');
+
+            StepItem start = process.StepItems.FirstOrDefault(i => i.Name == startName)
+                ?? throw new InvalidOperationException($"循环起始步骤 \"{startName}\" 不存在。");
+            StepItem end = process.StepItems.FirstOrDefault(i => i.Name == endName)
+                ?? throw new InvalidOperationException($"循环结束步骤 \"{endName}\" 不存在。");
+
+            Loop loop = new Loop(start) { End = end };
+            reader.SkipWhiteSpace();
+            reader.ReadExpected('{');
+
+            loop.ExecuteStrategy.Copy(ReadExecuteStrategy(reader));
+
+            ReadBlockClose(reader);
+            return loop;
+        }
+
+        private static ExecuteStrategy ReadExecuteStrategy(CharReader reader)
+        {
+            ReadBlockOpen(reader, ExecuteStrategyBlock);
+
+            ExecuteStrategy strategy = new ExecuteStrategy
+            {
+                Mode = ReadEnumField<ExecuteMode>(reader, nameof(ExecuteStrategy.Mode)),
+                Count = ReadIntField(reader, nameof(ExecuteStrategy.Count)),
+            };
+
+            // Time：值 + 单位
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(nameof(ExecuteStrategy.Time));
+            reader.ReadWhiteSpace();
+            int value = reader.ReadNumber<int>();
+            reader.ReadWhiteSpace();
+            TimeUnit unit = reader.ReadEnum<TimeUnit>();
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(';');
+            strategy.Time = new Time(value, unit);
+
+            ReadBlockClose(reader);
+            return strategy;
+        }
+
+        private static void WriteProcessSetting(StringBuilder sb, Ic ic)
+        {
+            sb.AppendLine($"{ProcessSettingBlock} {{");
+
+            // 步骤
+            sb.AppendLine($"\t{StepsBlock} {{");
+            foreach (StepItem item in ic.Process.StepItems)
+            {
+                WriteStepItem(sb, item);
+            }
+            sb.AppendLine("\t}");
+
+            // 循环
+            sb.AppendLine($"\t{LoopsBlock} {{");
+            foreach (Loop loop in ic.Process.Loops)
+            {
+                WriteLoop(sb, loop);
+            }
+            sb.AppendLine("\t}");
+
+            sb.AppendLine("}");
+        }
+
+        private static void WriteStepItem(StringBuilder sb, StepItem item)
+        {
+            switch (item)
+            {
+                case StepVector step:
+                    sb.AppendLine($"\t\t{StepVectorBlock} \"{step.Name}\" {{");
+                    WriteExecuteStrategy(sb, 3, step.ExecuteStrategy);
+                    AppendStringField(sb, 3, nameof(StepItem.DpsPlan), step.DpsPlan);
+
+                    sb.AppendLine($"\t\t\t{VectorsBlock} {{");
+                    foreach (Vector vector in step.Vectors)
+                    {
+                        sb.AppendLine($"\t\t\t\t{VectorBlock} {{");
+                        AppendStringField(sb, 5, nameof(Vector.PatternFile), vector.PatternFile);
+                        AppendStringField(sb, 5, nameof(Vector.RegisterFile), vector.RegisterFile);
+                        sb.AppendLine("\t\t\t\t}");
+                    }
+                    sb.AppendLine("\t\t\t}");
+
+                    sb.AppendLine("\t\t}");
+                    break;
+
+                case StepPower step:
+                    sb.AppendLine($"\t\t{StepPowerBlock} {step.ItemType} {{");
+                    AppendIntField(sb, 3, nameof(StepPower.Timeout), step.Timeout);
+                    sb.AppendLine("\t\t}");
+                    break;
+            }
+        }
+
+        private static void WriteLoop(StringBuilder sb, Loop loop)
+        {
+            sb.AppendLine($"\t\t{LoopBlock} \"{loop.Start.Name}\" \"{loop.End.Name}\" {{");
+            WriteExecuteStrategy(sb, 3, loop.ExecuteStrategy);
+            sb.AppendLine("\t\t}");
+        }
+
+        private static void WriteExecuteStrategy(StringBuilder sb, int indent, ExecuteStrategy strategy)
+        {
+            sb.AppendLine($"{Indent(indent)}{ExecuteStrategyBlock} {{");
+            AppendEnumField(sb, indent + 1, nameof(ExecuteStrategy.Mode), strategy.Mode);
+            AppendLine(sb, indent + 1, $"{nameof(ExecuteStrategy.Time)} {strategy.Time.Value} {strategy.Time.Unit};");
+            AppendIntField(sb, indent + 1, nameof(ExecuteStrategy.Count), strategy.Count);
+            sb.AppendLine($"{Indent(indent)}}}");
+        }
+
+        #endregion
+
+        #region 字段读写辅助
+
+        private static int ReadIntField(CharReader reader, string field)
+        {
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(field);
+            reader.ReadWhiteSpace();
+            int value = reader.ReadNumber<int>();
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(';');
+            return value;
+        }
+
+        private static bool ReadBoolField(CharReader reader, string field)
+        {
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(field);
+            reader.ReadWhiteSpace();
+            bool value = reader.ReadBool();
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(';');
+            return value;
+        }
+
+        private static string ReadStringField(CharReader reader, string field)
+        {
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(field);
+            reader.ReadWhiteSpace();
+            string value = reader.ReadStringWrap('"');
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(';');
+            return value;
+        }
+
+        private static T ReadEnumField<T>(CharReader reader, string field) where T : Enum
+        {
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(field);
+            reader.ReadWhiteSpace();
+            T value = reader.ReadEnum<T>();
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(';');
+            return value;
+        }
+
+        private static Time ReadTimeField(CharReader reader, string field)
+        {
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(field);
+            reader.ReadWhiteSpace();
+            int value = reader.ReadNumber<int>();
+            reader.ReadWhiteSpace();
+            TimeUnit unit = reader.ReadEnum<TimeUnit>();
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(';');
+            return new Time(value, unit);
+        }
+
+        private static void ReadBlockOpen(CharReader reader, string block)
+        {
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(block);
+            reader.SkipWhiteSpace();
+            reader.ReadExpected('{');
+        }
+
+        private static void ReadBlockClose(CharReader reader)
+        {
+            reader.SkipWhiteSpace();
+            reader.ReadExpected('}');
+        }
+
+        private static void AppendIntField(StringBuilder sb, int indent, string field, int value)
+        {
+            AppendLine(sb, indent, $"{field} {value};");
+        }
+
+        private static void AppendBoolField(StringBuilder sb, int indent, string field, bool value)
+        {
+            AppendLine(sb, indent, $"{field} {value};");
+        }
+
+        private static void AppendStringField(StringBuilder sb, int indent, string field, string value)
+        {
+            AppendLine(sb, indent, $"{field} \"{value}\";");
+        }
+
+        private static void AppendEnumField<T>(StringBuilder sb, int indent, string field, T value) where T : Enum
+        {
+            AppendLine(sb, indent, $"{field} {value};");
+        }
+
+        private static void AppendTimeField(StringBuilder sb, int indent, string field, Time time)
+        {
+            AppendLine(sb, indent, $"{field} {time.Value} {time.Unit};");
+        }
+
+        private static void AppendLine(StringBuilder sb, int indent, string content)
+        {
+            sb.Append(Indent(indent)).AppendLine(content);
+        }
+
+        private static string Indent(int indent) => new string('\t', indent);
+
+        #endregion
+    }
+}

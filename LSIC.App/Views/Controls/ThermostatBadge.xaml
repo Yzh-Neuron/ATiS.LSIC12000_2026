@@ -11,7 +11,7 @@
              d:DesignWidth="800"
              mc:Ignorable="d">
     <UserControl.Style>
-        <Style BasedOn="{StaticResource Control.Error}" TargetType="{x:Type UserControl}">
+        <Style BasedOn="{StaticResource Control.Base}" TargetType="{x:Type UserControl}">
             <Setter Property="Padding" Value="2,0" />
             <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
             <Setter Property="BorderThickness" Value="1" />
@@ -30,6 +30,22 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource ValidationErrorsToStringConverter}">
+                                <Binding Path="(Validation.Errors)" RelativeSource="{RelativeSource Self}" />
+                                <Binding FallbackValue="{x:Null}"
+                                         Path="(Validation.Errors)/"
+                                         RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Style>
 

@@ -14,7 +14,9 @@
         <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
     </Style>
 
-    <Style x:Key="TextBlock.Error" BasedOn="{StaticResource TextBlock.Default}" TargetType="{x:Type TextBlock}">
+    <Style x:Key="TextBlock.Error"
+           BasedOn="{StaticResource TextBlock.Default}"
+           TargetType="{x:Type TextBlock}">
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
                 <Setter Property="ToolTipService.InitialShowDelay" Value="0" />
@@ -24,8 +26,8 @@
                         <MultiBinding Converter="{StaticResource ValidationErrorsToStringConverter}">
                             <Binding Path="(Validation.Errors)" RelativeSource="{RelativeSource Self}" />
                             <Binding FallbackValue="{x:Null}"
-                                    Path="(Validation.Errors)/"
-                                    RelativeSource="{RelativeSource Self}" />
+                                     Path="(Validation.Errors)/"
+                                     RelativeSource="{RelativeSource Self}" />
                         </MultiBinding>
                     </Setter.Value>
                 </Setter>
