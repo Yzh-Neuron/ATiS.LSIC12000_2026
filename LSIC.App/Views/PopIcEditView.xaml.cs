@@ -71,7 +71,7 @@
                         pop.ShowDialog();
                         return MessageResult.From(pop.Vector);
                     }
-                case PopIcEditMessage.EditRunStrategy:
+                case PopIcEditMessage.EditExecuteStrategy:
                     {
                         ExecuteStrategy executeStrategy = e.Args[0] as ExecuteStrategy;
                         bool isLoop = e.Args[1] is true;

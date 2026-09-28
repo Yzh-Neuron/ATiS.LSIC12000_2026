@@ -11,7 +11,7 @@
         EditDpsSetting,
         CreateVector,
         EditVector,
-        EditRunStrategy,
+        EditExecuteStrategy,
         ShowValidateError,
     }
 }

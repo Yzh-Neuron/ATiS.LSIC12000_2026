@@ -185,7 +185,7 @@ namespace LSIC.App.ViewModels
         #region Dps相关命令
         private bool CanCreateDpsPlan()
         {
-            return SelectedIc?.Target?.DpsPlans != null;
+            return SelectedIc != null;
         }
         private void CreateDpsPlan()
         {
@@ -200,17 +200,17 @@ namespace LSIC.App.ViewModels
         }
         private bool CanDeleteDpsPlan()
         {
-            return SelectedIc?.Target?.DpsPlans != null && SelectedDpsPlan != null;
+            return SelectedIc != null && SelectedDpsPlan != null;
         }
         private void DeleteDpsPlan()
         {
             var dpsPlan = SelectedDpsPlan;
             SelectedIc.Target.DpsPlans.Remove(dpsPlan);
             SelectedDpsPlan = SelectedIc.Target.DpsPlans.LastOrDefault();
-         
+
             SelectedIc.Target.Process.StepItems.ForEach(stepItem =>
             {
-                if (stepItem.DpsPlan== dpsPlan.Name)
+                if (stepItem.DpsPlan == dpsPlan.Name)
                 {
                     stepItem.DpsPlan = string.Empty;
                 }
@@ -220,7 +220,7 @@ namespace LSIC.App.ViewModels
 
         private bool CanCreateDpsSetting()
         {
-            return SelectedDpsPlan?.DpssSettings != null;
+            return SelectedDpsPlan != null;
         }
         private void CreateDpsSetting()
         {
@@ -239,7 +239,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanDeleteDpsSetting()
         {
-            return SelectedDpsPlan?.DpssSettings != null && SelectedDpsSetting != null;
+            return SelectedDpsPlan != null && SelectedDpsSetting != null;
         }
         private void DeleteDpsSetting()
         {
@@ -269,7 +269,7 @@ namespace LSIC.App.ViewModels
         #region 流程相关命令
         private bool CanCreateStepItem()
         {
-            return SelectedIc?.Target?.Process != null;
+            return SelectedIc != null;
         }
         private void CreateStepItem()
         {
@@ -285,7 +285,7 @@ namespace LSIC.App.ViewModels
         private bool CanDeleteStepItem(IList obj)
         {
             var stepItems = obj?.Cast<StepItem>();
-            if (SelectedIc?.Target?.Process != null
+            if (SelectedIc != null
                 && stepItems?.Count() > 0
                 && stepItems.All(i => !i.IsFixed))
             {
@@ -301,7 +301,7 @@ namespace LSIC.App.ViewModels
         private bool CanMakeLoop(IList obj)
         {
             var stepItems = obj?.Cast<StepItem>();
-            if (SelectedIc?.Target?.Process != null
+            if (SelectedIc != null
                 && stepItems?.Count() > 1
                 && stepItems.All(i => !i.IsFixed))
             {
@@ -337,7 +337,7 @@ namespace LSIC.App.ViewModels
 
         private bool CanDeleteVector()
         {
-            return SelectedVector != null;
+            return SelectedVector != null && SelectedStepItem != null;
         }
         private void DeleteVector()
         {
@@ -382,7 +382,7 @@ namespace LSIC.App.ViewModels
         }
         private void EditRunStrategy(ExecuteStrategy strategy)
         {
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [(ExecuteStrategy)strategy.Clone(), false])).First();
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditExecuteStrategy, [(ExecuteStrategy)strategy.Clone(), false])).First();
 
             if (msgResult.Result is ExecuteStrategy clone)
             {
@@ -391,7 +391,7 @@ namespace LSIC.App.ViewModels
         }
         private void EditLoopStrategy(ExecuteStrategy strategy)
         {
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [(ExecuteStrategy)strategy.Clone(), true])).First();
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditExecuteStrategy, [(ExecuteStrategy)strategy.Clone(), true])).First();
 
             if (msgResult.Result is ExecuteStrategy clone)
             {
