@@ -30,9 +30,9 @@
         /// <summary>天</summary>
         public string Enum_TimeUnit_Day => GetString("Enum.TimeUnit.Day");
         /// <summary>时间</summary>
-        public string Enum_RunMode_Time => GetString("Enum.RunMode.Time");
+        public string Enum_RunMode_Time => GetString("Enum.ExecuteMode.Time");
         /// <summary>次数</summary>
-        public string Enum_RunMode_Times => GetString("Enum.RunMode.Times");
+        public string Enum_RunMode_Times => GetString("Enum.ExecuteMode.Times");
         /// <summary>风冷</summary>
         public string Enum_CoolingMode_Air => GetString("Enum.CoolingMode.Air");
         /// <summary>水冷</summary>

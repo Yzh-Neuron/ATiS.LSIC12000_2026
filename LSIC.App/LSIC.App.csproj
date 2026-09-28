@@ -81,16 +81,12 @@
 		<Compile Update="Views\PopDpsSettingEditView.xaml.cs">
 			<SubType>Code</SubType>
 		</Compile>
-		<Compile Update="Views\PopRunStrategyView.xaml.cs">
+		<Compile Update="Views\PopExecuteStrategyView.xaml.cs">
 			<SubType>Code</SubType>
 		</Compile>
 		<Compile Update="Views\PopVectorEditView.xaml.cs">
 			<SubType>Code</SubType>
 		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Models\Main\" />
 	</ItemGroup>
 
 	<ItemGroup>

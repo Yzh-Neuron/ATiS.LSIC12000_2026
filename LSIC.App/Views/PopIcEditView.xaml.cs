@@ -73,13 +73,20 @@
                     }
                 case PopIcEditMessage.EditRunStrategy:
                     {
-                        RunStrategy  runStrategy = e.Args[0] as RunStrategy;
-                        PopRunStrategyView pop = new PopRunStrategyView(runStrategy)
+                        ExecuteStrategy executeStrategy = e.Args[0] as ExecuteStrategy;
+                        bool isLoop = e.Args[1] is true;
+                        PopExecuteStrategyView pop = new PopExecuteStrategyView(executeStrategy, isLoop)
                         {
                             Owner = this
                         };
                         pop.ShowDialog();
-                        return MessageResult.From(pop.RunStrategy);
+                        return MessageResult.From(pop.ExecuteStrategy);
+                    }
+                case PopIcEditMessage.ShowValidateError:
+                    {
+                        List<ValidationResult> errors = e.Args[0] as List<ValidationResult>;
+                        MessagePop.Show(errors.ToMessageString(), MessageType.Error);
+                        break;
                     }
             }
             return MessageResult.Null();

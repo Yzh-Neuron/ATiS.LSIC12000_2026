@@ -93,6 +93,7 @@
                         Content="{app:Lang {x:Static app:LangKey.CreateNewText}}"
                         Style="{StaticResource Button.Borderless}" />
                 <Button Margin="5,0,0,0"
+                        Command="{Binding SaveIcCommand}"
                         Content="{app:Lang {x:Static app:LangKey.SaveText}}"
                         Style="{StaticResource Button.Borderless}" />
                 <Button Margin="5,0,0,0"
@@ -523,8 +524,8 @@
                                                                 <Button wpf:IconHelper.Geometry="{StaticResource Geometry.Loop}"
                                                                         wpf:IconHelper.Height="10"
                                                                         wpf:IconHelper.Width="10"
-                                                                        Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditRunStrategyCommand}"
-                                                                        CommandParameter="{Binding Loop.RunStrategy}">
+                                                                        Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditLoopStrategyCommand}"
+                                                                        CommandParameter="{Binding Loop.ExecuteStrategy}">
                                                                     <Button.Style>
                                                                         <Style BasedOn="{StaticResource Button.Base}" TargetType="{x:Type Button}">
                                                                             <Setter Property="BorderBrush" Value="{DynamicResource LoopLineBrush}" />
@@ -541,16 +542,16 @@
                                                                             </Style.Triggers>
                                                                         </Style>
                                                                     </Button.Style>
-                                                                    <wpf:StateBlock IsChecked="{Binding Loop.RunStrategy.Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
+                                                                    <wpf:StateBlock IsChecked="{Binding Loop.ExecuteStrategy.Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
                                                                         <wpf:StateBlock.UnCheckedContent>
                                                                             <TextBlock Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Foreground}">
-                                                                                <Run Text="{Binding Loop.RunStrategy.Time.Value}" />
-                                                                                <Run Text="{Binding Loop.RunStrategy.Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
+                                                                                <Run Text="{Binding Loop.ExecuteStrategy.Time.Value}" />
+                                                                                <Run Text="{Binding Loop.ExecuteStrategy.Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
                                                                             </TextBlock>
                                                                         </wpf:StateBlock.UnCheckedContent>
                                                                         <wpf:StateBlock.CheckedContent>
                                                                             <TextBlock>
-                                                                                <Run Text="{Binding Loop.RunStrategy.Count}" />
+                                                                                <Run Text="{Binding Loop.ExecuteStrategy.Count}" />
                                                                                 <Run Text="{app:Lang {x:Static app:LangKey.TimesText}}" />
                                                                             </TextBlock>
                                                                         </wpf:StateBlock.CheckedContent>
@@ -798,13 +799,13 @@
                                                         <TextBlock Grid.Column="1"
                                                                    Margin="3,0,10,0"
                                                                    Text=":" />
-                                                        <wpf:StateBlock Grid.Column="2" IsChecked="{Binding RunStrategy.Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
+                                                        <wpf:StateBlock Grid.Column="2" IsChecked="{Binding ExecuteStrategy.Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
                                                             <wpf:StateBlock.UnCheckedContent>
                                                                 <TextBlock Style="{StaticResource TextBlock.Error}">
                                                                     <TextBlock.Text>
                                                                         <MultiBinding Converter="{StaticResource TimeToStringConverter}">
-                                                                            <Binding Path="RunStrategy.Time.Value" />
-                                                                            <Binding Path="RunStrategy.Time.Unit" />
+                                                                            <Binding Path="ExecuteStrategy.Time.Value" />
+                                                                            <Binding Path="ExecuteStrategy.Time.Unit" />
                                                                         </MultiBinding>
                                                                     </TextBlock.Text>
                                                                 </TextBlock>
@@ -813,7 +814,7 @@
                                                                 <TextBlock Style="{StaticResource TextBlock.Error}">
                                                                     <TextBlock.Text>
                                                                         <MultiBinding Converter="{StaticResource TextJoinConverter}">
-                                                                            <Binding Path="RunStrategy.Count" />
+                                                                            <Binding Path="ExecuteStrategy.Count" />
                                                                             <Binding Path="TimesText" Source="{x:Static app:LangProvider.Instance}" />
                                                                         </MultiBinding>
                                                                     </TextBlock.Text>
@@ -824,7 +825,7 @@
                                                         <Button Grid.Column="3"
                                                                 Margin="10,0,0,0"
                                                                 Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditRunStrategyCommand}"
-                                                                CommandParameter="{Binding RunStrategy}"
+                                                                CommandParameter="{Binding ExecuteStrategy}"
                                                                 Content="{app:Lang {x:Static app:LangKey.EditText}}"
                                                                 Foreground="{DynamicResource PrimaryBrush}"
                                                                 Style="{StaticResource Button.Link}" />

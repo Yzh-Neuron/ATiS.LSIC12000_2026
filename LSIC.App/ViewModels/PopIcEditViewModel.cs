@@ -71,6 +71,8 @@ namespace LSIC.App.ViewModels
         public ICommand DeleteVectorCommand { get; private set; }
         public ICommand EditVectorCommand { get; private set; }
         public ICommand EditRunStrategyCommand { get; private set; }
+        public ICommand EditLoopStrategyCommand { get; private set; }
+        
         public PopIcEditViewModel()
         {
             SelectBurnInBoardFileCommand = new RelayCommand(SelectBurnInBoardFile);
@@ -100,7 +102,8 @@ namespace LSIC.App.ViewModels
             EditVectorCommand = new RelayCommand<Vector>(EditVector);
 
             //编辑策略
-            EditRunStrategyCommand = new RelayCommand<RunStrategy>(EditRunStrategy);
+            EditRunStrategyCommand = new RelayCommand<ExecuteStrategy>(EditRunStrategy);
+            EditLoopStrategyCommand = new RelayCommand<ExecuteStrategy>(EditLoopStrategy);
 
 #if DEBUG
             DirtyObserver<Ic> ic = new(new Ic("test ic"));
@@ -157,11 +160,24 @@ namespace LSIC.App.ViewModels
         }
         private void SaveIc()
         {
+            Ic ic = SelectedIc.Target;
+            List<ValidationResult> errors = ic.GetAllErrorsRecursive();
+            if (errors.Count > 0)
+            {
+                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.ShowValidateError, [errors]));
+            }
+
+            if (ic.Process.StepItems.Count == 0)
+            {
+                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.AtleastOneStepMessage,MessageType.Error]));
+                return;
+            }
+
 
         }
         private bool CanSaveIc()
         {
-            return SelectedIc != null;
+            return SelectedIc?.IsDirty == true;
         }
 
         #endregion
@@ -356,11 +372,20 @@ namespace LSIC.App.ViewModels
                 }
             }
         }
-        private void EditRunStrategy(RunStrategy strategy)
+        private void EditRunStrategy(ExecuteStrategy strategy)
         {
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [(RunStrategy)strategy.Clone()])).First();
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [(ExecuteStrategy)strategy.Clone(),false])).First();
 
-            if (msgResult.Result is RunStrategy clone)
+            if (msgResult.Result is ExecuteStrategy clone)
+            {
+                strategy.Copy(clone);
+            }
+        }
+        private void EditLoopStrategy(ExecuteStrategy strategy)
+        {
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [(ExecuteStrategy)strategy.Clone(), true])).First();
+
+            if (msgResult.Result is ExecuteStrategy clone)
             {
                 strategy.Copy(clone);
             }

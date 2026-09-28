@@ -16,8 +16,8 @@
     <sys:String x:Key="Enum.TimeUnit.Hour">小时</sys:String>
     <sys:String x:Key="Enum.TimeUnit.Day">天</sys:String>
 
-    <sys:String x:Key="Enum.RunMode.Time">时间</sys:String>
-    <sys:String x:Key="Enum.RunMode.Times">次数</sys:String>
+    <sys:String x:Key="Enum.ExecuteMode.Time">时间</sys:String>
+    <sys:String x:Key="Enum.ExecuteMode.Times">次数</sys:String>
 
     <sys:String x:Key="Enum.CoolingMode.Air">风冷</sys:String>
     <sys:String x:Key="Enum.CoolingMode.Water">水冷</sys:String>

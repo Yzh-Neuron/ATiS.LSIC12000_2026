@@ -12,6 +12,6 @@
         }
         public StepItem Start { get; }
         public StepItem End { get; init; }
-        public RunStrategy RunStrategy { get; } = new();
+        public ExecuteStrategy ExecuteStrategy { get; } = new();
     }
 }

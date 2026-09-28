@@ -1,9 +1,9 @@
 ﻿namespace LSIC.App
 {
     /// <summary>
-    /// 运行模式
+    /// 执行模式
     /// </summary>
-    public enum RunMode : byte
+    public enum ExecuteMode : byte
     {
         /// <summary>
         /// 按时间运行

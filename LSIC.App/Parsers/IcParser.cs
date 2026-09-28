@@ -40,8 +40,8 @@
 //        {
 //            StringBuilder sb = new StringBuilder();
 
-//            // 基础设置
-//            BaseSetting baseSet = ic.BaseSetting;
+//            基础设置
+//           BaseSetting baseSet = ic.BaseSetting;
 //            sb.AppendLine($"{nameof(ic.BaseSetting)} {{");
 //            sb.AppendLine($"\t{nameof(baseSet.LogInterval)} {baseSet.LogInterval.Value} {baseSet.LogInterval.Unit};");
 //            sb.AppendLine($"\t{nameof(baseSet.ErrorLogEnable)} {baseSet.ErrorLogEnable.ToString()};");
@@ -58,8 +58,8 @@
 //            sb.AppendLine("\t}");
 //            sb.AppendLine($"}}");
 
-//            // 电源设置
-//            PowerSetting poweSet = ic.PowerSetting;
+//            电源设置
+//           PowerSetting poweSet = ic.PowerSetting;
 //            sb.AppendLine($"{nameof(ic.PowerSetting)} {{");
 //            sb.AppendLine($"\t{nameof(poweSet.DpsPlans)} {{");
 //            foreach (DpsPlan dpsPlan in poweSet.DpsPlans)
@@ -89,17 +89,17 @@
 //            sb.AppendLine("\t}");
 //            sb.AppendLine("}");
 
-//            // 流程设置
-//            ProcessSetting procSet = ic.ProcessSetting;
+//            流程设置
+//           ProcessSetting procSet = ic.ProcessSetting;
 //            sb.AppendLine($"{nameof(ic.ProcessSetting)} {{");
 //            sb.AppendLine($"\t{nameof(procSet.Steps)} {{");
 //            foreach (Step step in procSet.Steps)
 //            {
 //                sb.AppendLine($"\t\t{nameof(Step)} \"{step.Name}\" {{");
-//                sb.AppendLine($"\t\t\t{nameof(step.RunStrategy)} {{");
-//                sb.AppendLine($"\t\t\t\t{nameof(step.RunStrategy.Mode)} {step.RunStrategy.Mode};");
-//                sb.AppendLine($"\t\t\t\t{nameof(step.RunStrategy.Time)} {step.RunStrategy.Time.Value} {step.RunStrategy.Time.Unit};");
-//                sb.AppendLine($"\t\t\t\t{nameof(step.RunStrategy.Count)} {step.RunStrategy.Count};");
+//                sb.AppendLine($"\t\t\t{nameof(step.ExecuteStrategy)} {{");
+//                sb.AppendLine($"\t\t\t\t{nameof(step.ExecuteStrategy.Mode)} {step.ExecuteStrategy.Mode};");
+//                sb.AppendLine($"\t\t\t\t{nameof(step.ExecuteStrategy.Time)} {step.ExecuteStrategy.Time.Value} {step.ExecuteStrategy.Time.Unit};");
+//                sb.AppendLine($"\t\t\t\t{nameof(step.ExecuteStrategy.Count)} {step.ExecuteStrategy.Count};");
 //                sb.AppendLine("\t\t\t}");
 //                sb.AppendLine($"\t\t\t{nameof(step.LoopStrategy)} {{");
 //                sb.AppendLine($"\t\t\t\t{nameof(step.LoopStrategy.Enable)} {step.LoopStrategy.Enable.ToString()};");
@@ -419,7 +419,7 @@
 //            reader.SkipWhiteSpace();
 //            reader.ReadExpected('{');
 
-//            step.RunStrategy = ReadRunStrategy(reader);
+//            step.ExecuteStrategy = ReadRunStrategy(reader);
 
 //            reader.SkipWhiteSpace();
 
@@ -454,19 +454,19 @@
 //            return step;
 //        }
 
-//        private static RunStrategy ReadRunStrategy(CharReader reader)
+//        private static ExecuteStrategy ReadRunStrategy(CharReader reader)
 //        {
 //            reader.SkipWhiteSpace();
-//            reader.ReadExpected(nameof(RunStrategy));
+//            reader.ReadExpected(nameof(ExecuteStrategy));
 //            reader.SkipWhiteSpace();
 //            reader.ReadExpected('{');
 
-//            RunStrategy strategy = new RunStrategy();
+//            ExecuteStrategy strategy = new ExecuteStrategy();
 
 //            reader.SkipWhiteSpace();
 //            reader.ReadExpected(nameof(strategy.Mode));
 //            reader.ReadWhiteSpace();
-//            strategy.Mode = reader.ReadEnum<RunMode>();
+//            strategy.Mode = reader.ReadEnum<ExecuteMode>();
 //            reader.SkipWhiteSpace();
 //            reader.ReadExpected(';');
 
@@ -518,7 +518,7 @@
 //            reader.SkipWhiteSpace();
 //            reader.ReadExpected(nameof(strategy.Mode));
 //            reader.ReadWhiteSpace();
-//            strategy.Mode = reader.ReadEnum<RunMode>();
+//            strategy.Mode = reader.ReadEnum<ExecuteMode>();
 //            reader.SkipWhiteSpace();
 //            reader.ReadExpected(';');
 

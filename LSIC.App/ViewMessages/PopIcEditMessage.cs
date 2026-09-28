@@ -12,7 +12,6 @@
         CreateVector,
         EditVector,
         EditRunStrategy,
-
-
+        ShowValidateError,
     }
 }

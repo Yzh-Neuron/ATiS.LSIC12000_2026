@@ -1,19 +1,19 @@
 ﻿namespace LSIC.App.Models
 {
     /// <summary>
-    /// 运行策略
+    /// 执行策略
     /// </summary>
-    public class RunStrategy : ObservableValidator
+    public class ExecuteStrategy : ObservableValidator
     {
-        private RunMode _mode;
-        public RunMode Mode
+        private ExecuteMode _mode;
+        public ExecuteMode Mode
         {
             get => _mode;
             set
             {
                 if (SetProperty(ref _mode, value))
                 {
-                    if (_mode == RunMode.Times)
+                    if (_mode == ExecuteMode.Times)
                     {
                         Time = new Time();
                     }
@@ -42,27 +42,27 @@
             {
                 return Mode switch
                 {
-                    RunMode.Time => Time.TotalSeconds,
-                    RunMode.Times => Count,
+                    ExecuteMode.Time => Time.TotalSeconds,
+                    ExecuteMode.Times => Count,
                     _ => throw new ArgumentOutOfRangeException()
                 };
             }
         }
         public object Clone()
         {
-            var runStrategy = new RunStrategy()
+            var executeStrategy = new ExecuteStrategy()
             {
                 Mode = Mode,
                 Time = (Time)Time.Clone(),
                 Count = Count,
             };
-            return runStrategy;
+            return executeStrategy;
         }
-        public void Copy(RunStrategy runStrategy)
+        public void Copy(ExecuteStrategy executeStrategy)
         {
-            Mode = runStrategy.Mode;
-            Count = runStrategy.Count;
-            Time.Copy(runStrategy.Time);
+            Mode = executeStrategy.Mode;
+            Count = executeStrategy.Count;
+            Time.Copy(executeStrategy.Time);
         }
     }
 }
