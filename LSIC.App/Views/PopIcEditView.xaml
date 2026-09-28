@@ -401,6 +401,9 @@
                                           IsReadOnly="True"
                                           ItemsSource="{Binding DpssSettings}"
                                           SelectedItem="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedDpsSetting}">
+                                    <i:Interaction.Behaviors>
+                                        <wpf:AutoSelectFirstBehavior />
+                                    </i:Interaction.Behaviors>
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="80"
                                                             Binding="{Binding Name}"
@@ -605,6 +608,9 @@
                                                      SelectedItem="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedStepItem}"
                                                      SelectionMode="Extended"
                                                      Validation.ErrorTemplate="{x:Null}">
+                                                <i:Interaction.Behaviors>
+                                                    <wpf:AutoSelectFirstBehavior />
+                                                </i:Interaction.Behaviors>
                                                 <ListBox.Resources>
                                                     <DataTemplate DataType="{x:Type models:StepItem}">
                                                         <Border Height="{StaticResource StepItemHeight}">
@@ -846,6 +852,9 @@
                                           IsReadOnly="True"
                                           ItemsSource="{Binding Vectors}"
                                           SelectedItem="{Binding Data.SelectedVector, Source={StaticResource MainDataContext}}">
+                                    <i:Interaction.Behaviors>
+                                        <wpf:AutoSelectFirstBehavior />
+                                    </i:Interaction.Behaviors>
                                     <DataGrid.Style>
                                         <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
                                             <Style.Triggers>

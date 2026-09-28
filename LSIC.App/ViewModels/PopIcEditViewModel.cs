@@ -72,7 +72,7 @@ namespace LSIC.App.ViewModels
         public ICommand EditVectorCommand { get; private set; }
         public ICommand EditRunStrategyCommand { get; private set; }
         public ICommand EditLoopStrategyCommand { get; private set; }
-        
+
         public PopIcEditViewModel()
         {
             SelectBurnInBoardFileCommand = new RelayCommand(SelectBurnInBoardFile);
@@ -169,7 +169,7 @@ namespace LSIC.App.ViewModels
 
             if (ic.Process.StepItems.Count == 0)
             {
-                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.AtleastOneStepMessage,MessageType.Error]));
+                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.AtleastOneStepMessage, MessageType.Error]));
                 return;
             }
 
@@ -207,6 +207,14 @@ namespace LSIC.App.ViewModels
             var dpsPlan = SelectedDpsPlan;
             SelectedIc.Target.DpsPlans.Remove(dpsPlan);
             SelectedDpsPlan = SelectedIc.Target.DpsPlans.LastOrDefault();
+         
+            SelectedIc.Target.Process.StepItems.ForEach(stepItem =>
+            {
+                if (stepItem.DpsPlan== dpsPlan.Name)
+                {
+                    stepItem.DpsPlan = string.Empty;
+                }
+            });
         }
 
 
@@ -374,7 +382,7 @@ namespace LSIC.App.ViewModels
         }
         private void EditRunStrategy(ExecuteStrategy strategy)
         {
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [(ExecuteStrategy)strategy.Clone(),false])).First();
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditRunStrategy, [(ExecuteStrategy)strategy.Clone(), false])).First();
 
             if (msgResult.Result is ExecuteStrategy clone)
             {

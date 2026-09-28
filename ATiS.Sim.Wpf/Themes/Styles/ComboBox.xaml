@@ -89,7 +89,7 @@
                                         VerticalContentAlignment="Stretch"
                                         IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                             <wpf:StateBlock.UnCheckedContent>
-                                <wpf:UiVoid />
+                                <wpf:UiVoid MinHeight="50"/>
                             </wpf:StateBlock.UnCheckedContent>
                             <wpf:StateBlock.CheckedContent>
                                 <ScrollViewer Margin="2">
@@ -194,7 +194,7 @@
                                         VerticalContentAlignment="Stretch"
                                         IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                             <wpf:StateBlock.UnCheckedContent>
-                                <wpf:UiVoid />
+                                <wpf:UiVoid MinHeight="50"/>
                             </wpf:StateBlock.UnCheckedContent>
                             <wpf:StateBlock.CheckedContent>
                                 <ScrollViewer>
