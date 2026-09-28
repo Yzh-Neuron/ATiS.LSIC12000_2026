@@ -506,7 +506,7 @@
                                     Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="{Binding Path=(wpf:BorderHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                                    CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}"
                                     SnapsToDevicePixels="True">
                         <ScrollViewer x:Name="DG_ScrollViewer" Focusable="false">
                             <ScrollViewer.Template>

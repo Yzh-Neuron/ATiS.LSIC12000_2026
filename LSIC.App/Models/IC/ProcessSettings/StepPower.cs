@@ -14,7 +14,7 @@
             get => _timeout;
             set => SetProperty(ref _timeout, value);
         }
-        public StepPower(StepItemType itemType = StepItemType.PowerOn) : base(itemType.ToString())
+        public StepPower(StepItemType itemType = StepItemType.PowerOn) : base(itemType== StepItemType.PowerOn? "Power On": "Power Off")
         {
             if (itemType != StepItemType.PowerOn && itemType != StepItemType.PowerOff)
             {

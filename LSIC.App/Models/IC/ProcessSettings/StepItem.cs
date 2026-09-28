@@ -41,6 +41,8 @@
         /// <summary>
         /// 子步次（有序）
         /// </summary>
+        /// </summary>
+        [ValidationMetadata(Method = nameof(ValidateVectors))]
         public ObservableCollection<Vector> Vectors { get; } = new();
 
         /// <summary>
@@ -56,6 +58,20 @@
         public StepItem(string name)
         {
             Name = name;
+            Vectors.CollectionChanged += (_, _) => ValidateProperty(nameof(Vectors));
+            ValidateAllProperties();
         }
+
+        #region validate methods
+        private ValidationResult ValidateVectors(ObservableCollection<Vector> value)
+        {
+            if (this is StepVector && value is not { Count: > 0 })
+            {
+                return new ValidationResult(LangProvider.Instance.AtleastOneStepMessage);
+            }
+
+            return ValidationResult.Success;
+        }
+        #endregion
     }
 }
