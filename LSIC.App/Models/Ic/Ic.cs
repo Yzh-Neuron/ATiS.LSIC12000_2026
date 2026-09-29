@@ -1,4 +1,6 @@
-﻿namespace LSIC.App.Models
+﻿using System.IO.Compression;
+
+namespace LSIC.App.Models
 {
     public class Ic : ObservableValidator
     {
@@ -31,7 +33,26 @@
         public string BurnInBoardFile
         {
             get => _burnInBoardFile;
-            set => SetProperty(ref _burnInBoardFile, value, true);
+            set
+            {
+                if (SetProperty(ref _burnInBoardFile, value, true))
+                {
+                    if (string.IsNullOrEmpty(value) || !File.Exists(value))
+                    {
+                        BurnInBoardSetting = null;
+                        return;
+                    }
+
+                    try
+                    {
+                        BurnInBoardSetting = BurnInBoardSettingParser.Parse(value);
+                    }
+                    catch
+                    {
+                        BurnInBoardSetting = null;
+                    }
+                }
+            }
         }
         private BurnInBoardSetting _burnInBoardSetting;
         public BurnInBoardSetting BurnInBoardSetting
@@ -45,7 +66,7 @@
                 }
             }
         }
-        public ThermostatSetting[] ThermostatSettings = null;
+        public ThermostatSetting[] ThermostatSettings { get;  set; } = null;
         public ObservableCollection<DpsPlan> DpsPlans { get; } = new();
         public Process Process { get; } = new Process();
         public Ic(string name)
@@ -59,28 +80,24 @@
         {
             if (string.IsNullOrWhiteSpace(file))
             {
-                BurnInBoardSetting = null;
                 return new ValidationResult(string.Format(LangProvider.Instance.PleaseSetMessage, LangProvider.Instance.DutConfigFileText));
             }
             if (!File.Exists(file))
             {
-                BurnInBoardSetting = null;
                 return new ValidationResult(LangProvider.Instance.FileNotExistMessage + $"[ {file} ]");
             }
 
             try
             {
-                BurnInBoardSetting = BurnInBoardSettingParser.Parse(file);
+                _ = BurnInBoardSettingParser.Parse(file);
                 return ValidationResult.Success;
             }
             catch (CharReaderException e)
             {
-                BurnInBoardSetting = null;
                 return new ValidationResult(string.Format(LangProvider.Instance.PleaseSetMessage, file, e.Line, e.Column));
             }
             catch (Exception e)
             {
-                BurnInBoardSetting = null;
                 return new ValidationResult(e.Message);
             }
         }

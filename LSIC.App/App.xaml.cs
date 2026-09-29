@@ -73,7 +73,7 @@ namespace LSIC.App
                 return;
             }
 #if DEBUG
-            //new WinMainView().Show();
+            // new WinMainView().Show();
             new PopIcEditView().Show();
 #else
             new WinMainView().Show();

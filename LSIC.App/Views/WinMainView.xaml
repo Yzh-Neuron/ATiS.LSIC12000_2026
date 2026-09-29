@@ -63,8 +63,8 @@
                                 Margin="5,0"
                                 Padding="0"
                                 wpf:IconHelper.Geometry="{StaticResource Geometry.Ic}"
-                                wpf:IconHelper.Height="14"
-                                wpf:IconHelper.Width="14"
+                                wpf:IconHelper.Height="13"
+                                wpf:IconHelper.Width="13"
                                 Command="{Binding OpenIcEditViewCommand}"
                                 ToolTip="{app:Lang {x:Static app:LangKey.IcEditText}}" />
 
@@ -73,8 +73,8 @@
                                 Margin="5,0"
                                 Padding="0"
                                 wpf:IconHelper.Geometry="{StaticResource Geometry.PatternConvert}"
-                                wpf:IconHelper.Height="14"
-                                wpf:IconHelper.Width="14"
+                                wpf:IconHelper.Height="13"
+                                wpf:IconHelper.Width="13"
                                 Command="{Binding PatternConvertCommand}"
                                 ToolTip="{app:Lang {x:Static app:LangKey.PatternFormatConvertText}}" />
 
@@ -83,8 +83,8 @@
                                 Margin="5,0"
                                 Padding="0"
                                 wpf:IconHelper.Geometry="{StaticResource Geometry.TriggerSet}"
-                                wpf:IconHelper.Height="14"
-                                wpf:IconHelper.Width="14"
+                                wpf:IconHelper.Height="13"
+                                wpf:IconHelper.Width="13"
                                 Command="{Binding SetTriggerChanneCommand}"
                                 ToolTip="{app:Lang {x:Static app:LangKey.TriggerSetText}}" />
 
@@ -93,8 +93,8 @@
                                 Margin="5,0"
                                 Padding="0"
                                 wpf:IconHelper.Geometry="{StaticResource Geometry.Thermometer}"
-                                wpf:IconHelper.Height="14"
-                                wpf:IconHelper.Width="14"
+                                wpf:IconHelper.Height="13"
+                                wpf:IconHelper.Width="13"
                                 Command="{Binding OvenControlCommand}"
                                 ToolTip="{app:Lang {x:Static app:LangKey.OvenControlText}}" />
 
@@ -103,8 +103,8 @@
                                 Margin="5,0"
                                 Padding="0"
                                 wpf:IconHelper.Geometry="{StaticResource Geometry.Mute}"
-                                wpf:IconHelper.Height="14"
-                                wpf:IconHelper.Width="14"
+                                wpf:IconHelper.Height="13"
+                                wpf:IconHelper.Width="13"
                                 Command="{Binding CloseAlarmCommand}"
                                 ToolTip="{app:Lang {x:Static app:LangKey.CloseAlarmText}}" />
                     </StackPanel>
@@ -132,7 +132,22 @@
                        Text="{Binding Now, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss}'}" />
         </Grid>
 
-        <!--  内容  -->
-        <Border Background="AliceBlue" />
+        <!--  老化界面  -->
+        <TabControl wpf:BorderHelper.CornerRadius="0"
+                    wpf:TabControlHelper.HeaderHeight="50"
+                    wpf:TabControlHelper.HeaderWidth="50"
+                    BorderThickness="0,0,0,1"
+                    TabStripPlacement="Left">
+            <TabItem>
+                <TabItem.Header>
+                    <Image Width="20" Source="{StaticResource Image.Blocks}" />
+                </TabItem.Header>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <Image Width="20" Source="{StaticResource Image.DataView}" />
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </wpf:ChromeWindow>

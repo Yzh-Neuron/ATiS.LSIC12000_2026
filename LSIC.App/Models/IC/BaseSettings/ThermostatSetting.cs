@@ -3,7 +3,6 @@
     public class ThermostatSetting : ObservableValidator
     {
         public int Id { get; private set; }
-
         private bool _enable;
         public bool Enable
         {
@@ -17,7 +16,6 @@
                 }
             }
         }
-
         private int _targetTemperature = 250;
         [ValidationMetadata(Method = nameof(ValidateTargetTemperature))]
         public int TargetTemperature
@@ -25,13 +23,19 @@
             get => _targetTemperature;
             set => SetProperty(ref _targetTemperature, value, true);
         }
-
         public ThermostatSetting(int id)
         {
             Id = id;
             ValidateAllProperties();
         }
-
+        public void Copy(ThermostatSetting copy)
+        {
+            if (Id == copy.Id)
+            {
+                TargetTemperature = copy.TargetTemperature;
+                Enable = copy.Enable;
+            }
+        }
 
         #region validate methods
         private ValidationResult ValidateTargetTemperature(int targetTemperature)

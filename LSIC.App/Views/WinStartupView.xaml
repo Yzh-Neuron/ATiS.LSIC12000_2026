@@ -7,6 +7,7 @@
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
                   Title="WinStartupView"
+                  xmlns:app="clr-namespace:LSIC.App"
                   Width="380"
                   Height="520"
                   d:DataContext="{d:DesignInstance vms:WinStartupViewModel}"
@@ -197,7 +198,7 @@
                            FontSize="18"
                            FontWeight="Bold"
                            Foreground="#21497D"
-                           Text="{DynamicResource ConceptText}" />
+                           Text="{app:Lang {x:Static app:LangKey.ConceptText}}" />
                 <TextBlock Margin="20,0"
                            HorizontalAlignment="Center"
                            FontSize="16"
