@@ -1,30 +1,20 @@
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ATiS.Base;
+using LSIC.App.Models;
+
 namespace LSIC.App
 {
+    /// <summary>
+    /// IC 器件解析器：读取(Parse)与序列化(Serialize)。
+    /// 块名一律使用 <see langword="nameof"/>，文件编码 gb2312。
+    /// </summary>
     public static class IcParser
     {
-        #region 块名
-
-        private const string BaseSettingBlock = "BaseSetting";
-        private const string PowerSettingBlock = "PowerSetting";
-        private const string ProcessSettingBlock = "ProcessSetting";
-
-        private const string DpsPlansBlock = "DpsPlans";
-        private const string DpsPlanBlock = "DpsPlan";
-        private const string DpssBlock = "Dpss";
-        private const string DpsBlock = "Dps";
-
-        private const string StepsBlock = "Steps";
-        private const string StepVectorBlock = "StepVector";
-        private const string StepPowerBlock = "StepPower";
-        private const string VectorsBlock = "Vectors";
-        private const string VectorBlock = "Vector";
-        private const string LoopsBlock = "Loops";
-        private const string LoopBlock = "Loop";
-        private const string ExecuteStrategyBlock = "ExecuteStrategy";
-
-        #endregion
-
-        #region Parse
+        #region Parse / Serialize
 
         /// <summary>
         /// 读取 IC 文件并构建 <see cref="Ic"/>。
@@ -35,9 +25,17 @@ namespace LSIC.App
 
             Ic ic = new Ic(Path.GetFileNameWithoutExtension(path));
 
-            ReadBaseSetting(reader, ic);
-            ReadPowerSetting(reader, ic);
-            ReadProcessSetting(reader, ic);
+            // 顶层基础字段：直接平铺，不包裹
+            ic.LogInterval = ReadTimeField(reader, nameof(ic.LogInterval));
+            ic.ErrorLogEnable = ReadBoolField(reader, nameof(ic.ErrorLogEnable));
+            ic.ErrorLogInterval = ReadTimeField(reader, nameof(ic.ErrorLogInterval));
+            ic.BurnInBoardFile = ReadStringField(reader, nameof(ic.BurnInBoardFile));
+
+            // 恒温槽设置（可选块，存在则覆盖从老化板同步的值）
+            ReadThermostatSettings(reader, ic);
+
+            ReadDpsPlans(reader, ic);
+            ReadProcess(reader, ic);
 
             reader.SkipWhiteSpace();
             reader.ReadEnd();
@@ -49,10 +47,6 @@ namespace LSIC.App
         /// </summary>
         public static Task<Ic> ParseAsync(string path) => Task.FromResult(Parse(path));
 
-        #endregion
-
-        #region Serialize
-
         /// <summary>
         /// 将 <see cref="Ic"/> 序列化为文本。
         /// </summary>
@@ -60,39 +54,82 @@ namespace LSIC.App
         {
             StringBuilder sb = new StringBuilder();
 
-            WriteBaseSetting(sb, ic);
-            WritePowerSetting(sb, ic);
-            WriteProcessSetting(sb, ic);
+            // 顶层基础字段：直接平铺，不包裹
+            AppendTimeField(sb, 0, nameof(ic.LogInterval), ic.LogInterval);
+            AppendBoolField(sb, 0, nameof(ic.ErrorLogEnable), ic.ErrorLogEnable);
+            AppendTimeField(sb, 0, nameof(ic.ErrorLogInterval), ic.ErrorLogInterval);
+            AppendStringField(sb, 0, nameof(ic.BurnInBoardFile), ic.BurnInBoardFile);
+
+            WriteThermostatSettings(sb, ic);
+            WriteDpsPlans(sb, ic);
+            WriteProcess(sb, ic);
 
             return sb.ToString();
         }
 
         #endregion
 
-        #region 基础设置
+        #region 恒温槽设置
 
-        private static void ReadBaseSetting(CharReader reader, Ic ic)
+        private static void ReadThermostatSettings(CharReader reader, Ic ic)
         {
-            ReadBlockOpen(reader, BaseSettingBlock);
+            // 该块可选：文件中不存在时，保留从老化板(BurnInBoardSetting)同步的值。
+            reader.SkipWhiteSpace();
+            if (!reader.Try(nameof(ic.ThermostatSettings)))
+            {
+                return;
+            }
 
-            ic.LogInterval = ReadTimeField(reader, nameof(ic.LogInterval));
+            reader.ReadExpected(nameof(ic.ThermostatSettings));
+            reader.SkipWhiteSpace();
+            reader.ReadExpected('{');
 
-            ic.ErrorLogEnable = ReadBoolField(reader, nameof(ic.ErrorLogEnable));
+            List<ThermostatSetting> settings = new List<ThermostatSetting>();
+            reader.SkipWhiteSpace();
+            while (!reader.Try('}'))
+            {
+                settings.Add(ReadThermostatSetting(reader));
+                reader.SkipWhiteSpace();
+            }
+            reader.ReadExpected('}');
 
-            ic.ErrorLogInterval = ReadTimeField(reader, nameof(ic.ErrorLogInterval));
-
-            ic.BurnInBoardFile = ReadStringField(reader, nameof(ic.BurnInBoardFile));
-
-            ReadBlockClose(reader);
+            ic.ThermostatSettings = settings.ToArray();
         }
 
-        private static void WriteBaseSetting(StringBuilder sb, Ic ic)
+        private static ThermostatSetting ReadThermostatSetting(CharReader reader)
         {
-            sb.AppendLine($"{BaseSettingBlock} {{");
-            AppendTimeField(sb, 1, nameof(ic.LogInterval), ic.LogInterval);
-            AppendBoolField(sb, 1, nameof(ic.ErrorLogEnable), ic.ErrorLogEnable);
-            AppendTimeField(sb, 1, nameof(ic.ErrorLogInterval), ic.ErrorLogInterval);
-            AppendStringField(sb, 1, nameof(ic.BurnInBoardFile), ic.BurnInBoardFile);
+            reader.SkipWhiteSpace();
+            reader.ReadExpected(nameof(ThermostatSetting));
+            reader.ReadWhiteSpace();
+
+            // 块头带 Id：ThermostatSetting 0 {
+            ThermostatSetting setting = new ThermostatSetting(reader.ReadNumber<int>());
+            reader.SkipWhiteSpace();
+            reader.ReadExpected('{');
+
+            setting.Enable = ReadBoolField(reader, nameof(setting.Enable));
+            setting.TargetTemperature = ReadIntField(reader, nameof(setting.TargetTemperature));
+
+            reader.SkipWhiteSpace();
+            reader.ReadExpected('}');
+            return setting;
+        }
+
+        private static void WriteThermostatSettings(StringBuilder sb, Ic ic)
+        {
+            if (ic.ThermostatSettings is not { Length: > 0 })
+            {
+                return;
+            }
+
+            sb.AppendLine($"{nameof(ic.ThermostatSettings)} {{");
+            foreach (ThermostatSetting setting in ic.ThermostatSettings)
+            {
+                sb.AppendLine($"\t{nameof(ThermostatSetting)} {setting.Id} {{");
+                AppendBoolField(sb, 2, nameof(setting.Enable), setting.Enable);
+                AppendIntField(sb, 2, nameof(setting.TargetTemperature), setting.TargetTemperature);
+                sb.AppendLine("\t}");
+            }
             sb.AppendLine("}");
         }
 
@@ -100,11 +137,10 @@ namespace LSIC.App
 
         #region 电源设置
 
-        private static void ReadPowerSetting(CharReader reader, Ic ic)
+        private static void ReadDpsPlans(CharReader reader, Ic ic)
         {
-            ReadBlockOpen(reader, PowerSettingBlock);
+            ReadBlockOpen(reader, nameof(ic.DpsPlans));
 
-            ReadBlockOpen(reader, DpsPlansBlock);
             reader.SkipWhiteSpace();
             while (!reader.Try('}'))
             {
@@ -112,42 +148,41 @@ namespace LSIC.App
                 reader.SkipWhiteSpace();
             }
             reader.ReadExpected('}');
-
-            ReadBlockClose(reader);
         }
 
         private static DpsPlan ReadDpsPlan(CharReader reader)
         {
             reader.SkipWhiteSpace();
-            reader.ReadExpected(DpsPlanBlock);
+            reader.ReadExpected(nameof(DpsPlan));
             reader.ReadWhiteSpace();
 
-            DpsPlan dpsPlan = new DpsPlan(reader.ReadStringWrap('"'));
+            DpsPlan plan = new DpsPlan(reader.ReadStringWrap('"'));
             reader.SkipWhiteSpace();
             reader.ReadExpected('{');
 
-            ReadBlockOpen(reader, DpssBlock);
+            ReadBlockOpen(reader, nameof(plan.DpssSettings));
+
             reader.SkipWhiteSpace();
             while (!reader.Try('}'))
             {
-                dpsPlan.DpssSettings.Add(ReadDpsSetting(reader));
+                plan.DpssSettings.Add(ReadDpsSetting(reader));
                 reader.SkipWhiteSpace();
             }
             reader.ReadExpected('}');
 
             ReadBlockClose(reader);
-            return dpsPlan;
+            return plan;
         }
 
         private static DpsSetting ReadDpsSetting(CharReader reader)
         {
-            ReadBlockOpen(reader, DpsBlock);
+            ReadBlockOpen(reader, nameof(DpsSetting));
 
             int id = ReadIntField(reader, nameof(DpsSetting.Id));
             DpsInfo dpsInfo = Device.Instance.SystemConfig.DpsInfos.FirstOrDefault(i => i.Id == id)
                 ?? throw new InvalidOperationException($"找不到 Id 为 {id} 的电源规格(DpsInfo)。");
 
-            DpsSetting dpsSetting = new DpsSetting(dpsInfo)
+            DpsSetting setting = new DpsSetting(dpsInfo)
             {
                 Vol = ReadIntField(reader, nameof(DpsSetting.Vol)),
                 Uvp = ReadIntField(reader, nameof(DpsSetting.Uvp)),
@@ -158,35 +193,31 @@ namespace LSIC.App
             };
 
             ReadBlockClose(reader);
-            return dpsSetting;
+            return setting;
         }
 
-        private static void WritePowerSetting(StringBuilder sb, Ic ic)
+        private static void WriteDpsPlans(StringBuilder sb, Ic ic)
         {
-            sb.AppendLine($"{PowerSettingBlock} {{");
-
-            sb.AppendLine($"\t{DpsPlansBlock} {{");
-            foreach (DpsPlan dpsPlan in ic.DpsPlans)
+            sb.AppendLine($"{nameof(ic.DpsPlans)} {{");
+            foreach (DpsPlan plan in ic.DpsPlans)
             {
-                sb.AppendLine($"\t\t{DpsPlanBlock} \"{dpsPlan.Name}\" {{");
-                sb.AppendLine($"\t\t\t{DpssBlock} {{");
-                foreach (DpsSetting dps in dpsPlan.DpssSettings)
+                sb.AppendLine($"\t{nameof(DpsPlan)} \"{plan.Name}\" {{");
+                sb.AppendLine($"\t\t{nameof(plan.DpssSettings)} {{");
+                foreach (DpsSetting setting in plan.DpssSettings)
                 {
-                    sb.AppendLine($"\t\t\t\t{DpsBlock} {{");
-                    AppendIntField(sb, 5, nameof(DpsSetting.Id), dps.Id);
-                    AppendIntField(sb, 5, nameof(DpsSetting.Vol), dps.Vol);
-                    AppendIntField(sb, 5, nameof(DpsSetting.Uvp), dps.Uvp);
-                    AppendIntField(sb, 5, nameof(DpsSetting.Ovp), dps.Ovp);
-                    AppendIntField(sb, 5, nameof(DpsSetting.Ocp), dps.Ocp);
-                    AppendIntField(sb, 5, nameof(DpsSetting.Raise), dps.Raise);
-                    AppendIntField(sb, 5, nameof(DpsSetting.Delay), dps.Delay);
-                    sb.AppendLine("\t\t\t\t}");
+                    sb.AppendLine($"\t\t\t{nameof(DpsSetting)} {{");
+                    AppendIntField(sb, 4, nameof(DpsSetting.Id), setting.Id);
+                    AppendIntField(sb, 4, nameof(DpsSetting.Vol), setting.Vol);
+                    AppendIntField(sb, 4, nameof(DpsSetting.Uvp), setting.Uvp);
+                    AppendIntField(sb, 4, nameof(DpsSetting.Ovp), setting.Ovp);
+                    AppendIntField(sb, 4, nameof(DpsSetting.Ocp), setting.Ocp);
+                    AppendIntField(sb, 4, nameof(DpsSetting.Raise), setting.Raise);
+                    AppendIntField(sb, 4, nameof(DpsSetting.Delay), setting.Delay);
+                    sb.AppendLine("\t\t\t}");
                 }
-                sb.AppendLine("\t\t\t}");
                 sb.AppendLine("\t\t}");
+                sb.AppendLine("\t}");
             }
-            sb.AppendLine("\t}");
-
             sb.AppendLine("}");
         }
 
@@ -194,16 +225,16 @@ namespace LSIC.App
 
         #region 流程设置
 
-        private static void ReadProcessSetting(CharReader reader, Ic ic)
+        private static void ReadProcess(CharReader reader, Ic ic)
         {
-            ReadBlockOpen(reader, ProcessSettingBlock);
+            ReadBlockOpen(reader, nameof(ic.Process));
 
             Models.Process process = ic.Process;
             process.StepItems.Clear();
             process.Loops.Clear();
 
             // 步骤
-            ReadBlockOpen(reader, StepsBlock);
+            ReadBlockOpen(reader, nameof(process.StepItems));
             reader.SkipWhiteSpace();
             while (!reader.Try('}'))
             {
@@ -213,7 +244,7 @@ namespace LSIC.App
             reader.ReadExpected('}');
 
             // 循环
-            ReadBlockOpen(reader, LoopsBlock);
+            ReadBlockOpen(reader, nameof(process.Loops));
             reader.SkipWhiteSpace();
             while (!reader.Try('}'))
             {
@@ -230,11 +261,11 @@ namespace LSIC.App
         private static StepItem ReadStepItem(CharReader reader)
         {
             reader.SkipWhiteSpace();
-            if (reader.Try(StepVectorBlock))
+            if (reader.Try(nameof(StepVector)))
             {
                 return ReadStepVector(reader);
             }
-            if (reader.Try(StepPowerBlock))
+            if (reader.Try(nameof(StepPower)))
             {
                 return ReadStepPower(reader);
             }
@@ -244,21 +275,17 @@ namespace LSIC.App
         private static StepVector ReadStepVector(CharReader reader)
         {
             reader.SkipWhiteSpace();
-            reader.ReadExpected(StepVectorBlock);
+            reader.ReadExpected(nameof(StepVector));
             reader.ReadWhiteSpace();
 
             StepVector step = new StepVector(reader.ReadStringWrap('"'));
             reader.SkipWhiteSpace();
             reader.ReadExpected('{');
 
-            // 执行策略
             step.ExecuteStrategy.Copy(ReadExecuteStrategy(reader));
+            step.DpsPlan = ReadStringField(reader, nameof(step.DpsPlan));
 
-            // 电源方案
-            step.DpsPlan = ReadStringField(reader, nameof(StepItem.DpsPlan));
-
-            // 向量
-            ReadBlockOpen(reader, VectorsBlock);
+            ReadBlockOpen(reader, nameof(step.Vectors));
             reader.SkipWhiteSpace();
             while (!reader.Try('}'))
             {
@@ -274,14 +301,14 @@ namespace LSIC.App
         private static StepPower ReadStepPower(CharReader reader)
         {
             reader.SkipWhiteSpace();
-            reader.ReadExpected(StepPowerBlock);
+            reader.ReadExpected(nameof(StepPower));
             reader.ReadWhiteSpace();
 
             StepPower step = new StepPower(reader.ReadEnum<StepItemType>());
             reader.SkipWhiteSpace();
             reader.ReadExpected('{');
 
-            step.Timeout = ReadIntField(reader, nameof(StepPower.Timeout));
+            step.Timeout = ReadIntField(reader, nameof(step.Timeout));
 
             ReadBlockClose(reader);
             return step;
@@ -289,24 +316,22 @@ namespace LSIC.App
 
         private static Vector ReadVector(CharReader reader)
         {
-            ReadBlockOpen(reader, VectorBlock);
+            ReadBlockOpen(reader, nameof(Vector));
 
-            string patternFile = ReadStringField(reader, nameof(Vector.PatternFile));
-            string registerFile = ReadStringField(reader, nameof(Vector.RegisterFile));
+            Vector vector = new Vector
+            {
+                PatternFile = ReadStringField(reader, nameof(Vector.PatternFile)),
+                RegisterFile = ReadStringField(reader, nameof(Vector.RegisterFile)),
+            };
 
             ReadBlockClose(reader);
-
-            return new Vector
-            {
-                PatternFile = patternFile,
-                RegisterFile = registerFile,
-            };
+            return vector;
         }
 
         private static Loop ReadLoop(CharReader reader, Models.Process process)
         {
             reader.SkipWhiteSpace();
-            reader.ReadExpected(LoopBlock);
+            reader.ReadExpected(nameof(Loop));
             reader.ReadWhiteSpace();
 
             string startName = reader.ReadStringWrap('"');
@@ -330,7 +355,7 @@ namespace LSIC.App
 
         private static ExecuteStrategy ReadExecuteStrategy(CharReader reader)
         {
-            ReadBlockOpen(reader, ExecuteStrategyBlock);
+            ReadBlockOpen(reader, nameof(ExecuteStrategy));
 
             ExecuteStrategy strategy = new ExecuteStrategy
             {
@@ -343,21 +368,22 @@ namespace LSIC.App
             return strategy;
         }
 
-        private static void WriteProcessSetting(StringBuilder sb, Ic ic)
+        private static void WriteProcess(StringBuilder sb, Ic ic)
         {
-            sb.AppendLine($"{ProcessSettingBlock} {{");
+            Models.Process process = ic.Process;
+            sb.AppendLine($"{nameof(ic.Process)} {{");
 
             // 步骤
-            sb.AppendLine($"\t{StepsBlock} {{");
-            foreach (StepItem item in ic.Process.StepItems)
+            sb.AppendLine($"\t{nameof(process.StepItems)} {{");
+            foreach (StepItem item in process.StepItems)
             {
                 WriteStepItem(sb, item);
             }
             sb.AppendLine("\t}");
 
             // 循环
-            sb.AppendLine($"\t{LoopsBlock} {{");
-            foreach (Loop loop in ic.Process.Loops)
+            sb.AppendLine($"\t{nameof(process.Loops)} {{");
+            foreach (Loop loop in process.Loops)
             {
                 WriteLoop(sb, loop);
             }
@@ -371,14 +397,14 @@ namespace LSIC.App
             switch (item)
             {
                 case StepVector step:
-                    sb.AppendLine($"\t\t{StepVectorBlock} \"{step.Name}\" {{");
+                    sb.AppendLine($"\t\t{nameof(StepVector)} \"{step.Name}\" {{");
                     WriteExecuteStrategy(sb, 3, step.ExecuteStrategy);
-                    AppendStringField(sb, 3, nameof(StepItem.DpsPlan), step.DpsPlan);
+                    AppendStringField(sb, 3, nameof(step.DpsPlan), step.DpsPlan);
 
-                    sb.AppendLine($"\t\t\t{VectorsBlock} {{");
+                    sb.AppendLine($"\t\t\t{nameof(step.Vectors)} {{");
                     foreach (Vector vector in step.Vectors)
                     {
-                        sb.AppendLine($"\t\t\t\t{VectorBlock} {{");
+                        sb.AppendLine($"\t\t\t\t{nameof(Vector)} {{");
                         AppendStringField(sb, 5, nameof(Vector.PatternFile), vector.PatternFile);
                         AppendStringField(sb, 5, nameof(Vector.RegisterFile), vector.RegisterFile);
                         sb.AppendLine("\t\t\t\t}");
@@ -389,8 +415,8 @@ namespace LSIC.App
                     break;
 
                 case StepPower step:
-                    sb.AppendLine($"\t\t{StepPowerBlock} {step.ItemType} {{");
-                    AppendIntField(sb, 3, nameof(StepPower.Timeout), step.Timeout);
+                    sb.AppendLine($"\t\t{nameof(StepPower)} {step.ItemType} {{");
+                    AppendIntField(sb, 3, nameof(step.Timeout), step.Timeout);
                     sb.AppendLine("\t\t}");
                     break;
             }
@@ -398,17 +424,17 @@ namespace LSIC.App
 
         private static void WriteLoop(StringBuilder sb, Loop loop)
         {
-            sb.AppendLine($"\t\t{LoopBlock} \"{loop.Start.Name}\" \"{loop.End.Name}\" {{");
+            sb.AppendLine($"\t\t{nameof(Loop)} \"{loop.Start.Name}\" \"{loop.End.Name}\" {{");
             WriteExecuteStrategy(sb, 3, loop.ExecuteStrategy);
             sb.AppendLine("\t\t}");
         }
 
         private static void WriteExecuteStrategy(StringBuilder sb, int indent, ExecuteStrategy strategy)
         {
-            sb.AppendLine($"{Indent(indent)}{ExecuteStrategyBlock} {{");
-            AppendEnumField(sb, indent + 1, nameof(ExecuteStrategy.Mode), strategy.Mode);
-            AppendLine(sb, indent + 1, $"{nameof(ExecuteStrategy.Time)} {strategy.Time.Value} {strategy.Time.Unit};");
-            AppendIntField(sb, indent + 1, nameof(ExecuteStrategy.Count), strategy.Count);
+            sb.AppendLine($"{Indent(indent)}{nameof(ExecuteStrategy)} {{");
+            AppendEnumField(sb, indent + 1, nameof(strategy.Mode), strategy.Mode);
+            AppendTimeField(sb, indent + 1, nameof(strategy.Time), strategy.Time);
+            AppendIntField(sb, indent + 1, nameof(strategy.Count), strategy.Count);
             sb.AppendLine($"{Indent(indent)}}}");
         }
 

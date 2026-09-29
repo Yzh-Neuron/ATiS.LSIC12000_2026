@@ -171,7 +171,8 @@
                 return;
             }
 
-
+            IcConfigManager.SaveIc(ic);
+            SelectedIc.Reset();
         }
         private bool CanSaveIc()
         {
@@ -309,8 +310,15 @@
         }
         private void MakeLoop(IList obj)
         {
-            var stepItems = obj.Cast<StepItem>()?.ToList();
-            SelectedIc.Target.Process.MakeLoop(stepItems);
+            try
+            {
+                var stepItems = obj.Cast<StepItem>()?.ToList();
+                SelectedIc.Target.Process.MakeLoop(stepItems);
+            }
+            catch (Exception ex)
+            {
+                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [ex.Message, MessageType.Error]));
+            }
         }
         private bool CanDragStep(StepItem item)
         {
@@ -318,7 +326,7 @@
         }
         private bool CanDropStep(DragDropArgs args)
         {
-            return args is not null && SelectedIc?.Target?.Process?.CanMove(args.FromIndex, args.ToIndex) == true;
+            return args != null && SelectedIc?.Target?.Process?.CanMove(args.FromIndex, args.ToIndex) == true;
         }
         private void DropStep(DragDropArgs args)
         {

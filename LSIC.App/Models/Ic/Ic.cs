@@ -8,8 +8,6 @@
             get => _name;
             set => SetProperty(ref _name, value);
         }
-
-        //记录间隔时间
         private Time _logInterval = new();
         public Time LogInterval
         {
@@ -28,8 +26,6 @@
             get => _errorLogInterval;
             set => SetProperty(ref _errorLogInterval, value);
         }
-
-        //老化板配置
         private string _burnInBoardFile;
         [ValidationMetadata(Method = nameof(ValidateBurnInBoardFile))]
         public string BurnInBoardFile
@@ -41,14 +37,19 @@
         public BurnInBoardSetting BurnInBoardSetting
         {
             get => _burnInBoardSetting;
-            set => SetProperty(ref _burnInBoardSetting, value);
+            set
+            {
+                if (SetProperty(ref _burnInBoardSetting, value))
+                {
+                    ThermostatSettings = value?.ThermostatSettings;
+                }
+            }
         }
-
-        //Dps电源方案
+        public ThermostatSetting[] ThermostatSettings = null;
         public ObservableCollection<DpsPlan> DpsPlans { get; } = new();
-
-        //流程
         public Process Process { get; } = new Process();
+        public DateTime CreateTime { get; set; }
+        public DateTime UpdateTime { get; set; }
         public Ic(string name)
         {
             Name = name;
@@ -61,12 +62,12 @@
             if (string.IsNullOrWhiteSpace(file))
             {
                 BurnInBoardSetting = null;
-                return new ValidationResult(string.Format(LangProvider.Instance.PleaseSetMessage, LangProvider.Instance.DutConfigFileText), [LangProvider.Instance.DutConfigFileText]);
+                return new ValidationResult(string.Format(LangProvider.Instance.PleaseSetMessage, LangProvider.Instance.DutConfigFileText));
             }
             if (!File.Exists(file))
             {
                 BurnInBoardSetting = null;
-                return new ValidationResult(LangProvider.Instance.FileNotExistMessage + $"[ {file} ]", [LangProvider.Instance.DutConfigFileText]);
+                return new ValidationResult(LangProvider.Instance.FileNotExistMessage + $"[ {file} ]");
             }
 
             try
@@ -77,12 +78,12 @@
             catch (CharReaderException e)
             {
                 BurnInBoardSetting = null;
-                return new ValidationResult(string.Format(LangProvider.Instance.PleaseSetMessage, file, e.Line, e.Column), [LangProvider.Instance.DutConfigFileText]);
+                return new ValidationResult(string.Format(LangProvider.Instance.PleaseSetMessage, file, e.Line, e.Column));
             }
             catch (Exception e)
             {
                 BurnInBoardSetting = null;
-                return new ValidationResult(e.Message, [LangProvider.Instance.DutConfigFileText]);
+                return new ValidationResult(e.Message);
             }
         }
         #endregion

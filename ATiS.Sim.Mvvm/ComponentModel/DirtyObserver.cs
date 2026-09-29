@@ -22,7 +22,7 @@ namespace ATiS.Sim.Mvvm
         public bool IsDirty
         {
             get => _isDirty;
-            set
+            private set
             {
                 if (SetProperty(ref _isDirty, value))
                 {

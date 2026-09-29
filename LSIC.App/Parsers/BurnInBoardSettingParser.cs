@@ -8,8 +8,8 @@
             {
                 return null;
             }
-
             using CharReader reader = new CharReader(file);
+            var thermostatDict = new Dictionary<int, ThermostatSetting>();
 
             reader.SkipWhiteSpace();
             reader.ReadExpected("SIZE");
@@ -31,16 +31,17 @@
 
                 for (int j = 0; j < columns; j++)
                 {
-                    DutSetting dut = ReadDut(reader, i, j);
+                    DutSetting dut = ReadDutSetting(reader, i, j, thermostatDict);
                     boardSetting.DutSettings[i * columns + j] = dut;
                 }
             }
             reader.SkipWhiteSpace();
             reader.ReadEnd();
+
+            boardSetting.ThermostatSettings = thermostatDict.Values.ToArray();
             return boardSetting;
         }
-
-        private static DutSetting ReadDut(CharReader reader, int row, int column)
+        private static DutSetting ReadDutSetting(CharReader reader, int row, int column, Dictionary<int, ThermostatSetting> thermostatDict)
         {
             reader.SkipWhiteSpace();
             reader.ReadExpected($"C{column}");
@@ -147,6 +148,7 @@
                     }
                 }
             }
+
             int? thermostatChannel = null;
             if (reader.Try("TEMPSPLY"))
             {
@@ -154,7 +156,19 @@
                 reader.ReadWhiteSpace();
                 thermostatChannel = reader.ReadNumber<int>();
             }
-            return new DutSetting(id, row, column, cs, drs.ToArray(), dpss.ToArray(), thermostatChannel);
+
+            ThermostatSetting result = null;
+            if (thermostatChannel != null)
+            {
+                int channelId = thermostatChannel.Value;
+                if (!thermostatDict.TryGetValue(channelId, out result))
+                {
+                    result = new ThermostatSetting(channelId);
+                    thermostatDict.Add(channelId, result);
+                }
+            }
+
+            return new DutSetting(id, row, column, cs, drs.ToArray(), dpss.ToArray(), result);
         }
     }
 }

@@ -8,6 +8,8 @@
 
         public DutSetting[] DutSettings { get; private set; }
 
+        public ThermostatSetting[] ThermostatSettings { get; set; }
+
         public BurnInBoardSetting(int row, int column)
         {
             Row = row;

@@ -97,13 +97,13 @@
 
             if (range is null)
             {
-                throw new InvalidOperationException(stepItems is { Count: > 0 } ? "请选择连续的中段向量条目（不能包含固定上电 / 下电块）。" : "请先选中一个或多个连续的向量条目。");
+                throw new InvalidOperationException("请选择连续的向量步（不能包含上电/下电步）。");
             }
 
             //判断是否有重叠
             if (this.IsBlocked(range.Value))
             {
-                throw new InvalidOperationException("循环只能并列，不能嵌套或交叉，请重新选择连续条目。");
+                throw new InvalidOperationException("循环只能并列，不能嵌套或交叉。");
             }
 
             var loop = new Loop(StepItems[range.Value.Start]) { End = StepItems[range.Value.End] };
@@ -189,11 +189,6 @@
         /// </summary>
         public void Move(int oldIndex, int newIndex)
         {
-            if (!CanMove(oldIndex, newIndex))
-            {
-                throw new InvalidOperationException("当前拖动会破坏循环结构（交叉、嵌套或包含固定块），已取消。");
-            }
-
             StepItems.Move(oldIndex, newIndex);
             Refresh();
         }

@@ -16,7 +16,7 @@
 
         public int Column { get; private set; }
 
-        public DutSetting(int id, int row, int column, int chipSelect, int[] drs, int[] dpss, int? thermostatId)
+        public DutSetting(int id, int row, int column, int chipSelect, int[] drs, int[] dpss, ThermostatSetting thermostat)
         {
             Id = id;
             ChipSelect = chipSelect;
@@ -24,11 +24,7 @@
             Dpss = dpss;
             Row = row;
             Column = column;
-
-            if (thermostatId.HasValue)
-            {
-                ThermostatSetting = new ThermostatSetting(thermostatId.Value);
-            }
+            ThermostatSetting = thermostat;
         }
     }
 }
