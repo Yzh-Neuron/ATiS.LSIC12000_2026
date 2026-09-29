@@ -6,7 +6,7 @@
         {
             if (value is Enum e)
             {
-              return  e.GetString();
+                return e.GetString();
             }
             return value;
         }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using OxyPlot;
+﻿using OxyPlot;
 
 namespace LSIC.App
 {

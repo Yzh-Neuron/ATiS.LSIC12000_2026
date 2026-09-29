@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LSIC.App
+﻿namespace LSIC.App
 {
     public enum SplitChar
     {

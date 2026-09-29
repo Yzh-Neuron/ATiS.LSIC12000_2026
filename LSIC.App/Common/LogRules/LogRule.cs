@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using LSIC.App.Models;
-
-namespace LSIC.App
+﻿namespace LSIC.App
 {
     /// <summary>
     /// 日志规则

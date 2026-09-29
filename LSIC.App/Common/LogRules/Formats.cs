@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using ATiS.Base;
-
-namespace LSIC.App
+﻿namespace LSIC.App
 {
     /// <summary>
     /// 数据格式化条件

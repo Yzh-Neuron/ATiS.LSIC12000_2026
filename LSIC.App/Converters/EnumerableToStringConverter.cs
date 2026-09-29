@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace LSIC.App.Converters
+﻿namespace LSIC.App.Converters
 {
     public class EnumerableToStringConverter : IValueConverter
     {

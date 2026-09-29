@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace LSIC.App.ViewModels
+﻿namespace LSIC.App.ViewModels
 {
     public class PopIcEditViewModel : ObservableObject, IDisposable
     {

@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Windows;
+﻿using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("LSIC.App")]
 [assembly: AssemblyDescription("")]

@@ -1,6 +1,4 @@
-﻿using System.Data.Common;
-
-namespace LSIC.App.Models
+﻿namespace LSIC.App.Models
 {
     public class BurnInBoardSetting
     {
