@@ -573,11 +573,11 @@
                                                                             </Style.Triggers>
                                                                         </Style>
                                                                     </Button.Style>
-                                                                    <wpf:StateBlock DataContext="{Binding Loop.ExecuteStrategy}" IsChecked="{Binding Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
+                                                                    <wpf:StateBlock  DataContext="{Binding Loop.ExecuteStrategy}" IsChecked="{Binding Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
                                                                         <wpf:StateBlock.UnCheckedContent>
-                                                                            <TextBlock DataContext="{Binding Time}" Style="{StaticResource TextBlock.Error}">
-                                                                                <Run Text="{Binding Value}" />
-                                                                                <Run Text="{Binding Unit, Converter={StaticResource EnumToTextConverter}}" />
+                                                                            <TextBlock Tag="{Binding Time}" Style="{StaticResource TextBlock.Error}">
+                                                                                <Run Text="{Binding Time.Value}" />
+                                                                                <Run Text="{Binding Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
                                                                             </TextBlock>
                                                                         </wpf:StateBlock.UnCheckedContent>
                                                                         <wpf:StateBlock.CheckedContent>
