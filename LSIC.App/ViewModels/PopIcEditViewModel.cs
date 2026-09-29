@@ -12,7 +12,7 @@
             {
                 if (SetProperty(ref _selectedIc, value))
                 {
-                    value?.Load();
+                    value?.Load(IcConfigManager.GetIc);
                 }
             }
         }
@@ -76,10 +76,10 @@
         public ICommand EditVectorCommand { get; private set; }
         public ICommand EditRunStrategyCommand { get; private set; }
         public ICommand EditLoopStrategyCommand { get; private set; }
-
         public PopIcEditViewModel()
         {
             Ics = new(IcConfigManager.GetIcMetas<EditableIcEntry>());
+            SelectedIc = Ics.FirstOrDefault();
 
             SelectBurnInBoardFileCommand = new RelayCommand(SelectBurnInBoardFile);
 
@@ -111,18 +111,6 @@
             EditRunStrategyCommand = new RelayCommand<ExecuteStrategy>(EditRunStrategy);
             EditLoopStrategyCommand = new RelayCommand<ExecuteStrategy>(EditLoopStrategy);
         }
-        private void SelectBurnInBoardFile()
-        {
-            string filter = $"{LangProvider.Instance.DutConfigFileText}|*.elm";
-            string currentFile = SelectedIc.Target.BurnInBoardFile;
-
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.SelectFile, [filter, currentFile])).First();
-
-            if (msgResult.Result is string filePath)
-            {
-                SelectedIc.Target.BurnInBoardFile = filePath;
-            }
-        }
 
         #region IC相关命令
         private void CreateIc()
@@ -131,10 +119,9 @@
 
             if (msgResult.Result is string name)
             {
-                var ic = new EditableIcEntry()
-                {
-                    Name = name
-                };
+                var ic = new EditableIcEntry { Name = name };
+                ic.Attach(new Ic(name));
+                ic.MarkDirty();
                 Ics.Add(ic);
                 SelectedIc = ic;
             }
@@ -159,7 +146,7 @@
         }
         private bool CanSaveIc()
         {
-            return SelectedIc?.IsDirty == true;
+            return SelectedIc?.Ic?.IsDirty == true;
         }
         private void SaveIc()
         {
@@ -168,6 +155,7 @@
             if (errors.Count > 0)
             {
                 MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.ShowValidateError, [errors]));
+                return;
             }
 
             if (ic.Process.StepItems.Count == 0)
@@ -179,7 +167,18 @@
             IcConfigManager.SaveIc(ic);
             SelectedIc.ResetDirty();
         }
+        private void SelectBurnInBoardFile()
+        {
+            string filter = $"{LangProvider.Instance.DutConfigFileText}|*.elm";
+            string currentFile = SelectedIc.Target.BurnInBoardFile;
 
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.SelectFile, [filter, currentFile])).First();
+
+            if (msgResult.Result is string filePath)
+            {
+                SelectedIc.Target.BurnInBoardFile = filePath;
+            }
+        }
         #endregion
 
         #region Dps相关命令

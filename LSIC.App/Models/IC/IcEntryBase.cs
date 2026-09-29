@@ -8,31 +8,60 @@
             get => _name;
             set => SetProperty(ref _name, value);
         }
+
         public DateTime CreateTime { get; set; }
         public DateTime UpdateTime { get; set; }
-        public abstract void Load();
+
+        public abstract void Load(Func<string, Ic> loader);
+        public abstract void Attach(Ic ic);
     }
     public class IcEntry : IcEntryBase
     {
-        public Ic Ic { get; private set; }
-        public override void Load()
+        private Ic _ic;
+        public Ic Ic
         {
-            if (Ic == null)
-            {
-                Ic = IcConfigManager.GetIc(Name);
-            }
+            get => _ic;
+            set => SetProperty(ref _ic, value);
+        }
+        public override void Load(Func<string, Ic> loader)
+        {
+            Ic ??= loader(Name);
+        }
+        public override void Attach(Ic ic)
+        {
+            Ic ??= ic;
         }
     }
     public class EditableIcEntry : IcEntryBase, IDisposable
     {
-        public DirtyObserver<Ic> Ic { get; private set; }
-        public bool IsDirty => Ic?.IsDirty ?? false;
-        public Ic Target => Ic?.Target;
-        public override void Load()
+        private DirtyObserver<Ic> _ic;
+        public DirtyObserver<Ic> Ic
+        {
+            get => _ic;
+            set
+            {
+                if (SetProperty(ref _ic, value))
+                {
+                    OnPropertyChanged(nameof(Target));
+                }
+            }
+        }
+        public Ic Target
+        {
+            get { return _ic?.Target; }
+        }
+        public override void Load(Func<string, Ic> loader)
         {
             if (Ic == null)
             {
-                Ic = new DirtyObserver<Ic>(IcConfigManager.GetIc(Name));
+                Attach(loader(Name));
+            }
+        }
+        public override void Attach(Ic ic)
+        {
+            if (Ic == null)
+            {
+                Ic = new DirtyObserver<Ic>(ic);
             }
         }
         public void MarkDirty()
@@ -43,7 +72,6 @@
         {
             Ic?.ResetDirty();
         }
-
         public void Dispose()
         {
             Ic?.Dispose();

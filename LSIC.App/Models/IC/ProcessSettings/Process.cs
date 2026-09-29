@@ -3,19 +3,12 @@
     /// <summary>
     /// 流程(完成)
     /// </summary>
-    public class Process : ObservableObject
+    public class Process : ObservableValidator
     {
-        public Process()
-        {
-            var powerOn = StepPower.PowerOn();
-            var powerOff = StepPower.PowerOff();
-            StepItems.Add(powerOn);
-            StepItems.Add(powerOff);
-        }
-
         /// <summary>
         /// 流程条目（上电 + 向量（有序） + 下电）
         /// </summary>
+        [ValidationMetadata(Method = nameof(ValidateStepItems))]
         public ObservableCollection<StepItem> StepItems { get; } = new();
 
         /// <summary>
@@ -23,7 +16,6 @@
         /// </summary>
         public ObservableCollection<Loop> Loops { get; } = new();
 
-        //视图用
         private List<LoopSlot> _loopSlots;
 
         /// <summary>
@@ -39,6 +31,17 @@
         /// 插入顺序
         /// </summary>
         public int NewItemInsertIndex => StepItems.Count - 1;
+
+        public Process()
+        {
+            var powerOn = StepPower.PowerOn();
+            var powerOff = StepPower.PowerOff();
+            StepItems.Add(powerOn);
+            StepItems.Add(powerOff);
+
+            StepItems.CollectionChanged += (_, _) => ValidateProperty(nameof(StepItems));
+            ValidateAllProperties();
+        }
 
         /// <summary>
         /// 新增向量步骤(在上下电之间)
@@ -229,5 +232,17 @@
             }
             return new IntClosedRange(a, b).Contains(i);
         }
+
+        #region validate methods
+        protected ValidationResult ValidateStepItems(ObservableCollection<StepItem> value)
+        {
+            if (value is not { Count: > 2 })
+            {
+                return new ValidationResult(LangProvider.Instance.AtleastOneStepMessage);
+            }
+
+            return ValidationResult.Success;
+        }
+        #endregion
     }
 }
