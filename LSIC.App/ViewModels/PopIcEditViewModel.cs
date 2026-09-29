@@ -3,12 +3,18 @@
     public class PopIcEditViewModel : ObservableObject, IDisposable
     {
         //器件
-        public ObservableCollection<DirtyObserver<Ic>> Ics { get; } = new();
-        private DirtyObserver<Ic> _selectedIc;
-        public DirtyObserver<Ic> SelectedIc
+        public ObservableCollection<EditableIcEntry> Ics { get; private set; }
+        private EditableIcEntry _selectedIc;
+        public EditableIcEntry SelectedIc
         {
             get => _selectedIc;
-            set => SetProperty(ref _selectedIc, value);
+            set
+            {
+                if (SetProperty(ref _selectedIc, value))
+                {
+                    value?.Load();
+                }
+            }
         }
         private DutSettingWrapper _dutSettingWrapper;
         public DutSettingWrapper DutSettingWrapper
@@ -73,6 +79,8 @@
 
         public PopIcEditViewModel()
         {
+            Ics = new(IcConfigManager.GetIcMetas<EditableIcEntry>());
+
             SelectBurnInBoardFileCommand = new RelayCommand(SelectBurnInBoardFile);
 
             //Ic
@@ -102,16 +110,6 @@
             //编辑策略
             EditRunStrategyCommand = new RelayCommand<ExecuteStrategy>(EditRunStrategy);
             EditLoopStrategyCommand = new RelayCommand<ExecuteStrategy>(EditLoopStrategy);
-
-#if DEBUG
-            DirtyObserver<Ic> ic = new(new Ic("test ic"));
-            Ics.Add(ic);
-            SelectedIc = ic;
-
-            DpsPlan dpsPlan = new DpsPlan("test dps");
-            SelectedIc.Target.DpsPlans.Add(dpsPlan);
-            SelectedDpsPlan = dpsPlan;
-#endif
         }
         private void SelectBurnInBoardFile()
         {
@@ -133,15 +131,17 @@
 
             if (msgResult.Result is string name)
             {
-                var ic = new DirtyObserver<Ic>(new Ic(name));
-                ic.MarkDirty();
+                var ic = new EditableIcEntry()
+                {
+                    Name = name
+                };
                 Ics.Add(ic);
                 SelectedIc = ic;
             }
         }
         private bool CanDeleteIc()
         {
-            return SelectedIc != null;
+            return SelectedIc?.Target != null;
         }
         private void DeleteIc()
         {
@@ -154,7 +154,12 @@
 
             var ic = SelectedIc;
             Ics.Remove(ic);
+            ic.Dispose();
             SelectedIc = null;
+        }
+        private bool CanSaveIc()
+        {
+            return SelectedIc?.IsDirty == true;
         }
         private void SaveIc()
         {
@@ -172,11 +177,7 @@
             }
 
             IcConfigManager.SaveIc(ic);
-            SelectedIc.Reset();
-        }
-        private bool CanSaveIc()
-        {
-            return SelectedIc?.IsDirty == true;
+            SelectedIc.ResetDirty();
         }
 
         #endregion
@@ -184,7 +185,7 @@
         #region Dps相关命令
         private bool CanCreateDpsPlan()
         {
-            return SelectedIc != null;
+            return SelectedIc?.Target != null;
         }
         private void CreateDpsPlan()
         {
@@ -199,7 +200,7 @@
         }
         private bool CanDeleteDpsPlan()
         {
-            return SelectedIc != null && SelectedDpsPlan != null;
+            return SelectedIc?.Target != null && SelectedDpsPlan != null;
         }
         private void DeleteDpsPlan()
         {
@@ -268,7 +269,7 @@
         #region 流程相关命令
         private bool CanCreateStepItem()
         {
-            return SelectedIc != null;
+            return SelectedIc?.Target != null;
         }
         private void CreateStepItem()
         {
@@ -284,7 +285,7 @@
         private bool CanDeleteStepItem(IList obj)
         {
             var stepItems = obj?.Cast<StepItem>();
-            if (SelectedIc != null
+            if (SelectedIc?.Target != null
                 && stepItems?.Count() > 0
                 && stepItems.All(i => !i.IsFixed))
             {
@@ -300,7 +301,7 @@
         private bool CanMakeLoop(IList obj)
         {
             var stepItems = obj?.Cast<StepItem>();
-            if (SelectedIc != null
+            if (SelectedIc?.Target != null
                 && stepItems?.Count() > 1
                 && stepItems.All(i => !i.IsFixed))
             {
@@ -334,7 +335,7 @@
         }
         private bool CanRemoveLoop(Loop obj)
         {
-            return SelectedIc != null;
+            return SelectedIc?.Target != null;
         }
         private void RemoveLoop(Loop loop)
         {

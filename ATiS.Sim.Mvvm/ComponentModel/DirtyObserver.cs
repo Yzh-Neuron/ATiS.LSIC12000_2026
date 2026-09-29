@@ -42,7 +42,7 @@ namespace ATiS.Sim.Mvvm
         {
             SetDirty();
         }
-        public void Reset()
+        public void ResetDirty()
         {
             if (_disposed)
             {

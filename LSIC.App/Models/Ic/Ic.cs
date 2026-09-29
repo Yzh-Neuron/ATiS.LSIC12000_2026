@@ -48,8 +48,6 @@
         public ThermostatSetting[] ThermostatSettings = null;
         public ObservableCollection<DpsPlan> DpsPlans { get; } = new();
         public Process Process { get; } = new Process();
-        public DateTime CreateTime { get; set; }
-        public DateTime UpdateTime { get; set; }
         public Ic(string name)
         {
             Name = name;

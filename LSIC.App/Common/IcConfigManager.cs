@@ -15,16 +15,17 @@ namespace LSIC.App
                 Directory.CreateDirectory(_directory);
             }
         }
-
-        /// <summary>
-        /// 获取所有器件，但不解析内容
-        /// </summary>
-        public static Ic[] GetIcs(string filter = null)
+        public static T[] GetIcMetas<T>(string filter = null) where T : IcEntryBase, new()
         {
             string pattern = filter == null ? $"*.{IcSuffix}" : $"*{filter}*.{IcSuffix}";
 
             return Directory.EnumerateFiles(_directory, pattern)
-                .Select(ToIcMeta)
+                .Select(path => new T()
+                {
+                    Name = Path.GetFileNameWithoutExtension(path),
+                    CreateTime = File.GetCreationTime(path),
+                    UpdateTime = File.GetLastWriteTime(path),
+                })
                 .OrderBy(ic => ic.CreateTime)
                 .ToArray();
         }
@@ -107,14 +108,6 @@ namespace LSIC.App
         public static string GetIcFileName(Ic ic)
         {
             return $"{ic.Name}.{IcSuffix}";
-        }
-        private static Ic ToIcMeta(string path)
-        {
-            return new Ic(Path.GetFileNameWithoutExtension(path))
-            {
-                CreateTime = File.GetCreationTime(path),
-                UpdateTime = File.GetLastWriteTime(path),
-            };
         }
         private static void TryDelete(string path)
         {

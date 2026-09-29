@@ -10,12 +10,7 @@
             var powerOn = StepPower.PowerOn();
             var powerOff = StepPower.PowerOff();
             StepItems.Add(powerOn);
-#if DEBUG
-            StepItems.Add(new StepVector("步骤1"));
-            StepItems.Add(new StepVector("步骤2"));
-#endif
             StepItems.Add(powerOff);
-
         }
 
         /// <summary>
