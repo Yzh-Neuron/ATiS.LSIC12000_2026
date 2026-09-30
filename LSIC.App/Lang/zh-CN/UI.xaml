@@ -333,11 +333,11 @@
     <sys:String x:Key="ProcessSettingText">流程设置</sys:String>
     <sys:String x:Key="DpsPlanText">电源方案</sys:String>
 
-    <sys:String x:Key="StepFormatText">步次[ {0} ]</sys:String>
-    <sys:String x:Key="SubstepFormatText">子步次[ {0} ]</sys:String>
-    <sys:String x:Key="DpsFormatText">电源[ {0} ]</sys:String>
-    <sys:String x:Key="DpsPlanFormatText">电源方案[ {0} ]</sys:String>
-    <sys:String x:Key="DutFormatText">工位[ {0} ]</sys:String>
+    <sys:String x:Key="StepFormatText">步次[{0}]</sys:String>
+    <sys:String x:Key="SubstepFormatText">子步次[{0}]</sys:String>
+    <sys:String x:Key="DpsFormatText">电源[{0}]</sys:String>
+    <sys:String x:Key="DpsPlanFormatText">电源方案[{0}]</sys:String>
+    <sys:String x:Key="DutFormatText">工位[{0}]</sys:String>
 
     <sys:String x:Key="LogInfosText">日志信息</sys:String>
     <sys:String x:Key="LogLevelText">日志级别</sys:String>

@@ -12,5 +12,10 @@
         public int Id => Info.Id;
         public string Ip => Info.Ip;
         public ushort Port => Info.Port;
+        private TcpClient _client;
+        public void Startup()
+        {
+          
+        }
     }
 }

@@ -333,11 +333,11 @@
     <sys:String x:Key="ProcessSettingText">Process Setting</sys:String>
     <sys:String x:Key="DpsPlanText">DPS Plan</sys:String>
 
-    <sys:String x:Key="StepFormatText">Step[ {0} ]</sys:String>
-    <sys:String x:Key="SubstepFormatText">Substep[ {0} ]</sys:String>
-    <sys:String x:Key="DpsFormatText">DPS[ {0} ]</sys:String>
-    <sys:String x:Key="DpsPlanFormatText">DPS Plan[ {0} ]</sys:String>
-    <sys:String x:Key="DutFormatText">Dut[ {0} ]</sys:String>
+    <sys:String x:Key="StepFormatText">Step[{0}]</sys:String>
+    <sys:String x:Key="SubstepFormatText">Substep[{0}]</sys:String>
+    <sys:String x:Key="DpsFormatText">DPS[{0}]</sys:String>
+    <sys:String x:Key="DpsPlanFormatText">DPS Plan[{0}]</sys:String>
+    <sys:String x:Key="DutFormatText">Dut[{0}]</sys:String>
 
     <sys:String x:Key="LogInfosText">Logs</sys:String>
     <sys:String x:Key="LogLevelText">Log Level</sys:String>

@@ -87,6 +87,10 @@
             CreateIcCommand = new RelayCommand(CreateIc);
             SaveIcCommand = new RelayCommand(SaveIc, CanSaveIc);
             DeleteIcCommand = new RelayCommand(DeleteIc, CanDeleteIc);
+            SaveAsIcCommand = new RelayCommand(SaveAsIc, CanSaveAsIc);
+            ImportIcCommand = new RelayCommand(ImportIc);
+            ExportIcCommand = new RelayCommand(ExportIc, CanExportIc);
+
 
             //Dps电源
             CreateDpsPlanCommand = new RelayCommand(CreateDpsPlan, CanCreateDpsPlan);
@@ -115,7 +119,7 @@
         #region IC相关命令
         private void CreateIc()
         {
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.InputName, [LangProvider.Instance.CreateNewText, Ics.Select(i => i.Target.Name)])).First();
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.InputName, [LangProvider.Instance.CreateNewText, Ics.Select(i => i.Name)])).First();
 
             if (msgResult.Result is string name)
             {
@@ -140,9 +144,12 @@
             }
 
             var ic = SelectedIc;
-            Ics.Remove(ic);
+            if (Ics.Remove(ic))
+            {
+                IcConfigManager.DeleteIc(ic.Target);
+            }
             ic.Dispose();
-            SelectedIc = null;
+            SelectedIc = Ics.LastOrDefault();
         }
         private bool CanSaveIc()
         {
@@ -166,6 +173,101 @@
 
             IcConfigManager.SaveIc(ic);
             SelectedIc.ResetDirty();
+        }
+        private bool CanSaveAsIc()
+        {
+            return SelectedIc?.Ic?.IsDirty == false;
+        }
+        private void SaveAsIc()
+        {
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.InputName, [LangProvider.Instance.SaveAsText, Ics.Select(i => i.Name)])).First();
+
+            if (msgResult.Result is string name)
+            {
+                Ic newIc = IcConfigManager.SaveAsIc(SelectedIc.Target, name);
+                var ic = new EditableIcEntry { Name = name };
+                ic.Attach(newIc);
+                Ics.Add(ic);
+                SelectedIc = ic;
+            }
+        }
+        private void ImportIc()
+        {
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.ImportIc, [])).First();
+
+            if (msgResult.Result is string path)
+            {
+                Ic importIc;
+                try
+                {
+                    importIc = IcParser.Parse(path);
+                }
+                catch (CharReaderException ex)
+                {
+                    string error = string.Format(LangProvider.Instance.FileParseErrorMessage, path, ex.Line, ex.Column);
+                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.FileImportFailureMessage, MessageType.Error]));
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.FileImportFailureMessage + ":\r\n" + ex.Message, MessageType.Error]));
+                    return;
+                }
+
+                if (Ics.Any(i => i.Name == importIc.Name))
+                {
+                    msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.ImportIcFileExistMessage, MessageType.Question])).First();
+
+                    if (msgResult.Result is true)
+                    {
+                        msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.InputName, [LangProvider.Instance.RenameText, Ics.Select(i => i.Name)])).First();
+
+                        if (msgResult.Result is string name)
+                        {
+                            importIc.Name = name;
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                var ic = new EditableIcEntry { Name = importIc.Name };
+                ic.Attach(importIc);
+                ic.MarkDirty();
+                Ics.Add(ic);
+                SelectedIc = ic;
+
+                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.FileImportSuccessMessage, MessageType.Success]));
+            }
+        }
+        private bool CanExportIc()
+        {
+            return SelectedIc?.Ic?.IsDirty == false;
+        }
+        private void ExportIc()
+        {
+            var fileName = IcConfigManager.GetIcFileName(SelectedIc.Target);
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.ExportIc, [fileName])).First();
+
+            if (msgResult.Result is string path)
+            {
+                try
+                {
+                    IcConfigManager.ExportIc(SelectedIc.Target, path);
+                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.FileExportSuccessMessage, MessageType.Success]));
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.FileExportFailureMessage + ":\r\n" + ex.Message, MessageType.Error]));
+                }
+            }
         }
         private void SelectBurnInBoardFile()
         {

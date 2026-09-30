@@ -24,7 +24,11 @@
         public string DpsPlan
         {
             get => _dpsPlan;
-            set => SetProperty(ref _dpsPlan, value);
+            set
+            {
+                value ??= string.Empty;
+                SetProperty(ref _dpsPlan, value);
+            }
         }
 
         private bool _isInLoop;
@@ -67,7 +71,7 @@
         {
             if (this is StepVector && value is not { Count: > 0 })
             {
-                return new ValidationResult(LangProvider.Instance.AtleastOneSubStepMessage,[string.Format(LangProvider.Instance.SubstepFormatText,Name)]);
+                return new ValidationResult(LangProvider.Instance.AtleastOneSubStepMessage, [string.Format(LangProvider.Instance.StepFormatText, Name)]);
             }
 
             return ValidationResult.Success;

@@ -1,6 +1,7 @@
 ﻿global using ATiS.Base;
 global using ATiS.Sim.Mvvm;
 global using ATiS.Sim.Wpf;
+global using ATiS.Sim.Communication;
 global using LSIC.App.Models;
 global using LSIC.App.ViewMessages;
 global using LSIC.App.ViewModels;

@@ -13,7 +13,6 @@
         private Device(SystemConfig systemConfig)
         {
             SystemConfig = systemConfig;
-
             Zones = SystemConfig.ZoneInfos.Select(info => new Zone(info)).ToArray();
         }
 

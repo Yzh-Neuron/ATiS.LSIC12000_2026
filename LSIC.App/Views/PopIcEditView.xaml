@@ -104,16 +104,19 @@
                         Content="{app:Lang {x:Static app:LangKey.SaveText}}"
                         Style="{StaticResource Button.Borderless}" />
                 <Button Margin="5,0,0,0"
-                        Content="{app:Lang {x:Static app:LangKey.SaveAsText}}"
-                        Style="{StaticResource Button.Borderless}" />
-                <Button Margin="5,0,0,0"
                         Command="{Binding DeleteIcCommand}"
                         Content="{app:Lang {x:Static app:LangKey.DeleteText}}"
                         Style="{StaticResource Button.Borderless}" />
                 <Button Margin="5,0,0,0"
+                        Command="{Binding SaveAsIcCommand}"
+                        Content="{app:Lang {x:Static app:LangKey.SaveAsText}}"
+                        Style="{StaticResource Button.Borderless}" />
+                <Button Margin="5,0,0,0"
+                        Command="{Binding ExportIcCommand}"
                         Content="{app:Lang {x:Static app:LangKey.ExportText}}"
                         Style="{StaticResource Button.Borderless}" />
                 <Button Margin="5,0,0,0"
+                        Command="{Binding ImportIcCommand}"
                         Content="{app:Lang {x:Static app:LangKey.ImportText}}"
                         Style="{StaticResource Button.Borderless}" />
             </StackPanel>
@@ -573,9 +576,9 @@
                                                                             </Style.Triggers>
                                                                         </Style>
                                                                     </Button.Style>
-                                                                    <wpf:StateBlock  DataContext="{Binding Loop.ExecuteStrategy}" IsChecked="{Binding Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
+                                                                    <wpf:StateBlock DataContext="{Binding Loop.ExecuteStrategy}" IsChecked="{Binding Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
                                                                         <wpf:StateBlock.UnCheckedContent>
-                                                                            <TextBlock Tag="{Binding Time}" Style="{StaticResource TextBlock.Error}">
+                                                                            <TextBlock Style="{StaticResource TextBlock.Error}" Tag="{Binding Time}">
                                                                                 <Run Text="{Binding Time.Value}" />
                                                                                 <Run Text="{Binding Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
                                                                             </TextBlock>
@@ -791,9 +794,15 @@
                                             <ComboBox Grid.Column="2"
                                                       Width="100"
                                                       DisplayMemberPath="Name"
-                                                      ItemsSource="{Binding Data.SelectedIc.Target.DpsPlans, Source={StaticResource MainDataContext}}"
                                                       SelectedValue="{Binding DpsPlan}"
-                                                      SelectedValuePath="Name" />
+                                                      SelectedValuePath="Name">
+                                                <ComboBox.ItemsSource>
+                                                    <CompositeCollection>
+                                                        <x:Static Member="models:DpsPlan.None" />
+                                                        <CollectionContainer Collection="{Binding Data.SelectedIc.Target.DpsPlans, Source={StaticResource MainDataContext}}" />
+                                                    </CompositeCollection>
+                                                </ComboBox.ItemsSource>
+                                            </ComboBox>
                                         </Grid>
 
                                         <ContentControl Grid.Row="2"
@@ -817,7 +826,7 @@
                                                                    Text=":" />
                                                         <TextBox Grid.Column="2"
                                                                  Width="100"
-                                                                 Text="{Binding Timeout}" />
+                                                                 Text="{Binding Timeout, UpdateSourceTrigger=PropertyChanged}" />
                                                         <TextBlock Grid.Column="3"
                                                                    Margin="5,0,0,0"
                                                                    Text="{app:Lang {x:Static app:LangKey.Enum_TimeUnit_Second}}" />

@@ -46,6 +46,10 @@ namespace LSIC.App
             File.WriteAllText(GetIcPath(name), ic.Serialize(), _encoding);
             return GetIc(name);
         }
+        public static void ExportIc(Ic ic, string path)
+        {
+            File.WriteAllText(path, ic.Serialize(), _encoding);
+        }
         public static async Task<Ic> SaveAsIcAsync(Ic ic, string name)
         {
             await File.WriteAllTextAsync(GetIcPath(name), ic.Serialize(), _encoding);

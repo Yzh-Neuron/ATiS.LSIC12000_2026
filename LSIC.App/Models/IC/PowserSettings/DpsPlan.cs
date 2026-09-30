@@ -5,6 +5,7 @@
     /// </summary>
     public class DpsPlan : ObservableValidator
     {
+        public static DpsPlan None { get; } = new DpsPlan(string.Empty);
         private string _name;
         public string Name
         {

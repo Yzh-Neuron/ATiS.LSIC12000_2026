@@ -11,7 +11,6 @@
 
             MessageBus.Default.Register(this);
         }
-
         public MessageResult Receive(MsgArgs<PopIcEditMessage> e)
         {
             switch (e.Message)
@@ -24,12 +23,34 @@
                         pop.ShowDialog();
                         return MessageResult.From(pop.NameResult);
                     }
-                case PopIcEditMessage.Message:
+                case PopIcEditMessage.ExportIc:
                     {
-                        string message = e.Args[0] as string;
-                        MessageType type = (MessageType)e.Args[1];
-                        return MessageResult.From(MessagePop.Show(message, type));
+                        string fileName = e.Args[0] as string;
+                        string filter = $"{LangProvider.Instance.IcFileText}|*.{IcConfigManager.IcSuffix}";
+                        SaveFileDialog dialog = new SaveFileDialog
+                        {
+                            FileName = fileName,
+                            Filter = filter,
+                        };
+                        if (dialog.ShowDialog() is true)
+                        {
+                            return MessageResult.From(dialog.FileName);
+                        }
                     }
+                    break;
+                case PopIcEditMessage.ImportIc:
+                    {
+                        string filter = $"{LangProvider.Instance.IcFileText}|*.{IcConfigManager.IcSuffix}";
+                        OpenFileDialog dialog = new OpenFileDialog
+                        {
+                            Filter = filter!,
+                        };
+                        if (dialog.ShowDialog() is true)
+                        {
+                            return MessageResult.From(dialog.FileName);
+                        }
+                    }
+                    break;
                 case PopIcEditMessage.SelectFile:
                     {
                         string filter = e.Args[0] as string;
@@ -60,6 +81,7 @@
                         pop.ShowDialog();
                         return MessageResult.From(pop.DpsSetting);
                     }
+
                 case PopIcEditMessage.EditVector:
                 case PopIcEditMessage.CreateVector:
                     {
@@ -82,16 +104,24 @@
                         pop.ShowDialog();
                         return MessageResult.From(pop.ExecuteStrategy);
                     }
+
                 case PopIcEditMessage.ShowValidateError:
                     {
                         List<ValidationResult> errors = e.Args[0] as List<ValidationResult>;
                         MessagePop.Show(errors.ToMessageString(), MessageType.Error);
                         break;
                     }
+                case PopIcEditMessage.Message:
+                    {
+                        string message = e.Args[0] as string;
+                        MessageType type = (MessageType)e.Args[1];
+                        return MessageResult.From(MessagePop.Show(message, type));
+                    }
+
+
             }
             return MessageResult.Null();
         }
-
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
