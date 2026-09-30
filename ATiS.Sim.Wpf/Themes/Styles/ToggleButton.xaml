@@ -78,7 +78,7 @@
         <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
         <Setter Property="Width" Value="{StaticResource DefaultControlHeight}" />
         <Setter Property="Height" Value="{StaticResource DefaultControlHeight}" />
-        <Setter Property="Padding" Value="8" />
+        <Setter Property="Padding" Value="0" />
         <Setter Property="wpf:IconHelper.CheckedGeometry" Value="{x:Null}" />
         <Setter Property="wpf:IconHelper.Geometry" Value="{x:Null}" />
         <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
@@ -90,18 +90,15 @@
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{Binding Path=(wpf:BorderHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
-                            <ContentControl Margin="{TemplateBinding Padding}"
-                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                                <Path x:Name="PathIcon"
-                                      Width="{TemplateBinding wpf:IconHelper.Width}"
-                                      Height="{TemplateBinding wpf:IconHelper.Height}"
-                                      Data="{TemplateBinding wpf:IconHelper.Geometry}"
-                                      Fill="{TemplateBinding Foreground}"
-                                      SnapsToDevicePixels="True"
-                                      Stretch="Uniform" />
-                            </ContentControl>
+                            <Path x:Name="PathIcon"
+                                  Width="{TemplateBinding wpf:IconHelper.Width}"
+                                  Height="{TemplateBinding wpf:IconHelper.Height}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Data="{TemplateBinding wpf:IconHelper.Geometry}"
+                                  Fill="{TemplateBinding Foreground}"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                  Stretch="Uniform" />
                         </Border>
                     </wpf:SimplePanel>
                     <ControlTemplate.Triggers>

@@ -47,13 +47,35 @@
                    Text="{Binding Id, StringFormat=D2}" />
 
     </wpf:SimplePanel>
+
+
+    <TextBlock Grid.Column="2"
+               HorizontalAlignment="Center"
+               d:Text="离线"
+               wpf:LanguageHelper.Auto="True"
+               FontSize="13"
+               Text="{Binding State, Converter={StaticResource EnumToTextConverter}}" />
+
+
     <Path Grid.Column="2"
-          Width="16"
-          Height="16"
+          Width="15"
+          Height="15"
           Margin="0,5,5,0"
           HorizontalAlignment="Right"
           VerticalAlignment="Top"
           Data="{StaticResource Geometry.DoubleRing}"
           Fill="{Binding ElementName=PART_StateRing, Path=Stroke}"
+          Stretch="Uniform"
           Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem, AncestorLevel=1}, Path=IsSelected, Converter={StaticResource TrueToVisibilityConverter}}" />
+
+
+    <ToggleButton Grid.Column="2"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom"
+                  wpf:IconHelper.CheckedGeometry="{StaticResource Geometry.SlotUninserted}"
+                  wpf:IconHelper.Geometry="{StaticResource Geometry.SlotInserted}"
+                  wpf:IconHelper.Height="15"
+                  wpf:IconHelper.Width="15"
+                  Foreground="{DynamicResource SecondForegroundBrush}"
+                  Style="{StaticResource ToggleButton.Icon}" />
 </Grid>
