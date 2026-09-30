@@ -1,0 +1,178 @@
+﻿<Grid x:Class="LSIC.App.Views.CtrHomeView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:app="clr-namespace:LSIC.App"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:models="clr-namespace:LSIC.App.Models"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:views="clr-namespace:LSIC.App.Views"
+      xmlns:vms="clr-namespace:LSIC.App.ViewModels"
+      xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
+      Margin="10"
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Stretch"
+      d:DataContext="{d:DesignInstance vms:CtrHomeViewModel}"
+      d:Height="1080"
+      d:Width="1920"
+      mc:Ignorable="d">
+    <Grid.Resources>
+        <views:CtrHomeViewModelProxy x:Key="MainDataContext" Data="{Binding}" />
+    </Grid.Resources>
+    <Grid Margin="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MaxWidth="500" />
+            <ColumnDefinition Width="2.3*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  左侧老化区总览  -->
+        <TabControl d:ItemsSource="{d:SampleData ItemCount=64}"
+                    BorderThickness="0"
+                    ItemsSource="{Binding Zones, Converter={StaticResource ZoneGroupingConverter}}"
+                    SelectedIndex="0">
+            <TabControl.Style>
+                <Style TargetType="{x:Type TabControl}">
+                    <Setter Property="TabStripPlacement" Value="Top" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TabControl}">
+                                <Grid KeyboardNavigation.TabNavigation="Local">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition x:Name="HeaderRow" Height="40" />
+                                        <RowDefinition x:Name="GapRow" Height="10" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <wpf:SimplePanel>
+                                        <Border BorderBrush="{DynamicResource BorderBrush}"
+                                                BorderThickness="1"
+                                                CornerRadius="{StaticResource DefaultCornerRadius}" />
+                                        <UniformGrid HorizontalAlignment="Stretch"
+                                                     VerticalAlignment="Stretch"
+                                                     Columns="{Binding RelativeSource={RelativeSource AncestorType={x:Type TabControl}}, Path=Items.Count}"
+                                                     IsItemsHost="True"
+                                                     KeyboardNavigation.TabIndex="1" />
+                                    </wpf:SimplePanel>
+
+                                    <ContentPresenter Grid.Row="2"
+                                                      Content="{TemplateBinding SelectedContent}"
+                                                      ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Items.Count}" Value="1">
+                                        <Setter TargetName="HeaderRow" Property="Height" Value="0" />
+                                        <Setter TargetName="GapRow" Property="Height" Value="0" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Items.Count}" Value="0">
+                                        <Setter TargetName="HeaderRow" Property="Height" Value="0" />
+                                        <Setter TargetName="GapRow" Property="Height" Value="0" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Device.Zones.Length}" Value="1">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Style>
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TabItem}">
+                                <Border Background="Transparent" CornerRadius="5">
+                                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="10" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="PART_Name"
+                                                   VerticalAlignment="Center"
+                                                   FontWeight="Bold"
+                                                   Text="{Binding ., Converter={StaticResource ZoneGroupingNameConverter}}" />
+                                        <ItemsControl Grid.Column="2"
+                                                      IsHitTestVisible="False"
+                                                      ItemsSource="{Binding}"
+                                                      Style="{x:Null}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <UniformGrid Rows="4" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid Width="5"
+                                                          Height="5"
+                                                          Margin="0.5"
+                                                          Background="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}" />
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="PART_Name" Property="Foreground" Value="{StaticResource PrimaryBrush}" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.ItemContainerStyle>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ListBox Margin="0,0,-10,-10"
+                             d:ItemsSource="{d:SampleData ItemCount=16}"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             DataContextChanged="OnZoneGroupChanged"
+                             ItemsSource="{Binding .}"
+                             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                             ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                             SelectedValue="{Binding RelativeSource={RelativeSource AncestorType=TabControl}, Path=DataContext.CurrentZone}">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="Margin" Value="0,0,10,10" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="2" Rows="8" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <views:CtrZoneBlockView HorizontalAlignment="Stretch"
+                                                        VerticalAlignment="Stretch"
+                                                        TextElement.FontSize="20" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+
+        <!--  老化区详情  -->
+        <Border Grid.Column="1"
+                Margin="10,0,0,0"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource DefaultCornerRadius}" />
+    </Grid>
+</Grid>

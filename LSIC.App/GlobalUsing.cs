@@ -7,6 +7,7 @@ global using LSIC.App.ViewMessages;
 global using LSIC.App.ViewModels;
 global using LSIC.App.Views;
 global using Microsoft.Win32;
+
 global using System;
 global using System.Collections;
 global using System.Collections.Generic;
@@ -25,6 +26,7 @@ global using System.Windows;
 global using System.Windows.Data;
 global using System.Windows.Input;
 global using System.Windows.Markup;
+global using System.Windows.Media;
 global using Vector = LSIC.App.Models.Vector;
 
 

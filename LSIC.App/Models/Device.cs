@@ -1,4 +1,4 @@
-﻿namespace LSIC.App.Models
+namespace LSIC.App.Models
 {
     /// <summary>
     /// 设备类
@@ -46,8 +46,29 @@
             Instance = new Device(systemConfig);
         }
 
+        /// <summary>
+        /// 启动所有老化区连接
+        /// </summary>
+        public void StartupZones()
+        {
+            foreach (Zone zone in Zones)
+            {
+                zone.Startup();
+            }
+        }
+
         public void Dispose()
         {
+            if (Zones == null)
+            {
+                return;
+            }
+
+            foreach (Zone zone in Zones)
+            {
+                zone.Dispose();
+            }
+            Zones = null;
         }
 
         public event Action ModeChanged;

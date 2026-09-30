@@ -5,6 +5,9 @@
     <Compile Update="Views\Controls\ThermostatBadge.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\CtrHomeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Template\PopTemplateView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

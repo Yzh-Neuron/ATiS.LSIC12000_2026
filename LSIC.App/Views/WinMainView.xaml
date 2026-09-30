@@ -126,28 +126,33 @@
         </Border>
 
         <!--  底部状态栏  -->
-        <Grid Height="30" DockPanel.Dock="Bottom">
+        <Border Height="30"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="0,1,0,0"
+                DockPanel.Dock="Bottom">
             <TextBlock Margin="0,0,10,0"
                        HorizontalAlignment="Right"
                        Text="{Binding Now, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss}'}" />
-        </Grid>
+        </Border>
 
         <!--  老化界面  -->
-        <TabControl wpf:BorderHelper.CornerRadius="0"
+        <views:CtrHomeView />
+        <!--<TabControl wpf:BorderHelper.CornerRadius="0"
                     wpf:TabControlHelper.HeaderHeight="50"
-                    wpf:TabControlHelper.HeaderWidth="50"
+                    wpf:TabControlHelper.HeaderWidth="40"
                     BorderThickness="0,0,0,1"
                     TabStripPlacement="Left">
             <TabItem>
                 <TabItem.Header>
                     <Image Width="20" Source="{StaticResource Image.Blocks}" />
                 </TabItem.Header>
+                <views:CtrHomeView />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <Image Width="20" Source="{StaticResource Image.DataView}" />
                 </TabItem.Header>
             </TabItem>
-        </TabControl>
+        </TabControl>-->
     </DockPanel>
 </wpf:ChromeWindow>
