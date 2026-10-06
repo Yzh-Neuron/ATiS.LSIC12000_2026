@@ -9,11 +9,24 @@ namespace LSIC.App.Models
         {
             Info = info ?? throw new ArgumentNullException(nameof(info));
         }
-
         public ZoneInfo Info { get; }
         public int Id => Info.Id;
         public string Ip => Info.Ip;
         public ushort Port => Info.Port;
+
+        #region 老化相关
+        private BurnInfo _burnInfo;
+        public BurnInfo BurnInfo
+        {
+            get => _burnInfo;
+            set => SetProperty(ref _burnInfo, value);
+        }
+
+        #endregion
+
+
+
+
 
         private TcpClient _client;
         private List<byte> _buffer;
@@ -40,7 +53,6 @@ namespace LSIC.App.Models
         private DpsRunInfo[] _dpss;
         public DpsRunInfo[] Dpss => _dpss ??= Device.Instance.SystemConfig.DpsInfos
             .Select(info => new DpsRunInfo(info)).ToArray();
-
         public void Startup()
         {
             if (_disposed)
@@ -64,7 +76,6 @@ namespace LSIC.App.Models
             _client.Start();
             _client.StartAutoReceive();
         }
-
         private Task OnStateChanged(object sender, SocketStateChangedArgs e)
         {
             Connected = e.Connected;
@@ -182,7 +193,6 @@ namespace LSIC.App.Models
                 await SendAsync(ZoneFunctionCode.DpsGroup, BuildDpsGroup(groupIndex++, plan));
             }
         }
-
         private static byte[] BuildDpsGroup(byte groupIndex, DpsPlan plan)
         {
             using MemoryStream stream = new MemoryStream();
@@ -203,13 +213,11 @@ namespace LSIC.App.Models
 
             return stream.ToArray();
         }
-
         private static void Write(Stream stream, int value)
         {
             byte[] bytes = value.ToBytes(Endianness.Big);
             stream.Write(bytes, 0, bytes.Length);
         }
-
         private async Task SendAsync(ZoneFunctionCode code, params byte[] data)
         {
             if (!Connected || _client == null)
@@ -221,14 +229,12 @@ namespace LSIC.App.Models
             await _client.SendAsync(frame);
             _logger?.Debug($"Tx: {code} 0x{(byte)code:X2} {data.ToHex(" ")}");
         }
-
         private void Unsubscribe(TcpClient client)
         {
             client.StateChanged -= OnStateChanged;
             client.ReceivedData -= OnReceivedData;
             client.ThrownException -= OnClientException;
         }
-
         public void Dispose()
         {
             if (_disposed)

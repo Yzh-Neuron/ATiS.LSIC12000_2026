@@ -55,8 +55,7 @@ namespace LSIC.App.ViewModels
         {
             ObservableCollection<Zone> zones = new ObservableCollection<Zone>(Device.Instance?.Zones ?? Array.Empty<Zone>());
             Zones = new ReadOnlyObservableCollection<Zone>(zones);
-
+            CurrentZone = Zones.FirstOrDefault();
         }
-
     }
 }

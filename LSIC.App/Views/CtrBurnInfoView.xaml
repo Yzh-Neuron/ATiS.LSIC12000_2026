@@ -23,7 +23,7 @@
         <RowDefinition Height="*" />
         <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <Grid>
+    <!--<Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -38,8 +38,8 @@
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <!--<TextBlock Text="{Binding Zone}"/>
-                <TextBlock Text="{TemplateBinding Header}"/>-->
+                --><!--<TextBlock Text="{Binding Zone}"/>
+                <TextBlock Text="{TemplateBinding Header}"/>--><!--
             </Grid>
         </Border>
 
@@ -50,8 +50,6 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-
-
-    </Grid>
+    </Grid>-->
 </Grid>
 

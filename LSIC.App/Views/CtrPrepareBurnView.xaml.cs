@@ -114,6 +114,7 @@ namespace LSIC.App.ViewModels
                     return;
                 }
 
+                Zone.BurnInfo = new BurnInfo(ic, Lot, Operator);
             }
             catch (Exception e)
             {
