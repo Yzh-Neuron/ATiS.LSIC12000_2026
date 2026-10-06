@@ -1,18 +1,17 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-                    xmlns:opt="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+                    xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
 
     <BitmapImage x:Key="TechnologyImage"
-                 opt:Freeze="true"
+                 o:Freeze="true"
                  UriSource="/Resources/Image/Technology.png" />
 
     <BitmapImage x:Key="HighVoltageImage"
-                 opt:Freeze="true"
+                 o:Freeze="true"
                  UriSource="/Resources/Image/HighVoltage.png" />
 
     <BitmapImage x:Key="DeviceTopViewImage"
-                 opt:Freeze="true"
+                 o:Freeze="true"
                  UriSource="/Resources/Image/DeviceTopView.png" />
 
     <DrawingImage x:Key="Image.DataView" o:Freeze="True">
@@ -50,6 +49,27 @@
                     <GeometryDrawing.Geometry>
                         <Geometry>
                             m 22.445239,14.645522 c -0.0049,0 -0.0049,0 0,0 v 7.799717 h -7.799716 v -7.799717 h 7.799716 m 0,-1.554761 h -7.799716 c -0.859977,0 -1.554761,0.694784 -1.554761,1.554761 v 7.799717 c 0,0.859977 0.694784,1.55476 1.554761,1.55476 h 7.799716 C 23.305216,23.999999 24,23.305216 24,22.445239 v -7.799717 c 0,-0.859977 -0.699642,-1.554761 -1.554761,-1.554761 z
+                        </Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Image.LogViewer" o:Freeze="True">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="{DynamicResource ForegroundBrush}">
+                    <GeometryDrawing.Geometry>
+                        <Geometry>
+                            M 73.700787,0 H 17.007874 C 7.5346168,0 4.5538694e-7,7.5346168 0,17.007874 v 56.692913 c 0,9.473258 7.5346165,17.007874 17.007874,17.007874 h 56.692913 c 9.473257,0 17.007874,-7.534617 17.007874,-17.007874 V 17.007874 C 90.708661,7.5346173 83.174044,5.522847e-7 73.700787,0 Z m 9.448819,73.700787 c -0.03336,6.08812 -3.360699,9.41546 -9.448819,9.448819 H 17.007874 C 10.919754,83.116247 7.5924148,79.788908 7.5590551,73.700787 V 17.007874 c 0,-6.101992 3.3468269,-9.4488197 9.4488189,-9.4488189 h 56.692913 c 6.08812,0.03336 9.415459,3.3606989 9.448819,9.4488189 z
+                        </Geometry>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+                <GeometryDrawing Brush="{DynamicResource PrimaryBrush}">
+                    <GeometryDrawing.Geometry>
+                        <Geometry>
+                            m 53.455868,23.53448 c -1.816906,-1.635042 -4.164907,-0.651126 -5.217777,2.170408 L 35.845856,59.071322 c -1.052874,2.821534 -0.419286,6.467827 1.39762,8.102864 1.816907,1.635038 4.164909,0.651126 5.217783,-2.170409 l 12.39223,-33.366433 c 1.052874,-2.821535 0.419286,-6.467823 -1.397621,-8.102864 z m -24.821734,0.868158 c -1.481478,-2.30063 -3.913336,-2.30063 -5.394814,0 L 12.449691,41.158203 c -1.481478,2.300639 -1.481478,6.077149 0,8.377789 l 10.798946,16.77003 c 1.481478,2.300631 3.913337,2.300631 5.394814,0 1.481478,-2.300634 1.481478,-6.077148 0,-8.377783 l -8.09688,-12.573908 8.09688,-12.573908 c 1.481478,-2.300635 1.481478,-6.07715 -0.0093,-8.377785 z m 38.82589,0 c -1.481475,-2.30063 -3.913336,-2.30063 -5.394814,0 -1.481475,2.300635 -1.481475,6.07715 0,8.377785 l 8.09688,12.573908 -8.09688,12.573908 c -1.481475,2.300634 -1.481475,6.077149 0,8.377783 1.481478,2.300631 3.913339,2.300631 5.394814,0 L 78.25897,49.535991 c 1.481478,-2.300639 1.481478,-6.077149 0,-8.377789 z
                         </Geometry>
                     </GeometryDrawing.Geometry>
                 </GeometryDrawing>

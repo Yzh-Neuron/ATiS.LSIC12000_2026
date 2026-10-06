@@ -1,5 +1,4 @@
-﻿using OxyPlot.Wpf;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace LSIC.App.Views
 {
@@ -119,7 +118,7 @@ namespace LSIC.App.ViewModels
             }
             catch (Exception e)
             {
-                MessageBus.Default.Send(MsgArgs.From(WinMainMessage.Message, [e.Message,MessageType.Error]));
+                MessageBus.Default.Send(MsgArgs.From(WinMainMessage.Message, [e.Message, MessageType.Error]));
             }
         }
 
@@ -128,7 +127,7 @@ namespace LSIC.App.ViewModels
         {
             if (!string.IsNullOrEmpty(lot) && !regex.IsMatch(lot))
             {
-                return new ValidationResult(LangProvider.Instance.ValidStringRuleMessage,[LangProvider.Instance.LotText]);
+                return new ValidationResult(LangProvider.Instance.ValidStringRuleMessage, [LangProvider.Instance.LotText]);
             }
 
             return ValidationResult.Success;

@@ -1,4 +1,10 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <BitmapImage x:Key="Image.Cloud" UriSource="pack://application:,,,/ATiS.Sim.Wpf;component/Resources/Images/Cloud.png" />
-    <BitmapImage x:Key="Image.ATiS" UriSource="pack://application:,,,/ATiS.Sim.Wpf;component/Resources/Images/ATiS.png" />
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+    <BitmapImage x:Key="Image.Cloud"
+                 o:Freeze="True"
+                 UriSource="pack://application:,,,/ATiS.Sim.Wpf;component/Resources/Images/Cloud.png" />
+    <BitmapImage x:Key="Image.ATiS"
+                 o:Freeze="True"
+                 UriSource="pack://application:,,,/ATiS.Sim.Wpf;component/Resources/Images/ATiS.png" />
 </ResourceDictionary>

@@ -25,7 +25,6 @@
             <ColumnDefinition Width="{Binding Zones.Count, Converter={StaticResource ZoneCountToColumnWidthConverter}, ConverterParameter=Right}" />
         </Grid.ColumnDefinitions>
 
-
         <!--  左侧老化区总览  -->
         <TabControl Margin="0,0,10,0"
                     d:ItemsSource="{d:SampleData ItemCount=64}"
@@ -176,48 +175,78 @@
               DataContext="{Binding CurrentZone}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" MaxWidth="400" />
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="1.6*" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
 
-            <!--  单区状态  -->
             <Border BorderBrush="{DynamicResource BorderBrush}"
-                    BorderThickness="1,1,1,0"
-                    CornerRadius="4,0,0,0">
-                <wpf:SimplePanel Margin="15,0">
-                    <TextBlock HorizontalAlignment="Left"
-                               FontFamily="{StaticResource Fonts.MapleMono}"
-                               FontWeight="Bold">
-                        <TextBlock.Text>
-                            <MultiBinding Converter="{StaticResource FormatTextConverter}">
-                                <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
-                                <Binding Path="Id" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <TextBlock>
-                            <Run Text="{app:Lang {x:Static app:LangKey.StateText}}" />
-                            <Run Text="：" />
-                        </TextBlock>
-
-                        <TextBlock wpf:LanguageHelper.Auto="True" Text="{Binding State, Converter={StaticResource EnumToTextConverter}}" />
-                    </StackPanel>
-                </wpf:SimplePanel>
-            </Border>
-
-            <Border Grid.Row="1"
-                    BorderBrush="{DynamicResource BorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="0,0,0,4">
-                <!--  准备老化  -->
-                <views:CtrPrepareBurnView Margin="10"  />
+                    CornerRadius="4,0,0,4">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <!--  单区状态  -->
+                    <Border Grid.Row="0"
+                            BorderBrush="{DynamicResource BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4">
+                        <wpf:SimplePanel Margin="15,0">
+                            <TextBlock HorizontalAlignment="Left"
+                                       FontFamily="{StaticResource Fonts.MapleMono}"
+                                       FontSize="14"
+                                       FontWeight="Bold">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource FormatTextConverter}">
+                                        <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
+                                        <Binding Path="Id" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                <TextBlock>
+                                    <Run Text="{app:Lang {x:Static app:LangKey.StateText}}" />
+                                    <Run Text="：" />
+                                </TextBlock>
+
+                                <TextBlock wpf:LanguageHelper.Auto="True" Text="{Binding State, Converter={StaticResource EnumToTextConverter}}" />
+                            </StackPanel>
+                        </wpf:SimplePanel>
+                    </Border>
+
+                    <!--  准备老化  -->
+                    <views:CtrPrepareBurnView Grid.Row="1" Margin="0,10,0,0" />
+                </Grid>
             </Border>
+
+            <TabControl Grid.RowSpan="2"
+                        Grid.Column="1"
+                        wpf:BorderHelper.CornerRadius="0,4,4,0"
+                        wpf:TabControlHelper.HasSeparator="False"
+                        wpf:TabControlHelper.HeaderHeight="90"
+                        wpf:TabControlHelper.HeaderPanelBackground="{DynamicResource BackgroundBrush}"
+                        wpf:TabControlHelper.HeaderWidth="36"
+                        BorderBrush="{DynamicResource BorderBrush}"
+                        BorderThickness="0,1,1,1"
+                        TabStripPlacement="Right">
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Vertical">
+                            <Image Width="15" Source="{StaticResource Image.LogViewer}" />
+
+                            <TextBlock MaxWidth="12"
+                                       Margin="0,10,0,0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Courier New"
+                                       Text="{app:Lang {x:Static app:LangKey.LogText}}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                    </TabItem.Header>
+                </TabItem>
+            </TabControl>
         </Grid>
     </Grid>
 </Grid>
