@@ -16,8 +16,7 @@ namespace LSIC.App.Views
             get => (Zone)GetValue(ZoneProperty);
             set => SetValue(ZoneProperty, value);
         }
-        public static readonly DependencyProperty ZoneProperty = DependencyProperty.Register(
-            nameof(Zone), typeof(Zone), typeof(CtrPrepareBurnView), new PropertyMetadata(null, OnZoneChanged));
+        public static readonly DependencyProperty ZoneProperty = DependencyProperty.Register(nameof(Zone), typeof(Zone), typeof(CtrPrepareBurnView), new PropertyMetadata(null, OnZoneChanged));
         private static void OnZoneChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             (d as CtrPrepareBurnView)?.UpdateZone(e.NewValue as Zone);

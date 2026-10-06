@@ -752,7 +752,7 @@
                                 <wpf:SimplePanel>
                                     <Border BorderBrush="{StaticResource BorderBrush}"
                                             BorderThickness="1"
-                                            CornerRadius="4" />
+                                            CornerRadius="{StaticResource DefaultCornerRadius}" />
                                     <TextBlock Height="24"
                                                Margin="20,-9,0,0"
                                                Padding="5,0"

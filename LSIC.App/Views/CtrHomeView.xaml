@@ -190,7 +190,7 @@
                     <Border Grid.Row="0"
                             BorderBrush="{DynamicResource BorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="4">
+                            CornerRadius="{StaticResource DefaultCornerRadius}">
                         <wpf:SimplePanel Margin="15,0">
                             <TextBlock HorizontalAlignment="Left"
                                        FontFamily="{StaticResource Fonts.MapleMono}"
@@ -216,7 +216,8 @@
                     </Border>
 
                     <!--  准备老化  -->
-                    <views:CtrPrepareBurnView Grid.Row="1" Margin="0,10,0,0" />
+                    <!--<views:CtrPrepareBurnView Grid.Row="1" Margin="0,10,0,0" />-->
+                    <views:CtrBurnInfoView Grid.Row="1" Margin="0,10,0,0" />
                 </Grid>
             </Border>
 
