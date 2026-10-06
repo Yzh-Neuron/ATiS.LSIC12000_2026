@@ -150,17 +150,18 @@
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{app:Lang {x:Static app:LangKey.LogIntervalText}}" />
-                                <TextBlock Grid.Column="1"
-                                           Margin="3,0,10,0"
-                                           Text=":" />
-                                <TextBox Grid.Column="2"
+
+                                <TextBlock Grid.Column="0" Margin="0,0,10,0">
+                                    <Run Text="{app:Lang {x:Static app:LangKey.LogIntervalText}}" />
+                                    <Run Text=":" />
+                                </TextBlock>
+
+                                <TextBox Grid.Column="1"
                                          Width="100"
                                          Text="{Binding LogInterval.Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToIntegerConverter}}" />
 
-                                <ComboBox Grid.Column="3"
+                                <ComboBox Grid.Column="2"
                                           Width="75"
                                           Margin="5,0,0,0"
                                           wpf:LanguageHelper.Auto="True"
@@ -180,17 +181,16 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{app:Lang {x:Static app:LangKey.ErrorLogIntervalText}}" />
-                                <TextBlock Grid.Column="1"
-                                           Margin="3,0,10,0"
-                                           Text=":" />
-                                <TextBox Grid.Column="2"
+                                <TextBlock Grid.Column="0" Margin="0,0,10,0">
+                                    <Run Text="{app:Lang {x:Static app:LangKey.ErrorLogIntervalText}}" />
+                                    <Run Text=":" />
+                                </TextBlock>
+                                <TextBox Grid.Column="1"
                                          Width="100"
                                          Text="{Binding ErrorLogInterval.Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToIntegerConverter}}"
                                          Visibility="{Binding ErrorLogEnable, Converter={StaticResource TrueToVisibilityConverter}}" />
-                                <ComboBox Grid.Column="3"
+                                <ComboBox Grid.Column="2"
                                           Width="75"
                                           Margin="5,0"
                                           DisplayMemberPath="Value"
@@ -199,7 +199,7 @@
                                           SelectedValue="{Binding ErrorLogInterval.Unit}"
                                           SelectedValuePath="Key"
                                           Visibility="{Binding ErrorLogEnable, Converter={StaticResource TrueToVisibilityConverter}}" />
-                                <CheckBox Grid.Column="4"
+                                <CheckBox Grid.Column="3"
                                           DockPanel.Dock="Right"
                                           IsChecked="{Binding ErrorLogEnable}" />
                             </Grid>
@@ -210,18 +210,17 @@
                                   HorizontalAlignment="Left">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
-                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{app:Lang {x:Static app:LangKey.DutConfigFileText}}" />
-                                <TextBlock Grid.Column="1"
-                                           Margin="3,0,10,0"
-                                           Text=":" />
-                                <wpf:TextBox Grid.Column="2"
+                                <TextBlock Grid.Column="0" Margin="0,0,10,0">
+                                    <Run Text="{app:Lang {x:Static app:LangKey.DutConfigFileText}}" />
+                                    <Run Text=":" />
+                                </TextBlock>
+                                <wpf:TextBox Grid.Column="1"
                                              wpf:WidgetHelper.ShowClearButton="True"
                                              Text="{Binding BurnInBoardFile, Mode=TwoWay}" />
-                                <Button Grid.Column="3"
+                                <Button Grid.Column="2"
                                         Margin="5,0,0,0"
                                         Command="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectBurnInBoardFileCommand}"
                                         DockPanel.Dock="Right"
@@ -230,7 +229,7 @@
 
                             <Grid Grid.Row="3"
                                   MinWidth="600"
-                                  MaxWidth="800"
+                                  MaxWidth="750"
                                   Margin="0,20,0,0"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Stretch"
@@ -300,15 +299,20 @@
                                         </Grid.RowDefinitions>
                                         <wpf:SimplePanel Height="30" Visibility="{Binding IsValid, Converter={StaticResource TrueToVisibilityConverter}}">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{app:Lang {x:Static app:LangKey.ThermostatIndexText}}" />
-                                                <TextBlock Margin="3,0,10,0" Text=":" />
+                                                <TextBlock Margin="0,0,10,0">
+                                                    <Run Text="{app:Lang {x:Static app:LangKey.ThermostatIndexText}}" />
+                                                    <Run Text=":" />
+                                                </TextBlock>
+
                                                 <TextBlock Width="100"
                                                            Margin="0,0,5,0"
                                                            Text="{Binding DutSettingTemplate.ThermostatSetting.Id}" />
                                             </StackPanel>
                                             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                                                <TextBlock Text="{app:Lang {x:Static app:LangKey.ThermostatEnableText}}" />
-                                                <TextBlock Margin="3,0,10,0" Text="(℃):" />
+                                                <TextBlock Margin="0,0,10,0">
+                                                    <Run Text="{app:Lang {x:Static app:LangKey.ThermostatEnableText}}" />
+                                                    <Run Text="(℃):" />
+                                                </TextBlock>
                                                 <TextBox Width="100"
                                                          Margin="0,0,5,0"
                                                          VerticalAlignment="Center"
@@ -767,13 +771,12 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
                                                 <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentStepText}}" />
-                                            <TextBlock Grid.Column="1"
-                                                       Margin="3,0,10,0"
-                                                       Text=":" />
+                                            <TextBlock Grid.Column="0" Margin="0,0,10,0">
+                                                <Run Text="{app:Lang {x:Static app:LangKey.CurrentStepText}}" />
+                                                <Run Text=":" />
+                                            </TextBlock>
+
                                             <TextBlock Grid.Column="3"
                                                        Width="80"
                                                        Text="{Binding Name}" />
@@ -785,12 +788,11 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
                                                 <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Text="{app:Lang {x:Static app:LangKey.DpsPlanText}}" />
-                                            <TextBlock Grid.Column="1"
-                                                       Margin="3,0,10,0"
-                                                       Text=":" />
+                                            <TextBlock Grid.Column="0" Margin="0,0,10,0">
+                                                <Run Text="{app:Lang {x:Static app:LangKey.DpsPlanText}}" />
+                                                <Run Text=":" />
+                                            </TextBlock>
                                             <ComboBox Grid.Column="2"
                                                       Width="100"
                                                       DisplayMemberPath="Name"
@@ -818,16 +820,15 @@
                                                             <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="Auto" />
                                                         </Grid.ColumnDefinitions>
-                                                        <TextBlock Text="{app:Lang {x:Static app:LangKey.PatternTimeoutText}}" />
-                                                        <TextBlock Grid.Column="1"
-                                                                   Margin="3,0,10,0"
-                                                                   Text=":" />
-                                                        <TextBox Grid.Column="2"
+                                                        <TextBlock Grid.Column="0" Margin="0,0,10,0">
+                                                            <Run Text="{app:Lang {x:Static app:LangKey.PatternTimeoutText}}" />
+                                                            <Run Text=":" />
+                                                        </TextBlock>
+                                                        <TextBox Grid.Column="1"
                                                                  Width="100"
                                                                  Text="{Binding Timeout, UpdateSourceTrigger=PropertyChanged}" />
-                                                        <TextBlock Grid.Column="3"
+                                                        <TextBlock Grid.Column="2"
                                                                    Margin="5,0,0,0"
                                                                    Text="{app:Lang {x:Static app:LangKey.Enum_TimeUnit_Second}}" />
                                                     </Grid>
@@ -840,13 +841,13 @@
                                                             <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="Auto" />
                                                         </Grid.ColumnDefinitions>
-                                                        <TextBlock Text="{app:Lang {x:Static app:LangKey.RunStrategyText}}" />
-                                                        <TextBlock Grid.Column="1"
-                                                                   Margin="3,0,10,0"
-                                                                   Text=":" />
-                                                        <wpf:StateBlock Grid.Column="2"
+                                                        <TextBlock Grid.Column="0" Margin="0,0,10,0">
+                                                            <Run Text="{app:Lang {x:Static app:LangKey.RunStrategyText}}" />
+                                                            <Run Text=":" />
+                                                        </TextBlock>
+
+                                                        <wpf:StateBlock Grid.Column="1"
                                                                         DataContext="{Binding ExecuteStrategy}"
                                                                         IsChecked="{Binding Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
                                                             <wpf:StateBlock.UnCheckedContent>
@@ -863,7 +864,7 @@
                                                             </wpf:StateBlock.CheckedContent>
                                                         </wpf:StateBlock>
 
-                                                        <Button Grid.Column="3"
+                                                        <Button Grid.Column="2"
                                                                 Margin="10,0,0,0"
                                                                 Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditRunStrategyCommand}"
                                                                 CommandParameter="{Binding ExecuteStrategy}"

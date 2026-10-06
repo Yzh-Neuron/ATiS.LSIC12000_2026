@@ -134,7 +134,8 @@
                              DataContextChanged="OnZoneGroupChanged"
                              ItemsSource="{Binding .}"
                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                             ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                             ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                             SelectedItem="{Binding Source={StaticResource MainDataContext}, Path=Data.CurrentZone}">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -170,16 +171,53 @@
         </TabControl>
 
         <!--  老化区详情  -->
-        <Border Grid.Column="1"
-                BorderBrush="{DynamicResource BorderBrush}"
-                BorderThickness="1"
-                CornerRadius="{StaticResource DefaultCornerRadius}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-            </Grid>
-        </Border>
+        <Grid Grid.Column="1"
+              d:DataContext="{d:DesignInstance models:Zone}"
+              DataContext="{Binding CurrentZone}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MaxWidth="400" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="1.6*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--  单区状态  -->
+            <Border BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1,1,1,0"
+                    CornerRadius="4,0,0,0">
+                <wpf:SimplePanel Margin="15,0">
+                    <TextBlock HorizontalAlignment="Left"
+                               FontFamily="{StaticResource Fonts.MapleMono}"
+                               FontWeight="Bold">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource FormatTextConverter}">
+                                <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
+                                <Binding Path="Id" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <TextBlock>
+                            <Run Text="{app:Lang {x:Static app:LangKey.StateText}}" />
+                            <Run Text="：" />
+                        </TextBlock>
+
+                        <TextBlock wpf:LanguageHelper.Auto="True" Text="{Binding State, Converter={StaticResource EnumToTextConverter}}" />
+                    </StackPanel>
+                </wpf:SimplePanel>
+            </Border>
+
+            <Border Grid.Row="1"
+                    BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="0,0,0,4">
+                <!--  准备老化  -->
+                <views:CtrPrepareBurnView Margin="10"  />
+            </Border>
+        </Grid>
     </Grid>
 </Grid>

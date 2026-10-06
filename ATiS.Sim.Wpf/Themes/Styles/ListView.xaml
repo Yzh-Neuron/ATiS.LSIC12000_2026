@@ -35,7 +35,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Padding" Value="{StaticResource DefaultControlPadding}" />
-        <Setter Property="MinHeight" Value="{Binding Path=(wpf:ListViewHelper.ColumnHeaderHeight), RelativeSource={RelativeSource AncestorType=ListView}}" />
+        <Setter Property="MinHeight" Value="{StaticResource DefaultItemHeight}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
@@ -80,6 +80,8 @@
     <Style x:Key="ListViewItem.Default"
            BasedOn="{StaticResource Control.Base}"
            TargetType="{x:Type ListViewItem}">
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
@@ -87,7 +89,7 @@
         <Setter Property="Padding" Value="6,0" />
         <Setter Property="wpf:BorderHelper.CornerRadius" Value="0" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="MinHeight" Value="{Binding Path=(wpf:ListViewHelper.ListViewItemMinHeight), RelativeSource={RelativeSource AncestorType=ListView}}" />
+        <Setter Property="MinHeight" Value="{StaticResource DefaultItemHeight}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -98,7 +100,10 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}"
                             SnapsToDevicePixels="true">
-                        <GridViewRowPresenter Columns="{TemplateBinding GridView.ColumnCollection}" Content="{TemplateBinding Content}" />
+                        <GridViewRowPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Columns="{TemplateBinding GridView.ColumnCollection}"
+                                              Content="{TemplateBinding Content}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -126,9 +131,6 @@
         <Setter Property="ScrollViewer.PanningMode" Value="Both" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="ItemContainerStyle" Value="{StaticResource ListViewItem.Default}" />
-        <Setter Property="wpf:ListViewHelper.ColumnHeaderHeight" Value="{StaticResource DefaultItemHeight}" />
-        <Setter Property="wpf:ListViewHelper.ListViewItemMinHeight" Value="{StaticResource DefaultItemHeight}" />
         <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -213,6 +215,7 @@
         </Setter>
     </Style>
 
+    <Style BasedOn="{StaticResource ListViewItem.Default}" TargetType="{x:Type ListViewItem}" />
     <Style BasedOn="{StaticResource GridViewColumnHeader.Default}" TargetType="{x:Type GridViewColumnHeader}" />
     <Style BasedOn="{StaticResource ListView.Default}" TargetType="{x:Type ListView}" />
 </ResourceDictionary>

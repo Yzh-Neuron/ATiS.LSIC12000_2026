@@ -43,6 +43,14 @@ namespace LSIC.App.ViewModels
     public class CtrHomeViewModel : ObservableObject
     {
         public ReadOnlyObservableCollection<Zone> Zones { get; private set; }
+
+        private Zone _currentZone;
+        public Zone CurrentZone
+        {
+            get => _currentZone;
+            set => SetProperty(ref _currentZone, value);
+        }
+
         public CtrHomeViewModel()
         {
             ObservableCollection<Zone> zones = new ObservableCollection<Zone>(Device.Instance?.Zones ?? Array.Empty<Zone>());

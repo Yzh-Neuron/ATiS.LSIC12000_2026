@@ -41,8 +41,19 @@
                     break;
                 case WinMainMessage.ThermostatMonitor:
                     break;
+                case WinMainMessage.ShowValidateError:
+                    {
+                        List<ValidationResult> errors = e.Args[0] as List<ValidationResult>;
+                        MessagePop.Show(errors.ToMessageString(), MessageType.Error);
+                        break;
+                    }
                 case WinMainMessage.Message:
-                    break;
+                    {
+                        string message = e.Args[0] as string;
+                        MessageType type = (MessageType)e.Args[1];
+                        return MessageResult.From(MessagePop.Show(message, type));
+                    }
+
                 default:
                     break;
             }

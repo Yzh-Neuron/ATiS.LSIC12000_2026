@@ -33,8 +33,10 @@
                     Grid.ColumnSpan="2"
                     Margin="10,0,0,0"
                     Orientation="Horizontal">
-            <TextBlock x:Name="modeText" Width="55" />
-            <TextBlock Margin="3,0,10,0" Text=":" />
+            <TextBlock Margin="0,0,10,0">
+                <Run x:Name="modeText" />
+                <Run Text=":" />
+            </TextBlock>
             <ComboBox Width="100"
                       DisplayMemberPath="Value"
                       ItemsSource="{Binding Source={x:Type app:ExecuteMode}, Converter={StaticResource EnumToTextPairsConverter}, UpdateSourceTrigger=PropertyChanged}"
@@ -46,26 +48,27 @@
                          Grid.ColumnSpan="2"
                          Margin="10,0,0,0">
             <StackPanel Orientation="Horizontal" Visibility="{Binding ExecuteStrategy.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Time'}">
-                <TextBlock x:Name="timeText" Width="55" />
-                <TextBlock Margin="3,0,10,0" Text=":" />
-                <TextBox Grid.Column="2"
-                         Width="100"
-                         Text="{Binding ExecuteStrategy.Time.Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToIntegerConverter}}" />
+                <TextBlock Margin="0,0,10,0">
+                    <Run x:Name="timeText" />
+                    <Run Text=":" />
+                </TextBlock>
 
-                <ComboBox Grid.Column="3"
-                          Width="75"
+                <TextBox Width="100" Text="{Binding ExecuteStrategy.Time.Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToIntegerConverter}}" />
+
+                <ComboBox Width="75"
                           Margin="5,0,0,0"
                           wpf:LanguageHelper.Auto="True"
                           DisplayMemberPath="Value"
                           ItemsSource="{Binding Source={x:Type app:TimeUnit}, Converter={StaticResource EnumToTextPairsConverter}}"
                           SelectedValue="{Binding ExecuteStrategy.Time.Unit, UpdateSourceTrigger=PropertyChanged}"
                           SelectedValuePath="Key" />
-
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Visibility="{Binding ExecuteStrategy.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Times'}">
-                <TextBlock x:Name="timesText" Width="55" />
-                <TextBlock Margin="3,0,10,0" Text=":" />
+                <TextBlock Margin="0,0,10,0">
+                    <Run x:Name="timesText" />
+                    <Run Text=":" />
+                </TextBlock>
                 <TextBox Grid.Column="2"
                          Width="100"
                          Text="{Binding ExecuteStrategy.Count, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToIntegerConverter}}" />

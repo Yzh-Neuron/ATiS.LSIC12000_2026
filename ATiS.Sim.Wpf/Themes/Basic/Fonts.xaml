@@ -2,14 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <FontFamily x:Key="Fonts.E1234">
-        pack://application:,,,/ATiS.Wpf;component/Resources/Fonts/#E1234
+        pack://application:,,,/ATiS.Sim.Wpf;component/Resources/Fonts/#E1234
     </FontFamily>
 
     <FontFamily x:Key="Fonts.MapleMono">
-        pack://application:,,,/ATiS.Wpf;component/Resources/Fonts/#Maple Mono NF CN
+        pack://application:,,,/ATiS.Sim.Wpf;component/Resources/Fonts/#Maple Mono NF CN
     </FontFamily>
 
     <FontFamily x:Key="Fonts.Roboto">
-        pack://application:,,,/ATiS.Wpf;component/Resources/Fonts/#Roboto
+        pack://application:,,,/ATiS.Sim.Wpf;component/Resources/Fonts/#Roboto
     </FontFamily>
 </ResourceDictionary>

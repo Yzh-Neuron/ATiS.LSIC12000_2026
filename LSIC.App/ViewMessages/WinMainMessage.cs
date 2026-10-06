@@ -13,5 +13,7 @@
         OvenControl,
         ThermostatMonitor,
         Message,
+
+        ShowValidateError,
     }
 }

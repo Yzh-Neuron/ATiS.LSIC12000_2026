@@ -9,7 +9,7 @@
                 string members = string.Join(">", error.MemberNames ?? Enumerable.Empty<string>());
                 if (members.Length > 0)
                 {
-                    return $"{members}: {error.ErrorMessage}";
+                    return $"{members}：{error.ErrorMessage}";
                 }
                 return error.ErrorMessage;
             });

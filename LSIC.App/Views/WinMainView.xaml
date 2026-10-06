@@ -138,7 +138,7 @@
         <!--  老化界面  -->
         <!--<views:CtrHomeView />-->
         <TabControl wpf:BorderHelper.CornerRadius="0"
-                    wpf:TabControlHelper.HeaderHeight="50"
+                    wpf:TabControlHelper.HeaderHeight="55"
                     wpf:TabControlHelper.HeaderWidth="40"
                     BorderThickness="0"
                     TabStripPlacement="Left">

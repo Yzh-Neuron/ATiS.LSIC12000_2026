@@ -1,0 +1,149 @@
+﻿<Grid x:Class="LSIC.App.Views.CtrPrepareBurnView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:app="clr-namespace:LSIC.App"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:models="clr-namespace:LSIC.App.Models"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:views="clr-namespace:LSIC.App.Views"
+      xmlns:vms="clr-namespace:LSIC.App.ViewModels"
+      xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Stretch"
+      d:DataContext="{d:DesignInstance vms:CtrPrepareBurnViewModel}"
+      d:DesignHeight="500"
+      d:DesignWidth="300"
+      mc:Ignorable="d">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <!--  器件栏  -->
+    <Grid Grid.Row="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!--  搜索框  -->
+        <wpf:TextBox wpf:WidgetHelper.HasReadonlyIcon="True"
+                     wpf:WidgetHelper.ShowClearButton="True"
+                     Style="{StaticResource TextBox.Search}"
+                     Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" />
+
+        <!--  刷新按钮  -->
+        <Button Grid.Column="1"
+                Margin="5,0,0,0"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.Refresh}"
+                wpf:IconHelper.Width="12"
+                Command="{Binding RefreshCommand}" />
+
+        <!--  器件列表  -->
+        <ListView x:Name="IcsList"
+                  Grid.Row="1"
+                  Grid.ColumnSpan="2"
+                  Margin="0,10,0,0"
+                  wpf:ListViewHelper.CanUserResizeColumns="False"
+                  ItemsSource="{Binding Ics}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  SelectedItem="{Binding SelectedIc}">
+            <i:Interaction.Behaviors>
+                <wpf:AutoSelectFirstBehavior />
+            </i:Interaction.Behaviors>
+            <ListView.Resources>
+                <Style BasedOn="{StaticResource GridViewColumnHeader.Default}" TargetType="{x:Type GridViewColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+
+                <Style BasedOn="{StaticResource ListViewItem.Default}" TargetType="{x:Type ListViewItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Width="{Binding ElementName=IcsList, Path=ActualWidth, Converter={StaticResource ProportionalWidthConverter}, ConverterParameter='2,5'}" Header="{app:Lang {x:Static app:LangKey.IcNameText}}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding Name}"
+                                           TextAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=IcsList, Path=ActualWidth, Converter={StaticResource ProportionalWidthConverter}, ConverterParameter='3,5'}" Header="{app:Lang {x:Static app:LangKey.UpdateTimeText}}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding UpdateTime, StringFormat='yyyy-MM-dd HH:mm:ss'}"
+                                           TextAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+
+    <!--  操作员信息  -->
+    <Grid Grid.Row="1" Margin="0,10,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="10" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock>
+            <Run Text="{app:Lang {x:Static app:LangKey.LotText}}" />
+            <Run Text=":" />
+        </TextBlock>
+
+        <wpf:TextBox Grid.Column="1"
+                     Margin="10,0,0,0"
+                     wpf:WidgetHelper.ShowClearButton="True"
+                     MaxLength="32"
+                     Text="{Binding Lot, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Grid.Row="2">
+            <Run Text="{app:Lang {x:Static app:LangKey.OperatorText}}" />
+            <Run Text=":" />
+        </TextBlock>
+
+        <wpf:TextBox Grid.Row="2"
+                     Grid.Column="1"
+                     Margin="10,0,0,0"
+                     wpf:WidgetHelper.ShowClearButton="True"
+                     MaxLength="32"
+                     Text="{Binding Operator, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+
+    <!--  进入老化按钮  -->
+    <Button Grid.Row="3"
+            Height="80"
+            Margin="0,10,0,0"
+            HorizontalAlignment="Stretch"
+            wpf:IconHelper.Geometry="{StaticResource RunIcon}"
+            Command="{Binding ConfirmCommand}"
+            Content="{app:Lang {x:Static app:LangKey.EnterBurnViewText}}"
+            FontSize="22">
+        <!--<Button.IsEnabled>
+            <MultiBinding Converter="{StaticResource ZoneCanGotoBurnConverter}">
+                <Binding Mode="OneWay" Path="Zone" />
+                <Binding Mode="OneWay" Path="Zone.State" />
+                <Binding Mode="OneWay" Path="SelectedItem" />
+            </MultiBinding>
+        </Button.IsEnabled>-->
+    </Button>
+</Grid>
