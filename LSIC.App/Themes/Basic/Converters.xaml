@@ -19,4 +19,5 @@
     <cvt:ZoneStateToBrushConverter x:Key="ZoneStateToBrushConverter" />
     <cvt:ZoneGroupingConverter x:Key="ZoneGroupingConverter" />
     <cvt:ZoneGroupingNameConverter x:Key="ZoneGroupingNameConverter" />
+    <cvt:ZoneCountToColumnWidthConverter x:Key="ZoneCountToColumnWidthConverter" />
 </ResourceDictionary>
