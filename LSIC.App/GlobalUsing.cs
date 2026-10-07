@@ -2,6 +2,7 @@
 global using ATiS.Sim.Mvvm;
 global using ATiS.Sim.Wpf;
 global using ATiS.Sim.Communication;
+global using ATiS.Sim.Log;
 global using LSIC.App.Models;
 global using LSIC.App.ViewMessages;
 global using LSIC.App.ViewModels;
@@ -28,4 +29,5 @@ global using System.Windows.Data;
 global using System.Windows.Input;
 global using System.Windows.Markup;
 global using System.Windows.Media;
+global using System.Collections.Concurrent;
 global using Vector = LSIC.App.Models.Vector;

@@ -11,6 +11,7 @@ namespace LSIC.App
             ic.LogInterval = ReadTimeField(reader, nameof(ic.LogInterval));
             ic.ErrorLogEnable = ReadBoolField(reader, nameof(ic.ErrorLogEnable));
             ic.ErrorLogInterval = ReadTimeField(reader, nameof(ic.ErrorLogInterval));
+            ic.ForceStepLoad = ReadBoolField(reader, nameof(ic.ForceStepLoad));
             ic.BurnInBoardFile = ReadStringField(reader, nameof(ic.BurnInBoardFile));
 
             ReadThermostatSettings(reader, ic);
@@ -368,6 +369,7 @@ namespace LSIC.App
             AppendField(sb, 0, nameof(ic.LogInterval), ic.LogInterval);
             AppendField(sb, 0, nameof(ic.ErrorLogEnable), ic.ErrorLogEnable);
             AppendField(sb, 0, nameof(ic.ErrorLogInterval), ic.ErrorLogInterval);
+            AppendField(sb, 0, nameof(ic.ForceStepLoad), ic.ForceStepLoad);
             AppendField(sb, 0, nameof(ic.BurnInBoardFile), ic.BurnInBoardFile);
 
             WriteThermostatSettings(sb, ic);

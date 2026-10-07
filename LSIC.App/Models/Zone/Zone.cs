@@ -14,6 +14,13 @@ namespace LSIC.App.Models
         public string Ip => Info.Ip;
         public ushort Port => Info.Port;
 
+        private ZoneState _state = ZoneState.Offline;
+        public ZoneState State
+        {
+            get => _state;
+            private set => SetProperty(ref _state, value);
+        }
+
         #region 老化相关
         private BurnInfo _burnInfo;
         public BurnInfo BurnInfo
@@ -23,6 +30,72 @@ namespace LSIC.App.Models
         }
 
         #endregion
+
+        #region 器件下发
+        public async Task SendIcAsync()
+        {
+            BurnInfo info = BurnInfo;
+            if (info == null)
+            {
+                throw new InvalidOperationException("尚未进入老化，无法下发配置");
+            }
+
+            LoadMode mode = LoadMode.Default;
+            long lineCount = info.PatternIndexByPath.Keys.Sum(file =>
+            {
+                try
+                {
+                    return PatternFileHelper.GetCommandCount(file);
+                }
+                catch
+                {
+                    return long.MaxValue;
+                }
+            });
+            if (lineCount > 16_000_000 || info.ForceStepLoad) // 16M 行 或者 IC 强制分步加载
+            {
+                mode = LoadMode.Step;
+            }
+            
+            await SendAsync(ZoneFunctionCode.ConfigFinish, [0x01, (byte)mode]);// 器件开始发送
+            await SendDpsPlans(info);
+            await SendPatterns(info);
+            await SendRegisters(info);
+            await SendPowerAsync(ZoneFunctionCode.UpSet, info.Steps[0]);
+            await SendSteps(info);
+            await SendPowerAsync(ZoneFunctionCode.DownSet, info.Steps[info.Steps.Length - 1]);
+            await SendAsync(ZoneFunctionCode.ConfigFinish, [0x00]); // 器件发送完成
+        }
+        private async Task SendDpsPlans(BurnInfo info)
+        {
+            await SendAsync(ZoneFunctionCode.DpsGroupCount, (byte)info.DpsPlans.Length);
+
+            foreach (BurnDpsPlan plan in info.DpsPlans)
+            {
+                using MemoryStream stream = new MemoryStream();
+                stream.WriteByte(plan.Id);
+                stream.WriteByte((byte)plan.Dpss.Length);
+                foreach (BurnDps dps in plan.Dpss)
+                {
+                    stream.WriteByte((byte)dps.Id);
+                    Write(stream, dps.Vol);
+                    Write(stream, dps.Uvp);
+                    Write(stream, dps.Ovp);
+                    Write(stream, dps.Ocp);
+                    Write(stream, int.MaxValue);
+                    Write(stream, dps.Delay);
+                    Write(stream, dps.Raise);
+                }
+                byte[] data = stream.ToArray();
+                await SendAsync(ZoneFunctionCode.DpsGroup, data);
+            }
+        }
+   
+
+
+
+        #endregion
+
 
 
 
@@ -38,12 +111,7 @@ namespace LSIC.App.Models
             get => _connected;
             private set => SetProperty(ref _connected, value);
         }
-        private ZoneState _state = ZoneState.Offline;
-        public ZoneState State
-        {
-            get => _state;
-            private set => SetProperty(ref _state, value);
-        }
+
         private int? _currentDpsGroupIndex;
         public int? CurrentDpsGroupIndex
         {
@@ -178,39 +246,9 @@ namespace LSIC.App.Models
             }
         }
 
-        /// <summary>
-        /// 下发完整老化配置：电源组 → 向量文件 → 寄存器 → 上电 → 步次 → 下电 → 完成
-        /// </summary>
-        public async Task SendIcAsync()
-        {
-            BurnInfo info = BurnInfo;
-            if (info == null)
-            {
-                throw new InvalidOperationException("尚未进入老化，无法下发配置");
-            }
 
-            await SendDpsPlans(info);
-            await SendPatterns(info);
-            await SendRegisters(info);
-            await SendPowerAsync(ZoneFunctionCode.UpSet, info.Steps[0]);
-            await SendSteps(info);
-            await SendPowerAsync(ZoneFunctionCode.DownSet, info.Steps[info.Steps.Length - 1]);
-            await SendAsync(ZoneFunctionCode.ConfigFinish);
-        }
 
-        /// <summary>
-        /// ① 电源组：先数量，再逐组下发
-        /// </summary>
-        private async Task SendDpsPlans(BurnInfo info)
-        {
-            await SendAsync(ZoneFunctionCode.DpsGroupCount, (byte)info.DpsPlans.Length);
 
-            foreach (BurnDpsPlan plan in info.DpsPlans)
-            {
-                byte[] data = BuildDpsGroup(plan);
-                await SendAsync(ZoneFunctionCode.DpsGroup, data);
-            }
-        }
 
         /// <summary>
         /// ② 向量文件：先数量，再逐条读取下发
@@ -314,26 +352,6 @@ namespace LSIC.App.Models
             return stream.ToArray();
         }
 
-        private static byte[] BuildDpsGroup(BurnDpsPlan plan)
-        {
-            using MemoryStream stream = new MemoryStream();
-            stream.WriteByte(plan.Id);
-            stream.WriteByte((byte)plan.Dpss.Length);
-
-            foreach (BurnDps dps in plan.Dpss)
-            {
-                stream.WriteByte((byte)dps.Id);
-                Write(stream, dps.Vol);
-                Write(stream, dps.Uvp);
-                Write(stream, dps.Ovp);
-                Write(stream, dps.Ocp);
-                Write(stream, int.MaxValue);
-                Write(stream, dps.Delay);
-                Write(stream, dps.Raise);
-            }
-
-            return stream.ToArray();
-        }
 
         private static void Write(Stream stream, int value)
         {

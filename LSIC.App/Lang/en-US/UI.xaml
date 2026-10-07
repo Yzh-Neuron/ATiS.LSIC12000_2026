@@ -146,6 +146,8 @@
     <sys:String x:Key="ErrorLogIntervalText">Error Log Interval</sys:String>
     <sys:String x:Key="LotText">Lot</sys:String>
     <sys:String x:Key="OperatorText">Operator</sys:String>
+    <sys:String x:Key="LoadModeText">Load Mode</sys:String>
+    <sys:String x:Key="ForceStepLoadText">Force Step Load</sys:String>
 
     <sys:String x:Key="RealDataText">Real-time Data</sys:String>
     <sys:String x:Key="DpsText">DPS</sys:String>

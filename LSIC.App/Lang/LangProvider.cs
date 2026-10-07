@@ -30,9 +30,9 @@
         /// <summary>天</summary>
         public string Enum_TimeUnit_Day => GetString("Enum.TimeUnit.Day");
         /// <summary>时间</summary>
-        public string Enum_RunMode_Time => GetString("Enum.ExecuteMode.Time");
+        public string Enum_ExecuteMode_Time => GetString("Enum.ExecuteMode.Time");
         /// <summary>次数</summary>
-        public string Enum_RunMode_Times => GetString("Enum.ExecuteMode.Times");
+        public string Enum_ExecuteMode_Times => GetString("Enum.ExecuteMode.Times");
         /// <summary>风冷</summary>
         public string Enum_CoolingMode_Air => GetString("Enum.CoolingMode.Air");
         /// <summary>水冷</summary>
@@ -849,6 +849,10 @@
         public string LotText => GetString("LotText");
         /// <summary>操作员</summary>
         public string OperatorText => GetString("OperatorText");
+        /// <summary>载入模式</summary>
+        public string LoadModeText => GetString("LoadModeText");
+        /// <summary>强制单步载入</summary>
+        public string ForceStepLoadText => GetString("ForceStepLoadText");
         /// <summary>实时数据</summary>
         public string RealDataText => GetString("RealDataText");
         /// <summary>电源</summary>
@@ -1187,15 +1191,15 @@
         public string ProcessSettingText => GetString("ProcessSettingText");
         /// <summary>电源方案</summary>
         public string DpsPlanText => GetString("DpsPlanText");
-        /// <summary>步次[ {0} ]</summary>
+        /// <summary>步次[{0}]</summary>
         public string StepFormatText => GetString("StepFormatText");
-        /// <summary>子步次[ {0} ]</summary>
+        /// <summary>子步次[{0}]</summary>
         public string SubstepFormatText => GetString("SubstepFormatText");
-        /// <summary>电源[ {0} ]</summary>
+        /// <summary>电源[{0}]</summary>
         public string DpsFormatText => GetString("DpsFormatText");
-        /// <summary>电源方案[ {0} ]</summary>
+        /// <summary>电源方案[{0}]</summary>
         public string DpsPlanFormatText => GetString("DpsPlanFormatText");
-        /// <summary>工位[ {0} ]</summary>
+        /// <summary>工位[{0}]</summary>
         public string DutFormatText => GetString("DutFormatText");
         /// <summary>日志信息</summary>
         public string LogInfosText => GetString("LogInfosText");
@@ -1239,7 +1243,7 @@
         public string ThermostatIndexText => GetString("ThermostatIndexText");
         /// <summary>独立温控监视</summary>
         public string ThermostatMonitorText => GetString("ThermostatMonitorText");
-        /// <summary>独立温控使能</summary>
+        /// <summary>温控使能</summary>
         public string ThermostatEnableText => GetString("ThermostatEnableText");
         /// <summary>独立温控使能关闭</summary>
         public string ThermostatEnableClosedText => GetString("ThermostatEnableClosedText");
@@ -1337,8 +1341,8 @@
             OnPropertyChanged(nameof(Enum_TimeUnit_Minute));
             OnPropertyChanged(nameof(Enum_TimeUnit_Hour));
             OnPropertyChanged(nameof(Enum_TimeUnit_Day));
-            OnPropertyChanged(nameof(Enum_RunMode_Time));
-            OnPropertyChanged(nameof(Enum_RunMode_Times));
+            OnPropertyChanged(nameof(Enum_ExecuteMode_Time));
+            OnPropertyChanged(nameof(Enum_ExecuteMode_Times));
             OnPropertyChanged(nameof(Enum_CoolingMode_Air));
             OnPropertyChanged(nameof(Enum_CoolingMode_Water));
             OnPropertyChanged(nameof(Enum_ZoneFunctionCode_Version));
@@ -1747,6 +1751,8 @@
             OnPropertyChanged(nameof(ErrorLogIntervalText));
             OnPropertyChanged(nameof(LotText));
             OnPropertyChanged(nameof(OperatorText));
+            OnPropertyChanged(nameof(LoadModeText));
+            OnPropertyChanged(nameof(ForceStepLoadText));
             OnPropertyChanged(nameof(RealDataText));
             OnPropertyChanged(nameof(DpsText));
             OnPropertyChanged(nameof(SetVoltageText));
@@ -2013,9 +2019,9 @@
         /// <summary>天</summary>
         public const string Enum_TimeUnit_Day = nameof(Enum_TimeUnit_Day);
         /// <summary>时间</summary>
-        public const string Enum_RunMode_Time = nameof(Enum_RunMode_Time);
+        public const string Enum_ExecuteMode_Time = nameof(Enum_ExecuteMode_Time);
         /// <summary>次数</summary>
-        public const string Enum_RunMode_Times = nameof(Enum_RunMode_Times);
+        public const string Enum_ExecuteMode_Times = nameof(Enum_ExecuteMode_Times);
         /// <summary>风冷</summary>
         public const string Enum_CoolingMode_Air = nameof(Enum_CoolingMode_Air);
         /// <summary>水冷</summary>
@@ -2832,6 +2838,10 @@
         public const string LotText = nameof(LotText);
         /// <summary>操作员</summary>
         public const string OperatorText = nameof(OperatorText);
+        /// <summary>载入模式</summary>
+        public const string LoadModeText = nameof(LoadModeText);
+        /// <summary>强制单步载入</summary>
+        public const string ForceStepLoadText = nameof(ForceStepLoadText);
         /// <summary>实时数据</summary>
         public const string RealDataText = nameof(RealDataText);
         /// <summary>电源</summary>
@@ -3170,15 +3180,15 @@
         public const string ProcessSettingText = nameof(ProcessSettingText);
         /// <summary>电源方案</summary>
         public const string DpsPlanText = nameof(DpsPlanText);
-        /// <summary>步次[ {0} ]</summary>
+        /// <summary>步次[{0}]</summary>
         public const string StepFormatText = nameof(StepFormatText);
-        /// <summary>子步次[ {0} ]</summary>
+        /// <summary>子步次[{0}]</summary>
         public const string SubstepFormatText = nameof(SubstepFormatText);
-        /// <summary>电源[ {0} ]</summary>
+        /// <summary>电源[{0}]</summary>
         public const string DpsFormatText = nameof(DpsFormatText);
-        /// <summary>电源方案[ {0} ]</summary>
+        /// <summary>电源方案[{0}]</summary>
         public const string DpsPlanFormatText = nameof(DpsPlanFormatText);
-        /// <summary>工位[ {0} ]</summary>
+        /// <summary>工位[{0}]</summary>
         public const string DutFormatText = nameof(DutFormatText);
         /// <summary>日志信息</summary>
         public const string LogInfosText = nameof(LogInfosText);
@@ -3222,7 +3232,7 @@
         public const string ThermostatIndexText = nameof(ThermostatIndexText);
         /// <summary>独立温控监视</summary>
         public const string ThermostatMonitorText = nameof(ThermostatMonitorText);
-        /// <summary>独立温控使能</summary>
+        /// <summary>温控使能</summary>
         public const string ThermostatEnableText = nameof(ThermostatEnableText);
         /// <summary>独立温控使能关闭</summary>
         public const string ThermostatEnableClosedText = nameof(ThermostatEnableClosedText);
@@ -3309,12 +3319,7 @@
     [MarkupExtensionReturnType(typeof(object))]
     public class LangExtension : MarkupExtension
     {
-        [ConstructorArgument("PropertyName")]
         public string PropertyName { get; }
-
-        public LangExtension()
-        {
-        }
 
         public LangExtension(string propertyName)
         {

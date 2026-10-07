@@ -142,6 +142,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
@@ -205,6 +206,23 @@
                             </Grid>
 
                             <Grid Grid.Row="2"
+                                  Height="{StaticResource DefaultControlHeight}"
+                                  Margin="0,20,0,0"
+                                  HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Name" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Margin="0,0,10,0">
+                                    <Run Text="{app:Lang {x:Static app:LangKey.ForceStepLoadText}}" />
+                                    <Run Text=":" />
+                                </TextBlock>
+                                <CheckBox Grid.Column="3"
+                                          DockPanel.Dock="Right"
+                                          IsChecked="{Binding ForceStepLoad}" />
+                            </Grid>
+
+                            <Grid Grid.Row="3"
                                   Width="580"
                                   Margin="0,20,0,0"
                                   HorizontalAlignment="Left">
@@ -227,7 +245,7 @@
                                         Style="{StaticResource Button.ChooseFile}" />
                             </Grid>
 
-                            <Grid Grid.Row="3"
+                            <Grid Grid.Row="4"
                                   MinWidth="600"
                                   MaxWidth="750"
                                   Margin="0,20,0,0"
@@ -236,7 +254,7 @@
                                   Visibility="{Binding BurnInBoardSetting, Converter={StaticResource NotNullToVisibilityConverter}}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
-                                    <RowDefinition Height="Auto" MinHeight="160" />
+                                    <RowDefinition Height="Auto" MinHeight="140" />
                                 </Grid.RowDefinitions>
                                 <wpf:MatrixListBox x:Name="PART_DutSettingsList"
                                                    wpf:BorderHelper.CornerRadius="4,4,0,0"
@@ -342,7 +360,7 @@
                                             <Run Text="{Binding DutSettingTemplate.Dpss, Mode=OneWay, Converter={StaticResource EnumerableToStringConverter}}" />
                                             <Run Text="]" />
                                         </TextBlock>
-                                        <TextBlock Grid.Row="3">
+                                        <TextBlock Grid.Row="3" MaxWidth="700">
                                             <Run Text="{app:Lang {x:Static app:LangKey.LinkedDrText}}" />
                                             <Run Text="[" />
                                             <Run Text="{Binding DutSettingTemplate.Drs, Mode=OneWay, Converter={StaticResource EnumerableToStringConverter}}" />
@@ -851,9 +869,9 @@
                                                                         DataContext="{Binding ExecuteStrategy}"
                                                                         IsChecked="{Binding Mode, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter='Times'}">
                                                             <wpf:StateBlock.UnCheckedContent>
-                                                                <TextBlock DataContext="{Binding Time}" Style="{StaticResource TextBlock.Error}">
-                                                                    <Run Text="{Binding Value}" />
-                                                                    <Run Text="{Binding Unit, Converter={StaticResource EnumToTextConverter}}" />
+                                                                <TextBlock Style="{StaticResource TextBlock.Error}" Tag="{Binding Time}">
+                                                                    <Run Text="{Binding Time.Value}" />
+                                                                    <Run Text="{Binding Time.Unit, Converter={StaticResource EnumToTextConverter}}" />
                                                                 </TextBlock>
                                                             </wpf:StateBlock.UnCheckedContent>
                                                             <wpf:StateBlock.CheckedContent>

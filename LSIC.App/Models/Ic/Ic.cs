@@ -1,6 +1,4 @@
-﻿using System.IO.Compression;
-
-namespace LSIC.App.Models
+﻿namespace LSIC.App.Models
 {
     public class Ic : ObservableValidator
     {
@@ -9,6 +7,12 @@ namespace LSIC.App.Models
         {
             get => _name;
             set => SetProperty(ref _name, value);
+        }
+        private bool _forceStepLoad;
+        public bool ForceStepLoad
+        {
+            get => _forceStepLoad;
+            set => SetProperty(ref _forceStepLoad, value);
         }
         private Time _logInterval = new();
         public Time LogInterval

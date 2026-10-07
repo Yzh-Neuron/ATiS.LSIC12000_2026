@@ -9,6 +9,7 @@
         public string Operator { get; private set; }
         public Time LogInterval { get; private set; }
         public Time ErrorLogInterval { get; private set; }
+        public bool ForceStepLoad { get; private set; }
 
         /// <summary>
         /// 老化板
@@ -45,6 +46,7 @@
 
             LogInterval = ic.LogInterval;
             ErrorLogInterval = ic.ErrorLogEnable ? ic.ErrorLogInterval : null;
+            ForceStepLoad = ic.ForceStepLoad;
 
             if (ic.BurnInBoardSetting == null)
             {

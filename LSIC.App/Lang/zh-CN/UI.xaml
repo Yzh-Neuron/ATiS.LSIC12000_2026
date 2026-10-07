@@ -146,6 +146,8 @@
     <sys:String x:Key="ErrorLogIntervalText">报错记录间隔</sys:String>
     <sys:String x:Key="LotText">批次号</sys:String>
     <sys:String x:Key="OperatorText">操作员</sys:String>
+    <sys:String x:Key="LoadModeText">载入模式</sys:String>
+    <sys:String x:Key="ForceStepLoadText">强制单步载入</sys:String>
 
     <sys:String x:Key="RealDataText">实时数据</sys:String>
     <sys:String x:Key="DpsText">电源</sys:String>
