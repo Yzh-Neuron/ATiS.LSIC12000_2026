@@ -1,33 +1,27 @@
 ﻿namespace LSIC.App.Models
 {
+    /// <summary>
+    /// 由IC器件解析成老化区信息
+    /// </summary>
     public class BurnInfo : ObservableObject
     {
-        private string _lot;
-        public string Lot
-        {
-            get { return _lot; }
-            set { SetProperty(ref _lot, value); }
-        }
-
-        private string _operator;
-        public string Operator
-        {
-            get { return _operator; }
-            set { SetProperty(ref _operator, value); }
-        }
+        public string Lot { get; private set; }
+        public string Operator { get; private set; }
+        public Time LogInterval { get; private set; }
+        public Time ErrorLogInterval { get; private set; }
 
         /// <summary>
         /// 老化板
         /// </summary>
-        public BurnInBoard BurnInBoard { get; }
+        public BurnInBoard BurnInBoard { get; private set; }
 
         /// <summary>
-        /// 电源方案（运行时）
+        /// 电源方案
         /// </summary>
         public BurnDpsPlan[] DpsPlans { get; private set; }
 
         /// <summary>
-        /// 步次（按 Id 排好，上下电在首尾）
+        /// 步次（上下电在首尾）
         /// </summary>
         public BurnStep[] Steps { get; private set; }
 
@@ -49,6 +43,9 @@
             Lot = lot;
             Operator = op;
 
+            LogInterval = ic.LogInterval;
+            ErrorLogInterval = ic.ErrorLogEnable ? ic.ErrorLogInterval : null;
+
             if (ic.BurnInBoardSetting == null)
             {
                 throw new InvalidOperationException("老化板配置未解析，无法进入老化界面");
@@ -59,18 +56,24 @@
         }
 
         /// <summary>
-        /// 步骤解析：① 电源方案 ② 循环区间展平 ③ 逐步骤映射（步索引 i 为贯穿主线）
+        /// 步骤解析
         /// </summary>
         private void BuildSteps(Ic ic)
         {
+            //电源方案
             DpsPlans = new BurnDpsPlan[ic.DpsPlans.Count];
             for (int i = 0; i < ic.DpsPlans.Count; i++)
             {
                 DpsPlans[i] = new BurnDpsPlan((byte)i, ic.DpsPlans[i]);
             }
 
+            //向量文件
             Dictionary<string, byte> patternMap = new Dictionary<string, byte>();
+
+            //寄存器文件
             Dictionary<string, byte> registerMap = new Dictionary<string, byte>();
+
+            //步骤映射
             Dictionary<int, (Loop Loop, int Start)> loopByStep = BuildLoopMap(ic.Process);
 
             List<BurnStep> steps = new List<BurnStep>();
@@ -85,8 +88,7 @@
         }
 
         /// <summary>
-        /// ② 循环区间展平：步索引 → (所属循环, 循环起始步)
-        /// LoopResolver 保证区间连续、并列不重叠
+        /// 循环区间展平
         /// </summary>
         private static Dictionary<int, (Loop Loop, int Start)> BuildLoopMap(Process process)
         {
@@ -104,13 +106,9 @@
         }
 
         /// <summary>
-        /// ③ 单步映射：StepItem → BurnStep
+        /// 单步映射
         /// </summary>
-        private static BurnStep MapStep(StepItem item, int index,
-            Dictionary<string, byte> patternMap,
-            Dictionary<string, byte> registerMap,
-            Dictionary<int, (Loop Loop, int Start)> loopByStep,
-            BurnDpsPlan[] dpsPlans)
+        private static BurnStep MapStep(StepItem item, int index, Dictionary<string, byte> patternMap, Dictionary<string, byte> registerMap, Dictionary<int, (Loop Loop, int Start)> loopByStep, BurnDpsPlan[] dpsPlans)
         {
             List<BurnVector> vectors = new List<BurnVector>();
             foreach (Vector vector in item.Vectors)

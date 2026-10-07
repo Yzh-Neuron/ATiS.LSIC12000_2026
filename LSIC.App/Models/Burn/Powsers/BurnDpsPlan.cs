@@ -4,17 +4,17 @@
     {
         public byte Id { get; }
         public string Name { get; }
-        public Dps[] Dpss { get; }
+        public BurnDps[] Dpss { get; }
 
         public BurnDpsPlan(byte id, DpsPlan plan)
         {
             Id = id;
             Name = plan.Name;
 
-            List<Dps> dpss = new List<Dps>();
+            List<BurnDps> dpss = new List<BurnDps>();
             foreach (DpsSetting setting in plan.DpssSettings)
             {
-                dpss.Add(new Dps(setting));
+                dpss.Add(new BurnDps(setting));
             }
             Dpss = dpss.ToArray();
         }

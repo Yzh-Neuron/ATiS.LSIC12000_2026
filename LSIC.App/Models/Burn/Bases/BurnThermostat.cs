@@ -3,11 +3,11 @@
     /// <summary>
     /// 恒温器（运行时）
     /// </summary>
-    public class Thermostat : ObservableObject
+    public class BurnThermostat : ObservableObject
     {
         public int Id { get; }
 
-        public Thermostat(ThermostatSetting setting)
+        public BurnThermostat(ThermostatSetting setting)
         {
             Id = setting.Id;
             Enable = setting.Enable;

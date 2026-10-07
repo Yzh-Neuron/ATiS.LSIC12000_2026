@@ -320,7 +320,7 @@ namespace LSIC.App.Models
             stream.WriteByte(plan.Id);
             stream.WriteByte((byte)plan.Dpss.Length);
 
-            foreach (Dps dps in plan.Dpss)
+            foreach (BurnDps dps in plan.Dpss)
             {
                 stream.WriteByte((byte)dps.Id);
                 Write(stream, dps.Vol);

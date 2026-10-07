@@ -7,39 +7,39 @@
     {
         public int Rows { get; }
         public int Cols { get; }
-        public Dut[] Duts { get; }
-        public Thermostat[] Thermostats { get; }
+        public BurnDut[] Duts { get; }
+        public BurnThermostat[] Thermostats { get; }
         public BurnInBoard(BurnInBoardSetting setting)
         {
             Rows = setting.Row;
             Cols = setting.Column;
 
-            List<Thermostat> thermostats = new List<Thermostat>();
+            List<BurnThermostat> thermostats = new List<BurnThermostat>();
             if (setting.ThermostatSettings != null)
             {
                 foreach (ThermostatSetting thermostatSetting in setting.ThermostatSettings)
                 {
-                    thermostats.Add(new Thermostat(thermostatSetting));
+                    thermostats.Add(new BurnThermostat(thermostatSetting));
                 }
             }
             Thermostats = thermostats.ToArray();
 
-            Dictionary<int, Thermostat> thermostatById = new Dictionary<int, Thermostat>();
-            foreach (Thermostat thermostat in Thermostats)
+            Dictionary<int, BurnThermostat> thermostatById = new Dictionary<int, BurnThermostat>();
+            foreach (BurnThermostat thermostat in Thermostats)
             {
                 thermostatById[thermostat.Id] = thermostat;
             }
 
-            Duts = new Dut[setting.DutSettings.Length];
+            Duts = new BurnDut[setting.DutSettings.Length];
             for (int i = 0; i < setting.DutSettings.Length; i++)
             {
                 DutSetting dutSetting = setting.DutSettings[i];
-                Thermostat thermostat = null;
-                if (dutSetting.ThermostatSetting != null && thermostatById.TryGetValue(dutSetting.ThermostatSetting.Id, out Thermostat found))
+                BurnThermostat thermostat = null;
+                if (dutSetting.ThermostatSetting != null && thermostatById.TryGetValue(dutSetting.ThermostatSetting.Id, out BurnThermostat found))
                 {
                     thermostat = found;
                 }
-                Duts[i] = new Dut(dutSetting, thermostat);
+                Duts[i] = new BurnDut(dutSetting, thermostat);
             }
         }
         private ulong _dutStates;
@@ -50,7 +50,7 @@
         }
 
         /// <summary>
-        /// 工位屏蔽掩码（位序对应 Dut.Id）
+        /// 工位屏蔽掩码（位序对应 BurnDut.Id）
         /// </summary>
         public byte[] DutMask
         {
@@ -59,7 +59,7 @@
             {
                 int[] integers = MaskToIntegers(value ?? Array.Empty<byte>());
                 HashSet<int> masked = new HashSet<int>(integers);
-                foreach (Dut dut in Duts)
+                foreach (BurnDut dut in Duts)
                 {
                     dut.Masked = masked.Contains(dut.Id);
                 }
@@ -68,7 +68,7 @@
         }
         public void Burning()
         {
-            foreach (Dut dut in Duts)
+            foreach (BurnDut dut in Duts)
             {
                 dut.Finished = false;
                 dut.Burning = true;
@@ -77,7 +77,7 @@
         }
         public void Finished()
         {
-            foreach (Dut dut in Duts)
+            foreach (BurnDut dut in Duts)
             {
                 dut.Burning = false;
                 dut.Finished = true;
@@ -86,7 +86,7 @@
         }
         public void CompareError(int cs, int dr)
         {
-            foreach (Dut dut in Duts)
+            foreach (BurnDut dut in Duts)
             {
                 if (!dut.Masked && dut.ChipSelect == cs && dut.Drs.Contains(dr))
                 {
@@ -99,7 +99,7 @@
         private byte[] BuildDutMask()
         {
             List<int> masked = new List<int>();
-            foreach (Dut dut in Duts)
+            foreach (BurnDut dut in Duts)
             {
                 if (dut.Masked)
                 {
@@ -111,7 +111,7 @@
         private ulong AggregateStates()
         {
             ulong states = 0;
-            foreach (Dut dut in Duts)
+            foreach (BurnDut dut in Duts)
             {
                 states += (ulong)dut.State;
             }

@@ -3,7 +3,7 @@
     /// <summary>
     /// 电源配置快照（运行时，下发用）
     /// </summary>
-    public class Dps
+    public class BurnDps
     {
         public int Id { get; }
         public int Vol { get; }
@@ -13,7 +13,7 @@
         public int Raise { get; }
         public int Delay { get; }
 
-        public Dps(DpsSetting setting)
+        public BurnDps(DpsSetting setting)
         {
             Id = setting.Id;
             Vol = setting.Vol;

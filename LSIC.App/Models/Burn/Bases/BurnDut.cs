@@ -3,7 +3,7 @@
     /// <summary>
     /// 单个老化工位（运行时）
     /// </summary>
-    public class Dut : ObservableObject
+    public class BurnDut : ObservableObject
     {
         public int Id { get; }
         public int Row { get; }
@@ -11,9 +11,9 @@
         public int ChipSelect { get; }
         public int[] Drs { get; }
         public int[] Dpss { get; }
-        public Thermostat Thermostat { get; internal set; }
+        public BurnThermostat BurnThermostat { get; internal set; }
 
-        public Dut(DutSetting setting, Thermostat thermostat = null)
+        public BurnDut(DutSetting setting, BurnThermostat thermostat = null)
         {
             Id = setting.Id;
             Row = setting.Row;
@@ -21,7 +21,7 @@
             ChipSelect = setting.ChipSelect;
             Drs = setting.Drs;
             Dpss = setting.Dpss;
-            Thermostat = thermostat;
+            BurnThermostat = thermostat;
         }
 
         public DutState State
