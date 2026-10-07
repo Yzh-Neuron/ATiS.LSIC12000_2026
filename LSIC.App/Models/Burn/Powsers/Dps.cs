@@ -1,59 +1,27 @@
 ﻿namespace LSIC.App.Models
 {
-    public class Dps : ObservableObject
+    /// <summary>
+    /// 电源配置快照（运行时，下发用）
+    /// </summary>
+    public class Dps
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public int Vol { get; private set; }
-        public int Uvp { get; private set; }
-        public int Ovp { get; private set; }
-        public int Ocp { get; private set; }
-        public int Raise { get; private set; }
-        public int Delay { get; private set; }
-        private DpsState _state = DpsState.Idle;
-        public DpsState State
-        {
-            get => _state;
-            private set => SetProperty(ref _state, value);
-        }
-        private int? _inputVoltage;
-        public int? InputVoltage
-        {
-            get => _inputVoltage;
-            private set => SetProperty(ref _inputVoltage, value);
-        }
+        public int Id { get; }
+        public int Vol { get; }
+        public int Uvp { get; }
+        public int Ovp { get; }
+        public int Ocp { get; }
+        public int Raise { get; }
+        public int Delay { get; }
 
-        private int? _outputVoltage;
-        public int? OutputVoltage
+        public Dps(DpsSetting setting)
         {
-            get => _outputVoltage;
-            private set => SetProperty(ref _outputVoltage, value);
-        }
-
-        private int? _outputCurrent;
-        public int? OutputCurrent
-        {
-            get => _outputCurrent;
-            private set => SetProperty(ref _outputCurrent, value);
-        }
-
-        public int? OutputPower => OutputVoltage * OutputCurrent;
-
-        private int? _temperature;
-        public int? Temperature
-        {
-            get => _temperature;
-            private set => SetProperty(ref _temperature, value);
-        }
-
-        public void Update(DpsState state, int inputVoltage, int outputVoltage, int outputCurrent, int temperature)
-        {
-            State = state;
-            InputVoltage = inputVoltage;
-            OutputVoltage = outputVoltage;
-            OutputCurrent = outputCurrent;
-            Temperature = temperature;
-            OnPropertyChanged(nameof(OutputPower));
+            Id = setting.Id;
+            Vol = setting.Vol;
+            Uvp = setting.Uvp;
+            Ovp = setting.Ovp;
+            Ocp = setting.Ocp;
+            Raise = setting.Raise;
+            Delay = setting.Delay;
         }
     }
 }

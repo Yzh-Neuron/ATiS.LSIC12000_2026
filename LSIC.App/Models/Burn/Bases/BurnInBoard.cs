@@ -1,5 +1,8 @@
 ﻿namespace LSIC.App.Models
 {
+    /// <summary>
+    /// 老化板（运行时）：工位阵列 + 恒温器
+    /// </summary>
     public class BurnInBoard : ObservableObject
     {
         public int Rows { get; }
@@ -10,69 +13,113 @@
         {
             Rows = setting.Row;
             Cols = setting.Column;
-            Thermostats = (setting.ThermostatSettings ?? Array.Empty<ThermostatSetting>()).Select(t => new Thermostat(t)).ToArray();
-            var thermostatById = Thermostats.ToDictionary(t => t.Id);
-            Duts = setting.DutSettings.Select(s => new Dut(s, s.ThermostatSetting is { } ts && thermostatById.TryGetValue(ts.Id, out var t) ? t : null)).ToArray();
+
+            List<Thermostat> thermostats = new List<Thermostat>();
+            if (setting.ThermostatSettings != null)
+            {
+                foreach (ThermostatSetting thermostatSetting in setting.ThermostatSettings)
+                {
+                    thermostats.Add(new Thermostat(thermostatSetting));
+                }
+            }
+            Thermostats = thermostats.ToArray();
+
+            Dictionary<int, Thermostat> thermostatById = new Dictionary<int, Thermostat>();
+            foreach (Thermostat thermostat in Thermostats)
+            {
+                thermostatById[thermostat.Id] = thermostat;
+            }
+
+            Duts = new Dut[setting.DutSettings.Length];
+            for (int i = 0; i < setting.DutSettings.Length; i++)
+            {
+                DutSetting dutSetting = setting.DutSettings[i];
+                Thermostat thermostat = null;
+                if (dutSetting.ThermostatSetting != null && thermostatById.TryGetValue(dutSetting.ThermostatSetting.Id, out Thermostat found))
+                {
+                    thermostat = found;
+                }
+                Duts[i] = new Dut(dutSetting, thermostat);
+            }
         }
         private ulong _dutStates;
         public ulong DutStates
         {
-            get => _dutStates;
-            private set => SetProperty(ref _dutStates, value);
+            get { return _dutStates; }
+            private set { SetProperty(ref _dutStates, value); }
         }
+
+        /// <summary>
+        /// 工位屏蔽掩码（位序对应 Dut.Id）
+        /// </summary>
         public byte[] DutMask
         {
-            get => IntegersToMask(Duts.Where(d => d.Masked).Select(d => d.Id), 32);
+            get { return BuildDutMask(); }
             set
             {
-                var masked = new HashSet<int>(MaskToIntegers(value ?? Array.Empty<byte>()));
-                ulong states = 0;
+                int[] integers = MaskToIntegers(value ?? Array.Empty<byte>());
+                HashSet<int> masked = new HashSet<int>(integers);
                 foreach (Dut dut in Duts)
                 {
                     dut.Masked = masked.Contains(dut.Id);
-                    states += (ulong)dut.State;
                 }
-                DutStates = states;
+                DutStates = AggregateStates();
             }
         }
         public void Burning()
         {
-            ulong states = 0;
             foreach (Dut dut in Duts)
             {
                 dut.Finished = false;
                 dut.Burning = true;
-                states += (ulong)dut.State;
             }
-            DutStates = states;
+            DutStates = AggregateStates();
         }
         public void Finished()
         {
-            ulong states = 0;
             foreach (Dut dut in Duts)
             {
                 dut.Burning = false;
                 dut.Finished = true;
-                states += (ulong)dut.State;
             }
-            DutStates = states;
+            DutStates = AggregateStates();
         }
         public void CompareError(int cs, int dr)
         {
-            ulong states = 0;
             foreach (Dut dut in Duts)
             {
                 if (!dut.Masked && dut.ChipSelect == cs && dut.Drs.Contains(dr))
                 {
                     dut.Error = true;
                 }
+            }
+            DutStates = AggregateStates();
+        }
+        private const int MaskBytes = 32;
+        private byte[] BuildDutMask()
+        {
+            List<int> masked = new List<int>();
+            foreach (Dut dut in Duts)
+            {
+                if (dut.Masked)
+                {
+                    masked.Add(dut.Id);
+                }
+            }
+            return IntegersToMask(masked, MaskBytes);
+        }
+        private ulong AggregateStates()
+        {
+            ulong states = 0;
+            foreach (Dut dut in Duts)
+            {
                 states += (ulong)dut.State;
             }
-            DutStates = states;
+            return states;
         }
         private static byte[] IntegersToMask(IEnumerable<int> values, int length)
         {
-            var mask = new byte[length];
+            byte[] mask = new byte[length];
             foreach (int value in values)
             {
                 if (value / 8 < length)
@@ -82,10 +129,20 @@
             }
             return mask;
         }
-        private static int[] MaskToIntegers(byte[] mask) =>
-            mask.SelectMany((b, i) => Enumerable.Range(0, 8)
-                .Where(j => (b & (1 << j)) != 0)
-                .Select(j => i * 8 + j))
-                .ToArray();
+        private static int[] MaskToIntegers(byte[] mask)
+        {
+            List<int> values = new List<int>();
+            for (int i = 0; i < mask.Length; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if ((mask[i] & (1 << j)) != 0)
+                    {
+                        values.Add(i * 8 + j);
+                    }
+                }
+            }
+            return values.ToArray();
+        }
     }
 }

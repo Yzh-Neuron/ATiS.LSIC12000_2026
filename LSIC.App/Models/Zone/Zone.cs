@@ -1,4 +1,4 @@
-using ATiS.Sim.Log;
+﻿using ATiS.Sim.Log;
 using LSIC.App.Common.Enums;
 
 namespace LSIC.App.Models
@@ -179,27 +179,148 @@ namespace LSIC.App.Models
         }
 
         /// <summary>
-        /// 下发全部电源方案（先配置数量，再逐组下发）
+        /// 下发完整老化配置：电源组 → 向量文件 → 寄存器 → 上电 → 步次 → 下电 → 完成
         /// </summary>
-        public async Task SetDpsPlanAsync(Ic ic)
+        public async Task SendIcAsync()
         {
-            ArgumentNullException.ThrowIfNull(ic);
-
-            await SendAsync(ZoneFunctionCode.DpsGroupCount, (byte)ic.DpsPlans.Count);
-
-            byte groupIndex = 0;
-            foreach (DpsPlan plan in ic.DpsPlans)
+            BurnInfo info = BurnInfo;
+            if (info == null)
             {
-                await SendAsync(ZoneFunctionCode.DpsGroup, BuildDpsGroup(groupIndex++, plan));
+                throw new InvalidOperationException("尚未进入老化，无法下发配置");
+            }
+
+            await SendDpsPlans(info);
+            await SendPatterns(info);
+            await SendRegisters(info);
+            await SendPowerAsync(ZoneFunctionCode.UpSet, info.Steps[0]);
+            await SendSteps(info);
+            await SendPowerAsync(ZoneFunctionCode.DownSet, info.Steps[info.Steps.Length - 1]);
+            await SendAsync(ZoneFunctionCode.ConfigFinish);
+        }
+
+        /// <summary>
+        /// ① 电源组：先数量，再逐组下发
+        /// </summary>
+        private async Task SendDpsPlans(BurnInfo info)
+        {
+            await SendAsync(ZoneFunctionCode.DpsGroupCount, (byte)info.DpsPlans.Length);
+
+            foreach (BurnDpsPlan plan in info.DpsPlans)
+            {
+                byte[] data = BuildDpsGroup(plan);
+                await SendAsync(ZoneFunctionCode.DpsGroup, data);
             }
         }
-        private static byte[] BuildDpsGroup(byte groupIndex, DpsPlan plan)
+
+        /// <summary>
+        /// ② 向量文件：先数量，再逐条读取下发
+        /// </summary>
+        private async Task SendPatterns(BurnInfo info)
+        {
+            await SendAsync(ZoneFunctionCode.PatternCount, (byte)info.PatternIndexByPath.Count);
+
+            foreach (KeyValuePair<string, byte> pair in info.PatternIndexByPath)
+            {
+                byte[] file = File.ReadAllBytes(pair.Key);
+                byte[] data = new byte[file.Length + 1];
+                data[0] = pair.Value;
+                Array.Copy(file, 0, data, 1, file.Length);
+                await SendAsync(ZoneFunctionCode.Pattern, data);
+            }
+        }
+
+        /// <summary>
+        /// ③ 寄存器文件：先数量，再解析、序列化下发
+        /// </summary>
+        private async Task SendRegisters(BurnInfo info)
+        {
+            await SendAsync(ZoneFunctionCode.RegisterCount, (byte)info.RegisterIndexByPath.Count);
+
+            foreach (KeyValuePair<string, byte> pair in info.RegisterIndexByPath)
+            {
+                Register register = RegisterParser.Parse(pair.Key);
+                byte[] body = register.Serialize(out int count);
+                byte[] data = new byte[body.Length + 2];
+                data[0] = pair.Value;
+                data[1] = (byte)count;
+                Array.Copy(body, 0, data, 2, body.Length);
+                await SendAsync(ZoneFunctionCode.Register, data);
+            }
+        }
+
+        /// <summary>
+        /// ④/⑥ 上电或下电设置（对应 Process 首尾的 StepPower）
+        /// </summary>
+        private async Task SendPowerAsync(ZoneFunctionCode code, BurnStep step)
+        {
+            byte[] data = new byte[8];
+            data[0] = 0x01;
+            data[1] = step.DpsPlanIndex;
+            data[2] = 0xFF;
+            data[3] = 0xFF;
+            byte[] timeout = step.Timeout.ToBytes(Endianness.Big);
+            Array.Copy(timeout, 0, data, 4, 4);
+            await SendAsync(code, data);
+        }
+
+        /// <summary>
+        /// ⑤ 步次：只下发向量步（上下电已由 UpSet/DownSet 配置）
+        /// </summary>
+        private async Task SendSteps(BurnInfo info)
+        {
+            foreach (BurnStep step in info.Steps)
+            {
+                if (step.Type == StepItemType.Vector)
+                {
+                    await SendAsync(ZoneFunctionCode.StepSet, BuildStepFrame(step));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 组装单步帧（对照 9000 SetStep）
+        /// </summary>
+        private static byte[] BuildStepFrame(BurnStep step)
         {
             using MemoryStream stream = new MemoryStream();
-            stream.WriteByte(groupIndex);
-            stream.WriteByte((byte)plan.DpssSettings.Count);
 
-            foreach (DpsSetting dps in plan.DpssSettings)
+            stream.WriteByte(step.Id);
+            stream.WriteByte((byte)step.Strategy.Mode);
+            Write(stream, step.Strategy.TotalSecondsOrCount);
+            stream.WriteByte(step.DpsPlanIndex);
+
+            if (step.LoopEnable)
+            {
+                stream.WriteByte(0x01);
+                stream.WriteByte(step.LoopTargetIndex);
+                stream.WriteByte((byte)step.LoopStrategy.Mode);
+                Write(stream, step.LoopStrategy.TotalSecondsOrCount);
+            }
+            else
+            {
+                stream.WriteByte(0x00);
+                stream.WriteByte(0xFF);
+                stream.WriteByte(0x00);
+                Write(stream, 0);
+            }
+
+            stream.WriteByte((byte)step.Vectors.Length);
+            foreach (BurnVector vector in step.Vectors)
+            {
+                stream.WriteByte(vector.PatternIndex);
+                stream.WriteByte(vector.RegisterIndex);
+            }
+
+            return stream.ToArray();
+        }
+
+        private static byte[] BuildDpsGroup(BurnDpsPlan plan)
+        {
+            using MemoryStream stream = new MemoryStream();
+            stream.WriteByte(plan.Id);
+            stream.WriteByte((byte)plan.Dpss.Length);
+
+            foreach (Dps dps in plan.Dpss)
             {
                 stream.WriteByte((byte)dps.Id);
                 Write(stream, dps.Vol);
@@ -213,6 +334,7 @@ namespace LSIC.App.Models
 
             return stream.ToArray();
         }
+
         private static void Write(Stream stream, int value)
         {
             byte[] bytes = value.ToBytes(Endianness.Big);

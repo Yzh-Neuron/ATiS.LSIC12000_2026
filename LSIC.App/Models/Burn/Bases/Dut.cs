@@ -1,5 +1,8 @@
 ﻿namespace LSIC.App.Models
 {
+    /// <summary>
+    /// 单个老化工位（运行时）
+    /// </summary>
     public class Dut : ObservableObject
     {
         public int Id { get; }
@@ -9,50 +12,70 @@
         public int[] Drs { get; }
         public int[] Dpss { get; }
         public Thermostat Thermostat { get; internal set; }
+
         public Dut(DutSetting setting, Thermostat thermostat = null)
         {
             Id = setting.Id;
-            Row = setting.Row; 
+            Row = setting.Row;
             Column = setting.Column;
-            ChipSelect = setting.ChipSelect; 
+            ChipSelect = setting.ChipSelect;
             Drs = setting.Drs;
-            Dpss = setting.Dpss; 
+            Dpss = setting.Dpss;
             Thermostat = thermostat;
         }
+
         public DutState State
         {
             get
             {
-                return Masked ? DutState.Ignore :
-                       Error ? DutState.Fail :
-                       Finished ? DutState.Pass :
-                       Burning ? DutState.Test : DutState.Idle;
+                if (Masked)
+                {
+                    return DutState.Ignore;
+                }
+                if (Error)
+                {
+                    return DutState.Fail;
+                }
+                if (Finished)
+                {
+                    return DutState.Pass;
+                }
+                if (Burning)
+                {
+                    return DutState.Test;
+                }
+                return DutState.Idle;
             }
         }
+
         private bool _masked;
         public bool Masked
         {
-            get => _masked;
-            set => SetFlag(ref _masked, value);
+            get { return _masked; }
+            set { SetFlag(ref _masked, value); }
         }
+
         private bool _burning;
         public bool Burning
         {
-            get => _burning;
-            set => SetFlag(ref _burning, value);
+            get { return _burning; }
+            set { SetFlag(ref _burning, value); }
         }
+
         private bool _finished;
         public bool Finished
         {
-            get => _finished;
-            set => SetFlag(ref _finished, value);
+            get { return _finished; }
+            set { SetFlag(ref _finished, value); }
         }
+
         private bool _error;
         public bool Error
         {
-            get => _error;
-            set => SetFlag(ref _error, value);
+            get { return _error; }
+            set { SetFlag(ref _error, value); }
         }
+
         private void SetFlag(ref bool field, bool value)
         {
             if (SetProperty(ref field, value))
