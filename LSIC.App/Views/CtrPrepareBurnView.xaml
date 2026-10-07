@@ -19,7 +19,6 @@
     <Grid.RowDefinitions>
         <RowDefinition Height="*" />
         <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
 
     <!--  器件栏  -->
@@ -61,6 +60,7 @@
             <ListView.Resources>
                 <Style BasedOn="{StaticResource GridViewColumnHeader.Default}" TargetType="{x:Type GridViewColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="Background" Value="{DynamicResource BackgroundBrush}" />
                 </Style>
 
                 <Style BasedOn="{StaticResource ListViewItem.Default}" TargetType="{x:Type ListViewItem}">
@@ -69,7 +69,7 @@
             </ListView.Resources>
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
-                    <GridViewColumn Width="{Binding ElementName=IcsList, Path=ActualWidth, Converter={StaticResource ProportionalWidthConverter}, ConverterParameter='2,5'}" Header="{app:Lang {x:Static app:LangKey.IcNameText}}">
+                    <GridViewColumn Width="{Binding ElementName=IcsList, Path=ActualWidth, Converter={StaticResource ProportionalWidthConverter}, ConverterParameter='1,2'}" Header="{app:Lang {x:Static app:LangKey.IcNameText}}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock HorizontalAlignment="Stretch"
@@ -79,7 +79,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="{Binding ElementName=IcsList, Path=ActualWidth, Converter={StaticResource ProportionalWidthConverter}, ConverterParameter='3,5'}" Header="{app:Lang {x:Static app:LangKey.UpdateTimeText}}">
+                    <GridViewColumn Width="{Binding ElementName=IcsList, Path=ActualWidth, Converter={StaticResource ProportionalWidthConverter}, ConverterParameter='1,2'}" Header="{app:Lang {x:Static app:LangKey.UpdateTimeText}}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock HorizontalAlignment="Stretch"
@@ -98,14 +98,15 @@
     <Grid Grid.Row="1" Margin="0,10,0,0">
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="10" />
+            <RowDefinition Height="5" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="160" />
         </Grid.ColumnDefinitions>
-        <TextBlock>
+        <TextBlock Grid.Row="0">
             <Run Text="{app:Lang {x:Static app:LangKey.LotText}}" />
             <Run Text=":" />
         </TextBlock>
@@ -127,23 +128,30 @@
                      wpf:WidgetHelper.ShowClearButton="True"
                      MaxLength="32"
                      Text="{Binding Operator, UpdateSourceTrigger=PropertyChanged}" />
-    </Grid>
 
-    <!--  进入老化按钮  -->
-    <Button Grid.Row="3"
-            Height="80"
-            Margin="0,10,0,0"
-            HorizontalAlignment="Stretch"
-            wpf:IconHelper.Geometry="{StaticResource RunIcon}"
-            Command="{Binding ConfirmCommand}"
-            Content="{app:Lang {x:Static app:LangKey.EnterBurnViewText}}"
-            FontSize="22">
-        <!--<Button.IsEnabled>
+        <!--  进入老化按钮  -->
+        <Button Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.Column="2"
+                Height="Auto"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                wpf:IconHelper.Geometry="{StaticResource RunIcon}"
+                wpf:IconHelper.Width="16"
+                FontSize="13"
+                Command="{Binding ConfirmCommand}"
+                Content="{app:Lang {x:Static app:LangKey.EnterBurnViewText}}"
+            >
+            <!--<Button.IsEnabled>
             <MultiBinding Converter="{StaticResource ZoneCanGotoBurnConverter}">
                 <Binding Mode="OneWay" Path="Zone" />
                 <Binding Mode="OneWay" Path="Zone.State" />
                 <Binding Mode="OneWay" Path="SelectedItem" />
             </MultiBinding>
         </Button.IsEnabled>-->
-    </Button>
+        </Button>
+    </Grid>
+
+
 </Grid>

@@ -10,7 +10,7 @@
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
                   Title="WinMainView"
                   Width="1280"
-                  Height="900"
+                  Height="950"
                   MinWidth="1280"
                   MinHeight="900"
                   d:DataContext="{d:DesignInstance vms:WinMainViewModel}"
@@ -136,10 +136,11 @@
         </Border>
 
         <!--  老化界面  -->
-        <views:CtrHomeView />
-        <!--<TabControl wpf:BorderHelper.CornerRadius="0"
+
+        <TabControl wpf:BorderHelper.CornerRadius="0"
                     wpf:TabControlHelper.HeaderHeight="55"
                     wpf:TabControlHelper.HeaderWidth="40"
+                    wpf:TabControlHelper.HasSeparator="False"
                     BorderThickness="0"
                     TabStripPlacement="Left">
             <TabItem>
@@ -153,6 +154,6 @@
                     <Image Width="20" Source="{StaticResource Image.DataView}" />
                 </TabItem.Header>
             </TabItem>
-        </TabControl>-->
+        </TabControl>
     </DockPanel>
 </wpf:ChromeWindow>

@@ -19,13 +19,167 @@
     <Grid.Resources>
         <views:CtrHomeViewModelProxy x:Key="MainDataContext" Data="{Binding}" />
     </Grid.Resources>
-    <Grid Margin="0">
+
+    <!--#region 7000布局-->
+    <TabControl BorderThickness="1"
+                ItemContainerStyle="{StaticResource TabItem.Zone}"
+                ItemsSource="{Binding Zones}"
+                SelectedIndex="0"
+                Style="{StaticResource TabControl.Zone}">
+        <TabControl.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Path x:Name="PART_Icon"
+                          Width="20"
+                          Height="20"
+                          HorizontalAlignment="Center"
+                          Data="{StaticResource RunIcon}"
+                          Fill="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}"
+                          Stretch="Uniform" />
+                    <TextBlock x:Name="PART_ZoneName"
+                               Grid.Row="1"
+                               Margin="0,3,0,0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                        <Run Text="{Binding Id, Mode=OneWay}" />
+                        <Run Text="{app:Lang {x:Static app:LangKey.ZoneText}}" />
+                    </TextBlock>
+                </Grid>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding BurnInfo}" Value="{x:Null}">
+                        <Setter TargetName="PART_Icon" Property="Data" Value="{StaticResource RestIcon}" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </TabControl.ItemTemplate>
+        <TabControl.ContentTemplate>
+            <DataTemplate DataType="{x:Type models:Zone}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*" MaxWidth="600" />
+                        <ColumnDefinition Width="10*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Border Grid.Column="0"
+                            BorderBrush="{DynamicResource BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4,0,0,4">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <!--  单区状态  -->
+                            <Grid TextBlock.FontSize="13"
+                                  TextBlock.FontWeight="Bold"
+                                  TextBlock.Foreground="White">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Background="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}"
+                                        BorderBrush="{DynamicResource ForegroundBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="{StaticResource DefaultCornerRadius}">
+                                    <TextBlock Grid.Column="0"
+                                               Margin="10,0,0,0"
+                                               HorizontalAlignment="Center"
+                                               FontFamily="{StaticResource Fonts.MapleMono}">
+                                        <TextBlock.Text>
+                                            <MultiBinding Converter="{StaticResource FormatTextConverter}">
+                                                <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
+                                                <Binding Path="Id" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </Border>
+
+                                <wpf:SimplePanel Grid.Column="1" Margin="5,0,0,0">
+                                    <Border Background="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}"
+                                            BorderBrush="{DynamicResource ForegroundBrush}"
+                                            BorderThickness="1"
+                                            CornerRadius="{StaticResource DefaultCornerRadius}">
+                                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                            <TextBlock>
+                                                <Run Text="{app:Lang {x:Static app:LangKey.StateText}}" />
+                                                <Run Text="：" />
+                                            </TextBlock>
+                                            <TextBlock wpf:LanguageHelper.Auto="True" Text="{Binding State, Converter={StaticResource EnumToTextConverter}}" />
+                                        </StackPanel>
+                                    </Border>
+
+                                    <ToggleButton Grid.Column="2"
+                                                  Margin="0,0,5,0"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Stretch"
+                                                  wpf:IconHelper.CheckedGeometry="{StaticResource Geometry.SlotUninserted}"
+                                                  wpf:IconHelper.Geometry="{StaticResource Geometry.SlotInserted}"
+                                                  wpf:IconHelper.Height="15"
+                                                  wpf:IconHelper.Width="15"
+                                                  Background="{DynamicResource SecondBackgroundBrush}"
+                                                  BorderBrush="{DynamicResource ForegroundBrush}"
+                                                  BorderThickness="1"
+                                                  Foreground="Red"
+                                                  IsHitTestVisible="False"
+                                                  Style="{StaticResource ToggleButton.Icon}" />
+                                </wpf:SimplePanel>
+                            </Grid>
+
+                            <!--  准备老化  -->
+                            <views:CtrPrepareBurnView Grid.Row="1" Margin="0,10,0,0" />
+                            <!--<views:CtrBurnInfoView Grid.Row="1" Margin="0,10,0,0" />-->
+                        </Grid>
+                    </Border>
+                    
+                    <TabControl Grid.Column="1"
+                                wpf:BorderHelper.CornerRadius="0,4,4,0"
+                                wpf:TabControlHelper.HasSeparator="False"
+                                wpf:TabControlHelper.HeaderHeight="90"
+                                wpf:TabControlHelper.HeaderPanelBackground="{DynamicResource BackgroundBrush}"
+                                wpf:TabControlHelper.HeaderWidth="36"
+                                BorderBrush="{DynamicResource BorderBrush}"
+                                BorderThickness="0,1,1,1"
+                                TabStripPlacement="Right">
+                        <TabItem>
+                            <TabItem.Header>
+                                <StackPanel Orientation="Vertical">
+                                    <Image Width="15" Source="{StaticResource Image.LogViewer}" />
+
+                                    <TextBlock MaxWidth="12"
+                                               Margin="0,10,0,0"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontFamily="Courier New"
+                                               Text="{app:Lang {x:Static app:LangKey.LogText}}"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+
+                            </TabItem.Header>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </DataTemplate>
+        </TabControl.ContentTemplate>
+    </TabControl>
+    <!--#endregion-->
+
+    <!--#region GPIC布局-->
+    <!--<Grid Margin="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="{Binding Zones.Count, Converter={StaticResource ZoneCountToColumnWidthConverter}, ConverterParameter=Left}" MaxWidth="450" />
             <ColumnDefinition Width="{Binding Zones.Count, Converter={StaticResource ZoneCountToColumnWidthConverter}, ConverterParameter=Right}" />
         </Grid.ColumnDefinitions>
 
-        <!--  左侧老化区总览  -->
+    -->
+    <!--  左侧老化区总览  -->
+    <!--
         <TabControl Margin="0,0,10,0"
                     d:ItemsSource="{d:SampleData ItemCount=64}"
                     BorderThickness="0"
@@ -169,10 +323,13 @@
             </TabControl.ContentTemplate>
         </TabControl>
 
-        <!--  老化区详情  -->
-        <Grid Grid.Column="1" Visibility="{Binding .,Converter={StaticResource NotNullToVisibilityConverter}}"
+    -->
+    <!--  老化区详情  -->
+    <!--
+        <Grid Grid.Column="1"
               d:DataContext="{d:DesignInstance models:Zone}"
-              DataContext="{Binding CurrentZone}">
+              DataContext="{Binding CurrentZone}"
+              Visibility="{Binding ., Converter={StaticResource NotNullToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" MaxWidth="400" />
                 <ColumnDefinition Width="1.6*" />
@@ -186,7 +343,9 @@
                         <RowDefinition Height="35" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <!--  单区状态  -->
+    -->
+    <!--  单区状态  -->
+    <!--
                     <Border Grid.Row="0"
                             BorderBrush="{DynamicResource BorderBrush}"
                             BorderThickness="1"
@@ -215,9 +374,13 @@
                         </wpf:SimplePanel>
                     </Border>
 
-                    <!--  准备老化  -->
+    -->
+    <!--  准备老化  -->
+    <!--
                     <views:CtrPrepareBurnView Grid.Row="1" Margin="0,10,0,0" />
-                    <!--<views:CtrBurnInfoView Grid.Row="1" Margin="0,10,0,0" />-->
+    -->
+    <!--<views:CtrBurnInfoView Grid.Row="1" Margin="0,10,0,0" />-->
+    <!--
                 </Grid>
             </Border>
 
@@ -249,5 +412,6 @@
                 </TabItem>
             </TabControl>
         </Grid>
-    </Grid>
+    </Grid>-->
+    <!--#endregion-->
 </Grid>

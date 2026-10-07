@@ -6,7 +6,7 @@
         {
             if (value is not ZoneState state)
             {
-                return Brushes.DarkGray;
+                return Brushes.Gray;
             }
             switch (state)
             {
@@ -26,7 +26,7 @@
                 case ZoneState.Upgrading:
                     return Brushes.Orange;
                 case ZoneState.Offline:
-                    return Brushes.DarkGray;
+                    return Brushes.Gray;
                 case ZoneState.Error:
                     return Brushes.Red;
                 default: throw new ArgumentOutOfRangeException();

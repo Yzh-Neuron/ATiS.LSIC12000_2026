@@ -10,5 +10,6 @@
 
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Styles/TextBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Styles/Button.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Styles/TabControl.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
