@@ -5,8 +5,12 @@
     /// </summary>
     public class BurnInfo : ObservableObject
     {
+        private readonly Ic _ic;
+        public BurnLogger Logger { get; private set; }
         public string Lot { get; private set; }
         public string Operator { get; private set; }
+
+        #region Ic器件
         public Time LogInterval { get; private set; }
         public Time ErrorLogInterval { get; private set; }
         public bool ForceStepLoad { get; private set; }
@@ -35,12 +39,42 @@
         /// Register 文件路径 → 索引
         /// </summary>
         public Dictionary<string, byte> RegisterIndexByPath { get; private set; }
+        #endregion
+
+        #region 运行时属性
+        private int _totalSeconds;
+        public int TotalSeconds
+        {
+            get => _totalSeconds;
+            set => SetProperty(ref _totalSeconds, value);
+        }
+        private BurnDpsPlan _currentDpsPlan;
+        public BurnDpsPlan CurrentDpsGroup
+        {
+            get => _currentDpsPlan;
+            set => SetProperty(ref _currentDpsPlan, value);
+        }
+        private BurnStep _currentStep;
+        public BurnStep CurrentStep
+        {
+            get => _currentStep;
+            set => SetProperty(ref _currentStep, value);
+        }
+        private BurnVector _currentVector;
+
+        public BurnVector CurrentVector
+        {
+            get => _currentVector;
+            set => SetProperty(ref _currentVector, value);
+        }
+        #endregion
 
         /// <summary>
         /// 进入老化界面时封装老化信息
         /// </summary>
         public BurnInfo(Ic ic, string lot, string op)
         {
+            _ic = ic;
             Lot = lot;
             Operator = op;
 

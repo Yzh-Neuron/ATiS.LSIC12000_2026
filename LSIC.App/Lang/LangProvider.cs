@@ -1325,6 +1325,50 @@
         public string VerticalBoardIndexText => GetString("VerticalBoardIndexText");
         /// <summary>电源编辑</summary>
         public string DpsEditText => GetString("DpsEditText");
+        /// <summary>老化区状态: {0}</summary>
+        public string ZoneStateChangedLog => GetString("ZoneStateChangedLog");
+        /// <summary>插板状态：Slot {0} -> {1}</summary>
+        public string BurnInBoardInsertedChangedLog => GetString("BurnInBoardInsertedChangedLog");
+        /// <summary>电源错误: Slot {0} {1} -> [{2}]</summary>
+        public string ZoneDpsErrorLog => GetString("ZoneDpsErrorLog");
+        /// <summary>电源错误: VIH{0} -> [{1}]</summary>
+        public string ZoneVIHErrorLog => GetString("ZoneVIHErrorLog");
+        /// <summary>向量错误: [{0}] 请检查第{1}步 第{2}组向量配置</summary>
+        public string ZonePatternErrorLog => GetString("ZonePatternErrorLog");
+        /// <summary>设备异常: 请联系售后人员! 错误码[{0}]</summary>
+        public string ZoneDeviceErrorLog => GetString("ZoneDeviceErrorLog");
+        /// <summary>器件配置错误, 请检查后重试! {0}</summary>
+        public string IcErrorTextLog => GetString("IcErrorTextLog");
+        /// <summary>文件未找到: {0}, 请检查!</summary>
+        public string FileNotFoundLog => GetString("FileNotFoundLog");
+        /// <summary>文件解析失败: {0} 位于{1}行{2}列</summary>
+        public string FileParseErrorLog => GetString("FileParseErrorLog");
+        /// <summary>向量文件校验错误: {0}</summary>
+        public string PatternCheckErrorLog => GetString("PatternCheckErrorLog");
+        /// <summary>老化器件: [{0}]</summary>
+        public string SendParameterLog => GetString("SendParameterLog");
+        /// <summary>当前步次: [{0}]	向量: [{1}]</summary>
+        public string StepRunInfoLog => GetString("StepRunInfoLog");
+        /// <summary>运行电源自检脚本: {0}</summary>
+        public string RunDpsCheckScriptLog => GetString("RunDpsCheckScriptLog");
+        /// <summary>电源自检[{0}/{1}] -> Slot {2}    {3}    {4}V    {5}A    ({6}/{7})</summary>
+        public string DpsCheckResultLog => GetString("DpsCheckResultLog");
+        /// <summary>检测到烟雾，老化已停止</summary>
+        public string StopBurnOnSmokyLog => GetString("StopBurnOnSmokyLog");
+        /// <summary>检测到烘箱异常，老化已停止</summary>
+        public string StopBurnOnOvenErrorLog => GetString("StopBurnOnOvenErrorLog");
+        /// <summary>检测到急停按钮被按下，老化已停止</summary>
+        public string StopBurnOnEmergencyLog => GetString("StopBurnOnEmergencyLog");
+        /// <summary>没有找到任何匹配的文件</summary>
+        public string NoFileMatchedLog => GetString("NoFileMatchedLog");
+        /// <summary>已导出: {0}</summary>
+        public string BatchExportSuccessLog => GetString("BatchExportSuccessLog");
+        /// <summary>导出失败: {0}，请检查文件是否被占用</summary>
+        public string BatchExportFailureLog => GetString("BatchExportFailureLog");
+        /// <summary>批量导出完成，共导出{0}个文件, 耗时{1:F2}秒</summary>
+        public string BatchExportFinishedLog => GetString("BatchExportFinishedLog");
+        /// <summary>SPI数据过大: {0}，请检查</summary>
+        public string SpiDataTooLargeLog => GetString("SpiDataTooLargeLog");
 
         protected override void OnLanguageChanged()
         {
@@ -1989,6 +2033,28 @@
             OnPropertyChanged(nameof(VerticalBoardDirectionText));
             OnPropertyChanged(nameof(VerticalBoardIndexText));
             OnPropertyChanged(nameof(DpsEditText));
+            OnPropertyChanged(nameof(ZoneStateChangedLog));
+            OnPropertyChanged(nameof(BurnInBoardInsertedChangedLog));
+            OnPropertyChanged(nameof(ZoneDpsErrorLog));
+            OnPropertyChanged(nameof(ZoneVIHErrorLog));
+            OnPropertyChanged(nameof(ZonePatternErrorLog));
+            OnPropertyChanged(nameof(ZoneDeviceErrorLog));
+            OnPropertyChanged(nameof(IcErrorTextLog));
+            OnPropertyChanged(nameof(FileNotFoundLog));
+            OnPropertyChanged(nameof(FileParseErrorLog));
+            OnPropertyChanged(nameof(PatternCheckErrorLog));
+            OnPropertyChanged(nameof(SendParameterLog));
+            OnPropertyChanged(nameof(StepRunInfoLog));
+            OnPropertyChanged(nameof(RunDpsCheckScriptLog));
+            OnPropertyChanged(nameof(DpsCheckResultLog));
+            OnPropertyChanged(nameof(StopBurnOnSmokyLog));
+            OnPropertyChanged(nameof(StopBurnOnOvenErrorLog));
+            OnPropertyChanged(nameof(StopBurnOnEmergencyLog));
+            OnPropertyChanged(nameof(NoFileMatchedLog));
+            OnPropertyChanged(nameof(BatchExportSuccessLog));
+            OnPropertyChanged(nameof(BatchExportFailureLog));
+            OnPropertyChanged(nameof(BatchExportFinishedLog));
+            OnPropertyChanged(nameof(SpiDataTooLargeLog));
         }
     }
 
@@ -3314,6 +3380,50 @@
         public const string VerticalBoardIndexText = nameof(VerticalBoardIndexText);
         /// <summary>电源编辑</summary>
         public const string DpsEditText = nameof(DpsEditText);
+        /// <summary>老化区状态: {0}</summary>
+        public const string ZoneStateChangedLog = nameof(ZoneStateChangedLog);
+        /// <summary>插板状态：Slot {0} -> {1}</summary>
+        public const string BurnInBoardInsertedChangedLog = nameof(BurnInBoardInsertedChangedLog);
+        /// <summary>电源错误: Slot {0} {1} -> [{2}]</summary>
+        public const string ZoneDpsErrorLog = nameof(ZoneDpsErrorLog);
+        /// <summary>电源错误: VIH{0} -> [{1}]</summary>
+        public const string ZoneVIHErrorLog = nameof(ZoneVIHErrorLog);
+        /// <summary>向量错误: [{0}] 请检查第{1}步 第{2}组向量配置</summary>
+        public const string ZonePatternErrorLog = nameof(ZonePatternErrorLog);
+        /// <summary>设备异常: 请联系售后人员! 错误码[{0}]</summary>
+        public const string ZoneDeviceErrorLog = nameof(ZoneDeviceErrorLog);
+        /// <summary>器件配置错误, 请检查后重试! {0}</summary>
+        public const string IcErrorTextLog = nameof(IcErrorTextLog);
+        /// <summary>文件未找到: {0}, 请检查!</summary>
+        public const string FileNotFoundLog = nameof(FileNotFoundLog);
+        /// <summary>文件解析失败: {0} 位于{1}行{2}列</summary>
+        public const string FileParseErrorLog = nameof(FileParseErrorLog);
+        /// <summary>向量文件校验错误: {0}</summary>
+        public const string PatternCheckErrorLog = nameof(PatternCheckErrorLog);
+        /// <summary>老化器件: [{0}]</summary>
+        public const string SendParameterLog = nameof(SendParameterLog);
+        /// <summary>当前步次: [{0}]	向量: [{1}]</summary>
+        public const string StepRunInfoLog = nameof(StepRunInfoLog);
+        /// <summary>运行电源自检脚本: {0}</summary>
+        public const string RunDpsCheckScriptLog = nameof(RunDpsCheckScriptLog);
+        /// <summary>电源自检[{0}/{1}] -> Slot {2}    {3}    {4}V    {5}A    ({6}/{7})</summary>
+        public const string DpsCheckResultLog = nameof(DpsCheckResultLog);
+        /// <summary>检测到烟雾，老化已停止</summary>
+        public const string StopBurnOnSmokyLog = nameof(StopBurnOnSmokyLog);
+        /// <summary>检测到烘箱异常，老化已停止</summary>
+        public const string StopBurnOnOvenErrorLog = nameof(StopBurnOnOvenErrorLog);
+        /// <summary>检测到急停按钮被按下，老化已停止</summary>
+        public const string StopBurnOnEmergencyLog = nameof(StopBurnOnEmergencyLog);
+        /// <summary>没有找到任何匹配的文件</summary>
+        public const string NoFileMatchedLog = nameof(NoFileMatchedLog);
+        /// <summary>已导出: {0}</summary>
+        public const string BatchExportSuccessLog = nameof(BatchExportSuccessLog);
+        /// <summary>导出失败: {0}，请检查文件是否被占用</summary>
+        public const string BatchExportFailureLog = nameof(BatchExportFailureLog);
+        /// <summary>批量导出完成，共导出{0}个文件, 耗时{1:F2}秒</summary>
+        public const string BatchExportFinishedLog = nameof(BatchExportFinishedLog);
+        /// <summary>SPI数据过大: {0}，请检查</summary>
+        public const string SpiDataTooLargeLog = nameof(SpiDataTooLargeLog);
     }
 
     [MarkupExtensionReturnType(typeof(object))]

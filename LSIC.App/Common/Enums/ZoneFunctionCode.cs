@@ -1,4 +1,4 @@
-﻿namespace LSIC.App.Common.Enums
+﻿namespace LSIC.App
 {
     public enum ZoneFunctionCode : byte
     {

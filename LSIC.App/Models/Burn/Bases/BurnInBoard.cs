@@ -1,7 +1,7 @@
 ﻿namespace LSIC.App.Models
 {
     /// <summary>
-    /// 老化板（运行时）：工位阵列 + 恒温器
+    /// 老化板（运行时）
     /// </summary>
     public class BurnInBoard : ObservableObject
     {

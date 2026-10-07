@@ -93,6 +93,9 @@
 		<Compile Update="Views\PopExecuteStrategyView.xaml.cs">
 			<SubType>Code</SubType>
 		</Compile>
+		<Compile Update="Views\PopAlarmView.xaml.cs">
+		  <SubType>Code</SubType>
+		</Compile>
 		<Compile Update="Views\PopVectorEditView.xaml.cs">
 			<SubType>Code</SubType>
 		</Compile>

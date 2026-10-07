@@ -1,7 +1,7 @@
 ﻿namespace LSIC.App.Models
 {
     /// <summary>
-    /// 单个老化工位（运行时）
+    /// 单个工位（运行时）
     /// </summary>
     public class BurnDut : ObservableObject
     {

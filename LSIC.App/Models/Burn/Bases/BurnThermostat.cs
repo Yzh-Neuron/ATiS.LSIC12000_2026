@@ -1,7 +1,7 @@
 ﻿namespace LSIC.App.Models
 {
     /// <summary>
-    /// 恒温器（运行时）
+    /// 独立温控（运行时）
     /// </summary>
     public class BurnThermostat : ObservableObject
     {

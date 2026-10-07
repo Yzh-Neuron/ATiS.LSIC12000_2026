@@ -18,13 +18,15 @@ namespace LSIC.App
             GlobalLanguageManager.RegisterLanguageResources(UiLanguage.Chinese, [
             new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/zh-CN/Message.xaml")},
             new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/zh-CN/UI.xaml")},
-            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/en-US/Enum.xaml")}
+            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/zh-CN/Enum.xaml")},
+            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/zh-CN/Log.xaml")},
             ]);
 
             GlobalLanguageManager.RegisterLanguageResources(UiLanguage.English, [
             new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/en-US/Message.xaml")},
             new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/en-US/UI.xaml")},
-            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/en-US/Enum.xaml")}
+            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/en-US/Enum.xaml")},
+            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/en-US/Log.xaml")},
             ]);
         }
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

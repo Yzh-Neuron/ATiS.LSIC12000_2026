@@ -13,7 +13,7 @@ namespace LSIC.App.Models
         private Device(SystemConfig systemConfig)
         {
             SystemConfig = systemConfig;
-            Zones = SystemConfig.ZoneInfos.Select(info => new Zone(info)).ToArray();
+            Zones = SystemConfig.ZoneInfos.Select(info => new Zone(info, CreateDps())).ToArray();
         }
 
         public SystemConfig SystemConfig { get; }
@@ -72,5 +72,10 @@ namespace LSIC.App.Models
         }
 
         public event Action ModeChanged;
+
+        private Dps[] CreateDps()
+        {
+            return SystemConfig.DpsInfos.Select(i => new Dps(i)).ToArray();
+        }
     }
 }
