@@ -70,5 +70,11 @@
 
         /// <remarks>启动DPS自检</remarks>
         DpsCheck = 0xF1,
+
+        /// <remarks>温控配置 & 推送温控信息</remarks>
+        Thermostat = 0xF2,
+
+        /// <remarks>温控PID参数 & 推送温控PID参数</remarks>
+        ThermostatPID = 0xF3,
     }
 }

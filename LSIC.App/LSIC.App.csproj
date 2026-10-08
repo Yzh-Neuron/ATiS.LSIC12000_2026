@@ -103,6 +103,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="ATiS.Base" Version="1.1.6" />
+		<PackageReference Include="ATiS.Orm" Version="1.0.4" />
 		<PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
 	</ItemGroup>
 

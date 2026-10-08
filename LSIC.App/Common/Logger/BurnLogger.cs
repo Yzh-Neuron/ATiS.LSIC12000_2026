@@ -6,16 +6,27 @@
         private readonly RollingFileLogger _dataLogger;
         private readonly RollingFileLogger _errorLogger;
         private readonly RollingFileLogger _spiLogger;
-        public BurnLogger(Zone zone, string ic, string lot, string op, DateTime start)
+        public BurnLogger(int zoneId, string ic, string lot, string op, DateTime start)
         {
-            string dataLoggerFileName = $@".\Log\Burn\Zone {zone.Id}\Data\{{{ic}}}_{{{lot}}}_{{{op}}}_{{{start:yyMMddHHmmss}}}.log";
+            string dataLoggerFileName = $@".\Log\Burn\Zone {zoneId}\Data\{{{ic}}}_{{{lot}}}_{{{op}}}_{{{start:yyMMddHHmmss}}}.log";
             _dataLogger = new RollingFileLogger(dataLoggerFileName, messageFormat: Layout);
 
-            string errorLoggerFileName = $@".\Log\Burn\Zone {zone.Id}\Error\{{{ic}}}_{{{lot}}}_{{{op}}}_{{{start:yyMMddHHmmss}}}.log";
+            string errorLoggerFileName = $@".\Log\Burn\Zone {zoneId}\Error\{{{ic}}}_{{{lot}}}_{{{op}}}_{{{start:yyMMddHHmmss}}}.log";
             _errorLogger = new RollingFileLogger(dataLoggerFileName, messageFormat: Layout);
 
-            string spiLoggerFileName = $@".\Log\Burn\Zone {zone.Id}\SPI\{{{ic}}}_{{{lot}}}_{{{op}}}_{{{start:yyMMddHHmmss}}}.log";
+            string spiLoggerFileName = $@".\Log\Burn\Zone {zoneId}\SPI\{{{ic}}}_{{{lot}}}_{{{op}}}_{{{start:yyMMddHHmmss}}}.log";
             _spiLogger = new RollingFileLogger(spiLoggerFileName, messageFormat: Layout);
+        }
+        public void LogError(CompareError error)
+        {
+            string text = string.Format("{0}|{1}|{2}|{3}|{4}|{5}",
+                error.Step,
+                error.Pattern,
+                error.Register,
+                error.Cs,
+                error.Line,
+                error.Dr);
+            _errorLogger.Info(text);
         }
 
         public void Dispose()
