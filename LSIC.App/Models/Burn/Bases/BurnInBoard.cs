@@ -58,7 +58,7 @@
             set
             {
                 int[] integers = MaskToIntegers(value ?? Array.Empty<byte>());
-                HashSet<int> masked = new HashSet<int>(integers);
+                HashSet<int> masked = [.. integers];
                 foreach (BurnDut dut in Duts)
                 {
                     dut.Masked = masked.Contains(dut.Id);

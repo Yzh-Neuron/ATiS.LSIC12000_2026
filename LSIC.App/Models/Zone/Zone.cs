@@ -9,10 +9,9 @@ namespace LSIC.App.Models
         private bool _disposed;
         private TcpClient _client;
         private List<byte> _buffer;
+        public FlowLogger Logger { get; private set; }
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
         private readonly SemaphoreSlim _receiveLock = new SemaphoreSlim(1, 1);
-
-        #region 基础信息
         public int Id
         {
             get { return Info.Id; }
@@ -26,10 +25,6 @@ namespace LSIC.App.Models
             get { return Info.Port; }
         }
         public ZoneInfo Info { get; }
-        public FlowLogger Logger { get; private set; }
-        #endregion
-
-        #region 状态信息
         private bool _connected;
         public bool Connected
         {
@@ -60,21 +55,14 @@ namespace LSIC.App.Models
             get => _outputPin;
             private set => SetProperty(ref _outputPin, value);
         }
-        #endregion
-
-        #region 电源信息
         public Dps[] Dpss { get; }
         public Vih[] Vihs { get; }
-        #endregion
-
-        #region 老化相关
         private BurnInfo _burnInfo = null;
         public BurnInfo BurnInfo
         {
             get { return _burnInfo; }
             set { SetProperty(ref _burnInfo, value); }
         }
-        #endregion
         public Zone(ZoneInfo info, Dps[] dpss)
         {
             Info = info ?? throw new ArgumentNullException(nameof(info));
@@ -179,8 +167,6 @@ namespace LSIC.App.Models
                             PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
                         }
                         break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
                 }
             }
 
@@ -202,7 +188,7 @@ namespace LSIC.App.Models
 
             Logger.LogInfoFormat(LangProvider.Instance.SendIcDataMessage, info.Ic.Name);
 
-            // 发送器件开始（带加载模式）
+            // 发送器件开始
             await SendAsync(ZoneFunctionCode.ConfigFinish, 0x01, (byte)info.LoadMode);
 
             // 设置电源方案
