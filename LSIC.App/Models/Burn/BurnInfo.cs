@@ -1,4 +1,4 @@
-﻿namespace LSIC.App.Models
+namespace LSIC.App.Models
 {
     public class BurnInfo : ObservableObject
     {
@@ -6,8 +6,6 @@
         public BurnLogger Logger { get; private set; }
         public string Lot { get; private set; }
         public string Operator { get; private set; }
-
-        #region Ic器件
         public Time LogInterval { get; private set; }
         public Time ErrorLogInterval { get; private set; }
         public bool ForceStepLoad { get; private set; }
@@ -46,7 +44,6 @@
         /// Register 文件路径 → 索引
         /// </summary>
         public Dictionary<string, byte> RegisterIndexByPath { get; private set; }
-        #endregion
 
         #region 运行时属性
         private DateTime? _start;
@@ -64,7 +61,7 @@
         }
 
         private BurnDpsPlan _currentDpsPlan;
-        public BurnDpsPlan CurrentDpsGroup
+        public BurnDpsPlan CurrentDpsPlan
         {
             get { return _currentDpsPlan; }
             set { SetProperty(ref _currentDpsPlan, value); }
@@ -169,7 +166,7 @@
 
 
             TotalSeconds = 0;
-            CurrentDpsGroup = null;
+            CurrentDpsPlan = null;
             CurrentStep = null;
             RunInfo = new RunInfo();
             LoopInfo = new LoopInfo();
@@ -196,7 +193,7 @@
             Dictionary<string, byte> patternMap = new Dictionary<string, byte>();
             Dictionary<string, byte> registerMap = new Dictionary<string, byte>();
 
-            // 建立向量索引（排除上下电，索引从 0 开始）
+            // 建立向量步相对位置（排除上下电，从 0 开始）
             Dictionary<StepItem, int> vectorIndexByItem = new Dictionary<StepItem, int>();
             int vectorCount = 0;
             foreach (StepItem item in process.StepItems)
@@ -208,7 +205,7 @@
                 }
             }
 
-            // 循环映射：Start索引 → (Loop, End 索引)
+            // 循环映射：Start 位置 → (Loop, End 位置)
             Dictionary<int, (Loop Loop, int End)> loopByVectorIndex = new Dictionary<int, (Loop Loop, int End)>();
             foreach (Loop loop in process.Loops)
             {
@@ -217,6 +214,7 @@
                 loopByVectorIndex[startRelative] = (loop, endRelative);
             }
 
+            // 上下电单独存，向量步按位置顺序收集
             List<BurnStepVector> vectorSteps = new List<BurnStepVector>();
             BurnStepPower powerOnStep = null;
             BurnStepPower powerOffStep = null;
@@ -229,7 +227,7 @@
                     case StepVector stepVector:
                         {
                             loopByVectorIndex.TryGetValue(relative, out (Loop Loop, int End) loopInfo);
-                            vectorSteps.Add(MapVectorStep(stepVector, relative, patternMap, registerMap, loopInfo, DpsPlans));
+                            vectorSteps.Add(MapVectorStep(stepVector, patternMap, registerMap, loopInfo, DpsPlans));
                             relative++;
                             break;
                         }
@@ -256,9 +254,9 @@
         }
 
         /// <summary>
-        /// 映射向量步（id 相对向量索引）
+        /// 映射向量步
         /// </summary>
-        private BurnStepVector MapVectorStep(StepVector stepVector, int relativeIndex, Dictionary<string, byte> patternMap, Dictionary<string, byte> registerMap, (Loop Loop, int End) loopInfo, BurnDpsPlan[] dpsPlans)
+        private BurnStepVector MapVectorStep(StepVector stepVector, Dictionary<string, byte> patternMap, Dictionary<string, byte> registerMap, (Loop Loop, int End) loopInfo, BurnDpsPlan[] dpsPlans)
         {
             // 向量
             List<BurnVector> vectors = new List<BurnVector>();
@@ -273,7 +271,7 @@
             // 电源方案
             byte dpsPlanIndex = ResolveDpsPlanIndex(stepVector.DpsPlan, dpsPlans);
 
-            // 循环（仅 Start 步）
+            // 循环目标（End 位置），非循环步为 0xFF
             Loop loop = loopInfo.Loop;
             byte loopTarget = 0xFF;
             if (loop != null)
@@ -281,7 +279,7 @@
                 loopTarget = (byte)loopInfo.End;
             }
 
-            return new BurnStepVector((byte)relativeIndex, stepVector.Name, dpsPlanIndex, strategy, vectors.ToArray(), loop, loopTarget);
+            return new BurnStepVector(stepVector.Name, dpsPlanIndex, strategy, vectors.ToArray(), loop, loopTarget);
         }
 
         /// <summary>

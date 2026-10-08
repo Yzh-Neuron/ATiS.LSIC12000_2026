@@ -12,9 +12,7 @@ namespace LSIC.App
                 _ = Directory.CreateDirectory(_directory);
             }
         }
-
         private static readonly string _directory;
-
         public ErrorDatabase(Zone zone)
         {
             ConnectionConfig config = new ConnectionConfig
@@ -33,14 +31,11 @@ namespace LSIC.App
 
             CreateTables();
         }
-
         private readonly OrmClient _db;
-
         private void CreateTables()
         {
             _db.CodeFirst.InitTables<CompareErrorItem>();
         }
-
         public bool TryAddError(CompareError error, TimeSpan interval)
         {
             DateTime now = DateTime.Now;
@@ -74,7 +69,6 @@ namespace LSIC.App
             }
             return false;
         }
-
         public KeyValuePair<int, int>[] GetErrors()
         {
             CompareErrorItem[] items = _db.CopyNew().Queryable<CompareErrorItem>().ToArray();
@@ -85,7 +79,6 @@ namespace LSIC.App
             }
             return pairs;
         }
-
         public void Clear()
         {
             _db.CopyNew().DbMaintenance.TruncateTable<CompareErrorItem>();

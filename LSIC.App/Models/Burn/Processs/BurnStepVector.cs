@@ -1,8 +1,7 @@
-﻿namespace LSIC.App.Models
+namespace LSIC.App.Models
 {
     public class BurnStepVector
     {
-        public byte Id { get; }
         public string Name { get; }
         public ExecuteStrategy Strategy { get; }
         public byte DpsPlanIndex { get; }
@@ -10,9 +9,12 @@
         public byte LoopTargetIndex { get; }
         public ExecuteStrategy LoopStrategy { get; }
         public BurnVector[] Vectors { get; }
-        public BurnStepVector(byte id, string name, byte dpsPlanIndex, ExecuteStrategy strategy, BurnVector[] vectors, Loop loop, byte loopTargetIndex)
+
+        /// <summary>
+        /// 步次身份即数组位置；LoopTargetIndex 为循环终点 End 的位置
+        /// </summary>
+        public BurnStepVector(string name, byte dpsPlanIndex, ExecuteStrategy strategy, BurnVector[] vectors, Loop loop, byte loopTargetIndex)
         {
-            Id = id;
             Name = name;
             DpsPlanIndex = dpsPlanIndex;
             Strategy = strategy;

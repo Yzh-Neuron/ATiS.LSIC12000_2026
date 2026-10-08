@@ -99,6 +99,93 @@ namespace LSIC.App.Models
             _client.StartAutoReceive();
             //_timer = new Timer(Tick, null, 500, 500);
         }
+        private void UpdateZoneState(ZoneState state, ZoneErrorType? error = null, byte[] data = null)
+        {
+            if (state == ZoneState.DeviceCheckFail)
+            {
+                Logger.LogErrorFormat(LangProvider.Instance.StateMessage, state.GetString());
+            }
+            else if (state == ZoneState.Error)
+            {
+                Logger.LogErrorFormat(LangProvider.Instance.StateMessage, state.GetString());
+            }
+            else if (state == ZoneState.Offline)
+            {
+                Logger.LogWarnFormat(LangProvider.Instance.StateMessage, state.GetString());
+            }
+            else
+            {
+                Logger.LogInfoFormat(LangProvider.Instance.StateMessage, state.GetString());
+            }
+
+            if (state == ZoneState.Burning)
+            {
+                BurnInfo?.BurnInBoard?.Burning();
+            }
+            else if (state == ZoneState.Stop || state == ZoneState.Error)
+            {
+                BurnInfo?.BurnInBoard?.Finished();
+            }
+
+            if (state == ZoneState.Error && error.HasValue && data != null)
+            {
+                int index = 0;
+                switch (error.Value)
+                {
+                    case ZoneErrorType.Dps:
+                        {
+                            DpsState dpsState = (DpsState)data[index++];
+                            DpsType dpsType = (DpsType)data[index++];
+                            int id = data[index++];
+                            switch (dpsType)
+                            {
+                                case DpsType.DPS:
+                                    {
+                                        Dps dps = Dpss.FirstOrDefault(t => t.Id == id);
+                                        if (dps != null)
+                                        {
+                                            string message = string.Format(LangProvider.Instance.ZoneDpsErrorLog, dps.Name, dpsState.GetString());
+                                            Logger.LogError(message);
+                                            PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
+                                        }
+                                    }
+                                    break;
+                                case DpsType.VIH:
+                                    {
+                                        string message = string.Format(LangProvider.Instance.ZoneVIHErrorLog, id, dpsState.GetString());
+                                        Logger.LogError(message);
+                                        PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
+                                    }
+                                    break;
+                                default:
+                                    throw new ArgumentOutOfRangeException();
+                            }
+                        }
+                        break;
+                    case ZoneErrorType.Pattern:
+                        {
+                            PatternErrorType patternErrorType = (PatternErrorType)data[index++];
+                            int stepId = data[index++];
+                            int vectorStepId = data[index++];
+                            string message = string.Format(LangProvider.Instance.ZonePatternErrorLog, patternErrorType.GetString(), stepId, vectorStepId);
+                            Logger.LogError(message);
+                            PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
+                        }
+                        break;
+                    case ZoneErrorType.Device:
+                        {
+                            string message = string.Format(LangProvider.Instance.ZoneDeviceErrorLog, data.ToHex());
+                            Logger.LogError(message);
+                            PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
+                        }
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            State = state;
+        }
 
         #region 下发器件
         public async ValueTask SendIcAsync()
@@ -747,9 +834,9 @@ namespace LSIC.App.Models
                             if (id != 0xFF && id < BurnInfo.DpsPlans.Length)
                             {
                                 var dpsPlan = BurnInfo.DpsPlans[id];
-                                if (BurnInfo.CurrentDpsGroup != dpsPlan)
+                                if (BurnInfo.CurrentDpsPlan != dpsPlan)
                                 {
-                                    BurnInfo.CurrentDpsGroup = dpsPlan;
+                                    BurnInfo.CurrentDpsPlan = dpsPlan;
 
                                     foreach (Dps dps in Dpss)
                                     {
@@ -1171,94 +1258,6 @@ namespace LSIC.App.Models
             return tail;
         }
         #endregion
-
-        private void UpdateZoneState(ZoneState state, ZoneErrorType? error = null, byte[] data = null)
-        {
-            if (state == ZoneState.DeviceCheckFail)
-            {
-                Logger.LogErrorFormat(LangProvider.Instance.StateMessage, state.GetString());
-            }
-            else if (state == ZoneState.Error)
-            {
-                Logger.LogErrorFormat(LangProvider.Instance.StateMessage, state.GetString());
-            }
-            else if (state == ZoneState.Offline)
-            {
-                Logger.LogWarnFormat(LangProvider.Instance.StateMessage, state.GetString());
-            }
-            else
-            {
-                Logger.LogInfoFormat(LangProvider.Instance.StateMessage, state.GetString());
-            }
-
-            if (state == ZoneState.Burning)
-            {
-                BurnInfo?.BurnInBoard?.Burning();
-            }
-            else if (state == ZoneState.Stop || state == ZoneState.Error)
-            {
-                BurnInfo?.BurnInBoard?.Finished();
-            }
-
-            if (state == ZoneState.Error && error.HasValue && data != null)
-            {
-                int index = 0;
-                switch (error.Value)
-                {
-                    case ZoneErrorType.Dps:
-                        {
-                            DpsState dpsState = (DpsState)data[index++];
-                            DpsType dpsType = (DpsType)data[index++];
-                            int id = data[index++];
-                            switch (dpsType)
-                            {
-                                case DpsType.DPS:
-                                    {
-                                        Dps dps = Dpss.FirstOrDefault(t => t.Id == id);
-                                        if (dps != null)
-                                        {
-                                            string message = string.Format(LangProvider.Instance.ZoneDpsErrorLog, dps.Name, dpsState.GetString());
-                                            Logger.LogError(message);
-                                            PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
-                                        }
-                                    }
-                                    break;
-                                case DpsType.VIH:
-                                    {
-                                        string message = string.Format(LangProvider.Instance.ZoneVIHErrorLog, id, dpsState.GetString());
-                                        Logger.LogError(message);
-                                        PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
-                                    }
-                                    break;
-                                default:
-                                    throw new ArgumentOutOfRangeException();
-                            }
-                        }
-                        break;
-                    case ZoneErrorType.Pattern:
-                        {
-                            PatternErrorType patternErrorType = (PatternErrorType)data[index++];
-                            int stepId = data[index++];
-                            int vectorStepId = data[index++];
-                            string message = string.Format(LangProvider.Instance.ZonePatternErrorLog, patternErrorType.GetString(), stepId, vectorStepId);
-                            Logger.LogError(message);
-                            PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
-                        }
-                        break;
-                    case ZoneErrorType.Device:
-                        {
-                            string message = string.Format(LangProvider.Instance.ZoneDeviceErrorLog, data.ToHex());
-                            Logger.LogError(message);
-                            PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
-                        }
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-
-            State = state;
-        }
 
         #region 资源释放
 

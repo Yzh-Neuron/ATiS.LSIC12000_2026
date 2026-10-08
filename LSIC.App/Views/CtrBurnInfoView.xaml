@@ -23,13 +23,14 @@
         <RowDefinition Height="*" />
         <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <!--<Grid>
+    <Grid Grid.Row="0" Height="40">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="0"
+        <Border Grid.Column="0"
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="1"
                 CornerRadius="{StaticResource DefaultCornerRadius}">
@@ -38,18 +39,274 @@
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                --><!--<TextBlock Text="{Binding Zone}"/>
-                <TextBlock Text="{TemplateBinding Header}"/>--><!--
+                <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternSetTimeText}}" />
+                <TextBlock Text="{Binding Zone.BurnInfo.RunInfo.Progress.Total}" />
             </Grid>
         </Border>
 
+        <Border Grid.Column="2"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource DefaultCornerRadius}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternCostTimeText}}" />
+                <TextBlock Text="{Binding Zone.BurnInfo.RunInfo.Progress.Cost}" />
+            </Grid>
+        </Border>
     </Grid>
-
-    <Grid>
+    <Grid Grid.Row="1"
+          Height="40"
+          Margin="0,10,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-    </Grid>-->
+
+        <Border Grid.Column="0"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource DefaultCornerRadius}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternLeftTimeText}}" />
+                <TextBlock Text="{Binding Zone.BurnInfo.RunInfo.Progress.Left}" />
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="2"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource DefaultCornerRadius}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="{app:Lang {x:Static app:LangKey.TotalTimeBeforeDpsUpText}}" />
+                <TextBlock Text="{Binding Zone.BurnInfo.TotalSeconds}" />
+            </Grid>
+        </Border>
+    </Grid>
+    <Border Grid.Row="2"
+            Height="48"
+            Margin="0,10,0,0"
+            Padding="5"
+            BorderBrush="{DynamicResource BorderBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource DefaultCornerRadius}"
+            Visibility="{Binding Zone.BurnInfo.LoopInfo.Enable, Converter={StaticResource TrueToVisibilityConverter}}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock Text="{DynamicResource RunInTheLoopText}" />
+                <TextBlock Margin="6,0,0,0">
+                    <Run Text="{Binding Zone.BurnInfo.LoopInfo.Start.Name, Mode=OneWay}" />
+                    <Run Text="→" />
+                    <Run Text="{Binding Zone.BurnInfo.LoopInfo.End.Name, Mode=OneWay}" />
+                </TextBlock>
+            </StackPanel>
+            <TextBlock Grid.Row="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Visibility="{Binding Zone.BurnInfo.LoopInfo.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter={x:Static app:ExecuteMode.Time}}">
+                <Run Text="(" />
+                <Run Text="{Binding Zone.BurnInfo.LoopInfo.Progress.Cost, Mode=OneWay, Converter={StaticResource SecondsToTimeSpanStringConverter}}" />
+                <Run Text="/" />
+                <Run Text="{Binding Zone.BurnInfo.LoopInfo.Progress.Total, Mode=OneWay, Converter={StaticResource SecondsToTimeSpanStringConverter}}" />
+                <Run Text=")" />
+            </TextBlock>
+            <TextBlock Grid.Row="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Visibility="{Binding Zone.BurnInfo.LoopInfo.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter={x:Static app:ExecuteMode.Times}}">
+                <Run Text="(" />
+                <Run Text="{Binding Zone.BurnInfo.LoopInfo.Progress.Cost, Mode=OneWay, Converter={StaticResource LinerChangeConverter}, ConverterParameter='1|0'}" />
+                <Run Text="/" />
+                <Run Text="{Binding Zone.BurnInfo.LoopInfo.Progress.Total, Mode=OneWay}" />
+                <Run Text=")" />
+            </TextBlock>
+        </Grid>
+
+    </Border>
+
+    <!--  老化详情  -->
+    <Border Grid.Row="3"
+            Margin="0,10,0,0"
+            BorderBrush="{DynamicResource BorderBrush}"
+            BorderThickness="1"
+            CornerRadius="4">
+        <app:GridLineDecorator GridLineBrush="{DynamicResource BorderBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28" />
+                    <RowDefinition Height="28" />
+                    <RowDefinition Height="28" />
+                    <RowDefinition Height="28" />
+                    <RowDefinition Height="28" />
+                    <RowDefinition Height="28" />
+                    <RowDefinition Height="28" />
+                    <RowDefinition Height="28" />
+                    <RowDefinition Height="28" />
+                    <RowDefinition Height="28" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Margin="6,0,0,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="{app:Lang {x:Static app:LangKey.CurrentIcText}}" />
+                <TextBlock Grid.Column="1"
+                           Margin="10,0,0,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Text="{Binding Zone.BurnInfo.Ic.Name}" />
+
+                <TextBlock Grid.Row="1"
+                           Margin="6,0,0,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="{app:Lang {x:Static app:LangKey.LotText}}" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Margin="10,0,0,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Text="{Binding Zone.BurnInfo.Lot}" />
+
+                <TextBlock Grid.Row="2"
+                           Margin="6,0,0,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="{app:Lang {x:Static app:LangKey.OperatorText}}" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="1"
+                           Margin="10,0,0,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Text="{Binding Zone.BurnInfo.Operator}" />
+
+
+                <TextBlock Grid.Row="3"
+                           Margin="6,0,0,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="{app:Lang {x:Static app:LangKey.LoadModeText}}" />
+                <TextBlock Grid.Row="3"
+                           Grid.Column="1"
+                           Margin="10,0,0,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Text="{Binding Zone.BurnInfo.LoadMode, Converter={StaticResource EnumToTextConverter}}" />
+
+                <TextBlock Grid.Row="4"
+                           Margin="6,0,0,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="{app:Lang {x:Static app:LangKey.StartTimeText}}" />
+                <TextBlock Grid.Row="4"
+                           Grid.Column="1"
+                           Margin="10,0,0,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Text="{Binding Zone.BurnInfo.Start, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
+
+
+                <TextBlock Grid.Row="5"
+                           Margin="6,0,0,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="{app:Lang {x:Static app:LangKey.CurrentDpsPlanText}}" />
+                <TextBlock Grid.Row="5"
+                           Grid.Column="1"
+                           Margin="10,0,0,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Text="{Binding Zone.BurnInfo.CurrentDpsGroup.Name}" />
+
+
+                <TextBlock Grid.Row="6"
+                           Margin="6,0,0,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="{app:Lang {x:Static app:LangKey.CurrentStepText}}" />
+                <TextBlock Grid.Row="6"
+                           Grid.Column="1"
+                           Margin="10,0,0,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Text="{Binding Zone.BurnInfo.CurrentStep.Name}" />
+
+                <TextBlock Grid.Row="7"
+                           Margin="6,0,0,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="{app:Lang {x:Static app:LangKey.CurrentPatternText}}" />
+                <TextBlock Grid.Row="7"
+                           Grid.Column="1"
+                           Margin="10,0,0,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Background="Transparent"
+                           Text="{Binding Zone.BurnInfo.CurrentVector.PatternFile}"
+                           TextTrimming="CharacterEllipsis"
+                           ToolTip="{Binding Zone.BurnInfo.CurrentVector.PatternFile}" />
+
+                <TextBlock Grid.Row="8"
+                           Margin="6,0,0,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="{app:Lang {x:Static app:LangKey.CurrentRegistersText}}" />
+                <DockPanel Grid.Row="8"
+                           Grid.Column="1"
+                           LastChildFill="False">
+                    <Border MaxWidth="350"
+                            Margin="10,0,0,0"
+                            DockPanel.Dock="Left">
+                        <TextBlock HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Background="Transparent"
+                                   Text="{Binding Zone.BurnInfo.CurrentVector.RegisterFile}"
+                                   TextTrimming="CharacterEllipsis"
+                                   ToolTip="{Binding Zone.BurnInfo.CurrentVector.RegisterFile}" />
+                    </Border>
+                    <Button Margin="6,0,0,0"
+                            Background="Transparent"
+                            Content="{app:Lang {x:Static app:LangKey.ViewText}}" 
+                            Cursor="Hand"
+                            DockPanel.Dock="Left"
+                            Foreground="{StaticResource PrimaryBrush}"
+                            Tag="{Binding Zone.BurnInfo.CurrentVector.RegisterFile}"
+                            Visibility="{Binding Zone.BurnInfo.CurrentVector, Converter={StaticResource NotNullToVisibilityConverter}}" />
+                </DockPanel>
+            </Grid>
+        </app:GridLineDecorator>
+    </Border>
+
+
 </Grid>
 

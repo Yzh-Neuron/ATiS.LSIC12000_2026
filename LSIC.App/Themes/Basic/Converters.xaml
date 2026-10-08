@@ -23,4 +23,6 @@
     <cvt:FormatTextConverter x:Key="FormatTextConverter"/>
     <cvt:ZoneCanGotoBurnConverter x:Key="ZoneCanGotoBurnConverter"/>
     <cvt:ProportionalWidthConverter x:Key="ProportionalWidthConverter"/>
+    <cvt:SecondsToTimeSpanStringConverter x:Key="SecondsToTimeSpanStringConverter"/>
+    <cvt:LinerChangeConverter x:Key="LinerChangeConverter"/>
 </ResourceDictionary>
