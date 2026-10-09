@@ -11,7 +11,7 @@ namespace ATiS.Sim.Wpf
     {
         public object? Convert(object?[]? values, Type? targetType, object? parameter, CultureInfo culture)
         {
-            var messages = new List<string>();
+            var messages = new HashSet<string>();
 
             if (values is { Length: > 0 } && values[0] is IEnumerable errors)
             {
@@ -30,7 +30,7 @@ namespace ATiS.Sim.Wpf
             return string.Join(sep, messages);
         }
 
-        private static void AppendContent(object? content, List<string> messages)
+        private static void AppendContent(object? content, HashSet<string> messages)
         {
             switch (content)
             {

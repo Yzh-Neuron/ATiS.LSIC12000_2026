@@ -23,7 +23,7 @@
         <RowDefinition Height="*" />
         <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <Grid Grid.Row="0" Height="40">
+    <Grid Grid.Row="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="5" />
@@ -34,13 +34,15 @@
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="1"
                 CornerRadius="{StaticResource DefaultCornerRadius}">
-            <Grid>
+            <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternSetTimeText}}" />
-                <TextBlock Text="{Binding Zone.BurnInfo.RunInfo.Progress.Total}" />
+                <TextBlock Grid.Row="1"
+                           Margin="0,5,0,0"
+                           Text="{Binding Zone.BurnInfo.RunInfo.Progress.Total, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
             </Grid>
         </Border>
 
@@ -48,19 +50,19 @@
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="1"
                 CornerRadius="{StaticResource DefaultCornerRadius}">
-            <Grid>
+            <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternCostTimeText}}" />
-                <TextBlock Text="{Binding Zone.BurnInfo.RunInfo.Progress.Cost}" />
+                <TextBlock Grid.Row="1"
+                           Margin="0,5,0,0"
+                           Text="{Binding Zone.BurnInfo.RunInfo.Progress.Cost, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
             </Grid>
         </Border>
     </Grid>
-    <Grid Grid.Row="1"
-          Height="40"
-          Margin="0,10,0,0">
+    <Grid Grid.Row="1" Margin="0,10,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="5" />
@@ -71,13 +73,15 @@
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="1"
                 CornerRadius="{StaticResource DefaultCornerRadius}">
-            <Grid>
+            <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternLeftTimeText}}" />
-                <TextBlock Text="{Binding Zone.BurnInfo.RunInfo.Progress.Left}" />
+                <TextBlock Grid.Row="1"
+                           Margin="0,5,0,0"
+                           Text="{Binding Zone.BurnInfo.RunInfo.Progress.Left, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
             </Grid>
         </Border>
 
@@ -85,13 +89,15 @@
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="1"
                 CornerRadius="{StaticResource DefaultCornerRadius}">
-            <Grid>
+            <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock Text="{app:Lang {x:Static app:LangKey.TotalTimeBeforeDpsUpText}}" />
-                <TextBlock Text="{Binding Zone.BurnInfo.TotalSeconds}" />
+                <TextBlock Grid.Row="1"
+                           Margin="0,5,0,0"
+                           Text="{Binding Zone.BurnInfo.TotalSeconds, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
             </Grid>
         </Border>
     </Grid>
@@ -243,7 +249,7 @@
                            Margin="10,0,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
-                           Text="{Binding Zone.BurnInfo.CurrentDpsGroup.Name}" />
+                           Text="{Binding Zone.BurnInfo.CurrentDpsPlan.Name}" />
 
 
                 <TextBlock Grid.Row="6"
@@ -296,7 +302,7 @@
                     </Border>
                     <Button Margin="6,0,0,0"
                             Background="Transparent"
-                            Content="{app:Lang {x:Static app:LangKey.ViewText}}" 
+                            Content="{app:Lang {x:Static app:LangKey.ViewText}}"
                             Cursor="Hand"
                             DockPanel.Dock="Left"
                             Foreground="{StaticResource PrimaryBrush}"

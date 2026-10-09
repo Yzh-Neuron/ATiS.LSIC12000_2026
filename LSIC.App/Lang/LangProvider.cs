@@ -19,6 +19,8 @@
         public string Enum_OvenMode_Constant => GetString("Enum.OvenMode.Constant");
         /// <summary>程式运行中</summary>
         public string Enum_OvenMode_Run => GetString("Enum.OvenMode.Run");
+        /// <summary>故障</summary>
+        public string Enum_OvenMode_Error => GetString("Enum.OvenMode.Error");
         /// <summary>离线</summary>
         public string Enum_OvenMode_Offline => GetString("Enum.OvenMode.Offline");
         /// <summary>秒</summary>
@@ -33,106 +35,42 @@
         public string Enum_ExecuteMode_Time => GetString("Enum.ExecuteMode.Time");
         /// <summary>次数</summary>
         public string Enum_ExecuteMode_Times => GetString("Enum.ExecuteMode.Times");
-        /// <summary>风冷</summary>
-        public string Enum_CoolingMode_Air => GetString("Enum.CoolingMode.Air");
-        /// <summary>水冷</summary>
-        public string Enum_CoolingMode_Water => GetString("Enum.CoolingMode.Water");
-        /// <summary>查询版本</summary>
-        public string Enum_ZoneFunctionCode_Version => GetString("Enum.ZoneFunctionCode.Version");
-        /// <summary>同步时间</summary>
-        public string Enum_ZoneFunctionCode_SyncTime => GetString("Enum.ZoneFunctionCode.SyncTime");
-        /// <summary>插板状态</summary>
-        public string Enum_ZoneFunctionCode_PlugedState => GetString("Enum.ZoneFunctionCode.PlugedState");
-        /// <summary>老化控制</summary>
-        public string Enum_ZoneFunctionCode_BurnControl => GetString("Enum.ZoneFunctionCode.BurnControl");
-        /// <summary>老化流程</summary>
-        public string Enum_ZoneFunctionCode_BurnProcess => GetString("Enum.ZoneFunctionCode.BurnProcess");
-        /// <summary>向量错误</summary>
-        public string Enum_ZoneFunctionCode_PatternError => GetString("Enum.ZoneFunctionCode.PatternError");
-        /// <summary>电源状态</summary>
-        public string Enum_ZoneFunctionCode_PowerState => GetString("Enum.ZoneFunctionCode.PowerState");
-        /// <summary>触发通道</summary>
-        public string Enum_ZoneFunctionCode_TriggerChannel => GetString("Enum.ZoneFunctionCode.TriggerChannel");
-        /// <summary>温控系数</summary>
-        public string Enum_ZoneFunctionCode_ThermostatPID => GetString("Enum.ZoneFunctionCode.ThermostatPID");
-        /// <summary>器件发送标志</summary>
-        public string Enum_ZoneFunctionCode_ConfigFlag => GetString("Enum.ZoneFunctionCode.ConfigFlag");
-        /// <summary>设置电源方案</summary>
-        public string Enum_ZoneFunctionCode_SetDpsPlan => GetString("Enum.ZoneFunctionCode.SetDpsPlan");
-        /// <summary>设置向量数据</summary>
-        public string Enum_ZoneFunctionCode_SetPattern => GetString("Enum.ZoneFunctionCode.SetPattern");
-        /// <summary>设置地址数据</summary>
-        public string Enum_ZoneFunctionCode_SetRegister => GetString("Enum.ZoneFunctionCode.SetRegister");
-        /// <summary>设置老化步次</summary>
-        public string Enum_ZoneFunctionCode_SetStep => GetString("Enum.ZoneFunctionCode.SetStep");
-        /// <summary>设置上电方案</summary>
-        public string Enum_ZoneFunctionCode_SetPowerUp => GetString("Enum.ZoneFunctionCode.SetPowerUp");
-        /// <summary>设置下电方案</summary>
-        public string Enum_ZoneFunctionCode_SetPowerDown => GetString("Enum.ZoneFunctionCode.SetPowerDown");
-        /// <summary>设置独立温控</summary>
-        public string Enum_ZoneFunctionCode_Thermostat => GetString("Enum.ZoneFunctionCode.Thermostat");
-        /// <summary>固件自检</summary>
-        public string Enum_ZoneFunctionCode_SelfCheck => GetString("Enum.ZoneFunctionCode.SelfCheck");
-        /// <summary>查询版本</summary>
-        public string Enum_LVControlBoardCode_Version => GetString("Enum.LVControlBoardCode.Version");
-        /// <summary>同步时间</summary>
-        public string Enum_LVControlBoardCode_SyncTime => GetString("Enum.LVControlBoardCode.SyncTime");
-        /// <summary>三色报警灯</summary>
-        public string Enum_LVControlBoardCode_LightAlarm => GetString("Enum.LVControlBoardCode.LightAlarm");
-        /// <summary>烟雾探测器</summary>
-        public string Enum_LVControlBoardCode_Smoke => GetString("Enum.LVControlBoardCode.Smoke");
-        /// <summary>急停按钮</summary>
-        public string Enum_LVControlBoardCode_Emergency => GetString("Enum.LVControlBoardCode.Emergency");
-        /// <summary>烘箱门状态</summary>
-        public string Enum_LVControlBoardCode_OvenDoor => GetString("Enum.LVControlBoardCode.OvenDoor");
-        /// <summary>强电门状态</summary>
-        public string Enum_LVControlBoardCode_PowerDoor => GetString("Enum.LVControlBoardCode.PowerDoor");
-        /// <summary>系统供电</summary>
-        public string Enum_LVControlBoardCode_SystemPower => GetString("Enum.LVControlBoardCode.SystemPower");
-        /// <summary>触发通道</summary>
-        public string Enum_LVControlBoardCode_TriggerChannel => GetString("Enum.LVControlBoardCode.TriggerChannel");
-        /// <summary>固件自检</summary>
-        public string Enum_LVControlBoardCode_SelfCheck => GetString("Enum.LVControlBoardCode.SelfCheck");
-        /// <summary>查询版本</summary>
-        public string Enum_VerticalAdapterBoardCode_Version => GetString("Enum.VerticalAdapterBoardCode.Version");
-        /// <summary>同步时间</summary>
-        public string Enum_VerticalAdapterBoardCode_SyncTime => GetString("Enum.VerticalAdapterBoardCode.SyncTime");
-        /// <summary>BMC供电</summary>
-        public string Enum_VerticalAdapterBoardCode_BmcPower => GetString("Enum.VerticalAdapterBoardCode.BmcPower");
-        /// <summary>一级电源</summary>
-        public string Enum_VerticalAdapterBoardCode_PrePower => GetString("Enum.VerticalAdapterBoardCode.PrePower");
-        /// <summary>触发通道</summary>
-        public string Enum_VerticalAdapterBoardCode_TriggerChannel => GetString("Enum.VerticalAdapterBoardCode.TriggerChannel");
-        /// <summary>固件自检</summary>
-        public string Enum_VerticalAdapterBoardCode_SelfCheck => GetString("Enum.VerticalAdapterBoardCode.SelfCheck");
         /// <summary>初始化中</summary>
         public string Enum_ZoneState_Init => GetString("Enum.ZoneState.Init");
         /// <summary>空闲</summary>
         public string Enum_ZoneState_Idle => GetString("Enum.ZoneState.Idle");
         /// <summary>就绪</summary>
         public string Enum_ZoneState_Ready => GetString("Enum.ZoneState.Ready");
-        /// <summary>老化中</summary>
-        public string Enum_ZoneState_Burning => GetString("Enum.ZoneState.Burning");
-        /// <summary>老化暂停</summary>
-        public string Enum_ZoneState_Suspend => GetString("Enum.ZoneState.Suspend");
-        /// <summary>老化停止</summary>
-        public string Enum_ZoneState_Stop => GetString("Enum.ZoneState.Stop");
-        /// <summary>老化完成</summary>
-        public string Enum_ZoneState_Finish => GetString("Enum.ZoneState.Finish");
         /// <summary>上电中</summary>
         public string Enum_ZoneState_PowerUp => GetString("Enum.ZoneState.PowerUp");
+        /// <summary>老化中</summary>
+        public string Enum_ZoneState_Burning => GetString("Enum.ZoneState.Burning");
         /// <summary>下电中</summary>
         public string Enum_ZoneState_PowerDown => GetString("Enum.ZoneState.PowerDown");
-        /// <summary>自检中</summary>
-        public string Enum_ZoneState_SelfCheck => GetString("Enum.ZoneState.SelfCheck");
-        /// <summary>升级中</summary>
+        /// <summary>老化停止</summary>
+        public string Enum_ZoneState_Stop => GetString("Enum.ZoneState.Stop");
+        /// <summary>传输中</summary>
+        public string Enum_ZoneState_Transition => GetString("Enum.ZoneState.Transition");
+        /// <summary>设备自检中</summary>
+        public string Enum_ZoneState_DeviceChecking => GetString("Enum.ZoneState.DeviceChecking");
+        /// <summary>电源自检中</summary>
+        public string Enum_ZoneState_DpsChecking => GetString("Enum.ZoneState.DpsChecking");
+        /// <summary>固件升级中</summary>
         public string Enum_ZoneState_Upgrading => GetString("Enum.ZoneState.Upgrading");
         /// <summary>离线</summary>
         public string Enum_ZoneState_Offline => GetString("Enum.ZoneState.Offline");
-        /// <summary>传输中</summary>
-        public string Enum_ZoneState_IcSending => GetString("Enum.ZoneState.IcSending");
+        /// <summary>器件发送中</summary>
+        public string Enum_ZoneState_Sending => GetString("Enum.ZoneState.Sending");
+        /// <summary>自检错误</summary>
+        public string Enum_ZoneState_DeviceCheckFail => GetString("Enum.ZoneState.DeviceCheckFail");
+        /// <summary>器件配置错误</summary>
+        public string Enum_ZoneState_IcError => GetString("Enum.ZoneState.IcError");
         /// <summary>错误</summary>
         public string Enum_ZoneState_Error => GetString("Enum.ZoneState.Error");
+        /// <summary>全部载入</summary>
+        public string Enum_LoadMode_Default => GetString("Enum.LoadMode.Default");
+        /// <summary>单步载入</summary>
+        public string Enum_LoadMode_Step => GetString("Enum.LoadMode.Step");
         /// <summary>空闲</summary>
         public string Enum_DutState_Idle => GetString("Enum.DutState.Idle");
         /// <summary>测试中</summary>
@@ -143,48 +81,42 @@
         public string Enum_DutState_Fail => GetString("Enum.DutState.Fail");
         /// <summary>忽略</summary>
         public string Enum_DutState_Ignore => GetString("Enum.DutState.Ignore");
-        /// <summary>驱动板</summary>
-        public string Enum_BoardType_DriverBoard => GetString("Enum.BoardType.DriverBoard");
+        /// <summary>主控板</summary>
+        public string Enum_BoardType_MainBoard => GetString("Enum.BoardType.MainBoard");
         /// <summary>底板</summary>
         public string Enum_BoardType_BaseBoard => GetString("Enum.BoardType.BaseBoard");
         /// <summary>数字板</summary>
         public string Enum_BoardType_DigitalBoard => GetString("Enum.BoardType.DigitalBoard");
         /// <summary>模拟板</summary>
         public string Enum_BoardType_AnalogBoard => GetString("Enum.BoardType.AnalogBoard");
-        /// <summary>二级电源控制板</summary>
-        public string Enum_BoardType_DPSControlBoard => GetString("Enum.BoardType.DPSControlBoard");
+        /// <summary>电源板</summary>
+        public string Enum_BoardType_PowerBoard => GetString("Enum.BoardType.PowerBoard");
         /// <summary>DPS</summary>
         public string Enum_BoardType_DPS => GetString("Enum.BoardType.DPS");
         /// <summary>VIH</summary>
         public string Enum_BoardType_VIH => GetString("Enum.BoardType.VIH");
-        /// <summary>一级电源控制板</summary>
-        public string Enum_BoardType_PPSControlBoard => GetString("Enum.BoardType.PPSControlBoard");
-        /// <summary>温度采集板</summary>
-        public string Enum_BoardType_TempAcquisitionBoard => GetString("Enum.BoardType.TempAcquisitionBoard");
+        /// <summary>温控板</summary>
+        public string Enum_BoardType_TempControlBoard => GetString("Enum.BoardType.TempControlBoard");
         /// <summary>BMC</summary>
-        public string Enum_BoardType_BMC => GetString("Enum.BoardType.BMC");
+        public string Enum_BoardType_BaseManagerController => GetString("Enum.BoardType.BaseManagerController");
         /// <summary>全砖 10V10A</summary>
         public string Enum_BoardType_FB10V10A => GetString("Enum.BoardType.FB10V10A");
         /// <summary>全砖 06V25A</summary>
         public string Enum_BoardType_FB06V25A => GetString("Enum.BoardType.FB06V25A");
         /// <summary>全砖 06V50A</summary>
         public string Enum_BoardType_FB06V50A => GetString("Enum.BoardType.FB06V50A");
+        /// <summary>全砖 36V05A</summary>
+        public string Enum_BoardType_FB36V05A => GetString("Enum.BoardType.FB36V05A");
         /// <summary>半砖 20V20A</summary>
         public string Enum_BoardType_HB20V20A => GetString("Enum.BoardType.HB20V20A");
         /// <summary>半砖 45V10A</summary>
         public string Enum_BoardType_HB45V10A => GetString("Enum.BoardType.HB45V10A");
-        /// <summary>竖向转接板</summary>
-        public string Enum_BoardType_VerticalAdapterBoard => GetString("Enum.BoardType.VerticalAdapterBoard");
-        /// <summary>老化转接板</summary>
-        public string Enum_BoardType_BIBAdapterBoard => GetString("Enum.BoardType.BIBAdapterBoard");
+        /// <summary>竖向板</summary>
+        public string Enum_BoardType_VerticalBoard => GetString("Enum.BoardType.VerticalBoard");
+        /// <summary>转接板</summary>
+        public string Enum_BoardType_AdapterBoard => GetString("Enum.BoardType.AdapterBoard");
         /// <summary>I/O控制板</summary>
-        public string Enum_BoardType_IOControllerBoard => GetString("Enum.BoardType.IOControllerBoard");
-        /// <summary>辅助板</summary>
-        public string Enum_BoardType_AuxiliaryBoard => GetString("Enum.BoardType.AuxiliaryBoard");
-        /// <summary>强电控制板</summary>
-        public string Enum_BoardType_HVControlBoard => GetString("Enum.BoardType.HVControlBoard");
-        /// <summary>弱电控制板</summary>
-        public string Enum_BoardType_LVControlBoard => GetString("Enum.BoardType.LVControlBoard");
+        public string Enum_BoardType_IoController => GetString("Enum.BoardType.IoController");
         /// <summary>老化板</summary>
         public string Enum_BoardType_BurnInBoard => GetString("Enum.BoardType.BurnInBoard");
         /// <summary>工作中</summary>
@@ -237,138 +169,26 @@
         public string Enum_LightAlarmState_Yellow => GetString("Enum.LightAlarmState.Yellow");
         /// <summary>绿灯</summary>
         public string Enum_LightAlarmState_Green => GetString("Enum.LightAlarmState.Green");
-        /// <summary>报警</summary>
+        /// <summary>报警器</summary>
         public string Enum_LightAlarmState_Alarm => GetString("Enum.LightAlarmState.Alarm");
-        /// <summary>默认</summary>
-        public string Enum_DpsPlanPurpose_Default => GetString("Enum.DpsPlanPurpose.Default");
-        /// <summary>上电</summary>
-        public string Enum_DpsPlanPurpose_PowerUp => GetString("Enum.DpsPlanPurpose.PowerUp");
-        /// <summary>下电</summary>
-        public string Enum_DpsPlanPurpose_PowerDown => GetString("Enum.DpsPlanPurpose.PowerDown");
-        /// <summary>跟踪</summary>
-        public string Enum_LogLevel_Trace => GetString("Enum.LogLevel.Trace");
-        /// <summary>调试</summary>
-        public string Enum_LogLevel_Debug => GetString("Enum.LogLevel.Debug");
-        /// <summary>消息</summary>
-        public string Enum_LogLevel_Info => GetString("Enum.LogLevel.Info");
-        /// <summary>警告</summary>
-        public string Enum_LogLevel_Warn => GetString("Enum.LogLevel.Warn");
-        /// <summary>错误</summary>
-        public string Enum_LogLevel_Error => GetString("Enum.LogLevel.Error");
-        /// <summary>异常</summary>
-        public string Enum_LogLevel_Fatal => GetString("Enum.LogLevel.Fatal");
-        /// <summary>查询版本</summary>
-        public string Enum_HVControlBoardCode_Version => GetString("Enum.HVControlBoardCode.Version");
-        /// <summary>同步时间</summary>
-        public string Enum_HVControlBoardCode_SyncTime => GetString("Enum.HVControlBoardCode.SyncTime");
-        /// <summary>三色报警灯</summary>
-        public string Enum_HVControlBoardCode_LightAlarm => GetString("Enum.HVControlBoardCode.LightAlarm");
-        /// <summary>烟雾报警器</summary>
-        public string Enum_HVControlBoardCode_Smoke => GetString("Enum.HVControlBoardCode.Smoke");
-        /// <summary>急停按钮</summary>
-        public string Enum_HVControlBoardCode_Emergency => GetString("Enum.HVControlBoardCode.Emergency");
-        /// <summary>门的状态</summary>
-        public string Enum_HVControlBoardCode_Door => GetString("Enum.HVControlBoardCode.Door");
-        /// <summary>强电控制</summary>
-        public string Enum_HVControlBoardCode_HighVoltage => GetString("Enum.HVControlBoardCode.HighVoltage");
-        /// <summary>固件自检</summary>
-        public string Enum_HVControlBoardCode_SelfCheck => GetString("Enum.HVControlBoardCode.SelfCheck");
-        /// <summary>检测板 1</summary>
-        public string Enum_HVStateErrorType_AC1 => GetString("Enum.HVStateErrorType.AC1");
-        /// <summary>检测板 2</summary>
-        public string Enum_HVStateErrorType_AC2 => GetString("Enum.HVStateErrorType.AC2");
-        /// <summary>检测板 3</summary>
-        public string Enum_HVStateErrorType_AC3 => GetString("Enum.HVStateErrorType.AC3");
-        /// <summary>检测板 4</summary>
-        public string Enum_HVStateErrorType_AC4 => GetString("Enum.HVStateErrorType.AC4");
-        /// <summary>检测板 5</summary>
-        public string Enum_HVStateErrorType_AC5 => GetString("Enum.HVStateErrorType.AC5");
-        /// <summary>检测板 6</summary>
-        public string Enum_HVStateErrorType_AC6 => GetString("Enum.HVStateErrorType.AC6");
-        /// <summary>关闭</summary>
-        public string Enum_HVState_Close => GetString("Enum.HVState.Close");
-        /// <summary>上电中</summary>
-        public string Enum_HVState_PowerUp => GetString("Enum.HVState.PowerUp");
-        /// <summary>下电中</summary>
-        public string Enum_HVState_PowerDown => GetString("Enum.HVState.PowerDown");
-        /// <summary>开启</summary>
-        public string Enum_HVState_Open => GetString("Enum.HVState.Open");
-        /// <summary>离线</summary>
-        public string Enum_HVState_Offline => GetString("Enum.HVState.Offline");
-        /// <summary>错误</summary>
-        public string Enum_HVState_Error => GetString("Enum.HVState.Error");
-        /// <summary>设备门</summary>
-        public string Enum_DoorType_Default => GetString("Enum.DoorType.Default");
-        /// <summary>烘箱门</summary>
-        public string Enum_DoorType_Oven => GetString("Enum.DoorType.Oven");
-        /// <summary>强电门</summary>
-        public string Enum_DoorType_Power => GetString("Enum.DoorType.Power");
-        /// <summary>通讯状态</summary>
-        public string Enum_FirmwareSelfCheckItem_ConnectionState => GetString("Enum.FirmwareSelfCheckItem.ConnectionState");
-        /// <summary>环境变量</summary>
-        public string Enum_FirmwareSelfCheckItem_EnviormentVariables => GetString("Enum.FirmwareSelfCheckItem.EnviormentVariables");
-        /// <summary>配置文件</summary>
-        public string Enum_FirmwareSelfCheckItem_ConfigFiles => GetString("Enum.FirmwareSelfCheckItem.ConfigFiles");
-        /// <summary>输出电压</summary>
-        public string Enum_FirmwareSelfCheckItem_OutputVoltage => GetString("Enum.FirmwareSelfCheckItem.OutputVoltage");
-        /// <summary>输入电压</summary>
-        public string Enum_FirmwareSelfCheckItem_InputVoltage => GetString("Enum.FirmwareSelfCheckItem.InputVoltage");
-        /// <summary>输出电流</summary>
-        public string Enum_FirmwareSelfCheckItem_OutputCurrent => GetString("Enum.FirmwareSelfCheckItem.OutputCurrent");
-        /// <summary>输入电流</summary>
-        public string Enum_FirmwareSelfCheckItem_InputCurrent => GetString("Enum.FirmwareSelfCheckItem.InputCurrent");
-        /// <summary>输出温度</summary>
-        public string Enum_FirmwareSelfCheckItem_OutputTemperature => GetString("Enum.FirmwareSelfCheckItem.OutputTemperature");
-        /// <summary>扩展IO</summary>
-        public string Enum_FirmwareSelfCheckItem_ExpandIO => GetString("Enum.FirmwareSelfCheckItem.ExpandIO");
-        /// <summary>数模转换</summary>
-        public string Enum_FirmwareSelfCheckItem_DAC => GetString("Enum.FirmwareSelfCheckItem.DAC");
-        /// <summary>FPGA</summary>
-        public string Enum_FirmwareSelfCheckItem_FPGA => GetString("Enum.FirmwareSelfCheckItem.FPGA");
-        /// <summary>闪存</summary>
-        public string Enum_FirmwareSelfCheckItem_Flash => GetString("Enum.FirmwareSelfCheckItem.Flash");
-        /// <summary>模数转换</summary>
-        public string Enum_FirmwareSelfCheckItem_ADC => GetString("Enum.FirmwareSelfCheckItem.ADC");
-        /// <summary>差分信号</summary>
-        public string Enum_FirmwareSelfCheckItem_LVDS => GetString("Enum.FirmwareSelfCheckItem.LVDS");
-        /// <summary>EEPROM</summary>
-        public string Enum_FirmwareSelfCheckItem_EEPROM => GetString("Enum.FirmwareSelfCheckItem.EEPROM");
-        /// <summary>读寄存器</summary>
-        public string Enum_FirmwareSelfCheckItem_ReadRegister => GetString("Enum.FirmwareSelfCheckItem.ReadRegister");
-        /// <summary>写寄存器</summary>
-        public string Enum_FirmwareSelfCheckItem_WriteRegister => GetString("Enum.FirmwareSelfCheckItem.WriteRegister");
-        /// <summary>通过</summary>
-        public string Enum_FirmwareSelfCheckResult_Pass => GetString("Enum.FirmwareSelfCheckResult.Pass");
-        /// <summary>通讯异常</summary>
-        public string Enum_FirmwareSelfCheckResult_ConnectionError => GetString("Enum.FirmwareSelfCheckResult.ConnectionError");
-        /// <summary>环境变量丢失</summary>
-        public string Enum_FirmwareSelfCheckResult_EnviormentVariablesLost => GetString("Enum.FirmwareSelfCheckResult.EnviormentVariablesLost");
-        /// <summary>配置文件丢失</summary>
-        public string Enum_FirmwareSelfCheckResult_ConfigFilesLost => GetString("Enum.FirmwareSelfCheckResult.ConfigFilesLost");
-        /// <summary>配置文件错误</summary>
-        public string Enum_FirmwareSelfCheckResult_ConfigFilesError => GetString("Enum.FirmwareSelfCheckResult.ConfigFilesError");
-        /// <summary>电压过高</summary>
-        public string Enum_FirmwareSelfCheckResult_VoltageTooHigh => GetString("Enum.FirmwareSelfCheckResult.VoltageTooHigh");
-        /// <summary>电压过低</summary>
-        public string Enum_FirmwareSelfCheckResult_VoltageTooLow => GetString("Enum.FirmwareSelfCheckResult.VoltageTooLow");
-        /// <summary>电流过高</summary>
-        public string Enum_FirmwareSelfCheckResult_CurrentTooHigh => GetString("Enum.FirmwareSelfCheckResult.CurrentTooHigh");
-        /// <summary>电流过低</summary>
-        public string Enum_FirmwareSelfCheckResult_CurrentTooLow => GetString("Enum.FirmwareSelfCheckResult.CurrentTooLow");
-        /// <summary>温度过高</summary>
-        public string Enum_FirmwareSelfCheckResult_TemperatureTooHigh => GetString("Enum.FirmwareSelfCheckResult.TemperatureTooHigh");
-        /// <summary>温度过低</summary>
-        public string Enum_FirmwareSelfCheckResult_TemperatureTooLow => GetString("Enum.FirmwareSelfCheckResult.TemperatureTooLow");
-        /// <summary>内存地址错误</summary>
-        public string Enum_FirmwareSelfCheckResult_MemoryAddressError => GetString("Enum.FirmwareSelfCheckResult.MemoryAddressError");
-        /// <summary>数据读取错误</summary>
-        public string Enum_FirmwareSelfCheckResult_DataReadError => GetString("Enum.FirmwareSelfCheckResult.DataReadError");
-        /// <summary>数据写入错误</summary>
-        public string Enum_FirmwareSelfCheckResult_DataWriteError => GetString("Enum.FirmwareSelfCheckResult.DataWriteError");
-        /// <summary>位于左侧</summary>
-        public string Enum_TriggerVerticalDirection_Left => GetString("Enum.TriggerVerticalDirection.Left");
-        /// <summary>位于右侧</summary>
-        public string Enum_TriggerVerticalDirection_Right => GetString("Enum.TriggerVerticalDirection.Right");
+        /// <summary>8 位</summary>
+        public string Enum_BitWidth_Bit8 => GetString("Enum.BitWidth.Bit8");
+        /// <summary>12 位</summary>
+        public string Enum_BitWidth_Bit12 => GetString("Enum.BitWidth.Bit12");
+        /// <summary>16 位</summary>
+        public string Enum_BitWidth_Bit16 => GetString("Enum.BitWidth.Bit16");
+        /// <summary>24 位</summary>
+        public string Enum_BitWidth_Bit24 => GetString("Enum.BitWidth.Bit24");
+        /// <summary>32 位</summary>
+        public string Enum_BitWidth_Bit32 => GetString("Enum.BitWidth.Bit32");
+        /// <summary>Clock</summary>
+        public string Enum_ChannelType_Clock => GetString("Enum.ChannelType.Clock");
+        /// <summary>MOSI</summary>
+        public string Enum_ChannelType_MOSI => GetString("Enum.ChannelType.MOSI");
+        /// <summary>MISO</summary>
+        public string Enum_ChannelType_MISO => GetString("Enum.ChannelType.MISO");
+        /// <summary>CS</summary>
+        public string Enum_ChannelType_CS => GetString("Enum.ChannelType.CS");
         /// <summary>未捕获到的异常, {0}</summary>
         public string UnhandledExceptionMessage => GetString("UnhandledExceptionMessage");
         /// <summary>程序已运行</summary>
@@ -1327,9 +1147,9 @@
         public string DpsEditText => GetString("DpsEditText");
         /// <summary>老化区状态: {0}</summary>
         public string ZoneStateChangedLog => GetString("ZoneStateChangedLog");
-        /// <summary>插板状态：Slot {0} -> {1}</summary>
+        /// <summary>插板状态：{0}</summary>
         public string BurnInBoardInsertedChangedLog => GetString("BurnInBoardInsertedChangedLog");
-        /// <summary>电源错误: Slot {0} {1} -> [{2}]</summary>
+        /// <summary>电源错误:{0} -> [{1}]</summary>
         public string ZoneDpsErrorLog => GetString("ZoneDpsErrorLog");
         /// <summary>电源错误: VIH{0} -> [{1}]</summary>
         public string ZoneVIHErrorLog => GetString("ZoneVIHErrorLog");
@@ -1351,7 +1171,7 @@
         public string StepRunInfoLog => GetString("StepRunInfoLog");
         /// <summary>运行电源自检脚本: {0}</summary>
         public string RunDpsCheckScriptLog => GetString("RunDpsCheckScriptLog");
-        /// <summary>电源自检[{0}/{1}] -> Slot {2}    {3}    {4}V    {5}A    ({6}/{7})</summary>
+        /// <summary>电源自检[{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})</summary>
         public string DpsCheckResultLog => GetString("DpsCheckResultLog");
         /// <summary>检测到烟雾，老化已停止</summary>
         public string StopBurnOnSmokyLog => GetString("StopBurnOnSmokyLog");
@@ -1380,6 +1200,7 @@
             OnPropertyChanged(nameof(Enum_OvenMode_Standby));
             OnPropertyChanged(nameof(Enum_OvenMode_Constant));
             OnPropertyChanged(nameof(Enum_OvenMode_Run));
+            OnPropertyChanged(nameof(Enum_OvenMode_Error));
             OnPropertyChanged(nameof(Enum_OvenMode_Offline));
             OnPropertyChanged(nameof(Enum_TimeUnit_Second));
             OnPropertyChanged(nameof(Enum_TimeUnit_Minute));
@@ -1387,82 +1208,47 @@
             OnPropertyChanged(nameof(Enum_TimeUnit_Day));
             OnPropertyChanged(nameof(Enum_ExecuteMode_Time));
             OnPropertyChanged(nameof(Enum_ExecuteMode_Times));
-            OnPropertyChanged(nameof(Enum_CoolingMode_Air));
-            OnPropertyChanged(nameof(Enum_CoolingMode_Water));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_Version));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SyncTime));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_PlugedState));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_BurnControl));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_BurnProcess));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_PatternError));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_PowerState));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_TriggerChannel));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_ThermostatPID));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_ConfigFlag));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SetDpsPlan));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SetPattern));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SetRegister));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SetStep));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SetPowerUp));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SetPowerDown));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_Thermostat));
-            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SelfCheck));
-            OnPropertyChanged(nameof(Enum_LVControlBoardCode_Version));
-            OnPropertyChanged(nameof(Enum_LVControlBoardCode_SyncTime));
-            OnPropertyChanged(nameof(Enum_LVControlBoardCode_LightAlarm));
-            OnPropertyChanged(nameof(Enum_LVControlBoardCode_Smoke));
-            OnPropertyChanged(nameof(Enum_LVControlBoardCode_Emergency));
-            OnPropertyChanged(nameof(Enum_LVControlBoardCode_OvenDoor));
-            OnPropertyChanged(nameof(Enum_LVControlBoardCode_PowerDoor));
-            OnPropertyChanged(nameof(Enum_LVControlBoardCode_SystemPower));
-            OnPropertyChanged(nameof(Enum_LVControlBoardCode_TriggerChannel));
-            OnPropertyChanged(nameof(Enum_LVControlBoardCode_SelfCheck));
-            OnPropertyChanged(nameof(Enum_VerticalAdapterBoardCode_Version));
-            OnPropertyChanged(nameof(Enum_VerticalAdapterBoardCode_SyncTime));
-            OnPropertyChanged(nameof(Enum_VerticalAdapterBoardCode_BmcPower));
-            OnPropertyChanged(nameof(Enum_VerticalAdapterBoardCode_PrePower));
-            OnPropertyChanged(nameof(Enum_VerticalAdapterBoardCode_TriggerChannel));
-            OnPropertyChanged(nameof(Enum_VerticalAdapterBoardCode_SelfCheck));
             OnPropertyChanged(nameof(Enum_ZoneState_Init));
             OnPropertyChanged(nameof(Enum_ZoneState_Idle));
             OnPropertyChanged(nameof(Enum_ZoneState_Ready));
-            OnPropertyChanged(nameof(Enum_ZoneState_Burning));
-            OnPropertyChanged(nameof(Enum_ZoneState_Suspend));
-            OnPropertyChanged(nameof(Enum_ZoneState_Stop));
-            OnPropertyChanged(nameof(Enum_ZoneState_Finish));
             OnPropertyChanged(nameof(Enum_ZoneState_PowerUp));
+            OnPropertyChanged(nameof(Enum_ZoneState_Burning));
             OnPropertyChanged(nameof(Enum_ZoneState_PowerDown));
-            OnPropertyChanged(nameof(Enum_ZoneState_SelfCheck));
+            OnPropertyChanged(nameof(Enum_ZoneState_Stop));
+            OnPropertyChanged(nameof(Enum_ZoneState_Transition));
+            OnPropertyChanged(nameof(Enum_ZoneState_DeviceChecking));
+            OnPropertyChanged(nameof(Enum_ZoneState_DpsChecking));
             OnPropertyChanged(nameof(Enum_ZoneState_Upgrading));
             OnPropertyChanged(nameof(Enum_ZoneState_Offline));
-            OnPropertyChanged(nameof(Enum_ZoneState_IcSending));
+            OnPropertyChanged(nameof(Enum_ZoneState_Sending));
+            OnPropertyChanged(nameof(Enum_ZoneState_DeviceCheckFail));
+            OnPropertyChanged(nameof(Enum_ZoneState_IcError));
             OnPropertyChanged(nameof(Enum_ZoneState_Error));
+            OnPropertyChanged(nameof(Enum_LoadMode_Default));
+            OnPropertyChanged(nameof(Enum_LoadMode_Step));
             OnPropertyChanged(nameof(Enum_DutState_Idle));
             OnPropertyChanged(nameof(Enum_DutState_Test));
             OnPropertyChanged(nameof(Enum_DutState_Pass));
             OnPropertyChanged(nameof(Enum_DutState_Fail));
             OnPropertyChanged(nameof(Enum_DutState_Ignore));
-            OnPropertyChanged(nameof(Enum_BoardType_DriverBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_MainBoard));
             OnPropertyChanged(nameof(Enum_BoardType_BaseBoard));
             OnPropertyChanged(nameof(Enum_BoardType_DigitalBoard));
             OnPropertyChanged(nameof(Enum_BoardType_AnalogBoard));
-            OnPropertyChanged(nameof(Enum_BoardType_DPSControlBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_PowerBoard));
             OnPropertyChanged(nameof(Enum_BoardType_DPS));
             OnPropertyChanged(nameof(Enum_BoardType_VIH));
-            OnPropertyChanged(nameof(Enum_BoardType_PPSControlBoard));
-            OnPropertyChanged(nameof(Enum_BoardType_TempAcquisitionBoard));
-            OnPropertyChanged(nameof(Enum_BoardType_BMC));
+            OnPropertyChanged(nameof(Enum_BoardType_TempControlBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_BaseManagerController));
             OnPropertyChanged(nameof(Enum_BoardType_FB10V10A));
             OnPropertyChanged(nameof(Enum_BoardType_FB06V25A));
             OnPropertyChanged(nameof(Enum_BoardType_FB06V50A));
+            OnPropertyChanged(nameof(Enum_BoardType_FB36V05A));
             OnPropertyChanged(nameof(Enum_BoardType_HB20V20A));
             OnPropertyChanged(nameof(Enum_BoardType_HB45V10A));
-            OnPropertyChanged(nameof(Enum_BoardType_VerticalAdapterBoard));
-            OnPropertyChanged(nameof(Enum_BoardType_BIBAdapterBoard));
-            OnPropertyChanged(nameof(Enum_BoardType_IOControllerBoard));
-            OnPropertyChanged(nameof(Enum_BoardType_AuxiliaryBoard));
-            OnPropertyChanged(nameof(Enum_BoardType_HVControlBoard));
-            OnPropertyChanged(nameof(Enum_BoardType_LVControlBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_VerticalBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_AdapterBoard));
+            OnPropertyChanged(nameof(Enum_BoardType_IoController));
             OnPropertyChanged(nameof(Enum_BoardType_BurnInBoard));
             OnPropertyChanged(nameof(Enum_DpsState_Output));
             OnPropertyChanged(nameof(Enum_DpsState_Ovp));
@@ -1490,71 +1276,15 @@
             OnPropertyChanged(nameof(Enum_LightAlarmState_Yellow));
             OnPropertyChanged(nameof(Enum_LightAlarmState_Green));
             OnPropertyChanged(nameof(Enum_LightAlarmState_Alarm));
-            OnPropertyChanged(nameof(Enum_DpsPlanPurpose_Default));
-            OnPropertyChanged(nameof(Enum_DpsPlanPurpose_PowerUp));
-            OnPropertyChanged(nameof(Enum_DpsPlanPurpose_PowerDown));
-            OnPropertyChanged(nameof(Enum_LogLevel_Trace));
-            OnPropertyChanged(nameof(Enum_LogLevel_Debug));
-            OnPropertyChanged(nameof(Enum_LogLevel_Info));
-            OnPropertyChanged(nameof(Enum_LogLevel_Warn));
-            OnPropertyChanged(nameof(Enum_LogLevel_Error));
-            OnPropertyChanged(nameof(Enum_LogLevel_Fatal));
-            OnPropertyChanged(nameof(Enum_HVControlBoardCode_Version));
-            OnPropertyChanged(nameof(Enum_HVControlBoardCode_SyncTime));
-            OnPropertyChanged(nameof(Enum_HVControlBoardCode_LightAlarm));
-            OnPropertyChanged(nameof(Enum_HVControlBoardCode_Smoke));
-            OnPropertyChanged(nameof(Enum_HVControlBoardCode_Emergency));
-            OnPropertyChanged(nameof(Enum_HVControlBoardCode_Door));
-            OnPropertyChanged(nameof(Enum_HVControlBoardCode_HighVoltage));
-            OnPropertyChanged(nameof(Enum_HVControlBoardCode_SelfCheck));
-            OnPropertyChanged(nameof(Enum_HVStateErrorType_AC1));
-            OnPropertyChanged(nameof(Enum_HVStateErrorType_AC2));
-            OnPropertyChanged(nameof(Enum_HVStateErrorType_AC3));
-            OnPropertyChanged(nameof(Enum_HVStateErrorType_AC4));
-            OnPropertyChanged(nameof(Enum_HVStateErrorType_AC5));
-            OnPropertyChanged(nameof(Enum_HVStateErrorType_AC6));
-            OnPropertyChanged(nameof(Enum_HVState_Close));
-            OnPropertyChanged(nameof(Enum_HVState_PowerUp));
-            OnPropertyChanged(nameof(Enum_HVState_PowerDown));
-            OnPropertyChanged(nameof(Enum_HVState_Open));
-            OnPropertyChanged(nameof(Enum_HVState_Offline));
-            OnPropertyChanged(nameof(Enum_HVState_Error));
-            OnPropertyChanged(nameof(Enum_DoorType_Default));
-            OnPropertyChanged(nameof(Enum_DoorType_Oven));
-            OnPropertyChanged(nameof(Enum_DoorType_Power));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_ConnectionState));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_EnviormentVariables));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_ConfigFiles));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_OutputVoltage));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_InputVoltage));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_OutputCurrent));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_InputCurrent));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_OutputTemperature));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_ExpandIO));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_DAC));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_FPGA));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_Flash));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_ADC));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_LVDS));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_EEPROM));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_ReadRegister));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckItem_WriteRegister));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_Pass));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_ConnectionError));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_EnviormentVariablesLost));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_ConfigFilesLost));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_ConfigFilesError));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_VoltageTooHigh));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_VoltageTooLow));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_CurrentTooHigh));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_CurrentTooLow));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_TemperatureTooHigh));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_TemperatureTooLow));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_MemoryAddressError));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_DataReadError));
-            OnPropertyChanged(nameof(Enum_FirmwareSelfCheckResult_DataWriteError));
-            OnPropertyChanged(nameof(Enum_TriggerVerticalDirection_Left));
-            OnPropertyChanged(nameof(Enum_TriggerVerticalDirection_Right));
+            OnPropertyChanged(nameof(Enum_BitWidth_Bit8));
+            OnPropertyChanged(nameof(Enum_BitWidth_Bit12));
+            OnPropertyChanged(nameof(Enum_BitWidth_Bit16));
+            OnPropertyChanged(nameof(Enum_BitWidth_Bit24));
+            OnPropertyChanged(nameof(Enum_BitWidth_Bit32));
+            OnPropertyChanged(nameof(Enum_ChannelType_Clock));
+            OnPropertyChanged(nameof(Enum_ChannelType_MOSI));
+            OnPropertyChanged(nameof(Enum_ChannelType_MISO));
+            OnPropertyChanged(nameof(Enum_ChannelType_CS));
             OnPropertyChanged(nameof(UnhandledExceptionMessage));
             OnPropertyChanged(nameof(AppHasLaunchedMessage));
             OnPropertyChanged(nameof(AppStartMessage));
@@ -2074,6 +1804,8 @@
         public const string Enum_OvenMode_Constant = nameof(Enum_OvenMode_Constant);
         /// <summary>程式运行中</summary>
         public const string Enum_OvenMode_Run = nameof(Enum_OvenMode_Run);
+        /// <summary>故障</summary>
+        public const string Enum_OvenMode_Error = nameof(Enum_OvenMode_Error);
         /// <summary>离线</summary>
         public const string Enum_OvenMode_Offline = nameof(Enum_OvenMode_Offline);
         /// <summary>秒</summary>
@@ -2088,106 +1820,42 @@
         public const string Enum_ExecuteMode_Time = nameof(Enum_ExecuteMode_Time);
         /// <summary>次数</summary>
         public const string Enum_ExecuteMode_Times = nameof(Enum_ExecuteMode_Times);
-        /// <summary>风冷</summary>
-        public const string Enum_CoolingMode_Air = nameof(Enum_CoolingMode_Air);
-        /// <summary>水冷</summary>
-        public const string Enum_CoolingMode_Water = nameof(Enum_CoolingMode_Water);
-        /// <summary>查询版本</summary>
-        public const string Enum_ZoneFunctionCode_Version = nameof(Enum_ZoneFunctionCode_Version);
-        /// <summary>同步时间</summary>
-        public const string Enum_ZoneFunctionCode_SyncTime = nameof(Enum_ZoneFunctionCode_SyncTime);
-        /// <summary>插板状态</summary>
-        public const string Enum_ZoneFunctionCode_PlugedState = nameof(Enum_ZoneFunctionCode_PlugedState);
-        /// <summary>老化控制</summary>
-        public const string Enum_ZoneFunctionCode_BurnControl = nameof(Enum_ZoneFunctionCode_BurnControl);
-        /// <summary>老化流程</summary>
-        public const string Enum_ZoneFunctionCode_BurnProcess = nameof(Enum_ZoneFunctionCode_BurnProcess);
-        /// <summary>向量错误</summary>
-        public const string Enum_ZoneFunctionCode_PatternError = nameof(Enum_ZoneFunctionCode_PatternError);
-        /// <summary>电源状态</summary>
-        public const string Enum_ZoneFunctionCode_PowerState = nameof(Enum_ZoneFunctionCode_PowerState);
-        /// <summary>触发通道</summary>
-        public const string Enum_ZoneFunctionCode_TriggerChannel = nameof(Enum_ZoneFunctionCode_TriggerChannel);
-        /// <summary>温控系数</summary>
-        public const string Enum_ZoneFunctionCode_ThermostatPID = nameof(Enum_ZoneFunctionCode_ThermostatPID);
-        /// <summary>器件发送标志</summary>
-        public const string Enum_ZoneFunctionCode_ConfigFlag = nameof(Enum_ZoneFunctionCode_ConfigFlag);
-        /// <summary>设置电源方案</summary>
-        public const string Enum_ZoneFunctionCode_SetDpsPlan = nameof(Enum_ZoneFunctionCode_SetDpsPlan);
-        /// <summary>设置向量数据</summary>
-        public const string Enum_ZoneFunctionCode_SetPattern = nameof(Enum_ZoneFunctionCode_SetPattern);
-        /// <summary>设置地址数据</summary>
-        public const string Enum_ZoneFunctionCode_SetRegister = nameof(Enum_ZoneFunctionCode_SetRegister);
-        /// <summary>设置老化步次</summary>
-        public const string Enum_ZoneFunctionCode_SetStep = nameof(Enum_ZoneFunctionCode_SetStep);
-        /// <summary>设置上电方案</summary>
-        public const string Enum_ZoneFunctionCode_SetPowerUp = nameof(Enum_ZoneFunctionCode_SetPowerUp);
-        /// <summary>设置下电方案</summary>
-        public const string Enum_ZoneFunctionCode_SetPowerDown = nameof(Enum_ZoneFunctionCode_SetPowerDown);
-        /// <summary>设置独立温控</summary>
-        public const string Enum_ZoneFunctionCode_Thermostat = nameof(Enum_ZoneFunctionCode_Thermostat);
-        /// <summary>固件自检</summary>
-        public const string Enum_ZoneFunctionCode_SelfCheck = nameof(Enum_ZoneFunctionCode_SelfCheck);
-        /// <summary>查询版本</summary>
-        public const string Enum_LVControlBoardCode_Version = nameof(Enum_LVControlBoardCode_Version);
-        /// <summary>同步时间</summary>
-        public const string Enum_LVControlBoardCode_SyncTime = nameof(Enum_LVControlBoardCode_SyncTime);
-        /// <summary>三色报警灯</summary>
-        public const string Enum_LVControlBoardCode_LightAlarm = nameof(Enum_LVControlBoardCode_LightAlarm);
-        /// <summary>烟雾探测器</summary>
-        public const string Enum_LVControlBoardCode_Smoke = nameof(Enum_LVControlBoardCode_Smoke);
-        /// <summary>急停按钮</summary>
-        public const string Enum_LVControlBoardCode_Emergency = nameof(Enum_LVControlBoardCode_Emergency);
-        /// <summary>烘箱门状态</summary>
-        public const string Enum_LVControlBoardCode_OvenDoor = nameof(Enum_LVControlBoardCode_OvenDoor);
-        /// <summary>强电门状态</summary>
-        public const string Enum_LVControlBoardCode_PowerDoor = nameof(Enum_LVControlBoardCode_PowerDoor);
-        /// <summary>系统供电</summary>
-        public const string Enum_LVControlBoardCode_SystemPower = nameof(Enum_LVControlBoardCode_SystemPower);
-        /// <summary>触发通道</summary>
-        public const string Enum_LVControlBoardCode_TriggerChannel = nameof(Enum_LVControlBoardCode_TriggerChannel);
-        /// <summary>固件自检</summary>
-        public const string Enum_LVControlBoardCode_SelfCheck = nameof(Enum_LVControlBoardCode_SelfCheck);
-        /// <summary>查询版本</summary>
-        public const string Enum_VerticalAdapterBoardCode_Version = nameof(Enum_VerticalAdapterBoardCode_Version);
-        /// <summary>同步时间</summary>
-        public const string Enum_VerticalAdapterBoardCode_SyncTime = nameof(Enum_VerticalAdapterBoardCode_SyncTime);
-        /// <summary>BMC供电</summary>
-        public const string Enum_VerticalAdapterBoardCode_BmcPower = nameof(Enum_VerticalAdapterBoardCode_BmcPower);
-        /// <summary>一级电源</summary>
-        public const string Enum_VerticalAdapterBoardCode_PrePower = nameof(Enum_VerticalAdapterBoardCode_PrePower);
-        /// <summary>触发通道</summary>
-        public const string Enum_VerticalAdapterBoardCode_TriggerChannel = nameof(Enum_VerticalAdapterBoardCode_TriggerChannel);
-        /// <summary>固件自检</summary>
-        public const string Enum_VerticalAdapterBoardCode_SelfCheck = nameof(Enum_VerticalAdapterBoardCode_SelfCheck);
         /// <summary>初始化中</summary>
         public const string Enum_ZoneState_Init = nameof(Enum_ZoneState_Init);
         /// <summary>空闲</summary>
         public const string Enum_ZoneState_Idle = nameof(Enum_ZoneState_Idle);
         /// <summary>就绪</summary>
         public const string Enum_ZoneState_Ready = nameof(Enum_ZoneState_Ready);
-        /// <summary>老化中</summary>
-        public const string Enum_ZoneState_Burning = nameof(Enum_ZoneState_Burning);
-        /// <summary>老化暂停</summary>
-        public const string Enum_ZoneState_Suspend = nameof(Enum_ZoneState_Suspend);
-        /// <summary>老化停止</summary>
-        public const string Enum_ZoneState_Stop = nameof(Enum_ZoneState_Stop);
-        /// <summary>老化完成</summary>
-        public const string Enum_ZoneState_Finish = nameof(Enum_ZoneState_Finish);
         /// <summary>上电中</summary>
         public const string Enum_ZoneState_PowerUp = nameof(Enum_ZoneState_PowerUp);
+        /// <summary>老化中</summary>
+        public const string Enum_ZoneState_Burning = nameof(Enum_ZoneState_Burning);
         /// <summary>下电中</summary>
         public const string Enum_ZoneState_PowerDown = nameof(Enum_ZoneState_PowerDown);
-        /// <summary>自检中</summary>
-        public const string Enum_ZoneState_SelfCheck = nameof(Enum_ZoneState_SelfCheck);
-        /// <summary>升级中</summary>
+        /// <summary>老化停止</summary>
+        public const string Enum_ZoneState_Stop = nameof(Enum_ZoneState_Stop);
+        /// <summary>传输中</summary>
+        public const string Enum_ZoneState_Transition = nameof(Enum_ZoneState_Transition);
+        /// <summary>设备自检中</summary>
+        public const string Enum_ZoneState_DeviceChecking = nameof(Enum_ZoneState_DeviceChecking);
+        /// <summary>电源自检中</summary>
+        public const string Enum_ZoneState_DpsChecking = nameof(Enum_ZoneState_DpsChecking);
+        /// <summary>固件升级中</summary>
         public const string Enum_ZoneState_Upgrading = nameof(Enum_ZoneState_Upgrading);
         /// <summary>离线</summary>
         public const string Enum_ZoneState_Offline = nameof(Enum_ZoneState_Offline);
-        /// <summary>传输中</summary>
-        public const string Enum_ZoneState_IcSending = nameof(Enum_ZoneState_IcSending);
+        /// <summary>器件发送中</summary>
+        public const string Enum_ZoneState_Sending = nameof(Enum_ZoneState_Sending);
+        /// <summary>自检错误</summary>
+        public const string Enum_ZoneState_DeviceCheckFail = nameof(Enum_ZoneState_DeviceCheckFail);
+        /// <summary>器件配置错误</summary>
+        public const string Enum_ZoneState_IcError = nameof(Enum_ZoneState_IcError);
         /// <summary>错误</summary>
         public const string Enum_ZoneState_Error = nameof(Enum_ZoneState_Error);
+        /// <summary>全部载入</summary>
+        public const string Enum_LoadMode_Default = nameof(Enum_LoadMode_Default);
+        /// <summary>单步载入</summary>
+        public const string Enum_LoadMode_Step = nameof(Enum_LoadMode_Step);
         /// <summary>空闲</summary>
         public const string Enum_DutState_Idle = nameof(Enum_DutState_Idle);
         /// <summary>测试中</summary>
@@ -2198,48 +1866,42 @@
         public const string Enum_DutState_Fail = nameof(Enum_DutState_Fail);
         /// <summary>忽略</summary>
         public const string Enum_DutState_Ignore = nameof(Enum_DutState_Ignore);
-        /// <summary>驱动板</summary>
-        public const string Enum_BoardType_DriverBoard = nameof(Enum_BoardType_DriverBoard);
+        /// <summary>主控板</summary>
+        public const string Enum_BoardType_MainBoard = nameof(Enum_BoardType_MainBoard);
         /// <summary>底板</summary>
         public const string Enum_BoardType_BaseBoard = nameof(Enum_BoardType_BaseBoard);
         /// <summary>数字板</summary>
         public const string Enum_BoardType_DigitalBoard = nameof(Enum_BoardType_DigitalBoard);
         /// <summary>模拟板</summary>
         public const string Enum_BoardType_AnalogBoard = nameof(Enum_BoardType_AnalogBoard);
-        /// <summary>二级电源控制板</summary>
-        public const string Enum_BoardType_DPSControlBoard = nameof(Enum_BoardType_DPSControlBoard);
+        /// <summary>电源板</summary>
+        public const string Enum_BoardType_PowerBoard = nameof(Enum_BoardType_PowerBoard);
         /// <summary>DPS</summary>
         public const string Enum_BoardType_DPS = nameof(Enum_BoardType_DPS);
         /// <summary>VIH</summary>
         public const string Enum_BoardType_VIH = nameof(Enum_BoardType_VIH);
-        /// <summary>一级电源控制板</summary>
-        public const string Enum_BoardType_PPSControlBoard = nameof(Enum_BoardType_PPSControlBoard);
-        /// <summary>温度采集板</summary>
-        public const string Enum_BoardType_TempAcquisitionBoard = nameof(Enum_BoardType_TempAcquisitionBoard);
+        /// <summary>温控板</summary>
+        public const string Enum_BoardType_TempControlBoard = nameof(Enum_BoardType_TempControlBoard);
         /// <summary>BMC</summary>
-        public const string Enum_BoardType_BMC = nameof(Enum_BoardType_BMC);
+        public const string Enum_BoardType_BaseManagerController = nameof(Enum_BoardType_BaseManagerController);
         /// <summary>全砖 10V10A</summary>
         public const string Enum_BoardType_FB10V10A = nameof(Enum_BoardType_FB10V10A);
         /// <summary>全砖 06V25A</summary>
         public const string Enum_BoardType_FB06V25A = nameof(Enum_BoardType_FB06V25A);
         /// <summary>全砖 06V50A</summary>
         public const string Enum_BoardType_FB06V50A = nameof(Enum_BoardType_FB06V50A);
+        /// <summary>全砖 36V05A</summary>
+        public const string Enum_BoardType_FB36V05A = nameof(Enum_BoardType_FB36V05A);
         /// <summary>半砖 20V20A</summary>
         public const string Enum_BoardType_HB20V20A = nameof(Enum_BoardType_HB20V20A);
         /// <summary>半砖 45V10A</summary>
         public const string Enum_BoardType_HB45V10A = nameof(Enum_BoardType_HB45V10A);
-        /// <summary>竖向转接板</summary>
-        public const string Enum_BoardType_VerticalAdapterBoard = nameof(Enum_BoardType_VerticalAdapterBoard);
-        /// <summary>老化转接板</summary>
-        public const string Enum_BoardType_BIBAdapterBoard = nameof(Enum_BoardType_BIBAdapterBoard);
+        /// <summary>竖向板</summary>
+        public const string Enum_BoardType_VerticalBoard = nameof(Enum_BoardType_VerticalBoard);
+        /// <summary>转接板</summary>
+        public const string Enum_BoardType_AdapterBoard = nameof(Enum_BoardType_AdapterBoard);
         /// <summary>I/O控制板</summary>
-        public const string Enum_BoardType_IOControllerBoard = nameof(Enum_BoardType_IOControllerBoard);
-        /// <summary>辅助板</summary>
-        public const string Enum_BoardType_AuxiliaryBoard = nameof(Enum_BoardType_AuxiliaryBoard);
-        /// <summary>强电控制板</summary>
-        public const string Enum_BoardType_HVControlBoard = nameof(Enum_BoardType_HVControlBoard);
-        /// <summary>弱电控制板</summary>
-        public const string Enum_BoardType_LVControlBoard = nameof(Enum_BoardType_LVControlBoard);
+        public const string Enum_BoardType_IoController = nameof(Enum_BoardType_IoController);
         /// <summary>老化板</summary>
         public const string Enum_BoardType_BurnInBoard = nameof(Enum_BoardType_BurnInBoard);
         /// <summary>工作中</summary>
@@ -2292,138 +1954,26 @@
         public const string Enum_LightAlarmState_Yellow = nameof(Enum_LightAlarmState_Yellow);
         /// <summary>绿灯</summary>
         public const string Enum_LightAlarmState_Green = nameof(Enum_LightAlarmState_Green);
-        /// <summary>报警</summary>
+        /// <summary>报警器</summary>
         public const string Enum_LightAlarmState_Alarm = nameof(Enum_LightAlarmState_Alarm);
-        /// <summary>默认</summary>
-        public const string Enum_DpsPlanPurpose_Default = nameof(Enum_DpsPlanPurpose_Default);
-        /// <summary>上电</summary>
-        public const string Enum_DpsPlanPurpose_PowerUp = nameof(Enum_DpsPlanPurpose_PowerUp);
-        /// <summary>下电</summary>
-        public const string Enum_DpsPlanPurpose_PowerDown = nameof(Enum_DpsPlanPurpose_PowerDown);
-        /// <summary>跟踪</summary>
-        public const string Enum_LogLevel_Trace = nameof(Enum_LogLevel_Trace);
-        /// <summary>调试</summary>
-        public const string Enum_LogLevel_Debug = nameof(Enum_LogLevel_Debug);
-        /// <summary>消息</summary>
-        public const string Enum_LogLevel_Info = nameof(Enum_LogLevel_Info);
-        /// <summary>警告</summary>
-        public const string Enum_LogLevel_Warn = nameof(Enum_LogLevel_Warn);
-        /// <summary>错误</summary>
-        public const string Enum_LogLevel_Error = nameof(Enum_LogLevel_Error);
-        /// <summary>异常</summary>
-        public const string Enum_LogLevel_Fatal = nameof(Enum_LogLevel_Fatal);
-        /// <summary>查询版本</summary>
-        public const string Enum_HVControlBoardCode_Version = nameof(Enum_HVControlBoardCode_Version);
-        /// <summary>同步时间</summary>
-        public const string Enum_HVControlBoardCode_SyncTime = nameof(Enum_HVControlBoardCode_SyncTime);
-        /// <summary>三色报警灯</summary>
-        public const string Enum_HVControlBoardCode_LightAlarm = nameof(Enum_HVControlBoardCode_LightAlarm);
-        /// <summary>烟雾报警器</summary>
-        public const string Enum_HVControlBoardCode_Smoke = nameof(Enum_HVControlBoardCode_Smoke);
-        /// <summary>急停按钮</summary>
-        public const string Enum_HVControlBoardCode_Emergency = nameof(Enum_HVControlBoardCode_Emergency);
-        /// <summary>门的状态</summary>
-        public const string Enum_HVControlBoardCode_Door = nameof(Enum_HVControlBoardCode_Door);
-        /// <summary>强电控制</summary>
-        public const string Enum_HVControlBoardCode_HighVoltage = nameof(Enum_HVControlBoardCode_HighVoltage);
-        /// <summary>固件自检</summary>
-        public const string Enum_HVControlBoardCode_SelfCheck = nameof(Enum_HVControlBoardCode_SelfCheck);
-        /// <summary>检测板 1</summary>
-        public const string Enum_HVStateErrorType_AC1 = nameof(Enum_HVStateErrorType_AC1);
-        /// <summary>检测板 2</summary>
-        public const string Enum_HVStateErrorType_AC2 = nameof(Enum_HVStateErrorType_AC2);
-        /// <summary>检测板 3</summary>
-        public const string Enum_HVStateErrorType_AC3 = nameof(Enum_HVStateErrorType_AC3);
-        /// <summary>检测板 4</summary>
-        public const string Enum_HVStateErrorType_AC4 = nameof(Enum_HVStateErrorType_AC4);
-        /// <summary>检测板 5</summary>
-        public const string Enum_HVStateErrorType_AC5 = nameof(Enum_HVStateErrorType_AC5);
-        /// <summary>检测板 6</summary>
-        public const string Enum_HVStateErrorType_AC6 = nameof(Enum_HVStateErrorType_AC6);
-        /// <summary>关闭</summary>
-        public const string Enum_HVState_Close = nameof(Enum_HVState_Close);
-        /// <summary>上电中</summary>
-        public const string Enum_HVState_PowerUp = nameof(Enum_HVState_PowerUp);
-        /// <summary>下电中</summary>
-        public const string Enum_HVState_PowerDown = nameof(Enum_HVState_PowerDown);
-        /// <summary>开启</summary>
-        public const string Enum_HVState_Open = nameof(Enum_HVState_Open);
-        /// <summary>离线</summary>
-        public const string Enum_HVState_Offline = nameof(Enum_HVState_Offline);
-        /// <summary>错误</summary>
-        public const string Enum_HVState_Error = nameof(Enum_HVState_Error);
-        /// <summary>设备门</summary>
-        public const string Enum_DoorType_Default = nameof(Enum_DoorType_Default);
-        /// <summary>烘箱门</summary>
-        public const string Enum_DoorType_Oven = nameof(Enum_DoorType_Oven);
-        /// <summary>强电门</summary>
-        public const string Enum_DoorType_Power = nameof(Enum_DoorType_Power);
-        /// <summary>通讯状态</summary>
-        public const string Enum_FirmwareSelfCheckItem_ConnectionState = nameof(Enum_FirmwareSelfCheckItem_ConnectionState);
-        /// <summary>环境变量</summary>
-        public const string Enum_FirmwareSelfCheckItem_EnviormentVariables = nameof(Enum_FirmwareSelfCheckItem_EnviormentVariables);
-        /// <summary>配置文件</summary>
-        public const string Enum_FirmwareSelfCheckItem_ConfigFiles = nameof(Enum_FirmwareSelfCheckItem_ConfigFiles);
-        /// <summary>输出电压</summary>
-        public const string Enum_FirmwareSelfCheckItem_OutputVoltage = nameof(Enum_FirmwareSelfCheckItem_OutputVoltage);
-        /// <summary>输入电压</summary>
-        public const string Enum_FirmwareSelfCheckItem_InputVoltage = nameof(Enum_FirmwareSelfCheckItem_InputVoltage);
-        /// <summary>输出电流</summary>
-        public const string Enum_FirmwareSelfCheckItem_OutputCurrent = nameof(Enum_FirmwareSelfCheckItem_OutputCurrent);
-        /// <summary>输入电流</summary>
-        public const string Enum_FirmwareSelfCheckItem_InputCurrent = nameof(Enum_FirmwareSelfCheckItem_InputCurrent);
-        /// <summary>输出温度</summary>
-        public const string Enum_FirmwareSelfCheckItem_OutputTemperature = nameof(Enum_FirmwareSelfCheckItem_OutputTemperature);
-        /// <summary>扩展IO</summary>
-        public const string Enum_FirmwareSelfCheckItem_ExpandIO = nameof(Enum_FirmwareSelfCheckItem_ExpandIO);
-        /// <summary>数模转换</summary>
-        public const string Enum_FirmwareSelfCheckItem_DAC = nameof(Enum_FirmwareSelfCheckItem_DAC);
-        /// <summary>FPGA</summary>
-        public const string Enum_FirmwareSelfCheckItem_FPGA = nameof(Enum_FirmwareSelfCheckItem_FPGA);
-        /// <summary>闪存</summary>
-        public const string Enum_FirmwareSelfCheckItem_Flash = nameof(Enum_FirmwareSelfCheckItem_Flash);
-        /// <summary>模数转换</summary>
-        public const string Enum_FirmwareSelfCheckItem_ADC = nameof(Enum_FirmwareSelfCheckItem_ADC);
-        /// <summary>差分信号</summary>
-        public const string Enum_FirmwareSelfCheckItem_LVDS = nameof(Enum_FirmwareSelfCheckItem_LVDS);
-        /// <summary>EEPROM</summary>
-        public const string Enum_FirmwareSelfCheckItem_EEPROM = nameof(Enum_FirmwareSelfCheckItem_EEPROM);
-        /// <summary>读寄存器</summary>
-        public const string Enum_FirmwareSelfCheckItem_ReadRegister = nameof(Enum_FirmwareSelfCheckItem_ReadRegister);
-        /// <summary>写寄存器</summary>
-        public const string Enum_FirmwareSelfCheckItem_WriteRegister = nameof(Enum_FirmwareSelfCheckItem_WriteRegister);
-        /// <summary>通过</summary>
-        public const string Enum_FirmwareSelfCheckResult_Pass = nameof(Enum_FirmwareSelfCheckResult_Pass);
-        /// <summary>通讯异常</summary>
-        public const string Enum_FirmwareSelfCheckResult_ConnectionError = nameof(Enum_FirmwareSelfCheckResult_ConnectionError);
-        /// <summary>环境变量丢失</summary>
-        public const string Enum_FirmwareSelfCheckResult_EnviormentVariablesLost = nameof(Enum_FirmwareSelfCheckResult_EnviormentVariablesLost);
-        /// <summary>配置文件丢失</summary>
-        public const string Enum_FirmwareSelfCheckResult_ConfigFilesLost = nameof(Enum_FirmwareSelfCheckResult_ConfigFilesLost);
-        /// <summary>配置文件错误</summary>
-        public const string Enum_FirmwareSelfCheckResult_ConfigFilesError = nameof(Enum_FirmwareSelfCheckResult_ConfigFilesError);
-        /// <summary>电压过高</summary>
-        public const string Enum_FirmwareSelfCheckResult_VoltageTooHigh = nameof(Enum_FirmwareSelfCheckResult_VoltageTooHigh);
-        /// <summary>电压过低</summary>
-        public const string Enum_FirmwareSelfCheckResult_VoltageTooLow = nameof(Enum_FirmwareSelfCheckResult_VoltageTooLow);
-        /// <summary>电流过高</summary>
-        public const string Enum_FirmwareSelfCheckResult_CurrentTooHigh = nameof(Enum_FirmwareSelfCheckResult_CurrentTooHigh);
-        /// <summary>电流过低</summary>
-        public const string Enum_FirmwareSelfCheckResult_CurrentTooLow = nameof(Enum_FirmwareSelfCheckResult_CurrentTooLow);
-        /// <summary>温度过高</summary>
-        public const string Enum_FirmwareSelfCheckResult_TemperatureTooHigh = nameof(Enum_FirmwareSelfCheckResult_TemperatureTooHigh);
-        /// <summary>温度过低</summary>
-        public const string Enum_FirmwareSelfCheckResult_TemperatureTooLow = nameof(Enum_FirmwareSelfCheckResult_TemperatureTooLow);
-        /// <summary>内存地址错误</summary>
-        public const string Enum_FirmwareSelfCheckResult_MemoryAddressError = nameof(Enum_FirmwareSelfCheckResult_MemoryAddressError);
-        /// <summary>数据读取错误</summary>
-        public const string Enum_FirmwareSelfCheckResult_DataReadError = nameof(Enum_FirmwareSelfCheckResult_DataReadError);
-        /// <summary>数据写入错误</summary>
-        public const string Enum_FirmwareSelfCheckResult_DataWriteError = nameof(Enum_FirmwareSelfCheckResult_DataWriteError);
-        /// <summary>位于左侧</summary>
-        public const string Enum_TriggerVerticalDirection_Left = nameof(Enum_TriggerVerticalDirection_Left);
-        /// <summary>位于右侧</summary>
-        public const string Enum_TriggerVerticalDirection_Right = nameof(Enum_TriggerVerticalDirection_Right);
+        /// <summary>8 位</summary>
+        public const string Enum_BitWidth_Bit8 = nameof(Enum_BitWidth_Bit8);
+        /// <summary>12 位</summary>
+        public const string Enum_BitWidth_Bit12 = nameof(Enum_BitWidth_Bit12);
+        /// <summary>16 位</summary>
+        public const string Enum_BitWidth_Bit16 = nameof(Enum_BitWidth_Bit16);
+        /// <summary>24 位</summary>
+        public const string Enum_BitWidth_Bit24 = nameof(Enum_BitWidth_Bit24);
+        /// <summary>32 位</summary>
+        public const string Enum_BitWidth_Bit32 = nameof(Enum_BitWidth_Bit32);
+        /// <summary>Clock</summary>
+        public const string Enum_ChannelType_Clock = nameof(Enum_ChannelType_Clock);
+        /// <summary>MOSI</summary>
+        public const string Enum_ChannelType_MOSI = nameof(Enum_ChannelType_MOSI);
+        /// <summary>MISO</summary>
+        public const string Enum_ChannelType_MISO = nameof(Enum_ChannelType_MISO);
+        /// <summary>CS</summary>
+        public const string Enum_ChannelType_CS = nameof(Enum_ChannelType_CS);
         /// <summary>未捕获到的异常, {0}</summary>
         public const string UnhandledExceptionMessage = nameof(UnhandledExceptionMessage);
         /// <summary>程序已运行</summary>
@@ -3382,9 +2932,9 @@
         public const string DpsEditText = nameof(DpsEditText);
         /// <summary>老化区状态: {0}</summary>
         public const string ZoneStateChangedLog = nameof(ZoneStateChangedLog);
-        /// <summary>插板状态：Slot {0} -> {1}</summary>
+        /// <summary>插板状态：{0}</summary>
         public const string BurnInBoardInsertedChangedLog = nameof(BurnInBoardInsertedChangedLog);
-        /// <summary>电源错误: Slot {0} {1} -> [{2}]</summary>
+        /// <summary>电源错误:{0} -> [{1}]</summary>
         public const string ZoneDpsErrorLog = nameof(ZoneDpsErrorLog);
         /// <summary>电源错误: VIH{0} -> [{1}]</summary>
         public const string ZoneVIHErrorLog = nameof(ZoneVIHErrorLog);
@@ -3406,7 +2956,7 @@
         public const string StepRunInfoLog = nameof(StepRunInfoLog);
         /// <summary>运行电源自检脚本: {0}</summary>
         public const string RunDpsCheckScriptLog = nameof(RunDpsCheckScriptLog);
-        /// <summary>电源自检[{0}/{1}] -> Slot {2}    {3}    {4}V    {5}A    ({6}/{7})</summary>
+        /// <summary>电源自检[{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})</summary>
         public const string DpsCheckResultLog = nameof(DpsCheckResultLog);
         /// <summary>检测到烟雾，老化已停止</summary>
         public const string StopBurnOnSmokyLog = nameof(StopBurnOnSmokyLog);

@@ -26,4 +26,5 @@
     <cvt:SecondsToTimeSpanStringConverter x:Key="SecondsToTimeSpanStringConverter"/>
     <cvt:LinerChangeConverter x:Key="LinerChangeConverter"/>
     <cvt:StepPowerHasDpsPlanToVisibilityConverter x:Key="StepPowerHasDpsPlanToVisibilityConverter"/>
+    <cvt:TimeSecondToTimeStringConverter x:Key="TimeSecondToTimeStringConverter"/>
 </ResourceDictionary>

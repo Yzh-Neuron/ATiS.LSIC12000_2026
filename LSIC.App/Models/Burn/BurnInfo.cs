@@ -95,14 +95,14 @@ namespace LSIC.App.Models
             set { SetProperty(ref _sendProcess, value); }
         }
 
-        private RunInfo _runInfo;
+        private RunInfo _runInfo = new();
         public RunInfo RunInfo
         {
             get { return _runInfo; }
             private set { SetProperty(ref _runInfo, value); }
         }
 
-        private LoopInfo _loopInfo;
+        private LoopInfo _loopInfo = new();
         public LoopInfo LoopInfo
         {
             get => _loopInfo;

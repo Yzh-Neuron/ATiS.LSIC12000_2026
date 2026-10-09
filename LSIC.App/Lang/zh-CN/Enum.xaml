@@ -9,6 +9,7 @@
     <sys:String x:Key="Enum.OvenMode.Standby">待机中</sys:String>
     <sys:String x:Key="Enum.OvenMode.Constant">定值运行中</sys:String>
     <sys:String x:Key="Enum.OvenMode.Run">程式运行中</sys:String>
+    <sys:String x:Key="Enum.OvenMode.Error">故障</sys:String>
     <sys:String x:Key="Enum.OvenMode.Offline">离线</sys:String>
 
     <sys:String x:Key="Enum.TimeUnit.Second">秒</sys:String>
@@ -19,60 +20,25 @@
     <sys:String x:Key="Enum.ExecuteMode.Time">时间</sys:String>
     <sys:String x:Key="Enum.ExecuteMode.Times">次数</sys:String>
 
-    <sys:String x:Key="Enum.CoolingMode.Air">风冷</sys:String>
-    <sys:String x:Key="Enum.CoolingMode.Water">水冷</sys:String>
-
-    <sys:String x:Key="Enum.ZoneFunctionCode.Version">查询版本</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.SyncTime">同步时间</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.PlugedState">插板状态</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.BurnControl">老化控制</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.BurnProcess">老化流程</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.PatternError">向量错误</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.PowerState">电源状态</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.TriggerChannel">触发通道</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.ThermostatPID">温控系数</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.ConfigFlag">器件发送标志</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.SetDpsPlan">设置电源方案</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.SetPattern">设置向量数据</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.SetRegister">设置地址数据</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.SetStep">设置老化步次</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.SetPowerUp">设置上电方案</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.SetPowerDown">设置下电方案</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.Thermostat">设置独立温控</sys:String>
-    <sys:String x:Key="Enum.ZoneFunctionCode.SelfCheck">固件自检</sys:String>
-
-    <sys:String x:Key="Enum.LVControlBoardCode.Version">查询版本</sys:String>
-    <sys:String x:Key="Enum.LVControlBoardCode.SyncTime">同步时间</sys:String>
-    <sys:String x:Key="Enum.LVControlBoardCode.LightAlarm">三色报警灯</sys:String>
-    <sys:String x:Key="Enum.LVControlBoardCode.Smoke">烟雾探测器</sys:String>
-    <sys:String x:Key="Enum.LVControlBoardCode.Emergency">急停按钮</sys:String>
-    <sys:String x:Key="Enum.LVControlBoardCode.OvenDoor">烘箱门状态</sys:String>
-    <sys:String x:Key="Enum.LVControlBoardCode.PowerDoor">强电门状态</sys:String>
-    <sys:String x:Key="Enum.LVControlBoardCode.SystemPower">系统供电</sys:String>
-    <sys:String x:Key="Enum.LVControlBoardCode.TriggerChannel">触发通道</sys:String>
-    <sys:String x:Key="Enum.LVControlBoardCode.SelfCheck">固件自检</sys:String>
-
-    <sys:String x:Key="Enum.VerticalAdapterBoardCode.Version">查询版本</sys:String>
-    <sys:String x:Key="Enum.VerticalAdapterBoardCode.SyncTime">同步时间</sys:String>
-    <sys:String x:Key="Enum.VerticalAdapterBoardCode.BmcPower">BMC供电</sys:String>
-    <sys:String x:Key="Enum.VerticalAdapterBoardCode.PrePower">一级电源</sys:String>
-    <sys:String x:Key="Enum.VerticalAdapterBoardCode.TriggerChannel">触发通道</sys:String>
-    <sys:String x:Key="Enum.VerticalAdapterBoardCode.SelfCheck">固件自检</sys:String>
-
     <sys:String x:Key="Enum.ZoneState.Init">初始化中</sys:String>
     <sys:String x:Key="Enum.ZoneState.Idle">空闲</sys:String>
     <sys:String x:Key="Enum.ZoneState.Ready">就绪</sys:String>
-    <sys:String x:Key="Enum.ZoneState.Burning">老化中</sys:String>
-    <sys:String x:Key="Enum.ZoneState.Suspend">老化暂停</sys:String>
-    <sys:String x:Key="Enum.ZoneState.Stop">老化停止</sys:String>
-    <sys:String x:Key="Enum.ZoneState.Finish">老化完成</sys:String>
     <sys:String x:Key="Enum.ZoneState.PowerUp">上电中</sys:String>
+    <sys:String x:Key="Enum.ZoneState.Burning">老化中</sys:String>
     <sys:String x:Key="Enum.ZoneState.PowerDown">下电中</sys:String>
-    <sys:String x:Key="Enum.ZoneState.SelfCheck">自检中</sys:String>
-    <sys:String x:Key="Enum.ZoneState.Upgrading">升级中</sys:String>
+    <sys:String x:Key="Enum.ZoneState.Stop">老化停止</sys:String>
+    <sys:String x:Key="Enum.ZoneState.Transition">传输中</sys:String>
+    <sys:String x:Key="Enum.ZoneState.DeviceChecking">设备自检中</sys:String>
+    <sys:String x:Key="Enum.ZoneState.DpsChecking">电源自检中</sys:String>
+    <sys:String x:Key="Enum.ZoneState.Upgrading">固件升级中</sys:String>
     <sys:String x:Key="Enum.ZoneState.Offline">离线</sys:String>
-    <sys:String x:Key="Enum.ZoneState.IcSending">传输中</sys:String>
+    <sys:String x:Key="Enum.ZoneState.Sending">器件发送中</sys:String>
+    <sys:String x:Key="Enum.ZoneState.DeviceCheckFail">自检错误</sys:String>
+    <sys:String x:Key="Enum.ZoneState.IcError">器件配置错误</sys:String>
     <sys:String x:Key="Enum.ZoneState.Error">错误</sys:String>
+
+    <sys:String x:Key="Enum.LoadMode.Default">全部载入</sys:String>
+    <sys:String x:Key="Enum.LoadMode.Step">单步载入</sys:String>
 
     <sys:String x:Key="Enum.DutState.Idle">空闲</sys:String>
     <sys:String x:Key="Enum.DutState.Test">测试中</sys:String>
@@ -80,27 +46,24 @@
     <sys:String x:Key="Enum.DutState.Fail">错误</sys:String>
     <sys:String x:Key="Enum.DutState.Ignore">忽略</sys:String>
 
-    <sys:String x:Key="Enum.BoardType.DriverBoard">驱动板</sys:String>
+    <sys:String x:Key="Enum.BoardType.MainBoard">主控板</sys:String>
     <sys:String x:Key="Enum.BoardType.BaseBoard">底板</sys:String>
     <sys:String x:Key="Enum.BoardType.DigitalBoard">数字板</sys:String>
     <sys:String x:Key="Enum.BoardType.AnalogBoard">模拟板</sys:String>
-    <sys:String x:Key="Enum.BoardType.DPSControlBoard">二级电源控制板</sys:String>
+    <sys:String x:Key="Enum.BoardType.PowerBoard">电源板</sys:String>
     <sys:String x:Key="Enum.BoardType.DPS">DPS</sys:String>
     <sys:String x:Key="Enum.BoardType.VIH">VIH</sys:String>
-    <sys:String x:Key="Enum.BoardType.PPSControlBoard">一级电源控制板</sys:String>
-    <sys:String x:Key="Enum.BoardType.TempAcquisitionBoard">温度采集板</sys:String>
-    <sys:String x:Key="Enum.BoardType.BMC">BMC</sys:String>
+    <sys:String x:Key="Enum.BoardType.TempControlBoard">温控板</sys:String>
+    <sys:String x:Key="Enum.BoardType.BaseManagerController">BMC</sys:String>
     <sys:String x:Key="Enum.BoardType.FB10V10A">全砖 10V10A</sys:String>
     <sys:String x:Key="Enum.BoardType.FB06V25A">全砖 06V25A</sys:String>
     <sys:String x:Key="Enum.BoardType.FB06V50A">全砖 06V50A</sys:String>
+    <sys:String x:Key="Enum.BoardType.FB36V05A">全砖 36V05A</sys:String>
     <sys:String x:Key="Enum.BoardType.HB20V20A">半砖 20V20A</sys:String>
     <sys:String x:Key="Enum.BoardType.HB45V10A">半砖 45V10A</sys:String>
-    <sys:String x:Key="Enum.BoardType.VerticalAdapterBoard">竖向转接板</sys:String>
-    <sys:String x:Key="Enum.BoardType.BIBAdapterBoard">老化转接板</sys:String>
-    <sys:String x:Key="Enum.BoardType.IOControllerBoard">I/O控制板</sys:String>
-    <sys:String x:Key="Enum.BoardType.AuxiliaryBoard">辅助板</sys:String>
-    <sys:String x:Key="Enum.BoardType.HVControlBoard">强电控制板</sys:String>
-    <sys:String x:Key="Enum.BoardType.LVControlBoard">弱电控制板</sys:String>
+    <sys:String x:Key="Enum.BoardType.VerticalBoard">竖向板</sys:String>
+    <sys:String x:Key="Enum.BoardType.AdapterBoard">转接板</sys:String>
+    <sys:String x:Key="Enum.BoardType.IoController">I/O控制板</sys:String>
     <sys:String x:Key="Enum.BoardType.BurnInBoard">老化板</sys:String>
 
     <sys:String x:Key="Enum.DpsState.Output">工作中</sys:String>
@@ -132,79 +95,16 @@
     <sys:String x:Key="Enum.LightAlarmState.Red">红灯</sys:String>
     <sys:String x:Key="Enum.LightAlarmState.Yellow">黄灯</sys:String>
     <sys:String x:Key="Enum.LightAlarmState.Green">绿灯</sys:String>
-    <sys:String x:Key="Enum.LightAlarmState.Alarm">报警</sys:String>
+    <sys:String x:Key="Enum.LightAlarmState.Alarm">报警器</sys:String>
 
-    <sys:String x:Key="Enum.DpsPlanPurpose.Default">默认</sys:String>
-    <sys:String x:Key="Enum.DpsPlanPurpose.PowerUp">上电</sys:String>
-    <sys:String x:Key="Enum.DpsPlanPurpose.PowerDown">下电</sys:String>
+    <sys:String x:Key="Enum.BitWidth.Bit8">8 位</sys:String>
+    <sys:String x:Key="Enum.BitWidth.Bit12">12 位</sys:String>
+    <sys:String x:Key="Enum.BitWidth.Bit16">16 位</sys:String>
+    <sys:String x:Key="Enum.BitWidth.Bit24">24 位</sys:String>
+    <sys:String x:Key="Enum.BitWidth.Bit32">32 位</sys:String>
 
-    <sys:String x:Key="Enum.LogLevel.Trace">跟踪</sys:String>
-    <sys:String x:Key="Enum.LogLevel.Debug">调试</sys:String>
-    <sys:String x:Key="Enum.LogLevel.Info">消息</sys:String>
-    <sys:String x:Key="Enum.LogLevel.Warn">警告</sys:String>
-    <sys:String x:Key="Enum.LogLevel.Error">错误</sys:String>
-    <sys:String x:Key="Enum.LogLevel.Fatal">异常</sys:String>
-
-    <sys:String x:Key="Enum.HVControlBoardCode.Version">查询版本</sys:String>
-    <sys:String x:Key="Enum.HVControlBoardCode.SyncTime">同步时间</sys:String>
-    <sys:String x:Key="Enum.HVControlBoardCode.LightAlarm">三色报警灯</sys:String>
-    <sys:String x:Key="Enum.HVControlBoardCode.Smoke">烟雾报警器</sys:String>
-    <sys:String x:Key="Enum.HVControlBoardCode.Emergency">急停按钮</sys:String>
-    <sys:String x:Key="Enum.HVControlBoardCode.Door">门的状态</sys:String>
-    <sys:String x:Key="Enum.HVControlBoardCode.HighVoltage">强电控制</sys:String>
-    <sys:String x:Key="Enum.HVControlBoardCode.SelfCheck">固件自检</sys:String>
-
-    <sys:String x:Key="Enum.HVStateErrorType.AC1">检测板 1</sys:String>
-    <sys:String x:Key="Enum.HVStateErrorType.AC2">检测板 2</sys:String>
-    <sys:String x:Key="Enum.HVStateErrorType.AC3">检测板 3</sys:String>
-    <sys:String x:Key="Enum.HVStateErrorType.AC4">检测板 4</sys:String>
-    <sys:String x:Key="Enum.HVStateErrorType.AC5">检测板 5</sys:String>
-    <sys:String x:Key="Enum.HVStateErrorType.AC6">检测板 6</sys:String>
-
-    <sys:String x:Key="Enum.HVState.Close">关闭</sys:String>
-    <sys:String x:Key="Enum.HVState.PowerUp">上电中</sys:String>
-    <sys:String x:Key="Enum.HVState.PowerDown">下电中</sys:String>
-    <sys:String x:Key="Enum.HVState.Open">开启</sys:String>
-    <sys:String x:Key="Enum.HVState.Offline">离线</sys:String>
-    <sys:String x:Key="Enum.HVState.Error">错误</sys:String>
-
-    <sys:String x:Key="Enum.DoorType.Default">设备门</sys:String>
-    <sys:String x:Key="Enum.DoorType.Oven">烘箱门</sys:String>
-    <sys:String x:Key="Enum.DoorType.Power">强电门</sys:String>
-
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.ConnectionState">通讯状态</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.EnviormentVariables">环境变量</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.ConfigFiles">配置文件</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.OutputVoltage">输出电压</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.InputVoltage">输入电压</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.OutputCurrent">输出电流</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.InputCurrent">输入电流</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.OutputTemperature">输出温度</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.ExpandIO">扩展IO</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.DAC">数模转换</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.FPGA">FPGA</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.Flash">闪存</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.ADC">模数转换</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.LVDS">差分信号</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.EEPROM">EEPROM</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.ReadRegister">读寄存器</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckItem.WriteRegister">写寄存器</sys:String>
-
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.Pass">通过</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.ConnectionError">通讯异常</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.EnviormentVariablesLost">环境变量丢失</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.ConfigFilesLost">配置文件丢失</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.ConfigFilesError">配置文件错误</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.VoltageTooHigh">电压过高</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.VoltageTooLow">电压过低</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.CurrentTooHigh">电流过高</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.CurrentTooLow">电流过低</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.TemperatureTooHigh">温度过高</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.TemperatureTooLow">温度过低</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.MemoryAddressError">内存地址错误</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.DataReadError">数据读取错误</sys:String>
-    <sys:String x:Key="Enum.FirmwareSelfCheckResult.DataWriteError">数据写入错误</sys:String>
-
-    <sys:String x:Key="Enum.TriggerVerticalDirection.Left">位于左侧</sys:String>
-    <sys:String x:Key="Enum.TriggerVerticalDirection.Right">位于右侧</sys:String>
+    <sys:String x:Key="Enum.ChannelType.Clock">Clock</sys:String>
+    <sys:String x:Key="Enum.ChannelType.MOSI">MOSI</sys:String>
+    <sys:String x:Key="Enum.ChannelType.MISO">MISO</sys:String>
+    <sys:String x:Key="Enum.ChannelType.CS">CS</sys:String>
 </ResourceDictionary>
