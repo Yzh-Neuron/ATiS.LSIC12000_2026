@@ -21,7 +21,6 @@
     <cvt:ZoneStateToBrushConverter x:Key="ZoneStateToBrushConverter" />
     <cvt:ZoneGroupingConverter x:Key="ZoneGroupingConverter" />
     <cvt:ZoneGroupingNameConverter x:Key="ZoneGroupingNameConverter" />
-    <cvt:ZoneCountToColumnWidthConverter x:Key="ZoneCountToColumnWidthConverter" />
     <cvt:FormatTextConverter x:Key="FormatTextConverter" />
     <cvt:ZoneCanGotoBurnConverter x:Key="ZoneCanGotoBurnConverter" />
     <cvt:ProportionalWidthConverter x:Key="ProportionalWidthConverter" />

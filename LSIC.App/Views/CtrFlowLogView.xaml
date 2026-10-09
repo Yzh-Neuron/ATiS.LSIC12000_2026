@@ -20,7 +20,7 @@
              VerticalScrollBarVisibility="Auto"
              mc:Ignorable="d">
     <RichTextBox.ContextMenu>
-        <ContextMenu IsVisibleChanged="OnMenuVisibleChanged" wpf:MenuHelper.PopupMaxHeight="200">
+        <ContextMenu IsVisibleChanged="OnMenuVisibleChanged" wpf:MenuHelper.PopupMaxHeight="400">
             <MenuItem Click="OnClearLogs" Header="{app:Lang {x:Static app:LangKey.ClearLogsText}}" />
             <MenuItem Header="{app:Lang {x:Static app:LangKey.FrameFilterText}}" ItemsSource="{Binding PlacementTarget.FilterItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
                 <MenuItem.ItemContainerStyle>

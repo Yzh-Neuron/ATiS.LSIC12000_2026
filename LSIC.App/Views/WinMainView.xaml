@@ -135,18 +135,18 @@
                        Text="{Binding Now, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss}'}" />
         </Border>
 
-        <!--  老化界面  -->
-
+        <!--  主界面  -->
         <TabControl wpf:BorderHelper.CornerRadius="0"
+                    wpf:TabControlHelper.HasSeparator="False"
                     wpf:TabControlHelper.HeaderHeight="55"
                     wpf:TabControlHelper.HeaderWidth="40"
-                    wpf:TabControlHelper.HasSeparator="False"
                     BorderThickness="0"
                     TabStripPlacement="Left">
             <TabItem>
                 <TabItem.Header>
                     <Image Width="20" Source="{StaticResource Image.Blocks}" />
                 </TabItem.Header>
+                <!--  老化界面  -->
                 <views:CtrHomeView />
             </TabItem>
             <TabItem>

@@ -1,4 +1,6 @@
-﻿using System.Windows.Threading;
+﻿using System.Windows.Controls;
+using System.Windows.Media.Animation;
+using System.Windows.Threading;
 
 namespace LSIC.App
 {
@@ -7,6 +9,12 @@ namespace LSIC.App
     /// </summary>
     public partial class App : Application
     {
+        static App()
+        {
+            Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 60 });
+            ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata { DefaultValue = 250 });
+            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata { DefaultValue = 6000 });
+        }
         public App()
         {
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
