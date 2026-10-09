@@ -15,12 +15,13 @@
              d:DesignWidth="400"
              Background="Transparent"
              BorderThickness="0"
+             Cursor="Arrow"
              IsReadOnly="True"
-             IsReadOnlyCaretVisible="True"
+             IsReadOnlyCaretVisible="False"
              VerticalScrollBarVisibility="Auto"
              mc:Ignorable="d">
     <RichTextBox.ContextMenu>
-        <ContextMenu IsVisibleChanged="OnMenuVisibleChanged" wpf:MenuHelper.PopupMaxHeight="400">
+        <ContextMenu wpf:MenuHelper.PopupMaxHeight="400" IsVisibleChanged="OnMenuVisibleChanged">
             <MenuItem Click="OnClearLogs" Header="{app:Lang {x:Static app:LangKey.ClearLogsText}}" />
             <MenuItem Header="{app:Lang {x:Static app:LangKey.FrameFilterText}}" ItemsSource="{Binding PlacementTarget.FilterItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
                 <MenuItem.ItemContainerStyle>

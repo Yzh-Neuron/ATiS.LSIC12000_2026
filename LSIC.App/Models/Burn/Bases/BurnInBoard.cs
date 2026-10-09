@@ -5,14 +5,14 @@
     /// </summary>
     public class BurnInBoard : ObservableObject
     {
-        public int Rows { get; }
-        public int Cols { get; }
+        public int Row { get; }
+        public int Column { get; }
         public BurnDut[] Duts { get; }
         public BurnThermostat[] Thermostats { get; }
         public BurnInBoard(BurnInBoardSetting setting)
         {
-            Rows = setting.Row;
-            Cols = setting.Column;
+            Row = setting.Row;
+            Column = setting.Column;
 
             List<BurnThermostat> thermostats = new List<BurnThermostat>();
             if (setting.ThermostatSettings != null)

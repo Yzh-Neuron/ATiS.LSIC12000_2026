@@ -35,7 +35,7 @@
                         <ContentPresenter x:Name="contentPresenter"
                                           Margin="{TemplateBinding Padding}"
                                           HorizontalAlignment="Center"
-                                          VerticalAlignment="Center" 
+                                          VerticalAlignment="Center"
                                           ContentSource="Header"
                                           Focusable="False"
                                           RecognizesAccessKey="True"
@@ -67,7 +67,9 @@
         </Setter>
     </Style>
 
-    <Style x:Key="TabControl.Default" TargetType="{x:Type TabControl}" BasedOn="{StaticResource Control.Base}">
+    <Style x:Key="TabControl.Default"
+           BasedOn="{StaticResource Control.Base}"
+           TargetType="{x:Type TabControl}">
         <Setter Property="wpf:TabControlHelper.HasSeparator" Value="True" />
         <Setter Property="wpf:TabControlHelper.HeaderPanelBackground" Value="{DynamicResource BackgroundBrush}" />
         <Setter Property="wpf:TabControlHelper.HeaderHeight" Value="30" />

@@ -1,0 +1,112 @@
+﻿<wpf:SimplePanel x:Class="LSIC.App.Views.CtrBurnInBoardView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:app="clr-namespace:LSIC.App"
+                 xmlns:bhs="clr-namespace:LSIC.App.Behaviors"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:models="clr-namespace:LSIC.App.Models"
+                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                 xmlns:views="clr-namespace:LSIC.App.Views"
+                 xmlns:vms="clr-namespace:LSIC.App.ViewModels"
+                 xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 d:DataContext="{d:DesignInstance vms:CtrBurnInBoardViewModel}"
+                 d:Height="1080"
+                 d:Width="1920"
+                 mc:Ignorable="d">
+    <wpf:MatrixListBox x:Name="PART_DutsList"
+                       Grid.Row="1"
+                       BorderThickness="0"
+                       CellHeight="85"
+                       CellWidth="85"
+                       Cols="{Binding BurnInBoard.Column}"
+                       HeaderHeight="30"
+                       HeaderWidth="30"
+                       ItemsSource="{Binding BurnInBoard.Duts}"
+                       Rows="{Binding BurnInBoard.Row}"
+                       SelectAllToggleBtnVisibility="Collapsed"
+                       SelectionMode="Single">
+        <wpf:MatrixListBox.ItemTemplate>
+            <DataTemplate>
+                <wpf:SimplePanel Margin="5">
+                    <Path Data="{StaticResource Geometry.SelectCpu}"
+                          Stretch="Fill"
+                          Stroke="{DynamicResource ErrorBrush}"
+                          StrokeThickness="2"
+                          Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Converter={StaticResource TrueToVisibilityConverter}}" />
+
+                    <Path Margin="10"
+                          Data="{StaticResource Geometry.Cpu}"
+                          Fill="{Binding State, Converter={StaticResource DutStateToBrushConverter}}"
+                          Stretch="Fill" />
+
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="{Binding State, Converter={StaticResource DutStateToBrushConverter}}"
+                               IsHitTestVisible="False"
+                               Text="{Binding Id}" />
+
+                    <views:ThermostatBadge Margin="0,5,3,0" 
+                                           Temperature="{Binding BurnThermostat.Temperature, Mode=OneWay}"
+                                           TemperatureEnabled="{Binding BurnThermostat.Enable, Mode=OneWay}" />
+                </wpf:SimplePanel>
+            </DataTemplate>
+        </wpf:MatrixListBox.ItemTemplate>
+    </wpf:MatrixListBox>
+
+    <ToggleButton x:Name="LegendBtn"
+                  Width="Auto"
+                  Height="Auto"
+                  Margin="6,6,0,0"
+                  Padding="0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  BorderThickness="0"
+                  wpf:IconHelper.CheckedGeometry="{StaticResource Geometry.ErrorTip}"
+                  wpf:IconHelper.Geometry="{StaticResource Geometry.NormalTip}"
+                  wpf:IconHelper.Height="18"
+                  wpf:IconHelper.Width="18"
+                  Background="Transparent"
+                  Foreground="{DynamicResource PrimaryBrush}"
+                  Style="{StaticResource ToggleButton.Default}" />
+
+    <Popup AllowsTransparency="True"
+           IsOpen="{Binding IsChecked, ElementName=LegendBtn, Mode=TwoWay}"
+           Placement="Top"
+           PlacementTarget="{Binding ElementName=LegendBtn}"
+           StaysOpen="False">
+        <Border Margin="5"
+                Background="{DynamicResource SecondBackgroundBrush}"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource DefaultCornerRadius}"
+                SnapsToDevicePixels="True">
+            <ItemsControl Margin="10" ItemsSource="{Binding Source={x:Type app:DutState}, Converter={StaticResource EnumToTextPairsConverter}}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <wpf:SimplePanel Margin="0,0,10,0">
+                            <Path Width="55"
+                                  Height="{Binding RelativeSource={RelativeSource Self}, Path=Width}"
+                                  Data="{StaticResource Geometry.Cpu}"
+                                  Fill="{Binding Key, Converter={StaticResource DutStateToBrushConverter}}"
+                                  Stretch="Fill" />
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="11"
+                                       Foreground="{Binding Key, Converter={StaticResource DutStateToBrushConverter}}"
+                                       Text="{Binding Value}" />
+                        </wpf:SimplePanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
+    </Popup>
+</wpf:SimplePanel>

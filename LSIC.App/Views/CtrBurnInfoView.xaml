@@ -37,7 +37,7 @@
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="1"
                 CornerRadius="{StaticResource DefaultCornerRadius}">
-            <Grid Margin="5">
+            <Grid Margin="10,5">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
@@ -54,7 +54,7 @@
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="1"
                 CornerRadius="{StaticResource DefaultCornerRadius}">
-            <Grid Margin="5">
+            <Grid Margin="10,5">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
@@ -78,7 +78,7 @@
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="1"
                 CornerRadius="{StaticResource DefaultCornerRadius}">
-            <Grid Margin="5">
+            <Grid Margin="10,5">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
@@ -95,7 +95,7 @@
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="1"
                 CornerRadius="{StaticResource DefaultCornerRadius}">
-            <Grid Margin="5">
+            <Grid Margin="10,5">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
@@ -178,11 +178,11 @@
                     <RowDefinition Height="28" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Margin="5,0,0,0"
+                <TextBlock Margin="10,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
@@ -194,7 +194,7 @@
                            Text="{Binding Zone.BurnInfo.Ic.Name}" />
 
                 <TextBlock Grid.Row="1"
-                           Margin="5,0,0,0"
+                           Margin="10,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
@@ -207,7 +207,7 @@
                            Text="{Binding Zone.BurnInfo.Lot}" />
 
                 <TextBlock Grid.Row="2"
-                           Margin="5,0,0,0"
+                           Margin="10,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
@@ -220,7 +220,7 @@
                            Text="{Binding Zone.BurnInfo.Operator}" />
 
                 <TextBlock Grid.Row="3"
-                           Margin="5,0,0,0"
+                           Margin="10,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
@@ -233,7 +233,7 @@
                            Text="{Binding Zone.BurnInfo.LoadMode, Converter={StaticResource EnumToTextConverter}}" />
 
                 <TextBlock Grid.Row="4"
-                           Margin="5,0,0,0"
+                           Margin="10,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
@@ -246,7 +246,7 @@
                            Text="{Binding Zone.BurnInfo.Start, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
 
                 <TextBlock Grid.Row="5"
-                           Margin="5,0,0,0"
+                           Margin="10,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
@@ -259,7 +259,7 @@
                            Text="{Binding Zone.BurnInfo.CurrentDpsPlan.Name}" />
 
                 <TextBlock Grid.Row="6"
-                           Margin="5,0,0,0"
+                           Margin="10,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
@@ -272,7 +272,7 @@
                            Text="{Binding Zone.BurnInfo.CurrentStep.Name}" />
 
                 <TextBlock Grid.Row="7"
-                           Margin="5,0,0,0"
+                           Margin="10,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
@@ -288,7 +288,7 @@
                            ToolTip="{Binding Zone.BurnInfo.CurrentVector.PatternFile}" />
 
                 <TextBlock Grid.Row="8"
-                           Margin="5,0,0,0"
+                           Margin="10,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"

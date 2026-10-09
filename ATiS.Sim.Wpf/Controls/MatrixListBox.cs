@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Linq;
 using System.Windows;
@@ -24,34 +23,32 @@ namespace ATiS.Sim.Wpf
         }
 
         #region 行列数
-
-        public static readonly DependencyProperty RowsProperty = DependencyProperty.Register(
-            nameof(Rows), typeof(int), typeof(MatrixListBox), new FrameworkPropertyMetadata(0, OnRowsChanged, CoerceNonNegative));
+        public static readonly DependencyProperty RowsProperty =
+                DependencyProperty.Register(nameof(Rows), typeof(int), typeof(MatrixListBox), new FrameworkPropertyMetadata(0, OnRowsChanged, CoerceNonNegative));
         public int Rows
         {
             get => (int)GetValue(RowsProperty);
             set => SetValue(RowsProperty, value);
         }
 
-        public static readonly DependencyProperty ColsProperty = DependencyProperty.Register(
-            nameof(Cols), typeof(int), typeof(MatrixListBox), new FrameworkPropertyMetadata(0, OnColsChanged, CoerceNonNegative));
+        public static readonly DependencyProperty ColsProperty =
+                DependencyProperty.Register(nameof(Cols), typeof(int), typeof(MatrixListBox), new FrameworkPropertyMetadata(0, OnColsChanged, CoerceNonNegative));
         public int Cols
         {
             get => (int)GetValue(ColsProperty);
             set => SetValue(ColsProperty, value);
         }
 
-        public static readonly DependencyProperty RowHeadersProperty = DependencyProperty.Register(
-            nameof(RowHeaders), typeof(IEnumerable), typeof(MatrixListBox), new PropertyMetadata(null));
+        public static readonly DependencyProperty RowHeadersProperty =
+                DependencyProperty.Register(nameof(RowHeaders), typeof(IEnumerable), typeof(MatrixListBox), new PropertyMetadata(null));
         public IEnumerable? RowHeaders
         {
             get => (IEnumerable?)GetValue(RowHeadersProperty);
             private set => SetValue(RowHeadersProperty, value);
         }
 
-        public static readonly DependencyProperty ColumnHeadersProperty = DependencyProperty.Register(
-            nameof(ColumnHeaders), typeof(IEnumerable), typeof(MatrixListBox), new PropertyMetadata(null));
-
+        public static readonly DependencyProperty ColumnHeadersProperty =
+                DependencyProperty.Register(nameof(ColumnHeaders), typeof(IEnumerable), typeof(MatrixListBox), new PropertyMetadata(null));
         public IEnumerable? ColumnHeaders
         {
             get => (IEnumerable?)GetValue(ColumnHeadersProperty);
@@ -79,32 +76,32 @@ namespace ATiS.Sim.Wpf
 
         #region 尺寸
 
-        public static readonly DependencyProperty CellWidthProperty = DependencyProperty.Register(
-            nameof(CellWidth), typeof(double), typeof(MatrixListBox), new FrameworkPropertyMetadata(130d, FrameworkPropertyMetadataOptions.AffectsMeasure));
+        public static readonly DependencyProperty CellWidthProperty =
+                DependencyProperty.Register(nameof(CellWidth), typeof(double), typeof(MatrixListBox), new FrameworkPropertyMetadata(130d, FrameworkPropertyMetadataOptions.AffectsMeasure));
         public double CellWidth
         {
             get => (double)GetValue(CellWidthProperty);
             set => SetValue(CellWidthProperty, value);
         }
 
-        public static readonly DependencyProperty CellHeightProperty = DependencyProperty.Register(
-            nameof(CellHeight), typeof(double), typeof(MatrixListBox), new FrameworkPropertyMetadata(42d, FrameworkPropertyMetadataOptions.AffectsMeasure));
+        public static readonly DependencyProperty CellHeightProperty =
+                DependencyProperty.Register(nameof(CellHeight), typeof(double), typeof(MatrixListBox), new FrameworkPropertyMetadata(42d, FrameworkPropertyMetadataOptions.AffectsMeasure));
         public double CellHeight
         {
             get => (double)GetValue(CellHeightProperty);
             set => SetValue(CellHeightProperty, value);
         }
 
-        public static readonly DependencyProperty HeaderWidthProperty = DependencyProperty.Register(
-            nameof(HeaderWidth), typeof(double), typeof(MatrixListBox), new FrameworkPropertyMetadata(30d, OnHeaderSizeChanged));
+        public static readonly DependencyProperty HeaderWidthProperty =
+                DependencyProperty.Register(nameof(HeaderWidth), typeof(double), typeof(MatrixListBox), new FrameworkPropertyMetadata(30d, OnHeaderSizeChanged));
         public double HeaderWidth
         {
             get => (double)GetValue(HeaderWidthProperty);
             set => SetValue(HeaderWidthProperty, value);
         }
 
-        public static readonly DependencyProperty HeaderHeightProperty = DependencyProperty.Register(
-            nameof(HeaderHeight), typeof(double), typeof(MatrixListBox), new FrameworkPropertyMetadata(30d, OnHeaderSizeChanged));
+        public static readonly DependencyProperty HeaderHeightProperty =
+                DependencyProperty.Register(nameof(HeaderHeight), typeof(double), typeof(MatrixListBox), new FrameworkPropertyMetadata(30d, OnHeaderSizeChanged));
         public double HeaderHeight
         {
             get => (double)GetValue(HeaderHeightProperty);
@@ -120,17 +117,16 @@ namespace ATiS.Sim.Wpf
 
         #region 行列头模板
 
-        public static readonly DependencyProperty ColumnHeaderTemplateProperty = DependencyProperty.Register(
-            nameof(ColumnHeaderTemplate), typeof(DataTemplate), typeof(MatrixListBox), new PropertyMetadata(null));
+        public static readonly DependencyProperty ColumnHeaderTemplateProperty =
+                DependencyProperty.Register(nameof(ColumnHeaderTemplate), typeof(DataTemplate), typeof(MatrixListBox), new PropertyMetadata(null));
         public DataTemplate? ColumnHeaderTemplate
         {
             get => (DataTemplate?)GetValue(ColumnHeaderTemplateProperty);
             set => SetValue(ColumnHeaderTemplateProperty, value);
         }
 
-        public static readonly DependencyProperty RowHeaderTemplateProperty = DependencyProperty.Register(
-            nameof(RowHeaderTemplate), typeof(DataTemplate), typeof(MatrixListBox), new PropertyMetadata(null));
-
+        public static readonly DependencyProperty RowHeaderTemplateProperty =
+                DependencyProperty.Register(nameof(RowHeaderTemplate), typeof(DataTemplate), typeof(MatrixListBox), new PropertyMetadata(null));
         public DataTemplate? RowHeaderTemplate
         {
             get => (DataTemplate?)GetValue(RowHeaderTemplateProperty);
@@ -139,13 +135,22 @@ namespace ATiS.Sim.Wpf
 
         #endregion
 
+        #region 是否显示全选按钮
+        public static readonly DependencyProperty SelectAllToggleBtnVisibilityProperty =
+                DependencyProperty.Register(nameof(SelectAllToggleBtnVisibility), typeof(Visibility), typeof(MatrixListBox), new PropertyMetadata(Visibility.Visible));
+        public Visibility SelectAllToggleBtnVisibility
+        {
+            get => (Visibility)GetValue(SelectAllToggleBtnVisibilityProperty);
+            set => SetValue(SelectAllToggleBtnVisibilityProperty, value);
+        }
+        #endregion
+
         private ScrollViewer? _scrollViewer;
         private TranslateTransform? _columnHeaderTranslate;
         private TranslateTransform? _rowHeaderTranslate;
         private ColumnDefinition? _rowHeaderColumn;
         private RowDefinition? _columnHeaderRow;
-        private ToggleButton ?_selectAllToggleBtn;
-
+        private ToggleButton? _selectAllToggleBtn;
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -190,19 +195,22 @@ namespace ATiS.Sim.Wpf
             UpdateHeaderGridLength();
             UpdateHeaderOffsets();
         }
-
         private void OnSelectAllClicked(object sender, RoutedEventArgs e)
         {
-            if (_selectAllToggleBtn?.IsChecked == true)
+            if (SelectionMode != SelectionMode.Single)
             {
-                SelectAll();
-            }
-            else 
-            {
-                UnselectAll();
+                if (_selectAllToggleBtn?.IsChecked == true)
+                {
+
+                    SelectAll();
+
+                }
+                else
+                {
+                    UnselectAll();
+                }
             }
         }
-
         private void UpdateHeaderGridLength()
         {
             if (_rowHeaderColumn != null)

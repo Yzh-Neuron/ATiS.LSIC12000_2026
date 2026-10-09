@@ -137,7 +137,7 @@
 
         <!--  主界面  -->
         <TabControl wpf:BorderHelper.CornerRadius="0"
-                    wpf:TabControlHelper.HasSeparator="False"
+                    wpf:TabControlHelper.HasSeparator="True"
                     wpf:TabControlHelper.HeaderHeight="55"
                     wpf:TabControlHelper.HeaderWidth="40"
                     BorderThickness="0"
@@ -147,7 +147,7 @@
                     <Image Width="20" Source="{StaticResource Image.Blocks}" />
                 </TabItem.Header>
                 <!--  老化界面  -->
-                <views:CtrHomeView />
+                <views:CtrHomeView Margin="10" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>

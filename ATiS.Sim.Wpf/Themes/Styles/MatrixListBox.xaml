@@ -124,7 +124,8 @@
                                                           wpf:IconHelper.Height="12"
                                                           wpf:IconHelper.Width="12"
                                                           Foreground="{DynamicResource BorderBrush}"
-                                                          Style="{StaticResource ToggleButton.Icon}" />
+                                                          Style="{StaticResource ToggleButton.Icon}"
+                                                          Visibility="{Binding SelectAllToggleBtnVisibility}" />
                                         </Border>
 
                                         <!--  列头  -->

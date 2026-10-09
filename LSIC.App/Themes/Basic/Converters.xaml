@@ -28,8 +28,8 @@
     <cvt:LinerChangeConverter x:Key="LinerChangeConverter" />
     <cvt:StepPowerHasDpsPlanToVisibilityConverter x:Key="StepPowerHasDpsPlanToVisibilityConverter" />
     <cvt:TimeSecondToTimeStringConverter x:Key="TimeSecondToTimeStringConverter" />
+    <cvt:DutStateToBrushConverter x:Key="DutStateToBrushConverter"/>
 
-    
     <cvt:ZoneStateToEnableConverter x:Key="ZoneStateToCanSendIc" Func="{x:Static app:ZoneStateExtension.CanSendIcFunc}" />
     <cvt:ZoneStateToEnableConverter x:Key="ZoneStateToCanStart" Func="{x:Static app:ZoneStateExtension.CanStartFunc}" />
     <cvt:ZoneStateToEnableConverter x:Key="ZoneStateToCanStop" Func="{x:Static app:ZoneStateExtension.CanStopFunc}" />

@@ -72,6 +72,9 @@
 		<Compile Update="Views\CtrBurnInfoView.xaml.cs">
 		  <SubType>Code</SubType>
 		</Compile>
+		<Compile Update="Views\CtrBurnInBoardView.xaml.cs">
+		  <SubType>Code</SubType>
+		</Compile>
 		<Compile Update="Views\CtrPrepareBurnView.xaml.cs">
 		  <SubType>Code</SubType>
 		</Compile>

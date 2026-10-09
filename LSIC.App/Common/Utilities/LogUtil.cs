@@ -2,7 +2,7 @@
 {
     internal static class LogUtil
     {
-        private static readonly RollingFileLogger SystemLogger = new RollingFileLogger(".\\Log\\System\\Log_.log", RollingInterval.Day, 256 * 1024 * 1024);
+        private static readonly RollingFileLogger SystemLogger = new RollingFileLogger(".\\Log\\System\\{date:yyyyMMdd}.log", RollingInterval.Day, 256 * 1024 * 1024);
 
         public static void Debug(string message) => SystemLogger.Debug(message);
 

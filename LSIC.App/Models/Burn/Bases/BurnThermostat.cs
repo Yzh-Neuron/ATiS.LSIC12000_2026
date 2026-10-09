@@ -28,7 +28,7 @@
             set { SetProperty(ref _targetTemperature, value); }
         }
 
-        private int? _temperature;
+        private int? _temperature = 0;
         public int? Temperature
         {
             get { return _temperature; }
