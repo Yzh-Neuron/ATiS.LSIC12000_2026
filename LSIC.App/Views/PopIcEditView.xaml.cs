@@ -36,8 +36,8 @@
                         {
                             return MessageResult.From(dialog.FileName);
                         }
+                        break;
                     }
-                    break;
                 case PopIcEditMessage.ImportIc:
                     {
                         string filter = $"{LangProvider.Instance.IcFileText}|*.{IcConfigManager.IcSuffix}";
@@ -49,8 +49,8 @@
                         {
                             return MessageResult.From(dialog.FileName);
                         }
+                        break;
                     }
-                    break;
                 case PopIcEditMessage.SelectFile:
                     {
                         string filter = e.Args[0] as string;
@@ -68,7 +68,6 @@
                         }
                         break;
                     }
-
                 case PopIcEditMessage.CreateDpsSetting:
                 case PopIcEditMessage.EditDpsSetting:
                     {
@@ -81,7 +80,6 @@
                         pop.ShowDialog();
                         return MessageResult.From(pop.DpsSetting);
                     }
-
                 case PopIcEditMessage.EditVector:
                 case PopIcEditMessage.CreateVector:
                     {
@@ -104,7 +102,6 @@
                         pop.ShowDialog();
                         return MessageResult.From(pop.ExecuteStrategy);
                     }
-
                 case PopIcEditMessage.ShowValidateError:
                     {
                         List<ValidationResult> errors = e.Args[0] as List<ValidationResult>;

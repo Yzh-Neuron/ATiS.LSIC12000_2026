@@ -114,7 +114,8 @@ namespace LSIC.App.ViewModels
                     return;
                 }
 
-                Zone.BurnInfo = SystemDatabase.Instance.CreateBurnInfo(Zone, ic, Lot, Operator); 
+                var burnInfo = SystemDatabase.Instance.CreateBurnInfo(Zone.Id, ic, Lot, Operator);
+                Zone.ReloadBurnInfo(burnInfo);
             }
             catch (Exception e)
             {

@@ -32,21 +32,22 @@ namespace LSIC.App
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             e.Handled = true;
-            MessagePop.Show(e.Exception.ToString(), MessageType.Error);
-            //LogUtil.Error("DispatcherUnhandledException", e.Exception);
+            string message = string.Format(LangProvider.Instance.UnhandledExceptionMessage, e.Exception.Message + e.Exception.StackTrace);
+            LogUtil.Error(message);
         }
 
         private void OnTaskSchedulerUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             e.SetObserved();
-            MessagePop.Show(e.Exception.ToString(), MessageType.Error);
-            //LogUtil.Error("TaskSchedulerUnobservedTaskException", e.Exception);
+            string message = string.Format(LangProvider.Instance.UnhandledExceptionMessage, e.Exception.Message + e.Exception.StackTrace);
+            LogUtil.Error(message);
         }
 
         private void OnCurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            MessagePop.Show(e.ExceptionObject.ToString(), MessageType.Error);
-            //LogUtil.Error("CurrentDomainUnhandledException", e.ExceptionObject as Exception);
+            Exception ex = e.ExceptionObject as Exception;
+            string message = string.Format(LangProvider.Instance.UnhandledExceptionMessage, ex?.Message + ex?.StackTrace);
+            LogUtil.Error(message);
         }
 
 

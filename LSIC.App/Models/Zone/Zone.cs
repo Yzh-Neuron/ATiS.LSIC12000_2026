@@ -9,9 +9,9 @@ namespace LSIC.App.Models
         private bool _disposed;
         private TcpClient _client;
         private List<byte> _buffer;
-        public FlowLogger Logger { get; private set; }
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
         private readonly SemaphoreSlim _receiveLock = new SemaphoreSlim(1, 1);
+        public ZoneInfo Info { get; }
         public int Id
         {
             get { return Info.Id; }
@@ -24,7 +24,6 @@ namespace LSIC.App.Models
         {
             get { return Info.Port; }
         }
-        public ZoneInfo Info { get; }
         private bool _connected;
         public bool Connected
         {
@@ -61,14 +60,32 @@ namespace LSIC.App.Models
         public BurnInfo BurnInfo
         {
             get { return _burnInfo; }
-            set { SetProperty(ref _burnInfo, value); }
+            private set { SetProperty(ref _burnInfo, value); }
         }
+        public FlowLogger Logger { get; private set; }
+        public ErrorDatabase ErrorDatabase { get; private set; }
         public Zone(ZoneInfo info, Dps[] dpss)
         {
             Info = info ?? throw new ArgumentNullException(nameof(info));
             Dpss = dpss;
             Vihs = [new Vih(0), new Vih(1)];
+
+            ErrorDatabase = new ErrorDatabase(this);
             Logger = new FlowLogger(this);
+        }
+        public void ReloadBurnInfo(BurnInfo burnInfo)
+        {
+            BurnInfo?.Dispose();
+            BurnInfo = burnInfo;
+        }
+        public void ResetStateToIdle()
+        {
+            BurnInfo = null;
+            if (State is ZoneState.Ready or ZoneState.Stop or ZoneState.IcError)
+            {
+                UpdateZoneState(ZoneState.Idle);
+            }
+            ErrorDatabase.Clear();
         }
         public void Startup()
         {
@@ -530,6 +547,7 @@ namespace LSIC.App.Models
         }
         public async ValueTask StartBurnAsync(byte[] dutMask)
         {
+            ErrorDatabase.Clear();
             BurnInfo.StartBurn(Id, DateTime.Now, dutMask);
             await SendAsync(ZoneFunctionCode.ControlAndState, 0x01);
         }
@@ -740,9 +758,8 @@ namespace LSIC.App.Models
                 {
                     case ZoneFunctionCode.Version:
                         {
-
+                            break;
                         }
-                        break;
                     case ZoneFunctionCode.ControlAndState:
                         {
                             ZoneState state = (ZoneState)data[index++];
@@ -764,15 +781,16 @@ namespace LSIC.App.Models
                                 Array.Copy(data, index, temp, 0, temp.Length);
                                 UpdateZoneState(state, error, temp);
                             }
+
+                            break;
                         }
-                        break;
                     case ZoneFunctionCode.BurnInBoardInsertState:
                         {
                             byte value = data[index];
                             Pluged = (value & 0x3) == 0x3;
                             Logger.LogInfo(Pluged ? LangProvider.Instance.PlugedMessage : LangProvider.Instance.UnplugedMessage);
+                            break;
                         }
-                        break;
                     case ZoneFunctionCode.DpsState:
                         {
                             byte mask = data[index++];
@@ -812,8 +830,8 @@ namespace LSIC.App.Models
                                     }
                                 }
                             }
+                            break;
                         }
-                        break;
                     case ZoneFunctionCode.CurrentDpsGroup:
                         {
                             int id = data[index++];
@@ -830,8 +848,8 @@ namespace LSIC.App.Models
                                     }
                                 }
                             }
+                            break;
                         }
-                        break;
                     case ZoneFunctionCode.BurnState:
                         {
                             if (BurnInfo == null ||
@@ -920,11 +938,11 @@ namespace LSIC.App.Models
                                 Logger.LogInfoFormat(LangProvider.Instance.StepRunInfoLog, BurnInfo.CurrentStep.Name, BurnInfo.CurrentVector.PatternFile.FileName());
                             }
 
+                            break;
                         }
-                        break;
                     case ZoneFunctionCode.CompareError:
                         {
-                            if (BurnInfo == null || BurnInfo.Ic == null)
+                            if (BurnInfo == null)
                             {
                                 return;
                             }
@@ -945,88 +963,75 @@ namespace LSIC.App.Models
 
                             for (int i = 0; i < count; i++)
                             {
-                                // 片选
-                                int cs = data[index++];
-
-                                // 向量所在行数
-                                int line = data.ToInt32(index, Endianness.Big);
+                                int cs = data[index++];  // 片选
+                                int line = data.ToInt32(index, Endianness.Big);    // 向量所在行数
                                 index += 4;
 
-                                // channel count 256
-                                // board count 4
-                                // single board bits 64
-                                int pin = 0;
-                                for (int j = 0; j < 4; j++)
-                                {
-                                    ulong mask = data.ToUInt64(index, Endianness.Big);
-                                    index += 8;
-                                    for (int k = 0; k < 64; k++)
-                                    {
-                                        bool flag = ((mask >> k) & 0x1) == 0x1;
-                                        if (flag)
-                                        {
-                                            ulong id = CompareError.CreateCompareErrorId(stepId, vectorStepId, cs, line, pin);
-                                            CompareError error = new CompareError
-                                            {
-                                                Id = id,
-                                                Cs = cs,
-                                                Dr = pin,
-                                                Step = step,
-                                                Pattern = pattern,
-                                                Register = register,
-                                                Line = line
-                                            };
+                                byte[] mask = new byte[32];
+                                Array.Copy(data, index, mask, 0, mask.Length);
+                                index += 32;
 
-                                            BurnInfo.BurnInBoard.CompareError(cs, pin);
-                                            BurnInfo.Logger.LogError(error);
-                                        }
-                                        pin++;
+                                int[] pins = mask.MaskToIntegers();
+                                foreach (int pin in pins)
+                                {
+                                    ulong id = CompareError.CreateCompareErrorId(stepId, vectorStepId, cs, line, pin);
+                                    CompareError error = new CompareError
+                                    {
+                                        Id = id,
+                                        Cs = cs,
+                                        Dr = pin,
+                                        Step = step,
+                                        Pattern = pattern,
+                                        Register = register,
+                                        Line = line
+                                    };
+
+                                    bool success = ErrorDatabase.TryAddError(error, BurnInfo.ErrorLogTimeSpan);
+                                    if (success)
+                                    {
+                                        BurnInfo.BurnInBoard.CompareError(cs, pin);
+                                        BurnInfo.Logger.LogError(error);
                                     }
                                 }
                             }
+                            break;
                         }
-                        break;
                     case ZoneFunctionCode.Trigger:
                         {
                             OutputType = (TriggerOutputType)data[index++];
                             OutputPin = OutputType == TriggerOutputType.Signal ? data[index++] : null;
+                            break;
                         }
-                        break;
                     case ZoneFunctionCode.Register:
                         {
                             // 单个寄存器数据请求
                             byte id = data[index];
                             _ = SendRegisterFile(id);
+                            break;
                         }
-                        break;
                     case ZoneFunctionCode.Pattern:
                         {
                             // 单个向量数据请求
                             byte id = data[index];
                             _ = SendPatternFile(id);
+                            break;
                         }
-                        break;
                     case ZoneFunctionCode.SpiSet:
                         {
                             break;
                         }
-                    case ZoneFunctionCode.ConfigFinish:
-                        break;
                     case ZoneFunctionCode.Upgrade:
                         {
-
+                            break;
                         }
-                        break;
                     case ZoneFunctionCode.UpgradeFinish:
                         {
-
+                            break;
                         }
-                        break;
                     case ZoneFunctionCode.DeviceCheck:
                         {
-
+                            break;
                         }
-                        break;
                     case ZoneFunctionCode.DpsCheck:
                         {
                             int current = data.ToInt32(index, Endianness.Big) + 1;
@@ -1251,13 +1256,14 @@ namespace LSIC.App.Models
         {
             Dispose();
         }
-
         public void Dispose()
         {
             if (_disposed)
             {
                 return;
             }
+
+            Logger?.Dispose();
 
             if (_client != null)
             {

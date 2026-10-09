@@ -1,13 +1,13 @@
 namespace LSIC.App.Models
 {
-    public class BurnInfo : ObservableObject
+    public class BurnInfo : ObservableObject, IDisposable
     {
         public Ic Ic { get; private set; }
         public BurnLogger Logger { get; private set; }
         public string Lot { get; private set; }
         public string Operator { get; private set; }
         public Time LogInterval { get; private set; }
-        public Time ErrorLogInterval { get; private set; }
+        public TimeSpan ErrorLogTimeSpan { get; private set; }
         public bool ForceStepLoad { get; private set; }
 
         /// <summary>
@@ -120,7 +120,8 @@ namespace LSIC.App.Models
             Lot = lot;
             Operator = op;
             LogInterval = ic.LogInterval;
-            ErrorLogInterval = ic.ErrorLogEnable ? ic.ErrorLogInterval : null;
+            ErrorLogTimeSpan = ic.ErrorLogEnable ? TimeSpan.FromSeconds(ic.ErrorLogInterval.TotalSeconds) : TimeSpan.MaxValue;
+
             ForceStepLoad = ic.ForceStepLoad;
 
             if (ic.BurnInBoardSetting == null)
@@ -342,6 +343,19 @@ namespace LSIC.App.Models
                 return LoadMode.Step;
             }
             return LoadMode.Default;
+        }
+
+        /// <summary>
+        /// 释放
+        /// </summary>
+        public void Dispose()
+        {
+            if (Logger == null)
+            {
+                return;
+            }
+            Logger.Dispose();
+            Logger = null;
         }
         #endregion
     }

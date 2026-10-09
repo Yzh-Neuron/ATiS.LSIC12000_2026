@@ -25,4 +25,5 @@
     <cvt:ProportionalWidthConverter x:Key="ProportionalWidthConverter"/>
     <cvt:SecondsToTimeSpanStringConverter x:Key="SecondsToTimeSpanStringConverter"/>
     <cvt:LinerChangeConverter x:Key="LinerChangeConverter"/>
+    <cvt:StepPowerHasDpsPlanToVisibilityConverter x:Key="StepPowerHasDpsPlanToVisibilityConverter"/>
 </ResourceDictionary>

@@ -762,7 +762,6 @@
                                   Visibility="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedStepItem, Converter={StaticResource NotNullToVisibilityConverter}}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
@@ -830,6 +829,12 @@
                                                         HorizontalAlignment="Left"
                                                         Content="{Binding .}"
                                                         Validation.ErrorTemplate="{x:Null}">
+                                            <ContentControl.Visibility>
+                                                <MultiBinding Converter="{StaticResource StepPowerHasDpsPlanToVisibilityConverter}">
+                                                    <Binding Path="." UpdateSourceTrigger="PropertyChanged" />
+                                                    <Binding Path="DpsPlan" UpdateSourceTrigger="PropertyChanged" />
+                                                </MultiBinding>
+                                            </ContentControl.Visibility>
                                             <ContentControl.Resources>
                                                 <!--  电源步显示  -->
                                                 <DataTemplate DataType="{x:Type models:StepPower}">
@@ -897,7 +902,7 @@
                                 </wpf:SimplePanel>
 
                                 <!--  向量集合  -->
-                                <DataGrid Grid.Row="2"
+                                <DataGrid Grid.Row="1"
                                           Margin="0,10,0,0"
                                           wpf:DataGridDoubleClick.Command="{Binding Source={StaticResource MainDataContext}, Path=Data.EditVectorCommand}"
                                           wpf:DataGridDragSort.IsEnabled="True"
@@ -905,6 +910,12 @@
                                           IsReadOnly="True"
                                           ItemsSource="{Binding Vectors}"
                                           SelectedItem="{Binding Data.SelectedVector, Source={StaticResource MainDataContext}}">
+                                    <DataGrid.Visibility>
+                                        <MultiBinding Converter="{StaticResource StepPowerHasDpsPlanToVisibilityConverter}">
+                                            <Binding Path="." UpdateSourceTrigger="PropertyChanged" />
+                                            <Binding Path="DpsPlan" UpdateSourceTrigger="PropertyChanged" />
+                                        </MultiBinding>
+                                    </DataGrid.Visibility>
                                     <i:Interaction.Behaviors>
                                         <wpf:AutoSelectFirstBehavior />
                                     </i:Interaction.Behaviors>

@@ -50,9 +50,9 @@ namespace LSIC.App
         #endregion
 
         #region 老化信息
-        public BurnInfo GetBurnInfo(Zone zone)
+        public BurnInfo GetBurnInfo(int zoneId)
         {
-            BurnInfoItem item = _db.CopyNew().Queryable<BurnInfoItem>().First(x => x.ZoneId == zone.Id);
+            BurnInfoItem item = _db.CopyNew().Queryable<BurnInfoItem>().First(x => x.ZoneId == zoneId);
             if (item == null)
             {
                 return null;
@@ -66,12 +66,12 @@ namespace LSIC.App
 
             return new BurnInfo(ic, item.Operator, item.Operator, item.Start, item.DutMask);
         }
-        public BurnInfo CreateBurnInfo(Zone zone, Ic ic, string lot, string op)
+        public BurnInfo CreateBurnInfo(int zoneId, Ic ic, string lot, string op)
         {
-            DeleteBurnInfo(zone.Id);
+            DeleteBurnInfo(zoneId);
             BurnInfoItem item = new BurnInfoItem()
             {
-                ZoneId = zone.Id,
+                ZoneId = zoneId,
                 Ic = IcConfigManager.GetIcPath(ic),
                 Lot = lot,
                 Operator = op,
