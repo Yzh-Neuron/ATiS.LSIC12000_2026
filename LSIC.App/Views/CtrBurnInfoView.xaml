@@ -182,8 +182,8 @@
                     <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Margin="6,0,0,0"
-                           HorizontalAlignment="Center"
+                <TextBlock Margin="5,0,0,0"
+                           HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
                            Text="{app:Lang {x:Static app:LangKey.CurrentIcText}}" />
@@ -194,8 +194,8 @@
                            Text="{Binding Zone.BurnInfo.Ic.Name}" />
 
                 <TextBlock Grid.Row="1"
-                           Margin="6,0,0,0"
-                           HorizontalAlignment="Center"
+                           Margin="5,0,0,0"
+                           HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
                            Text="{app:Lang {x:Static app:LangKey.LotText}}" />
@@ -207,8 +207,8 @@
                            Text="{Binding Zone.BurnInfo.Lot}" />
 
                 <TextBlock Grid.Row="2"
-                           Margin="6,0,0,0"
-                           HorizontalAlignment="Center"
+                           Margin="5,0,0,0"
+                           HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
                            Text="{app:Lang {x:Static app:LangKey.OperatorText}}" />
@@ -219,10 +219,9 @@
                            VerticalAlignment="Center"
                            Text="{Binding Zone.BurnInfo.Operator}" />
 
-
                 <TextBlock Grid.Row="3"
-                           Margin="6,0,0,0"
-                           HorizontalAlignment="Center"
+                           Margin="5,0,0,0"
+                           HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
                            Text="{app:Lang {x:Static app:LangKey.LoadModeText}}" />
@@ -234,8 +233,8 @@
                            Text="{Binding Zone.BurnInfo.LoadMode, Converter={StaticResource EnumToTextConverter}}" />
 
                 <TextBlock Grid.Row="4"
-                           Margin="6,0,0,0"
-                           HorizontalAlignment="Center"
+                           Margin="5,0,0,0"
+                           HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
                            Text="{app:Lang {x:Static app:LangKey.StartTimeText}}" />
@@ -246,10 +245,9 @@
                            VerticalAlignment="Center"
                            Text="{Binding Zone.BurnInfo.Start, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
 
-
                 <TextBlock Grid.Row="5"
-                           Margin="6,0,0,0"
-                           HorizontalAlignment="Center"
+                           Margin="5,0,0,0"
+                           HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
                            Text="{app:Lang {x:Static app:LangKey.CurrentDpsPlanText}}" />
@@ -260,10 +258,9 @@
                            VerticalAlignment="Center"
                            Text="{Binding Zone.BurnInfo.CurrentDpsPlan.Name}" />
 
-
                 <TextBlock Grid.Row="6"
-                           Margin="6,0,0,0"
-                           HorizontalAlignment="Center"
+                           Margin="5,0,0,0"
+                           HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
                            Text="{app:Lang {x:Static app:LangKey.CurrentStepText}}" />
@@ -275,8 +272,8 @@
                            Text="{Binding Zone.BurnInfo.CurrentStep.Name}" />
 
                 <TextBlock Grid.Row="7"
-                           Margin="6,0,0,0"
-                           HorizontalAlignment="Center"
+                           Margin="5,0,0,0"
+                           HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
                            Text="{app:Lang {x:Static app:LangKey.CurrentPatternText}}" />
@@ -291,8 +288,8 @@
                            ToolTip="{Binding Zone.BurnInfo.CurrentVector.PatternFile}" />
 
                 <TextBlock Grid.Row="8"
-                           Margin="6,0,0,0"
-                           HorizontalAlignment="Center"
+                           Margin="5,0,0,0"
+                           HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontWeight="Bold"
                            Text="{app:Lang {x:Static app:LangKey.CurrentRegistersText}}" />

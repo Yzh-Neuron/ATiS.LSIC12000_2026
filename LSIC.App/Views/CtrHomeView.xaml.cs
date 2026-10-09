@@ -11,22 +11,6 @@ namespace LSIC.App.Views
             ViewModel = new CtrHomeViewModel();
             DataContext = ViewModel;
         }
-        private void OnZoneGroupChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (sender is not ListBox listBox)
-            {
-                return;
-            }
-
-            Zone[] newGroup = (e.NewValue as IEnumerable<Zone>)?.ToArray();
-            if (newGroup == null || !newGroup.Any())
-            {
-                return;
-            }
-
-            listBox.ItemsSource = newGroup;
-            listBox.SelectedValue = newGroup.First();
-        }
     }
 
     public class CtrHomeViewModelProxy : BindingProxy<CtrHomeViewModel>

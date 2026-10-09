@@ -160,21 +160,22 @@
                                            IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
                                            Placement="Bottom"
                                            PlacementTarget="{Binding ElementName=templateRoot}">
-                                        <StackPanel Margin="8,0,8,8" Effect="{x:Null}">
-                                            <wpf:ClipBorder x:Name="SubMenuBorder"
-                                                            Background="{DynamicResource SecondBackgroundBrush}"
-                                                            BorderBrush="{DynamicResource BorderBrush}"
-                                                            BorderThickness="1"
-                                                            CornerRadius="{Binding (wpf:BorderHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CornerRadiusSplitConverter}, ConverterParameter='0,0,1,1'}">
-                                                <ScrollViewer Style="{StaticResource ScrollViewer.Default}">
-                                                    <ItemsPresenter x:Name="ItemsPresenter"
-                                                                    Grid.IsSharedSizeScope="True"
-                                                                    KeyboardNavigation.DirectionalNavigation="Cycle"
-                                                                    KeyboardNavigation.TabNavigation="Cycle"
-                                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                                </ScrollViewer>
-                                            </wpf:ClipBorder>
-                                        </StackPanel>
+                                        <wpf:ClipBorder x:Name="SubMenuBorder"
+                                                        MaxHeight="{TemplateBinding wpf:MenuHelper.PopupMaxHeight}"
+                                                        Margin="8,0,8,8"
+                                                        Background="{DynamicResource SecondBackgroundBrush}"
+                                                        BorderBrush="{DynamicResource BorderBrush}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="{Binding (wpf:BorderHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CornerRadiusSplitConverter}, ConverterParameter='0,0,1,1'}"
+                                                        Effect="{x:Null}">
+                                            <ScrollViewer Style="{StaticResource ScrollViewer.Default}">
+                                                <ItemsPresenter x:Name="ItemsPresenter"
+                                                                Grid.IsSharedSizeScope="True"
+                                                                KeyboardNavigation.DirectionalNavigation="Cycle"
+                                                                KeyboardNavigation.TabNavigation="Cycle"
+                                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                            </ScrollViewer>
+                                        </wpf:ClipBorder>
                                     </Popup>
                                 </Grid>
                             </Border>
@@ -354,6 +355,7 @@
                                            Placement="Right"
                                            VerticalOffset="-4">
                                         <wpf:ClipBorder x:Name="SubMenuBorder"
+                                                        MaxHeight="{TemplateBinding wpf:MenuHelper.PopupMaxHeight}"
                                                         Margin="8"
                                                         Background="{DynamicResource SecondBackgroundBrush}"
                                                         BorderBrush="{DynamicResource BorderBrush}"

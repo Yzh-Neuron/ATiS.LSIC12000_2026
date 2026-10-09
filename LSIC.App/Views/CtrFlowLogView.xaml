@@ -1,0 +1,40 @@
+﻿<RichTextBox x:Class="LSIC.App.Views.CtrFlowLogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:app="clr-namespace:LSIC.App"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:LSIC.App.Models"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:views="clr-namespace:LSIC.App.Views"
+             xmlns:vms="clr-namespace:LSIC.App.ViewModels"
+             xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
+             x:Name="LogView"
+             Padding="4,10"
+             d:DesignHeight="200"
+             d:DesignWidth="400"
+             Background="Transparent"
+             BorderThickness="0"
+             IsReadOnly="True"
+             IsReadOnlyCaretVisible="True"
+             VerticalScrollBarVisibility="Auto"
+             mc:Ignorable="d">
+    <RichTextBox.ContextMenu>
+        <ContextMenu IsVisibleChanged="OnMenuVisibleChanged" wpf:MenuHelper.PopupMaxHeight="200">
+            <MenuItem Click="OnClearLogs" Header="{app:Lang {x:Static app:LangKey.ClearLogsText}}" />
+            <MenuItem Header="{app:Lang {x:Static app:LangKey.FrameFilterText}}" ItemsSource="{Binding PlacementTarget.FilterItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
+                <MenuItem.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource {x:Type MenuItem}}" TargetType="MenuItem">
+                        <Setter Property="Header" Value="{Binding FunctionCode, Converter={StaticResource EnumToTextConverter}}" />
+                        <Setter Property="IsCheckable" Value="True" />
+                        <Setter Property="StaysOpenOnClick" Value="True" />
+                        <Setter Property="IsChecked" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        <Setter Property="InputGestureText" Value="{Binding FunctionCode, Converter={StaticResource EnumToHexConverter}}" />
+                        <Setter Property="MaxWidth" Value="200" />
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+            </MenuItem>
+        </ContextMenu>
+    </RichTextBox.ContextMenu>
+
+</RichTextBox>

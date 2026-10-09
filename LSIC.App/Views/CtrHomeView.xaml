@@ -82,7 +82,7 @@
                                   TextBlock.Foreground="White">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="3*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
@@ -92,8 +92,7 @@
                                         CornerRadius="{StaticResource DefaultCornerRadius}">
                                     <TextBlock Grid.Column="0"
                                                Margin="10,0,0,0"
-                                               HorizontalAlignment="Center"
-                                               FontFamily="{StaticResource Fonts.MapleMono}">
+                                               HorizontalAlignment="Center">
                                         <TextBlock.Text>
                                             <MultiBinding Converter="{StaticResource FormatTextConverter}">
                                                 <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
@@ -121,16 +120,26 @@
                                                   Margin="0,0,5,0"
                                                   HorizontalAlignment="Right"
                                                   VerticalAlignment="Stretch"
-                                                  wpf:IconHelper.CheckedGeometry="{StaticResource Geometry.SlotUninserted}"
-                                                  wpf:IconHelper.Geometry="{StaticResource Geometry.SlotInserted}"
+                                                  wpf:IconHelper.CheckedGeometry="{StaticResource Geometry.SlotInserted}"
+                                                  wpf:IconHelper.Geometry="{StaticResource Geometry.SlotUninserted}"
                                                   wpf:IconHelper.Height="15"
                                                   wpf:IconHelper.Width="15"
                                                   Background="{DynamicResource SecondBackgroundBrush}"
                                                   BorderBrush="{DynamicResource ForegroundBrush}"
                                                   BorderThickness="1"
-                                                  Foreground="Red"
-                                                  IsHitTestVisible="False"
-                                                  Style="{StaticResource ToggleButton.Icon}" />
+                                                  IsChecked="{Binding Pluged, Mode=OneWay}"
+                                                  IsHitTestVisible="False">
+                                        <ToggleButton.Style>
+                                            <Style BasedOn="{StaticResource ToggleButton.Icon}" TargetType="{x:Type ToggleButton}">
+                                                <Setter Property="Foreground" Value="Red" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsChecked" Value="True">
+                                                        <Setter Property="Foreground" Value="Green" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ToggleButton.Style>
+                                    </ToggleButton>
                                 </wpf:SimplePanel>
                             </Grid>
 
@@ -148,6 +157,8 @@
                         </Grid>
                     </Border>
 
+
+                    <!--  右侧日志、电源、工位信息  -->
                     <TabControl Grid.Column="1"
                                 wpf:BorderHelper.CornerRadius="0,4,4,0"
                                 wpf:TabControlHelper.HasSeparator="False"
@@ -161,7 +172,6 @@
                             <TabItem.Header>
                                 <StackPanel Orientation="Vertical">
                                     <Image Width="15" Source="{StaticResource Image.LogViewer}" />
-
                                     <TextBlock MaxWidth="12"
                                                Margin="0,10,0,0"
                                                HorizontalAlignment="Center"
@@ -170,8 +180,8 @@
                                                Text="{app:Lang {x:Static app:LangKey.LogText}}"
                                                TextWrapping="Wrap" />
                                 </StackPanel>
-
                             </TabItem.Header>
+                            <views:CtrFlowLogView Logger="{Binding Logger, Mode=OneWay}" />
                         </TabItem>
                     </TabControl>
                 </Grid>

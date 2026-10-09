@@ -72,6 +72,7 @@ namespace LSIC.App.Models
 
             ErrorDatabase = new ErrorDatabase(this);
             Logger = new FlowLogger(this);
+            FrameFilterUtility.Register<ZoneFunctionCode>(Logger, (code) => true);
         }
         public void Startup()
         {
@@ -94,19 +95,19 @@ namespace LSIC.App.Models
         {
             if (state == ZoneState.DeviceCheckFail)
             {
-                Logger.LogErrorFormat(LangProvider.Instance.StateMessage, state.GetString());
+                Logger.LogError(string.Format(LangProvider.Instance.StateMessage, state.GetString()));
             }
             else if (state == ZoneState.Error)
             {
-                Logger.LogErrorFormat(LangProvider.Instance.StateMessage, state.GetString());
+                Logger.LogError(string.Format(LangProvider.Instance.StateMessage, state.GetString()));
             }
             else if (state == ZoneState.Offline)
             {
-                Logger.LogWarnFormat(LangProvider.Instance.StateMessage, state.GetString());
+                Logger.LogWarn(string.Format(LangProvider.Instance.StateMessage, state.GetString()));
             }
             else
             {
-                Logger.LogInfoFormat(LangProvider.Instance.StateMessage, state.GetString());
+                Logger.LogInfo(string.Format(LangProvider.Instance.StateMessage, state.GetString()));
             }
 
             if (state == ZoneState.Burning)
@@ -189,7 +190,7 @@ namespace LSIC.App.Models
             LoadMode mode = info.LoadMode;
             UpdateZoneState(ZoneState.Sending);
 
-            Logger.LogInfoFormat(LangProvider.Instance.SendIcDataMessage, info.Ic.Name);
+            Logger.LogInfo(string.Format(LangProvider.Instance.SendIcDataMessage, info.Ic.Name));
 
             // 发送器件开始
             await SendAsync(ZoneFunctionCode.ConfigFinish, 0x01, (byte)info.LoadMode);
@@ -280,7 +281,7 @@ namespace LSIC.App.Models
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogErrorFormat(LangProvider.Instance.IcErrorMessage, [e.Message]);
+                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
@@ -320,7 +321,7 @@ namespace LSIC.App.Models
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogErrorFormat(LangProvider.Instance.IcErrorMessage, [e.Message]);
+                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
@@ -372,7 +373,7 @@ namespace LSIC.App.Models
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogErrorFormat(LangProvider.Instance.IcErrorMessage, [e.Message]);
+                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
@@ -403,7 +404,7 @@ namespace LSIC.App.Models
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogErrorFormat(LangProvider.Instance.IcErrorMessage, [e.Message]);
+                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
@@ -434,7 +435,7 @@ namespace LSIC.App.Models
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogErrorFormat(LangProvider.Instance.IcErrorMessage, [e.Message]);
+                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
@@ -487,7 +488,7 @@ namespace LSIC.App.Models
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogErrorFormat(LangProvider.Instance.IcErrorMessage, [e.Message]);
+                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
@@ -520,7 +521,7 @@ namespace LSIC.App.Models
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogErrorFormat(LangProvider.Instance.IcErrorMessage, [e.Message]);
+                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
@@ -598,7 +599,7 @@ namespace LSIC.App.Models
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogErrorFormat(LangProvider.Instance.IcErrorMessage, [e.Message]);
+                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
             }
         }
         public async ValueTask SendRegisterFile(byte index)
@@ -645,7 +646,7 @@ namespace LSIC.App.Models
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogErrorFormat(LangProvider.Instance.IcErrorMessage, [e.Message]);
+                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
             }
         }
         public void ReloadBurnInfo(BurnInfo burnInfo)
@@ -749,7 +750,10 @@ namespace LSIC.App.Models
         }
         private async Task AnalysisFrame(ZoneFunctionCode code, byte[] data, byte[] checkBytes)
         {
-            Logger.LogInfo($"Rx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
+            if (FrameFilterUtility.Filter(Logger, code))
+            {
+                Logger.LogInfo($"Rx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
+            }
 
             try
             {
@@ -935,7 +939,7 @@ namespace LSIC.App.Models
                             }
                             if (changed > 0)
                             {
-                                Logger.LogInfoFormat(LangProvider.Instance.StepRunInfoLog, BurnInfo.CurrentStep.Name, BurnInfo.CurrentVector.PatternFile.FileName());
+                                Logger.LogInfo(string.Format(LangProvider.Instance.StepRunInfoLog, BurnInfo.CurrentStep.Name, BurnInfo.CurrentVector.PatternFile.FileName()));
                             }
 
                             break;
@@ -1069,13 +1073,13 @@ namespace LSIC.App.Models
                             {
                                 if (state == DpsState.Output)
                                 {
-                                    Logger.LogInfoFormat(LangProvider.Instance.DpsCheckResultLog, current, total, slot, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes);
+                                    Logger.LogInfo(string.Format(LangProvider.Instance.DpsCheckResultLog, current, total, slot, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
                                 }
                                 else if (state == DpsState.Ovp ||
                                          state == DpsState.Uvp ||
                                          state == DpsState.Ocp)
                                 {
-                                    Logger.LogErrorFormat(LangProvider.Instance.DpsCheckResultLog, current, total, slot, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes);
+                                    Logger.LogError(string.Format(LangProvider.Instance.DpsCheckResultLog, current, total, slot, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
                                 }
                             }
                         }
@@ -1134,8 +1138,11 @@ namespace LSIC.App.Models
                 // 发送
                 await _client.SendAsync(frame);
 
-                Logger.LogInfo($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
 
+                if (FrameFilterUtility.Filter(Logger, code))
+                {
+                    Logger.LogInfo($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
+                }
             }
             catch (Exception ex)
             {
@@ -1212,7 +1219,10 @@ namespace LSIC.App.Models
                 byte[] tail = BuildFrameTail(check);
                 await _client.SendAsync(tail);
 
-                Logger.LogInfo($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {beforeStream?.ToHex()}");
+                if (FrameFilterUtility.Filter(Logger, code))
+                {
+                    Logger.LogInfo($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {beforeStream?.ToHex()}");
+                }
             }
             catch (Exception ex)
             {

@@ -2,7 +2,7 @@
 {
     public class FlowLogger : IDisposable
     {
-        private const int MaxCount = 1000;
+        private const int MaxCount = 500;
         private readonly RollingFileLogger logger;
         public ConcurrentQueue<Flow> History { get; private set; }
         public event AddFlowHandler OnAddFlow;
@@ -17,30 +17,15 @@
             logger.Info(message);
             AddFlow(DateTime.Now, LogLevel.Info, message);
         }
-        public void LogInfoFormat(string formatterKey, params object[] args)
-        {
-            string message = string.Format(formatterKey, args);
-            LogInfo(message);
-        }
         public void LogWarn(string message)
         {
             logger.Warn(message);
             AddFlow(DateTime.Now, LogLevel.Warn, message);
         }
-        public void LogWarnFormat(string formatterKey, params object[] args)
-        {
-            string message = string.Format(formatterKey, args);
-            LogWarn(message);
-        }
         public void LogError(string message)
         {
             logger.Error(message);
             AddFlow(DateTime.Now, LogLevel.Error, message);
-        }
-        public void LogErrorFormat(string formatterKey, params object[] args)
-        {
-            string message = string.Format(formatterKey, args);
-            LogError(message);
         }
         private void AddFlow(DateTime time, LogLevel level, string message)
         {

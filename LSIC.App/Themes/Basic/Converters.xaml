@@ -6,6 +6,7 @@
 
     <cvt:EnumToTextPairsConverter x:Key="EnumToTextPairsConverter" />
     <cvt:EnumToTextConverter x:Key="EnumToTextConverter" />
+    <cvt:EnumToHexConverter x:Key="EnumToHexConverter"/>
 
     <cvt:IntegerToIntegerConverter x:Key="IntegerToIntegerConverter" />
     <cvt:IntegerToDecimalConverter x:Key="IntegerToDecimalConverter1000" Scale="1000" />
@@ -29,6 +30,7 @@
     <cvt:StepPowerHasDpsPlanToVisibilityConverter x:Key="StepPowerHasDpsPlanToVisibilityConverter" />
     <cvt:TimeSecondToTimeStringConverter x:Key="TimeSecondToTimeStringConverter" />
 
+    
     <cvt:ZoneStateToEnableConverter x:Key="ZoneStateToCanSendIc" Func="{x:Static app:ZoneStateExtension.CanSendIcFunc}" />
     <cvt:ZoneStateToEnableConverter x:Key="ZoneStateToCanStart" Func="{x:Static app:ZoneStateExtension.CanStartFunc}" />
     <cvt:ZoneStateToEnableConverter x:Key="ZoneStateToCanStop" Func="{x:Static app:ZoneStateExtension.CanStopFunc}" />

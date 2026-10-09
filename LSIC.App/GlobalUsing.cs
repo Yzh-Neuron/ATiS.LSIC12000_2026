@@ -30,4 +30,5 @@ global using System.Windows.Input;
 global using System.Windows.Markup;
 global using System.Windows.Media;
 global using System.Collections.Concurrent;
+global using System.Windows.Documents;
 global using Vector = LSIC.App.Models.Vector;
