@@ -2986,6 +2986,11 @@
             PropertyName = propertyName;
         }
 
+        public LangExtension()
+        {
+            
+        }
+
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             var binding = new System.Windows.Data.Binding(PropertyName)

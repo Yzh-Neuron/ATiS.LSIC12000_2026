@@ -73,20 +73,6 @@ namespace LSIC.App.Models
             ErrorDatabase = new ErrorDatabase(this);
             Logger = new FlowLogger(this);
         }
-        public void ReloadBurnInfo(BurnInfo burnInfo)
-        {
-            BurnInfo?.Dispose();
-            BurnInfo = burnInfo;
-        }
-        public void ResetStateToIdle()
-        {
-            BurnInfo = null;
-            if (State is ZoneState.Ready or ZoneState.Stop or ZoneState.IcError)
-            {
-                UpdateZoneState(ZoneState.Idle);
-            }
-            ErrorDatabase.Clear();
-        }
         public void Startup()
         {
             if (_client != null)
@@ -540,7 +526,7 @@ namespace LSIC.App.Models
         }
         #endregion
 
-        #region 协议功能
+        #region 老化功能
         public async ValueTask GetVersionAsync()
         {
             await SendAsync(ZoneFunctionCode.Version);
@@ -661,6 +647,20 @@ namespace LSIC.App.Models
                 UpdateZoneState(ZoneState.IcError);
                 Logger.LogErrorFormat(LangProvider.Instance.IcErrorMessage, [e.Message]);
             }
+        }
+        public void ReloadBurnInfo(BurnInfo burnInfo)
+        {
+            BurnInfo?.Dispose();
+            BurnInfo = burnInfo;
+        }
+        public void ResetStateToIdle()
+        {
+            BurnInfo = null;
+            if (State is ZoneState.Ready or ZoneState.Stop or ZoneState.IcError)
+            {
+                UpdateZoneState(ZoneState.Idle);
+            }
+            ErrorDatabase.Clear();
         }
         #endregion
 

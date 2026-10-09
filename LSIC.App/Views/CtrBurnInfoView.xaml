@@ -22,7 +22,10 @@
         <RowDefinition Height="Auto" />
         <RowDefinition Height="*" />
         <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
+
+    <!--  老化时间  -->
     <Grid Grid.Row="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -42,6 +45,7 @@
                 <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternSetTimeText}}" />
                 <TextBlock Grid.Row="1"
                            Margin="0,5,0,0"
+                           FontSize="16"
                            Text="{Binding Zone.BurnInfo.RunInfo.Progress.Total, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
             </Grid>
         </Border>
@@ -58,11 +62,12 @@
                 <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternCostTimeText}}" />
                 <TextBlock Grid.Row="1"
                            Margin="0,5,0,0"
+                           FontSize="16"
                            Text="{Binding Zone.BurnInfo.RunInfo.Progress.Cost, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
             </Grid>
         </Border>
     </Grid>
-    <Grid Grid.Row="1" Margin="0,10,0,0">
+    <Grid Grid.Row="1" Margin="0,5,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="5" />
@@ -81,6 +86,7 @@
                 <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternLeftTimeText}}" />
                 <TextBlock Grid.Row="1"
                            Margin="0,5,0,0"
+                           FontSize="16"
                            Text="{Binding Zone.BurnInfo.RunInfo.Progress.Left, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
             </Grid>
         </Border>
@@ -97,10 +103,13 @@
                 <TextBlock Text="{app:Lang {x:Static app:LangKey.TotalTimeBeforeDpsUpText}}" />
                 <TextBlock Grid.Row="1"
                            Margin="0,5,0,0"
+                           FontSize="16"
                            Text="{Binding Zone.BurnInfo.TotalSeconds, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
             </Grid>
         </Border>
     </Grid>
+
+    <!--  循环状态  -->
     <Border Grid.Row="2"
             Height="48"
             Margin="0,10,0,0"
@@ -300,12 +309,11 @@
                                    TextTrimming="CharacterEllipsis"
                                    ToolTip="{Binding Zone.BurnInfo.CurrentVector.RegisterFile}" />
                     </Border>
-                    <Button Margin="6,0,0,0"
-                            Background="Transparent"
+                    <Button Margin="5,0,0,0"
                             Content="{app:Lang {x:Static app:LangKey.ViewText}}"
-                            Cursor="Hand"
                             DockPanel.Dock="Left"
                             Foreground="{StaticResource PrimaryBrush}"
+                            Style="{StaticResource Button.Link}"
                             Tag="{Binding Zone.BurnInfo.CurrentVector.RegisterFile}"
                             Visibility="{Binding Zone.BurnInfo.CurrentVector, Converter={StaticResource NotNullToVisibilityConverter}}" />
                 </DockPanel>
@@ -313,6 +321,56 @@
         </app:GridLineDecorator>
     </Border>
 
+    <!--  发送进度  -->
+    <ProgressBar Grid.Row="4"
+                 Margin="0,10,0,0"
+                 Tag="{Binding Zone.State, Converter={StaticResource ZoneStateToSending}}"
+                 Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Tag, Converter={StaticResource TrueToVisibilityConverter}}" />
 
+    <!--  操作按钮  -->
+    <WrapPanel Grid.Row="5"
+               Margin="0,10,0,0"
+               ItemHeight="31"
+               Orientation="Horizontal">
+        <Button Margin="0,0,5,0"
+                VerticalAlignment="Top"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.SendPara}"
+                wpf:IconHelper.Height="13"
+                wpf:IconHelper.Width="13"
+                Command="{Binding SendIcCommand}"
+                Content="{app:Lang {x:Static app:LangKey.SendParameterText}}"
+                Tag="{Binding Zone.State, Converter={StaticResource ZoneStateToCanSendIc}}"
+                Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Tag, Converter={StaticResource TrueToVisibilityConverter}}" />
+
+        <Button Margin="0,0,5,0"
+                VerticalAlignment="Top"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.StartBurn}"
+                wpf:IconHelper.Height="13"
+                wpf:IconHelper.Width="13"
+                Command="{Binding StartCommand}"
+                Content="{app:Lang {x:Static app:LangKey.StartBurnText}}"
+                Tag="{Binding Zone.State, Converter={StaticResource ZoneStateToCanStart}}"
+                Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Tag, Converter={StaticResource TrueToVisibilityConverter}}" />
+
+        <Button Margin="0,0,5,0"
+                VerticalAlignment="Top"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.StopBurn}"
+                wpf:IconHelper.Height="13"
+                wpf:IconHelper.Width="13"
+                Command="{Binding StopCommand}"
+                Content="{app:Lang {x:Static app:LangKey.StopBurnText}}"
+                Tag="{Binding Zone.State, Converter={StaticResource ZoneStateToCanStop}}"
+                Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Tag, Converter={StaticResource TrueToVisibilityConverter}}" />
+
+        <Button Margin="0,0,5,0"
+                VerticalAlignment="Top"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.ReSelectIc}"
+                wpf:IconHelper.Height="13"
+                wpf:IconHelper.Width="13"
+                Command="{Binding ClearBurnInfoCommand}"
+                Content="{app:Lang {x:Static app:LangKey.ReSelectIcText}}"
+                Tag="{Binding Zone.State, Converter={StaticResource ZoneStateToRunning}}"
+                Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Tag, Converter={StaticResource FalseToVisibilityConverter}}" />
+    </WrapPanel>
 </Grid>
 

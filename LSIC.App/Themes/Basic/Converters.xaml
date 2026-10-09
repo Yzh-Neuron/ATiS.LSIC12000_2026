@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:app="clr-namespace:LSIC.App"
                     xmlns:cvt="clr-namespace:LSIC.App.Converters"
                     xmlns:models="clr-namespace:LSIC.App.Models">
 
@@ -20,11 +21,17 @@
     <cvt:ZoneGroupingConverter x:Key="ZoneGroupingConverter" />
     <cvt:ZoneGroupingNameConverter x:Key="ZoneGroupingNameConverter" />
     <cvt:ZoneCountToColumnWidthConverter x:Key="ZoneCountToColumnWidthConverter" />
-    <cvt:FormatTextConverter x:Key="FormatTextConverter"/>
-    <cvt:ZoneCanGotoBurnConverter x:Key="ZoneCanGotoBurnConverter"/>
-    <cvt:ProportionalWidthConverter x:Key="ProportionalWidthConverter"/>
-    <cvt:SecondsToTimeSpanStringConverter x:Key="SecondsToTimeSpanStringConverter"/>
-    <cvt:LinerChangeConverter x:Key="LinerChangeConverter"/>
-    <cvt:StepPowerHasDpsPlanToVisibilityConverter x:Key="StepPowerHasDpsPlanToVisibilityConverter"/>
-    <cvt:TimeSecondToTimeStringConverter x:Key="TimeSecondToTimeStringConverter"/>
+    <cvt:FormatTextConverter x:Key="FormatTextConverter" />
+    <cvt:ZoneCanGotoBurnConverter x:Key="ZoneCanGotoBurnConverter" />
+    <cvt:ProportionalWidthConverter x:Key="ProportionalWidthConverter" />
+    <cvt:SecondsToTimeSpanStringConverter x:Key="SecondsToTimeSpanStringConverter" />
+    <cvt:LinerChangeConverter x:Key="LinerChangeConverter" />
+    <cvt:StepPowerHasDpsPlanToVisibilityConverter x:Key="StepPowerHasDpsPlanToVisibilityConverter" />
+    <cvt:TimeSecondToTimeStringConverter x:Key="TimeSecondToTimeStringConverter" />
+
+    <cvt:ZoneStateToEnableConverter x:Key="ZoneStateToCanSendIc" Func="{x:Static app:ZoneStateExtension.CanSendIcFunc}" />
+    <cvt:ZoneStateToEnableConverter x:Key="ZoneStateToCanStart" Func="{x:Static app:ZoneStateExtension.CanStartFunc}" />
+    <cvt:ZoneStateToEnableConverter x:Key="ZoneStateToCanStop" Func="{x:Static app:ZoneStateExtension.CanStopFunc}" />
+    <cvt:ZoneStateToEnableConverter x:Key="ZoneStateToRunning" Func="{x:Static app:ZoneStateExtension.RunningFunc}" />
+    <cvt:ZoneStateToEnableConverter x:Key="ZoneStateToSending" Func="{x:Static app:ZoneStateExtension.SendingFunc}" />
 </ResourceDictionary>
