@@ -39,5 +39,12 @@ namespace LSIC.App.ViewModels
             get { return _burnInBoard; }
             set { SetProperty(ref _burnInBoard, value); }
         }
+
+        private BurnDut _selectedBurnDut = null;
+        public BurnDut SelectedBurnDut
+        {
+            get { return _selectedBurnDut; }
+            set { SetProperty(ref _selectedBurnDut, value); }
+        }
     }
 }
