@@ -105,6 +105,9 @@
 		<Compile Update="Views\PopVectorEditView.xaml.cs">
 			<SubType>Code</SubType>
 		</Compile>
+		<Compile Update="Views\PopZoneListView.xaml.cs">
+		  <SubType>Code</SubType>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>

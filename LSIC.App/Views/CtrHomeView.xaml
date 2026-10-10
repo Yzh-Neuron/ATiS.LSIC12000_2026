@@ -28,6 +28,7 @@
             <Button Margin="0,0,4,0"
                     Padding="0"
                     BorderThickness="0"
+                    Command="{Binding ZoneListViewCommand}"
                     Cursor="Hand"
                     ToolTip="{app:Lang {x:Static app:LangKey.ViewListText}}">
                 <Image Width="25" Source="{StaticResource Image.ZoneListView}" />

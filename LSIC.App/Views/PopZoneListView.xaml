@@ -1,0 +1,72 @@
+﻿<wpf:ChromeWindow x:Class="LSIC.App.Views.PopZoneListView"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:app="clr-namespace:LSIC.App"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:models="clr-namespace:LSIC.App.Models"
+                  xmlns:views="clr-namespace:LSIC.App.Views"
+                  xmlns:vms="clr-namespace:LSIC.App.ViewModels"
+                  xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
+                  Title="{app:Lang {x:Static app:LangKey.ZoneText}}"
+                  Width="960"
+                  Height="640"
+                  d:DataContext="{d:DesignInstance vms:WinZoneListViewModel}"
+                  Icon="/Resources/Icon/icon.ico"
+                  ResizeMode="NoResize"
+                  WindowStartupLocation="CenterOwner"
+                  mc:Ignorable="d">
+    <DataGrid Margin="10"
+              CanUserSortColumns="False"
+              IsReadOnly="True"
+              ItemsSource="{Binding Zones}"
+              SelectedIndex="-1">
+        <DataGrid.RowStyle>
+            <Style BasedOn="{StaticResource DataGridRow.Default}" TargetType="{x:Type DataGridRow}">
+                <Setter Property="IsHitTestVisible" Value="False" />
+            </Style>
+        </DataGrid.RowStyle>
+        <DataGrid.Columns>
+            <DataGridTextColumn MinWidth="40"
+                                Binding="{Binding Id}"
+                                Header="{app:Lang {x:Static app:LangKey.ZoneText}}" />
+
+            <DataGridTemplateColumn Width="*"
+                                    MinWidth="80"
+                                    Header="{app:Lang {x:Static app:LangKey.StateText}}">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBlock x:Name="State_TextBlock"
+                                   Foreground="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}"
+                                   Text="{Binding State, Converter={StaticResource EnumToTextConverter}}" />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+            <DataGridTextColumn Width="*"
+                                MinWidth="80"
+                                Binding="{Binding BurnInfo.Ic.Name, TargetNullValue='N/A'}"
+                                Header="{app:Lang {x:Static app:LangKey.IcNameText}}" />
+
+            <DataGridTextColumn Width="*"
+                                MinWidth="80"
+                                Binding="{Binding BurnInfo.Lot, TargetNullValue='N/A'}"
+                                Header="{app:Lang {x:Static app:LangKey.LotText}}" />
+
+            <DataGridTextColumn Width="*"
+                                MinWidth="80"
+                                Binding="{Binding BurnInfo.Operator, TargetNullValue='N/A'}"
+                                Header="{app:Lang {x:Static app:LangKey.OperatorText}}" />
+
+            <DataGridTextColumn Width="*"
+                                MinWidth="80"
+                                Binding="{Binding BurnInfo.Start, StringFormat='yyyy-MM-dd HH:mm:ss', TargetNullValue='N/A'}"
+                                Header="{app:Lang {x:Static app:LangKey.StartTimeText}}" />
+
+            <DataGridTextColumn Width="*"
+                                MinWidth="80"
+                                Binding="{Binding BurnInfo.TotalSeconds, TargetNullValue='N/A'}"
+                                Header="{app:Lang {x:Static app:LangKey.TotalTimeBeforeDpsUpText}}" />
+        </DataGrid.Columns>
+    </DataGrid>
+</wpf:ChromeWindow>

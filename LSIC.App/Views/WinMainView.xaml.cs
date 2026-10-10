@@ -55,6 +55,12 @@
                     }
                 case WinMainMessage.ZoneListView:
                     {
+                        var pop = new PopZoneListView
+                        {
+                            Owner = this
+                        };
+
+                        pop.ShowDialog();
                         break;
                     }
 
