@@ -24,6 +24,29 @@
                 SelectedIndex="0"
                 SelectedItem="{Binding CurrentZone}"
                 Style="{StaticResource TabControl.Zone}">
+        <TabControl.Tag>
+            <Button Margin="0,0,4,0"
+                    Padding="0"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    ToolTip="{app:Lang {x:Static app:LangKey.ViewListText}}">
+                <Image Width="25" Source="{StaticResource Image.ZoneListView}" />
+                <Button.Style>
+                    <Style BasedOn="{StaticResource Button.Base}" TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7" />
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.8" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+        </TabControl.Tag>
         <TabControl.ItemTemplate>
             <DataTemplate>
                 <Grid>

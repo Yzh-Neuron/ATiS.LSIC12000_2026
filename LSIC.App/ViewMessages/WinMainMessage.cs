@@ -16,5 +16,6 @@
 
         ShowValidateError,
         DutMask,
+        ZoneListView,
     }
 }

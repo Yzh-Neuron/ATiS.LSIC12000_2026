@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace LSIC.App.Views
+﻿namespace LSIC.App.Views
 {
     public partial class CtrHomeView
     {
@@ -10,6 +8,11 @@ namespace LSIC.App.Views
             InitializeComponent();
             ViewModel = new CtrHomeViewModel();
             DataContext = ViewModel;
+        }
+
+        private void OnZoneListViewButtonClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 
@@ -28,6 +31,7 @@ namespace LSIC.App.ViewModels
     {
         public ReadOnlyObservableCollection<Zone> Zones { get; private set; }
 
+        public ICommand ZoneListViewCommand { get; private set; }
         private Zone _currentZone;
         public Zone CurrentZone
         {
@@ -37,9 +41,16 @@ namespace LSIC.App.ViewModels
 
         public CtrHomeViewModel()
         {
+            ZoneListViewCommand = new RelayCommand(ZoneListView);
+
             ObservableCollection<Zone> zones = new ObservableCollection<Zone>(Device.Instance?.Zones ?? Array.Empty<Zone>());
             Zones = new ReadOnlyObservableCollection<Zone>(zones);
             CurrentZone = Zones.FirstOrDefault();
+        }
+
+        private void ZoneListView()
+        {
+            MessageBus.Default.Send(MsgArgs.From(WinMainMessage.ZoneListView, []));
         }
     }
 }

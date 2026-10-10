@@ -53,6 +53,10 @@
                         MessageType type = (MessageType)e.Args[1];
                         return MessageResult.From(MessagePop.Show(message, type));
                     }
+                case WinMainMessage.ZoneListView:
+                    {
+                        break;
+                    }
 
                 default:
                     break;
@@ -66,7 +70,6 @@
             MessageBus.Default.UnregisterAll(this);
             Application.Current.Shutdown();
         }
-
         private void OnAboutButtonClick(object sender, RoutedEventArgs e)
         {
 
