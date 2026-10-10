@@ -139,10 +139,9 @@
                 VerticalAlignment="Stretch"
                 wpf:IconHelper.Geometry="{StaticResource RunIcon}"
                 wpf:IconHelper.Width="16"
-                FontSize="13"
                 Command="{Binding ConfirmCommand}"
                 Content="{app:Lang {x:Static app:LangKey.EnterBurnViewText}}"
-            >
+                FontSize="13">
             <!--<Button.IsEnabled>
             <MultiBinding Converter="{StaticResource ZoneCanGotoBurnConverter}">
                 <Binding Mode="OneWay" Path="Zone" />

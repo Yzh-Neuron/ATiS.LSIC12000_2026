@@ -89,7 +89,8 @@
                                         CornerRadius="{StaticResource DefaultCornerRadius}">
                                     <TextBlock Grid.Column="0"
                                                Margin="10,0,0,0"
-                                               HorizontalAlignment="Center">
+                                               HorizontalAlignment="Center"
+                                               FontSize="13">
                                         <TextBlock.Text>
                                             <MultiBinding Converter="{StaticResource FormatTextConverter}">
                                                 <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
@@ -105,11 +106,13 @@
                                             BorderThickness="1"
                                             CornerRadius="{StaticResource DefaultCornerRadius}">
                                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                            <TextBlock>
+                                            <TextBlock FontSize="13">
                                                 <Run Text="{app:Lang {x:Static app:LangKey.StateText}}" />
                                                 <Run Text="：" />
                                             </TextBlock>
-                                            <TextBlock wpf:LanguageHelper.Auto="True" Text="{Binding State, Converter={StaticResource EnumToTextConverter}}" />
+                                            <TextBlock wpf:LanguageHelper.Auto="True"
+                                                       FontSize="13"
+                                                       Text="{Binding State, Converter={StaticResource EnumToTextConverter}}" />
                                         </StackPanel>
                                     </Border>
 
@@ -177,6 +180,7 @@
                                                TextWrapping="Wrap" />
                                 </StackPanel>
                             </TabItem.Header>
+                            <views:CtrDpsView />
                         </TabItem>
 
                         <!--  老化板  -->

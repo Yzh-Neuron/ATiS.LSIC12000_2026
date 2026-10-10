@@ -111,33 +111,23 @@
         </TextBlock>
     </Grid>
 
-    <ToggleButton x:Name="LegendBtn"
-                  Width="Auto"
-                  Height="Auto"
-                  Margin="6,6,0,0"
-                  Padding="0"
-                  HorizontalAlignment="Left"
-                  VerticalAlignment="Top"
-                  wpf:IconHelper.CheckedGeometry="{StaticResource Geometry.ErrorTip}"
-                  wpf:IconHelper.Geometry="{StaticResource Geometry.NormalTip}"
-                  wpf:IconHelper.Height="18"
-                  wpf:IconHelper.Width="18"
-                  Background="Transparent"
-                  BorderThickness="0"
-                  Foreground="{DynamicResource PrimaryBrush}"
-                  Style="{StaticResource ToggleButton.Default}" />
-
-    <Popup AllowsTransparency="True"
-           IsOpen="{Binding IsChecked, ElementName=LegendBtn, Mode=TwoWay}"
-           Placement="Top"
-           PlacementTarget="{Binding ElementName=LegendBtn}"
-           StaysOpen="False">
-        <Border Margin="5"
-                Background="{DynamicResource SecondBackgroundBrush}"
-                BorderBrush="{DynamicResource BorderBrush}"
-                BorderThickness="1"
-                CornerRadius="{StaticResource DefaultCornerRadius}"
-                SnapsToDevicePixels="True">
+    <Button Width="Auto"
+            Height="Auto"
+            Margin="6,6,0,0"
+            Padding="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            wpf:IconHelper.CheckedGeometry="{StaticResource Geometry.ErrorTip}"
+            wpf:IconHelper.Geometry="{StaticResource Geometry.NormalTip}"
+            wpf:IconHelper.Height="18"
+            wpf:IconHelper.Width="18"
+            Background="Transparent"
+            BorderThickness="0"
+            Foreground="{DynamicResource PrimaryBrush}"
+            Style="{StaticResource Button.Icon}"
+            ToolTipService.InitialShowDelay="0"
+            ToolTipService.Placement="Top">
+        <Button.ToolTip>
             <ItemsControl Margin="10" ItemsSource="{Binding Source={x:Type app:DutState}, Converter={StaticResource EnumToTextPairsConverter}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -161,6 +151,6 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </Border>
-    </Popup>
+        </Button.ToolTip>
+    </Button>
 </Grid>

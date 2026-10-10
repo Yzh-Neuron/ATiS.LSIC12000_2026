@@ -2,21 +2,21 @@
 {
     public class IntegerToDecimalConverter : IValueConverter
     {
-        public int Scale { get; set; } = 1000;
+        public decimal Scale { get; set; } = 1000;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is int i)
             {
-                return (i / (decimal)Scale).ToString(culture);
+                return (i / Scale);
             }
 
             if (value is long l)
             {
-                return (l / (decimal)Scale).ToString(culture);
+                return (l / Scale);
             }
 
-            return string.Empty;
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -37,8 +37,8 @@
                 return null;
             }
 
-            var minVal = (decimal)int.MinValue / Scale;
-            var maxVal = (decimal)int.MaxValue / Scale;
+            var minVal = int.MinValue / Scale;
+            var maxVal = int.MaxValue / Scale;
             if (val < minVal || val > maxVal)
             {
                 return null;

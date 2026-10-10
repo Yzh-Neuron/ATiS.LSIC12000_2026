@@ -45,7 +45,7 @@
                 <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternSetTimeText}}" />
                 <TextBlock Grid.Row="1"
                            Margin="0,5,0,0"
-                           FontSize="16"
+                           FontSize="20"
                            Text="{Binding Zone.BurnInfo.RunInfo.Progress.Total, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
             </Grid>
         </Border>
@@ -62,7 +62,7 @@
                 <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternCostTimeText}}" />
                 <TextBlock Grid.Row="1"
                            Margin="0,5,0,0"
-                           FontSize="16"
+                           FontSize="20"
                            Text="{Binding Zone.BurnInfo.RunInfo.Progress.Cost, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
             </Grid>
         </Border>
@@ -86,7 +86,7 @@
                 <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternLeftTimeText}}" />
                 <TextBlock Grid.Row="1"
                            Margin="0,5,0,0"
-                           FontSize="16"
+                           FontSize="20"
                            Text="{Binding Zone.BurnInfo.RunInfo.Progress.Left, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
             </Grid>
         </Border>
@@ -103,7 +103,7 @@
                 <TextBlock Text="{app:Lang {x:Static app:LangKey.TotalTimeBeforeDpsUpText}}" />
                 <TextBlock Grid.Row="1"
                            Margin="0,5,0,0"
-                           FontSize="16"
+                           FontSize="20"
                            Text="{Binding Zone.BurnInfo.TotalSeconds, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
             </Grid>
         </Border>
@@ -166,16 +166,16 @@
         <app:GridLineDecorator GridLineBrush="{DynamicResource BorderBrush}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="28" />
-                    <RowDefinition Height="28" />
-                    <RowDefinition Height="28" />
-                    <RowDefinition Height="28" />
-                    <RowDefinition Height="28" />
-                    <RowDefinition Height="28" />
-                    <RowDefinition Height="28" />
-                    <RowDefinition Height="28" />
-                    <RowDefinition Height="28" />
-                    <RowDefinition Height="28" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />

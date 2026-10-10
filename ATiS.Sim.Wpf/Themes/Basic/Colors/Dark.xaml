@@ -5,6 +5,7 @@
     <Color x:Key="ForegroundColor">White</Color>
     <Color x:Key="SecondForegroundColor">#757575</Color>
     <Color x:Key="ThirdlyForegroundColor">#3f3f46</Color>
+    <Color x:Key="FourthForegroundColor">White</Color>
     <Color x:Key="ContrastForegroundColor">White</Color>
     <Color x:Key="BorderColor">#3f3f46</Color>
     <Color x:Key="SecondBorderColor">White</Color>

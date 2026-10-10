@@ -5,12 +5,13 @@
     <Color x:Key="ForegroundColor">#212121</Color>
     <Color x:Key="SecondForegroundColor">#757575</Color>
     <Color x:Key="ThirdlyForegroundColor">#bdbdbd</Color>
+    <Color x:Key="FourthForegroundColor">#5E6C84</Color>
     <Color x:Key="ContrastForegroundColor">White</Color>
     <Color x:Key="BorderColor">#CECBCB</Color>
     <Color x:Key="SecondBorderColor">#080808</Color>
     <Color x:Key="BackgroundColor">#eeeeee</Color>
     <Color x:Key="SecondBackgroundColor">#ffffff</Color>
-    <Color x:Key="ThirdBackgroundColor">#eeeeee</Color>
+    <Color x:Key="ThirdBackgroundColor">#FAFAFA</Color>
     <Color x:Key="HighlighColor">#f5f5f5</Color>
     <Color x:Key="ErrorColor">#db3340</Color>
     <Color x:Key="WarningColor">#e9af20</Color>

@@ -440,19 +440,19 @@
                                                             Header="{app:Lang {x:Static app:LangKey.DpsText}}" />
 
                                         <DataGridTextColumn Width="*"
-                                                            Binding="{Binding Uvp, Converter={StaticResource IntegerToDecimalConverter1000}}"
-                                                            Header="{app:Lang {x:Static app:LangKey.VoltageFloorWithUnitText}}" />
-
-                                        <DataGridTextColumn Width="*"
-                                                            Binding="{Binding Vol, Converter={StaticResource IntegerToDecimalConverter1000}}"
+                                                            Binding="{Binding Vol, Converter={StaticResource IntegerToDecimalConverter1000}, StringFormat={}{0:F3}}"
                                                             Header="{app:Lang {x:Static app:LangKey.SetVoltageWithUnitText}}" />
 
                                         <DataGridTextColumn Width="*"
-                                                            Binding="{Binding Ovp, Converter={StaticResource IntegerToDecimalConverter1000}}"
+                                                            Binding="{Binding Ovp, Converter={StaticResource IntegerToDecimalConverter1000}, StringFormat={}{0:F3}}"
                                                             Header="{app:Lang {x:Static app:LangKey.VoltageCeilingWithUnitText}}" />
 
                                         <DataGridTextColumn Width="*"
-                                                            Binding="{Binding Ocp, Converter={StaticResource IntegerToDecimalConverter1000}}"
+                                                            Binding="{Binding Uvp, Converter={StaticResource IntegerToDecimalConverter1000}, StringFormat={}{0:F3}}"
+                                                            Header="{app:Lang {x:Static app:LangKey.VoltageFloorWithUnitText}}" />
+
+                                        <DataGridTextColumn Width="*"
+                                                            Binding="{Binding Ocp, Converter={StaticResource IntegerToDecimalConverter1000}, StringFormat={}{0:F3}}"
                                                             Header="{app:Lang {x:Static app:LangKey.CurrentCeilingWithUnitText}}" />
 
                                         <DataGridTextColumn Width="*"

@@ -387,7 +387,7 @@
             </Trigger>
 
             <Trigger Property="IsHighlighted" Value="True">
-                <Setter Property="Background" Value="{DynamicResource ThirdBackgroundBrush}" />
+                <Setter Property="Background" Value="{DynamicResource BackgroundBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value=".4" />

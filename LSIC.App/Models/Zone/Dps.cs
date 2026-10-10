@@ -8,8 +8,22 @@
         public BurnDps BurnDps
         {
             get => _burnDps;
-            set => SetProperty(ref _burnDps, value);
+            set
+            {
+                if (SetProperty(ref _burnDps, value))
+                {
+                    OnPropertyChanged(nameof(Vol));
+                    OnPropertyChanged(nameof(Uvp));
+                    OnPropertyChanged(nameof(Ovp));
+                    OnPropertyChanged(nameof(Ocp));
+                }
+            }
         }
+
+        public int? Vol => BurnDps?.Vol;
+        public int? Uvp => BurnDps?.Uvp;
+        public int? Ovp => BurnDps?.Ovp;
+        public int? Ocp => BurnDps?.Ocp;
         public DpsState State { get; private set; } = DpsState.Idle;
         public int InputVoltage { get; private set; }
         public int OutputVoltage { get; private set; }

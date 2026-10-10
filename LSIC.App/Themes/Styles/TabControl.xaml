@@ -36,7 +36,6 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
                             <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
