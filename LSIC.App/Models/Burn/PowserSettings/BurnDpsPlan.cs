@@ -1,5 +1,8 @@
 ﻿namespace LSIC.App.Models
 {
+    /// <summary>
+    /// 电源方案（运行时）
+    /// </summary>
     public class BurnDpsPlan
     {
         public byte Id { get; }

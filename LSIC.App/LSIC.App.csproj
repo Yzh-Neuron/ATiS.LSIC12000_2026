@@ -81,9 +81,6 @@
 		<Compile Update="Views\CtrPrepareBurnView.xaml.cs">
 		  <SubType>Code</SubType>
 		</Compile>
-		<Compile Update="Views\CtrZoneBlockView.xaml.cs">
-		  <SubType>Code</SubType>
-		</Compile>
 		<Compile Update="Views\PopIcEditView.xaml.cs">
 			<SubType>Code</SubType>
 		</Compile>

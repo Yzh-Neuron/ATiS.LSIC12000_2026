@@ -18,6 +18,7 @@
                   mc:Ignorable="d">
     <DataGrid Margin="10"
               CanUserSortColumns="False"
+              GridLinesVisibility="All"
               IsReadOnly="True"
               ItemsSource="{Binding Zones}"
               SelectedIndex="-1">

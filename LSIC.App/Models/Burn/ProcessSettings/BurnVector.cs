@@ -1,5 +1,8 @@
 ﻿namespace LSIC.App.Models
 {
+    /// <summary>
+    /// 向量（运行时）
+    /// </summary>
     public class BurnVector
     {
         public string PatternFile { get; }

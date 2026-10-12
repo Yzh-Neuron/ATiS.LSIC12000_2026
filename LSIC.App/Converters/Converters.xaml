@@ -13,15 +13,11 @@
     <cvt:IntegerToDecimalConverter x:Key="IntegerToDecimalConverter1000" Scale="1000" />
     <cvt:IntegerToDecimalConverter x:Key="IntegerToDecimalConverter10" Scale="10" />
 
-    <cvt:IntegerRangeConverter x:Key="IntegerRangeConverter" />
     <cvt:RangeToStringConverter x:Key="RangeToStringConverter" />
     <cvt:EnumerableToStringConverter x:Key="EnumerableToStringConverter" />
-    <cvt:TempTestConverter x:Key="TempTestConverter" />
     <cvt:DivideConverter x:Key="DivideConverter" />
     <cvt:FilePathToFileNameConverter x:Key="FilePathToFileNameConverter" />
     <cvt:ZoneStateToBrushConverter x:Key="ZoneStateToBrushConverter" />
-    <cvt:ZoneGroupingConverter x:Key="ZoneGroupingConverter" />
-    <cvt:ZoneGroupingNameConverter x:Key="ZoneGroupingNameConverter" />
     <cvt:FormatTextConverter x:Key="FormatTextConverter" />
     <cvt:ZoneCanGotoBurnConverter x:Key="ZoneCanGotoBurnConverter" />
     <cvt:ProportionalWidthConverter x:Key="ProportionalWidthConverter" />

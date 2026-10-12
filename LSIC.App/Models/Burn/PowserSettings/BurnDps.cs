@@ -1,7 +1,7 @@
 ﻿namespace LSIC.App.Models
 {
     /// <summary>
-    /// 电源配置快照（运行时，下发用）
+    /// DPS电源（运行时）
     /// </summary>
     public class BurnDps
     {

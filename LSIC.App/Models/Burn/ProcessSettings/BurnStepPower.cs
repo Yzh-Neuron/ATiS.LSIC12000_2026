@@ -1,5 +1,8 @@
 ﻿namespace LSIC.App.Models
 {
+    /// <summary>
+    /// 电源步骤（运行时）
+    /// </summary>
     public class BurnStepPower
     {
         public string Name { get; }

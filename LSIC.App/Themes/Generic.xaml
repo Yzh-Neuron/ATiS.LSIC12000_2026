@@ -3,7 +3,7 @@
         <!--<ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Language/en-US/Message.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Language/en-US/UI.xaml"/>-->
 
-        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Converters.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Converters/Converters.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Geometries.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Icon.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Image.xaml"/>

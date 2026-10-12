@@ -1,5 +1,8 @@
 namespace LSIC.App.Models
 {
+    /// <summary>
+    /// 向量步骤（运行时）
+    /// </summary>
     public class BurnStepVector
     {
         public string Name { get; }
