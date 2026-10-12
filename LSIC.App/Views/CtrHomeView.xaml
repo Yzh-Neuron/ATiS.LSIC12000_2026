@@ -2,6 +2,7 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:app="clr-namespace:LSIC.App"
+      xmlns:ctrs="clr-namespace:LSIC.App.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:models="clr-namespace:LSIC.App.Models"
@@ -18,13 +19,13 @@
     <Grid.Resources>
         <views:CtrHomeViewModelProxy x:Key="MainDataContext" Data="{Binding}" />
     </Grid.Resources>
-    <TabControl BorderThickness="1"
+    <ctrs:ZonesTabControl BorderThickness="1"
                 ItemContainerStyle="{StaticResource TabItem.Zone}"
-                ItemsSource="{Binding Zones}"
+                AllItems="{Binding Zones}"
                 SelectedIndex="0"
                 SelectedItem="{Binding CurrentZone}"
                 Style="{StaticResource TabControl.Zone}">
-        <TabControl.Tag>
+        <ctrs:ZonesTabControl.Tag>
             <Button Margin="0,0,4,0"
                     Padding="0"
                     BorderThickness="0"
@@ -46,9 +47,8 @@
                     </Style>
                 </Button.Style>
             </Button>
-
-        </TabControl.Tag>
-        <TabControl.ItemTemplate>
+        </ctrs:ZonesTabControl.Tag>
+        <ctrs:ZonesTabControl.ItemTemplate>
             <DataTemplate>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -77,8 +77,8 @@
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
-        </TabControl.ItemTemplate>
-        <TabControl.ContentTemplate>
+        </ctrs:ZonesTabControl.ItemTemplate>
+        <ctrs:ZonesTabControl.ContentTemplate>
             <DataTemplate DataType="{x:Type models:Zone}">
                 <Grid x:Name="MainRegion">
                     <Grid.ColumnDefinitions>
@@ -252,6 +252,6 @@
                     </TabControl>
                 </Grid>
             </DataTemplate>
-        </TabControl.ContentTemplate>
-    </TabControl>
+        </ctrs:ZonesTabControl.ContentTemplate>
+    </ctrs:ZonesTabControl>
 </Grid>

@@ -1,7 +1,7 @@
 ﻿namespace LSIC.App
 {
     /// <summary>
-    /// 直流电源规格信息
+    /// 二级电源规格信息
     /// </summary>
     public class DpsInfo
     {

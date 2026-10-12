@@ -11,12 +11,6 @@
         public DeviceInfo DeviceInfo { get; private set; }
 
         /// <summary>
-        /// 烘箱信息
-        /// </summary>
-        [SectionName(nameof(OvenInfo))]
-        public OvenInfo[] OvenInfos { get; private set; }
-
-        /// <summary>
         /// 老化区信息
         /// </summary>
         [SectionName(nameof(ZoneInfo))]
@@ -29,9 +23,15 @@
         public DpsInfo[] DpsInfos { get; private set; }
 
         /// <summary>
-        /// 恒温器信息
+        /// 独立温控信息
         /// </summary>
         public ThermostatInfo ThermostatInfo { get; private set; }
+
+        /// <summary>
+        /// 板卡类型定义信息
+        /// </summary>
+        [SectionName(nameof(BoardTypeInfo))]
+        public BoardTypeInfo[] BoardTypeInfos { get; private set; }
 
         /// <summary>
         /// 日志规则
