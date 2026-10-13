@@ -14,6 +14,7 @@ namespace LSIC.App.Models
         {
             SystemConfig = systemConfig;
             Zones = SystemConfig.ZoneInfos.Select(info => new Zone(info, CreateDps())).ToArray();
+            BoardTypeCatalog.Initialize(systemConfig.BoardTypeInfos);
         }
 
         public SystemConfig SystemConfig { get; }

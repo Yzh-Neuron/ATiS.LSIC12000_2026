@@ -75,6 +75,7 @@ namespace LSIC.App
                     throw new Exception(errorLineConfig.ToString());
                 }
                 Device.Initialize(config);
+                Device.Instance.StartupZones();
             }
             catch (Exception ex)
             {

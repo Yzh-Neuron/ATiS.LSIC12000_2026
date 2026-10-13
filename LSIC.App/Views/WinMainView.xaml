@@ -47,6 +47,8 @@
                                   Header="{app:Lang {x:Static app:LangKey.HelpMenuText}}"
                                   InputGestureText="Alt + H">
                             <MenuItem Click="OnAboutButtonClick" Header="{app:Lang {x:Static app:LangKey.AboutText}}" />
+                            <MenuItem Click="OnDeviceInfoButtonClick" Header="{app:Lang {x:Static app:LangKey.DeviceInfoText}}" />
+                            <MenuItem Click="OnUpgradeButtonClick" Header="{app:Lang {x:Static app:LangKey.FirmwareUpgradeText}}" />
                         </MenuItem>
                     </Menu>
                 </Grid>
@@ -87,16 +89,6 @@
                                 wpf:IconHelper.Width="13"
                                 Command="{Binding SetTriggerChanneCommand}"
                                 ToolTip="{app:Lang {x:Static app:LangKey.TriggerSetText}}" />
-
-                        <Button Width="32"
-                                Height="32"
-                                Margin="5,0"
-                                Padding="0"
-                                wpf:IconHelper.Geometry="{StaticResource Geometry.Thermometer}"
-                                wpf:IconHelper.Height="13"
-                                wpf:IconHelper.Width="13"
-                                Command="{Binding OvenControlCommand}"
-                                ToolTip="{app:Lang {x:Static app:LangKey.OvenControlText}}" />
 
                         <Button Width="32"
                                 Height="32"

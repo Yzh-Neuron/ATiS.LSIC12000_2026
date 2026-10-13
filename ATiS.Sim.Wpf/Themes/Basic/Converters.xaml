@@ -20,6 +20,8 @@
     <wpf:IncludeValueToBoolConverter x:Key="IncludeValueToFalseConverter" IsInclueToTrue="False"/>
     <wpf:IncludeValueToVisibilityConverter x:Key="IncludeValueToVisibilityConverter" IsInclueToVisible="True"/>
     <wpf:IncludeValueToVisibilityConverter x:Key="IncludeValueToCollapsedConverter" IsInclueToVisible="False"/>
+    <wpf:StringEmptyToBoolConverter x:Key="StringEmptyToTrueConverter" IsEmptyToTrue="True"/>
+    <wpf:StringEmptyToBoolConverter x:Key="StringEmptyToFalseConverter" IsEmptyToTrue="False"/>
     <wpf:InvertBoolConverter x:Key="InvertBoolConverter" />
     <wpf:BoolToStringConverter x:Key="TrueToTrueStringConverter"/>
     

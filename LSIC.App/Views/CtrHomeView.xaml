@@ -19,12 +19,12 @@
     <Grid.Resources>
         <views:CtrHomeViewModelProxy x:Key="MainDataContext" Data="{Binding}" />
     </Grid.Resources>
-    <ctrs:ZonesTabControl BorderThickness="1"
-                ItemContainerStyle="{StaticResource TabItem.Zone}"
-                AllItems="{Binding Zones}"
-                SelectedIndex="0"
-                SelectedItem="{Binding CurrentZone}"
-                Style="{StaticResource TabControl.Zone}">
+    <ctrs:ZonesTabControl AllItems="{Binding Zones}"
+                          BorderThickness="1"
+                          ItemContainerStyle="{StaticResource TabItem.Zone}"
+                          SelectedIndex="0"
+                          SelectedItem="{Binding CurrentZone}"
+                          Style="{StaticResource TabControl.Zone}">
         <ctrs:ZonesTabControl.Tag>
             <Button Margin="0,0,4,0"
                     Padding="0"
@@ -62,13 +62,18 @@
                           Data="{StaticResource RunIcon}"
                           Fill="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}"
                           Stretch="Uniform" />
+
                     <TextBlock x:Name="PART_ZoneName"
                                Grid.Row="1"
                                Margin="0,3,0,0"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center">
-                        <Run Text="{Binding Id, Mode=OneWay}" />
-                        <Run Text="{app:Lang {x:Static app:LangKey.ZoneText}}" />
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource FormatTextConverter}">
+                                <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
+                                <Binding Path="Id" />
+                            </MultiBinding>
+                        </TextBlock.Text>
                     </TextBlock>
                 </Grid>
                 <DataTemplate.Triggers>

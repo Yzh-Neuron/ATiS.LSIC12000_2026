@@ -10,7 +10,6 @@
         CleareAlarm,
         PatternConvert,
         SetTriggerChanne,
-        OvenControl,
         ThermostatMonitor,
         Message,
 

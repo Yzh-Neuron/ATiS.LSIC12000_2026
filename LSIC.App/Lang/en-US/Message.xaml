@@ -113,4 +113,7 @@
 
     <sys:String x:Key="WorkerThreadStartedMessage">Worker thread started!</sys:String>
     <sys:String x:Key="WorkerThreadEndedMessage">Worker thread ended!</sys:String>
+    <sys:String x:Key="UpgradeSelectZoneMessage">Please select at least one zone to upgrade</sys:String>
+    <sys:String x:Key="UpgradeSelectFirmwareMessage">Please choose firmware files for board types first</sys:String>
+    <sys:String x:Key="UpgradeFilePrefixMismatchMessage">Firmware file name must start with {0}. Please select the correct firmware</sys:String>
 </ResourceDictionary>

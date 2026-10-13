@@ -399,6 +399,12 @@
         public string WorkerThreadStartedMessage => GetString("WorkerThreadStartedMessage");
         /// <summary>工作线程已退出!</summary>
         public string WorkerThreadEndedMessage => GetString("WorkerThreadEndedMessage");
+        /// <summary>请先勾选要升级的老化区</summary>
+        public string UpgradeSelectZoneMessage => GetString("UpgradeSelectZoneMessage");
+        /// <summary>请先为要升级的板卡类型选择固件文件</summary>
+        public string UpgradeSelectFirmwareMessage => GetString("UpgradeSelectFirmwareMessage");
+        /// <summary>固件文件名必须以 {0} 开头，请确认选择的是该类型固件</summary>
+        public string UpgradeFilePrefixMismatchMessage => GetString("UpgradeFilePrefixMismatchMessage");
         /// <summary>见微知著·科技赋能·创造非凡价值</summary>
         public string ConceptText => GetString("ConceptText");
         /// <summary>许可认证</summary>
@@ -1145,6 +1151,8 @@
         public string VerticalBoardIndexText => GetString("VerticalBoardIndexText");
         /// <summary>电源编辑</summary>
         public string DpsEditText => GetString("DpsEditText");
+        /// <summary>未选择固件</summary>
+        public string NoFileSelectedText => GetString("NoFileSelectedText");
         /// <summary>老化区状态: {0}</summary>
         public string ZoneStateChangedLog => GetString("ZoneStateChangedLog");
         /// <summary>插板状态：{0}</summary>
@@ -1390,6 +1398,9 @@
             OnPropertyChanged(nameof(FirmwareSelfCheckMessage));
             OnPropertyChanged(nameof(WorkerThreadStartedMessage));
             OnPropertyChanged(nameof(WorkerThreadEndedMessage));
+            OnPropertyChanged(nameof(UpgradeSelectZoneMessage));
+            OnPropertyChanged(nameof(UpgradeSelectFirmwareMessage));
+            OnPropertyChanged(nameof(UpgradeFilePrefixMismatchMessage));
             OnPropertyChanged(nameof(ConceptText));
             OnPropertyChanged(nameof(LicenseCertificationText));
             OnPropertyChanged(nameof(MachineCodeText));
@@ -1763,6 +1774,7 @@
             OnPropertyChanged(nameof(VerticalBoardDirectionText));
             OnPropertyChanged(nameof(VerticalBoardIndexText));
             OnPropertyChanged(nameof(DpsEditText));
+            OnPropertyChanged(nameof(NoFileSelectedText));
             OnPropertyChanged(nameof(ZoneStateChangedLog));
             OnPropertyChanged(nameof(BurnInBoardInsertedChangedLog));
             OnPropertyChanged(nameof(ZoneDpsErrorLog));
@@ -2184,6 +2196,12 @@
         public const string WorkerThreadStartedMessage = nameof(WorkerThreadStartedMessage);
         /// <summary>工作线程已退出!</summary>
         public const string WorkerThreadEndedMessage = nameof(WorkerThreadEndedMessage);
+        /// <summary>请先勾选要升级的老化区</summary>
+        public const string UpgradeSelectZoneMessage = nameof(UpgradeSelectZoneMessage);
+        /// <summary>请先为要升级的板卡类型选择固件文件</summary>
+        public const string UpgradeSelectFirmwareMessage = nameof(UpgradeSelectFirmwareMessage);
+        /// <summary>固件文件名必须以 {0} 开头，请确认选择的是该类型固件</summary>
+        public const string UpgradeFilePrefixMismatchMessage = nameof(UpgradeFilePrefixMismatchMessage);
         /// <summary>见微知著·科技赋能·创造非凡价值</summary>
         public const string ConceptText = nameof(ConceptText);
         /// <summary>许可认证</summary>
@@ -2930,6 +2948,8 @@
         public const string VerticalBoardIndexText = nameof(VerticalBoardIndexText);
         /// <summary>电源编辑</summary>
         public const string DpsEditText = nameof(DpsEditText);
+        /// <summary>未选择固件</summary>
+        public const string NoFileSelectedText = nameof(NoFileSelectedText);
         /// <summary>老化区状态: {0}</summary>
         public const string ZoneStateChangedLog = nameof(ZoneStateChangedLog);
         /// <summary>插板状态：{0}</summary>

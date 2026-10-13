@@ -941,12 +941,12 @@
                                     </DataGrid.Style>
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="*"
-                                                            Binding="{Binding PatternFile, Converter={StaticResource FilePathToFileNameConverter}}"
+                                                            Binding="{Binding PatternFile, Converter={StaticResource FilePathToFileNameConverter}, TargetNullValue='N/A'}"
                                                             ElementStyle="{StaticResource TextBlock.Error}"
                                                             Header="{app:Lang {x:Static app:LangKey.PatternFileText}}" />
 
                                         <DataGridTextColumn Width="*"
-                                                            Binding="{Binding RegisterFile, Converter={StaticResource FilePathToFileNameConverter}}"
+                                                            Binding="{Binding RegisterFile, Converter={StaticResource FilePathToFileNameConverter}, TargetNullValue='N/A'}"
                                                             ElementStyle="{StaticResource TextBlock.Error}"
                                                             Header="{app:Lang {x:Static app:LangKey.RegisterFileText}}" />
                                     </DataGrid.Columns>

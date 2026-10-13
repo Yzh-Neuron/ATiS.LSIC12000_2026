@@ -1,0 +1,95 @@
+<wpf:ChromeWindow x:Class="LSIC.App.Views.PopDeviceInfoView"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:app="clr-namespace:LSIC.App"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:views="clr-namespace:LSIC.App.Views"
+                  xmlns:vms="clr-namespace:LSIC.App.ViewModels"
+                  xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
+                  Title="{app:Lang {x:Static app:LangKey.DeviceInfoText}}"
+                  Width="760"
+                  Height="520"
+                  d:DataContext="{d:DesignInstance vms:PopDeviceInfoViewModel}"
+                  Icon="/Resources/Icon/icon.ico"
+                  ResizeMode="NoResize"
+                  WindowStartupLocation="CenterOwner"
+                  mc:Ignorable="d">
+    <Window.Resources>
+        <views:PopDeviceInfoViewModelProxy x:Key="MainDataContext" Data="{Binding}" />
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <ComboBox Width="100"
+                      ItemsSource="{Binding Zones}"
+                      SelectedItem="{Binding SelectedZone}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource FormatTextConverter}">
+                                    <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
+                                    <Binding Path="Id" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Margin="5,0,0,0"
+                    Command="{Binding Source={StaticResource MainDataContext}, Path=Data.QueryVersionCommand}"
+                    Content="{app:Lang {x:Static app:LangKey.GetVersionInfoText}}" />
+            <Button Margin="5,0,0,0"
+                    Command="{Binding ExportCommand}"
+                    Content="{app:Lang {x:Static app:LangKey.ExportVersionInfoText}}" />
+        </StackPanel>
+
+        <DataGrid Grid.Row="1"
+                  Margin="0,10,0,0"
+                  CanUserSortColumns="False"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding SelectedZone.Boards}">
+            <DataGrid.Columns>
+                <DataGridTextColumn MinWidth="80"
+                                    Binding="{Binding DisplayName}"
+                                    Header="{app:Lang {x:Static app:LangKey.BoardTypeText}}" />
+                <DataGridTextColumn MinWidth="40"
+                                    Binding="{Binding Id}"
+                                    Header="Id" />
+                <DataGridTemplateColumn MinWidth="60" Header="{app:Lang {x:Static app:LangKey.BoardIndexText}}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock x:Name="ParentText" Text="{Binding ParentId}" />
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding HasParent}" Value="False">
+                                    <Setter TargetName="ParentText" Property="Text" Value="-" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Width="*"
+                                    MinWidth="100"
+                                    Binding="{Binding PN}"
+                                    Header="PN" />
+                <DataGridTextColumn Width="*"
+                                    MinWidth="100"
+                                    Binding="{Binding SN}"
+                                    Header="SN" />
+                <DataGridTextColumn Width="*"
+                                    MinWidth="70"
+                                    Binding="{Binding HardwareVersion}"
+                                    Header="{app:Lang {x:Static app:LangKey.HardwareVersionText}}" />
+                <DataGridTextColumn Width="*"
+                                    MinWidth="240"
+                                    Binding="{Binding Firmwares, Converter={StaticResource EnumerableToStringConverter}}"
+                                    Header="{app:Lang {x:Static app:LangKey.FirmwareVersionText}}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</wpf:ChromeWindow>

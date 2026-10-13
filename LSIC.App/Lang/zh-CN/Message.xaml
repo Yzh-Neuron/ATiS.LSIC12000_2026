@@ -113,4 +113,7 @@
 
     <sys:String x:Key="WorkerThreadStartedMessage">工作线程已启动! </sys:String>
     <sys:String x:Key="WorkerThreadEndedMessage">工作线程已退出!</sys:String>
+    <sys:String x:Key="UpgradeSelectZoneMessage">请先勾选要升级的老化区</sys:String>
+    <sys:String x:Key="UpgradeSelectFirmwareMessage">请先为要升级的板卡类型选择固件文件</sys:String>
+    <sys:String x:Key="UpgradeFilePrefixMismatchMessage">固件文件名必须以 {0} 开头，请确认选择的是该类型固件</sys:String>
 </ResourceDictionary>

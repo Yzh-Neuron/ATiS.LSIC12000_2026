@@ -11,7 +11,6 @@ namespace ATiS.Sim.Wpf
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool isNull = value == null;
-            string? strParam = parameter as string;
             return IsNullToTrue ? isNull : !isNull;
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

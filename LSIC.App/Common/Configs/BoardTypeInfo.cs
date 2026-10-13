@@ -1,4 +1,4 @@
-namespace LSIC.App
+﻿namespace LSIC.App
 {
     /// <summary>
     /// 板卡类型定义信息
@@ -21,9 +21,9 @@ namespace LSIC.App
         public bool Upgradable { get; private set; }
 
         /// <summary>
-        /// 固件文件名匹配后缀（如 _MB）
+        /// 固件文件名匹配前缀（如 MB_）
         /// </summary>
-        public string FileSuffix { get; private set; }
+        public string FilePrefix { get; private set; }
 
         /// <summary>
         /// 挂载节点类别：Zone（测试区）/ Aux（辅助控制板）
@@ -40,7 +40,7 @@ namespace LSIC.App
             TypeCode = code,
             BoardKey = $"0x{code:X2}",
             Upgradable = false,
-            FileSuffix = "",
+            FilePrefix = "",
             NodeKind = ""
         };
     }

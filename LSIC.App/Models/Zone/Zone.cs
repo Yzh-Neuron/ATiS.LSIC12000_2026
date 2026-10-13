@@ -2,7 +2,7 @@
 
 namespace LSIC.App.Models
 {
-    public class Zone : ObservableObject, IDisposable
+    public class Zone : DeviceNodeBase, IDisposable
     {
         private const ushort FrameHeader = 0x55AA;
         private const ushort FrameEnding = 0xEAA5;
@@ -24,7 +24,7 @@ namespace LSIC.App.Models
         {
             get { return Info.Port; }
         }
-        private bool _connected;
+        private bool _connected = false;
         public bool Connected
         {
             get => _connected;
@@ -528,9 +528,14 @@ namespace LSIC.App.Models
         #endregion
 
         #region 老化功能
-        public async ValueTask GetVersionAsync()
+        public override async Task QueryVersionAsync()
         {
+            ClearBoards();
             await SendAsync(ZoneFunctionCode.Version);
+        }
+        protected override void SendUpgrade(byte[] payload)
+        {
+            _ = SendAsync(ZoneFunctionCode.Upgrade, payload);
         }
         public async ValueTask StartBurnAsync(byte[] dutMask)
         {
@@ -674,7 +679,7 @@ namespace LSIC.App.Models
                 _buffer = Connected ? new List<byte>(1024) : null;
                 if (e.Connected)
                 {
-                    await GetVersionAsync();
+                    await QueryVersionAsync();
                 }
                 else
                 {
@@ -762,6 +767,7 @@ namespace LSIC.App.Models
                 {
                     case ZoneFunctionCode.Version:
                         {
+                            AddBoard(data);
                             break;
                         }
                     case ZoneFunctionCode.ControlAndState:
@@ -1026,10 +1032,12 @@ namespace LSIC.App.Models
                         }
                     case ZoneFunctionCode.Upgrade:
                         {
+                            OnUpgradeProgress(data);
                             break;
                         }
                     case ZoneFunctionCode.UpgradeFinish:
                         {
+                            OnUpgradeFinish();
                             break;
                         }
                     case ZoneFunctionCode.DeviceCheck:

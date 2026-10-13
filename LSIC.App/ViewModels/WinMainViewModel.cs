@@ -17,7 +17,6 @@
         public ICommand CloseAlarmCommand { get; private set; }
         public ICommand PatternConvertCommand { get; private set; }
         public ICommand SetTriggerChanneCommand { get; private set; }
-        public ICommand OvenControlCommand { get; private set; }
         public ICommand ThermostatMonitorCommand { get; private set; }
         public WinMainViewModel()
         {
@@ -29,7 +28,6 @@
             CloseAlarmCommand = new AsyncRelayCommand(CloseAlarm);
             PatternConvertCommand = new AsyncRelayCommand(PatternConvert);
             SetTriggerChanneCommand = new AsyncRelayCommand(SetTriggerChanne);
-            OvenControlCommand = new AsyncRelayCommand(OvenControl);
             ThermostatMonitorCommand = new AsyncRelayCommand(ThermostatMonitor);
             _timer = new Timer(Tick, null, 0, 1000);
         }
@@ -69,10 +67,6 @@
         private async Task SetTriggerChanne()
         {
             MessageBus.Default.Send(MsgArgs.From(WinMainMessage.SetTriggerChanne, []));
-        }
-        private async Task OvenControl()
-        {
-            MessageBus.Default.Send(MsgArgs.From(WinMainMessage.OvenControl, []));
         }
         private async Task ThermostatMonitor()
         {
