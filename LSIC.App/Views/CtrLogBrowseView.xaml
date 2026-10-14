@@ -146,7 +146,7 @@
 
     <Border Grid.RowSpan="5"
             Background="Transparent"
-            Visibility="Visible">
+            Visibility="{Binding Busy, Converter={StaticResource TrueToVisibilityConverter}}">
         <Grid>
             <Border Width="110"
                     Height="110"

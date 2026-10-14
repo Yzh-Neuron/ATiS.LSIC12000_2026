@@ -106,6 +106,16 @@ namespace LSIC.App.Views
                         pop.ShowDialog();
                         return MessageResult.From(pop.Columns);
                     }
+                case CtrLogBrowseMessage.Plot:
+                    {
+                        LogPlot logPlot = e.Args[0] as LogPlot;
+                        var pop = new PopPlotView(logPlot)
+                        {
+                            Owner = WindowExtension.GetActiveWindow()
+                        };
+                        pop.ShowDialog();
+                        break;
+                    }
                 default:
                     break;
             }
