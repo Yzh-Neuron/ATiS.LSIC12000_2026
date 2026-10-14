@@ -10,7 +10,10 @@ namespace LSIC.App
     {
         static App()
         {
-     }
+            Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 60 });
+            ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata { DefaultValue = 250 });
+            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata { DefaultValue = 6000 });
+        }
         public App()
         {
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
@@ -86,11 +89,6 @@ namespace LSIC.App
 #else
             new WinMainView().Show();
 #endif
-
-            Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 60 });
-            ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata { DefaultValue = 250 });
-            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata { DefaultValue = 6000 });
-
 
         }
     }
