@@ -20,6 +20,7 @@
         public ICommand RunCommand { get; }
         public PopDpsCheckViewModel()
         {
+            ValidateAllProperties();
             Zones = Device.Instance.Zones;
             _selectedZone = Zones.FirstOrDefault();
 
