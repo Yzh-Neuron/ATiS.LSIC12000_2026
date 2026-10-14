@@ -1,0 +1,96 @@
+﻿<wpf:ChromeWindow x:Class="LSIC.App.Views.PopDpsCheckView"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:app="clr-namespace:LSIC.App"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:views="clr-namespace:LSIC.App.Views"
+                  xmlns:vms="clr-namespace:LSIC.App.ViewModels"
+                  xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
+                  Title="{app:Lang {x:Static app:LangKey.DpsCheckText}}"
+                  Width="820"
+                  Height="640"
+                  d:DataContext="{d:DesignInstance vms:PopDpsCheckViewModel}"
+                  Icon="/Resources/Icon/icon.ico"
+                  ResizeMode="NoResize"
+                  WindowStartupLocation="CenterOwner"
+                  mc:Ignorable="d">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  老化区选择  -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="0"
+                      Width="100"
+                      ItemsSource="{Binding Zones}"
+                      SelectedItem="{Binding SelectedZone}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource FormatTextConverter}">
+                                    <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
+                                    <Binding Path="Id" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Grid.Column="1"
+                       Margin="10,0,0,0"
+                       Foreground="{Binding SelectedZone.State, Converter={StaticResource ZoneStateToBrushConverter}}"
+                       Text="{Binding SelectedZone.State, Converter={StaticResource EnumToTextConverter}}" />
+        </Grid>
+
+        <!--  脚本选择  -->
+        <Grid Grid.Row="1" Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Margin="0,0,10,0"
+                       VerticalAlignment="Center">
+                <Run Text="{app:Lang {x:Static app:LangKey.DpsCheckScriptText}}" />
+                <Run Text=":" />
+            </TextBlock>
+            <wpf:TextBox Grid.Column="1"
+                         wpf:WidgetHelper.ShowClearButton="True"
+                         IsReadOnly="True"
+                         Text="{Binding SelectedScript}" />
+            <Button Grid.Column="2"
+                    Margin="5,0,0,0"
+                    Command="{Binding BrowseCommand}"
+                    Style="{StaticResource Button.ChooseFile}" />
+        </Grid>
+
+        <!--  自检日志  -->
+        <Border Grid.Row="2"
+                Margin="0,10,0,0"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource DefaultCornerRadius}">
+            <views:CtrFlowLogView Logger="{Binding SelectedZone.Logger, Mode=OneWay}" />
+        </Border>
+
+        <!--  运行  -->
+        <Button Grid.Row="3"
+                HorizontalAlignment="Right"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.StartBurn}"
+                wpf:IconHelper.Height="15"
+                wpf:IconHelper.Width="15"
+                Command="{Binding RunCommand}"
+                Content="{app:Lang {x:Static app:LangKey.RunScriptText}}" />
+    </Grid>
+</wpf:ChromeWindow>

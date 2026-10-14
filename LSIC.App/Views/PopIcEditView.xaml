@@ -237,6 +237,7 @@
                                 </TextBlock>
                                 <wpf:TextBox Grid.Column="1"
                                              wpf:WidgetHelper.ShowClearButton="True"
+                                             IsReadOnly="True"
                                              Text="{Binding BurnInBoardFile, Mode=TwoWay}" />
                                 <Button Grid.Column="2"
                                         Margin="5,0,0,0"

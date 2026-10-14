@@ -53,6 +53,9 @@
 		<None Update="Config.ini">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Update="Scripts\Dps\*.dps">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="Lang\LangProvider.tt">
 			<Generator>TextTemplatingFileGenerator</Generator>
 			<LastGenOutput>LangProvider.cs</LastGenOutput>

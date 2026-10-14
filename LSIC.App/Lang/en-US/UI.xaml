@@ -412,4 +412,9 @@
     <sys:String x:Key="DpsEditText">Dps Edit</sys:String>
     <sys:String x:Key="NoFileSelectedText">No firmware selected</sys:String>
     <sys:String x:Key="InHandText">Wait ...</sys:String>
+    <sys:String x:Key="DeviceCheckText">Device Check</sys:String>
+    <sys:String x:Key="DpsCheckText">DPS Check</sys:String>
+    <sys:String x:Key="StartDeviceCheckText">Start Check</sys:String>
+    <sys:String x:Key="DeviceCheckResultText">Check Results</sys:String>
+    <sys:String x:Key="DpsCheckScriptText">DPS Check Script</sys:String>
 </ResourceDictionary>

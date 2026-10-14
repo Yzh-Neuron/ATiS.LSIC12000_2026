@@ -105,11 +105,14 @@
                         pop.ShowDialog();
                         return MessageResult.From(pop.ExecuteStrategy);
                     }
-                case PopIcEditMessage.ShowValidateError:
+                case PopIcEditMessage.Growl:
                     {
-                        List<ValidationResult> errors = e.Args[0] as List<ValidationResult>;
-                        MessagePop.Show(errors.ToMessageString(), MessageType.Error);
-                        break;
+                        Growl.Show(new GrowlInfo
+                        {
+                            Message = e.Args[0] as string,
+                            Type = (MessageType)e.Args[1]
+                        });
+                        break;             
                     }
                 case PopIcEditMessage.Message:
                     {

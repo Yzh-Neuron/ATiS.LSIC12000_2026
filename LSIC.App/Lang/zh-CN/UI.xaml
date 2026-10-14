@@ -412,4 +412,9 @@
     <sys:String x:Key="DpsEditText">电源编辑</sys:String>
     <sys:String x:Key="NoFileSelectedText">未选择固件</sys:String>
     <sys:String x:Key="InHandText">处理中 ...</sys:String>
+    <sys:String x:Key="DeviceCheckText">设备自检</sys:String>
+    <sys:String x:Key="DpsCheckText">电源自检</sys:String>
+    <sys:String x:Key="StartDeviceCheckText">开始自检</sys:String>
+    <sys:String x:Key="DeviceCheckResultText">自检结果</sys:String>
+    <sys:String x:Key="DpsCheckScriptText">电源自检脚本</sys:String>
 </ResourceDictionary>

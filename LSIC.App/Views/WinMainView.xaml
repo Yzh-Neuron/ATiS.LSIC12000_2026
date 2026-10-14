@@ -49,6 +49,8 @@
                             <MenuItem Click="OnAboutButtonClick" Header="{app:Lang {x:Static app:LangKey.AboutText}}" />
                             <MenuItem Click="OnDeviceInfoButtonClick" Header="{app:Lang {x:Static app:LangKey.DeviceInfoText}}" />
                             <MenuItem Click="OnUpgradeButtonClick" Header="{app:Lang {x:Static app:LangKey.FirmwareUpgradeText}}" />
+                            <MenuItem Click="OnDeviceCheckButtonClick" Header="{app:Lang {x:Static app:LangKey.DeviceCheckText}}" />
+                            <MenuItem Click="OnDpsCheckButtonClick" Header="{app:Lang {x:Static app:LangKey.DpsCheckText}}" />
                         </MenuItem>
                     </Menu>
                 </Grid>

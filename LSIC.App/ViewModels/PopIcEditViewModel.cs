@@ -161,13 +161,13 @@
             List<ValidationResult> errors = ic.GetAllErrorsRecursive();
             if (errors.Count > 0)
             {
-                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.ShowValidateError, [errors]));
+                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [errors.ToMessageString(), MessageType.Error]));
                 return;
             }
 
             if (ic.Process.StepItems.Count == 0)
             {
-                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.AtleastOneStepMessage, MessageType.Error]));
+                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [LangProvider.Instance.AtleastOneStepMessage, MessageType.Error]));
                 return;
             }
 
@@ -205,12 +205,12 @@
                 catch (CharReaderException ex)
                 {
                     string error = string.Format(LangProvider.Instance.FileParseErrorMessage, path, ex.Line, ex.Column);
-                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.FileImportFailureMessage, MessageType.Error]));
+                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [LangProvider.Instance.FileImportFailureMessage, MessageType.Error]));
                     return;
                 }
                 catch (Exception ex)
                 {
-                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.FileImportFailureMessage + ":\r\n" + ex.Message, MessageType.Error]));
+                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [LangProvider.Instance.FileImportFailureMessage + ":\r\n" + ex.Message, MessageType.Error]));
                     return;
                 }
 
@@ -243,7 +243,7 @@
                 Ics.Add(ic);
                 SelectedIc = ic;
 
-                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.FileImportSuccessMessage, MessageType.Success]));
+                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [LangProvider.Instance.FileImportSuccessMessage, MessageType.Success]));
             }
         }
         private bool CanExportIc()
@@ -260,12 +260,12 @@
                 try
                 {
                     IcConfigManager.ExportIc(SelectedIc.Target, path);
-                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.FileExportSuccessMessage, MessageType.Success]));
+                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [LangProvider.Instance.FileExportSuccessMessage, MessageType.Success]));
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.FileExportFailureMessage + ":\r\n" + ex.Message, MessageType.Error]));
+                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [LangProvider.Instance.FileExportFailureMessage + ":\r\n" + ex.Message, MessageType.Error]));
                 }
             }
         }
@@ -419,7 +419,7 @@
             }
             catch (Exception ex)
             {
-                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [ex.Message, MessageType.Error]));
+                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [ex.Message, MessageType.Error]));
             }
         }
         private bool CanDragStep(StepItem item)

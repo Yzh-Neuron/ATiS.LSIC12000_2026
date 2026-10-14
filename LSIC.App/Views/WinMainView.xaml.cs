@@ -79,5 +79,13 @@
         {
             new PopUpgradeView { Owner = this }.ShowDialog();
         }
+        private void OnDeviceCheckButtonClick(object sender, RoutedEventArgs e)
+        {
+            new PopDeviceCheckView { Owner = this }.ShowDialog();
+        }
+        private void OnDpsCheckButtonClick(object sender, RoutedEventArgs e)
+        {
+            new PopDpsCheckView { Owner = this }.ShowDialog();
+        }
     }
 }

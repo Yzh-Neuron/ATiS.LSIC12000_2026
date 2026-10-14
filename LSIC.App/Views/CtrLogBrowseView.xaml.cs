@@ -67,7 +67,7 @@ namespace LSIC.App.Views
                         {
                             return MessageResult.From(dialog.FileName);
                         }
-                        return MessageResult.Null();
+                        break;
                     }
                 case CtrLogBrowseMessage.Growl:
                     {

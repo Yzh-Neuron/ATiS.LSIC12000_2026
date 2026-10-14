@@ -7,6 +7,7 @@
         public static Func<ZoneState, bool> CanStartFunc { get; } = CanStart;
         public static Func<ZoneState, bool> CanStopFunc { get; } = CanStop;
         public static Func<ZoneState, bool> CanUpgradeFunc { get; } = CanUpgrade;
+        public static Func<ZoneState, bool> CanCheckFunc { get; } = CanCheck;
         public static Func<ZoneState, bool> RunningFunc { get; } = Running;
         public static Func<ZoneState, bool> SendingFunc { get; } = Sending;
         public static bool CanSendIc(this ZoneState state)
@@ -41,6 +42,14 @@
                    state == ZoneState.DeviceCheckFail ||
                    state == ZoneState.IcError ||
                    state == ZoneState.Error;
+        }
+        public static bool CanCheck(this ZoneState state)
+        {
+            return state != ZoneState.Offline &&
+                   state != ZoneState.Upgrading &&
+                   state != ZoneState.DeviceChecking &&
+                   state != ZoneState.DpsChecking &&
+                   !state.Running();
         }
         public static bool Running(this ZoneState state)
         {

@@ -189,6 +189,86 @@
         public string Enum_ChannelType_MISO => GetString("Enum.ChannelType.MISO");
         /// <summary>CS</summary>
         public string Enum_ChannelType_CS => GetString("Enum.ChannelType.CS");
+        /// <summary>主控板</summary>
+        public string DeviceCheck_Type_00 => GetString("DeviceCheck.Type[00]");
+        /// <summary>底板</summary>
+        public string DeviceCheck_Type_10 => GetString("DeviceCheck.Type[10]");
+        /// <summary>数字板</summary>
+        public string DeviceCheck_Type_20 => GetString("DeviceCheck.Type[20]");
+        /// <summary>电源板</summary>
+        public string DeviceCheck_Type_30 => GetString("DeviceCheck.Type[30]");
+        /// <summary>竖向板</summary>
+        public string DeviceCheck_Type_E0 => GetString("DeviceCheck.Type[E0]");
+        /// <summary>老化板</summary>
+        public string DeviceCheck_Type_EA => GetString("DeviceCheck.Type[EA]");
+        /// <summary>环境变量</summary>
+        public string DeviceCheck_Item_01 => GetString("DeviceCheck.Item[01]");
+        /// <summary>配置文件</summary>
+        public string DeviceCheck_Item_02 => GetString("DeviceCheck.Item[02]");
+        /// <summary>EEPROM</summary>
+        public string DeviceCheck_Item_03 => GetString("DeviceCheck.Item[03]");
+        /// <summary>扩展I/O</summary>
+        public string DeviceCheck_Item_04 => GetString("DeviceCheck.Item[04]");
+        /// <summary>电源模块</summary>
+        public string DeviceCheck_Item_05 => GetString("DeviceCheck.Item[05]");
+        /// <summary>DAC自检</summary>
+        public string DeviceCheck_Item_06 => GetString("DeviceCheck.Item[06]");
+        /// <summary>FPGA自检</summary>
+        public string DeviceCheck_Item_07 => GetString("DeviceCheck.Item[07]");
+        /// <summary>电源自检(XADC)</summary>
+        public string DeviceCheck_Item_08 => GetString("DeviceCheck.Item[08]");
+        /// <summary>FLASH自检</summary>
+        public string DeviceCheck_Item_09 => GetString("DeviceCheck.Item[09]");
+        /// <summary>PL机型自检</summary>
+        public string DeviceCheck_Item_0A => GetString("DeviceCheck.Item[0A]");
+        /// <summary>温控自检</summary>
+        public string DeviceCheck_Item_0B => GetString("DeviceCheck.Item[0B]");
+        /// <summary>COMPARE VREF自检</summary>
+        public string DeviceCheck_Item_0C => GetString("DeviceCheck.Item[0C]");
+        /// <summary>DPS VIN自检</summary>
+        public string DeviceCheck_Item_0D => GetString("DeviceCheck.Item[0D]");
+        /// <summary>通过</summary>
+        public string DeviceCheck_Result_00 => GetString("DeviceCheck.Result[00]");
+        /// <summary>环境变量丢失</summary>
+        public string DeviceCheck_Result_01 => GetString("DeviceCheck.Result[01]");
+        /// <summary>配置文件不存在</summary>
+        public string DeviceCheck_Result_02 => GetString("DeviceCheck.Result[02]");
+        /// <summary>配置文件格式错误</summary>
+        public string DeviceCheck_Result_03 => GetString("DeviceCheck.Result[03]");
+        /// <summary>EEPROM通信错误</summary>
+        public string DeviceCheck_Result_04 => GetString("DeviceCheck.Result[04]");
+        /// <summary>I/O扩展芯片通信错误</summary>
+        public string DeviceCheck_Result_05 => GetString("DeviceCheck.Result[05]");
+        /// <summary>ADC通信错误</summary>
+        public string DeviceCheck_Result_06 => GetString("DeviceCheck.Result[06]");
+        /// <summary>电源模块通信错误</summary>
+        public string DeviceCheck_Result_07 => GetString("DeviceCheck.Result[07]");
+        /// <summary>电源模块混插</summary>
+        public string DeviceCheck_Result_08 => GetString("DeviceCheck.Result[08]");
+        /// <summary>电源模块固件错误</summary>
+        public string DeviceCheck_Result_09 => GetString("DeviceCheck.Result[09]");
+        /// <summary>LVDS寄存器通信错误</summary>
+        public string DeviceCheck_Result_0A => GetString("DeviceCheck.Result[0A]");
+        /// <summary>LVDS数据流通信错误</summary>
+        public string DeviceCheck_Result_0B => GetString("DeviceCheck.Result[0B]");
+        /// <summary>电源通信错误</summary>
+        public string DeviceCheck_Result_0C => GetString("DeviceCheck.Result[0C]");
+        /// <summary>电源电压错误</summary>
+        public string DeviceCheck_Result_0D => GetString("DeviceCheck.Result[0D]");
+        /// <summary>FLASH选择错误(打开)</summary>
+        public string DeviceCheck_Result_0E => GetString("DeviceCheck.Result[0E]");
+        /// <summary>FLASH通信错误</summary>
+        public string DeviceCheck_Result_0F => GetString("DeviceCheck.Result[0F]");
+        /// <summary>FLASH选择错误(关闭)</summary>
+        public string DeviceCheck_Result_10 => GetString("DeviceCheck.Result[10]");
+        /// <summary>PL机型读取错误(AXIBUS)</summary>
+        public string DeviceCheck_Result_11 => GetString("DeviceCheck.Result[11]");
+        /// <summary>ADC通信错误(SPI)</summary>
+        public string DeviceCheck_Result_12 => GetString("DeviceCheck.Result[12]");
+        /// <summary>COMPARE VREF 打开错误</summary>
+        public string DeviceCheck_Result_13 => GetString("DeviceCheck.Result[13]");
+        /// <summary>DPS VIN 打开错误</summary>
+        public string DeviceCheck_Result_14 => GetString("DeviceCheck.Result[14]");
         /// <summary>未捕获到的异常, {0}</summary>
         public string UnhandledExceptionMessage => GetString("UnhandledExceptionMessage");
         /// <summary>程序已运行</summary>
@@ -265,7 +345,7 @@
         public string NameNotNullMessage => GetString("NameNotNullMessage");
         /// <summary>名称不可以超过 {0} 位长度</summary>
         public string NameNotExceedMessage => GetString("NameNotExceedMessage");
-        /// <summary>名称不能包含下列任何字符 \ / : * ? . " > < |</summary>
+        /// <summary>名称不能包含下列任何字符 \ / : * ? . " &gt; &lt; |</summary>
         public string NameIllegalMessage => GetString("NameIllegalMessage");
         /// <summary>名称已存在</summary>
         public string NameExistMessage => GetString("NameExistMessage");
@@ -405,6 +485,16 @@
         public string UpgradeSelectFirmwareMessage => GetString("UpgradeSelectFirmwareMessage");
         /// <summary>固件文件名必须以 {0} 开头，请确认选择的是该类型固件</summary>
         public string UpgradeFilePrefixMismatchMessage => GetString("UpgradeFilePrefixMismatchMessage");
+        /// <summary>电源自检脚本解析失败</summary>
+        public string DpsCheckScriptParseErrorMessage => GetString("DpsCheckScriptParseErrorMessage");
+        /// <summary>电源自检脚本: 找不到目标电源，编号{0}，位于{1}行</summary>
+        public string DpsCheckScriptDpsNotFoundMessage => GetString("DpsCheckScriptDpsNotFoundMessage");
+        /// <summary>电源自检脚本: 参数错误或数值超出范围，位于{0}行</summary>
+        public string DpsCheckScriptParameterErrordMessage => GetString("DpsCheckScriptParameterErrordMessage");
+        /// <summary>当前状态不允许运行电源自检</summary>
+        public string DpsCheckIsNotPermiitedMessage => GetString("DpsCheckIsNotPermiitedMessage");
+        /// <summary>检测到当前区已插老化板，运行电源自检可能会烧毁器件 是否继续 ?</summary>
+        public string DpsCheckAskMessage => GetString("DpsCheckAskMessage");
         /// <summary>见微知著·科技赋能·创造非凡价值</summary>
         public string ConceptText => GetString("ConceptText");
         /// <summary>许可认证</summary>
@@ -1155,13 +1245,23 @@
         public string NoFileSelectedText => GetString("NoFileSelectedText");
         /// <summary>处理中 ...</summary>
         public string InHandText => GetString("InHandText");
+        /// <summary>设备自检</summary>
+        public string DeviceCheckText => GetString("DeviceCheckText");
+        /// <summary>电源自检</summary>
+        public string DpsCheckText => GetString("DpsCheckText");
+        /// <summary>开始自检</summary>
+        public string StartDeviceCheckText => GetString("StartDeviceCheckText");
+        /// <summary>自检结果</summary>
+        public string DeviceCheckResultText => GetString("DeviceCheckResultText");
+        /// <summary>电源自检脚本</summary>
+        public string DpsCheckScriptText => GetString("DpsCheckScriptText");
         /// <summary>老化区状态: {0}</summary>
         public string ZoneStateChangedLog => GetString("ZoneStateChangedLog");
         /// <summary>插板状态：{0}</summary>
         public string BurnInBoardInsertedChangedLog => GetString("BurnInBoardInsertedChangedLog");
-        /// <summary>电源错误:{0} -> [{1}]</summary>
+        /// <summary>电源错误:{0} -&gt; [{1}]</summary>
         public string ZoneDpsErrorLog => GetString("ZoneDpsErrorLog");
-        /// <summary>电源错误: VIH{0} -> [{1}]</summary>
+        /// <summary>电源错误: VIH{0} -&gt; [{1}]</summary>
         public string ZoneVIHErrorLog => GetString("ZoneVIHErrorLog");
         /// <summary>向量错误: [{0}] 请检查第{1}步 第{2}组向量配置</summary>
         public string ZonePatternErrorLog => GetString("ZonePatternErrorLog");
@@ -1177,11 +1277,11 @@
         public string PatternCheckErrorLog => GetString("PatternCheckErrorLog");
         /// <summary>老化器件: [{0}]</summary>
         public string SendParameterLog => GetString("SendParameterLog");
-        /// <summary>当前步次: [{0}]	向量: [{1}]</summary>
+        /// <summary>当前步次: [{0}] 向量: [{1}]</summary>
         public string StepRunInfoLog => GetString("StepRunInfoLog");
         /// <summary>运行电源自检脚本: {0}</summary>
         public string RunDpsCheckScriptLog => GetString("RunDpsCheckScriptLog");
-        /// <summary>电源自检[{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})</summary>
+        /// <summary>电源自检[{0}/{1}] -&gt;{2} {3}V {4}A ({5}/{6})</summary>
         public string DpsCheckResultLog => GetString("DpsCheckResultLog");
         /// <summary>检测到烟雾，老化已停止</summary>
         public string StopBurnOnSmokyLog => GetString("StopBurnOnSmokyLog");
@@ -1295,6 +1395,46 @@
             OnPropertyChanged(nameof(Enum_ChannelType_MOSI));
             OnPropertyChanged(nameof(Enum_ChannelType_MISO));
             OnPropertyChanged(nameof(Enum_ChannelType_CS));
+            OnPropertyChanged(nameof(DeviceCheck_Type_00));
+            OnPropertyChanged(nameof(DeviceCheck_Type_10));
+            OnPropertyChanged(nameof(DeviceCheck_Type_20));
+            OnPropertyChanged(nameof(DeviceCheck_Type_30));
+            OnPropertyChanged(nameof(DeviceCheck_Type_E0));
+            OnPropertyChanged(nameof(DeviceCheck_Type_EA));
+            OnPropertyChanged(nameof(DeviceCheck_Item_01));
+            OnPropertyChanged(nameof(DeviceCheck_Item_02));
+            OnPropertyChanged(nameof(DeviceCheck_Item_03));
+            OnPropertyChanged(nameof(DeviceCheck_Item_04));
+            OnPropertyChanged(nameof(DeviceCheck_Item_05));
+            OnPropertyChanged(nameof(DeviceCheck_Item_06));
+            OnPropertyChanged(nameof(DeviceCheck_Item_07));
+            OnPropertyChanged(nameof(DeviceCheck_Item_08));
+            OnPropertyChanged(nameof(DeviceCheck_Item_09));
+            OnPropertyChanged(nameof(DeviceCheck_Item_0A));
+            OnPropertyChanged(nameof(DeviceCheck_Item_0B));
+            OnPropertyChanged(nameof(DeviceCheck_Item_0C));
+            OnPropertyChanged(nameof(DeviceCheck_Item_0D));
+            OnPropertyChanged(nameof(DeviceCheck_Result_00));
+            OnPropertyChanged(nameof(DeviceCheck_Result_01));
+            OnPropertyChanged(nameof(DeviceCheck_Result_02));
+            OnPropertyChanged(nameof(DeviceCheck_Result_03));
+            OnPropertyChanged(nameof(DeviceCheck_Result_04));
+            OnPropertyChanged(nameof(DeviceCheck_Result_05));
+            OnPropertyChanged(nameof(DeviceCheck_Result_06));
+            OnPropertyChanged(nameof(DeviceCheck_Result_07));
+            OnPropertyChanged(nameof(DeviceCheck_Result_08));
+            OnPropertyChanged(nameof(DeviceCheck_Result_09));
+            OnPropertyChanged(nameof(DeviceCheck_Result_0A));
+            OnPropertyChanged(nameof(DeviceCheck_Result_0B));
+            OnPropertyChanged(nameof(DeviceCheck_Result_0C));
+            OnPropertyChanged(nameof(DeviceCheck_Result_0D));
+            OnPropertyChanged(nameof(DeviceCheck_Result_0E));
+            OnPropertyChanged(nameof(DeviceCheck_Result_0F));
+            OnPropertyChanged(nameof(DeviceCheck_Result_10));
+            OnPropertyChanged(nameof(DeviceCheck_Result_11));
+            OnPropertyChanged(nameof(DeviceCheck_Result_12));
+            OnPropertyChanged(nameof(DeviceCheck_Result_13));
+            OnPropertyChanged(nameof(DeviceCheck_Result_14));
             OnPropertyChanged(nameof(UnhandledExceptionMessage));
             OnPropertyChanged(nameof(AppHasLaunchedMessage));
             OnPropertyChanged(nameof(AppStartMessage));
@@ -1403,6 +1543,11 @@
             OnPropertyChanged(nameof(UpgradeSelectZoneMessage));
             OnPropertyChanged(nameof(UpgradeSelectFirmwareMessage));
             OnPropertyChanged(nameof(UpgradeFilePrefixMismatchMessage));
+            OnPropertyChanged(nameof(DpsCheckScriptParseErrorMessage));
+            OnPropertyChanged(nameof(DpsCheckScriptDpsNotFoundMessage));
+            OnPropertyChanged(nameof(DpsCheckScriptParameterErrordMessage));
+            OnPropertyChanged(nameof(DpsCheckIsNotPermiitedMessage));
+            OnPropertyChanged(nameof(DpsCheckAskMessage));
             OnPropertyChanged(nameof(ConceptText));
             OnPropertyChanged(nameof(LicenseCertificationText));
             OnPropertyChanged(nameof(MachineCodeText));
@@ -1778,6 +1923,11 @@
             OnPropertyChanged(nameof(DpsEditText));
             OnPropertyChanged(nameof(NoFileSelectedText));
             OnPropertyChanged(nameof(InHandText));
+            OnPropertyChanged(nameof(DeviceCheckText));
+            OnPropertyChanged(nameof(DpsCheckText));
+            OnPropertyChanged(nameof(StartDeviceCheckText));
+            OnPropertyChanged(nameof(DeviceCheckResultText));
+            OnPropertyChanged(nameof(DpsCheckScriptText));
             OnPropertyChanged(nameof(ZoneStateChangedLog));
             OnPropertyChanged(nameof(BurnInBoardInsertedChangedLog));
             OnPropertyChanged(nameof(ZoneDpsErrorLog));
@@ -1989,6 +2139,86 @@
         public const string Enum_ChannelType_MISO = nameof(Enum_ChannelType_MISO);
         /// <summary>CS</summary>
         public const string Enum_ChannelType_CS = nameof(Enum_ChannelType_CS);
+        /// <summary>主控板</summary>
+        public const string DeviceCheck_Type_00 = nameof(DeviceCheck_Type_00);
+        /// <summary>底板</summary>
+        public const string DeviceCheck_Type_10 = nameof(DeviceCheck_Type_10);
+        /// <summary>数字板</summary>
+        public const string DeviceCheck_Type_20 = nameof(DeviceCheck_Type_20);
+        /// <summary>电源板</summary>
+        public const string DeviceCheck_Type_30 = nameof(DeviceCheck_Type_30);
+        /// <summary>竖向板</summary>
+        public const string DeviceCheck_Type_E0 = nameof(DeviceCheck_Type_E0);
+        /// <summary>老化板</summary>
+        public const string DeviceCheck_Type_EA = nameof(DeviceCheck_Type_EA);
+        /// <summary>环境变量</summary>
+        public const string DeviceCheck_Item_01 = nameof(DeviceCheck_Item_01);
+        /// <summary>配置文件</summary>
+        public const string DeviceCheck_Item_02 = nameof(DeviceCheck_Item_02);
+        /// <summary>EEPROM</summary>
+        public const string DeviceCheck_Item_03 = nameof(DeviceCheck_Item_03);
+        /// <summary>扩展I/O</summary>
+        public const string DeviceCheck_Item_04 = nameof(DeviceCheck_Item_04);
+        /// <summary>电源模块</summary>
+        public const string DeviceCheck_Item_05 = nameof(DeviceCheck_Item_05);
+        /// <summary>DAC自检</summary>
+        public const string DeviceCheck_Item_06 = nameof(DeviceCheck_Item_06);
+        /// <summary>FPGA自检</summary>
+        public const string DeviceCheck_Item_07 = nameof(DeviceCheck_Item_07);
+        /// <summary>电源自检(XADC)</summary>
+        public const string DeviceCheck_Item_08 = nameof(DeviceCheck_Item_08);
+        /// <summary>FLASH自检</summary>
+        public const string DeviceCheck_Item_09 = nameof(DeviceCheck_Item_09);
+        /// <summary>PL机型自检</summary>
+        public const string DeviceCheck_Item_0A = nameof(DeviceCheck_Item_0A);
+        /// <summary>温控自检</summary>
+        public const string DeviceCheck_Item_0B = nameof(DeviceCheck_Item_0B);
+        /// <summary>COMPARE VREF自检</summary>
+        public const string DeviceCheck_Item_0C = nameof(DeviceCheck_Item_0C);
+        /// <summary>DPS VIN自检</summary>
+        public const string DeviceCheck_Item_0D = nameof(DeviceCheck_Item_0D);
+        /// <summary>通过</summary>
+        public const string DeviceCheck_Result_00 = nameof(DeviceCheck_Result_00);
+        /// <summary>环境变量丢失</summary>
+        public const string DeviceCheck_Result_01 = nameof(DeviceCheck_Result_01);
+        /// <summary>配置文件不存在</summary>
+        public const string DeviceCheck_Result_02 = nameof(DeviceCheck_Result_02);
+        /// <summary>配置文件格式错误</summary>
+        public const string DeviceCheck_Result_03 = nameof(DeviceCheck_Result_03);
+        /// <summary>EEPROM通信错误</summary>
+        public const string DeviceCheck_Result_04 = nameof(DeviceCheck_Result_04);
+        /// <summary>I/O扩展芯片通信错误</summary>
+        public const string DeviceCheck_Result_05 = nameof(DeviceCheck_Result_05);
+        /// <summary>ADC通信错误</summary>
+        public const string DeviceCheck_Result_06 = nameof(DeviceCheck_Result_06);
+        /// <summary>电源模块通信错误</summary>
+        public const string DeviceCheck_Result_07 = nameof(DeviceCheck_Result_07);
+        /// <summary>电源模块混插</summary>
+        public const string DeviceCheck_Result_08 = nameof(DeviceCheck_Result_08);
+        /// <summary>电源模块固件错误</summary>
+        public const string DeviceCheck_Result_09 = nameof(DeviceCheck_Result_09);
+        /// <summary>LVDS寄存器通信错误</summary>
+        public const string DeviceCheck_Result_0A = nameof(DeviceCheck_Result_0A);
+        /// <summary>LVDS数据流通信错误</summary>
+        public const string DeviceCheck_Result_0B = nameof(DeviceCheck_Result_0B);
+        /// <summary>电源通信错误</summary>
+        public const string DeviceCheck_Result_0C = nameof(DeviceCheck_Result_0C);
+        /// <summary>电源电压错误</summary>
+        public const string DeviceCheck_Result_0D = nameof(DeviceCheck_Result_0D);
+        /// <summary>FLASH选择错误(打开)</summary>
+        public const string DeviceCheck_Result_0E = nameof(DeviceCheck_Result_0E);
+        /// <summary>FLASH通信错误</summary>
+        public const string DeviceCheck_Result_0F = nameof(DeviceCheck_Result_0F);
+        /// <summary>FLASH选择错误(关闭)</summary>
+        public const string DeviceCheck_Result_10 = nameof(DeviceCheck_Result_10);
+        /// <summary>PL机型读取错误(AXIBUS)</summary>
+        public const string DeviceCheck_Result_11 = nameof(DeviceCheck_Result_11);
+        /// <summary>ADC通信错误(SPI)</summary>
+        public const string DeviceCheck_Result_12 = nameof(DeviceCheck_Result_12);
+        /// <summary>COMPARE VREF 打开错误</summary>
+        public const string DeviceCheck_Result_13 = nameof(DeviceCheck_Result_13);
+        /// <summary>DPS VIN 打开错误</summary>
+        public const string DeviceCheck_Result_14 = nameof(DeviceCheck_Result_14);
         /// <summary>未捕获到的异常, {0}</summary>
         public const string UnhandledExceptionMessage = nameof(UnhandledExceptionMessage);
         /// <summary>程序已运行</summary>
@@ -2065,7 +2295,7 @@
         public const string NameNotNullMessage = nameof(NameNotNullMessage);
         /// <summary>名称不可以超过 {0} 位长度</summary>
         public const string NameNotExceedMessage = nameof(NameNotExceedMessage);
-        /// <summary>名称不能包含下列任何字符 \ / : * ? . " > < |</summary>
+        /// <summary>名称不能包含下列任何字符 \ / : * ? . " &gt; &lt; |</summary>
         public const string NameIllegalMessage = nameof(NameIllegalMessage);
         /// <summary>名称已存在</summary>
         public const string NameExistMessage = nameof(NameExistMessage);
@@ -2205,6 +2435,16 @@
         public const string UpgradeSelectFirmwareMessage = nameof(UpgradeSelectFirmwareMessage);
         /// <summary>固件文件名必须以 {0} 开头，请确认选择的是该类型固件</summary>
         public const string UpgradeFilePrefixMismatchMessage = nameof(UpgradeFilePrefixMismatchMessage);
+        /// <summary>电源自检脚本解析失败</summary>
+        public const string DpsCheckScriptParseErrorMessage = nameof(DpsCheckScriptParseErrorMessage);
+        /// <summary>电源自检脚本: 找不到目标电源，编号{0}，位于{1}行</summary>
+        public const string DpsCheckScriptDpsNotFoundMessage = nameof(DpsCheckScriptDpsNotFoundMessage);
+        /// <summary>电源自检脚本: 参数错误或数值超出范围，位于{0}行</summary>
+        public const string DpsCheckScriptParameterErrordMessage = nameof(DpsCheckScriptParameterErrordMessage);
+        /// <summary>当前状态不允许运行电源自检</summary>
+        public const string DpsCheckIsNotPermiitedMessage = nameof(DpsCheckIsNotPermiitedMessage);
+        /// <summary>检测到当前区已插老化板，运行电源自检可能会烧毁器件 是否继续 ?</summary>
+        public const string DpsCheckAskMessage = nameof(DpsCheckAskMessage);
         /// <summary>见微知著·科技赋能·创造非凡价值</summary>
         public const string ConceptText = nameof(ConceptText);
         /// <summary>许可认证</summary>
@@ -2955,13 +3195,23 @@
         public const string NoFileSelectedText = nameof(NoFileSelectedText);
         /// <summary>处理中 ...</summary>
         public const string InHandText = nameof(InHandText);
+        /// <summary>设备自检</summary>
+        public const string DeviceCheckText = nameof(DeviceCheckText);
+        /// <summary>电源自检</summary>
+        public const string DpsCheckText = nameof(DpsCheckText);
+        /// <summary>开始自检</summary>
+        public const string StartDeviceCheckText = nameof(StartDeviceCheckText);
+        /// <summary>自检结果</summary>
+        public const string DeviceCheckResultText = nameof(DeviceCheckResultText);
+        /// <summary>电源自检脚本</summary>
+        public const string DpsCheckScriptText = nameof(DpsCheckScriptText);
         /// <summary>老化区状态: {0}</summary>
         public const string ZoneStateChangedLog = nameof(ZoneStateChangedLog);
         /// <summary>插板状态：{0}</summary>
         public const string BurnInBoardInsertedChangedLog = nameof(BurnInBoardInsertedChangedLog);
-        /// <summary>电源错误:{0} -> [{1}]</summary>
+        /// <summary>电源错误:{0} -&gt; [{1}]</summary>
         public const string ZoneDpsErrorLog = nameof(ZoneDpsErrorLog);
-        /// <summary>电源错误: VIH{0} -> [{1}]</summary>
+        /// <summary>电源错误: VIH{0} -&gt; [{1}]</summary>
         public const string ZoneVIHErrorLog = nameof(ZoneVIHErrorLog);
         /// <summary>向量错误: [{0}] 请检查第{1}步 第{2}组向量配置</summary>
         public const string ZonePatternErrorLog = nameof(ZonePatternErrorLog);
@@ -2977,11 +3227,11 @@
         public const string PatternCheckErrorLog = nameof(PatternCheckErrorLog);
         /// <summary>老化器件: [{0}]</summary>
         public const string SendParameterLog = nameof(SendParameterLog);
-        /// <summary>当前步次: [{0}]	向量: [{1}]</summary>
+        /// <summary>当前步次: [{0}] 向量: [{1}]</summary>
         public const string StepRunInfoLog = nameof(StepRunInfoLog);
         /// <summary>运行电源自检脚本: {0}</summary>
         public const string RunDpsCheckScriptLog = nameof(RunDpsCheckScriptLog);
-        /// <summary>电源自检[{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})</summary>
+        /// <summary>电源自检[{0}/{1}] -&gt;{2} {3}V {4}A ({5}/{6})</summary>
         public const string DpsCheckResultLog = nameof(DpsCheckResultLog);
         /// <summary>检测到烟雾，老化已停止</summary>
         public const string StopBurnOnSmokyLog = nameof(StopBurnOnSmokyLog);
@@ -3013,7 +3263,6 @@
 
         public LangExtension()
         {
-
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)

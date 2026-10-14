@@ -47,11 +47,4 @@ namespace LSIC.App.Views
             MessageBus.Default.UnregisterAll(this);
         }
     }
-    public class PopDeviceInfoViewModelProxy : BindingProxy<PopDeviceInfoViewModel>
-    {
-        protected override Freezable CreateInstanceCore()
-        {
-            return new PopDeviceInfoViewModelProxy();
-        }
-    }
 }

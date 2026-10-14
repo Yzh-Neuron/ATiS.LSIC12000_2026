@@ -15,9 +15,6 @@
                   ResizeMode="NoResize"
                   WindowStartupLocation="CenterOwner"
                   mc:Ignorable="d">
-    <Window.Resources>
-        <views:PopDeviceInfoViewModelProxy x:Key="MainDataContext" Data="{Binding}" />
-    </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -42,7 +39,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Button Margin="5,0,0,0"
-                    Command="{Binding Source={StaticResource MainDataContext}, Path=Data.QueryVersionCommand}"
+                    Command="{Binding QueryVersionCommand}"
                     Content="{app:Lang {x:Static app:LangKey.GetVersionInfoText}}" />
             <Button Margin="5,0,0,0"
                     Command="{Binding ExportCommand}"

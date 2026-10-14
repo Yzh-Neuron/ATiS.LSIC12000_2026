@@ -34,7 +34,7 @@
         public int Count
         {
             get => _count;
-            set => SetProperty(ref _count, value, true);
+            set => SetProperty(ref _count, value);
         }
         public int TotalSecondsOrCount
         {

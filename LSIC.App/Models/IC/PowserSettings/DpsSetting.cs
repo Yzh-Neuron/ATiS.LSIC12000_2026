@@ -22,7 +22,7 @@
         public string Name
         {
             get => _name;
-            set => SetProperty(ref _name, value, true);
+            set => SetProperty(ref _name, value);
         }
 
         private int _vol;

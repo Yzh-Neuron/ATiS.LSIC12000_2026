@@ -6,6 +6,7 @@ namespace LSIC.App.Models
     {
         private const ushort FrameHeader = 0x55AA;
         private const ushort FrameEnding = 0xEAA5;
+        public ObservableCollection<DeviceCheckItem> DeviceCheckItems { get; } = new();
         private bool _disposed;
         private TcpClient _client;
         private List<byte> _buffer;
@@ -95,7 +96,9 @@ namespace LSIC.App.Models
         {
             if (state == ZoneState.DeviceCheckFail)
             {
-                Logger.LogError(string.Format(LangProvider.Instance.StateMessage, state.GetString()));
+                string failMessage = string.Format(LangProvider.Instance.StateMessage, state.GetString());
+                Logger.LogError(failMessage);
+                PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, failMessage);
             }
             else if (state == ZoneState.Error)
             {
@@ -547,6 +550,34 @@ namespace LSIC.App.Models
         {
             await SendAsync(ZoneFunctionCode.ControlAndState, 0x00);
         }
+        public async ValueTask StartDeviceCheckAsync()
+        {
+            this.InvokeOnUI(DeviceCheckItems.Clear);
+            await SendAsync(ZoneFunctionCode.DeviceCheck);
+        }
+        public async ValueTask StartDpsCheckAsync(string script, DpsCommand[] commands)
+        {
+            Logger.LogInfo(string.Format(LangProvider.Instance.RunDpsCheckScriptLog, script));
+
+            using MemoryStream stream = new MemoryStream();
+            stream.Write(commands.Length.ToBytes(Endianness.Big), 0, 4);
+            foreach (DpsCommand command in commands)
+            {
+                stream.WriteByte((byte)command.Id);
+                stream.WriteByte(0);
+                stream.Write(command.Vol.ToBytes(Endianness.Big), 0, 4);
+                stream.Write(command.Uvp.ToBytes(Endianness.Big), 0, 4);
+                stream.Write(command.Ovp.ToBytes(Endianness.Big), 0, 4);
+                stream.Write(command.Ocp.ToBytes(Endianness.Big), 0, 4);
+                stream.Write((int.MaxValue).ToBytes(Endianness.Big), 0, 4);
+                stream.Write(0.ToBytes(Endianness.Big), 0, 4);
+                stream.Write(command.Raise.ToBytes(Endianness.Big), 0, 4);
+                stream.Write(command.Times.ToBytes(Endianness.Big), 0, 4);
+                stream.Write(command.Interval.ToBytes(Endianness.Big), 0, 4);
+            }
+
+            await SendAsync(ZoneFunctionCode.DpsCheck, stream.ToArray());
+        }
         public async ValueTask GetDpsStateAsync()
         {
             await SendAsync(ZoneFunctionCode.DpsState);
@@ -685,6 +716,7 @@ namespace LSIC.App.Models
                 {
                     UpdateZoneState(ZoneState.Offline);
                     Pluged = false;
+                    Application.Current.Dispatcher.Invoke(DeviceCheckItems.Clear);
                 }
             }
             catch (Exception ex)
@@ -1042,6 +1074,8 @@ namespace LSIC.App.Models
                         }
                     case ZoneFunctionCode.DeviceCheck:
                         {
+                            DeviceCheckItem checkItem = DeviceCheckItem.FromBytes(data);
+                            Application.Current.Dispatcher.Invoke(() => DeviceCheckItems.Add(checkItem));
                             break;
                         }
                     case ZoneFunctionCode.DpsCheck:
@@ -1059,10 +1093,9 @@ namespace LSIC.App.Models
                             index += 4;
 
                             int id = data[index++];
-                            int slot = data[index++];
+                            index++; // slot reserved by protocol (unused on 12000)
 
-                            int inputVol = data.ToInt32(index, Endianness.Big);
-                            index += 4;
+                            index += 4; // input voltage reserved
 
                             int outputVol = data.ToInt32(index, Endianness.Big);
                             index += 4;
@@ -1081,13 +1114,13 @@ namespace LSIC.App.Models
                             {
                                 if (state == DpsState.Output)
                                 {
-                                    Logger.LogInfo(string.Format(LangProvider.Instance.DpsCheckResultLog, current, total, slot, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
+                                    Logger.LogInfo(string.Format(LangProvider.Instance.DpsCheckResultLog, current, total, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
                                 }
                                 else if (state == DpsState.Ovp ||
                                          state == DpsState.Uvp ||
                                          state == DpsState.Ocp)
                                 {
-                                    Logger.LogError(string.Format(LangProvider.Instance.DpsCheckResultLog, current, total, slot, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
+                                    Logger.LogError(string.Format(LangProvider.Instance.DpsCheckResultLog, current, total, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
                                 }
                             }
                         }

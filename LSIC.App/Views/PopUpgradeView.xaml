@@ -48,7 +48,6 @@
 
                     <Rectangle Grid.Row="1"
                                Margin="10,1"
-                               DockPanel.Dock="Top"
                                Stroke="{DynamicResource BorderBrush}"
                                StrokeDashArray="3 3"
                                StrokeThickness="1" />
@@ -117,7 +116,6 @@
 
                     <Rectangle Grid.Row="1"
                                Margin="10,1"
-                               DockPanel.Dock="Top"
                                Stroke="{DynamicResource BorderBrush}"
                                StrokeDashArray="3 3"
                                StrokeThickness="1" />
