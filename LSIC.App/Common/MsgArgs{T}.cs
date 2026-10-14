@@ -1,4 +1,4 @@
-﻿namespace ATiS.Sim.Mvvm
+﻿namespace LSIC.App
 {
     public class MsgArgs<T> : EventArgs
     {

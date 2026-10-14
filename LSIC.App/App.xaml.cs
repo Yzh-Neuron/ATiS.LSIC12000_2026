@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using System.Windows.Threading;
 
 namespace LSIC.App
 {
@@ -11,10 +10,7 @@ namespace LSIC.App
     {
         static App()
         {
-            Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 60 });
-            ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata { DefaultValue = 250 });
-            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata { DefaultValue = 6000 });
-        }
+     }
         public App()
         {
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
@@ -41,21 +37,21 @@ namespace LSIC.App
         {
             e.Handled = true;
             string message = string.Format(LangProvider.Instance.UnhandledExceptionMessage, e.Exception.Message + e.Exception.StackTrace);
-            LogUtil.Error(message);
+            SystemLog.Error(message);
         }
 
         private void OnTaskSchedulerUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             e.SetObserved();
             string message = string.Format(LangProvider.Instance.UnhandledExceptionMessage, e.Exception.Message + e.Exception.StackTrace);
-            LogUtil.Error(message);
+            SystemLog.Error(message);
         }
 
         private void OnCurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = e.ExceptionObject as Exception;
             string message = string.Format(LangProvider.Instance.UnhandledExceptionMessage, ex?.Message + ex?.StackTrace);
-            LogUtil.Error(message);
+            SystemLog.Error(message);
         }
 
 
@@ -90,6 +86,12 @@ namespace LSIC.App
 #else
             new WinMainView().Show();
 #endif
+
+            Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 60 });
+            ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata { DefaultValue = 250 });
+            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata { DefaultValue = 6000 });
+
+
         }
     }
 

@@ -10,7 +10,7 @@ namespace ATiS.Sim.Wpf
         public static void SetCornerRadius(DependencyObject element, CornerRadius value)
             => element.SetValue(CornerRadiusProperty, value);
 
-        public static CornerRadius GetCornerRadius(DependencyObject element) 
+        public static CornerRadius GetCornerRadius(DependencyObject element)
             => (CornerRadius)element.GetValue(CornerRadiusProperty);
 
 

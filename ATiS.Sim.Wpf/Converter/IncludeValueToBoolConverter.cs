@@ -18,7 +18,7 @@ namespace ATiS.Sim.Wpf
             string str = value.ToString()!;
             string[] parameters = parameter.ToString()!.Split(['|'], StringSplitOptions.RemoveEmptyEntries);
             bool result = parameters.Contains(str);
-            return IsInclueToTrue ? result:!result;
+            return IsInclueToTrue ? result : !result;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

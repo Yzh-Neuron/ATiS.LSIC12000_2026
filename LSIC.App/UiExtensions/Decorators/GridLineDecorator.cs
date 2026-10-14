@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace LSIC.App
+namespace LSIC.App.Decorators
 {
     [ContentProperty("Target")]
     public class GridLineDecorator : FrameworkElement

@@ -1,6 +1,6 @@
 ﻿namespace LSIC.App
 {
-    internal static class LogUtil
+    internal static class SystemLog
     {
         private static readonly RollingFileLogger SystemLogger = new RollingFileLogger(".\\Log\\System\\{date:yyyyMMdd}.log", RollingInterval.Day, 256 * 1024 * 1024);
 

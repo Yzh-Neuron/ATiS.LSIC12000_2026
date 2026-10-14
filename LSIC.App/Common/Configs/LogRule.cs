@@ -13,16 +13,6 @@
         public string PathPattern { get; private set; }
 
         /// <summary>
-        /// 日志内容匹配模式
-        /// </summary>
-        public string LayoutPattern { get; private set; }
-
-        /// <summary>
-        /// 每行日志内容的最小字节数
-        /// </summary>
-        public int MinLogLineBytes { get; private set; }
-
-        /// <summary>
         /// 时间格式
         /// </summary>
         public string TimeFormat { get; private set; }
@@ -32,10 +22,14 @@
         /// </summary>
         public SplitCharEx SplitChar { get; private set; }
 
-        private LogColumn[] _columns;
+        /// <summary>
+        /// 每行日志内容的最小字节数
+        /// </summary>
+        public int MinLogLineBytes { get; private set; }
+
         /// <summary>
         /// 日志列（懒加载）
         /// </summary>
-        public LogColumn[] Columns => _columns ??= Device.Instance.SystemConfig.LogColumns.Where(i => i.RuleIds.Contains(Id)).OrderBy(i => i.Index).ToArray();
+        public LogColumn[] Columns { get; set; }
     }
 }

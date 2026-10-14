@@ -411,4 +411,5 @@
     
     <sys:String x:Key="DpsEditText">Dps Edit</sys:String>
     <sys:String x:Key="NoFileSelectedText">No firmware selected</sys:String>
+    <sys:String x:Key="InHandText">Wait ...</sys:String>
 </ResourceDictionary>

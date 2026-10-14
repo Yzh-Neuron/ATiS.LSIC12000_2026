@@ -6,7 +6,7 @@ namespace ATiS.Sim.Wpf
     {
         public static readonly DependencyProperty PopupMaxHeightProperty = DependencyProperty.RegisterAttached("PopupMaxHeight", typeof(double), typeof(MenuHelper), new FrameworkPropertyMetadata(double.MaxValue, FrameworkPropertyMetadataOptions.Inherits));
 
-       
+
         public static double GetPopupMaxHeight(DependencyObject obj)
         {
             return (double)obj.GetValue(PopupMaxHeightProperty);

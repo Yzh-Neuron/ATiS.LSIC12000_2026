@@ -1,11 +1,10 @@
 ﻿using ATiS.Sim.Wpf;
 using System.Linq;
-using System.Windows.Input;
 using System.Windows.Interop;
 
 namespace System.Windows
 {
-    internal static class WindowExtension
+    public static class WindowExtension
     {
         #region 扩展方法
 

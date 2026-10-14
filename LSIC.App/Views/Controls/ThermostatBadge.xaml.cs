@@ -1,6 +1,4 @@
-﻿using System.Windows.Media;
-
-namespace LSIC.App.Views
+﻿namespace LSIC.App.Views
 {
     public partial class ThermostatBadge
     {

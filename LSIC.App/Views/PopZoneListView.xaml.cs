@@ -1,6 +1,6 @@
 ﻿namespace LSIC.App.Views
 {
-    public partial class PopZoneListView 
+    public partial class PopZoneListView
     {
         public WinZoneListViewModel ViewModel { get; }
         public PopZoneListView()

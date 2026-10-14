@@ -6,14 +6,10 @@
 
         public string Header { get; private set; }
 
-        public bool HeaderIsResourceKey { get; private set; }
+        public Formats Formats { get; private set; }
 
         public double Scale { get; private set; }
 
         public bool Plotable { get; private set; }
-
-        public int Index { get; private set; }
-
-        public Formats Formats { get; private set; }
     }
 }

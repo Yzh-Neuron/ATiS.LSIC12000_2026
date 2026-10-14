@@ -29,9 +29,8 @@ namespace LSIC.App.ViewModels
 {
     public class CtrHomeViewModel : ObservableObject
     {
-        public ReadOnlyObservableCollection<Zone> Zones { get; private set; }
-
-        public ICommand ZoneListViewCommand { get; private set; }
+        public ReadOnlyObservableCollection<Zone> Zones { get; }
+        public ICommand ZoneListViewCommand { get; }
         private Zone _currentZone;
         public Zone CurrentZone
         {

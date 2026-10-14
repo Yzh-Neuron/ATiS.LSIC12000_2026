@@ -89,16 +89,6 @@
                                 wpf:IconHelper.Width="13"
                                 Command="{Binding SetTriggerChanneCommand}"
                                 ToolTip="{app:Lang {x:Static app:LangKey.TriggerSetText}}" />
-
-                        <Button Width="32"
-                                Height="32"
-                                Margin="5,0"
-                                Padding="0"
-                                wpf:IconHelper.Geometry="{StaticResource Geometry.Mute}"
-                                wpf:IconHelper.Height="13"
-                                wpf:IconHelper.Width="13"
-                                Command="{Binding CloseAlarmCommand}"
-                                ToolTip="{app:Lang {x:Static app:LangKey.CloseAlarmText}}" />
                     </StackPanel>
                 </Grid>
 
@@ -145,6 +135,8 @@
                 <TabItem.Header>
                     <Image Width="20" Source="{StaticResource Image.DataView}" />
                 </TabItem.Header>
+                <!--  数据记录界面  -->
+                <views:CtrLogBrowseView x:Name="LogBrowse" Margin="10" />
             </TabItem>
         </TabControl>
     </DockPanel>

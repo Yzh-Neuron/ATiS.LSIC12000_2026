@@ -25,7 +25,7 @@ namespace ATiS.Sim.Wpf
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
-            if (propertyName!=null)
+            if (propertyName != null)
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }

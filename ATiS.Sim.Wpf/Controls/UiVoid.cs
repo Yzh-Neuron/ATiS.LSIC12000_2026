@@ -7,7 +7,7 @@ namespace ATiS.Sim.Wpf
     {
         static UiVoid()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(UiVoid),new FrameworkPropertyMetadata(typeof(UiVoid)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(UiVoid), new FrameworkPropertyMetadata(typeof(UiVoid)));
         }
     }
 }

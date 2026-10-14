@@ -15,7 +15,7 @@
             set { SetValue(BurnInBoardProperty, value); }
         }
 
-        public static readonly DependencyProperty BurnInBoardProperty =DependencyProperty.Register(nameof(BurnInBoard), typeof(BurnInBoard), typeof(CtrBurnInBoardView), new PropertyMetadata(null, OnBurnInBoardChanged));
+        public static readonly DependencyProperty BurnInBoardProperty = DependencyProperty.Register(nameof(BurnInBoard), typeof(BurnInBoard), typeof(CtrBurnInBoardView), new PropertyMetadata(null, OnBurnInBoardChanged));
 
         private static void OnBurnInBoardChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

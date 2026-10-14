@@ -1,5 +1,4 @@
-﻿using System;
-using ATiS.Orm;
+﻿using ATiS.Orm;
 
 namespace LSIC.App
 {

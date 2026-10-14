@@ -1,0 +1,57 @@
+<wpf:ChromeWindow x:Class="LSIC.App.Views.PopLogColumnSelectView"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:app="clr-namespace:LSIC.App"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:views="clr-namespace:LSIC.App.Views"
+                  xmlns:vms="clr-namespace:LSIC.App.ViewModels"
+                  xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
+                  Title="{app:Lang {x:Static app:LangKey.NameText}}"
+                  Width="320"
+                  Height="480"
+                  d:DataContext="{d:DesignInstance app:LogRule}"
+                  Icon="/Resources/Icon/icon.ico"
+                  ResizeMode="NoResize"
+                  WindowStartupLocation="CenterOwner"
+                  mc:Ignorable="d">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <ItemsControl x:Name="ColumnList"
+                      Grid.ColumnSpan="2"
+                      Padding="2.5"
+                      BorderBrush="DimGray"
+                      BorderThickness="1"
+                      ItemsSource="{Binding Columns}"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Margin="5"
+                              Content="{Binding Header}"
+                              IsEnabled="{Binding Plotable}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Button Grid.Row="2"
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                Click="OnConfirmButtonClick"
+                Style="{StaticResource Button.Confirm}" />
+        <Button Grid.Row="2"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Click="OnCancelButtonClick"
+                Command="{Binding CancelCommand}"
+                Style="{StaticResource Button.Cancel}" />
+    </Grid>
+</wpf:ChromeWindow>

@@ -19,7 +19,10 @@
                     {
                         string title = e.Args[0] as string;
                         IEnumerable<string> filters = e.Args[1] as IEnumerable<string>;
-                        PopInputNameView pop = new PopInputNameView(title, filters) { Owner = this };
+                        PopInputNameView pop = new PopInputNameView(title, filters)
+                        {
+                            Owner = this
+                        };
                         pop.ShowDialog();
                         return MessageResult.From(pop.NameResult);
                     }
@@ -114,8 +117,6 @@
                         MessageType type = (MessageType)e.Args[1];
                         return MessageResult.From(MessagePop.Show(message, type));
                     }
-
-
             }
             return MessageResult.Null();
         }

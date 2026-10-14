@@ -70,7 +70,7 @@
                 }
             }
         }
-        public ThermostatSetting[] ThermostatSettings { get;  set; } = null;
+        public ThermostatSetting[] ThermostatSettings { get; set; } = null;
         public ObservableCollection<DpsPlan> DpsPlans { get; } = new();
         public Process Process { get; } = new Process();
         public Ic(string name)

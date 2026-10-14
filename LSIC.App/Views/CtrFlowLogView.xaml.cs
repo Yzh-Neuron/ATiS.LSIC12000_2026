@@ -114,7 +114,7 @@
             }
 
             _logsHost.Clear();
-           
+
             foreach (Flow log in Logger.History)
             {
                 _logsHost.Add(LogToParagraph(log));

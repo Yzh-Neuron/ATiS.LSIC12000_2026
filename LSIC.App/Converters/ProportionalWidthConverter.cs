@@ -10,7 +10,7 @@
                 return 80.0;
             }
 
-            string[] parts = (parameter as string)?.Split(',')?? ["1", "1", "1"];
+            string[] parts = (parameter as string)?.Split(',') ?? ["1", "1", "1"];
             int[] ratios = parts.Select(p => int.TryParse(p.Trim(), out int r) ? r : 1).ToArray();
             int totalRatio = ratios.Sum();
 

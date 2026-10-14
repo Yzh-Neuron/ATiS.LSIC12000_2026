@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,7 +18,7 @@ namespace ATiS.Sim.Wpf
                     return !(index >= 0 && index < gridView.Columns.Count - 1);
                 }
             }
-            return true; 
+            return true;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

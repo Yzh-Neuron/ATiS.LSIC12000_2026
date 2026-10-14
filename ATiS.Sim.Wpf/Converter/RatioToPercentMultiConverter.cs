@@ -24,7 +24,7 @@ namespace ATiS.Sim.Wpf
             var str1 = values[0].ToString();
             var str2 = values[1].ToString();
 
-            if (double.TryParse(str1,out double v1)&& double.TryParse(str2, out double v2))
+            if (double.TryParse(str1, out double v1) && double.TryParse(str2, out double v2))
             {
                 if (Math.Abs(v2) < 1E-06)
                 {

@@ -1,0 +1,175 @@
+﻿<Grid x:Class="LSIC.App.Views.CtrLogBrowseView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:app="clr-namespace:LSIC.App"
+      xmlns:ctrs="clr-namespace:LSIC.App.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:models="clr-namespace:LSIC.App.Models"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:views="clr-namespace:LSIC.App.Views"
+      xmlns:vms="clr-namespace:LSIC.App.ViewModels"
+      xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Stretch"
+      d:DataContext="{d:DesignInstance vms:CtrLogBrowseViewModel}"
+      d:Height="1080"
+      d:Width="1920"
+      mc:Ignorable="d">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="10" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="10" />
+        <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <StackPanel Orientation="Horizontal">
+        <TextBlock>
+            <Run Text="{app:Lang {x:Static app:LangKey.DataFileText}}" />
+            <Run Text=":" />
+        </TextBlock>
+        <TextBox Width="540"
+                 Margin="5,0,0,0"
+                 wpf:WidgetHelper.HasReadonlyIcon="True"
+                 wpf:WidgetHelper.ShowClearButton="True"
+                 IsReadOnly="True"
+                 Text="{Binding CurrentFile, Converter={StaticResource FilePathToFileNameConverter}, Mode=OneWay}" />
+        <Button Margin="5,0,0,0"
+                Command="{Binding ChooseFileCommand}"
+                Style="{StaticResource Button.ChooseFile}" />
+        <Button Margin="5,0,0,0"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.Refresh}"
+                wpf:IconHelper.Height="10"
+                wpf:IconHelper.Width="10"
+                Command="{Binding RefreshSourceCommand}"
+                Content="{app:Lang {x:Static app:LangKey.RefreshText}}" />
+    </StackPanel>
+    <Button HorizontalAlignment="Right"
+            wpf:IconHelper.Geometry="{StaticResource Geometry.BatchExport}"
+            wpf:IconHelper.Height="12"
+            wpf:IconHelper.Width="12"
+            Command="{Binding BatchExportCommand}"
+            Content="{app:Lang {x:Static app:LangKey.BatchExportText}}" />
+
+    <StackPanel Grid.Row="2"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal"
+                Visibility="{Binding CurrentFile, Converter={StaticResource NotNullToVisibilityConverter}}">
+        <TextBlock>
+            <Run Text="{app:Lang {x:Static app:LangKey.DateFilterText}}" />
+            <Run Text=":" />
+        </TextBlock>
+        <DatePicker Width="120"
+                    Margin="5,0,0,0"
+                    DisplayDateEnd="{Binding DisplayEndTime, Mode=OneWay}"
+                    DisplayDateStart="{Binding DisplayStartTime, Mode=OneWay}"
+                    SelectedDate="{Binding StartTime}" />
+        <TextBlock Margin="10,0"
+                   VerticalAlignment="Center"
+                   Text="~" />
+        <DatePicker Width="120"
+                    DisplayDateEnd="{Binding DisplayEndTime, Mode=OneWay}"
+                    DisplayDateStart="{Binding DisplayStartTime, Mode=OneWay}"
+                    SelectedDate="{Binding EndTime}" />
+        <Button Margin="5,0,0,0"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.Filter}"
+                wpf:IconHelper.Height="12"
+                wpf:IconHelper.Width="12"
+                Command="{Binding FilterCommand}"
+                Content="{app:Lang {x:Static app:LangKey.FilterText}}" />
+        <Button Margin="5,0,0,0"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.ExportCSV}"
+                wpf:IconHelper.Height="12"
+                wpf:IconHelper.Width="12"
+                Command="{Binding ExportCsvCommand}"
+                Content="{app:Lang {x:Static app:LangKey.ExportAsCsvFileText}}" />
+        <Button Margin="5,0,0,0"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.HistoricalCurve}"
+                wpf:IconHelper.Height="12"
+                wpf:IconHelper.Width="12"
+                Command="{Binding ViewPlotCommand}"
+                Content="{app:Lang {x:Static app:LangKey.ChartViewText}}" />
+    </StackPanel>
+    <StackPanel Grid.Row="2"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal"
+                Visibility="{Binding CurrentFile, Converter={StaticResource NotNullToVisibilityConverter}}">
+
+        <Button wpf:IconHelper.Geometry="{StaticResource Geometry.FirstPage}"
+                wpf:IconHelper.Height="12"
+                wpf:IconHelper.Width="12"
+                Command="{Binding FirstPageCommand}"
+                ToolTip="{app:Lang {x:Static app:LangKey.FirstPageText}}" />
+
+        <Button Margin="5,0,0,0"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.PrePage}"
+                wpf:IconHelper.Height="12"
+                wpf:IconHelper.Width="12"
+                Command="{Binding PreviousPageCommand}"
+                ToolTip="{app:Lang {x:Static app:LangKey.PreviousPageText}}" />
+
+        <TextBlock MinWidth="50"
+                   Margin="10,0"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center">
+            <Run Text="{Binding CurrentPage, Mode=OneWay}" />
+            <Run Text="/" />
+            <Run Text="{Binding TotalPage, Mode=OneWay}" />
+        </TextBlock>
+
+
+        <Button wpf:IconHelper.Geometry="{StaticResource Geometry.NextPage}"
+                wpf:IconHelper.Height="12"
+                wpf:IconHelper.Width="12"
+                Command="{Binding NextPageCommand}"
+                ToolTip="{app:Lang {x:Static app:LangKey.NextPageText}}" />
+
+        <Button Margin="5,0,0,0"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.LastPage}"
+                wpf:IconHelper.Height="12"
+                wpf:IconHelper.Width="12"
+                Command="{Binding LastPageCommand}"
+                ToolTip="{app:Lang {x:Static app:LangKey.LastPageText}}" />
+    </StackPanel>
+    <DataGrid x:Name="DataList"
+              Grid.Row="4"
+              AutoGenerateColumns="False"
+              CanUserDeleteRows="False"
+              FrozenColumnCount="1"
+              IsReadOnly="True"
+              ItemsSource="{Binding Lines}"
+              ScrollViewer.VerticalScrollBarVisibility="Disabled"
+              SelectionMode="Single"
+              VirtualizingPanel.IsVirtualizing="False"
+              Visibility="{Binding CurrentFile, Converter={StaticResource NotNullToVisibilityConverter}}" />
+
+    <Border Grid.RowSpan="5"
+            Background="Transparent"
+            Visibility="Visible">
+        <Grid>
+        <Border Width="110"
+                Height="110"
+                Background="#A1A1A1"
+                CornerRadius="20">
+            <wpf:SimplePanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <wpf:LoadingCircle Width="65"
+                                   Height="65"
+                                   DotCount="8"
+                                   DotDelayTime="100"
+                                   DotDiameter="5"
+                                   DotInterval="20"
+                                   DotOffSet="60"
+                                   DotSpeed="4"
+                                   Foreground="White" />
+
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Text="{Binding Progress, StringFormat={}{0:F1}%}" />
+            </wpf:SimplePanel>
+        </Border>
+        </Grid>
+    </Border>
+</Grid>

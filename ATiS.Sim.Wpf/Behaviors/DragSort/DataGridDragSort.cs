@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -108,7 +107,7 @@ namespace ATiS.Sim.Wpf
         }
         private static void OnMouseMove(object sender, MouseEventArgs e)
         {
-            if (sender is not DataGrid grid 
+            if (sender is not DataGrid grid
                 || e.LeftButton != MouseButtonState.Pressed
                 || e.OriginalSource is not DependencyObject src)
             {
@@ -143,8 +142,8 @@ namespace ATiS.Sim.Wpf
                 return;
             }
 
-            if (!e.Data.GetDataPresent(typeof(DataGridRow)) 
-                || grid.ItemsSource is not IList list 
+            if (!e.Data.GetDataPresent(typeof(DataGridRow))
+                || grid.ItemsSource is not IList list
                 || list.IsReadOnly)
             {
                 e.Effects = DragDropEffects.None;

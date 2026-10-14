@@ -411,4 +411,5 @@
 
     <sys:String x:Key="DpsEditText">电源编辑</sys:String>
     <sys:String x:Key="NoFileSelectedText">未选择固件</sys:String>
+    <sys:String x:Key="InHandText">处理中 ...</sys:String>
 </ResourceDictionary>

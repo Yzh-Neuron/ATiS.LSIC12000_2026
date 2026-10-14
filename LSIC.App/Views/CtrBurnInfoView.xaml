@@ -10,6 +10,7 @@
       xmlns:views="clr-namespace:LSIC.App.Views"
       xmlns:vms="clr-namespace:LSIC.App.ViewModels"
       xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
+      xmlns:decos="clr-namespace:LSIC.App.Decorators"
       HorizontalAlignment="Stretch"
       VerticalAlignment="Stretch"
       d:DataContext="{d:DesignInstance vms:CtrBurnInfoViewModel}"
@@ -163,7 +164,7 @@
             BorderBrush="{DynamicResource BorderBrush}"
             BorderThickness="1"
             CornerRadius="4">
-        <app:GridLineDecorator GridLineBrush="{DynamicResource BorderBrush}">
+        <decos:GridLineDecorator GridLineBrush="{DynamicResource BorderBrush}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
@@ -315,7 +316,7 @@
                             Visibility="{Binding Zone.BurnInfo.CurrentVector, Converter={StaticResource NotNullToVisibilityConverter}}" />
                 </DockPanel>
             </Grid>
-        </app:GridLineDecorator>
+        </decos:GridLineDecorator>
     </Border>
 
     <!--  发送进度  -->

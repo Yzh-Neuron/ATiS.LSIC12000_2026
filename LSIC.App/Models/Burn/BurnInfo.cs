@@ -331,7 +331,7 @@ namespace LSIC.App.Models
             {
                 try
                 {
-                    lineCount += PatternFileHelper.GetCommandCount(file);
+                    lineCount += PatternFileUtility.GetCommandCount(file);
                 }
                 catch
                 {

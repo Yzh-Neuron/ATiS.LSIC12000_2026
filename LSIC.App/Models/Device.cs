@@ -1,3 +1,5 @@
+using System.Data;
+
 namespace LSIC.App.Models
 {
     /// <summary>
@@ -15,6 +17,10 @@ namespace LSIC.App.Models
             SystemConfig = systemConfig;
             Zones = SystemConfig.ZoneInfos.Select(info => new Zone(info, CreateDps())).ToArray();
             BoardTypeCatalog.Initialize(systemConfig.BoardTypeInfos);
+            foreach (var rule in SystemConfig.LogRules)
+            {
+                rule.Columns = SystemConfig.LogColumns.Where(i => i.RuleIds.Contains(rule.Id)).ToArray();
+            }
         }
 
         public SystemConfig SystemConfig { get; }

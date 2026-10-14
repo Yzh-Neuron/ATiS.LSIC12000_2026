@@ -1,0 +1,19 @@
+<wpf:ChromeWindow x:Class="LSIC.App.Views.PopPlotView"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:app="clr-namespace:LSIC.App"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:oxy="http://oxyplot.org/wpf"
+                  xmlns:views="clr-namespace:LSIC.App.Views"
+                  xmlns:vms="clr-namespace:LSIC.App.ViewModels"
+                  xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
+                  Title="{app:Lang {x:Static app:LangKey.ChartViewText}}"
+                  Width="800"
+                  Height="450"
+                  Icon="/Resources/Icon/icon.ico"
+                  ResizeMode="NoResize"
+                  WindowStartupLocation="CenterOwner"
+                  mc:Ignorable="d">
+    <oxy:PlotView x:Name="PlotView" Margin="10" />
+</wpf:ChromeWindow>

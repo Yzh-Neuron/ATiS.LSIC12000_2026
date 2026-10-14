@@ -51,15 +51,9 @@
                     }
                 case WinMainMessage.ZoneListView:
                     {
-                        var pop = new PopZoneListView
-                        {
-                            Owner = this
-                        };
-
-                        pop.ShowDialog();
+                        new PopZoneListView { Owner = this }.ShowDialog();
                         break;
                     }
-
                 default:
                     break;
             }
@@ -70,28 +64,20 @@
         {
             base.OnClosed(e);
             MessageBus.Default.UnregisterAll(this);
+            MessageBus.Default.UnregisterAll(LogBrowse);
             Application.Current.Shutdown();
         }
         private void OnAboutButtonClick(object sender, RoutedEventArgs e)
         {
-
-            var pop = new PopAboutView
-            {
-                Owner = this
-            };
-
-            pop.ShowDialog();
+            new PopAboutView { Owner = this }.ShowDialog();
         }
-
         private void OnDeviceInfoButtonClick(object sender, RoutedEventArgs e)
         {
             new PopDeviceInfoView { Owner = this }.ShowDialog();
         }
-
         private void OnUpgradeButtonClick(object sender, RoutedEventArgs e)
         {
             new PopUpgradeView { Owner = this }.ShowDialog();
         }
-
     }
 }

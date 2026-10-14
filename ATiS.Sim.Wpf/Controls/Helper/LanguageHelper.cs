@@ -129,7 +129,7 @@ namespace ATiS.Sim.Wpf
 
                 PropertyChangedEventManager.AddHandler(
                     FrameworkLanguageProvider.Instance,
-                    OnLanguageChanged,nameof(FrameworkLanguageProvider.CurrentLanguage));
+                    OnLanguageChanged, nameof(FrameworkLanguageProvider.CurrentLanguage));
 
                 _isSubscribed = true;
             }

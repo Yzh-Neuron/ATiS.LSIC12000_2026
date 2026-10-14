@@ -13,7 +13,7 @@ namespace ATiS.Sim.Wpf
                 FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.Journal));
 
         public static readonly DependencyProperty AllowMouseToggleProperty = DependencyProperty.Register(
-            nameof(AllowMouseToggle), typeof(bool), typeof(StateBlock),new PropertyMetadata(ValueBoxes.FalseBox));
+            nameof(AllowMouseToggle), typeof(bool), typeof(StateBlock), new PropertyMetadata(ValueBoxes.FalseBox));
 
         public static readonly DependencyProperty CheckedContentProperty =
             DependencyProperty.Register(nameof(CheckedContent), typeof(object), typeof(StateBlock),

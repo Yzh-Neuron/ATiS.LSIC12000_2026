@@ -1,6 +1,6 @@
 ﻿namespace LSIC.App
 {
-    public static class PatternFileHelper
+    public static class PatternFileUtility
     {
         public static int GetCommandCount(string file, int pinCount = 64)
         {

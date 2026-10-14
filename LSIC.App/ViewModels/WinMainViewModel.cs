@@ -14,7 +14,6 @@
         public ICommand PauseCommand { get; private set; }
         public ICommand ContinueCommand { get; private set; }
         public ICommand StopCommand { get; private set; }
-        public ICommand CloseAlarmCommand { get; private set; }
         public ICommand PatternConvertCommand { get; private set; }
         public ICommand SetTriggerChanneCommand { get; private set; }
         public ICommand ThermostatMonitorCommand { get; private set; }
@@ -25,7 +24,6 @@
             PauseCommand = new AsyncRelayCommand(Pause);
             ContinueCommand = new AsyncRelayCommand(Continue);
             StopCommand = new AsyncRelayCommand(Stop);
-            CloseAlarmCommand = new AsyncRelayCommand(CloseAlarm);
             PatternConvertCommand = new AsyncRelayCommand(PatternConvert);
             SetTriggerChanneCommand = new AsyncRelayCommand(SetTriggerChanne);
             ThermostatMonitorCommand = new AsyncRelayCommand(ThermostatMonitor);
@@ -55,10 +53,6 @@
         private async Task Stop()
         {
             MessageBus.Default.Send(MsgArgs.From(WinMainMessage.Stop, []));
-        }
-        private async Task CloseAlarm()
-        {
-            //await Device.Instance.HVControlBoard.CloseAlarmAsync();
         }
         private async Task PatternConvert()
         {

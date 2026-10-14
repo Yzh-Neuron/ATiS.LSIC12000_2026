@@ -1,8 +1,6 @@
-﻿using System.Windows.Documents;
-
-namespace LSIC.App.Views
+﻿namespace LSIC.App.Views
 {
-    public partial class PopAlarmView 
+    public partial class PopAlarmView
     {
         public bool IsExiting { get; set; }
         public void Add(Alarm alarm)

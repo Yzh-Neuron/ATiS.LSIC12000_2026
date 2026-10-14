@@ -124,7 +124,7 @@ namespace ATiS.Sim.Wpf
                         ShadowMargin.Right + BorderThickness.Right + ResizeGripWidth,
                         ShadowMargin.Bottom + BorderThickness.Bottom + ResizeGripWidth);
 
-                    chrome.CaptionHeight = TitleBarHeight- ResizeGripWidth;
+                    chrome.CaptionHeight = TitleBarHeight - ResizeGripWidth;
                 }
             }
         }

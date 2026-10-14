@@ -1153,6 +1153,8 @@
         public string DpsEditText => GetString("DpsEditText");
         /// <summary>未选择固件</summary>
         public string NoFileSelectedText => GetString("NoFileSelectedText");
+        /// <summary>处理中 ...</summary>
+        public string InHandText => GetString("InHandText");
         /// <summary>老化区状态: {0}</summary>
         public string ZoneStateChangedLog => GetString("ZoneStateChangedLog");
         /// <summary>插板状态：{0}</summary>
@@ -1775,6 +1777,7 @@
             OnPropertyChanged(nameof(VerticalBoardIndexText));
             OnPropertyChanged(nameof(DpsEditText));
             OnPropertyChanged(nameof(NoFileSelectedText));
+            OnPropertyChanged(nameof(InHandText));
             OnPropertyChanged(nameof(ZoneStateChangedLog));
             OnPropertyChanged(nameof(BurnInBoardInsertedChangedLog));
             OnPropertyChanged(nameof(ZoneDpsErrorLog));
@@ -2950,6 +2953,8 @@
         public const string DpsEditText = nameof(DpsEditText);
         /// <summary>未选择固件</summary>
         public const string NoFileSelectedText = nameof(NoFileSelectedText);
+        /// <summary>处理中 ...</summary>
+        public const string InHandText = nameof(InHandText);
         /// <summary>老化区状态: {0}</summary>
         public const string ZoneStateChangedLog = nameof(ZoneStateChangedLog);
         /// <summary>插板状态：{0}</summary>
@@ -3008,7 +3013,7 @@
 
         public LangExtension()
         {
-            
+
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
