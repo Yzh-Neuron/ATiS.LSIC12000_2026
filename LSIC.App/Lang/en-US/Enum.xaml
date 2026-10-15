@@ -51,7 +51,7 @@
     <sys:String x:Key="Enum.PatternErrorType.Decode">Pattern Decode Error</sys:String>
     <sys:String x:Key="Enum.PatternErrorType.Timeout">Pattern Run Timeout</sys:String>
 
-    <sys:String x:Key="Enum.TriggerOutputType.Close">Clear</sys:String>
+    <sys:String x:Key="Enum.TriggerOutputType.Close">Close</sys:String>
     <sys:String x:Key="Enum.TriggerOutputType.Signal">Signal</sys:String>
     <sys:String x:Key="Enum.TriggerOutputType.Sync">Sync</sys:String>
 

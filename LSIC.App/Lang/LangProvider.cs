@@ -436,7 +436,7 @@
         /// <summary>
         /// 值必须介于 {0}
         /// </summary>
-        public string MustBeInRangMessage => GetString("MustBeInRangMessage");
+        public string MustBeInRangeMessage => GetString("MustBeInRangeMessage");
         /// <summary>
         /// 仅支持英文字母、数字和下划线
         /// </summary>
@@ -468,11 +468,11 @@
         /// <summary>
         /// 老化板插入
         /// </summary>
-        public string PlugedMessage => GetString("PlugedMessage");
+        public string PluggedMessage => GetString("PluggedMessage");
         /// <summary>
         /// 老化板卸下
         /// </summary>
-        public string UnplugedMessage => GetString("UnplugedMessage");
+        public string UnpluggedMessage => GetString("UnpluggedMessage");
         /// <summary>
         /// 请设置 [ {0} ]
         /// </summary>
@@ -480,11 +480,11 @@
         /// <summary>
         /// 至少需要配置一个步次
         /// </summary>
-        public string AtleastOneStepMessage => GetString("AtleastOneStepMessage");
+        public string AtLeastOneStepMessage => GetString("AtLeastOneStepMessage");
         /// <summary>
         /// 至少需要配置一个子步次
         /// </summary>
-        public string AtleastOneSubStepMessage => GetString("AtleastOneSubStepMessage");
+        public string AtLeastOneSubStepMessage => GetString("AtLeastOneSubStepMessage");
         /// <summary>
         /// 当前状态 [ {0} ]
         /// </summary>
@@ -497,6 +497,10 @@
         /// 发送器件数据 [ {0} ]
         /// </summary>
         public string SendIcDataMessage => GetString("SendIcDataMessage");
+        /// <summary>
+        /// 不支持该数据文件
+        /// </summary>
+        public string UnsupportedDataFileMessage => GetString("UnsupportedDataFileMessage");
         /// <summary>
         /// 请先勾选要升级的老化区
         /// </summary>
@@ -516,11 +520,11 @@
         /// <summary>
         /// 电源自检脚本: 参数错误或数值超出范围，位于{0}行
         /// </summary>
-        public string DpsCheckScriptParameterErrordMessage => GetString("DpsCheckScriptParameterErrordMessage");
+        public string DpsCheckScriptParameterErrorMessage => GetString("DpsCheckScriptParameterErrorMessage");
         /// <summary>
         /// 当前状态不允许运行电源自检
         /// </summary>
-        public string DpsCheckIsNotPermiitedMessage => GetString("DpsCheckIsNotPermiitedMessage");
+        public string DpsCheckIsNotPermittedMessage => GetString("DpsCheckIsNotPermittedMessage");
         /// <summary>
         /// 检测到当前区已插老化板，运行电源自检可能会烧毁器件 是否继续 ?
         /// </summary>
@@ -557,30 +561,6 @@
         /// 见微知著·科技赋能·创造非凡价值
         /// </summary>
         public string ConceptText => GetString("ConceptText");
-        /// <summary>
-        /// 区
-        /// </summary>
-        public string ZoneText => GetString("ZoneText");
-        /// <summary>
-        /// {0} 区
-        /// </summary>
-        public string ZoneFormatText => GetString("ZoneFormatText");
-        /// <summary>
-        /// 状态
-        /// </summary>
-        public string StateText => GetString("StateText");
-        /// <summary>
-        /// 类型
-        /// </summary>
-        public string TypeText => GetString("TypeText");
-        /// <summary>
-        /// 规格
-        /// </summary>
-        public string SpecText => GetString("SpecText");
-        /// <summary>
-        /// 帮助(_H)
-        /// </summary>
-        public string HelpMenuText => GetString("HelpMenuText");
         /// <summary>
         /// 确认
         /// </summary>
@@ -634,13 +614,65 @@
         /// </summary>
         public string AboutText => GetString("AboutText");
         /// <summary>
-        /// 日志
-        /// </summary>
-        public string LogText => GetString("LogText");
-        /// <summary>
         /// 全选
         /// </summary>
         public string AllSelectText => GetString("AllSelectText");
+        /// <summary>
+        /// 帮助(_H)
+        /// </summary>
+        public string HelpMenuText => GetString("HelpMenuText");
+        /// <summary>
+        /// 刷新
+        /// </summary>
+        public string RefreshText => GetString("RefreshText");
+        /// <summary>
+        /// 区
+        /// </summary>
+        public string ZoneText => GetString("ZoneText");
+        /// <summary>
+        /// {0} 区
+        /// </summary>
+        public string ZoneFormatText => GetString("ZoneFormatText");
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public string StateText => GetString("StateText");
+        /// <summary>
+        /// 类型
+        /// </summary>
+        public string TypeText => GetString("TypeText");
+        /// <summary>
+        /// 规格
+        /// </summary>
+        public string SpecText => GetString("SpecText");
+        /// <summary>
+        /// 工位
+        /// </summary>
+        public string DutText => GetString("DutText");
+        /// <summary>
+        /// 行
+        /// </summary>
+        public string RowText => GetString("RowText");
+        /// <summary>
+        /// 列
+        /// </summary>
+        public string ColumnText => GetString("ColumnText");
+        /// <summary>
+        /// 所属片选
+        /// </summary>
+        public string BelongChipSelectText => GetString("BelongChipSelectText");
+        /// <summary>
+        /// 使用的电源
+        /// </summary>
+        public string UsedDpsText => GetString("UsedDpsText");
+        /// <summary>
+        /// 关联的管脚
+        /// </summary>
+        public string LinkedDrText => GetString("LinkedDrText");
+        /// <summary>
+        /// 片选
+        /// </summary>
+        public string CSText => GetString("CSText");
         /// <summary>
         /// 器件名称
         /// </summary>
@@ -690,26 +722,6 @@
         /// </summary>
         public string CloseAlarmText => GetString("CloseAlarmText");
         /// <summary>
-        /// 温度(℃)
-        /// </summary>
-        public string TemperatureWithUnitText => GetString("TemperatureWithUnitText");
-        /// <summary>
-        /// 报警信息
-        /// </summary>
-        public string AlarmMessageText => GetString("AlarmMessageText");
-        /// <summary>
-        /// 报警窗口
-        /// </summary>
-        public string AlarmWindowText => GetString("AlarmWindowText");
-        /// <summary>
-        /// 关闭烘箱报警
-        /// </summary>
-        public string CloseOvenAlarmText => GetString("CloseOvenAlarmText");
-        /// <summary>
-        /// 一键降温
-        /// </summary>
-        public string OneClickCoolText => GetString("OneClickCoolText");
-        /// <summary>
         /// 器件库
         /// </summary>
         public string IcLibraryText => GetString("IcLibraryText");
@@ -730,29 +742,37 @@
         /// </summary>
         public string RunInTheLoopText => GetString("RunInTheLoopText");
         /// <summary>
-        /// 数据记录间隔
+        /// 温度(℃)
         /// </summary>
-        public string LogIntervalText => GetString("LogIntervalText");
+        public string TemperatureWithUnitText => GetString("TemperatureWithUnitText");
         /// <summary>
-        /// 报错记录间隔
+        /// 报警信息
         /// </summary>
-        public string ErrorLogIntervalText => GetString("ErrorLogIntervalText");
+        public string AlarmMessageText => GetString("AlarmMessageText");
         /// <summary>
-        /// 批次号
+        /// 报警窗口
         /// </summary>
-        public string LotText => GetString("LotText");
+        public string AlarmWindowText => GetString("AlarmWindowText");
         /// <summary>
-        /// 操作员
+        /// 关闭烘箱报警
         /// </summary>
-        public string OperatorText => GetString("OperatorText");
+        public string CloseOvenAlarmText => GetString("CloseOvenAlarmText");
         /// <summary>
-        /// 载入模式
+        /// 一键降温
         /// </summary>
-        public string LoadModeText => GetString("LoadModeText");
+        public string OneClickCoolText => GetString("OneClickCoolText");
         /// <summary>
-        /// 强制单步载入
+        /// 温控索引
         /// </summary>
-        public string ForceStepLoadText => GetString("ForceStepLoadText");
+        public string ThermostatIndexText => GetString("ThermostatIndexText");
+        /// <summary>
+        /// 独立温控监视
+        /// </summary>
+        public string ThermostatMonitorText => GetString("ThermostatMonitorText");
+        /// <summary>
+        /// 温控使能
+        /// </summary>
+        public string ThermostatEnableText => GetString("ThermostatEnableText");
         /// <summary>
         /// 电源
         /// </summary>
@@ -818,6 +838,114 @@
         /// </summary>
         public string DelayWithUnitText => GetString("DelayWithUnitText");
         /// <summary>
+        /// 电源设置
+        /// </summary>
+        public string DpsSettingText => GetString("DpsSettingText");
+        /// <summary>
+        /// 电源方案
+        /// </summary>
+        public string DpsPlanText => GetString("DpsPlanText");
+        /// <summary>
+        /// 电源编辑
+        /// </summary>
+        public string DpsEditText => GetString("DpsEditText");
+        /// <summary>
+        /// 基础信息
+        /// </summary>
+        public string BaseInfoText => GetString("BaseInfoText");
+        /// <summary>
+        /// 基础设置
+        /// </summary>
+        public string BaseSettingText => GetString("BaseSettingText");
+        /// <summary>
+        /// 流程设置
+        /// </summary>
+        public string ProcessSettingText => GetString("ProcessSettingText");
+        /// <summary>
+        /// 步次
+        /// </summary>
+        public string StepText => GetString("StepText");
+        /// <summary>
+        /// 步次[{0}]
+        /// </summary>
+        public string StepFormatText => GetString("StepFormatText");
+        /// <summary>
+        /// 运行时间
+        /// </summary>
+        public string RunTimeText => GetString("RunTimeText");
+        /// <summary>
+        /// 运行次数
+        /// </summary>
+        public string RunTimesText => GetString("RunTimesText");
+        /// <summary>
+        /// 循环模式
+        /// </summary>
+        public string LoopModeText => GetString("LoopModeText");
+        /// <summary>
+        /// 循环时间
+        /// </summary>
+        public string LoopTimeText => GetString("LoopTimeText");
+        /// <summary>
+        /// 循环次数
+        /// </summary>
+        public string LoopTimesText => GetString("LoopTimesText");
+        /// <summary>
+        /// 向量设置
+        /// </summary>
+        public string VectorSettingText => GetString("VectorSettingText");
+        /// <summary>
+        /// 向量文件
+        /// </summary>
+        public string PatternFileText => GetString("PatternFileText");
+        /// <summary>
+        /// 寄存器文件
+        /// </summary>
+        public string RegisterFileText => GetString("RegisterFileText");
+        /// <summary>
+        /// 器件文件
+        /// </summary>
+        public string IcFileText => GetString("IcFileText");
+        /// <summary>
+        /// 向量超时
+        /// </summary>
+        public string PatternTimeoutText => GetString("PatternTimeoutText");
+        /// <summary>
+        /// 当前向量
+        /// </summary>
+        public string CurrentPatternText => GetString("CurrentPatternText");
+        /// <summary>
+        /// 当前向量剩余时间
+        /// </summary>
+        public string CurrentPatternLeftTimeText => GetString("CurrentPatternLeftTimeText");
+        /// <summary>
+        /// 当前向量运行时间
+        /// </summary>
+        public string CurrentPatternCostTimeText => GetString("CurrentPatternCostTimeText");
+        /// <summary>
+        /// 当前向量设定时间
+        /// </summary>
+        public string CurrentPatternSetTimeText => GetString("CurrentPatternSetTimeText");
+        /// <summary>
+        /// 当前步次
+        /// </summary>
+        public string CurrentStepText => GetString("CurrentStepText");
+        /// <summary>
+        /// 当前寄存器
+        /// </summary>
+        public string CurrentRegistersText => GetString("CurrentRegistersText");
+        /// <summary>
+        /// 当前电源方案
+        /// </summary>
+        public string CurrentDpsPlanText => GetString("CurrentDpsPlanText");
+        /// <summary>
+        /// 上电后总运行时间
+        /// </summary>
+        public string TotalTimeBeforeDpsUpText => GetString("TotalTimeBeforeDpsUpText");
+        /// <summary>
+        /// 开始时间
+        /// </summary>
+        public string StartTimeText => GetString("StartTimeText");
+        /// <summary>
         /// 数量
         /// </summary>
         public string QuantityText => GetString("QuantityText");
@@ -834,85 +962,61 @@
         /// </summary>
         public string TimesText => GetString("TimesText");
         /// <summary>
-        /// 向量文件
+        /// 批次号
         /// </summary>
-        public string PatternFileText => GetString("PatternFileText");
+        public string LotText => GetString("LotText");
         /// <summary>
-        /// 寄存器文件
+        /// 操作员
         /// </summary>
-        public string RegisterFileText => GetString("RegisterFileText");
+        public string OperatorText => GetString("OperatorText");
         /// <summary>
-        /// 向量超时
+        /// 载入模式
         /// </summary>
-        public string PatternTimeoutText => GetString("PatternTimeoutText");
+        public string LoadModeText => GetString("LoadModeText");
         /// <summary>
-        /// 器件文件
+        /// 强制单步载入
         /// </summary>
-        public string IcFileText => GetString("IcFileText");
+        public string ForceStepLoadText => GetString("ForceStepLoadText");
         /// <summary>
-        /// 开始时间
+        /// 单位
         /// </summary>
-        public string StartTimeText => GetString("StartTimeText");
+        public string UnitText => GetString("UnitText");
         /// <summary>
-        /// 上电后总运行时间
+        /// 工位配置文件
         /// </summary>
-        public string TotalTimeBeforeDpsUpText => GetString("TotalTimeBeforeDpsUpText");
+        public string DutConfigFileText => GetString("DutConfigFileText");
         /// <summary>
-        /// 当前向量剩余时间
+        /// 日志
         /// </summary>
-        public string CurrentPatternLeftTimeText => GetString("CurrentPatternLeftTimeText");
+        public string LogText => GetString("LogText");
         /// <summary>
-        /// 当前向量运行时间
+        /// 数据日志
         /// </summary>
-        public string CurrentPatternCostTimeText => GetString("CurrentPatternCostTimeText");
+        public string DataLogText => GetString("DataLogText");
         /// <summary>
-        /// 当前向量设定时间
+        /// 数据记录间隔
         /// </summary>
-        public string CurrentPatternSetTimeText => GetString("CurrentPatternSetTimeText");
+        public string LogIntervalText => GetString("LogIntervalText");
         /// <summary>
-        /// 当前向量
+        /// 报错记录间隔
         /// </summary>
-        public string CurrentPatternText => GetString("CurrentPatternText");
+        public string ErrorLogIntervalText => GetString("ErrorLogIntervalText");
         /// <summary>
-        /// 当前寄存器
+        /// 清空记录
         /// </summary>
-        public string CurrentRegistersText => GetString("CurrentRegistersText");
+        public string ClearLogsText => GetString("ClearLogsText");
         /// <summary>
-        /// 当前步次
+        /// 帧过滤器
         /// </summary>
-        public string CurrentStepText => GetString("CurrentStepText");
+        public string FrameFilterText => GetString("FrameFilterText");
         /// <summary>
-        /// 当前电源方案
+        /// 查看列表
         /// </summary>
-        public string CurrentDpsPlanText => GetString("CurrentDpsPlanText");
+        public string ViewListText => GetString("ViewListText");
         /// <summary>
-        /// 工位
+        /// CSV文件
         /// </summary>
-        public string DutText => GetString("DutText");
-        /// <summary>
-        /// 行
-        /// </summary>
-        public string RowText => GetString("RowText");
-        /// <summary>
-        /// 列
-        /// </summary>
-        public string ColumnText => GetString("ColumnText");
-        /// <summary>
-        /// 所属片选
-        /// </summary>
-        public string BelongChipSelectText => GetString("BelongChipSelectText");
-        /// <summary>
-        /// 使用的电源
-        /// </summary>
-        public string UsedDpsText => GetString("UsedDpsText");
-        /// <summary>
-        /// 关联的管脚
-        /// </summary>
-        public string LinkedDrText => GetString("LinkedDrText");
-        /// <summary>
-        /// 导出为CSV文件
-        /// </summary>
-        public string ExportAsCsvFileText => GetString("ExportAsCsvFileText");
+        public string CsvFileText => GetString("CsvFileText");
         /// <summary>
         /// 数据文件
         /// </summary>
@@ -942,9 +1046,17 @@
         /// </summary>
         public string LastPageText => GetString("LastPageText");
         /// <summary>
-        /// 刷新
+        /// 导出为CSV文件
         /// </summary>
-        public string RefreshText => GetString("RefreshText");
+        public string ExportAsCsvFileText => GetString("ExportAsCsvFileText");
+        /// <summary>
+        /// 批量导出
+        /// </summary>
+        public string BatchExportText => GetString("BatchExportText");
+        /// <summary>
+        /// 错误行
+        /// </summary>
+        public string ErrorLineText => GetString("ErrorLineText");
         /// <summary>
         /// 板卡索引
         /// </summary>
@@ -957,10 +1069,6 @@
         /// 硬件版本
         /// </summary>
         public string HardwareVersionText => GetString("HardwareVersionText");
-        /// <summary>
-        /// 结果
-        /// </summary>
-        public string ResultText => GetString("ResultText");
         /// <summary>
         /// 设备信息
         /// </summary>
@@ -994,125 +1102,13 @@
         /// </summary>
         public string FirmwareUpgradePromptText => GetString("FirmwareUpgradePromptText");
         /// <summary>
-        /// 运行脚本
+        /// 结果
         /// </summary>
-        public string RunScriptText => GetString("RunScriptText");
-        /// <summary>
-        /// 批量导出
-        /// </summary>
-        public string BatchExportText => GetString("BatchExportText");
-        /// <summary>
-        /// 单位
-        /// </summary>
-        public string UnitText => GetString("UnitText");
-        /// <summary>
-        /// 基础信息
-        /// </summary>
-        public string BaseInfoText => GetString("BaseInfoText");
-        /// <summary>
-        /// 工位配置文件
-        /// </summary>
-        public string DutConfigFileText => GetString("DutConfigFileText");
-        /// <summary>
-        /// 电源设置
-        /// </summary>
-        public string DpsSettingText => GetString("DpsSettingText");
-        /// <summary>
-        /// 步次
-        /// </summary>
-        public string StepText => GetString("StepText");
-        /// <summary>
-        /// 运行时间
-        /// </summary>
-        public string RunTimeText => GetString("RunTimeText");
-        /// <summary>
-        /// 运行次数
-        /// </summary>
-        public string RunTimesText => GetString("RunTimesText");
-        /// <summary>
-        /// 循环模式
-        /// </summary>
-        public string LoopModeText => GetString("LoopModeText");
-        /// <summary>
-        /// 循环时间
-        /// </summary>
-        public string LoopTimeText => GetString("LoopTimeText");
-        /// <summary>
-        /// 循环次数
-        /// </summary>
-        public string LoopTimesText => GetString("LoopTimesText");
-        /// <summary>
-        /// 向量设置
-        /// </summary>
-        public string VectorSettingText => GetString("VectorSettingText");
-        /// <summary>
-        /// 基础设置
-        /// </summary>
-        public string BaseSettingText => GetString("BaseSettingText");
-        /// <summary>
-        /// 流程设置
-        /// </summary>
-        public string ProcessSettingText => GetString("ProcessSettingText");
-        /// <summary>
-        /// 电源方案
-        /// </summary>
-        public string DpsPlanText => GetString("DpsPlanText");
-        /// <summary>
-        /// 步次[{0}]
-        /// </summary>
-        public string StepFormatText => GetString("StepFormatText");
-        /// <summary>
-        /// 清空记录
-        /// </summary>
-        public string ClearLogsText => GetString("ClearLogsText");
-        /// <summary>
-        /// 帧过滤器
-        /// </summary>
-        public string FrameFilterText => GetString("FrameFilterText");
-        /// <summary>
-        /// CSV文件
-        /// </summary>
-        public string CsvFileText => GetString("CsvFileText");
-        /// <summary>
-        /// 温控索引
-        /// </summary>
-        public string ThermostatIndexText => GetString("ThermostatIndexText");
-        /// <summary>
-        /// 独立温控监视
-        /// </summary>
-        public string ThermostatMonitorText => GetString("ThermostatMonitorText");
-        /// <summary>
-        /// 温控使能
-        /// </summary>
-        public string ThermostatEnableText => GetString("ThermostatEnableText");
-        /// <summary>
-        /// 片选
-        /// </summary>
-        public string CSText => GetString("CSText");
-        /// <summary>
-        /// 错误行
-        /// </summary>
-        public string ErrorLineText => GetString("ErrorLineText");
-        /// <summary>
-        /// 查看列表
-        /// </summary>
-        public string ViewListText => GetString("ViewListText");
-        /// <summary>
-        /// 数据日志
-        /// </summary>
-        public string DataLogText => GetString("DataLogText");
-        /// <summary>
-        /// 电源编辑
-        /// </summary>
-        public string DpsEditText => GetString("DpsEditText");
+        public string ResultText => GetString("ResultText");
         /// <summary>
         /// 设备自检
         /// </summary>
         public string DeviceCheckText => GetString("DeviceCheckText");
-        /// <summary>
-        /// 电源自检
-        /// </summary>
-        public string DpsCheckText => GetString("DpsCheckText");
         /// <summary>
         /// 开始自检
         /// </summary>
@@ -1122,9 +1118,17 @@
         /// </summary>
         public string DeviceCheckResultText => GetString("DeviceCheckResultText");
         /// <summary>
+        /// 电源自检
+        /// </summary>
+        public string DpsCheckText => GetString("DpsCheckText");
+        /// <summary>
         /// 电源自检脚本
         /// </summary>
         public string DpsCheckScriptText => GetString("DpsCheckScriptText");
+        /// <summary>
+        /// 运行脚本
+        /// </summary>
+        public string RunScriptText => GetString("RunScriptText");
         /// <summary>
         /// 选择文件
         /// </summary>
@@ -1240,7 +1244,7 @@
             OnPropertyChanged(nameof(NameNotExceedMessage));
             OnPropertyChanged(nameof(NameExistMessage));
             OnPropertyChanged(nameof(DeviceConfigParseFailureMessage));
-            OnPropertyChanged(nameof(MustBeInRangMessage));
+            OnPropertyChanged(nameof(MustBeInRangeMessage));
             OnPropertyChanged(nameof(ValidStringRuleMessage));
             OnPropertyChanged(nameof(FileParseErrorMessage));
             OnPropertyChanged(nameof(FileLengthErrorMessage));
@@ -1248,20 +1252,21 @@
             OnPropertyChanged(nameof(AnalysisFrameErrorMessage));
             OnPropertyChanged(nameof(Crc32NotMatchMessage));
             OnPropertyChanged(nameof(FrameEndingNotMatchMessage));
-            OnPropertyChanged(nameof(PlugedMessage));
-            OnPropertyChanged(nameof(UnplugedMessage));
+            OnPropertyChanged(nameof(PluggedMessage));
+            OnPropertyChanged(nameof(UnpluggedMessage));
             OnPropertyChanged(nameof(PleaseSetMessage));
-            OnPropertyChanged(nameof(AtleastOneStepMessage));
-            OnPropertyChanged(nameof(AtleastOneSubStepMessage));
+            OnPropertyChanged(nameof(AtLeastOneStepMessage));
+            OnPropertyChanged(nameof(AtLeastOneSubStepMessage));
             OnPropertyChanged(nameof(StateMessage));
             OnPropertyChanged(nameof(IcErrorMessage));
             OnPropertyChanged(nameof(SendIcDataMessage));
+            OnPropertyChanged(nameof(UnsupportedDataFileMessage));
             OnPropertyChanged(nameof(UpgradeSelectZoneMessage));
             OnPropertyChanged(nameof(UpgradeSelectFirmwareMessage));
             OnPropertyChanged(nameof(UpgradeFilePrefixMismatchMessage));
             OnPropertyChanged(nameof(DpsCheckScriptDpsNotFoundMessage));
-            OnPropertyChanged(nameof(DpsCheckScriptParameterErrordMessage));
-            OnPropertyChanged(nameof(DpsCheckIsNotPermiitedMessage));
+            OnPropertyChanged(nameof(DpsCheckScriptParameterErrorMessage));
+            OnPropertyChanged(nameof(DpsCheckIsNotPermittedMessage));
             OnPropertyChanged(nameof(DpsCheckAskMessage));
             OnPropertyChanged(nameof(ZoneDpsErrorMessage));
             OnPropertyChanged(nameof(ZoneVIHErrorMessage));
@@ -1271,12 +1276,6 @@
             OnPropertyChanged(nameof(RunDpsCheckScriptMessage));
             OnPropertyChanged(nameof(DpsCheckResultMessage));
             OnPropertyChanged(nameof(ConceptText));
-            OnPropertyChanged(nameof(ZoneText));
-            OnPropertyChanged(nameof(ZoneFormatText));
-            OnPropertyChanged(nameof(StateText));
-            OnPropertyChanged(nameof(TypeText));
-            OnPropertyChanged(nameof(SpecText));
-            OnPropertyChanged(nameof(HelpMenuText));
             OnPropertyChanged(nameof(ConfirmText));
             OnPropertyChanged(nameof(CancelText));
             OnPropertyChanged(nameof(CreateNewText));
@@ -1290,8 +1289,21 @@
             OnPropertyChanged(nameof(EditText));
             OnPropertyChanged(nameof(NameText));
             OnPropertyChanged(nameof(AboutText));
-            OnPropertyChanged(nameof(LogText));
             OnPropertyChanged(nameof(AllSelectText));
+            OnPropertyChanged(nameof(HelpMenuText));
+            OnPropertyChanged(nameof(RefreshText));
+            OnPropertyChanged(nameof(ZoneText));
+            OnPropertyChanged(nameof(ZoneFormatText));
+            OnPropertyChanged(nameof(StateText));
+            OnPropertyChanged(nameof(TypeText));
+            OnPropertyChanged(nameof(SpecText));
+            OnPropertyChanged(nameof(DutText));
+            OnPropertyChanged(nameof(RowText));
+            OnPropertyChanged(nameof(ColumnText));
+            OnPropertyChanged(nameof(BelongChipSelectText));
+            OnPropertyChanged(nameof(UsedDpsText));
+            OnPropertyChanged(nameof(LinkedDrText));
+            OnPropertyChanged(nameof(CSText));
             OnPropertyChanged(nameof(IcNameText));
             OnPropertyChanged(nameof(IcEditText));
             OnPropertyChanged(nameof(CurrentIcText));
@@ -1304,22 +1316,19 @@
             OnPropertyChanged(nameof(EnterBurnViewText));
             OnPropertyChanged(nameof(ReSelectIcText));
             OnPropertyChanged(nameof(CloseAlarmText));
-            OnPropertyChanged(nameof(TemperatureWithUnitText));
-            OnPropertyChanged(nameof(AlarmMessageText));
-            OnPropertyChanged(nameof(AlarmWindowText));
-            OnPropertyChanged(nameof(CloseOvenAlarmText));
-            OnPropertyChanged(nameof(OneClickCoolText));
             OnPropertyChanged(nameof(IcLibraryText));
             OnPropertyChanged(nameof(RunStrategyText));
             OnPropertyChanged(nameof(RunModeText));
             OnPropertyChanged(nameof(LoopStrategyText));
             OnPropertyChanged(nameof(RunInTheLoopText));
-            OnPropertyChanged(nameof(LogIntervalText));
-            OnPropertyChanged(nameof(ErrorLogIntervalText));
-            OnPropertyChanged(nameof(LotText));
-            OnPropertyChanged(nameof(OperatorText));
-            OnPropertyChanged(nameof(LoadModeText));
-            OnPropertyChanged(nameof(ForceStepLoadText));
+            OnPropertyChanged(nameof(TemperatureWithUnitText));
+            OnPropertyChanged(nameof(AlarmMessageText));
+            OnPropertyChanged(nameof(AlarmWindowText));
+            OnPropertyChanged(nameof(CloseOvenAlarmText));
+            OnPropertyChanged(nameof(OneClickCoolText));
+            OnPropertyChanged(nameof(ThermostatIndexText));
+            OnPropertyChanged(nameof(ThermostatMonitorText));
+            OnPropertyChanged(nameof(ThermostatEnableText));
             OnPropertyChanged(nameof(DpsText));
             OnPropertyChanged(nameof(SetVoltageText));
             OnPropertyChanged(nameof(SetVoltageWithUnitText));
@@ -1336,30 +1345,51 @@
             OnPropertyChanged(nameof(RaiseTimeWithUnitText));
             OnPropertyChanged(nameof(DelayText));
             OnPropertyChanged(nameof(DelayWithUnitText));
+            OnPropertyChanged(nameof(DpsSettingText));
+            OnPropertyChanged(nameof(DpsPlanText));
+            OnPropertyChanged(nameof(DpsEditText));
+            OnPropertyChanged(nameof(BaseInfoText));
+            OnPropertyChanged(nameof(BaseSettingText));
+            OnPropertyChanged(nameof(ProcessSettingText));
+            OnPropertyChanged(nameof(StepText));
+            OnPropertyChanged(nameof(StepFormatText));
+            OnPropertyChanged(nameof(RunTimeText));
+            OnPropertyChanged(nameof(RunTimesText));
+            OnPropertyChanged(nameof(LoopModeText));
+            OnPropertyChanged(nameof(LoopTimeText));
+            OnPropertyChanged(nameof(LoopTimesText));
+            OnPropertyChanged(nameof(VectorSettingText));
+            OnPropertyChanged(nameof(PatternFileText));
+            OnPropertyChanged(nameof(RegisterFileText));
+            OnPropertyChanged(nameof(IcFileText));
+            OnPropertyChanged(nameof(PatternTimeoutText));
+            OnPropertyChanged(nameof(CurrentPatternText));
+            OnPropertyChanged(nameof(CurrentPatternLeftTimeText));
+            OnPropertyChanged(nameof(CurrentPatternCostTimeText));
+            OnPropertyChanged(nameof(CurrentPatternSetTimeText));
+            OnPropertyChanged(nameof(CurrentStepText));
+            OnPropertyChanged(nameof(CurrentRegistersText));
+            OnPropertyChanged(nameof(CurrentDpsPlanText));
+            OnPropertyChanged(nameof(TotalTimeBeforeDpsUpText));
+            OnPropertyChanged(nameof(StartTimeText));
             OnPropertyChanged(nameof(QuantityText));
             OnPropertyChanged(nameof(TimeText));
             OnPropertyChanged(nameof(UpdateTimeText));
             OnPropertyChanged(nameof(TimesText));
-            OnPropertyChanged(nameof(PatternFileText));
-            OnPropertyChanged(nameof(RegisterFileText));
-            OnPropertyChanged(nameof(PatternTimeoutText));
-            OnPropertyChanged(nameof(IcFileText));
-            OnPropertyChanged(nameof(StartTimeText));
-            OnPropertyChanged(nameof(TotalTimeBeforeDpsUpText));
-            OnPropertyChanged(nameof(CurrentPatternLeftTimeText));
-            OnPropertyChanged(nameof(CurrentPatternCostTimeText));
-            OnPropertyChanged(nameof(CurrentPatternSetTimeText));
-            OnPropertyChanged(nameof(CurrentPatternText));
-            OnPropertyChanged(nameof(CurrentRegistersText));
-            OnPropertyChanged(nameof(CurrentStepText));
-            OnPropertyChanged(nameof(CurrentDpsPlanText));
-            OnPropertyChanged(nameof(DutText));
-            OnPropertyChanged(nameof(RowText));
-            OnPropertyChanged(nameof(ColumnText));
-            OnPropertyChanged(nameof(BelongChipSelectText));
-            OnPropertyChanged(nameof(UsedDpsText));
-            OnPropertyChanged(nameof(LinkedDrText));
-            OnPropertyChanged(nameof(ExportAsCsvFileText));
+            OnPropertyChanged(nameof(LotText));
+            OnPropertyChanged(nameof(OperatorText));
+            OnPropertyChanged(nameof(LoadModeText));
+            OnPropertyChanged(nameof(ForceStepLoadText));
+            OnPropertyChanged(nameof(UnitText));
+            OnPropertyChanged(nameof(DutConfigFileText));
+            OnPropertyChanged(nameof(LogText));
+            OnPropertyChanged(nameof(DataLogText));
+            OnPropertyChanged(nameof(LogIntervalText));
+            OnPropertyChanged(nameof(ErrorLogIntervalText));
+            OnPropertyChanged(nameof(ClearLogsText));
+            OnPropertyChanged(nameof(FrameFilterText));
+            OnPropertyChanged(nameof(ViewListText));
+            OnPropertyChanged(nameof(CsvFileText));
             OnPropertyChanged(nameof(DataFileText));
             OnPropertyChanged(nameof(DateFilterText));
             OnPropertyChanged(nameof(FilterText));
@@ -1367,11 +1397,12 @@
             OnPropertyChanged(nameof(PreviousPageText));
             OnPropertyChanged(nameof(NextPageText));
             OnPropertyChanged(nameof(LastPageText));
-            OnPropertyChanged(nameof(RefreshText));
+            OnPropertyChanged(nameof(ExportAsCsvFileText));
+            OnPropertyChanged(nameof(BatchExportText));
+            OnPropertyChanged(nameof(ErrorLineText));
             OnPropertyChanged(nameof(BoardIndexText));
             OnPropertyChanged(nameof(FirmwareVersionText));
             OnPropertyChanged(nameof(HardwareVersionText));
-            OnPropertyChanged(nameof(ResultText));
             OnPropertyChanged(nameof(DeviceInfoText));
             OnPropertyChanged(nameof(GetVersionInfoText));
             OnPropertyChanged(nameof(ExportVersionInfoText));
@@ -1380,39 +1411,13 @@
             OnPropertyChanged(nameof(FirmwareUpgradeText));
             OnPropertyChanged(nameof(UpgradeText));
             OnPropertyChanged(nameof(FirmwareUpgradePromptText));
-            OnPropertyChanged(nameof(RunScriptText));
-            OnPropertyChanged(nameof(BatchExportText));
-            OnPropertyChanged(nameof(UnitText));
-            OnPropertyChanged(nameof(BaseInfoText));
-            OnPropertyChanged(nameof(DutConfigFileText));
-            OnPropertyChanged(nameof(DpsSettingText));
-            OnPropertyChanged(nameof(StepText));
-            OnPropertyChanged(nameof(RunTimeText));
-            OnPropertyChanged(nameof(RunTimesText));
-            OnPropertyChanged(nameof(LoopModeText));
-            OnPropertyChanged(nameof(LoopTimeText));
-            OnPropertyChanged(nameof(LoopTimesText));
-            OnPropertyChanged(nameof(VectorSettingText));
-            OnPropertyChanged(nameof(BaseSettingText));
-            OnPropertyChanged(nameof(ProcessSettingText));
-            OnPropertyChanged(nameof(DpsPlanText));
-            OnPropertyChanged(nameof(StepFormatText));
-            OnPropertyChanged(nameof(ClearLogsText));
-            OnPropertyChanged(nameof(FrameFilterText));
-            OnPropertyChanged(nameof(CsvFileText));
-            OnPropertyChanged(nameof(ThermostatIndexText));
-            OnPropertyChanged(nameof(ThermostatMonitorText));
-            OnPropertyChanged(nameof(ThermostatEnableText));
-            OnPropertyChanged(nameof(CSText));
-            OnPropertyChanged(nameof(ErrorLineText));
-            OnPropertyChanged(nameof(ViewListText));
-            OnPropertyChanged(nameof(DataLogText));
-            OnPropertyChanged(nameof(DpsEditText));
+            OnPropertyChanged(nameof(ResultText));
             OnPropertyChanged(nameof(DeviceCheckText));
-            OnPropertyChanged(nameof(DpsCheckText));
             OnPropertyChanged(nameof(StartDeviceCheckText));
             OnPropertyChanged(nameof(DeviceCheckResultText));
+            OnPropertyChanged(nameof(DpsCheckText));
             OnPropertyChanged(nameof(DpsCheckScriptText));
+            OnPropertyChanged(nameof(RunScriptText));
             OnPropertyChanged(nameof(SelectFileText));
         }
     }
@@ -1420,1128 +1425,1132 @@
     public static class LangKey
     {
          /// <summary>
-        /// 生产模式
-        /// </summary>
+         /// 生产模式
+         /// </summary>
         public const string Enum_DeviceMode_Production = nameof(Enum_DeviceMode_Production);
          /// <summary>
-        /// 工程模式
-        /// </summary>
+         /// 工程模式
+         /// </summary>
         public const string Enum_DeviceMode_Engineering = nameof(Enum_DeviceMode_Engineering);
          /// <summary>
-        /// 管理员模式
-        /// </summary>
+         /// 管理员模式
+         /// </summary>
         public const string Enum_DeviceMode_Administrator = nameof(Enum_DeviceMode_Administrator);
          /// <summary>
-        /// 秒
-        /// </summary>
+         /// 秒
+         /// </summary>
         public const string Enum_TimeUnit_Second = nameof(Enum_TimeUnit_Second);
          /// <summary>
-        /// 分钟
-        /// </summary>
+         /// 分钟
+         /// </summary>
         public const string Enum_TimeUnit_Minute = nameof(Enum_TimeUnit_Minute);
          /// <summary>
-        /// 小时
-        /// </summary>
+         /// 小时
+         /// </summary>
         public const string Enum_TimeUnit_Hour = nameof(Enum_TimeUnit_Hour);
          /// <summary>
-        /// 天
-        /// </summary>
+         /// 天
+         /// </summary>
         public const string Enum_TimeUnit_Day = nameof(Enum_TimeUnit_Day);
          /// <summary>
-        /// 时间
-        /// </summary>
+         /// 时间
+         /// </summary>
         public const string Enum_ExecuteMode_Time = nameof(Enum_ExecuteMode_Time);
          /// <summary>
-        /// 次数
-        /// </summary>
+         /// 次数
+         /// </summary>
         public const string Enum_ExecuteMode_Times = nameof(Enum_ExecuteMode_Times);
          /// <summary>
-        /// 初始化中
-        /// </summary>
+         /// 初始化中
+         /// </summary>
         public const string Enum_ZoneState_Init = nameof(Enum_ZoneState_Init);
          /// <summary>
-        /// 空闲
-        /// </summary>
+         /// 空闲
+         /// </summary>
         public const string Enum_ZoneState_Idle = nameof(Enum_ZoneState_Idle);
          /// <summary>
-        /// 就绪
-        /// </summary>
+         /// 就绪
+         /// </summary>
         public const string Enum_ZoneState_Ready = nameof(Enum_ZoneState_Ready);
          /// <summary>
-        /// 上电中
-        /// </summary>
+         /// 上电中
+         /// </summary>
         public const string Enum_ZoneState_PowerUp = nameof(Enum_ZoneState_PowerUp);
          /// <summary>
-        /// 老化中
-        /// </summary>
+         /// 老化中
+         /// </summary>
         public const string Enum_ZoneState_Burning = nameof(Enum_ZoneState_Burning);
          /// <summary>
-        /// 下电中
-        /// </summary>
+         /// 下电中
+         /// </summary>
         public const string Enum_ZoneState_PowerDown = nameof(Enum_ZoneState_PowerDown);
          /// <summary>
-        /// 老化停止
-        /// </summary>
+         /// 老化停止
+         /// </summary>
         public const string Enum_ZoneState_Stop = nameof(Enum_ZoneState_Stop);
          /// <summary>
-        /// 传输中
-        /// </summary>
+         /// 传输中
+         /// </summary>
         public const string Enum_ZoneState_Transition = nameof(Enum_ZoneState_Transition);
          /// <summary>
-        /// 设备自检中
-        /// </summary>
+         /// 设备自检中
+         /// </summary>
         public const string Enum_ZoneState_DeviceChecking = nameof(Enum_ZoneState_DeviceChecking);
          /// <summary>
-        /// 电源自检中
-        /// </summary>
+         /// 电源自检中
+         /// </summary>
         public const string Enum_ZoneState_DpsChecking = nameof(Enum_ZoneState_DpsChecking);
          /// <summary>
-        /// 固件升级中
-        /// </summary>
+         /// 固件升级中
+         /// </summary>
         public const string Enum_ZoneState_Upgrading = nameof(Enum_ZoneState_Upgrading);
          /// <summary>
-        /// 离线
-        /// </summary>
+         /// 离线
+         /// </summary>
         public const string Enum_ZoneState_Offline = nameof(Enum_ZoneState_Offline);
          /// <summary>
-        /// 器件发送中
-        /// </summary>
+         /// 器件发送中
+         /// </summary>
         public const string Enum_ZoneState_Sending = nameof(Enum_ZoneState_Sending);
          /// <summary>
-        /// 自检错误
-        /// </summary>
+         /// 自检错误
+         /// </summary>
         public const string Enum_ZoneState_DeviceCheckFail = nameof(Enum_ZoneState_DeviceCheckFail);
          /// <summary>
-        /// 器件配置错误
-        /// </summary>
+         /// 器件配置错误
+         /// </summary>
         public const string Enum_ZoneState_IcError = nameof(Enum_ZoneState_IcError);
          /// <summary>
-        /// 错误
-        /// </summary>
+         /// 错误
+         /// </summary>
         public const string Enum_ZoneState_Error = nameof(Enum_ZoneState_Error);
          /// <summary>
-        /// 全部载入
-        /// </summary>
+         /// 全部载入
+         /// </summary>
         public const string Enum_LoadMode_Default = nameof(Enum_LoadMode_Default);
          /// <summary>
-        /// 单步载入
-        /// </summary>
+         /// 单步载入
+         /// </summary>
         public const string Enum_LoadMode_Step = nameof(Enum_LoadMode_Step);
          /// <summary>
-        /// 空闲
-        /// </summary>
+         /// 空闲
+         /// </summary>
         public const string Enum_DutState_Idle = nameof(Enum_DutState_Idle);
          /// <summary>
-        /// 测试中
-        /// </summary>
+         /// 测试中
+         /// </summary>
         public const string Enum_DutState_Test = nameof(Enum_DutState_Test);
          /// <summary>
-        /// 通过
-        /// </summary>
+         /// 通过
+         /// </summary>
         public const string Enum_DutState_Pass = nameof(Enum_DutState_Pass);
          /// <summary>
-        /// 错误
-        /// </summary>
+         /// 错误
+         /// </summary>
         public const string Enum_DutState_Fail = nameof(Enum_DutState_Fail);
          /// <summary>
-        /// 忽略
-        /// </summary>
+         /// 忽略
+         /// </summary>
         public const string Enum_DutState_Ignore = nameof(Enum_DutState_Ignore);
          /// <summary>
-        /// 老化板
-        /// </summary>
+         /// 老化板
+         /// </summary>
         public const string Enum_BoardType_BurnInBoard = nameof(Enum_BoardType_BurnInBoard);
          /// <summary>
-        /// 工作中
-        /// </summary>
+         /// 工作中
+         /// </summary>
         public const string Enum_DpsState_Output = nameof(Enum_DpsState_Output);
          /// <summary>
-        /// 过压
-        /// </summary>
+         /// 过压
+         /// </summary>
         public const string Enum_DpsState_Ovp = nameof(Enum_DpsState_Ovp);
          /// <summary>
-        /// 欠压
-        /// </summary>
+         /// 欠压
+         /// </summary>
         public const string Enum_DpsState_Uvp = nameof(Enum_DpsState_Uvp);
          /// <summary>
-        /// 过流
-        /// </summary>
+         /// 过流
+         /// </summary>
         public const string Enum_DpsState_Ocp = nameof(Enum_DpsState_Ocp);
          /// <summary>
-        /// 关闭
-        /// </summary>
+         /// 关闭
+         /// </summary>
         public const string Enum_DpsState_Idle = nameof(Enum_DpsState_Idle);
          /// <summary>
-        /// 向量加载错误
-        /// </summary>
+         /// 向量加载错误
+         /// </summary>
         public const string Enum_PatternErrorType_Load = nameof(Enum_PatternErrorType_Load);
          /// <summary>
-        /// 向量解码错误
-        /// </summary>
+         /// 向量解码错误
+         /// </summary>
         public const string Enum_PatternErrorType_Decode = nameof(Enum_PatternErrorType_Decode);
          /// <summary>
-        /// 向量运行超时
-        /// </summary>
+         /// 向量运行超时
+         /// </summary>
         public const string Enum_PatternErrorType_Timeout = nameof(Enum_PatternErrorType_Timeout);
          /// <summary>
-        /// 关闭
-        /// </summary>
+         /// 关闭
+         /// </summary>
         public const string Enum_TriggerOutputType_Close = nameof(Enum_TriggerOutputType_Close);
          /// <summary>
-        /// 信号
-        /// </summary>
+         /// 信号
+         /// </summary>
         public const string Enum_TriggerOutputType_Signal = nameof(Enum_TriggerOutputType_Signal);
          /// <summary>
-        /// Sync
-        /// </summary>
+         /// Sync
+         /// </summary>
         public const string Enum_TriggerOutputType_Sync = nameof(Enum_TriggerOutputType_Sync);
          /// <summary>
-        /// 升级中
-        /// </summary>
+         /// 升级中
+         /// </summary>
         public const string Enum_UpgradeState_Updating = nameof(Enum_UpgradeState_Updating);
          /// <summary>
-        /// 升级完成
-        /// </summary>
+         /// 升级完成
+         /// </summary>
         public const string Enum_UpgradeState_Finish = nameof(Enum_UpgradeState_Finish);
          /// <summary>
-        /// 擦除中
-        /// </summary>
+         /// 擦除中
+         /// </summary>
         public const string Enum_UpgradeState_Erase = nameof(Enum_UpgradeState_Erase);
          /// <summary>
-        /// 切换板卡失败
-        /// </summary>
+         /// 切换板卡失败
+         /// </summary>
         public const string Enum_UpgradeState_SwitchBoardFail = nameof(Enum_UpgradeState_SwitchBoardFail);
          /// <summary>
-        /// 写入更新时间失败
-        /// </summary>
+         /// 写入更新时间失败
+         /// </summary>
         public const string Enum_UpgradeState_WriteTimeFail = nameof(Enum_UpgradeState_WriteTimeFail);
          /// <summary>
-        /// 读取FLASH ID失败
-        /// </summary>
+         /// 读取FLASH ID失败
+         /// </summary>
         public const string Enum_UpgradeState_ReadFlashIdFail = nameof(Enum_UpgradeState_ReadFlashIdFail);
          /// <summary>
-        /// 更新超时
-        /// </summary>
+         /// 更新超时
+         /// </summary>
         public const string Enum_UpgradeState_TimeOut = nameof(Enum_UpgradeState_TimeOut);
          /// <summary>
-        /// 其他
-        /// </summary>
+         /// 其他
+         /// </summary>
         public const string Enum_UpgradeState_Other = nameof(Enum_UpgradeState_Other);
          /// <summary>
-        /// 通信错误
-        /// </summary>
+         /// 通信错误
+         /// </summary>
         public const string Enum_UpgradeState_CommunicateFail = nameof(Enum_UpgradeState_CommunicateFail);
          /// <summary>
-        /// 数据校验失败
-        /// </summary>
+         /// 数据校验失败
+         /// </summary>
         public const string Enum_UpgradeState_DataVerifyFail = nameof(Enum_UpgradeState_DataVerifyFail);
          /// <summary>
-        /// 错误
-        /// </summary>
+         /// 错误
+         /// </summary>
         public const string Enum_UpgradeState_Error = nameof(Enum_UpgradeState_Error);
          /// <summary>
-        /// 主控板
-        /// </summary>
+         /// 主控板
+         /// </summary>
         public const string DeviceCheck_Type_00 = nameof(DeviceCheck_Type_00);
          /// <summary>
-        /// 底板
-        /// </summary>
+         /// 底板
+         /// </summary>
         public const string DeviceCheck_Type_10 = nameof(DeviceCheck_Type_10);
          /// <summary>
-        /// 数字板
-        /// </summary>
+         /// 数字板
+         /// </summary>
         public const string DeviceCheck_Type_20 = nameof(DeviceCheck_Type_20);
          /// <summary>
-        /// 电源板
-        /// </summary>
+         /// 电源板
+         /// </summary>
         public const string DeviceCheck_Type_30 = nameof(DeviceCheck_Type_30);
          /// <summary>
-        /// 竖向板
-        /// </summary>
+         /// 竖向板
+         /// </summary>
         public const string DeviceCheck_Type_E0 = nameof(DeviceCheck_Type_E0);
          /// <summary>
-        /// 老化板
-        /// </summary>
+         /// 老化板
+         /// </summary>
         public const string DeviceCheck_Type_EA = nameof(DeviceCheck_Type_EA);
          /// <summary>
-        /// 环境变量
-        /// </summary>
+         /// 环境变量
+         /// </summary>
         public const string DeviceCheck_Item_01 = nameof(DeviceCheck_Item_01);
          /// <summary>
-        /// 配置文件
-        /// </summary>
+         /// 配置文件
+         /// </summary>
         public const string DeviceCheck_Item_02 = nameof(DeviceCheck_Item_02);
          /// <summary>
-        /// EEPROM
-        /// </summary>
+         /// EEPROM
+         /// </summary>
         public const string DeviceCheck_Item_03 = nameof(DeviceCheck_Item_03);
          /// <summary>
-        /// 扩展I/O
-        /// </summary>
+         /// 扩展I/O
+         /// </summary>
         public const string DeviceCheck_Item_04 = nameof(DeviceCheck_Item_04);
          /// <summary>
-        /// 电源模块
-        /// </summary>
+         /// 电源模块
+         /// </summary>
         public const string DeviceCheck_Item_05 = nameof(DeviceCheck_Item_05);
          /// <summary>
-        /// DAC自检
-        /// </summary>
+         /// DAC自检
+         /// </summary>
         public const string DeviceCheck_Item_06 = nameof(DeviceCheck_Item_06);
          /// <summary>
-        /// FPGA自检
-        /// </summary>
+         /// FPGA自检
+         /// </summary>
         public const string DeviceCheck_Item_07 = nameof(DeviceCheck_Item_07);
          /// <summary>
-        /// 电源自检(XADC)
-        /// </summary>
+         /// 电源自检(XADC)
+         /// </summary>
         public const string DeviceCheck_Item_08 = nameof(DeviceCheck_Item_08);
          /// <summary>
-        /// FLASH自检
-        /// </summary>
+         /// FLASH自检
+         /// </summary>
         public const string DeviceCheck_Item_09 = nameof(DeviceCheck_Item_09);
          /// <summary>
-        /// PL机型自检
-        /// </summary>
+         /// PL机型自检
+         /// </summary>
         public const string DeviceCheck_Item_0A = nameof(DeviceCheck_Item_0A);
          /// <summary>
-        /// 温控自检
-        /// </summary>
+         /// 温控自检
+         /// </summary>
         public const string DeviceCheck_Item_0B = nameof(DeviceCheck_Item_0B);
          /// <summary>
-        /// COMPARE VREF自检
-        /// </summary>
+         /// COMPARE VREF自检
+         /// </summary>
         public const string DeviceCheck_Item_0C = nameof(DeviceCheck_Item_0C);
          /// <summary>
-        /// Dps VIN自检
-        /// </summary>
+         /// Dps VIN自检
+         /// </summary>
         public const string DeviceCheck_Item_0D = nameof(DeviceCheck_Item_0D);
          /// <summary>
-        /// 通过
-        /// </summary>
+         /// 通过
+         /// </summary>
         public const string DeviceCheck_Result_00 = nameof(DeviceCheck_Result_00);
          /// <summary>
-        /// 环境变量丢失
-        /// </summary>
+         /// 环境变量丢失
+         /// </summary>
         public const string DeviceCheck_Result_01 = nameof(DeviceCheck_Result_01);
          /// <summary>
-        /// 配置文件不存在
-        /// </summary>
+         /// 配置文件不存在
+         /// </summary>
         public const string DeviceCheck_Result_02 = nameof(DeviceCheck_Result_02);
          /// <summary>
-        /// 配置文件格式错误
-        /// </summary>
+         /// 配置文件格式错误
+         /// </summary>
         public const string DeviceCheck_Result_03 = nameof(DeviceCheck_Result_03);
          /// <summary>
-        /// EEPROM通信错误
-        /// </summary>
+         /// EEPROM通信错误
+         /// </summary>
         public const string DeviceCheck_Result_04 = nameof(DeviceCheck_Result_04);
          /// <summary>
-        /// I/O扩展芯片通信错误
-        /// </summary>
+         /// I/O扩展芯片通信错误
+         /// </summary>
         public const string DeviceCheck_Result_05 = nameof(DeviceCheck_Result_05);
          /// <summary>
-        /// ADC通信错误
-        /// </summary>
+         /// ADC通信错误
+         /// </summary>
         public const string DeviceCheck_Result_06 = nameof(DeviceCheck_Result_06);
          /// <summary>
-        /// 电源模块通信错误
-        /// </summary>
+         /// 电源模块通信错误
+         /// </summary>
         public const string DeviceCheck_Result_07 = nameof(DeviceCheck_Result_07);
          /// <summary>
-        /// 电源模块混插
-        /// </summary>
+         /// 电源模块混插
+         /// </summary>
         public const string DeviceCheck_Result_08 = nameof(DeviceCheck_Result_08);
          /// <summary>
-        /// 电源模块固件错误
-        /// </summary>
+         /// 电源模块固件错误
+         /// </summary>
         public const string DeviceCheck_Result_09 = nameof(DeviceCheck_Result_09);
          /// <summary>
-        /// LVDS寄存器通信错误
-        /// </summary>
+         /// LVDS寄存器通信错误
+         /// </summary>
         public const string DeviceCheck_Result_0A = nameof(DeviceCheck_Result_0A);
          /// <summary>
-        /// LVDS数据流通信错误
-        /// </summary>
+         /// LVDS数据流通信错误
+         /// </summary>
         public const string DeviceCheck_Result_0B = nameof(DeviceCheck_Result_0B);
          /// <summary>
-        /// 电源通信错误
-        /// </summary>
+         /// 电源通信错误
+         /// </summary>
         public const string DeviceCheck_Result_0C = nameof(DeviceCheck_Result_0C);
          /// <summary>
-        /// 电源电压错误
-        /// </summary>
+         /// 电源电压错误
+         /// </summary>
         public const string DeviceCheck_Result_0D = nameof(DeviceCheck_Result_0D);
          /// <summary>
-        /// FLASH选择错误(打开)
-        /// </summary>
+         /// FLASH选择错误(打开)
+         /// </summary>
         public const string DeviceCheck_Result_0E = nameof(DeviceCheck_Result_0E);
          /// <summary>
-        /// FLASH通信错误
-        /// </summary>
+         /// FLASH通信错误
+         /// </summary>
         public const string DeviceCheck_Result_0F = nameof(DeviceCheck_Result_0F);
          /// <summary>
-        /// FLASH选择错误(关闭)
-        /// </summary>
+         /// FLASH选择错误(关闭)
+         /// </summary>
         public const string DeviceCheck_Result_10 = nameof(DeviceCheck_Result_10);
          /// <summary>
-        /// PL机型读取错误(AXIBUS)
-        /// </summary>
+         /// PL机型读取错误(AXIBUS)
+         /// </summary>
         public const string DeviceCheck_Result_11 = nameof(DeviceCheck_Result_11);
          /// <summary>
-        /// ADC通信错误(SPI)
-        /// </summary>
+         /// ADC通信错误(SPI)
+         /// </summary>
         public const string DeviceCheck_Result_12 = nameof(DeviceCheck_Result_12);
          /// <summary>
-        /// COMPARE VREF 打开错误
-        /// </summary>
+         /// COMPARE VREF 打开错误
+         /// </summary>
         public const string DeviceCheck_Result_13 = nameof(DeviceCheck_Result_13);
          /// <summary>
-        /// Dps VIN 打开错误
-        /// </summary>
+         /// Dps VIN 打开错误
+         /// </summary>
         public const string DeviceCheck_Result_14 = nameof(DeviceCheck_Result_14);
          /// <summary>
-        /// 未捕获到的异常, {0}
-        /// </summary>
+         /// 未捕获到的异常, {0}
+         /// </summary>
         public const string UnhandledExceptionMessage = nameof(UnhandledExceptionMessage);
          /// <summary>
-        /// 文件导入成功
-        /// </summary>
+         /// 文件导入成功
+         /// </summary>
         public const string FileImportSuccessMessage = nameof(FileImportSuccessMessage);
          /// <summary>
-        /// 文件导入失败
-        /// </summary>
+         /// 文件导入失败
+         /// </summary>
         public const string FileImportFailureMessage = nameof(FileImportFailureMessage);
          /// <summary>
-        /// 文件导出成功
-        /// </summary>
+         /// 文件导出成功
+         /// </summary>
         public const string FileExportSuccessMessage = nameof(FileExportSuccessMessage);
          /// <summary>
-        /// 文件导出失败
-        /// </summary>
+         /// 文件导出失败
+         /// </summary>
         public const string FileExportFailureMessage = nameof(FileExportFailureMessage);
          /// <summary>
-        /// 文件不存在
-        /// </summary>
+         /// 文件不存在
+         /// </summary>
         public const string FileNotExistMessage = nameof(FileNotExistMessage);
          /// <summary>
-        /// 确定删除所选项目?
-        /// </summary>
+         /// 确定删除所选项目?
+         /// </summary>
         public const string DeleteAskMessage = nameof(DeleteAskMessage);
          /// <summary>
-        /// 已存在同名器件文件, 是否覆盖?
-        /// </summary>
+         /// 已存在同名器件文件, 是否覆盖?
+         /// </summary>
         public const string ImportIcFileExistMessage = nameof(ImportIcFileExistMessage);
          /// <summary>
-        /// 名称不可以为空或包含空格
-        /// </summary>
+         /// 名称不可以为空或包含空格
+         /// </summary>
         public const string NameNotNullMessage = nameof(NameNotNullMessage);
          /// <summary>
-        /// 名称不可以超过 {0} 位长度
-        /// </summary>
+         /// 名称不可以超过 {0} 位长度
+         /// </summary>
         public const string NameNotExceedMessage = nameof(NameNotExceedMessage);
          /// <summary>
-        /// 名称已存在
-        /// </summary>
+         /// 名称已存在
+         /// </summary>
         public const string NameExistMessage = nameof(NameExistMessage);
          /// <summary>
-        /// 设备配置文件解析失败, {0}
-        /// </summary>
+         /// 设备配置文件解析失败, {0}
+         /// </summary>
         public const string DeviceConfigParseFailureMessage = nameof(DeviceConfigParseFailureMessage);
          /// <summary>
-        /// 值必须介于 {0}
-        /// </summary>
-        public const string MustBeInRangMessage = nameof(MustBeInRangMessage);
+         /// 值必须介于 {0}
+         /// </summary>
+        public const string MustBeInRangeMessage = nameof(MustBeInRangeMessage);
          /// <summary>
-        /// 仅支持英文字母、数字和下划线
-        /// </summary>
+         /// 仅支持英文字母、数字和下划线
+         /// </summary>
         public const string ValidStringRuleMessage = nameof(ValidStringRuleMessage);
          /// <summary>
-        /// 文件 [ {0} ] 解析失败, 第 {1} 行 {2} 列
-        /// </summary>
+         /// 文件 [ {0} ] 解析失败, 第 {1} 行 {2} 列
+         /// </summary>
         public const string FileParseErrorMessage = nameof(FileParseErrorMessage);
          /// <summary>
-        /// 文件 [ {0} ] 长度不正确, 预期长度为 {1} 字节
-        /// </summary>
+         /// 文件 [ {0} ] 长度不正确, 预期长度为 {1} 字节
+         /// </summary>
         public const string FileLengthErrorMessage = nameof(FileLengthErrorMessage);
          /// <summary>
-        /// ABM 文件 [ {0} ] 不匹配，请使用该上位机软件中的向量转换工具生成的 ABM 文件
-        /// </summary>
+         /// ABM 文件 [ {0} ] 不匹配，请使用该上位机软件中的向量转换工具生成的 ABM 文件
+         /// </summary>
         public const string AbmFileNotMatchMessage = nameof(AbmFileNotMatchMessage);
          /// <summary>
-        /// 报文解析错误，{0}
-        /// </summary>
+         /// 报文解析错误，{0}
+         /// </summary>
         public const string AnalysisFrameErrorMessage = nameof(AnalysisFrameErrorMessage);
          /// <summary>
-        /// CRC32不匹配，{0}
-        /// </summary>
+         /// CRC32不匹配，{0}
+         /// </summary>
         public const string Crc32NotMatchMessage = nameof(Crc32NotMatchMessage);
          /// <summary>
-        /// 帧尾不匹配
-        /// </summary>
+         /// 帧尾不匹配
+         /// </summary>
         public const string FrameEndingNotMatchMessage = nameof(FrameEndingNotMatchMessage);
          /// <summary>
-        /// 老化板插入
-        /// </summary>
-        public const string PlugedMessage = nameof(PlugedMessage);
+         /// 老化板插入
+         /// </summary>
+        public const string PluggedMessage = nameof(PluggedMessage);
          /// <summary>
-        /// 老化板卸下
-        /// </summary>
-        public const string UnplugedMessage = nameof(UnplugedMessage);
+         /// 老化板卸下
+         /// </summary>
+        public const string UnpluggedMessage = nameof(UnpluggedMessage);
          /// <summary>
-        /// 请设置 [ {0} ]
-        /// </summary>
+         /// 请设置 [ {0} ]
+         /// </summary>
         public const string PleaseSetMessage = nameof(PleaseSetMessage);
          /// <summary>
-        /// 至少需要配置一个步次
-        /// </summary>
-        public const string AtleastOneStepMessage = nameof(AtleastOneStepMessage);
+         /// 至少需要配置一个步次
+         /// </summary>
+        public const string AtLeastOneStepMessage = nameof(AtLeastOneStepMessage);
          /// <summary>
-        /// 至少需要配置一个子步次
-        /// </summary>
-        public const string AtleastOneSubStepMessage = nameof(AtleastOneSubStepMessage);
+         /// 至少需要配置一个子步次
+         /// </summary>
+        public const string AtLeastOneSubStepMessage = nameof(AtLeastOneSubStepMessage);
          /// <summary>
-        /// 当前状态 [ {0} ]
-        /// </summary>
+         /// 当前状态 [ {0} ]
+         /// </summary>
         public const string StateMessage = nameof(StateMessage);
          /// <summary>
-        /// 器件配置错误, 请检查后重试! {0}
-        /// </summary>
+         /// 器件配置错误, 请检查后重试! {0}
+         /// </summary>
         public const string IcErrorMessage = nameof(IcErrorMessage);
          /// <summary>
-        /// 发送器件数据 [ {0} ]
-        /// </summary>
+         /// 发送器件数据 [ {0} ]
+         /// </summary>
         public const string SendIcDataMessage = nameof(SendIcDataMessage);
          /// <summary>
-        /// 请先勾选要升级的老化区
-        /// </summary>
+         /// 不支持该数据文件
+         /// </summary>
+        public const string UnsupportedDataFileMessage = nameof(UnsupportedDataFileMessage);
+         /// <summary>
+         /// 请先勾选要升级的老化区
+         /// </summary>
         public const string UpgradeSelectZoneMessage = nameof(UpgradeSelectZoneMessage);
          /// <summary>
-        /// 请先为要升级的板卡类型选择固件文件
-        /// </summary>
+         /// 请先为要升级的板卡类型选择固件文件
+         /// </summary>
         public const string UpgradeSelectFirmwareMessage = nameof(UpgradeSelectFirmwareMessage);
          /// <summary>
-        /// 固件文件名必须以 {0} 开头，请确认选择的是该类型固件
-        /// </summary>
+         /// 固件文件名必须以 {0} 开头，请确认选择的是该类型固件
+         /// </summary>
         public const string UpgradeFilePrefixMismatchMessage = nameof(UpgradeFilePrefixMismatchMessage);
          /// <summary>
-        /// 电源自检脚本: 找不到目标电源，编号{0}，位于{1}行
-        /// </summary>
+         /// 电源自检脚本: 找不到目标电源，编号{0}，位于{1}行
+         /// </summary>
         public const string DpsCheckScriptDpsNotFoundMessage = nameof(DpsCheckScriptDpsNotFoundMessage);
          /// <summary>
-        /// 电源自检脚本: 参数错误或数值超出范围，位于{0}行
-        /// </summary>
-        public const string DpsCheckScriptParameterErrordMessage = nameof(DpsCheckScriptParameterErrordMessage);
+         /// 电源自检脚本: 参数错误或数值超出范围，位于{0}行
+         /// </summary>
+        public const string DpsCheckScriptParameterErrorMessage = nameof(DpsCheckScriptParameterErrorMessage);
          /// <summary>
-        /// 当前状态不允许运行电源自检
-        /// </summary>
-        public const string DpsCheckIsNotPermiitedMessage = nameof(DpsCheckIsNotPermiitedMessage);
+         /// 当前状态不允许运行电源自检
+         /// </summary>
+        public const string DpsCheckIsNotPermittedMessage = nameof(DpsCheckIsNotPermittedMessage);
          /// <summary>
-        /// 检测到当前区已插老化板，运行电源自检可能会烧毁器件 是否继续 ?
-        /// </summary>
+         /// 检测到当前区已插老化板，运行电源自检可能会烧毁器件 是否继续 ?
+         /// </summary>
         public const string DpsCheckAskMessage = nameof(DpsCheckAskMessage);
          /// <summary>
-        /// 电源错误:{0} -> [{1}]
-        /// </summary>
+         /// 电源错误:{0} -> [{1}]
+         /// </summary>
         public const string ZoneDpsErrorMessage = nameof(ZoneDpsErrorMessage);
          /// <summary>
-        /// 电源错误: VIH{0} -> [{1}]
-        /// </summary>
+         /// 电源错误: VIH{0} -> [{1}]
+         /// </summary>
         public const string ZoneVIHErrorMessage = nameof(ZoneVIHErrorMessage);
          /// <summary>
-        /// 向量错误: [{0}] 请检查第{1}步 第{2}组向量配置
-        /// </summary>
+         /// 向量错误: [{0}] 请检查第{1}步 第{2}组向量配置
+         /// </summary>
         public const string ZonePatternErrorMessage = nameof(ZonePatternErrorMessage);
          /// <summary>
-        /// 设备异常: 请联系售后人员! 错误码[{0}]
-        /// </summary>
+         /// 设备异常: 请联系售后人员! 错误码[{0}]
+         /// </summary>
         public const string ZoneDeviceErrorMessage = nameof(ZoneDeviceErrorMessage);
          /// <summary>
-        /// 当前步次: [{0}]	向量: [{1}]
-        /// </summary>
+         /// 当前步次: [{0}]	向量: [{1}]
+         /// </summary>
         public const string StepRunInfoMessage = nameof(StepRunInfoMessage);
          /// <summary>
-        /// 运行电源自检脚本: {0}
-        /// </summary>
+         /// 运行电源自检脚本: {0}
+         /// </summary>
         public const string RunDpsCheckScriptMessage = nameof(RunDpsCheckScriptMessage);
          /// <summary>
-        /// 电源自检[{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})
-        /// </summary>
+         /// 电源自检[{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})
+         /// </summary>
         public const string DpsCheckResultMessage = nameof(DpsCheckResultMessage);
          /// <summary>
-        /// 见微知著·科技赋能·创造非凡价值
-        /// </summary>
+         /// 见微知著·科技赋能·创造非凡价值
+         /// </summary>
         public const string ConceptText = nameof(ConceptText);
          /// <summary>
-        /// 区
-        /// </summary>
-        public const string ZoneText = nameof(ZoneText);
-         /// <summary>
-        /// {0} 区
-        /// </summary>
-        public const string ZoneFormatText = nameof(ZoneFormatText);
-         /// <summary>
-        /// 状态
-        /// </summary>
-        public const string StateText = nameof(StateText);
-         /// <summary>
-        /// 类型
-        /// </summary>
-        public const string TypeText = nameof(TypeText);
-         /// <summary>
-        /// 规格
-        /// </summary>
-        public const string SpecText = nameof(SpecText);
-         /// <summary>
-        /// 帮助(_H)
-        /// </summary>
-        public const string HelpMenuText = nameof(HelpMenuText);
-         /// <summary>
-        /// 确认
-        /// </summary>
+         /// 确认
+         /// </summary>
         public const string ConfirmText = nameof(ConfirmText);
          /// <summary>
-        /// 取消
-        /// </summary>
+         /// 取消
+         /// </summary>
         public const string CancelText = nameof(CancelText);
          /// <summary>
-        /// 新建
-        /// </summary>
+         /// 新建
+         /// </summary>
         public const string CreateNewText = nameof(CreateNewText);
          /// <summary>
-        /// 重命名
-        /// </summary>
+         /// 重命名
+         /// </summary>
         public const string RenameText = nameof(RenameText);
          /// <summary>
-        /// 保存
-        /// </summary>
+         /// 保存
+         /// </summary>
         public const string SaveText = nameof(SaveText);
          /// <summary>
-        /// 另存为
-        /// </summary>
+         /// 另存为
+         /// </summary>
         public const string SaveAsText = nameof(SaveAsText);
          /// <summary>
-        /// 删除
-        /// </summary>
+         /// 删除
+         /// </summary>
         public const string DeleteText = nameof(DeleteText);
          /// <summary>
-        /// 导入
-        /// </summary>
+         /// 导入
+         /// </summary>
         public const string ImportText = nameof(ImportText);
          /// <summary>
-        /// 导出
-        /// </summary>
+         /// 导出
+         /// </summary>
         public const string ExportText = nameof(ExportText);
          /// <summary>
-        /// 查看
-        /// </summary>
+         /// 查看
+         /// </summary>
         public const string ViewText = nameof(ViewText);
          /// <summary>
-        /// 编辑
-        /// </summary>
+         /// 编辑
+         /// </summary>
         public const string EditText = nameof(EditText);
          /// <summary>
-        /// 名称
-        /// </summary>
+         /// 名称
+         /// </summary>
         public const string NameText = nameof(NameText);
          /// <summary>
-        /// 关于
-        /// </summary>
+         /// 关于
+         /// </summary>
         public const string AboutText = nameof(AboutText);
          /// <summary>
-        /// 日志
-        /// </summary>
-        public const string LogText = nameof(LogText);
-         /// <summary>
-        /// 全选
-        /// </summary>
+         /// 全选
+         /// </summary>
         public const string AllSelectText = nameof(AllSelectText);
          /// <summary>
-        /// 器件名称
-        /// </summary>
-        public const string IcNameText = nameof(IcNameText);
-         /// <summary>
-        /// 器件编辑
-        /// </summary>
-        public const string IcEditText = nameof(IcEditText);
-         /// <summary>
-        /// 当前器件
-        /// </summary>
-        public const string CurrentIcText = nameof(CurrentIcText);
-         /// <summary>
-        /// 向量格式转换
-        /// </summary>
-        public const string PatternFormatConvertText = nameof(PatternFormatConvertText);
-         /// <summary>
-        /// 曲线查看
-        /// </summary>
-        public const string ChartViewText = nameof(ChartViewText);
-         /// <summary>
-        /// 触发设置
-        /// </summary>
-        public const string TriggerSetText = nameof(TriggerSetText);
-         /// <summary>
-        /// 发送
-        /// </summary>
-        public const string SendParameterText = nameof(SendParameterText);
-         /// <summary>
-        /// 开始
-        /// </summary>
-        public const string StartBurnText = nameof(StartBurnText);
-         /// <summary>
-        /// 终止
-        /// </summary>
-        public const string StopBurnText = nameof(StopBurnText);
-         /// <summary>
-        /// 进入老化界面
-        /// </summary>
-        public const string EnterBurnViewText = nameof(EnterBurnViewText);
-         /// <summary>
-        /// 重置
-        /// </summary>
-        public const string ReSelectIcText = nameof(ReSelectIcText);
-         /// <summary>
-        /// 关闭报警
-        /// </summary>
-        public const string CloseAlarmText = nameof(CloseAlarmText);
-         /// <summary>
-        /// 温度(℃)
-        /// </summary>
-        public const string TemperatureWithUnitText = nameof(TemperatureWithUnitText);
-         /// <summary>
-        /// 报警信息
-        /// </summary>
-        public const string AlarmMessageText = nameof(AlarmMessageText);
-         /// <summary>
-        /// 报警窗口
-        /// </summary>
-        public const string AlarmWindowText = nameof(AlarmWindowText);
-         /// <summary>
-        /// 关闭烘箱报警
-        /// </summary>
-        public const string CloseOvenAlarmText = nameof(CloseOvenAlarmText);
-         /// <summary>
-        /// 一键降温
-        /// </summary>
-        public const string OneClickCoolText = nameof(OneClickCoolText);
-         /// <summary>
-        /// 器件库
-        /// </summary>
-        public const string IcLibraryText = nameof(IcLibraryText);
-         /// <summary>
-        /// 运行策略
-        /// </summary>
-        public const string RunStrategyText = nameof(RunStrategyText);
-         /// <summary>
-        /// 运行模式
-        /// </summary>
-        public const string RunModeText = nameof(RunModeText);
-         /// <summary>
-        /// 循环策略
-        /// </summary>
-        public const string LoopStrategyText = nameof(LoopStrategyText);
-         /// <summary>
-        /// 循环运行中
-        /// </summary>
-        public const string RunInTheLoopText = nameof(RunInTheLoopText);
-         /// <summary>
-        /// 数据记录间隔
-        /// </summary>
-        public const string LogIntervalText = nameof(LogIntervalText);
-         /// <summary>
-        /// 报错记录间隔
-        /// </summary>
-        public const string ErrorLogIntervalText = nameof(ErrorLogIntervalText);
-         /// <summary>
-        /// 批次号
-        /// </summary>
-        public const string LotText = nameof(LotText);
-         /// <summary>
-        /// 操作员
-        /// </summary>
-        public const string OperatorText = nameof(OperatorText);
-         /// <summary>
-        /// 载入模式
-        /// </summary>
-        public const string LoadModeText = nameof(LoadModeText);
-         /// <summary>
-        /// 强制单步载入
-        /// </summary>
-        public const string ForceStepLoadText = nameof(ForceStepLoadText);
-         /// <summary>
-        /// 电源
-        /// </summary>
-        public const string DpsText = nameof(DpsText);
-         /// <summary>
-        /// 设置电压
-        /// </summary>
-        public const string SetVoltageText = nameof(SetVoltageText);
-         /// <summary>
-        /// 设置电压(V)
-        /// </summary>
-        public const string SetVoltageWithUnitText = nameof(SetVoltageWithUnitText);
-         /// <summary>
-        /// 实时电压(V)
-        /// </summary>
-        public const string RealVoltageWithUnitText = nameof(RealVoltageWithUnitText);
-         /// <summary>
-        /// 实时电流(A)
-        /// </summary>
-        public const string RealCurrentWithUnitText = nameof(RealCurrentWithUnitText);
-         /// <summary>
-        /// 实时功率(W)
-        /// </summary>
-        public const string RealPowerWithUnitText = nameof(RealPowerWithUnitText);
-         /// <summary>
-        /// 电压下限
-        /// </summary>
-        public const string VoltageFloorText = nameof(VoltageFloorText);
-         /// <summary>
-        /// 电压下限(V)
-        /// </summary>
-        public const string VoltageFloorWithUnitText = nameof(VoltageFloorWithUnitText);
-         /// <summary>
-        /// 电压上限
-        /// </summary>
-        public const string VoltageCeilingText = nameof(VoltageCeilingText);
-         /// <summary>
-        /// 电压上限(V)
-        /// </summary>
-        public const string VoltageCeilingWithUnitText = nameof(VoltageCeilingWithUnitText);
-         /// <summary>
-        /// 电流上限
-        /// </summary>
-        public const string CurrentCeilingText = nameof(CurrentCeilingText);
-         /// <summary>
-        /// 电流上限(A)
-        /// </summary>
-        public const string CurrentCeilingWithUnitText = nameof(CurrentCeilingWithUnitText);
-         /// <summary>
-        /// 上升时间
-        /// </summary>
-        public const string RaiseTimeText = nameof(RaiseTimeText);
-         /// <summary>
-        /// 上升时间(ms)
-        /// </summary>
-        public const string RaiseTimeWithUnitText = nameof(RaiseTimeWithUnitText);
-         /// <summary>
-        /// 延时时间
-        /// </summary>
-        public const string DelayText = nameof(DelayText);
-         /// <summary>
-        /// 延时时间(ms)
-        /// </summary>
-        public const string DelayWithUnitText = nameof(DelayWithUnitText);
-         /// <summary>
-        /// 数量
-        /// </summary>
-        public const string QuantityText = nameof(QuantityText);
-         /// <summary>
-        /// 时间
-        /// </summary>
-        public const string TimeText = nameof(TimeText);
-         /// <summary>
-        /// 修改时间
-        /// </summary>
-        public const string UpdateTimeText = nameof(UpdateTimeText);
-         /// <summary>
-        /// 次
-        /// </summary>
-        public const string TimesText = nameof(TimesText);
-         /// <summary>
-        /// 向量文件
-        /// </summary>
-        public const string PatternFileText = nameof(PatternFileText);
-         /// <summary>
-        /// 寄存器文件
-        /// </summary>
-        public const string RegisterFileText = nameof(RegisterFileText);
-         /// <summary>
-        /// 向量超时
-        /// </summary>
-        public const string PatternTimeoutText = nameof(PatternTimeoutText);
-         /// <summary>
-        /// 器件文件
-        /// </summary>
-        public const string IcFileText = nameof(IcFileText);
-         /// <summary>
-        /// 开始时间
-        /// </summary>
-        public const string StartTimeText = nameof(StartTimeText);
-         /// <summary>
-        /// 上电后总运行时间
-        /// </summary>
-        public const string TotalTimeBeforeDpsUpText = nameof(TotalTimeBeforeDpsUpText);
-         /// <summary>
-        /// 当前向量剩余时间
-        /// </summary>
-        public const string CurrentPatternLeftTimeText = nameof(CurrentPatternLeftTimeText);
-         /// <summary>
-        /// 当前向量运行时间
-        /// </summary>
-        public const string CurrentPatternCostTimeText = nameof(CurrentPatternCostTimeText);
-         /// <summary>
-        /// 当前向量设定时间
-        /// </summary>
-        public const string CurrentPatternSetTimeText = nameof(CurrentPatternSetTimeText);
-         /// <summary>
-        /// 当前向量
-        /// </summary>
-        public const string CurrentPatternText = nameof(CurrentPatternText);
-         /// <summary>
-        /// 当前寄存器
-        /// </summary>
-        public const string CurrentRegistersText = nameof(CurrentRegistersText);
-         /// <summary>
-        /// 当前步次
-        /// </summary>
-        public const string CurrentStepText = nameof(CurrentStepText);
-         /// <summary>
-        /// 当前电源方案
-        /// </summary>
-        public const string CurrentDpsPlanText = nameof(CurrentDpsPlanText);
-         /// <summary>
-        /// 工位
-        /// </summary>
-        public const string DutText = nameof(DutText);
-         /// <summary>
-        /// 行
-        /// </summary>
-        public const string RowText = nameof(RowText);
-         /// <summary>
-        /// 列
-        /// </summary>
-        public const string ColumnText = nameof(ColumnText);
-         /// <summary>
-        /// 所属片选
-        /// </summary>
-        public const string BelongChipSelectText = nameof(BelongChipSelectText);
-         /// <summary>
-        /// 使用的电源
-        /// </summary>
-        public const string UsedDpsText = nameof(UsedDpsText);
-         /// <summary>
-        /// 关联的管脚
-        /// </summary>
-        public const string LinkedDrText = nameof(LinkedDrText);
-         /// <summary>
-        /// 导出为CSV文件
-        /// </summary>
-        public const string ExportAsCsvFileText = nameof(ExportAsCsvFileText);
-         /// <summary>
-        /// 数据文件
-        /// </summary>
-        public const string DataFileText = nameof(DataFileText);
-         /// <summary>
-        /// 日期筛选
-        /// </summary>
-        public const string DateFilterText = nameof(DateFilterText);
-         /// <summary>
-        /// 筛选
-        /// </summary>
-        public const string FilterText = nameof(FilterText);
-         /// <summary>
-        /// 首页
-        /// </summary>
-        public const string FirstPageText = nameof(FirstPageText);
-         /// <summary>
-        /// 上一页
-        /// </summary>
-        public const string PreviousPageText = nameof(PreviousPageText);
-         /// <summary>
-        /// 下一页
-        /// </summary>
-        public const string NextPageText = nameof(NextPageText);
-         /// <summary>
-        /// 尾页
-        /// </summary>
-        public const string LastPageText = nameof(LastPageText);
-         /// <summary>
-        /// 刷新
-        /// </summary>
+         /// 帮助(_H)
+         /// </summary>
+        public const string HelpMenuText = nameof(HelpMenuText);
+         /// <summary>
+         /// 刷新
+         /// </summary>
         public const string RefreshText = nameof(RefreshText);
          /// <summary>
-        /// 板卡索引
-        /// </summary>
-        public const string BoardIndexText = nameof(BoardIndexText);
+         /// 区
+         /// </summary>
+        public const string ZoneText = nameof(ZoneText);
          /// <summary>
-        /// 固件版本
-        /// </summary>
-        public const string FirmwareVersionText = nameof(FirmwareVersionText);
+         /// {0} 区
+         /// </summary>
+        public const string ZoneFormatText = nameof(ZoneFormatText);
          /// <summary>
-        /// 硬件版本
-        /// </summary>
-        public const string HardwareVersionText = nameof(HardwareVersionText);
+         /// 状态
+         /// </summary>
+        public const string StateText = nameof(StateText);
          /// <summary>
-        /// 结果
-        /// </summary>
-        public const string ResultText = nameof(ResultText);
+         /// 类型
+         /// </summary>
+        public const string TypeText = nameof(TypeText);
          /// <summary>
-        /// 设备信息
-        /// </summary>
-        public const string DeviceInfoText = nameof(DeviceInfoText);
+         /// 规格
+         /// </summary>
+        public const string SpecText = nameof(SpecText);
          /// <summary>
-        /// 查询版本信息
-        /// </summary>
-        public const string GetVersionInfoText = nameof(GetVersionInfoText);
+         /// 工位
+         /// </summary>
+        public const string DutText = nameof(DutText);
          /// <summary>
-        /// 导出版本信息 (所有区)
-        /// </summary>
-        public const string ExportVersionInfoText = nameof(ExportVersionInfoText);
+         /// 行
+         /// </summary>
+        public const string RowText = nameof(RowText);
          /// <summary>
-        /// 板卡类型
-        /// </summary>
-        public const string BoardTypeText = nameof(BoardTypeText);
+         /// 列
+         /// </summary>
+        public const string ColumnText = nameof(ColumnText);
          /// <summary>
-        /// 固件
-        /// </summary>
-        public const string FirmwareText = nameof(FirmwareText);
+         /// 所属片选
+         /// </summary>
+        public const string BelongChipSelectText = nameof(BelongChipSelectText);
          /// <summary>
-        /// 固件升级
-        /// </summary>
-        public const string FirmwareUpgradeText = nameof(FirmwareUpgradeText);
+         /// 使用的电源
+         /// </summary>
+        public const string UsedDpsText = nameof(UsedDpsText);
          /// <summary>
-        /// 升级
-        /// </summary>
-        public const string UpgradeText = nameof(UpgradeText);
+         /// 关联的管脚
+         /// </summary>
+        public const string LinkedDrText = nameof(LinkedDrText);
          /// <summary>
-        /// 注意：升级过程中请勿关闭上位机或设备电源！
-        /// </summary>
-        public const string FirmwareUpgradePromptText = nameof(FirmwareUpgradePromptText);
-         /// <summary>
-        /// 运行脚本
-        /// </summary>
-        public const string RunScriptText = nameof(RunScriptText);
-         /// <summary>
-        /// 批量导出
-        /// </summary>
-        public const string BatchExportText = nameof(BatchExportText);
-         /// <summary>
-        /// 单位
-        /// </summary>
-        public const string UnitText = nameof(UnitText);
-         /// <summary>
-        /// 基础信息
-        /// </summary>
-        public const string BaseInfoText = nameof(BaseInfoText);
-         /// <summary>
-        /// 工位配置文件
-        /// </summary>
-        public const string DutConfigFileText = nameof(DutConfigFileText);
-         /// <summary>
-        /// 电源设置
-        /// </summary>
-        public const string DpsSettingText = nameof(DpsSettingText);
-         /// <summary>
-        /// 步次
-        /// </summary>
-        public const string StepText = nameof(StepText);
-         /// <summary>
-        /// 运行时间
-        /// </summary>
-        public const string RunTimeText = nameof(RunTimeText);
-         /// <summary>
-        /// 运行次数
-        /// </summary>
-        public const string RunTimesText = nameof(RunTimesText);
-         /// <summary>
-        /// 循环模式
-        /// </summary>
-        public const string LoopModeText = nameof(LoopModeText);
-         /// <summary>
-        /// 循环时间
-        /// </summary>
-        public const string LoopTimeText = nameof(LoopTimeText);
-         /// <summary>
-        /// 循环次数
-        /// </summary>
-        public const string LoopTimesText = nameof(LoopTimesText);
-         /// <summary>
-        /// 向量设置
-        /// </summary>
-        public const string VectorSettingText = nameof(VectorSettingText);
-         /// <summary>
-        /// 基础设置
-        /// </summary>
-        public const string BaseSettingText = nameof(BaseSettingText);
-         /// <summary>
-        /// 流程设置
-        /// </summary>
-        public const string ProcessSettingText = nameof(ProcessSettingText);
-         /// <summary>
-        /// 电源方案
-        /// </summary>
-        public const string DpsPlanText = nameof(DpsPlanText);
-         /// <summary>
-        /// 步次[{0}]
-        /// </summary>
-        public const string StepFormatText = nameof(StepFormatText);
-         /// <summary>
-        /// 清空记录
-        /// </summary>
-        public const string ClearLogsText = nameof(ClearLogsText);
-         /// <summary>
-        /// 帧过滤器
-        /// </summary>
-        public const string FrameFilterText = nameof(FrameFilterText);
-         /// <summary>
-        /// CSV文件
-        /// </summary>
-        public const string CsvFileText = nameof(CsvFileText);
-         /// <summary>
-        /// 温控索引
-        /// </summary>
-        public const string ThermostatIndexText = nameof(ThermostatIndexText);
-         /// <summary>
-        /// 独立温控监视
-        /// </summary>
-        public const string ThermostatMonitorText = nameof(ThermostatMonitorText);
-         /// <summary>
-        /// 温控使能
-        /// </summary>
-        public const string ThermostatEnableText = nameof(ThermostatEnableText);
-         /// <summary>
-        /// 片选
-        /// </summary>
+         /// 片选
+         /// </summary>
         public const string CSText = nameof(CSText);
          /// <summary>
-        /// 错误行
-        /// </summary>
-        public const string ErrorLineText = nameof(ErrorLineText);
+         /// 器件名称
+         /// </summary>
+        public const string IcNameText = nameof(IcNameText);
          /// <summary>
-        /// 查看列表
-        /// </summary>
-        public const string ViewListText = nameof(ViewListText);
+         /// 器件编辑
+         /// </summary>
+        public const string IcEditText = nameof(IcEditText);
          /// <summary>
-        /// 数据日志
-        /// </summary>
-        public const string DataLogText = nameof(DataLogText);
+         /// 当前器件
+         /// </summary>
+        public const string CurrentIcText = nameof(CurrentIcText);
          /// <summary>
-        /// 电源编辑
-        /// </summary>
+         /// 向量格式转换
+         /// </summary>
+        public const string PatternFormatConvertText = nameof(PatternFormatConvertText);
+         /// <summary>
+         /// 曲线查看
+         /// </summary>
+        public const string ChartViewText = nameof(ChartViewText);
+         /// <summary>
+         /// 触发设置
+         /// </summary>
+        public const string TriggerSetText = nameof(TriggerSetText);
+         /// <summary>
+         /// 发送
+         /// </summary>
+        public const string SendParameterText = nameof(SendParameterText);
+         /// <summary>
+         /// 开始
+         /// </summary>
+        public const string StartBurnText = nameof(StartBurnText);
+         /// <summary>
+         /// 终止
+         /// </summary>
+        public const string StopBurnText = nameof(StopBurnText);
+         /// <summary>
+         /// 进入老化界面
+         /// </summary>
+        public const string EnterBurnViewText = nameof(EnterBurnViewText);
+         /// <summary>
+         /// 重置
+         /// </summary>
+        public const string ReSelectIcText = nameof(ReSelectIcText);
+         /// <summary>
+         /// 关闭报警
+         /// </summary>
+        public const string CloseAlarmText = nameof(CloseAlarmText);
+         /// <summary>
+         /// 器件库
+         /// </summary>
+        public const string IcLibraryText = nameof(IcLibraryText);
+         /// <summary>
+         /// 运行策略
+         /// </summary>
+        public const string RunStrategyText = nameof(RunStrategyText);
+         /// <summary>
+         /// 运行模式
+         /// </summary>
+        public const string RunModeText = nameof(RunModeText);
+         /// <summary>
+         /// 循环策略
+         /// </summary>
+        public const string LoopStrategyText = nameof(LoopStrategyText);
+         /// <summary>
+         /// 循环运行中
+         /// </summary>
+        public const string RunInTheLoopText = nameof(RunInTheLoopText);
+         /// <summary>
+         /// 温度(℃)
+         /// </summary>
+        public const string TemperatureWithUnitText = nameof(TemperatureWithUnitText);
+         /// <summary>
+         /// 报警信息
+         /// </summary>
+        public const string AlarmMessageText = nameof(AlarmMessageText);
+         /// <summary>
+         /// 报警窗口
+         /// </summary>
+        public const string AlarmWindowText = nameof(AlarmWindowText);
+         /// <summary>
+         /// 关闭烘箱报警
+         /// </summary>
+        public const string CloseOvenAlarmText = nameof(CloseOvenAlarmText);
+         /// <summary>
+         /// 一键降温
+         /// </summary>
+        public const string OneClickCoolText = nameof(OneClickCoolText);
+         /// <summary>
+         /// 温控索引
+         /// </summary>
+        public const string ThermostatIndexText = nameof(ThermostatIndexText);
+         /// <summary>
+         /// 独立温控监视
+         /// </summary>
+        public const string ThermostatMonitorText = nameof(ThermostatMonitorText);
+         /// <summary>
+         /// 温控使能
+         /// </summary>
+        public const string ThermostatEnableText = nameof(ThermostatEnableText);
+         /// <summary>
+         /// 电源
+         /// </summary>
+        public const string DpsText = nameof(DpsText);
+         /// <summary>
+         /// 设置电压
+         /// </summary>
+        public const string SetVoltageText = nameof(SetVoltageText);
+         /// <summary>
+         /// 设置电压(V)
+         /// </summary>
+        public const string SetVoltageWithUnitText = nameof(SetVoltageWithUnitText);
+         /// <summary>
+         /// 实时电压(V)
+         /// </summary>
+        public const string RealVoltageWithUnitText = nameof(RealVoltageWithUnitText);
+         /// <summary>
+         /// 实时电流(A)
+         /// </summary>
+        public const string RealCurrentWithUnitText = nameof(RealCurrentWithUnitText);
+         /// <summary>
+         /// 实时功率(W)
+         /// </summary>
+        public const string RealPowerWithUnitText = nameof(RealPowerWithUnitText);
+         /// <summary>
+         /// 电压下限
+         /// </summary>
+        public const string VoltageFloorText = nameof(VoltageFloorText);
+         /// <summary>
+         /// 电压下限(V)
+         /// </summary>
+        public const string VoltageFloorWithUnitText = nameof(VoltageFloorWithUnitText);
+         /// <summary>
+         /// 电压上限
+         /// </summary>
+        public const string VoltageCeilingText = nameof(VoltageCeilingText);
+         /// <summary>
+         /// 电压上限(V)
+         /// </summary>
+        public const string VoltageCeilingWithUnitText = nameof(VoltageCeilingWithUnitText);
+         /// <summary>
+         /// 电流上限
+         /// </summary>
+        public const string CurrentCeilingText = nameof(CurrentCeilingText);
+         /// <summary>
+         /// 电流上限(A)
+         /// </summary>
+        public const string CurrentCeilingWithUnitText = nameof(CurrentCeilingWithUnitText);
+         /// <summary>
+         /// 上升时间
+         /// </summary>
+        public const string RaiseTimeText = nameof(RaiseTimeText);
+         /// <summary>
+         /// 上升时间(ms)
+         /// </summary>
+        public const string RaiseTimeWithUnitText = nameof(RaiseTimeWithUnitText);
+         /// <summary>
+         /// 延时时间
+         /// </summary>
+        public const string DelayText = nameof(DelayText);
+         /// <summary>
+         /// 延时时间(ms)
+         /// </summary>
+        public const string DelayWithUnitText = nameof(DelayWithUnitText);
+         /// <summary>
+         /// 电源设置
+         /// </summary>
+        public const string DpsSettingText = nameof(DpsSettingText);
+         /// <summary>
+         /// 电源方案
+         /// </summary>
+        public const string DpsPlanText = nameof(DpsPlanText);
+         /// <summary>
+         /// 电源编辑
+         /// </summary>
         public const string DpsEditText = nameof(DpsEditText);
          /// <summary>
-        /// 设备自检
-        /// </summary>
+         /// 基础信息
+         /// </summary>
+        public const string BaseInfoText = nameof(BaseInfoText);
+         /// <summary>
+         /// 基础设置
+         /// </summary>
+        public const string BaseSettingText = nameof(BaseSettingText);
+         /// <summary>
+         /// 流程设置
+         /// </summary>
+        public const string ProcessSettingText = nameof(ProcessSettingText);
+         /// <summary>
+         /// 步次
+         /// </summary>
+        public const string StepText = nameof(StepText);
+         /// <summary>
+         /// 步次[{0}]
+         /// </summary>
+        public const string StepFormatText = nameof(StepFormatText);
+         /// <summary>
+         /// 运行时间
+         /// </summary>
+        public const string RunTimeText = nameof(RunTimeText);
+         /// <summary>
+         /// 运行次数
+         /// </summary>
+        public const string RunTimesText = nameof(RunTimesText);
+         /// <summary>
+         /// 循环模式
+         /// </summary>
+        public const string LoopModeText = nameof(LoopModeText);
+         /// <summary>
+         /// 循环时间
+         /// </summary>
+        public const string LoopTimeText = nameof(LoopTimeText);
+         /// <summary>
+         /// 循环次数
+         /// </summary>
+        public const string LoopTimesText = nameof(LoopTimesText);
+         /// <summary>
+         /// 向量设置
+         /// </summary>
+        public const string VectorSettingText = nameof(VectorSettingText);
+         /// <summary>
+         /// 向量文件
+         /// </summary>
+        public const string PatternFileText = nameof(PatternFileText);
+         /// <summary>
+         /// 寄存器文件
+         /// </summary>
+        public const string RegisterFileText = nameof(RegisterFileText);
+         /// <summary>
+         /// 器件文件
+         /// </summary>
+        public const string IcFileText = nameof(IcFileText);
+         /// <summary>
+         /// 向量超时
+         /// </summary>
+        public const string PatternTimeoutText = nameof(PatternTimeoutText);
+         /// <summary>
+         /// 当前向量
+         /// </summary>
+        public const string CurrentPatternText = nameof(CurrentPatternText);
+         /// <summary>
+         /// 当前向量剩余时间
+         /// </summary>
+        public const string CurrentPatternLeftTimeText = nameof(CurrentPatternLeftTimeText);
+         /// <summary>
+         /// 当前向量运行时间
+         /// </summary>
+        public const string CurrentPatternCostTimeText = nameof(CurrentPatternCostTimeText);
+         /// <summary>
+         /// 当前向量设定时间
+         /// </summary>
+        public const string CurrentPatternSetTimeText = nameof(CurrentPatternSetTimeText);
+         /// <summary>
+         /// 当前步次
+         /// </summary>
+        public const string CurrentStepText = nameof(CurrentStepText);
+         /// <summary>
+         /// 当前寄存器
+         /// </summary>
+        public const string CurrentRegistersText = nameof(CurrentRegistersText);
+         /// <summary>
+         /// 当前电源方案
+         /// </summary>
+        public const string CurrentDpsPlanText = nameof(CurrentDpsPlanText);
+         /// <summary>
+         /// 上电后总运行时间
+         /// </summary>
+        public const string TotalTimeBeforeDpsUpText = nameof(TotalTimeBeforeDpsUpText);
+         /// <summary>
+         /// 开始时间
+         /// </summary>
+        public const string StartTimeText = nameof(StartTimeText);
+         /// <summary>
+         /// 数量
+         /// </summary>
+        public const string QuantityText = nameof(QuantityText);
+         /// <summary>
+         /// 时间
+         /// </summary>
+        public const string TimeText = nameof(TimeText);
+         /// <summary>
+         /// 修改时间
+         /// </summary>
+        public const string UpdateTimeText = nameof(UpdateTimeText);
+         /// <summary>
+         /// 次
+         /// </summary>
+        public const string TimesText = nameof(TimesText);
+         /// <summary>
+         /// 批次号
+         /// </summary>
+        public const string LotText = nameof(LotText);
+         /// <summary>
+         /// 操作员
+         /// </summary>
+        public const string OperatorText = nameof(OperatorText);
+         /// <summary>
+         /// 载入模式
+         /// </summary>
+        public const string LoadModeText = nameof(LoadModeText);
+         /// <summary>
+         /// 强制单步载入
+         /// </summary>
+        public const string ForceStepLoadText = nameof(ForceStepLoadText);
+         /// <summary>
+         /// 单位
+         /// </summary>
+        public const string UnitText = nameof(UnitText);
+         /// <summary>
+         /// 工位配置文件
+         /// </summary>
+        public const string DutConfigFileText = nameof(DutConfigFileText);
+         /// <summary>
+         /// 日志
+         /// </summary>
+        public const string LogText = nameof(LogText);
+         /// <summary>
+         /// 数据日志
+         /// </summary>
+        public const string DataLogText = nameof(DataLogText);
+         /// <summary>
+         /// 数据记录间隔
+         /// </summary>
+        public const string LogIntervalText = nameof(LogIntervalText);
+         /// <summary>
+         /// 报错记录间隔
+         /// </summary>
+        public const string ErrorLogIntervalText = nameof(ErrorLogIntervalText);
+         /// <summary>
+         /// 清空记录
+         /// </summary>
+        public const string ClearLogsText = nameof(ClearLogsText);
+         /// <summary>
+         /// 帧过滤器
+         /// </summary>
+        public const string FrameFilterText = nameof(FrameFilterText);
+         /// <summary>
+         /// 查看列表
+         /// </summary>
+        public const string ViewListText = nameof(ViewListText);
+         /// <summary>
+         /// CSV文件
+         /// </summary>
+        public const string CsvFileText = nameof(CsvFileText);
+         /// <summary>
+         /// 数据文件
+         /// </summary>
+        public const string DataFileText = nameof(DataFileText);
+         /// <summary>
+         /// 日期筛选
+         /// </summary>
+        public const string DateFilterText = nameof(DateFilterText);
+         /// <summary>
+         /// 筛选
+         /// </summary>
+        public const string FilterText = nameof(FilterText);
+         /// <summary>
+         /// 首页
+         /// </summary>
+        public const string FirstPageText = nameof(FirstPageText);
+         /// <summary>
+         /// 上一页
+         /// </summary>
+        public const string PreviousPageText = nameof(PreviousPageText);
+         /// <summary>
+         /// 下一页
+         /// </summary>
+        public const string NextPageText = nameof(NextPageText);
+         /// <summary>
+         /// 尾页
+         /// </summary>
+        public const string LastPageText = nameof(LastPageText);
+         /// <summary>
+         /// 导出为CSV文件
+         /// </summary>
+        public const string ExportAsCsvFileText = nameof(ExportAsCsvFileText);
+         /// <summary>
+         /// 批量导出
+         /// </summary>
+        public const string BatchExportText = nameof(BatchExportText);
+         /// <summary>
+         /// 错误行
+         /// </summary>
+        public const string ErrorLineText = nameof(ErrorLineText);
+         /// <summary>
+         /// 板卡索引
+         /// </summary>
+        public const string BoardIndexText = nameof(BoardIndexText);
+         /// <summary>
+         /// 固件版本
+         /// </summary>
+        public const string FirmwareVersionText = nameof(FirmwareVersionText);
+         /// <summary>
+         /// 硬件版本
+         /// </summary>
+        public const string HardwareVersionText = nameof(HardwareVersionText);
+         /// <summary>
+         /// 设备信息
+         /// </summary>
+        public const string DeviceInfoText = nameof(DeviceInfoText);
+         /// <summary>
+         /// 查询版本信息
+         /// </summary>
+        public const string GetVersionInfoText = nameof(GetVersionInfoText);
+         /// <summary>
+         /// 导出版本信息 (所有区)
+         /// </summary>
+        public const string ExportVersionInfoText = nameof(ExportVersionInfoText);
+         /// <summary>
+         /// 板卡类型
+         /// </summary>
+        public const string BoardTypeText = nameof(BoardTypeText);
+         /// <summary>
+         /// 固件
+         /// </summary>
+        public const string FirmwareText = nameof(FirmwareText);
+         /// <summary>
+         /// 固件升级
+         /// </summary>
+        public const string FirmwareUpgradeText = nameof(FirmwareUpgradeText);
+         /// <summary>
+         /// 升级
+         /// </summary>
+        public const string UpgradeText = nameof(UpgradeText);
+         /// <summary>
+         /// 注意：升级过程中请勿关闭上位机或设备电源！
+         /// </summary>
+        public const string FirmwareUpgradePromptText = nameof(FirmwareUpgradePromptText);
+         /// <summary>
+         /// 结果
+         /// </summary>
+        public const string ResultText = nameof(ResultText);
+         /// <summary>
+         /// 设备自检
+         /// </summary>
         public const string DeviceCheckText = nameof(DeviceCheckText);
          /// <summary>
-        /// 电源自检
-        /// </summary>
-        public const string DpsCheckText = nameof(DpsCheckText);
-         /// <summary>
-        /// 开始自检
-        /// </summary>
+         /// 开始自检
+         /// </summary>
         public const string StartDeviceCheckText = nameof(StartDeviceCheckText);
          /// <summary>
-        /// 自检结果
-        /// </summary>
+         /// 自检结果
+         /// </summary>
         public const string DeviceCheckResultText = nameof(DeviceCheckResultText);
          /// <summary>
-        /// 电源自检脚本
-        /// </summary>
+         /// 电源自检
+         /// </summary>
+        public const string DpsCheckText = nameof(DpsCheckText);
+         /// <summary>
+         /// 电源自检脚本
+         /// </summary>
         public const string DpsCheckScriptText = nameof(DpsCheckScriptText);
          /// <summary>
-        /// 选择文件
-        /// </summary>
+         /// 运行脚本
+         /// </summary>
+        public const string RunScriptText = nameof(RunScriptText);
+         /// <summary>
+         /// 选择文件
+         /// </summary>
         public const string SelectFileText = nameof(SelectFileText);
     }
 

@@ -16,7 +16,7 @@
     <sys:String x:Key="NameNotExceedMessage">名称不可以超过 {0} 位长度</sys:String>
     <sys:String x:Key="NameExistMessage">名称已存在</sys:String>
     <sys:String x:Key="DeviceConfigParseFailureMessage">设备配置文件解析失败, {0}</sys:String>
-    <sys:String x:Key="MustBeInRangMessage">值必须介于 {0}</sys:String>
+    <sys:String x:Key="MustBeInRangeMessage">值必须介于 {0}</sys:String>
     <sys:String x:Key="ValidStringRuleMessage">仅支持英文字母、数字和下划线</sys:String>
     <sys:String x:Key="FileParseErrorMessage">文件 [ {0} ] 解析失败, 第 {1} 行 {2} 列</sys:String>
     <sys:String x:Key="FileLengthErrorMessage">文件 [ {0} ] 长度不正确, 预期长度为 {1} 字节</sys:String>
@@ -24,26 +24,24 @@
     <sys:String x:Key="AnalysisFrameErrorMessage">报文解析错误，{0}</sys:String>
     <sys:String x:Key="Crc32NotMatchMessage">CRC32不匹配，{0}</sys:String>
     <sys:String x:Key="FrameEndingNotMatchMessage">帧尾不匹配</sys:String>
-    <sys:String x:Key="PlugedMessage">老化板插入</sys:String>
-    <sys:String x:Key="UnplugedMessage">老化板卸下</sys:String>
+    <sys:String x:Key="PluggedMessage">老化板插入</sys:String>
+    <sys:String x:Key="UnpluggedMessage">老化板卸下</sys:String>
     <sys:String x:Key="PleaseSetMessage">请设置 [ {0} ]</sys:String>
-    <sys:String x:Key="AtleastOneStepMessage">至少需要配置一个步次</sys:String>
-    <sys:String x:Key="AtleastOneSubStepMessage">至少需要配置一个子步次</sys:String>
+    <sys:String x:Key="AtLeastOneStepMessage">至少需要配置一个步次</sys:String>
+    <sys:String x:Key="AtLeastOneSubStepMessage">至少需要配置一个子步次</sys:String>
     <sys:String x:Key="StateMessage">当前状态 [ {0} ]</sys:String>
     <sys:String x:Key="IcErrorMessage">器件配置错误, 请检查后重试! {0}</sys:String>
     <sys:String x:Key="SendIcDataMessage">发送器件数据 [ {0} ]</sys:String>
-
-    <!--烘箱相关-->
+    <sys:String x:Key="UnsupportedDataFileMessage">不支持该数据文件</sys:String>
 
     <sys:String x:Key="UpgradeSelectZoneMessage">请先勾选要升级的老化区</sys:String>
     <sys:String x:Key="UpgradeSelectFirmwareMessage">请先为要升级的板卡类型选择固件文件</sys:String>
     <sys:String x:Key="UpgradeFilePrefixMismatchMessage">固件文件名必须以 {0} 开头，请确认选择的是该类型固件</sys:String>
     <sys:String x:Key="DpsCheckScriptDpsNotFoundMessage">电源自检脚本: 找不到目标电源，编号{0}，位于{1}行</sys:String>
-    <sys:String x:Key="DpsCheckScriptParameterErrordMessage">电源自检脚本: 参数错误或数值超出范围，位于{0}行</sys:String>
-    <sys:String x:Key="DpsCheckIsNotPermiitedMessage">当前状态不允许运行电源自检</sys:String>
+    <sys:String x:Key="DpsCheckScriptParameterErrorMessage">电源自检脚本: 参数错误或数值超出范围，位于{0}行</sys:String>
+    <sys:String x:Key="DpsCheckIsNotPermittedMessage">当前状态不允许运行电源自检</sys:String>
     <sys:String x:Key="DpsCheckAskMessage" xml:space="preserve">检测到当前区已插老化板，运行电源自检可能会烧毁器件&#x000A;是否继续 ?</sys:String>
 
-    <!-- Runtime log messages -->
     <sys:String x:Key="ZoneDpsErrorMessage">电源错误:{0} -> [{1}]</sys:String>
     <sys:String x:Key="ZoneVIHErrorMessage">电源错误: VIH{0} -> [{1}]</sys:String>
     <sys:String x:Key="ZonePatternErrorMessage">向量错误: [{0}] 请检查第{1}步 第{2}组向量配置</sys:String>

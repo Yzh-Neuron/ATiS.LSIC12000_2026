@@ -7,7 +7,7 @@
         Pause,
         Continue,
         Stop,
-        CleareAlarm,
+        ClearAlarm,
         PatternConvert,
         SetTriggerChannel,
         ThermostatMonitor,

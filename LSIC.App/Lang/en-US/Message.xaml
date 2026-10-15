@@ -16,39 +16,37 @@
     <sys:String x:Key="NameNotExceedMessage">Name cannot exceed {0} characters</sys:String>
     <sys:String x:Key="NameExistMessage">Name already exists</sys:String>
     <sys:String x:Key="DeviceConfigParseFailureMessage">Config File Error: {0}</sys:String>
-    <sys:String x:Key="MustBeInRangMessage">The value must be between {0}</sys:String>
+    <sys:String x:Key="MustBeInRangeMessage">The value must be between {0}</sys:String> 
     <sys:String x:Key="ValidStringRuleMessage">Only letters, numbers and underscore</sys:String>
     <sys:String x:Key="FileParseErrorMessage">File [ {0} ] parse error; Line {1} Column {2}</sys:String>
     <sys:String x:Key="FileLengthErrorMessage">File [ {0} ] length error; Expected length {1} bytes</sys:String>
     <sys:String x:Key="AbmFileNotMatchMessage">ABM file [ {0} ] does not match. Please use the vector conversion tool in this application to generate the ABM file.</sys:String>
-    <sys:String x:Key="AnalysisFrameErrorMessage">Frame parsing error，{0}</sys:String>
-    <sys:String x:Key="Crc32NotMatchMessage">CRC32 not match，{0}</sys:String>
+    <sys:String x:Key="AnalysisFrameErrorMessage">Frame parsing error, {0}</sys:String>
+    <sys:String x:Key="Crc32NotMatchMessage">CRC32 not match, {0}</sys:String>
     <sys:String x:Key="FrameEndingNotMatchMessage">Frame ending not match</sys:String>
-    <sys:String x:Key="PlugedMessage">Burn-in Board Inserted</sys:String>
-    <sys:String x:Key="UnplugedMessage">Burn-in Board Removed</sys:String>
+    <sys:String x:Key="PluggedMessage">Burn-in Board Inserted</sys:String>
+    <sys:String x:Key="UnpluggedMessage">Burn-in Board Removed</sys:String>
     <sys:String x:Key="PleaseSetMessage">Please set the [ {0} ]</sys:String>
-    <sys:String x:Key="AtleastOneStepMessage">At least need one step</sys:String>
-    <sys:String x:Key="AtleastOneSubStepMessage">At least need one substep</sys:String>
+    <sys:String x:Key="AtLeastOneStepMessage">At least need one step</sys:String>
+    <sys:String x:Key="AtLeastOneSubStepMessage">At least need one substep</sys:String>
     <sys:String x:Key="StateMessage">Current state [ {0} ]</sys:String>
     <sys:String x:Key="IcErrorMessage">Ic error, please check and retry! {0}</sys:String>
     <sys:String x:Key="SendIcDataMessage">Send IC data [ {0} ]</sys:String>
-
-    <!--烘箱相关-->
+    <sys:String x:Key="UnsupportedDataFileMessage">Unsupported data file</sys:String>
 
     <sys:String x:Key="UpgradeSelectZoneMessage">Please select at least one zone to upgrade</sys:String>
     <sys:String x:Key="UpgradeSelectFirmwareMessage">Please choose firmware files for board types first</sys:String>
     <sys:String x:Key="UpgradeFilePrefixMismatchMessage">Firmware file name must start with {0}. Please select the correct firmware</sys:String>
-    <sys:String x:Key="DpsCheckScriptDpsNotFoundMessage">Dps script: Dps{0} not found, Line {1}</sys:String>
-    <sys:String x:Key="DpsCheckScriptParameterErrordMessage">Dps script: params error, Line {0}</sys:String>
-    <sys:String x:Key="DpsCheckIsNotPermiitedMessage">Zone busy !</sys:String>
-    <sys:String x:Key="DpsCheckAskMessage" xml:space="preserve">Burn-in board detected, running Dps check may damage the device&#x000A;Continue ?</sys:String>
+    <sys:String x:Key="DpsCheckScriptDpsNotFoundMessage">DPS script: DPS{0} not found, Line {1}</sys:String>
+    <sys:String x:Key="DpsCheckScriptParameterErrorMessage">DPS script: params error, Line {0}</sys:String>
+    <sys:String x:Key="DpsCheckIsNotPermittedMessage">Zone busy !</sys:String>
+    <sys:String x:Key="DpsCheckAskMessage" xml:space="preserve">Burn-in board detected, running DPS check may damage the device&#x000A;Continue ?</sys:String>
 
-    <!-- Runtime log messages -->
-    <sys:String x:Key="ZoneDpsErrorMessage">Dps error: {0} -> [{1}]</sys:String>
-    <sys:String x:Key="ZoneVIHErrorMessage">Dps error: VIH{0} -> [{1}]</sys:String>
+    <sys:String x:Key="ZoneDpsErrorMessage">DPS error: {0} -> [{1}]</sys:String>
+    <sys:String x:Key="ZoneVIHErrorMessage">DPS error: VIH{0} -> [{1}]</sys:String>
     <sys:String x:Key="ZonePatternErrorMessage">Pattern error: [{0}] please check step {1} vector step {2}</sys:String>
     <sys:String x:Key="ZoneDeviceErrorMessage">Device error: please contact FAE! Error code [{0}]</sys:String>
     <sys:String x:Key="StepRunInfoMessage">Step: [{0}]&#x0009;Vector step: [{1}]</sys:String>
-    <sys:String x:Key="RunDpsCheckScriptMessage">Run Dps diagnosis script: {0}</sys:String>
-    <sys:String x:Key="DpsCheckResultMessage" xml:space="preserve">Dps Diagnosis [{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})</sys:String>
+    <sys:String x:Key="RunDpsCheckScriptMessage">Run DPS diagnosis script: {0}</sys:String>
+    <sys:String x:Key="DpsCheckResultMessage" xml:space="preserve">DPS Diagnosis [{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})</sys:String>
 </ResourceDictionary>

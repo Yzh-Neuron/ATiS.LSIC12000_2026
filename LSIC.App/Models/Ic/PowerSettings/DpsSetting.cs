@@ -110,7 +110,7 @@
         {
             if (DpsInfo?.VolRange.TryGetValue(0, out Limit limit) == true && !limit.Contains(arg))
             {
-                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangMessage, limit.GetRangString(1000, "", 1000, "V")), [LangProvider.Instance.SetVoltageText]);
+                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangeMessage, limit.GetRangString(1000, "", 1000, "V")), [LangProvider.Instance.SetVoltageText]);
             }
 
             return ValidationResult.Success;
@@ -120,7 +120,7 @@
         {
             if (DpsInfo?.VolLimitRange.TryGetValue(0, out Limit limit) == true && !limit.Contains(arg))
             {
-                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangMessage, limit.GetRangString(1000, "", 1000, "V")), [LangProvider.Instance.VoltageFloorText]);
+                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangeMessage, limit.GetRangString(1000, "", 1000, "V")), [LangProvider.Instance.VoltageFloorText]);
             }
 
             return ValidationResult.Success;
@@ -130,7 +130,7 @@
         {
             if (DpsInfo?.VolLimitRange.TryGetValue(0, out Limit limit) == true && !limit.Contains(arg))
             {
-                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangMessage, limit.GetRangString(1000, "", 1000, "V")), [LangProvider.Instance.VoltageCeilingText]);
+                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangeMessage, limit.GetRangString(1000, "", 1000, "V")), [LangProvider.Instance.VoltageCeilingText]);
             }
 
             return ValidationResult.Success;
@@ -140,7 +140,7 @@
         {
             if (DpsInfo?.CurRange.TryGetValue(0, out Limit limit) == true && !limit.Contains(arg))
             {
-                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangMessage, limit.GetRangString(1000, "", 1000, "A")), [LangProvider.Instance.CurrentCeilingText]);
+                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangeMessage, limit.GetRangString(1000, "", 1000, "A")), [LangProvider.Instance.CurrentCeilingText]);
             }
             return ValidationResult.Success;
         }
@@ -149,7 +149,7 @@
         {
             if (DpsInfo?.RiseRange.TryGetValue(0, out Limit limit) == true && !limit.Contains(arg))
             {
-                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangMessage, limit.GetRangString(1000, "", 1000, "s")), [LangProvider.Instance.RaiseTimeText]);
+                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangeMessage, limit.GetRangString(1000, "", 1000, "s")), [LangProvider.Instance.RaiseTimeText]);
             }
             return ValidationResult.Success;
         }
@@ -158,7 +158,7 @@
         {
             if (DpsInfo?.DelayRange.TryGetValue(0, out Limit limit) == true && !limit.Contains(arg))
             {
-                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangMessage, limit.GetRangString(1000, "", 1000, "s")), [LangProvider.Instance.DelayText]);
+                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangeMessage, limit.GetRangString(1000, "", 1000, "s")), [LangProvider.Instance.DelayText]);
             }
             return ValidationResult.Success;
         }

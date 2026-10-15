@@ -35,7 +35,7 @@
                     {
                         break;
                     }
-                case WinMainMessage.CleareAlarm:
+                case WinMainMessage.ClearAlarm:
                     {
                         break;
                     }

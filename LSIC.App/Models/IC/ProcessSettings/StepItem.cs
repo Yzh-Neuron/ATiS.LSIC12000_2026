@@ -71,7 +71,7 @@
         {
             if (this is StepVector && value is not { Count: > 0 })
             {
-                return new ValidationResult(LangProvider.Instance.AtleastOneSubStepMessage, [string.Format(LangProvider.Instance.StepFormatText, Name)]);
+                return new ValidationResult(LangProvider.Instance.AtLeastOneSubStepMessage, [string.Format(LangProvider.Instance.StepFormatText, Name)]);
             }
 
             return ValidationResult.Success;

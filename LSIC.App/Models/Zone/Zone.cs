@@ -830,7 +830,7 @@ namespace LSIC.App.Models
                         {
                             byte value = data[index];
                             Pluged = (value & 0x3) == 0x3;
-                            Logger.LogInfo(Pluged ? LangProvider.Instance.PlugedMessage : LangProvider.Instance.UnplugedMessage);
+                            Logger.LogInfo(Pluged ? LangProvider.Instance.PluggedMessage : LangProvider.Instance.UnpluggedMessage);
                             break;
                         }
                     case ZoneFunctionCode.DpsState:

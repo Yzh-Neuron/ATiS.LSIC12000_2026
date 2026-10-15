@@ -48,7 +48,7 @@
             Device.Instance.SystemConfig.ThermostatInfo.TempRange.TryGetValue(0, out Limit limit);
             if (!limit.Contains(targetTemperature))
             {
-                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangMessage, limit.GetRangString(10, "", 10, "℃")), [LangProvider.Instance.ThermostatIndexText + Id]);
+                return new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangeMessage, limit.GetRangString(10, "", 10, "℃")), [LangProvider.Instance.ThermostatIndexText + Id]);
             }
             return ValidationResult.Success;
         }

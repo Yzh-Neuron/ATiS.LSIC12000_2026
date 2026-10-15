@@ -71,7 +71,7 @@
                 TimeUnit.Day => MaxDays,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            return timeValue > 0 && timeValue <= max ? ValidationResult.Success : new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangMessage, $"1 ~ {max} {Unit.GetString()}"));
+            return timeValue > 0 && timeValue <= max ? ValidationResult.Success : new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangeMessage, $"1 ~ {max} {Unit.GetString()}"));
 
         }
 

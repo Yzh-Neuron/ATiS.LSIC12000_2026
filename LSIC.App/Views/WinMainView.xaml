@@ -89,7 +89,7 @@
                                 wpf:IconHelper.Geometry="{StaticResource Geometry.TriggerSet}"
                                 wpf:IconHelper.Height="13"
                                 wpf:IconHelper.Width="13"
-                                Command="{Binding SetTriggerChanneCommand}"
+                                Command="{Binding SetTriggerChannelCommand}"
                                 ToolTip="{app:Lang {x:Static app:LangKey.TriggerSetText}}" />
                     </StackPanel>
                 </Grid>

@@ -2,19 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
+    <!--  品牌与通用  -->
     <sys:String x:Key="ConceptText">见微知著·科技赋能·创造非凡价值</sys:String>
-
-    <sys:String x:Key="ZoneText">区</sys:String>
-    <sys:String x:Key="ZoneFormatText">{0} 区</sys:String>
-    <sys:String x:Key="StateText">状态</sys:String>
-    <sys:String x:Key="TypeText">类型</sys:String>
-    <sys:String x:Key="SpecText">规格</sys:String>
-
-    <sys:String x:Key="HelpMenuText">帮助(_H)</sys:String>
-
     <sys:String x:Key="ConfirmText">确认</sys:String>
     <sys:String x:Key="CancelText">取消</sys:String>
-
     <sys:String x:Key="CreateNewText">新建</sys:String>
     <sys:String x:Key="RenameText">重命名</sys:String>
     <sys:String x:Key="SaveText">保存</sys:String>
@@ -26,9 +17,25 @@
     <sys:String x:Key="EditText">编辑</sys:String>
     <sys:String x:Key="NameText">名称</sys:String>
     <sys:String x:Key="AboutText">关于</sys:String>
-    <sys:String x:Key="LogText">日志</sys:String>
     <sys:String x:Key="AllSelectText">全选</sys:String>
+    <sys:String x:Key="HelpMenuText">帮助(_H)</sys:String>
+    <sys:String x:Key="RefreshText">刷新</sys:String>
 
+    <!--  老化区与工位  -->
+    <sys:String x:Key="ZoneText">区</sys:String>
+    <sys:String x:Key="ZoneFormatText">{0} 区</sys:String>
+    <sys:String x:Key="StateText">状态</sys:String>
+    <sys:String x:Key="TypeText">类型</sys:String>
+    <sys:String x:Key="SpecText">规格</sys:String>
+    <sys:String x:Key="DutText">工位</sys:String>
+    <sys:String x:Key="RowText">行</sys:String>
+    <sys:String x:Key="ColumnText">列</sys:String>
+    <sys:String x:Key="BelongChipSelectText">所属片选</sys:String>
+    <sys:String x:Key="UsedDpsText">使用的电源</sys:String>
+    <sys:String x:Key="LinkedDrText">关联的管脚</sys:String>
+    <sys:String x:Key="CSText">片选</sys:String>
+
+    <!--  主界面菜单  -->
     <sys:String x:Key="IcNameText">器件名称</sys:String>
     <sys:String x:Key="IcEditText">器件编辑</sys:String>
     <sys:String x:Key="CurrentIcText">当前器件</sys:String>
@@ -41,24 +48,23 @@
     <sys:String x:Key="EnterBurnViewText">进入老化界面</sys:String>
     <sys:String x:Key="ReSelectIcText">重置</sys:String>
     <sys:String x:Key="CloseAlarmText">关闭报警</sys:String>
-
-    <sys:String x:Key="TemperatureWithUnitText">温度(℃)</sys:String>
-    <sys:String x:Key="AlarmMessageText">报警信息</sys:String>
-    <sys:String x:Key="AlarmWindowText">报警窗口</sys:String>
-    <sys:String x:Key="CloseOvenAlarmText">关闭烘箱报警</sys:String>
-    <sys:String x:Key="OneClickCoolText">一键降温</sys:String>
     <sys:String x:Key="IcLibraryText">器件库</sys:String>
     <sys:String x:Key="RunStrategyText">运行策略</sys:String>
     <sys:String x:Key="RunModeText">运行模式</sys:String>
     <sys:String x:Key="LoopStrategyText">循环策略</sys:String>
     <sys:String x:Key="RunInTheLoopText">循环运行中</sys:String>
-    <sys:String x:Key="LogIntervalText">数据记录间隔</sys:String>
-    <sys:String x:Key="ErrorLogIntervalText">报错记录间隔</sys:String>
-    <sys:String x:Key="LotText">批次号</sys:String>
-    <sys:String x:Key="OperatorText">操作员</sys:String>
-    <sys:String x:Key="LoadModeText">载入模式</sys:String>
-    <sys:String x:Key="ForceStepLoadText">强制单步载入</sys:String>
 
+    <!--  烘箱与温控报警  -->
+    <sys:String x:Key="TemperatureWithUnitText">温度(℃)</sys:String>
+    <sys:String x:Key="AlarmMessageText">报警信息</sys:String>
+    <sys:String x:Key="AlarmWindowText">报警窗口</sys:String>
+    <sys:String x:Key="CloseOvenAlarmText">关闭烘箱报警</sys:String>
+    <sys:String x:Key="OneClickCoolText">一键降温</sys:String>
+    <sys:String x:Key="ThermostatIndexText">温控索引</sys:String>
+    <sys:String x:Key="ThermostatMonitorText">独立温控监视</sys:String>
+    <sys:String x:Key="ThermostatEnableText">温控使能</sys:String>
+
+    <!--  Dps 电源参数  -->
     <sys:String x:Key="DpsText">电源</sys:String>
     <sys:String x:Key="SetVoltageText">设置电压</sys:String>
     <sys:String x:Key="SetVoltageWithUnitText">设置电压(V)</sys:String>
@@ -75,33 +81,55 @@
     <sys:String x:Key="RaiseTimeWithUnitText">上升时间(ms)</sys:String>
     <sys:String x:Key="DelayText">延时时间</sys:String>
     <sys:String x:Key="DelayWithUnitText">延时时间(ms)</sys:String>
+    <sys:String x:Key="DpsSettingText">电源设置</sys:String>
+    <sys:String x:Key="DpsPlanText">电源方案</sys:String>
+    <sys:String x:Key="DpsEditText">电源编辑</sys:String>
 
+    <!--  器件流程配置  -->
+    <sys:String x:Key="BaseInfoText">基础信息</sys:String>
+    <sys:String x:Key="BaseSettingText">基础设置</sys:String>
+    <sys:String x:Key="ProcessSettingText">流程设置</sys:String>
+    <sys:String x:Key="StepText">步次</sys:String>
+    <sys:String x:Key="StepFormatText">步次[{0}]</sys:String>
+    <sys:String x:Key="RunTimeText">运行时间</sys:String>
+    <sys:String x:Key="RunTimesText">运行次数</sys:String>
+    <sys:String x:Key="LoopModeText">循环模式</sys:String>
+    <sys:String x:Key="LoopTimeText">循环时间</sys:String>
+    <sys:String x:Key="LoopTimesText">循环次数</sys:String>
+    <sys:String x:Key="VectorSettingText">向量设置</sys:String>
+    <sys:String x:Key="PatternFileText">向量文件</sys:String>
+    <sys:String x:Key="RegisterFileText">寄存器文件</sys:String>
+    <sys:String x:Key="IcFileText">器件文件</sys:String>
+    <sys:String x:Key="PatternTimeoutText">向量超时</sys:String>
+    <sys:String x:Key="CurrentPatternText">当前向量</sys:String>
+    <sys:String x:Key="CurrentPatternLeftTimeText">当前向量剩余时间</sys:String>
+    <sys:String x:Key="CurrentPatternCostTimeText">当前向量运行时间</sys:String>
+    <sys:String x:Key="CurrentPatternSetTimeText">当前向量设定时间</sys:String>
+    <sys:String x:Key="CurrentStepText">当前步次</sys:String>
+    <sys:String x:Key="CurrentRegistersText">当前寄存器</sys:String>
+    <sys:String x:Key="CurrentDpsPlanText">当前电源方案</sys:String>
+    <sys:String x:Key="TotalTimeBeforeDpsUpText">上电后总运行时间</sys:String>
+    <sys:String x:Key="StartTimeText">开始时间</sys:String>
     <sys:String x:Key="QuantityText">数量</sys:String>
     <sys:String x:Key="TimeText">时间</sys:String>
     <sys:String x:Key="UpdateTimeText">修改时间</sys:String>
     <sys:String x:Key="TimesText">次</sys:String>
-    <sys:String x:Key="PatternFileText">向量文件</sys:String>
-    <sys:String x:Key="RegisterFileText">寄存器文件</sys:String>
-    <sys:String x:Key="PatternTimeoutText">向量超时</sys:String>
-    <sys:String x:Key="IcFileText">器件文件</sys:String>
-    <sys:String x:Key="StartTimeText">开始时间</sys:String>
-    <sys:String x:Key="TotalTimeBeforeDpsUpText">上电后总运行时间</sys:String>
-    <sys:String x:Key="CurrentPatternLeftTimeText">当前向量剩余时间</sys:String>
-    <sys:String x:Key="CurrentPatternCostTimeText">当前向量运行时间</sys:String>
-    <sys:String x:Key="CurrentPatternSetTimeText">当前向量设定时间</sys:String>
-    <sys:String x:Key="CurrentPatternText">当前向量</sys:String>
-    <sys:String x:Key="CurrentRegistersText">当前寄存器</sys:String>
-    <sys:String x:Key="CurrentStepText">当前步次</sys:String>
-    <sys:String x:Key="CurrentDpsPlanText">当前电源方案</sys:String>
+    <sys:String x:Key="LotText">批次号</sys:String>
+    <sys:String x:Key="OperatorText">操作员</sys:String>
+    <sys:String x:Key="LoadModeText">载入模式</sys:String>
+    <sys:String x:Key="ForceStepLoadText">强制单步载入</sys:String>
+    <sys:String x:Key="UnitText">单位</sys:String>
+    <sys:String x:Key="DutConfigFileText">工位配置文件</sys:String>
 
-    <sys:String x:Key="DutText">工位</sys:String>
-    <sys:String x:Key="RowText">行</sys:String>
-    <sys:String x:Key="ColumnText">列</sys:String>
-    <sys:String x:Key="BelongChipSelectText">所属片选</sys:String>
-    <sys:String x:Key="UsedDpsText">使用的电源</sys:String>
-    <sys:String x:Key="LinkedDrText">关联的管脚</sys:String>
-
-    <sys:String x:Key="ExportAsCsvFileText">导出为CSV文件</sys:String>
+    <!--  日志记录  -->
+    <sys:String x:Key="LogText">日志</sys:String>
+    <sys:String x:Key="DataLogText">数据日志</sys:String>
+    <sys:String x:Key="LogIntervalText">数据记录间隔</sys:String>
+    <sys:String x:Key="ErrorLogIntervalText">报错记录间隔</sys:String>
+    <sys:String x:Key="ClearLogsText">清空记录</sys:String>
+    <sys:String x:Key="FrameFilterText">帧过滤器</sys:String>
+    <sys:String x:Key="ViewListText">查看列表</sys:String>
+    <sys:String x:Key="CsvFileText">CSV文件</sys:String>
     <sys:String x:Key="DataFileText">数据文件</sys:String>
     <sys:String x:Key="DateFilterText">日期筛选</sys:String>
     <sys:String x:Key="FilterText">筛选</sys:String>
@@ -109,68 +137,30 @@
     <sys:String x:Key="PreviousPageText">上一页</sys:String>
     <sys:String x:Key="NextPageText">下一页</sys:String>
     <sys:String x:Key="LastPageText">尾页</sys:String>
-    <sys:String x:Key="RefreshText">刷新</sys:String>
+    <sys:String x:Key="ExportAsCsvFileText">导出为CSV文件</sys:String>
+    <sys:String x:Key="BatchExportText">批量导出</sys:String>
+    <sys:String x:Key="ErrorLineText">错误行</sys:String>
 
-    <!--  固件信息相关  -->
+    <!--  固件与设备信息  -->
     <sys:String x:Key="BoardIndexText">板卡索引</sys:String>
     <sys:String x:Key="FirmwareVersionText">固件版本</sys:String>
     <sys:String x:Key="HardwareVersionText">硬件版本</sys:String>
-
-    <sys:String x:Key="ResultText">结果</sys:String>
-
     <sys:String x:Key="DeviceInfoText">设备信息</sys:String>
     <sys:String x:Key="GetVersionInfoText">查询版本信息</sys:String>
     <sys:String x:Key="ExportVersionInfoText">导出版本信息 (所有区)</sys:String>
     <sys:String x:Key="BoardTypeText">板卡类型</sys:String>
-
     <sys:String x:Key="FirmwareText">固件</sys:String>
     <sys:String x:Key="FirmwareUpgradeText">固件升级</sys:String>
     <sys:String x:Key="UpgradeText">升级</sys:String>
     <sys:String x:Key="FirmwareUpgradePromptText">注意：升级过程中请勿关闭上位机或设备电源！</sys:String>
+    <sys:String x:Key="ResultText">结果</sys:String>
 
-    <sys:String x:Key="RunScriptText">运行脚本</sys:String>
-
-    <sys:String x:Key="BatchExportText">批量导出</sys:String>
-
-    <sys:String x:Key="UnitText">单位</sys:String>
-    <sys:String x:Key="BaseInfoText">基础信息</sys:String>
-    <sys:String x:Key="DutConfigFileText">工位配置文件</sys:String>
-    <sys:String x:Key="DpsSettingText">电源设置</sys:String>
-    <sys:String x:Key="StepText">步次</sys:String>
-    <sys:String x:Key="RunTimeText">运行时间</sys:String>
-    <sys:String x:Key="RunTimesText">运行次数</sys:String>
-    <sys:String x:Key="LoopModeText">循环模式</sys:String>
-    <sys:String x:Key="LoopTimeText">循环时间</sys:String>
-    <sys:String x:Key="LoopTimesText">循环次数</sys:String>
-    <sys:String x:Key="VectorSettingText">向量设置</sys:String>
-
-    <sys:String x:Key="BaseSettingText">基础设置</sys:String>
-    <sys:String x:Key="ProcessSettingText">流程设置</sys:String>
-    <sys:String x:Key="DpsPlanText">电源方案</sys:String>
-
-    <sys:String x:Key="StepFormatText">步次[{0}]</sys:String>
-
-    <sys:String x:Key="ClearLogsText">清空记录</sys:String>
-    <sys:String x:Key="FrameFilterText">帧过滤器</sys:String>
-
-    <!--  日志数据查看  -->
-    <sys:String x:Key="CsvFileText">CSV文件</sys:String>
-
-    <sys:String x:Key="ThermostatIndexText">温控索引</sys:String>
-    <sys:String x:Key="ThermostatMonitorText">独立温控监视</sys:String>
-    <sys:String x:Key="ThermostatEnableText">温控使能</sys:String>
-
-    <sys:String x:Key="CSText">片选</sys:String>
-    <sys:String x:Key="ErrorLineText">错误行</sys:String>
-
-    <sys:String x:Key="ViewListText">查看列表</sys:String>
-    <sys:String x:Key="DataLogText">数据日志</sys:String>
-
-    <sys:String x:Key="DpsEditText">电源编辑</sys:String>
+    <!--  自检  -->
     <sys:String x:Key="DeviceCheckText">设备自检</sys:String>
-    <sys:String x:Key="DpsCheckText">电源自检</sys:String>
     <sys:String x:Key="StartDeviceCheckText">开始自检</sys:String>
     <sys:String x:Key="DeviceCheckResultText">自检结果</sys:String>
+    <sys:String x:Key="DpsCheckText">电源自检</sys:String>
     <sys:String x:Key="DpsCheckScriptText">电源自检脚本</sys:String>
+    <sys:String x:Key="RunScriptText">运行脚本</sys:String>
     <sys:String x:Key="SelectFileText">选择文件</sys:String>
 </ResourceDictionary>

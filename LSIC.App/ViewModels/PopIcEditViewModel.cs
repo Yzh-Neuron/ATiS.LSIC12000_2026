@@ -167,7 +167,7 @@
 
             if (ic.Process.StepItems.Count == 0)
             {
-                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [LangProvider.Instance.AtleastOneStepMessage, MessageType.Error]));
+                MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [LangProvider.Instance.AtLeastOneStepMessage, MessageType.Error]));
                 return;
             }
 

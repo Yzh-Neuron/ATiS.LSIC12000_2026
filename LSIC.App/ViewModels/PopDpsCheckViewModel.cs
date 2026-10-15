@@ -72,14 +72,14 @@
                 errors = setting.GetAllExistingErrorsRecursive();
                 if (errors.Count > 0)
                 {
-                    MessageBus.Default.Send(MsgArgs.From(PopDpsCheckMessage.Growl, [string.Format(LangProvider.Instance.DpsCheckScriptParameterErrordMessage, command.Line), MessageType.Error]));
+                    MessageBus.Default.Send(MsgArgs.From(PopDpsCheckMessage.Growl, [string.Format(LangProvider.Instance.DpsCheckScriptParameterErrorMessage, command.Line), MessageType.Error]));
                     return;
                 }
             }
 
             if (!SelectedZone.State.CanCheck())
             {
-                MessageBus.Default.Send(MsgArgs.From(PopDpsCheckMessage.Growl, [LangProvider.Instance.DpsCheckIsNotPermiitedMessage, MessageType.Error]));
+                MessageBus.Default.Send(MsgArgs.From(PopDpsCheckMessage.Growl, [LangProvider.Instance.DpsCheckIsNotPermittedMessage, MessageType.Error]));
                 return;
             }
 

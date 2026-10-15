@@ -238,7 +238,7 @@
         {
             if (value is not { Count: > 2 })
             {
-                return new ValidationResult(LangProvider.Instance.AtleastOneStepMessage);
+                return new ValidationResult(LangProvider.Instance.AtLeastOneStepMessage);
             }
 
             return ValidationResult.Success;

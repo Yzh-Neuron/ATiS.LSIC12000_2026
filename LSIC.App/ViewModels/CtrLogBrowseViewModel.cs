@@ -178,6 +178,10 @@ namespace LSIC.App.ViewModels
                         TotalPage = (long)Math.Ceiling(_reader.LineCount * 1f / PageSize);
                         CurrentPage = 1;
                     }
+                    else
+                    {
+                        MessageBus.Default.Send(MsgArgs.From(CtrLogBrowseMessage.Growl, [LangProvider.Instance.UnsupportedDataFileMessage,MessageType.Error]));
+                    }
                 });
             }
         }
