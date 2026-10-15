@@ -32,11 +32,11 @@ namespace LSIC.App.Controls
         {
             base.OnApplyTemplate();
 
-            if (_prev != null)
+            if (_prev is not null)
             {
                 _prev.Click -= OnPrev;
             }
-            if (_next != null)
+            if (_next is not null)
             {
                 _next.Click -= OnNext;
             }
@@ -44,11 +44,11 @@ namespace LSIC.App.Controls
             _prev = GetTemplateChild("PART_PrevButton") as Button;
             _next = GetTemplateChild("PART_NextButton") as Button;
 
-            if (_prev != null)
+            if (_prev is not null)
             {
                 _prev.Click += OnPrev;
             }
-            if (_next != null)
+            if (_next is not null)
             {
                 _next.Click += OnNext;
             }
@@ -100,13 +100,13 @@ namespace LSIC.App.Controls
             int totalPages = Math.Max(1, (total + PageSize - 1) / PageSize);
             bool multi = totalPages > 1;
 
-            if (_prev != null)
+            if (_prev is not null)
             {
                 _prev.Visibility = multi ? Visibility.Visible : Visibility.Collapsed;
                 _prev.IsEnabled = _pageIndex > 0;
             }
 
-            if (_next != null)
+            if (_next is not null)
             {
                 _next.Visibility = multi ? Visibility.Visible : Visibility.Collapsed;
                 _next.IsEnabled = _pageIndex < totalPages - 1;

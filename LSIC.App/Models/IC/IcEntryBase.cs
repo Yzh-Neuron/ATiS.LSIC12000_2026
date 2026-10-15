@@ -52,14 +52,14 @@
         }
         public override void Load(Func<string, Ic> loader)
         {
-            if (Ic == null)
+            if (Ic is null)
             {
                 Attach(loader(Name));
             }
         }
         public override void Attach(Ic ic)
         {
-            if (Ic == null)
+            if (Ic is null)
             {
                 Ic = new DirtyObserver<Ic>(ic);
             }

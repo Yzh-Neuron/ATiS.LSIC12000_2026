@@ -6,7 +6,7 @@
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Func != null &&
+            return Func is not null &&
                    Func.Invoke((ZoneState)value);
         }
 

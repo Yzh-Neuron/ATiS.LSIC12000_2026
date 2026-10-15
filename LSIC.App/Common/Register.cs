@@ -94,7 +94,7 @@
             index += 4;
 
             long[] boards = new long[2];
-            if (channels != null)
+            if (channels is not null)
             {
                 foreach (byte channel in channels)
                 {

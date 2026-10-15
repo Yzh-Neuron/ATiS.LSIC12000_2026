@@ -4,10 +4,10 @@
     {
         public static void InvokeOnUI<T>(this object obj, Action<T> action, T arg)
         {
-            if (action != null)
+            if (action is not null)
             {
                 var dispatcher = Application.Current?.Dispatcher;
-                if (dispatcher != null)
+                if (dispatcher is not null)
                 {
                     if (dispatcher.CheckAccess())
                     {
@@ -22,10 +22,10 @@
         }
         public static void InvokeOnUI(this object obj, Action action)
         {
-            if (action != null)
+            if (action is not null)
             {
                 var dispatcher = Application.Current?.Dispatcher;
-                if (dispatcher != null)
+                if (dispatcher is not null)
                 {
                     if (dispatcher.CheckAccess())
                     {

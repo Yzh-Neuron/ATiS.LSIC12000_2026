@@ -15,7 +15,7 @@
         public ICommand ContinueCommand { get; private set; }
         public ICommand StopCommand { get; private set; }
         public ICommand PatternConvertCommand { get; private set; }
-        public ICommand SetTriggerChanneCommand { get; private set; }
+        public ICommand SetTriggerChannelCommand { get; private set; }
         public ICommand ThermostatMonitorCommand { get; private set; }
         public WinMainViewModel()
         {
@@ -25,7 +25,7 @@
             ContinueCommand = new AsyncRelayCommand(Continue);
             StopCommand = new AsyncRelayCommand(Stop);
             PatternConvertCommand = new AsyncRelayCommand(PatternConvert);
-            SetTriggerChanneCommand = new AsyncRelayCommand(SetTriggerChanne);
+            SetTriggerChannelCommand = new AsyncRelayCommand(SetTriggerChannel);
             ThermostatMonitorCommand = new AsyncRelayCommand(ThermostatMonitor);
             _timer = new Timer(Tick, null, 0, 1000);
         }
@@ -58,9 +58,9 @@
         {
             MessageBus.Default.Send(MsgArgs.From(WinMainMessage.PatternConvert, []));
         }
-        private async Task SetTriggerChanne()
+        private async Task SetTriggerChannel()
         {
-            MessageBus.Default.Send(MsgArgs.From(WinMainMessage.SetTriggerChanne, []));
+            MessageBus.Default.Send(MsgArgs.From(WinMainMessage.SetTriggerChannel, []));
         }
         private async Task ThermostatMonitor()
         {

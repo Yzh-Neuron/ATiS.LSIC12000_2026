@@ -43,7 +43,7 @@
                     {
                         break;
                     }
-                case WinMainMessage.SetTriggerChanne:
+                case WinMainMessage.SetTriggerChannel:
                     {
                         var rst = MessagePop.Show("文本", MessageType.Question);
                         Debug.WriteLine(rst);

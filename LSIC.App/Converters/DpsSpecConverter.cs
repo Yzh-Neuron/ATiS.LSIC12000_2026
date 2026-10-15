@@ -8,7 +8,7 @@
             {
                 var dpsInfo = Device.Instance.SystemConfig.DpsInfos.FirstOrDefault(t => t.Id == dps.Id);
 
-                if (dpsInfo != null)
+                if (dpsInfo is not null)
                 {
                     string vol = FormatDecimalWithConditionalRounding(new decimal(dpsInfo.VolRange.GetCeilingValue() * 1d / 1000), 2);
                     string cur = FormatDecimalWithConditionalRounding(new decimal(dpsInfo.CurRange.GetCeilingValue() * 1d / 1000), 2);

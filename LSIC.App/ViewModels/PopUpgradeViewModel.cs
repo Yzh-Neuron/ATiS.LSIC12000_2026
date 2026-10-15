@@ -36,7 +36,7 @@
         }
         private void ClearUpgradeFile(UpgradeItem item)
         {
-            if (item != null)
+            if (item is not null)
             {
                 item.File = string.Empty;
             }

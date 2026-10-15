@@ -41,7 +41,7 @@
             base.OnClosed(e);
             MessageBus.Default.UnregisterAll(this);
 
-            if (Application.Current.MainWindow == null)
+            if (Application.Current.MainWindow is null)
             {
                 Application.Current.Shutdown();
             }

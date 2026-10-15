@@ -33,7 +33,7 @@
             {
                 bool success = History.TryDequeue(out _);
                 if (success &&
-                    OnRemoveFlow != null)
+                    OnRemoveFlow is not null)
                 {
                     OnRemoveFlow.Invoke();
                 }

@@ -13,7 +13,7 @@
         /// <param name="values"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        public static byte[] IntegersToMask(this int[] values, int length)
+        public static byte[] IntegersToMask(this IEnumerable<int> values, int length)
         {
             byte[] mask = new byte[length];
             foreach (int value in values)

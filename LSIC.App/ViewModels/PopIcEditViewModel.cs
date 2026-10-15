@@ -132,7 +132,7 @@
         }
         private bool CanDeleteIc()
         {
-            return SelectedIc?.Target != null;
+            return SelectedIc?.Target is not null;
         }
         private void DeleteIc()
         {
@@ -288,7 +288,7 @@
         #region DPS相关命令
         private bool CanCreateDpsPlan()
         {
-            return SelectedIc?.Target != null;
+            return SelectedIc?.Target is not null;
         }
         private void CreateDpsPlan()
         {
@@ -303,7 +303,7 @@
         }
         private bool CanDeleteDpsPlan()
         {
-            return SelectedIc?.Target != null && SelectedDpsPlan != null;
+            return SelectedIc?.Target is not null && SelectedDpsPlan is not null;
         }
         private void DeleteDpsPlan()
         {
@@ -323,13 +323,13 @@
 
         private bool CanCreateDpsSetting()
         {
-            return SelectedDpsPlan != null;
+            return SelectedDpsPlan is not null;
         }
         private void CreateDpsSetting()
         {
             IEnumerable<DpsInfo> optional = Device.Instance.SystemConfig.DpsInfos.Except(SelectedDpsPlan.DpssSettings.Select(i => i.DpsInfo));
             DpsInfo first = optional.FirstOrDefault();
-            if (first != null)
+            if (first is not null)
             {
                 var create = new DpsSetting(first);
                 var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.CreateDpsSetting, [optional, create])).First();
@@ -342,7 +342,7 @@
         }
         private bool CanDeleteDpsSetting()
         {
-            return SelectedDpsPlan != null && SelectedDpsSetting != null;
+            return SelectedDpsPlan is not null && SelectedDpsSetting is not null;
         }
         private void DeleteDpsSetting()
         {
@@ -352,7 +352,7 @@
         }
         private void EditDpsSetting(DpsSetting dpsSetting)
         {
-            if (dpsSetting != null)
+            if (dpsSetting is not null)
             {
                 var clone = (DpsSetting)dpsSetting.Clone();
 
@@ -372,7 +372,7 @@
         #region 流程相关命令
         private bool CanCreateStepItem()
         {
-            return SelectedIc?.Target != null;
+            return SelectedIc?.Target is not null;
         }
         private void CreateStepItem()
         {
@@ -388,7 +388,7 @@
         private bool CanDeleteStepItem(IList obj)
         {
             var stepItems = obj?.Cast<StepItem>();
-            if (SelectedIc?.Target != null
+            if (SelectedIc?.Target is not null
                 && stepItems?.Count() > 0
                 && stepItems.All(i => !i.IsFixed))
             {
@@ -404,7 +404,7 @@
         private bool CanMakeLoop(IList obj)
         {
             var stepItems = obj?.Cast<StepItem>();
-            if (SelectedIc?.Target != null
+            if (SelectedIc?.Target is not null
                 && stepItems?.Count() > 1
                 && stepItems.All(i => !i.IsFixed))
             {
@@ -430,7 +430,7 @@
         }
         private bool CanDropStep(DragDropArgs args)
         {
-            return args != null && SelectedIc?.Target?.Process?.CanMove(args.FromIndex, args.ToIndex) == true;
+            return args is not null && SelectedIc?.Target?.Process?.CanMove(args.FromIndex, args.ToIndex) == true;
         }
         private void DropStep(DragDropArgs args)
         {
@@ -438,7 +438,7 @@
         }
         private bool CanRemoveLoop(Loop obj)
         {
-            return SelectedIc?.Target != null;
+            return SelectedIc?.Target is not null;
         }
         private void RemoveLoop(Loop loop)
         {
@@ -447,7 +447,7 @@
 
         private bool CanDeleteVector()
         {
-            return SelectedVector != null && SelectedStepItem != null;
+            return SelectedVector is not null && SelectedStepItem is not null;
         }
         private void DeleteVector()
         {
@@ -457,7 +457,7 @@
         }
         private bool CanCreateVector()
         {
-            if (SelectedStepItem == null)
+            if (SelectedStepItem is null)
             {
                 return false;
             }
@@ -481,7 +481,7 @@
         }
         private void EditVector(Vector vector)
         {
-            if (vector != null)
+            if (vector is not null)
             {
                 var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.EditVector, [(Vector)vector.Clone()])).First();
                 if (msgResult.Result is Vector clone)

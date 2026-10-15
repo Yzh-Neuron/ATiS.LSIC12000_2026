@@ -53,7 +53,7 @@ namespace LSIC.App
         public BurnInfo GetBurnInfo(int zoneId)
         {
             BurnInfoItem item = _db.CopyNew().Queryable<BurnInfoItem>().First(x => x.ZoneId == zoneId);
-            if (item == null)
+            if (item is null)
             {
                 return null;
             }

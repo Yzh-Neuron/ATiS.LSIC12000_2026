@@ -6,7 +6,7 @@
         {
             double num = System.Convert.ToDouble(value);
             string[] array = (parameter?.ToString())?.Split('|');
-            if (array != null && array.Length < 2)
+            if (array is not null && array.Length < 2)
             {
                 return 0;
             }

@@ -22,9 +22,9 @@ namespace LSIC.App.Models
             DpsPlanIndex = dpsPlanIndex;
             Strategy = strategy;
             Vectors = vectors;
-            LoopEnable = loop != null;
+            LoopEnable = loop is not null;
             LoopTargetIndex = loopTargetIndex;
-            LoopStrategy = loop != null ? (ExecuteStrategy)loop.ExecuteStrategy.Clone() : null;
+            LoopStrategy = loop is not null ? (ExecuteStrategy)loop.ExecuteStrategy.Clone() : null;
         }
     }
 }

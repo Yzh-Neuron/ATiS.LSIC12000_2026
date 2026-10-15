@@ -144,7 +144,7 @@
             value = null;
             foreach (KeyValuePair<Limit, Limit> window in Windows)
             {
-                if (window.Key == null || window.Key.Contains(key))
+                if (window.Key is null || window.Key.Contains(key))
                 {
                     value = window.Value;
                     return true;

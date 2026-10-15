@@ -11,7 +11,7 @@
 
         public static void SetOwner(Window owner)
         {
-            if (AlarmWindow != null)
+            if (AlarmWindow is not null)
             {
                 AlarmWindow.Owner = owner;
             }
@@ -38,7 +38,7 @@
 
         public static void Dispose()
         {
-            if (AlarmWindow != null)
+            if (AlarmWindow is not null)
             {
                 AlarmWindow.IsExiting = true;
                 AlarmWindow.Close();

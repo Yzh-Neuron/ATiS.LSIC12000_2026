@@ -38,7 +38,7 @@
         }
         private bool CanRun()
         {
-            return SelectedZone != null && !string.IsNullOrWhiteSpace(SelectedScript) && SelectedZone.State.CanCheck();
+            return SelectedZone is not null && !string.IsNullOrWhiteSpace(SelectedScript) && SelectedZone.State.CanCheck();
         }
         private async Task RunAsync()
         {
@@ -53,7 +53,7 @@
             foreach (DpsCommand command in commands)
             {
                 DpsInfo info = Device.Instance.SystemConfig.DpsInfos.FirstOrDefault(i => i.Id == command.Id);
-                if (info == null)
+                if (info is null)
                 {
                     MessageBus.Default.Send(MsgArgs.From(PopDpsCheckMessage.Growl, [string.Format(LangProvider.Instance.DpsCheckScriptDpsNotFoundMessage, command.Id, command.Line), MessageType.Error]));
                     return;

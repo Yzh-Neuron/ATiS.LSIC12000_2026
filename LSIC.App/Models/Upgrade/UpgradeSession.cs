@@ -24,7 +24,7 @@ namespace LSIC.App.Models
         public void SetReport(byte typeCode, byte id, byte progress, UpgradeState state)
         {
             var report = Reports.FirstOrDefault(r => r.TypeCode == typeCode && r.Id == id);
-            if (report == null)
+            if (report is null)
             {
                 report = new UpgradeReport(typeCode, id);
                 Application.Current.Dispatcher.Invoke(() => Reports.Add(report));
@@ -40,14 +40,14 @@ namespace LSIC.App.Models
             }
             Refresh();
             var failed = Reports.FirstOrDefault(r => r.State != UpgradeState.Finish);
-            State = failed == null ? UpgradeState.Finish : failed.State;
-            Progress = failed == null ? 100 : Progress;
+            State = failed is null ? UpgradeState.Finish : failed.State;
+            Progress = failed is null ? 100 : Progress;
         }
         private void Refresh()
         {
             Progress = Math.Min(100, Reports.Sum(r => r.Progress) / _expectedCount);
             var failed = Reports.FirstOrDefault(r => r.State >= UpgradeState.SwitchBoardFail);
-            if (failed != null)
+            if (failed is not null)
             {
                 State = failed.State;
             }

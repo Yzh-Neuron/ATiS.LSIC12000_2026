@@ -68,7 +68,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanConfirm()
         {
-            return SelectedIc?.Name != null;
+            return SelectedIc?.Name is not null;
         }
 
         private void Confirm()

@@ -115,7 +115,7 @@
         /// </summary>
         public void RemoveLoop(Loop loop)
         {
-            if (loop != null && Loops.Remove(loop))
+            if (loop is not null && Loops.Remove(loop))
             {
                 Refresh();
 

@@ -4,7 +4,7 @@
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values == null || values.Length < 1)
+            if (values is null || values.Length < 1)
             {
                 return string.Empty;
             }

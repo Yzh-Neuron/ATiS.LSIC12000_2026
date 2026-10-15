@@ -29,7 +29,7 @@ namespace LSIC.App
             foreach (T value in Enum.GetValues(typeof(T)))
             {
                 FrameFilterItem item = new FrameFilterItem(value);
-                if (defaultSelectedFunc != null)
+                if (defaultSelectedFunc is not null)
                 {
                     item.IsSelected = defaultSelectedFunc(value);
                 }
@@ -43,7 +43,7 @@ namespace LSIC.App
         /// </summary>
         public static bool Filter(FlowLogger logger, Enum functionCode)
         {
-            if (!_loggerMaps.TryGetValue(logger, out Type enumType) || enumType == null)
+            if (!_loggerMaps.TryGetValue(logger, out Type enumType) || enumType is null)
             {
                 return false;
             }
@@ -59,7 +59,7 @@ namespace LSIC.App
         /// </summary>
         public static List<FrameFilterItem> GetFilterItems(FlowLogger logger)
         {
-            if (!_loggerMaps.TryGetValue(logger, out Type enumType) || enumType == null)
+            if (!_loggerMaps.TryGetValue(logger, out Type enumType) || enumType is null)
             {
                 return new List<FrameFilterItem>();
             }

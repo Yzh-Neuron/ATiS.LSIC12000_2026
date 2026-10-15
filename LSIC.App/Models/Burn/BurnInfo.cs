@@ -124,7 +124,7 @@
 
             ForceStepLoad = ic.ForceStepLoad;
 
-            if (ic.BurnInBoardSetting == null)
+            if (ic.BurnInBoardSetting is null)
             {
                 throw new InvalidOperationException("老化板配置未解析，无法进入老化界面");
             }
@@ -275,7 +275,7 @@
             // 循环目标（End 位置），非循环步为 0xFF
             Loop loop = loopInfo.Loop;
             byte loopTarget = 0xFF;
-            if (loop != null)
+            if (loop is not null)
             {
                 loopTarget = (byte)loopInfo.End;
             }
@@ -288,7 +288,7 @@
         /// </summary>
         private BurnStepPower MapPowerStep(StepPower stepPower, Dictionary<string, byte> patternMap, Dictionary<string, byte> registerMap, BurnDpsPlan[] dpsPlans)
         {
-            if (stepPower.DpsPlan != null)
+            if (stepPower.DpsPlan is not null)
             {
                 byte dpsPlanIndex = ResolveDpsPlanIndex(stepPower.DpsPlan, dpsPlans);
 
@@ -350,7 +350,7 @@
         /// </summary>
         public void Dispose()
         {
-            if (Logger == null)
+            if (Logger is null)
             {
                 return;
             }

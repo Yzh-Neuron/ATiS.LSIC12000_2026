@@ -33,7 +33,7 @@ namespace LSIC.App.Attachs
             element.Loaded -= OnLoaded;
             element.Unloaded -= OnUnloaded;
 
-            if (e.NewValue == null)
+            if (e.NewValue is null)
             {
                 element.SetValue(ErrorsPropertyKey, string.Empty);
                 element.SetValue(HasErrorsPropertyKey, ValueBoxes.FalseBox);
@@ -52,7 +52,7 @@ namespace LSIC.App.Attachs
         {
             var element = (FrameworkElement)sender;
             object source = GetSource(element);
-            if (source != null)
+            if (source is not null)
             {
                 Subscribe(element, source);
             }
@@ -91,7 +91,7 @@ namespace LSIC.App.Attachs
         }
         private static void Traverse(object obj, Action<INotifyDataErrorInfo> action)
         {
-            if (obj == null)
+            if (obj is null)
             {
                 return;
             }

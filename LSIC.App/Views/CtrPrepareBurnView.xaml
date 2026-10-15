@@ -136,7 +136,7 @@
                 Margin="5,0,0,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                wpf:IconHelper.Geometry="{StaticResource RunIcon}"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.Burning}"
                 wpf:IconHelper.Width="16"
                 Command="{Binding ConfirmCommand}"
                 Content="{app:Lang {x:Static app:LangKey.EnterBurnViewText}}"

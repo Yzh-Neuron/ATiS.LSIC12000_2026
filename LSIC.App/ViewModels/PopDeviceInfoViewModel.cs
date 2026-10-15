@@ -20,7 +20,7 @@
         }
         private async Task QueryVersionAsync()
         {
-            if (SelectedZone != null)
+            if (SelectedZone is not null)
             {
                 await SelectedZone.QueryVersionAsync();
             }

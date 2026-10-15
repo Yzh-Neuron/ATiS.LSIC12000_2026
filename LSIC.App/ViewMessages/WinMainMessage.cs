@@ -9,7 +9,7 @@
         Stop,
         CleareAlarm,
         PatternConvert,
-        SetTriggerChanne,
+        SetTriggerChannel,
         ThermostatMonitor,
         Growl,
         DutMask,

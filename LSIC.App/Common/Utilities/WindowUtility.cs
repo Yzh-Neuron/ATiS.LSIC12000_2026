@@ -21,13 +21,13 @@
         {
             var window = Application.Current.Windows.OfType<T>().FirstOrDefault();
 
-            if (window != null && window.IsLoaded && window.Visibility != Visibility.Visible)
+            if (window is not null && window.IsLoaded && window.Visibility != Visibility.Visible)
             {
                 window.Close();
                 window = null;
             }
 
-            if (window != null)
+            if (window is not null)
             {
                 window.Activate();
                 if (window.WindowState == WindowState.Minimized)
@@ -39,7 +39,7 @@
 
             window = new T();
 
-            if (owner != null)
+            if (owner is not null)
             {
                 window.Owner = owner;
             }

@@ -77,7 +77,7 @@ namespace LSIC.App.Models
         }
         public void Startup()
         {
-            if (_client != null)
+            if (_client is not null)
             {
                 _client.StateChanged -= OnStateChanged;
                 _client.ReceivedData -= OnReceivedData;
@@ -122,7 +122,7 @@ namespace LSIC.App.Models
                 BurnInfo?.BurnInBoard?.Finished();
             }
 
-            if (state == ZoneState.Error && error.HasValue && data != null)
+            if (state == ZoneState.Error && error.HasValue && data is not null)
             {
                 int index = 0;
                 switch (error.Value)
@@ -137,7 +137,7 @@ namespace LSIC.App.Models
                                 case DpsType.DPS:
                                     {
                                         Dps dps = Dpss.FirstOrDefault(t => t.Id == id);
-                                        if (dps != null)
+                                        if (dps is not null)
                                         {
                                             string message = string.Format(LangProvider.Instance.ZoneDpsErrorMessage, dps.Name, dpsState.GetString());
                                             Logger.LogError(message);
@@ -184,7 +184,7 @@ namespace LSIC.App.Models
         public async ValueTask SendIcAsync()
         {
             BurnInfo info = BurnInfo;
-            if (info == null)
+            if (info is null)
             {
                 throw new InvalidOperationException("尚未进入老化，无法下发配置");
             }
@@ -586,7 +586,7 @@ namespace LSIC.App.Models
         {
             try
             {
-                if (BurnInfo == null)
+                if (BurnInfo is null)
                 {
                     return;
                 }
@@ -597,7 +597,7 @@ namespace LSIC.App.Models
                 }
 
                 string file = BurnInfo.PatternIndexByPath.FirstOrDefault(i => i.Value == index).Key;
-                if (file == null)
+                if (file is null)
                 {
                     return;
                 }
@@ -642,7 +642,7 @@ namespace LSIC.App.Models
         {
             try
             {
-                if (BurnInfo == null)
+                if (BurnInfo is null)
                 {
                     return;
                 }
@@ -653,7 +653,7 @@ namespace LSIC.App.Models
                 }
 
                 string file = BurnInfo.RegisterIndexByPath.FirstOrDefault(i => i.Value == index).Key;
-                if (file == null)
+                if (file is null)
                 {
                     return;
                 }
@@ -732,7 +732,7 @@ namespace LSIC.App.Models
             }
             try
             {
-                if (_buffer == null)
+                if (_buffer is null)
                 {
                     return;
                 }
@@ -807,7 +807,7 @@ namespace LSIC.App.Models
                             ZoneState state = (ZoneState)data[index++];
                             LoadMode mode = (LoadMode)data[index++];
 
-                            if (BurnInfo != null)
+                            if (BurnInfo is not null)
                             {
                                 BurnInfo.LoadMode = mode;
                             }
@@ -866,7 +866,7 @@ namespace LSIC.App.Models
                                 if (type == DpsType.VIH)
                                 {
                                     Vih vih = Vihs.FirstOrDefault(j => j.Id == id);
-                                    if (vih != null)
+                                    if (vih is not null)
                                     {
                                         vih.OutputVoltage = outputVol;
                                     }
@@ -894,8 +894,8 @@ namespace LSIC.App.Models
                         }
                     case ZoneFunctionCode.BurnState:
                         {
-                            if (BurnInfo == null ||
-                                BurnInfo.Ic == null)
+                            if (BurnInfo is null ||
+                                BurnInfo.Ic is null)
                             {
                                 return;
                             }
@@ -909,7 +909,7 @@ namespace LSIC.App.Models
 
                             if (id < BurnInfo.Steps.Length)
                             {
-                                if (BurnInfo.CurrentStep == null ||
+                                if (BurnInfo.CurrentStep is null ||
                                     BurnInfo.CurrentStep.Name != BurnInfo.Steps[id].Name)
                                 {
                                     BurnInfo.CurrentStep = BurnInfo.Steps[id];
@@ -950,7 +950,7 @@ namespace LSIC.App.Models
                             BurnInfo.LoopInfo.Progress.Update(total, cost);
 
                             id = data[index++];
-                            if (BurnInfo.CurrentStep != null &&
+                            if (BurnInfo.CurrentStep is not null &&
                                 id < BurnInfo.CurrentStep.Vectors.Length)
                             {
                                 var vectorStep = BurnInfo.CurrentStep.Vectors[id];
@@ -984,7 +984,7 @@ namespace LSIC.App.Models
                         }
                     case ZoneFunctionCode.CompareError:
                         {
-                            if (BurnInfo == null)
+                            if (BurnInfo is null)
                             {
                                 return;
                             }
@@ -1110,7 +1110,7 @@ namespace LSIC.App.Models
 
                             var dps = Dpss.FirstOrDefault(j => j.Id == id);
 
-                            if (dps != null)
+                            if (dps is not null)
                             {
                                 if (state == DpsState.Output)
                                 {
@@ -1159,14 +1159,14 @@ namespace LSIC.App.Models
                 Array.Copy(length.ToBytes(Endianness.Big), 0, frame, index, 4);
                 index += 4;
                 // 数据内容
-                if (data != null)
+                if (data is not null)
                 {
                     Array.Copy(data, 0, frame, index, data.Length);
                     index += data.Length;
                 }
                 // CRC32校验
                 uint check = 0u;
-                if (data != null)
+                if (data is not null)
                 {
                     check = SecurityUtil.CRC32(data);
                 }
@@ -1230,7 +1230,7 @@ namespace LSIC.App.Models
                     check = SecurityUtil.CRC32(check, beforeStream);
                     await _client.SendAsync(beforeStream);
                 }
-                if (stream != null)
+                if (stream is not null)
                 {
                     byte[] buffer = new byte[1024];
                     int read;
@@ -1316,7 +1316,7 @@ namespace LSIC.App.Models
 
             Logger?.Dispose();
 
-            if (_client != null)
+            if (_client is not null)
             {
                 _client.StateChanged -= OnStateChanged;
                 _client.ReceivedData -= OnReceivedData;

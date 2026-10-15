@@ -24,7 +24,7 @@ namespace LSIC.App.Decorators
             {
                 if (_target != value)
                 {
-                    if (_target != null)
+                    if (_target is not null)
                     {
                         _target.Loaded -= OnTargetLoaded;
                         _target.Unloaded -= OnTargetUnloaded;
@@ -36,7 +36,7 @@ namespace LSIC.App.Decorators
                     _target = value;
                     AddVisualChild(_target);
                     AddLogicalChild(_target);
-                    if (_target != null)
+                    if (_target is not null)
                     {
                         _target.Loaded += OnTargetLoaded;
                         _target.Unloaded += OnTargetUnloaded;
@@ -53,7 +53,7 @@ namespace LSIC.App.Decorators
         {
             get
             {
-                if (Target != null)
+                if (Target is not null)
                 {
                     return 2;
                 }
@@ -79,7 +79,7 @@ namespace LSIC.App.Decorators
         {
             DrawingContext drawingContext = _visual.RenderOpen();
             Grid target = Target;
-            if (target == null || !target.IsVisible)
+            if (target is null || !target.IsVisible)
             {
                 drawingContext = _visual.RenderOpen();
                 drawingContext.Close();
@@ -138,7 +138,7 @@ namespace LSIC.App.Decorators
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            if (Target != null)
+            if (Target is not null)
             {
                 Target.Measure(availableSize);
                 return Target.DesiredSize;
@@ -149,7 +149,7 @@ namespace LSIC.App.Decorators
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            if (Target != null)
+            if (Target is not null)
             {
                 Target.Arrange(new Rect(new Point(0.0, 0.0), finalSize));
             }
@@ -185,7 +185,7 @@ namespace LSIC.App.Decorators
         private double GetDpiFactor()
         {
             CompositionTarget compositionTarget = PresentationSource.FromVisual(this)?.CompositionTarget;
-            if (compositionTarget == null)
+            if (compositionTarget is null)
             {
                 return 1.0;
             }

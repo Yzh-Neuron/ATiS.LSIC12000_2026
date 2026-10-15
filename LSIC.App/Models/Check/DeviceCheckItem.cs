@@ -67,7 +67,7 @@
         /// </summary>
         public static DeviceCheckItem FromBytes(byte[] bytes)
         {
-            if (bytes == null || bytes.Length != 4)
+            if (bytes is null || bytes.Length != 4)
             {
                 throw new ArgumentException("DeviceCheck payload length must be 5.", nameof(bytes));
             }

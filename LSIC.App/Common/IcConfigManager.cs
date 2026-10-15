@@ -17,7 +17,7 @@ namespace LSIC.App
         }
         public static T[] GetIcMetas<T>(string filter = null) where T : IcEntryBase, new()
         {
-            string pattern = filter == null ? $"*.{IcSuffix}" : $"*{filter}*.{IcSuffix}";
+            string pattern = filter is null ? $"*.{IcSuffix}" : $"*{filter}*.{IcSuffix}";
 
             return Directory.EnumerateFiles(_directory, pattern)
                 .Select(path => new T()

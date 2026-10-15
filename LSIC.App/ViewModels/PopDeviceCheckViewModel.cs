@@ -18,7 +18,7 @@
         }
         private bool CanStart()
         {
-            return SelectedZone != null && SelectedZone.State.CanCheck();
+            return SelectedZone is not null && SelectedZone.State.CanCheck();
         }
         private async Task StartAsync()
         {

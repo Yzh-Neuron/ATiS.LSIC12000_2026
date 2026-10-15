@@ -19,13 +19,7 @@
         }
         public void LogError(CompareError error)
         {
-            string text = string.Format("{0}|{1}|{2}|{3}|{4}|{5}",
-                error.Step,
-                error.Pattern,
-                error.Register,
-                error.Cs,
-                error.Line,
-                error.Dr);
+            string text = $"{error.Step}|{error.Pattern}|{error.Register}|{error.Cs}|{error.Line}|{error.Dr}";
             _errorLogger.Info(text);
         }
 

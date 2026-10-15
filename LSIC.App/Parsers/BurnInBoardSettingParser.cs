@@ -158,7 +158,7 @@
             }
 
             ThermostatSetting result = null;
-            if (thermostatChannel != null)
+            if (thermostatChannel is not null)
             {
                 int channelId = thermostatChannel.Value;
                 if (!thermostatDict.TryGetValue(channelId, out result))

@@ -91,7 +91,7 @@ namespace LSIC.App
             while (!reader.Try('}'))
             {
                 DpsSetting setting = ReadDpsSetting(reader);
-                if (setting != null)
+                if (setting is not null)
                 {
                     plan.DpssSettings.Add(setting);
                 }
@@ -124,7 +124,7 @@ namespace LSIC.App
             reader.ReadExpected('}');
 
             DpsInfo dpsInfo = Device.Instance.SystemConfig.DpsInfos.FirstOrDefault(i => i.Id == id);
-            return dpsInfo == null ? null
+            return dpsInfo is null ? null
                 : new DpsSetting(dpsInfo)
                 {
                     Vol = vol,

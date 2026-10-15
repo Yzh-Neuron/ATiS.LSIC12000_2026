@@ -130,7 +130,7 @@ namespace LSIC.App.ViewModels
                 RunBusyAsync(async () =>
                 {
                     LogRule rule = _rules.FirstOrDefault(i => filePath.IsMatch(i.PathPattern));
-                    if (rule != null)
+                    if (rule is not null)
                     {
                         if (_matchedRule != rule)
                         {
@@ -183,7 +183,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanRefreshSource()
         {
-            return _reader != null;
+            return _reader is not null;
         }
         private void RefreshSource()
         {
@@ -199,7 +199,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanFilter()
         {
-            return _reader != null;
+            return _reader is not null;
         }
         private void Filter()
         {
@@ -207,7 +207,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanFirstPage()
         {
-            return _reader != null && _currentPage > 1;
+            return _reader is not null && _currentPage > 1;
         }
         private void FirstPage()
         {
@@ -215,7 +215,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanPreviousPage()
         {
-            return _reader != null && _currentPage > 1;
+            return _reader is not null && _currentPage > 1;
         }
         private void PreviousPage()
         {
@@ -223,7 +223,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanNextPage()
         {
-            return _reader != null && _currentPage < _totalPage;
+            return _reader is not null && _currentPage < _totalPage;
         }
         private void NextPage()
         {
@@ -231,7 +231,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanLastPage()
         {
-            return _reader != null && _currentPage < _totalPage;
+            return _reader is not null && _currentPage < _totalPage;
         }
         private void LastPage()
         {
@@ -239,7 +239,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanExportCsv()
         {
-            return _matchedRule != null && _reader != null;
+            return _matchedRule is not null && _reader is not null;
         }
         private void ExportCsv()
         {
@@ -277,7 +277,7 @@ namespace LSIC.App.ViewModels
                         for (long i = _start; i <= _end; i++)
                         {
                             string line = await _reader.GetLineAsync(i).ConfigureAwait(false);
-                            if (line == null)
+                            if (line is null)
                             {
                                 continue;
                             }
@@ -326,7 +326,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanViewPlot()
         {
-            return _matchedRule != null && _reader != null;
+            return _matchedRule is not null && _reader is not null;
         }
         private void ViewPlot()
         {
@@ -354,7 +354,7 @@ namespace LSIC.App.ViewModels
                     for (long i = _start; i <= _end; i++)
                     {
                         string line = await _reader.GetLineAsync(i).ConfigureAwait(false);
-                        if (line == null)
+                        if (line is null)
                         {
                             break;
                         }
@@ -398,7 +398,7 @@ namespace LSIC.App.ViewModels
         }
         private async Task RefreshAsync()
         {
-            if (_reader == null)
+            if (_reader is null)
             {
                 Lines = Array.Empty<DataLine>();
                 return;

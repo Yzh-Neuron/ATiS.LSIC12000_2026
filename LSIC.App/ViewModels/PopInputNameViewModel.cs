@@ -28,7 +28,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanConfirm()
         {
-            if (ValidateInputName(Name) == null)
+            if (ValidateInputName(Name) is null)
             {
                 return true;
             }

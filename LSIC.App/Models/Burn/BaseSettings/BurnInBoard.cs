@@ -15,7 +15,7 @@
             Column = setting.Column;
 
             List<BurnThermostat> thermostats = new List<BurnThermostat>();
-            if (setting.ThermostatSettings != null)
+            if (setting.ThermostatSettings is not null)
             {
                 foreach (ThermostatSetting thermostatSetting in setting.ThermostatSettings)
                 {
@@ -35,7 +35,7 @@
             {
                 DutSetting dutSetting = setting.DutSettings[i];
                 BurnThermostat thermostat = null;
-                if (dutSetting.ThermostatSetting != null && thermostatById.TryGetValue(dutSetting.ThermostatSetting.Id, out BurnThermostat found))
+                if (dutSetting.ThermostatSetting is not null && thermostatById.TryGetValue(dutSetting.ThermostatSetting.Id, out BurnThermostat found))
                 {
                     thermostat = found;
                 }
@@ -57,7 +57,7 @@
             get => BuildDutMask();
             set
             {
-                int[] integers = MaskToIntegers(value ?? Array.Empty<byte>());
+                int[] integers = (value ?? Array.Empty<byte>()).MaskToIntegers();
                 HashSet<int> masked = [.. integers];
                 foreach (BurnDut dut in Duts)
                 {
@@ -106,7 +106,7 @@
                     masked.Add(dut.Id);
                 }
             }
-            return IntegersToMask(masked, MaskBytes);
+            return masked.IntegersToMask(MaskBytes);
         }
         private ulong AggregateStates()
         {
@@ -116,33 +116,6 @@
                 states += (ulong)dut.State;
             }
             return states;
-        }
-        private static byte[] IntegersToMask(IEnumerable<int> values, int length)
-        {
-            byte[] mask = new byte[length];
-            foreach (int value in values)
-            {
-                if (value / 8 < length)
-                {
-                    mask[value / 8] |= (byte)(1 << value % 8);
-                }
-            }
-            return mask;
-        }
-        private static int[] MaskToIntegers(byte[] mask)
-        {
-            List<int> values = new List<int>();
-            for (int i = 0; i < mask.Length; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if ((mask[i] & (1 << j)) != 0)
-                    {
-                        values.Add(i * 8 + j);
-                    }
-                }
-            }
-            return values.ToArray();
         }
     }
 }

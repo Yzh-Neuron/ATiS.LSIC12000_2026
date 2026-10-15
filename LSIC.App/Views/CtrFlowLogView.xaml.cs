@@ -70,7 +70,7 @@
         }
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (Logger != null)
+            if (Logger is not null)
             {
                 Logger.OnAddFlow -= OnHistoryAppened;
                 Logger.OnAddFlow += OnHistoryAppened;
@@ -80,7 +80,7 @@
         }
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            if (Logger != null)
+            if (Logger is not null)
             {
                 Logger.OnAddFlow -= OnHistoryAppened;
             }
@@ -108,7 +108,7 @@
         }
         private void Refresh()
         {
-            if (_logsHost == null || Logger == null)
+            if (_logsHost is null || Logger is null)
             {
                 return;
             }

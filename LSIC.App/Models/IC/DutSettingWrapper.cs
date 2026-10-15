@@ -42,8 +42,8 @@
             ArgumentNullException.ThrowIfNull(dutSettings);
             _dutSettings = dutSettings.ToList();
 
-            DutSettingTemplate = _dutSettings.FirstOrDefault(t => t.ThermostatSetting != null);
-            IsValid = DutSettingTemplate != null;
+            DutSettingTemplate = _dutSettings.FirstOrDefault(t => t.ThermostatSetting is not null);
+            IsValid = DutSettingTemplate is not null;
 
             if (!IsValid)
             {
@@ -73,7 +73,7 @@
         {
             foreach (var setting in _dutSettings)
             {
-                if (setting.ThermostatSetting != null)
+                if (setting.ThermostatSetting is not null)
                 {
                     action(setting.ThermostatSetting);
                 }
@@ -83,7 +83,7 @@
         #region validate methods
         private ValidationResult ValidateTargetTemperature(int? targetTemperature)
         {
-            if (targetTemperature == null || Enable == null || Enable != true)
+            if (targetTemperature is null || Enable is null || Enable != true)
             {
                 return ValidationResult.Success;
             }

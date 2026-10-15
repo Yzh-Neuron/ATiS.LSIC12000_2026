@@ -45,7 +45,7 @@ namespace LSIC.App.Models
         public Zone[] Zones { get; private set; }
         public static void Initialize(SystemConfig systemConfig)
         {
-            if (Instance != null)
+            if (Instance is not null)
             {
                 Instance.Dispose();
                 Instance = null;
@@ -66,7 +66,7 @@ namespace LSIC.App.Models
 
         public void Dispose()
         {
-            if (Zones == null)
+            if (Zones is null)
             {
                 return;
             }
