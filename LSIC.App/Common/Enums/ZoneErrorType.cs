@@ -2,7 +2,7 @@
 {
     public enum ZoneErrorType : byte
     {
-        Dps,
+        DPS,
         Pattern,
         Device
     }

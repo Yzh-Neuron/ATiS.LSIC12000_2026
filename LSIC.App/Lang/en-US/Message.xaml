@@ -38,17 +38,17 @@
     <sys:String x:Key="UpgradeSelectZoneMessage">Please select at least one zone to upgrade</sys:String>
     <sys:String x:Key="UpgradeSelectFirmwareMessage">Please choose firmware files for board types first</sys:String>
     <sys:String x:Key="UpgradeFilePrefixMismatchMessage">Firmware file name must start with {0}. Please select the correct firmware</sys:String>
-    <sys:String x:Key="DpsCheckScriptDpsNotFoundMessage">DPS script: DPS{0} not found, Line {1}</sys:String>
-    <sys:String x:Key="DpsCheckScriptParameterErrordMessage">DPS script: params error, Line {0}</sys:String>
+    <sys:String x:Key="DpsCheckScriptDpsNotFoundMessage">Dps script: Dps{0} not found, Line {1}</sys:String>
+    <sys:String x:Key="DpsCheckScriptParameterErrordMessage">Dps script: params error, Line {0}</sys:String>
     <sys:String x:Key="DpsCheckIsNotPermiitedMessage">Zone busy !</sys:String>
-    <sys:String x:Key="DpsCheckAskMessage" xml:space="preserve">Burn-in board detected, running DPS check may damage the device&#x000A;Continue ?</sys:String>
+    <sys:String x:Key="DpsCheckAskMessage" xml:space="preserve">Burn-in board detected, running Dps check may damage the device&#x000A;Continue ?</sys:String>
 
     <!-- Runtime log messages -->
-    <sys:String x:Key="ZoneDpsErrorMessage">DPS error: {0} -> [{1}]</sys:String>
-    <sys:String x:Key="ZoneVIHErrorMessage">DPS error: VIH{0} -> [{1}]</sys:String>
+    <sys:String x:Key="ZoneDpsErrorMessage">Dps error: {0} -> [{1}]</sys:String>
+    <sys:String x:Key="ZoneVIHErrorMessage">Dps error: VIH{0} -> [{1}]</sys:String>
     <sys:String x:Key="ZonePatternErrorMessage">Pattern error: [{0}] please check step {1} vector step {2}</sys:String>
     <sys:String x:Key="ZoneDeviceErrorMessage">Device error: please contact FAE! Error code [{0}]</sys:String>
     <sys:String x:Key="StepRunInfoMessage">Step: [{0}]&#x0009;Vector step: [{1}]</sys:String>
-    <sys:String x:Key="RunDpsCheckScriptMessage">Run DPS diagnosis script: {0}</sys:String>
-    <sys:String x:Key="DpsCheckResultMessage" xml:space="preserve">DPS Diagnosis [{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})</sys:String>
+    <sys:String x:Key="RunDpsCheckScriptMessage">Run Dps diagnosis script: {0}</sys:String>
+    <sys:String x:Key="DpsCheckResultMessage" xml:space="preserve">Dps Diagnosis [{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})</sys:String>
 </ResourceDictionary>

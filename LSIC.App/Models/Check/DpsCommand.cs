@@ -19,31 +19,49 @@
             Interval = interval;
         }
 
-        /// <summary>所在脚本行号（用于定位校验错误）</summary>
+        /// <summary>
+        /// 所在脚本行号（用于定位校验错误）
+        /// </summary>
         public int Line { get; }
 
-        /// <summary>电源编号</summary>
+        /// <summary>
+        /// 电源编号
+        /// </summary>
         public int Id { get; }
 
-        /// <summary>设置电压（mV）</summary>
+        /// <summary>
+        /// 设置电压（mV）
+        /// </summary>
         public int Vol { get; }
 
-        /// <summary>电压下限（mV）</summary>
+        /// <summary>
+        /// 电压下限（mV）
+        /// </summary>
         public int Uvp { get; }
 
-        /// <summary>电压上限（mV）</summary>
+        /// <summary>
+        /// 电压上限（mV）
+        /// </summary>
         public int Ovp { get; }
 
-        /// <summary>电流上限（mA）</summary>
+        /// <summary>
+        /// 电流上限（mA）
+        /// </summary>
         public int Ocp { get; }
 
-        /// <summary>上升时间（ms）</summary>
+        /// <summary>
+        /// 上升时间（ms）
+        /// </summary>
         public int Raise { get; }
 
-        /// <summary>采样次数（必须大于 0）</summary>
+        /// <summary>
+        /// 采样次数（必须大于 0）
+        /// </summary>
         public int Times { get; }
 
-        /// <summary>采样间隔（ms）</summary>
+        /// <summary>
+        /// 采样间隔（ms）
+        /// </summary>
         public int Interval { get; }
     }
 }

@@ -30,7 +30,7 @@
         public ICommand ExportIcCommand { get; private set; }
         public ICommand SelectBurnInBoardFileCommand { get; private set; }
 
-        //Dps电源
+        //DPS电源
         private DpsPlan _selectedDpsPlan;
         public DpsPlan SelectedDpsPlan
         {
@@ -92,7 +92,7 @@
             ExportIcCommand = new RelayCommand(ExportIc, CanExportIc);
 
 
-            //Dps电源
+            //DPS电源
             CreateDpsPlanCommand = new RelayCommand(CreateDpsPlan, CanCreateDpsPlan);
             DeleteDpsPlanCommand = new RelayCommand(DeleteDpsPlan, CanDeleteDpsPlan);
             CreateDpsSettingCommand = new RelayCommand(CreateDpsSetting, CanCreateDpsSetting);
@@ -285,7 +285,7 @@
         }
         #endregion
 
-        #region Dps相关命令
+        #region DPS相关命令
         private bool CanCreateDpsPlan()
         {
             return SelectedIc?.Target != null;

@@ -59,7 +59,7 @@
     <sys:String x:Key="LoadModeText">Load Mode</sys:String>
     <sys:String x:Key="ForceStepLoadText">Force Step Load</sys:String>
 
-    <sys:String x:Key="DpsText">DPS</sys:String>
+    <sys:String x:Key="DpsText">Dps</sys:String>
     <sys:String x:Key="SetVoltageText">SV</sys:String>
     <sys:String x:Key="SetVoltageWithUnitText">Set V (V)</sys:String>
     <sys:String x:Key="RealVoltageWithUnitText">Read V (V)</sys:String>
@@ -92,13 +92,13 @@
     <sys:String x:Key="CurrentPatternText">Pattern</sys:String>
     <sys:String x:Key="CurrentRegistersText">Register</sys:String>
     <sys:String x:Key="CurrentStepText">Step</sys:String>
-    <sys:String x:Key="CurrentDpsPlanText">DPS Plan</sys:String>
+    <sys:String x:Key="CurrentDpsPlanText">Dps Plan</sys:String>
 
     <sys:String x:Key="DutText">Dut</sys:String>
     <sys:String x:Key="RowText">Row</sys:String>
     <sys:String x:Key="ColumnText">Column</sys:String>
     <sys:String x:Key="BelongChipSelectText">CS</sys:String>
-    <sys:String x:Key="UsedDpsText">DPS</sys:String>
+    <sys:String x:Key="UsedDpsText">Dps</sys:String>
     <sys:String x:Key="LinkedDrText">DR</sys:String>
 
     
@@ -136,7 +136,7 @@
     <sys:String x:Key="UnitText">Unit</sys:String>
     <sys:String x:Key="BaseInfoText">Base Info</sys:String>
     <sys:String x:Key="DutConfigFileText">Dut Config File</sys:String>
-    <sys:String x:Key="DpsSettingText">DPS Setting</sys:String>
+    <sys:String x:Key="DpsSettingText">Dps Setting</sys:String>
     <sys:String x:Key="StepText">Step</sys:String>
     <sys:String x:Key="RunTimeText">Time</sys:String>
     <sys:String x:Key="RunTimesText">Times</sys:String>
@@ -147,7 +147,7 @@
 
     <sys:String x:Key="BaseSettingText">Base Setting</sys:String>
     <sys:String x:Key="ProcessSettingText">Process Setting</sys:String>
-    <sys:String x:Key="DpsPlanText">DPS Plan</sys:String>
+    <sys:String x:Key="DpsPlanText">Dps Plan</sys:String>
 
     <sys:String x:Key="StepFormatText">Step[{0}]</sys:String>
 
@@ -167,12 +167,12 @@
     <sys:String x:Key="ViewListText">View List</sys:String>
     <sys:String x:Key="DataLogText">Data Log</sys:String>
 
-    
-    <sys:String x:Key="DpsEditText">DPS Edit</sys:String>
+
+    <sys:String x:Key="DpsEditText">Dps Edit</sys:String>
     <sys:String x:Key="DeviceCheckText">Device Check</sys:String>
-    <sys:String x:Key="DpsCheckText">DPS Check</sys:String>
+    <sys:String x:Key="DpsCheckText">Dps Check</sys:String>
     <sys:String x:Key="StartDeviceCheckText">Start Check</sys:String>
     <sys:String x:Key="DeviceCheckResultText">Check Results</sys:String>
-    <sys:String x:Key="DpsCheckScriptText">DPS Check Script</sys:String>
+    <sys:String x:Key="DpsCheckScriptText">Dps Check Script</sys:String>
     <sys:String x:Key="SelectFileText">Select File</sys:String>
 </ResourceDictionary>

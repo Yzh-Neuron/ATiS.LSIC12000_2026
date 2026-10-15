@@ -43,7 +43,12 @@
                 .Replace("[", "_")
                 .Replace("]", "");
 
-            string comment = (e.Value ?? "").Trim();
+            string comment = (e.Value ?? "")
+                .Replace("\r\n", " ")
+                .Replace("\n", " ")
+                .Replace("\r", " ")
+                .Replace("--", "—")
+                .Trim();
 
             if (prop.Length > 0 && char.IsDigit(prop[0]))
             {
@@ -70,7 +75,9 @@ namespace LSIC.App
     foreach (var kv in kvs)
     {
 #>
-        /// <summary><#= kv.Comment #></summary>
+        /// <summary>
+        /// <#= kv.Comment #>
+        /// </summary>
         public string <#= kv.Prop #> => GetString("<#= kv.Key #>");
 <#
     }
@@ -96,7 +103,9 @@ namespace LSIC.App
     foreach (var kv in kvs)
     {
 #>
-        /// <summary><#= kv.Comment #></summary>
+         /// <summary>
+        /// <#= kv.Comment #>
+        /// </summary>
         public const string <#= kv.Prop #> = nameof(<#= kv.Prop #>);
 <#
     }

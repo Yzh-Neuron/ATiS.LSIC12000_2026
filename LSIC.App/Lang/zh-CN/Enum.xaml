@@ -85,7 +85,7 @@
     <sys:String x:Key="DeviceCheck.Item[0A]">PL机型自检</sys:String>
     <sys:String x:Key="DeviceCheck.Item[0B]">温控自检</sys:String>
     <sys:String x:Key="DeviceCheck.Item[0C]">COMPARE VREF自检</sys:String>
-    <sys:String x:Key="DeviceCheck.Item[0D]">DPS VIN自检</sys:String>
+    <sys:String x:Key="DeviceCheck.Item[0D]">Dps VIN自检</sys:String>
     <sys:String x:Key="DeviceCheck.Result[00]">通过</sys:String>
     <sys:String x:Key="DeviceCheck.Result[01]">环境变量丢失</sys:String>
     <sys:String x:Key="DeviceCheck.Result[02]">配置文件不存在</sys:String>
@@ -106,5 +106,5 @@
     <sys:String x:Key="DeviceCheck.Result[11]">PL机型读取错误(AXIBUS)</sys:String>
     <sys:String x:Key="DeviceCheck.Result[12]">ADC通信错误(SPI)</sys:String>
     <sys:String x:Key="DeviceCheck.Result[13]">COMPARE VREF 打开错误</sys:String>
-    <sys:String x:Key="DeviceCheck.Result[14]">DPS VIN 打开错误</sys:String>
+    <sys:String x:Key="DeviceCheck.Result[14]">Dps VIN 打开错误</sys:String>
 </ResourceDictionary>

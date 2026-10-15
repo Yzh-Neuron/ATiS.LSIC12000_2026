@@ -2,79 +2,129 @@
 {
     public enum ZoneFunctionCode : byte
     {
-        /// <remarks>查询 & 上传版本信息</remarks>
+        /// <summary>
+        /// 查询 & 上传版本信息
+        /// </summary>
         Version = 0x00,
 
-        /// <remarks>老化控制 & 状态上报</remarks>
+        /// <summary>
+        /// 老化控制 & 状态上报
+        /// </summary>
         ControlAndState = 0x01,
 
-        /// <remarks>插板状态</remarks>
+        /// <summary>
+        /// 插板状态
+        /// </summary>
         BurnInBoardInsertState = 0x02,
 
-        /// <remarks>电源状态查询 & 状态上报</remarks>
+        /// <summary>
+        /// 电源状态查询 & 状态上报
+        /// </summary>
         DpsState = 0x03,
 
-        /// <remarks>上传当前使用的电源方案</remarks>
+        /// <summary>
+        /// 上传当前使用的电源方案
+        /// </summary>
         CurrentDpsPlan = 0x04,
 
-        /// <remarks>上传老化进程</remarks>
+        /// <summary>
+        /// 上传老化进程
+        /// </summary>
         BurnState = 0x05,
 
-        /// <remarks>上报回检报错</remarks>
+        /// <summary>
+        /// 上报回检报错
+        /// </summary>
         CompareError = 0x06,
 
-        /// <remarks>切换 & 上报Trigger通道</remarks>
+        /// <summary>
+        /// 切换 & 上报Trigger通道
+        /// </summary>
         Trigger = 0x07,
 
-        /// <remarks>配置电源方案数量</remarks>
+        /// <summary>
+        /// 配置电源方案数量
+        /// </summary>
         DpsPlanCount = 0x50,
 
-        /// <remarks>配置单个电源方案</remarks>
+        /// <summary>
+        /// 配置单个电源方案
+        /// </summary>
         DpsPlan = 0x51,
 
-        /// <remarks>配置向量数量</remarks>
+        /// <summary>
+        /// 配置向量数量
+        /// </summary>
         PatternCount = 0x52,
 
-        /// <remarks>配置单个向量</remarks>
+        /// <summary>
+        /// 配置单个向量
+        /// </summary>
         Pattern = 0x53,
 
-        /// <remarks>配置REG数量</remarks>
+        /// <summary>
+        /// 配置REG数量
+        /// </summary>
         RegisterCount = 0x54,
 
-        /// <remarks>配置单个REG</remarks>
+        /// <summary>
+        /// 配置单个REG
+        /// </summary>
         Register = 0x55,
 
-        /// <remarks>上电设置</remarks>
+        /// <summary>
+        /// 上电设置
+        /// </summary>
         UpSet = 0x56,
 
-        /// <remarks>步次设置</remarks>
+        /// <summary>
+        /// 步次设置
+        /// </summary>
         StepSet = 0x57,
 
-        /// <remarks>下电设置</remarks>
+        /// <summary>
+        /// 下电设置
+        /// </summary>
         DownSet = 0x58,
 
-        /// <remarks>SPI设置</remarks>
+        /// <summary>
+        /// SPI设置
+        /// </summary>
         SpiSet = 0x59,
 
-        /// <remarks>器件发送标识</remarks>
+        /// <summary>
+        /// 器件发送标识
+        /// </summary>
         ConfigFinish = 0x5F,
 
-        /// <remarks>配置在线升级 & 上报在线升级进程</remarks>
+        /// <summary>
+        /// 配置在线升级 & 上报在线升级进程
+        /// </summary>
         Upgrade = 0xA0,
 
-        /// <remarks>上报在线升级结束状态</remarks>
+        /// <summary>
+        /// 上报在线升级结束状态
+        /// </summary>
         UpgradeFinish = 0xA1,
 
-        /// <remarks>启动设备自检 & 上报自检条目</remarks>
+        /// <summary>
+        /// 启动设备自检 & 上报自检条目
+        /// </summary>
         DeviceCheck = 0xF0,
 
-        /// <remarks>启动DPS自检</remarks>
+        /// <summary>
+        /// 启动DPS自检
+        /// </summary>
         DpsCheck = 0xF1,
 
-        /// <remarks>温控配置 & 推送温控信息</remarks>
+        /// <summary>
+        /// 温控配置 & 推送温控信息
+        /// </summary>
         Thermostat = 0xF2,
 
-        /// <remarks>温控PID参数 & 推送温控PID参数</remarks>
+        /// <summary>
+        /// 温控PID参数 & 推送温控PID参数
+        /// </summary>
         ThermostatPID = 0xF3,
     }
 }

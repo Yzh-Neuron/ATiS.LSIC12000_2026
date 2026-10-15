@@ -127,7 +127,7 @@ namespace LSIC.App.Models
                 int index = 0;
                 switch (error.Value)
                 {
-                    case ZoneErrorType.Dps:
+                    case ZoneErrorType.DPS:
                         {
                             DpsState dpsState = (DpsState)data[index++];
                             DpsType dpsType = (DpsType)data[index++];

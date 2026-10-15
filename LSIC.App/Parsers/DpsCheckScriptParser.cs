@@ -54,7 +54,9 @@
             return commands.ToArray();
         }
 
-        /// <summary>读取逗号分隔的整型参数。</summary>
+        /// <summary>
+        /// 读取逗号分隔的整型参数。
+        /// </summary>
         private static int ReadInteger(CharReader reader)
         {
             reader.SkipWhiteSpace();
@@ -63,7 +65,9 @@
             return reader.ReadNumber<int>();
         }
 
-        /// <summary>读取逗号分隔的电压/电流浮点参数（V/A），转换为 mV/mA。</summary>
+        /// <summary>
+        /// 读取逗号分隔的电压/电流浮点参数（V/A），转换为 mV/mA。
+        /// </summary>
         private static int ReadElectrical(CharReader reader)
         {
             reader.SkipWhiteSpace();
