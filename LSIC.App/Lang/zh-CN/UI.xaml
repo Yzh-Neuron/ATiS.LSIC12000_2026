@@ -164,4 +164,6 @@
     <sys:String x:Key="DpsCheckScriptText">电源自检脚本</sys:String>
     <sys:String x:Key="RunScriptText">运行脚本</sys:String>
     <sys:String x:Key="SelectFileText">选择文件</sys:String>
+    <!--  工位屏蔽  -->
+    <sys:String x:Key="DutMaskText">工位屏蔽</sys:String>
 </ResourceDictionary>

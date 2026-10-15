@@ -1145,6 +1145,10 @@
         /// 选择文件
         /// </summary>
         public string SelectFileText => GetString("SelectFileText");
+        /// <summary>
+        /// 工位屏蔽
+        /// </summary>
+        public string DutMaskText => GetString("DutMaskText");
 
         protected override void OnLanguageChanged()
         {
@@ -1434,6 +1438,7 @@
             OnPropertyChanged(nameof(DpsCheckScriptText));
             OnPropertyChanged(nameof(RunScriptText));
             OnPropertyChanged(nameof(SelectFileText));
+            OnPropertyChanged(nameof(DutMaskText));
         }
     }
 
@@ -2579,6 +2584,10 @@
         /// 选择文件
         /// </summary>
         public const string SelectFileText = nameof(SelectFileText);
+         /// <summary>
+        /// 工位屏蔽
+        /// </summary>
+        public const string DutMaskText = nameof(DutMaskText);
     }
 
     [MarkupExtensionReturnType(typeof(object))]

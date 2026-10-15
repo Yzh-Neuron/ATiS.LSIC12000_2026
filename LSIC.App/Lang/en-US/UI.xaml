@@ -164,4 +164,6 @@
     <sys:String x:Key="DpsCheckScriptText">Dps Check Script</sys:String>
     <sys:String x:Key="RunScriptText">RUN</sys:String>
     <sys:String x:Key="SelectFileText">Select File</sys:String>
+    <!--  Dut Mask  -->
+    <sys:String x:Key="DutMaskText">Dut Mask</sys:String>
 </ResourceDictionary>

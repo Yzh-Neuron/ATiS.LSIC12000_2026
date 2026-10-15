@@ -29,7 +29,7 @@ namespace LSIC.App.ViewModels
 
             if (Zone.Pluged)
             {
-                var msgResult = MessageBus.Default.Send(MsgArgs.From(WinMainMessage.DutMask, [])).First();
+                var msgResult = MessageBus.Default.Send(MsgArgs.From(WinMainMessage.DutMask, [Zone.BurnInfo.BurnInBoard])).First();
 
                 if (msgResult.Result is byte[] d)
                 {
@@ -50,7 +50,11 @@ namespace LSIC.App.ViewModels
         }
         private void ClearBurnInfo()
         {
+#if DEBUG
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(WinMainMessage.DutMask, [Zone.BurnInfo.BurnInBoard])).First();
+#else
             Zone.ResetStateToIdle();
+#endif
         }
 
     }

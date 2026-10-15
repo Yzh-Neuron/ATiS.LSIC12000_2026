@@ -34,8 +34,10 @@ namespace LSIC.App.Views
                     }
                 case WinMainMessage.DutMask:
                     {
-                        new PopZoneListView { Owner = this }.ShowDialog();
-                        break;
+                        BurnInBoard board = e.Args[0] as BurnInBoard;
+                        PopDutMaskView pop = new PopDutMaskView(board) { Owner = this };
+                        pop.ShowDialog();
+                        return MessageResult.From(pop.DutMask);
                     }
                 default:
                     {
