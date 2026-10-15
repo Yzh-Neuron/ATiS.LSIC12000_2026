@@ -1,4 +1,4 @@
-namespace LSIC.App.Models
+﻿namespace LSIC.App.Models
 {
     public class BurnInfo : ObservableObject, IDisposable
     {
@@ -56,50 +56,50 @@ namespace LSIC.App.Models
         private int _totalSeconds;
         public int TotalSeconds
         {
-            get { return _totalSeconds; }
-            set { SetProperty(ref _totalSeconds, value); }
+            get => _totalSeconds;
+            set => SetProperty(ref _totalSeconds, value);
         }
 
         private BurnDpsPlan _currentDpsPlan;
         public BurnDpsPlan CurrentDpsPlan
         {
-            get { return _currentDpsPlan; }
-            set { SetProperty(ref _currentDpsPlan, value); }
+            get => _currentDpsPlan;
+            set => SetProperty(ref _currentDpsPlan, value);
         }
 
         private BurnStepVector _currentStep;
         public BurnStepVector CurrentStep
         {
-            get { return _currentStep; }
-            set { SetProperty(ref _currentStep, value); }
+            get => _currentStep;
+            set => SetProperty(ref _currentStep, value);
         }
 
         private BurnVector _currentVector;
         public BurnVector CurrentVector
         {
-            get { return _currentVector; }
-            set { SetProperty(ref _currentVector, value); }
+            get => _currentVector;
+            set => SetProperty(ref _currentVector, value);
         }
 
         private LoadMode _loadMode = LoadMode.Default;
         public LoadMode LoadMode
         {
-            get { return _loadMode; }
-            set { SetProperty(ref _loadMode, value); }
+            get => _loadMode;
+            set => SetProperty(ref _loadMode, value);
         }
 
         private double _sendProcess;
         public double SendProcess
         {
-            get { return _sendProcess; }
-            set { SetProperty(ref _sendProcess, value); }
+            get => _sendProcess;
+            set => SetProperty(ref _sendProcess, value);
         }
 
         private RunInfo _runInfo = new();
         public RunInfo RunInfo
         {
-            get { return _runInfo; }
-            private set { SetProperty(ref _runInfo, value); }
+            get => _runInfo;
+            private set => SetProperty(ref _runInfo, value);
         }
 
         private LoopInfo _loopInfo = new();

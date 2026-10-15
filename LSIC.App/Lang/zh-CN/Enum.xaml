@@ -5,13 +5,6 @@
     <sys:String x:Key="Enum.DeviceMode.Engineering">工程模式</sys:String>
     <sys:String x:Key="Enum.DeviceMode.Administrator">管理员模式</sys:String>
 
-    <sys:String x:Key="Enum.OvenMode.Off">待机中</sys:String>
-    <sys:String x:Key="Enum.OvenMode.Standby">待机中</sys:String>
-    <sys:String x:Key="Enum.OvenMode.Constant">定值运行中</sys:String>
-    <sys:String x:Key="Enum.OvenMode.Run">程式运行中</sys:String>
-    <sys:String x:Key="Enum.OvenMode.Error">故障</sys:String>
-    <sys:String x:Key="Enum.OvenMode.Offline">离线</sys:String>
-
     <sys:String x:Key="Enum.TimeUnit.Second">秒</sys:String>
     <sys:String x:Key="Enum.TimeUnit.Minute">分钟</sys:String>
     <sys:String x:Key="Enum.TimeUnit.Hour">小时</sys:String>
@@ -46,24 +39,6 @@
     <sys:String x:Key="Enum.DutState.Fail">错误</sys:String>
     <sys:String x:Key="Enum.DutState.Ignore">忽略</sys:String>
 
-    <sys:String x:Key="Enum.BoardType.MainBoard">主控板</sys:String>
-    <sys:String x:Key="Enum.BoardType.BaseBoard">底板</sys:String>
-    <sys:String x:Key="Enum.BoardType.DigitalBoard">数字板</sys:String>
-    <sys:String x:Key="Enum.BoardType.AnalogBoard">模拟板</sys:String>
-    <sys:String x:Key="Enum.BoardType.PowerBoard">电源板</sys:String>
-    <sys:String x:Key="Enum.BoardType.DPS">DPS</sys:String>
-    <sys:String x:Key="Enum.BoardType.VIH">VIH</sys:String>
-    <sys:String x:Key="Enum.BoardType.TempControlBoard">温控板</sys:String>
-    <sys:String x:Key="Enum.BoardType.BaseManagerController">BMC</sys:String>
-    <sys:String x:Key="Enum.BoardType.FB10V10A">全砖 10V10A</sys:String>
-    <sys:String x:Key="Enum.BoardType.FB06V25A">全砖 06V25A</sys:String>
-    <sys:String x:Key="Enum.BoardType.FB06V50A">全砖 06V50A</sys:String>
-    <sys:String x:Key="Enum.BoardType.FB36V05A">全砖 36V05A</sys:String>
-    <sys:String x:Key="Enum.BoardType.HB20V20A">半砖 20V20A</sys:String>
-    <sys:String x:Key="Enum.BoardType.HB45V10A">半砖 45V10A</sys:String>
-    <sys:String x:Key="Enum.BoardType.VerticalBoard">竖向板</sys:String>
-    <sys:String x:Key="Enum.BoardType.AdapterBoard">转接板</sys:String>
-    <sys:String x:Key="Enum.BoardType.IoController">I/O控制板</sys:String>
     <sys:String x:Key="Enum.BoardType.BurnInBoard">老化板</sys:String>
 
     <sys:String x:Key="Enum.DpsState.Output">工作中</sys:String>
@@ -92,21 +67,6 @@
     <sys:String x:Key="Enum.UpgradeState.DataVerifyFail">数据校验失败</sys:String>
     <sys:String x:Key="Enum.UpgradeState.Error">错误</sys:String>
 
-    <sys:String x:Key="Enum.LightAlarmState.Red">红灯</sys:String>
-    <sys:String x:Key="Enum.LightAlarmState.Yellow">黄灯</sys:String>
-    <sys:String x:Key="Enum.LightAlarmState.Green">绿灯</sys:String>
-    <sys:String x:Key="Enum.LightAlarmState.Alarm">报警器</sys:String>
-
-    <sys:String x:Key="Enum.BitWidth.Bit8">8 位</sys:String>
-    <sys:String x:Key="Enum.BitWidth.Bit12">12 位</sys:String>
-    <sys:String x:Key="Enum.BitWidth.Bit16">16 位</sys:String>
-    <sys:String x:Key="Enum.BitWidth.Bit24">24 位</sys:String>
-    <sys:String x:Key="Enum.BitWidth.Bit32">32 位</sys:String>
-
-    <sys:String x:Key="Enum.ChannelType.Clock">Clock</sys:String>
-    <sys:String x:Key="Enum.ChannelType.MOSI">MOSI</sys:String>
-    <sys:String x:Key="Enum.ChannelType.MISO">MISO</sys:String>
-    <sys:String x:Key="Enum.ChannelType.CS">CS</sys:String>
     <sys:String x:Key="DeviceCheck.Type[00]">主控板</sys:String>
     <sys:String x:Key="DeviceCheck.Type[10]">底板</sys:String>
     <sys:String x:Key="DeviceCheck.Type[20]">数字板</sys:String>

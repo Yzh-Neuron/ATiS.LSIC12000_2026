@@ -14,7 +14,7 @@
         public PopDeviceInfoViewModel()
         {
             Zones = Device.Instance.Zones;
-            SelectedZone = Zones.FirstOrDefault();
+            _selectedZone = Zones.FirstOrDefault();
             QueryVersionCommand = new AsyncRelayCommand(QueryVersionAsync);
             ExportCommand = new RelayCommand(Export);
         }
@@ -29,7 +29,7 @@
         {
             string fileName = $"{LangProvider.Instance.DeviceInfoText}.csv";
             string filter = $"{LangProvider.Instance.CsvFileText}|*.csv";
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopDeviceInfoMessage.ExportCsv, [fileName, filter])).First();
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopDeviceInfoMessage.Export, [filter, fileName])).First();
             if (msgResult.Result is string target)
             {
                 try
@@ -46,18 +46,18 @@
 
                     foreach (var zone in Zones)
                     {
-                        foreach (var b in zone.Boards)
+                        foreach (var board in zone.Boards)
                         {
-                            builder.AppendLine(string.Join(",", zone.Id, b.DisplayName, b.Id, b.HasParent ? b.ParentId.ToString() : "-", b.PN, b.SN, b.HardwareVersion, string.Join(";", b.Firmwares.Select(f => f.ToString()))));
+                            builder.AppendLine(string.Join(",", zone.Id, board.DisplayName, board.Id, board.HasParent ? board.ParentId.ToString() : "-", board.PN, board.SN, board.HardwareVersion, string.Join(";", board.Firmwares.Select(f => f.ToString()))));
                         }
                     }
 
                     File.WriteAllText(target, builder.ToString(), Encoding.GetEncoding("gb2312"));
-                    MessageBus.Default.Send(MsgArgs.From(PopDeviceInfoMessage.Message, [LangProvider.Instance.FileExportSuccessMessage, MessageType.Success]));
+                    MessageBus.Default.Send(MsgArgs.From(PopDeviceInfoMessage.Growl, [LangProvider.Instance.FileExportSuccessMessage, MessageType.Success]));
                 }
                 catch
                 {
-                    MessageBus.Default.Send(MsgArgs.From(PopDeviceInfoMessage.Message, [LangProvider.Instance.FileExportFailureMessage, MessageType.Error]));
+                    MessageBus.Default.Send(MsgArgs.From(PopDeviceInfoMessage.Growl, [LangProvider.Instance.FileExportFailureMessage, MessageType.Error]));
                 }
             }
         }

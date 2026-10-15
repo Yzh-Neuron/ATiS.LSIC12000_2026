@@ -124,7 +124,7 @@ namespace LSIC.App.ViewModels
             string current = CurrentFile;
             string filter = $"{LangProvider.Instance.DataLogText}|*.log";
 
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(CtrLogBrowseMessage.SelectLogFile, [current, filter])).First();
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(CtrLogBrowseMessage.OpenFile, [filter, current])).First();
             if (msgResult.Result is string filePath)
             {
                 RunBusyAsync(async () =>
@@ -246,7 +246,7 @@ namespace LSIC.App.ViewModels
             string name = Path.GetFileNameWithoutExtension(_reader.Path);
             string fileName = $"{name}.csv";
             string filter = $"{LangProvider.Instance.CsvFileText}|*.csv";
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(CtrLogBrowseMessage.Export, [fileName, filter])).First();
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(CtrLogBrowseMessage.Export, [filter, fileName])).First();
             if (msgResult.Result is string target)
             {
                 RunBusyAsync(async () =>

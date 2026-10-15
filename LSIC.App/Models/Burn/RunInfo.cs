@@ -2,11 +2,11 @@
 {
     public class RunInfo : ObservableObject
     {
-        private ExecuteMode mode;
+        private ExecuteMode _mode;
         public ExecuteMode Mode
         {
-            get => mode;
-            set => SetProperty(ref mode, value);
+            get => _mode;
+            set => SetProperty(ref _mode, value);
         }
 
         public Progress Progress { get; } = new Progress();

@@ -15,15 +15,15 @@ namespace LSIC.App.Models
         public ZoneInfo Info { get; }
         public int Id
         {
-            get { return Info.Id; }
+            get => Info.Id;
         }
         public string Ip
         {
-            get { return Info.Ip; }
+            get => Info.Ip;
         }
         public ushort Port
         {
-            get { return Info.Port; }
+            get => Info.Port;
         }
         private bool _connected = false;
         public bool Connected
@@ -60,8 +60,8 @@ namespace LSIC.App.Models
         private BurnInfo _burnInfo = null;
         public BurnInfo BurnInfo
         {
-            get { return _burnInfo; }
-            private set { SetProperty(ref _burnInfo, value); }
+            get => _burnInfo;
+            private set => SetProperty(ref _burnInfo, value);
         }
         public FlowLogger Logger { get; private set; }
         public ErrorDatabase ErrorDatabase { get; private set; }
@@ -139,7 +139,7 @@ namespace LSIC.App.Models
                                         Dps dps = Dpss.FirstOrDefault(t => t.Id == id);
                                         if (dps != null)
                                         {
-                                            string message = string.Format(LangProvider.Instance.ZoneDpsErrorLog, dps.Name, dpsState.GetString());
+                                            string message = string.Format(LangProvider.Instance.ZoneDpsErrorMessage, dps.Name, dpsState.GetString());
                                             Logger.LogError(message);
                                             PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
                                         }
@@ -147,7 +147,7 @@ namespace LSIC.App.Models
                                     break;
                                 case DpsType.VIH:
                                     {
-                                        string message = string.Format(LangProvider.Instance.ZoneVIHErrorLog, id, dpsState.GetString());
+                                        string message = string.Format(LangProvider.Instance.ZoneVIHErrorMessage, id, dpsState.GetString());
                                         Logger.LogError(message);
                                         PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
                                     }
@@ -162,14 +162,14 @@ namespace LSIC.App.Models
                             PatternErrorType patternErrorType = (PatternErrorType)data[index++];
                             int stepId = data[index++];
                             int vectorStepId = data[index++];
-                            string message = string.Format(LangProvider.Instance.ZonePatternErrorLog, patternErrorType.GetString(), stepId, vectorStepId);
+                            string message = string.Format(LangProvider.Instance.ZonePatternErrorMessage, patternErrorType.GetString(), stepId, vectorStepId);
                             Logger.LogError(message);
                             PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
                         }
                         break;
                     case ZoneErrorType.Device:
                         {
-                            string message = string.Format(LangProvider.Instance.ZoneDeviceErrorLog, data.ToHex());
+                            string message = string.Format(LangProvider.Instance.ZoneDeviceErrorMessage, data.ToHex());
                             Logger.LogError(message);
                             PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
                         }
@@ -557,7 +557,7 @@ namespace LSIC.App.Models
         }
         public async ValueTask StartDpsCheckAsync(string script, DpsCommand[] commands)
         {
-            Logger.LogInfo(string.Format(LangProvider.Instance.RunDpsCheckScriptLog, script));
+            Logger.LogInfo(string.Format(LangProvider.Instance.RunDpsCheckScriptMessage, script));
 
             using MemoryStream stream = new MemoryStream();
             stream.Write(commands.Length.ToBytes(Endianness.Big), 0, 4);
@@ -977,7 +977,7 @@ namespace LSIC.App.Models
                             }
                             if (changed > 0)
                             {
-                                Logger.LogInfo(string.Format(LangProvider.Instance.StepRunInfoLog, BurnInfo.CurrentStep.Name, BurnInfo.CurrentVector.PatternFile.FileName()));
+                                Logger.LogInfo(string.Format(LangProvider.Instance.StepRunInfoMessage, BurnInfo.CurrentStep.Name, BurnInfo.CurrentVector.PatternFile.FileName()));
                             }
 
                             break;
@@ -1114,13 +1114,13 @@ namespace LSIC.App.Models
                             {
                                 if (state == DpsState.Output)
                                 {
-                                    Logger.LogInfo(string.Format(LangProvider.Instance.DpsCheckResultLog, current, total, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
+                                    Logger.LogInfo(string.Format(LangProvider.Instance.DpsCheckResultMessage, current, total, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
                                 }
                                 else if (state == DpsState.Ovp ||
                                          state == DpsState.Uvp ||
                                          state == DpsState.Ocp)
                                 {
-                                    Logger.LogError(string.Format(LangProvider.Instance.DpsCheckResultLog, current, total, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
+                                    Logger.LogError(string.Format(LangProvider.Instance.DpsCheckResultMessage, current, total, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
                                 }
                             }
                         }

@@ -54,20 +54,22 @@
             </TextBlock>
 
 
-            <TextBox Grid.Row="0"
-                     Grid.Column="1"
-                     Margin="10,0,5,0"
-                     VerticalAlignment="Center"
-                     IsReadOnly="True"
-                     IsReadOnlyCaretVisible="True"
-                     Text="{Binding Vector.PatternFile}" />
-            <TextBox Grid.Row="2"
-                     Grid.Column="1"
-                     Margin="10,0,5,0"
-                     VerticalAlignment="Center"
-                     IsReadOnly="True"
-                     IsReadOnlyCaretVisible="True"
-                     Text="{Binding Vector.RegisterFile}" />
+            <wpf:TextBox Grid.Row="0"
+                         Grid.Column="1"
+                         Margin="10,0,5,0"
+                         VerticalAlignment="Center"
+                         wpf:WidgetHelper.ShowClearButton="True"
+                         IsReadOnly="True"
+                         IsReadOnlyCaretVisible="True"
+                         Text="{Binding Vector.PatternFile}" />
+            <wpf:TextBox Grid.Row="2"
+                         Grid.Column="1"
+                         Margin="10,0,5,0"
+                         VerticalAlignment="Center"
+                         wpf:WidgetHelper.ShowClearButton="True"
+                         IsReadOnly="True"
+                         IsReadOnlyCaretVisible="True"
+                         Text="{Binding Vector.RegisterFile}" />
 
             <Button Grid.Row="0"
                     Grid.Column="2"

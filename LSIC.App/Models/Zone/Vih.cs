@@ -9,18 +9,18 @@
 
         public int Id { get; private set; }
 
-        private int setVoltage;
+        private int _setVoltage;
         public int SetVoltage
         {
-            get => setVoltage;
-            set => SetProperty(ref setVoltage, value);
+            get => _setVoltage;
+            set => SetProperty(ref _setVoltage, value);
         }
 
-        private int outputVoltage;
+        private int _outputVoltage;
         public int OutputVoltage
         {
-            get => outputVoltage;
-            set => SetProperty(ref outputVoltage, value);
+            get => _outputVoltage;
+            set => SetProperty(ref _outputVoltage, value);
         }
     }
 }

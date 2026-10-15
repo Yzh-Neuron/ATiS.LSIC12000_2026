@@ -16,7 +16,6 @@
         Path.Combine(templateDir, @"..\..\LSIC.App\Lang\zh-CN\Enum.xaml"),
         Path.Combine(templateDir, @"..\..\LSIC.App\Lang\zh-CN\Message.xaml"),
         Path.Combine(templateDir, @"..\..\LSIC.App\Lang\zh-CN\UI.xaml"),
-        Path.Combine(templateDir, @"..\..\LSIC.App\Lang\zh-CN\Log.xaml"),
     };
 
     var kvs = new List<(string Key, string Prop, string Comment)>();

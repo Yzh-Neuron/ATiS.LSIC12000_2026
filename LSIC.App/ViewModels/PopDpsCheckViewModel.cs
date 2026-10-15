@@ -29,7 +29,8 @@
         }
         private void Browse()
         {
-            var result = MessageBus.Default.Send(MsgArgs.From(PopDpsCheckMessage.SelectScript, [SelectedScript])).First();
+            string filter = $"{LangProvider.Instance.DpsCheckScriptText}|*.dps";
+            var result = MessageBus.Default.Send(MsgArgs.From(PopDpsCheckMessage.OpenFile, [filter, SelectedScript])).First();
             if (result.Result is string file)
             {
                 SelectedScript = file;
@@ -54,7 +55,7 @@
                 DpsInfo info = Device.Instance.SystemConfig.DpsInfos.FirstOrDefault(i => i.Id == command.Id);
                 if (info == null)
                 {
-                    MessageBus.Default.Send(MsgArgs.From(PopDpsCheckMessage.Message, [string.Format(LangProvider.Instance.DpsCheckScriptDpsNotFoundMessage, command.Id, command.Line), MessageType.Error]));
+                    MessageBus.Default.Send(MsgArgs.From(PopDpsCheckMessage.Growl, [string.Format(LangProvider.Instance.DpsCheckScriptDpsNotFoundMessage, command.Id, command.Line), MessageType.Error]));
                     return;
                 }
 
@@ -71,7 +72,7 @@
                 errors = setting.GetAllExistingErrorsRecursive();
                 if (errors.Count > 0)
                 {
-                    MessageBus.Default.Send(MsgArgs.From(PopDpsCheckMessage.Message, [string.Format(LangProvider.Instance.DpsCheckScriptParameterErrordMessage, command.Line), MessageType.Error]));
+                    MessageBus.Default.Send(MsgArgs.From(PopDpsCheckMessage.Growl, [string.Format(LangProvider.Instance.DpsCheckScriptParameterErrordMessage, command.Line), MessageType.Error]));
                     return;
                 }
             }

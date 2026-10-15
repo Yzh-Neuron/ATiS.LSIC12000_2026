@@ -11,9 +11,7 @@
         PatternConvert,
         SetTriggerChanne,
         ThermostatMonitor,
-        Message,
-
-        ShowValidateError,
+        Growl,
         DutMask,
         ZoneListView
     }

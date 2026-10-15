@@ -1,4 +1,4 @@
-namespace LSIC.App.Views
+﻿namespace LSIC.App.Views
 {
     public partial class PopDeviceInfoView : IRecipient<MsgArgs<PopDeviceInfoMessage>>
     {
@@ -15,29 +15,36 @@ namespace LSIC.App.Views
         {
             switch (e.Message)
             {
-                case PopDeviceInfoMessage.ExportCsv:
+                case PopDeviceInfoMessage.Export:
                     {
-                        string fileName = e.Args[0] as string;
-                        string filter = e.Args[1] as string;
-                        var dialog = new SaveFileDialog
+                        string filter = e.Args[0] as string;
+                        string current = e.Args[1] as string;
+                        SaveFileDialog dialog = new SaveFileDialog
                         {
-                            FileName = fileName,
-                            Filter = filter
+                            Title = LangProvider.Instance.ExportText,
+                            Filter = filter,
+                            FileName = current,
+                            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)
                         };
-                        if (dialog.ShowDialog() != true)
+                        if (dialog.ShowDialog() is true)
                         {
                             return MessageResult.From(dialog.FileName);
                         }
                         break;
                     }
-                case PopDeviceInfoMessage.Message:
+                case PopDeviceInfoMessage.Growl:
                     {
-                        string message = e.Args[0] as string;
-                        MessageType type = (MessageType)e.Args[1];
-                        return MessageResult.From(MessagePop.Show(message, type));
+                        Growl.Show(new GrowlInfo
+                        {
+                            Message = e.Args[0] as string,
+                            Type = (MessageType)e.Args[1]
+                        });
+                        break;
                     }
                 default:
-                    break;
+                    {
+                        break;
+                    }
             }
             return MessageResult.Null();
         }

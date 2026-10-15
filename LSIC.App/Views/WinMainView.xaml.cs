@@ -20,34 +20,47 @@
                         break;
                     }
                 case WinMainMessage.Start:
-                    break;
-                case WinMainMessage.Pause:
-                    break;
-                case WinMainMessage.Continue:
-                    break;
-                case WinMainMessage.Stop:
-                    break;
-                case WinMainMessage.CleareAlarm:
-                    break;
-                case WinMainMessage.PatternConvert:
-                    break;
-                case WinMainMessage.SetTriggerChanne:
-                    var rst = MessagePop.Show("文本", MessageType.Question);
-                    Debug.WriteLine(rst);
-                    break;
-                case WinMainMessage.ThermostatMonitor:
-                    break;
-                case WinMainMessage.ShowValidateError:
                     {
-                        List<ValidationResult> errors = e.Args[0] as List<ValidationResult>;
-                        MessagePop.Show(errors.ToMessageString(), MessageType.Error);
                         break;
                     }
-                case WinMainMessage.Message:
+                case WinMainMessage.Pause:
                     {
-                        string message = e.Args[0] as string;
-                        MessageType type = (MessageType)e.Args[1];
-                        return MessageResult.From(MessagePop.Show(message, type));
+                        break;
+                    }
+                case WinMainMessage.Continue:
+                    {
+                        break;
+                    }
+                case WinMainMessage.Stop:
+                    {
+                        break;
+                    }
+                case WinMainMessage.CleareAlarm:
+                    {
+                        break;
+                    }
+                case WinMainMessage.PatternConvert:
+                    {
+                        break;
+                    }
+                case WinMainMessage.SetTriggerChanne:
+                    {
+                        var rst = MessagePop.Show("文本", MessageType.Question);
+                        Debug.WriteLine(rst);
+                        break;
+                    }
+                case WinMainMessage.ThermostatMonitor:
+                    {
+                        break;
+                    }
+                case WinMainMessage.Growl:
+                    {
+                        Growl.Show(new GrowlInfo
+                        {
+                            Message = e.Args[0] as string,
+                            Type = (MessageType)e.Args[1]
+                        });
+                        break;
                     }
                 case WinMainMessage.ZoneListView:
                     {
@@ -55,14 +68,16 @@
                         break;
                     }
                 default:
-                    break;
+                    {
+                        break;
+                    }
             }
 
             return MessageResult.Null();
         }
-        protected override void OnClosed(EventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            base.OnClosed(e);
+            base.OnClosing(e);
             MessageBus.Default.UnregisterAll(this);
             MessageBus.Default.UnregisterAll(LogBrowse);
             Application.Current.Shutdown();

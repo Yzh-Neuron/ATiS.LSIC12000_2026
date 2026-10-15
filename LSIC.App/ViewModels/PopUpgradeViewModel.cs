@@ -9,10 +9,7 @@
         public ICommand ClearUpgradeFileCommand { get; }
         public bool? IsAllSelected
         {
-            get
-            {
-                return Zones.All(z => z.UpgradeSelected) ? true : Zones.Any(z => z.UpgradeSelected) ? null : false;
-            }
+            get => Zones.All(z => z.UpgradeSelected) ? true : Zones.Any(z => z.UpgradeSelected) ? null : false;
             set
             {
                 bool selected = value == true;
@@ -46,13 +43,14 @@
         }
         private void Browse(UpgradeItem item)
         {
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopUpgradeMessage.SelectFile, [])).First();
+            string filter = $"{LangProvider.Instance.FirmwareText}|*.bin|*|*.*";
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopUpgradeMessage.OpenFile, [filter, null])).First();
 
             if (msgResult.Result is string filePath)
             {
                 if (!string.IsNullOrWhiteSpace(item.Type.FilePrefix) && !Path.GetFileName(filePath).StartsWith(item.Type.FilePrefix, StringComparison.OrdinalIgnoreCase))
                 {
-                    MessageBus.Default.Send(MsgArgs.From(PopUpgradeMessage.Message, [string.Format(LangProvider.Instance.UpgradeFilePrefixMismatchMessage, item.Type.FilePrefix), MessageType.Warning]));
+                    MessageBus.Default.Send(MsgArgs.From(PopUpgradeMessage.Growl, [string.Format(LangProvider.Instance.UpgradeFilePrefixMismatchMessage, item.Type.FilePrefix), MessageType.Warning]));
                     return;
                 }
                 item.File = filePath;
@@ -67,13 +65,13 @@
             var zones = Zones.Where(z => z.UpgradeSelected).ToArray();
             if (zones.Length == 0)
             {
-                MessageBus.Default.Send(MsgArgs.From(PopUpgradeMessage.Message, [LangProvider.Instance.UpgradeSelectZoneMessage, MessageType.Warning]));
+                MessageBus.Default.Send(MsgArgs.From(PopUpgradeMessage.Growl, [LangProvider.Instance.UpgradeSelectZoneMessage, MessageType.Warning]));
                 return;
             }
             var ready = Items.Where(i => !string.IsNullOrWhiteSpace(i.File)).ToArray();
             if (ready.Length == 0)
             {
-                MessageBus.Default.Send(MsgArgs.From(PopUpgradeMessage.Message, [LangProvider.Instance.UpgradeSelectFirmwareMessage, MessageType.Warning]));
+                MessageBus.Default.Send(MsgArgs.From(PopUpgradeMessage.Growl, [LangProvider.Instance.UpgradeSelectFirmwareMessage, MessageType.Warning]));
                 return;
             }
 

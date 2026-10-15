@@ -13,22 +13,13 @@ namespace LSIC.App.Decorators
 
         public Brush GridLineBrush
         {
-            get
-            {
-                return (Brush)GetValue(GridLineBrushProperty);
-            }
-            set
-            {
-                SetValue(GridLineBrushProperty, value);
-            }
+            get => (Brush)GetValue(GridLineBrushProperty);
+            set => SetValue(GridLineBrushProperty, value);
         }
 
         public Grid Target
         {
-            get
-            {
-                return _target;
-            }
+            get => _target;
             set
             {
                 if (_target != value)

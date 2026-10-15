@@ -11,8 +11,8 @@
         }
         public BurnInBoard BurnInBoard
         {
-            get { return (BurnInBoard)GetValue(BurnInBoardProperty); }
-            set { SetValue(BurnInBoardProperty, value); }
+            get => (BurnInBoard)GetValue(BurnInBoardProperty);
+            set => SetValue(BurnInBoardProperty, value);
         }
 
         public static readonly DependencyProperty BurnInBoardProperty = DependencyProperty.Register(nameof(BurnInBoard), typeof(BurnInBoard), typeof(CtrBurnInBoardView), new PropertyMetadata(null, OnBurnInBoardChanged));
@@ -25,26 +25,6 @@
         private void UpdateBurnInfo(BurnInBoard burnInBoard)
         {
             ViewModel.BurnInBoard = burnInBoard;
-        }
-    }
-}
-
-namespace LSIC.App.ViewModels
-{
-    public class CtrBurnInBoardViewModel : ObservableObject
-    {
-        private BurnInBoard _burnInBoard = null;
-        public BurnInBoard BurnInBoard
-        {
-            get { return _burnInBoard; }
-            set { SetProperty(ref _burnInBoard, value); }
-        }
-
-        private BurnDut _selectedBurnDut = null;
-        public BurnDut SelectedBurnDut
-        {
-            get { return _selectedBurnDut; }
-            set { SetProperty(ref _selectedBurnDut, value); }
         }
     }
 }

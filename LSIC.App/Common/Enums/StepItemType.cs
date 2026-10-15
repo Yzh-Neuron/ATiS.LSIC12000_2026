@@ -5,11 +5,19 @@
     /// </summary>
     public enum StepItemType
     {
-        /// <summary>向量（老化）</summary>
+        /// <summary>
+        /// 向量（老化）
+        /// </summary>
         Vector,
-        /// <summary>上电</summary>
+
+        /// <summary>
+        /// 上电
+        /// </summary>
         PowerOn,
-        /// <summary>下电</summary>
+
+        /// <summary>
+        /// 下电
+        /// </summary>
         PowerOff
     }
 }

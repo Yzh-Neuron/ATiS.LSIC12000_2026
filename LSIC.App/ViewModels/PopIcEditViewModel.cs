@@ -158,7 +158,7 @@
         private void SaveIc()
         {
             Ic ic = SelectedIc.Target;
-            List<ValidationResult> errors = ic.GetAllErrorsRecursive();
+            List<ValidationResult> errors = ic.GetAllExistingErrorsRecursive();
             if (errors.Count > 0)
             {
                 MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [errors.ToMessageString(), MessageType.Error]));
@@ -193,7 +193,8 @@
         }
         private void ImportIc()
         {
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.ImportIc, [])).First();
+            string filter = $"{LangProvider.Instance.IcFileText}|*.{IcConfigManager.IcSuffix}";
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.OpenFile, [filter, null])).First();
 
             if (msgResult.Result is string path)
             {
@@ -252,8 +253,9 @@
         }
         private void ExportIc()
         {
-            var fileName = IcConfigManager.GetIcFileName(SelectedIc.Target);
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.ExportIc, [fileName])).First();
+            string fileName = IcConfigManager.GetIcFileName(SelectedIc.Target);
+            string filter = $"{LangProvider.Instance.IcFileText}|*.{IcConfigManager.IcSuffix}";
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Export, [filter, fileName])).First();
 
             if (msgResult.Result is string path)
             {
@@ -274,7 +276,7 @@
             string filter = $"{LangProvider.Instance.DutConfigFileText}|*.elm";
             string currentFile = SelectedIc.Target.BurnInBoardFile;
 
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.SelectFile, [filter, currentFile])).First();
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.OpenFile, [filter, currentFile])).First();
 
             if (msgResult.Result is string filePath)
             {

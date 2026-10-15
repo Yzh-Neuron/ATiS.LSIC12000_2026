@@ -8,16 +8,10 @@
     <Compile Update="Views\CtrHomeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Template\PopTemplateView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Views\WinMainView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\WinStartupView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Template\WinTemplateView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

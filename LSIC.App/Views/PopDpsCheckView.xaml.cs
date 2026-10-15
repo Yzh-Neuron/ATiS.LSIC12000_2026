@@ -17,17 +17,19 @@
         {
             switch (e.Message)
             {
-                case PopDpsCheckMessage.SelectScript:
+                case PopDpsCheckMessage.OpenFile:
                     {
-                        var current = e.Args[0] as string;
+                        string filter = e.Args[0] as string;
+                        string current = e.Args[1] as string;
                         string initialDirectory = Path.Exists(current) ? Path.GetDirectoryName(current)! : Path.GetFullPath(".\\Scripts\\Dps");
                         OpenFileDialog dialog = new OpenFileDialog
                         {
-                            InitialDirectory = initialDirectory,
-                            Filter = $"{LangProvider.Instance.DpsCheckScriptText}|*.dps",
-                            Title = LangProvider.Instance.DpsCheckScriptText
+                            Title = LangProvider.Instance.SelectFileText,
+                            Filter = filter,
+                            Multiselect = false,
+                            InitialDirectory = initialDirectory
                         };
-                        if (dialog.ShowDialog() == true)
+                        if (dialog.ShowDialog() is true)
                         {
                             return MessageResult.From(dialog.FileName);
                         }
@@ -49,7 +51,9 @@
                         break;
                     }
                 default:
-                    break;
+                    {
+                        break;
+                    }
             }
             return MessageResult.Null();
         }

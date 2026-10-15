@@ -2,7 +2,7 @@
 {
     public enum PopUpgradeMessage
     {
-        SelectFile,
-        Message,
+        OpenFile,
+        Growl,
     }
 }

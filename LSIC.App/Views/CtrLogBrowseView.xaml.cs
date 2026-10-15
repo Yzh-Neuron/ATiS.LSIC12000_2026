@@ -52,14 +52,15 @@ namespace LSIC.App.Views
                         }
                         break;
                     }
-                case CtrLogBrowseMessage.SelectLogFile:
+                case CtrLogBrowseMessage.OpenFile:
                     {
-                        var current = e.Args[0] as string;
-                        var filter = e.Args[1] as string;
+                        string filter = e.Args[0] as string;
+                        string current = e.Args[1] as string;
                         string initialDirectory = Path.Exists(current) ? Path.GetDirectoryName(current)! : Path.GetFullPath(".\\Log");
                         OpenFileDialog dialog = new OpenFileDialog
                         {
-                            Filter = filter!,
+                            Title = LangProvider.Instance.SelectFileText,
+                            Filter = filter,
                             Multiselect = false,
                             InitialDirectory = initialDirectory
                         };
@@ -80,21 +81,20 @@ namespace LSIC.App.Views
                     }
                 case CtrLogBrowseMessage.Export:
                     {
-                        var fileName = e.Args[0] as string;
-                        var filter = e.Args[1] as string;
-
+                        string filter = e.Args[0] as string;
+                        string current = e.Args[1] as string;
                         SaveFileDialog dialog = new SaveFileDialog
                         {
-                            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
-                            FileName = fileName,
-                            Filter = filter
+                            Title = LangProvider.Instance.ExportText,
+                            Filter = filter,
+                            FileName = current,
+                            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)
                         };
-
                         if (dialog.ShowDialog() is true)
                         {
                             return MessageResult.From(dialog.FileName);
                         }
-                        return MessageResult.Null();
+                        break;
                     }
                 case CtrLogBrowseMessage.SelectColumns:
                     {

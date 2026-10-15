@@ -48,7 +48,7 @@
         }
         public Ic Target
         {
-            get { return _ic?.Target; }
+            get => _ic?.Target;
         }
         public override void Load(Func<string, Ic> loader)
         {

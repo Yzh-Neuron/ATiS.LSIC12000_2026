@@ -2,7 +2,7 @@
 {
     public enum PopDpsCheckMessage
     {
-        SelectScript,
+        OpenFile,
         Message,
         Growl
     }

@@ -17,43 +17,43 @@
         private bool _enable;
         public bool Enable
         {
-            get { return _enable; }
-            set { SetProperty(ref _enable, value); }
+            get => _enable;
+            set => SetProperty(ref _enable, value);
         }
 
         private int _targetTemperature;
         public int TargetTemperature
         {
-            get { return _targetTemperature; }
-            set { SetProperty(ref _targetTemperature, value); }
+            get => _targetTemperature;
+            set => SetProperty(ref _targetTemperature, value);
         }
 
         private int? _temperature = 0;
         public int? Temperature
         {
-            get { return _temperature; }
-            set { SetProperty(ref _temperature, value); }
+            get => _temperature;
+            set => SetProperty(ref _temperature, value);
         }
 
         private int? _kp;
         public int? Kp
         {
-            get { return _kp; }
-            set { SetProperty(ref _kp, value); }
+            get => _kp;
+            set => SetProperty(ref _kp, value);
         }
 
         private int? _ki;
         public int? Ki
         {
-            get { return _ki; }
-            set { SetProperty(ref _ki, value); }
+            get => _ki;
+            set => SetProperty(ref _ki, value);
         }
 
         private int? _kd;
         public int? Kd
         {
-            get { return _kd; }
-            set { SetProperty(ref _kd, value); }
+            get => _kd;
+            set => SetProperty(ref _kd, value);
         }
     }
 }

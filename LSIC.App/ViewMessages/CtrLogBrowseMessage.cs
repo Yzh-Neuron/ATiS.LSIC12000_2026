@@ -1,4 +1,4 @@
-namespace LSIC.App.ViewMessages
+﻿namespace LSIC.App.ViewMessages
 {
     /// <summary>
     /// 日志浏览界面的消息总线消息。
@@ -6,7 +6,7 @@ namespace LSIC.App.ViewMessages
     public enum CtrLogBrowseMessage
     {
         LogRuleChanged,
-        SelectLogFile,
+        OpenFile,
         Growl,
         SelectColumns,
         Plot,

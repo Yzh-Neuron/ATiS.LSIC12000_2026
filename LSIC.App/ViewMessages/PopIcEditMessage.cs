@@ -3,9 +3,8 @@
     public enum PopIcEditMessage
     {
         InputName,
-        ImportIc,
-        ExportIc,
-        SelectFile,
+        OpenFile,
+        Export,
         Growl,
         Message,
         CreateDpsSetting,

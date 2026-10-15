@@ -29,12 +29,11 @@
             <Run Text="{app:Lang {x:Static app:LangKey.DataFileText}}" />
             <Run Text=":" />
         </TextBlock>
-        <TextBox Width="540"
-                 Margin="5,0,0,0"
-                 wpf:WidgetHelper.HasReadonlyIcon="True"
-                 wpf:WidgetHelper.ShowClearButton="True"
-                 IsReadOnly="True"
-                 Text="{Binding CurrentFile, Converter={StaticResource FilePathToFileNameConverter}, Mode=OneWay}" />
+        <wpf:TextBox Width="540"
+                     Margin="5,0,0,0"
+                     wpf:WidgetHelper.HasReadonlyIcon="True"
+                     IsReadOnly="True"
+                     Text="{Binding CurrentFile, Converter={StaticResource FilePathToFileNameConverter}, Mode=OneWay}" />
         <Button Margin="5,0,0,0"
                 Command="{Binding ChooseFileCommand}"
                 Style="{StaticResource Button.ChooseFile}" />

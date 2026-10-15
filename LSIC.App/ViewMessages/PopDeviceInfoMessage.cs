@@ -2,7 +2,7 @@
 {
     public enum PopDeviceInfoMessage
     {
-        ExportCsv,
-        Message
+        Export,
+        Growl
     }
 }

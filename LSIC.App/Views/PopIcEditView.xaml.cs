@@ -26,14 +26,16 @@
                         pop.ShowDialog();
                         return MessageResult.From(pop.NameResult);
                     }
-                case PopIcEditMessage.ExportIc:
+                case PopIcEditMessage.Export:
                     {
-                        string fileName = e.Args[0] as string;
-                        string filter = $"{LangProvider.Instance.IcFileText}|*.{IcConfigManager.IcSuffix}";
+                        string filter = e.Args[0] as string;
+                        string current = e.Args[1] as string;
                         SaveFileDialog dialog = new SaveFileDialog
                         {
-                            FileName = fileName,
+                            Title = LangProvider.Instance.ExportText,
                             Filter = filter,
+                            FileName = current,
+                            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)
                         };
                         if (dialog.ShowDialog() is true)
                         {
@@ -41,27 +43,15 @@
                         }
                         break;
                     }
-                case PopIcEditMessage.ImportIc:
-                    {
-                        string filter = $"{LangProvider.Instance.IcFileText}|*.{IcConfigManager.IcSuffix}";
-                        OpenFileDialog dialog = new OpenFileDialog
-                        {
-                            Filter = filter!,
-                        };
-                        if (dialog.ShowDialog() is true)
-                        {
-                            return MessageResult.From(dialog.FileName);
-                        }
-                        break;
-                    }
-                case PopIcEditMessage.SelectFile:
+                case PopIcEditMessage.OpenFile:
                     {
                         string filter = e.Args[0] as string;
                         string current = e.Args[1] as string;
                         string initialDirectory = Path.Exists(current) ? Path.GetDirectoryName(current)! : Path.GetFullPath(".\\Samples");
                         OpenFileDialog dialog = new OpenFileDialog
                         {
-                            Filter = filter!,
+                            Title = LangProvider.Instance.SelectFileText,
+                            Filter = filter,
                             Multiselect = false,
                             InitialDirectory = initialDirectory
                         };

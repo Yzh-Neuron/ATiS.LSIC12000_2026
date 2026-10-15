@@ -51,29 +51,29 @@
         private bool _masked;
         public bool Masked
         {
-            get { return _masked; }
-            set { SetFlag(ref _masked, value); }
+            get => _masked;
+            set => SetFlag(ref _masked, value);
         }
 
         private bool _burning;
         public bool Burning
         {
-            get { return _burning; }
-            set { SetFlag(ref _burning, value); }
+            get => _burning;
+            set => SetFlag(ref _burning, value);
         }
 
         private bool _finished;
         public bool Finished
         {
-            get { return _finished; }
-            set { SetFlag(ref _finished, value); }
+            get => _finished;
+            set => SetFlag(ref _finished, value);
         }
 
         private bool _error;
         public bool Error
         {
-            get { return _error; }
-            set { SetFlag(ref _error, value); }
+            get => _error;
+            set => SetFlag(ref _error, value);
         }
 
         private void SetFlag(ref bool field, bool value)

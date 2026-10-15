@@ -33,8 +33,7 @@
         </Grid.ColumnDefinitions>
 
         <!--  搜索框  -->
-        <wpf:TextBox wpf:WidgetHelper.HasReadonlyIcon="True"
-                     wpf:WidgetHelper.ShowClearButton="True"
+        <wpf:TextBox wpf:WidgetHelper.ShowClearButton="True"
                      Style="{StaticResource TextBox.Search}"
                      Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -141,15 +140,7 @@
                 wpf:IconHelper.Width="16"
                 Command="{Binding ConfirmCommand}"
                 Content="{app:Lang {x:Static app:LangKey.EnterBurnViewText}}"
-                FontSize="13">
-            <!--<Button.IsEnabled>
-            <MultiBinding Converter="{StaticResource ZoneCanGotoBurnConverter}">
-                <Binding Mode="OneWay" Path="Zone" />
-                <Binding Mode="OneWay" Path="Zone.State" />
-                <Binding Mode="OneWay" Path="SelectedItem" />
-            </MultiBinding>
-        </Button.IsEnabled>-->
-        </Button>
+                FontSize="13" />
     </Grid>
 
 

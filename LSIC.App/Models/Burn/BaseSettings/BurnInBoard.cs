@@ -45,8 +45,8 @@
         private ulong _dutStates;
         public ulong DutStates
         {
-            get { return _dutStates; }
-            private set { SetProperty(ref _dutStates, value); }
+            get => _dutStates;
+            private set => SetProperty(ref _dutStates, value);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@
         /// </summary>
         public byte[] DutMask
         {
-            get { return BuildDutMask(); }
+            get => BuildDutMask();
             set
             {
                 int[] integers = MaskToIntegers(value ?? Array.Empty<byte>());

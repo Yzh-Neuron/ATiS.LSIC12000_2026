@@ -29,14 +29,10 @@
                         Close();
                         break;
                     }
-                case PopDpsSettingEditMessage.ShowValidateError:
+                default:
                     {
-                        List<ValidationResult> errors = e.Args[0] as List<ValidationResult>;
-                        MessagePop.Show(errors.ToMessageString(), MessageType.Error);
                         break;
                     }
-                default:
-                    break;
             }
 
             return MessageResult.Null();
@@ -47,50 +43,5 @@
             base.OnClosed(e);
             MessageBus.Default.UnregisterAll(this);
         }
-    }
-}
-
-namespace LSIC.App.ViewModels
-{
-    public class PopDpsSettingEditViewModel : ObservableObject
-    {
-        public IEnumerable<DpsInfo> DpsInfos { get; private set; }
-        public DpsSetting DpsSetting { get; private set; }
-        public ICommand ConfirmCommand { get; }
-        public ICommand CancelCommand { get; }
-        public PopDpsSettingEditViewModel(IEnumerable<DpsInfo> dpsInfos, DpsSetting dpsSetting)
-        {
-            DpsInfos = dpsInfos;
-            DpsSetting = dpsSetting;
-            ConfirmCommand = new RelayCommand(Confirm);
-            CancelCommand = new RelayCommand(Cancel);
-        }
-        private void Confirm()
-        {
-            List<ValidationResult> errors = DpsSetting.GetAllErrorsRecursive();
-            if (errors.Count > 0)
-            {
-                MessageBus.Default.Send(MsgArgs.From(PopDpsSettingEditMessage.ShowValidateError, [errors]));
-            }
-            else
-            {
-                MessageBus.Default.Send(MsgArgs.From(PopDpsSettingEditMessage.Confirm, [DpsSetting]));
-            }
-
-        }
-        private void Cancel()
-        {
-            MessageBus.Default.Send(MsgArgs.From(PopDpsSettingEditMessage.Cancel, []));
-        }
-    }
-}
-
-namespace LSIC.App.ViewMessages
-{
-    public enum PopDpsSettingEditMessage
-    {
-        Confirm,
-        Cancel,
-        ShowValidateError
     }
 }

@@ -5,13 +5,6 @@
     <sys:String x:Key="Enum.DeviceMode.Engineering">Engineering</sys:String>
     <sys:String x:Key="Enum.DeviceMode.Administrator">Administrator</sys:String>
 
-    <sys:String x:Key="Enum.OvenMode.Off">Standby</sys:String>
-    <sys:String x:Key="Enum.OvenMode.Standby">Standby</sys:String>
-    <sys:String x:Key="Enum.OvenMode.Constant">Running</sys:String>
-    <sys:String x:Key="Enum.OvenMode.Run">Running</sys:String>
-    <sys:String x:Key="Enum.OvenMode.Error">Error</sys:String>
-    <sys:String x:Key="Enum.OvenMode.Offline">Offline</sys:String>
-
     <sys:String x:Key="Enum.TimeUnit.Second">Second</sys:String>
     <sys:String x:Key="Enum.TimeUnit.Minute">Minute</sys:String>
     <sys:String x:Key="Enum.TimeUnit.Hour">Hour</sys:String>
@@ -46,24 +39,6 @@
     <sys:String x:Key="Enum.DutState.Fail">Fail</sys:String>
     <sys:String x:Key="Enum.DutState.Ignore">Ignore</sys:String>
 
-    <sys:String x:Key="Enum.BoardType.MainBoard">Main</sys:String>
-    <sys:String x:Key="Enum.BoardType.BaseBoard">Base</sys:String>
-    <sys:String x:Key="Enum.BoardType.DigitalBoard">Digital</sys:String>
-    <sys:String x:Key="Enum.BoardType.AnalogBoard">Analog</sys:String>
-    <sys:String x:Key="Enum.BoardType.PowerBoard">DPSs</sys:String>
-    <sys:String x:Key="Enum.BoardType.DPS">DPS</sys:String>
-    <sys:String x:Key="Enum.BoardType.VIH">VIH</sys:String>
-    <sys:String x:Key="Enum.BoardType.TempControlBoard">TempControl</sys:String>
-    <sys:String x:Key="Enum.BoardType.BaseManagerController">BMC</sys:String>
-    <sys:String x:Key="Enum.BoardType.FB10V10A">FB 10V10A</sys:String>
-    <sys:String x:Key="Enum.BoardType.FB06V25A">FB 06V25A</sys:String>
-    <sys:String x:Key="Enum.BoardType.FB06V50A">FB 06V50A</sys:String>
-    <sys:String x:Key="Enum.BoardType.FB36V05A">FB 36V05A</sys:String>
-    <sys:String x:Key="Enum.BoardType.HB20V20A">HB 20V20A</sys:String>
-    <sys:String x:Key="Enum.BoardType.HB45V10A">HB 45V10A</sys:String>
-    <sys:String x:Key="Enum.BoardType.VerticalBoard">Vertical</sys:String>
-    <sys:String x:Key="Enum.BoardType.AdapterBoard">Adapter</sys:String>
-    <sys:String x:Key="Enum.BoardType.IoController">I/O Controller</sys:String>
     <sys:String x:Key="Enum.BoardType.BurnInBoard">BIB</sys:String>
 
     <sys:String x:Key="Enum.DpsState.Output">Normal</sys:String>
@@ -92,21 +67,6 @@
     <sys:String x:Key="Enum.UpgradeState.DataVerifyFail">DataVerifyFail</sys:String>
     <sys:String x:Key="Enum.UpgradeState.Error">Error</sys:String>
 
-    <sys:String x:Key="Enum.LightAlarmState.Red">Red</sys:String>
-    <sys:String x:Key="Enum.LightAlarmState.Yellow">Yellow</sys:String>
-    <sys:String x:Key="Enum.LightAlarmState.Green">Green</sys:String>
-    <sys:String x:Key="Enum.LightAlarmState.Alarm">Alarm</sys:String>
-
-    <sys:String x:Key="Enum.BitWidth.Bit8">8 Bit</sys:String>
-    <sys:String x:Key="Enum.BitWidth.Bit12">12 Bit</sys:String>
-    <sys:String x:Key="Enum.BitWidth.Bit16">16 Bit</sys:String>
-    <sys:String x:Key="Enum.BitWidth.Bit24">24 Bit</sys:String>
-    <sys:String x:Key="Enum.BitWidth.Bit32">32 Bit</sys:String>
-
-    <sys:String x:Key="Enum.ChannelType.Clock">Clock</sys:String>
-    <sys:String x:Key="Enum.ChannelType.MOSI">MOSI</sys:String>
-    <sys:String x:Key="Enum.ChannelType.MISO">MISO</sys:String>
-    <sys:String x:Key="Enum.ChannelType.CS">CS</sys:String>
     <sys:String x:Key="DeviceCheck.Type[00]">MainBoard</sys:String>
     <sys:String x:Key="DeviceCheck.Type[10]">BaseBoard</sys:String>
     <sys:String x:Key="DeviceCheck.Type[20]">DigitalBoard</sys:String>
