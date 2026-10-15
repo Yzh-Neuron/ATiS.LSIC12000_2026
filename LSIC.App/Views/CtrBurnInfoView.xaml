@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:app="clr-namespace:LSIC.App"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:decos="clr-namespace:LSIC.App.Decorators"
       xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:models="clr-namespace:LSIC.App.Models"
@@ -10,7 +11,6 @@
       xmlns:views="clr-namespace:LSIC.App.Views"
       xmlns:vms="clr-namespace:LSIC.App.ViewModels"
       xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
-      xmlns:decos="clr-namespace:LSIC.App.Decorators"
       HorizontalAlignment="Stretch"
       VerticalAlignment="Stretch"
       d:DataContext="{d:DesignInstance vms:CtrBurnInfoViewModel}"
@@ -297,17 +297,17 @@
                 <DockPanel Grid.Row="8"
                            Grid.Column="1"
                            LastChildFill="False">
-                    <Border MaxWidth="350"
-                            Margin="10,0,0,0"
-                            DockPanel.Dock="Left">
-                        <TextBlock HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Background="Transparent"
-                                   Text="{Binding Zone.BurnInfo.CurrentVector.RegisterFile}"
-                                   TextTrimming="CharacterEllipsis"
-                                   ToolTip="{Binding Zone.BurnInfo.CurrentVector.RegisterFile}" />
-                    </Border>
+                    <TextBlock MaxWidth="350"
+                               Margin="10,0,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Background="Transparent"
+                               DockPanel.Dock="Left"
+                               Text="{Binding Zone.BurnInfo.CurrentVector.RegisterFile}"
+                               TextTrimming="CharacterEllipsis"
+                               ToolTip="{Binding Zone.BurnInfo.CurrentVector.RegisterFile}" />
                     <Button Margin="5,0,0,0"
+                            Click="OnViewRegisterFileButtonClick"
                             Content="{app:Lang {x:Static app:LangKey.ViewText}}"
                             DockPanel.Dock="Left"
                             Foreground="{StaticResource PrimaryBrush}"

@@ -8,10 +8,14 @@ namespace LSIC.App.Views
         public CtrLogBrowseView()
         {
             InitializeComponent();
-            ViewModel = new CtrLogBrowseViewModel();
-            DataContext = ViewModel;
 
-            MessageBus.Default.Register(this);
+            if (!DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            {
+                ViewModel = new CtrLogBrowseViewModel();
+                DataContext = ViewModel;
+
+                MessageBus.Default.Register(this);
+            }
         }
         public MessageResult Receive(MsgArgs<CtrLogBrowseMessage> e)
         {

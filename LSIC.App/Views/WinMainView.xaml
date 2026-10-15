@@ -69,7 +69,7 @@
                                 wpf:IconHelper.Geometry="{StaticResource Geometry.Ic}"
                                 wpf:IconHelper.Height="13"
                                 wpf:IconHelper.Width="13"
-                                Command="{Binding OpenIcEditViewCommand}"
+                                Click="OnOpenIcEditButtonClick"
                                 ToolTip="{app:Lang {x:Static app:LangKey.IcEditText}}" />
 
                         <Button Width="32"
@@ -79,7 +79,7 @@
                                 wpf:IconHelper.Geometry="{StaticResource Geometry.PatternConvert}"
                                 wpf:IconHelper.Height="13"
                                 wpf:IconHelper.Width="13"
-                                Command="{Binding PatternConvertCommand}"
+                                Click="OnPatternConvertButtonClick"
                                 ToolTip="{app:Lang {x:Static app:LangKey.PatternFormatConvertText}}" />
 
                         <Button Width="32"
@@ -89,7 +89,7 @@
                                 wpf:IconHelper.Geometry="{StaticResource Geometry.TriggerSet}"
                                 wpf:IconHelper.Height="13"
                                 wpf:IconHelper.Width="13"
-                                Command="{Binding SetTriggerChannelCommand}"
+                                Click="OnSetTriggerChannelButtonClick"
                                 ToolTip="{app:Lang {x:Static app:LangKey.TriggerSetText}}" />
                     </StackPanel>
                 </Grid>

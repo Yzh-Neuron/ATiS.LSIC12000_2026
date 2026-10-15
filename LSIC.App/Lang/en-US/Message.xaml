@@ -12,6 +12,7 @@
 
     <sys:String x:Key="DeleteAskMessage">Are you sure you want to delete the selected item(s)?</sys:String>
     <sys:String x:Key="ImportIcFileExistMessage">A IC with the same name exists. Overwrite?</sys:String>
+    <sys:String x:Key="ImportIcNameExistsMessage" xml:space="preserve">Name repeat, Rename it?</sys:String>
     <sys:String x:Key="NameNotNullMessage">Name cannot be empty or contain spaces</sys:String>
     <sys:String x:Key="NameNotExceedMessage">Name cannot exceed {0} characters</sys:String>
     <sys:String x:Key="NameExistMessage">Name already exists</sys:String>
@@ -21,8 +22,8 @@
     <sys:String x:Key="FileParseErrorMessage">File [ {0} ] parse error; Line {1} Column {2}</sys:String>
     <sys:String x:Key="FileLengthErrorMessage">File [ {0} ] length error; Expected length {1} bytes</sys:String>
     <sys:String x:Key="AbmFileNotMatchMessage">ABM file [ {0} ] does not match. Please use the vector conversion tool in this application to generate the ABM file.</sys:String>
-    <sys:String x:Key="AnalysisFrameErrorMessage">Frame parsing error, {0}</sys:String>
-    <sys:String x:Key="Crc32NotMatchMessage">CRC32 not match, {0}</sys:String>
+    <sys:String x:Key="AnalysisFrameErrorMessage">Frame parsing error，{0}</sys:String>
+    <sys:String x:Key="Crc32NotMatchMessage">CRC32 not match，{0}</sys:String>
     <sys:String x:Key="FrameEndingNotMatchMessage">Frame ending not match</sys:String>
     <sys:String x:Key="PluggedMessage">Burn-in Board Inserted</sys:String>
     <sys:String x:Key="UnpluggedMessage">Burn-in Board Removed</sys:String>

@@ -14,45 +14,6 @@
         {
             switch (e.Message)
             {
-                case WinMainMessage.OpenIcEditView:
-                    {
-                        WindowUtility.ShowOrActivate<PopIcEditView>();
-                        break;
-                    }
-                case WinMainMessage.Start:
-                    {
-                        break;
-                    }
-                case WinMainMessage.Pause:
-                    {
-                        break;
-                    }
-                case WinMainMessage.Continue:
-                    {
-                        break;
-                    }
-                case WinMainMessage.Stop:
-                    {
-                        break;
-                    }
-                case WinMainMessage.ClearAlarm:
-                    {
-                        break;
-                    }
-                case WinMainMessage.PatternConvert:
-                    {
-                        break;
-                    }
-                case WinMainMessage.SetTriggerChannel:
-                    {
-                        var rst = MessagePop.Show("文本", MessageType.Question);
-                        Debug.WriteLine(rst);
-                        break;
-                    }
-                case WinMainMessage.ThermostatMonitor:
-                    {
-                        break;
-                    }
                 case WinMainMessage.Growl:
                     {
                         Growl.Show(new GrowlInfo
@@ -63,6 +24,11 @@
                         break;
                     }
                 case WinMainMessage.ZoneListView:
+                    {
+                        new PopZoneListView { Owner = this }.ShowDialog();
+                        break;
+                    }
+                case WinMainMessage.DutMask:
                     {
                         new PopZoneListView { Owner = this }.ShowDialog();
                         break;
@@ -101,6 +67,18 @@
         private void OnDpsCheckButtonClick(object sender, RoutedEventArgs e)
         {
             new PopDpsCheckView { Owner = this }.ShowDialog();
+        }
+        private void OnOpenIcEditButtonClick(object sender, RoutedEventArgs e)
+        {
+            WindowUtility.ShowOrActivate<PopIcEditView>();
+        }
+        private void OnPatternConvertButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void OnSetTriggerChannelButtonClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

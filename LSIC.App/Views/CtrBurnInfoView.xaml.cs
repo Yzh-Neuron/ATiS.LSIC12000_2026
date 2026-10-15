@@ -1,4 +1,7 @@
-﻿namespace LSIC.App.Views
+﻿using ATiS.Orm;
+using System.Windows.Controls;
+
+namespace LSIC.App.Views
 {
     public partial class CtrBurnInfoView
     {
@@ -22,6 +25,19 @@
         private void UpdateZone(Zone zone)
         {
             ViewModel.Zone = zone;
+        }
+
+        private void OnViewRegisterFileButtonClick(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button.Tag is string path && File.Exists(path))
+            {
+                PopTextBrowseView window = new PopTextBrowseView(path.FileName(), path, Encoding.UTF8)
+                {
+                    Owner = WindowExtension.GetActiveWindow()
+                };
+                window.ShowDialog();
+            }
         }
     }
 }

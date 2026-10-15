@@ -12,6 +12,7 @@
 
     <sys:String x:Key="DeleteAskMessage">确定删除所选项目?</sys:String>
     <sys:String x:Key="ImportIcFileExistMessage">已存在同名器件文件, 是否覆盖?</sys:String>
+    <sys:String x:Key="ImportIcNameExistsMessage" xml:space="preserve">存在与导入器件同名的器件&#x000A;是否对导入器件重命名?</sys:String>
     <sys:String x:Key="NameNotNullMessage">名称不可以为空或包含空格</sys:String>
     <sys:String x:Key="NameNotExceedMessage">名称不可以超过 {0} 位长度</sys:String>
     <sys:String x:Key="NameExistMessage">名称已存在</sys:String>

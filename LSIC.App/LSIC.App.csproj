@@ -68,9 +68,9 @@
 
 	<ItemGroup>
 		<Compile Update="Lang\LangProvider.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>LangProvider.tt</DependentUpon>
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>LangProvider.tt</DependentUpon>
 		</Compile>
 		<Compile Update="Views\CtrDpsView.xaml.cs">
 		  <SubType>Code</SubType>
@@ -85,6 +85,9 @@
 		  <SubType>Code</SubType>
 		</Compile>
 		<Compile Update="Views\CtrPrepareBurnView.xaml.cs">
+		  <SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\PopTextBrowseView.xaml.cs">
 		  <SubType>Code</SubType>
 		</Compile>
 		<Compile Update="Views\PopIcEditView.xaml.cs">

@@ -25,12 +25,24 @@ namespace LSIC.App.ViewModels
         }
         private async Task StartAsync()
         {
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(WinMainMessage.DutMask, [])).First();
+            byte[] dutMask = null;
 
-            if (msgResult.Result is byte[] dutMask)
+            if (Zone.Pluged)
             {
-                await Zone.StartBurnAsync(dutMask);
+                var msgResult = MessageBus.Default.Send(MsgArgs.From(WinMainMessage.DutMask, [])).First();
+
+                if (msgResult.Result is byte[] d)
+                {
+                    dutMask = d;
+                }
+
+                if (dutMask is null)
+                {
+                    return;
+                }
             }
+
+            await Zone.StartBurnAsync(dutMask);
         }
         private async Task StopAsync()
         {

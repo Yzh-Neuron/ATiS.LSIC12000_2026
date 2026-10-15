@@ -217,7 +217,7 @@
 
                 if (Ics.Any(i => i.Name == importIc.Name))
                 {
-                    msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.ImportIcFileExistMessage, MessageType.Question])).First();
+                    msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Message, [LangProvider.Instance.ImportIcNameExistsMessage, MessageType.Question])).First();
 
                     if (msgResult.Result is true)
                     {
