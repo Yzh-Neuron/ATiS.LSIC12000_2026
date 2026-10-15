@@ -50,4 +50,5 @@
     <sys:String x:Key="StepRunInfoMessage">当前步次: [{0}]&#x0009;向量: [{1}]</sys:String>
     <sys:String x:Key="RunDpsCheckScriptMessage">运行电源自检脚本: {0}</sys:String>
     <sys:String x:Key="DpsCheckResultMessage" xml:space="preserve">电源自检[{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})</sys:String>
+    <sys:String x:Key="TriggerDrSetSuccessMessage">触发通道 {0} 设置成功</sys:String>
 </ResourceDictionary>

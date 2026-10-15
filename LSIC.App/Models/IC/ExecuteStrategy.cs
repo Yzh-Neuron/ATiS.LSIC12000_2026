@@ -5,6 +5,10 @@
     /// </summary>
     public class ExecuteStrategy : ObservableValidator
     {
+        public ExecuteStrategy()
+        {
+            ValidateAllProperties();
+        }
         private ExecuteMode _mode;
         public ExecuteMode Mode
         {
@@ -31,10 +35,11 @@
             set => SetProperty(ref _time, value);
         }
         private int _count = 1;
+        [ValidationMetadata(Method = nameof(ValidateCount))]
         public int Count
         {
             get => _count;
-            set => SetProperty(ref _count, value);
+            set => SetProperty(ref _count, value, true);
         }
         public int TotalSecondsOrCount
         {
@@ -64,5 +69,17 @@
             Count = executeStrategy.Count;
             Time.Copy(executeStrategy.Time);
         }
+
+        #region validate methods
+        private ValidationResult ValidateCount(int Count)
+        {
+            if (Count <= 0|| Count> 2000000000)
+            {
+                new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangeMessage, $"1 ~ 2000000000 {LangProvider.Instance.TimesText}"));
+            }
+            return ValidationResult.Success;
+        }
+
+        #endregion 
     }
 }

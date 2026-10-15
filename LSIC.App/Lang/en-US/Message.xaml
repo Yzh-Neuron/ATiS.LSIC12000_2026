@@ -50,4 +50,5 @@
     <sys:String x:Key="StepRunInfoMessage">Step: [{0}]&#x0009;Vector step: [{1}]</sys:String>
     <sys:String x:Key="RunDpsCheckScriptMessage">Run DPS diagnosis script: {0}</sys:String>
     <sys:String x:Key="DpsCheckResultMessage" xml:space="preserve">DPS Diagnosis [{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})</sys:String>
+    <sys:String x:Key="TriggerDrSetSuccessMessage">Trigger Dr {0} set successfully.</sys:String>
 </ResourceDictionary>

@@ -17,9 +17,6 @@
                   SizeToContent="WidthAndHeight"
                   WindowStartupLocation="CenterOwner"
                   mc:Ignorable="d">
-    <wpf:ChromeWindow.Resources>
-        <sys:Int32 x:Key="Zero">0</sys:Int32>
-    </wpf:ChromeWindow.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -51,9 +48,9 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="10" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -61,7 +58,6 @@
                 <Run Text=":" />
             </TextBlock>
             <ComboBox Grid.Column="2"
-                      Height="28"
                       DisplayMemberPath="Name"
                       ItemsSource="{Binding DpsInfos}"
                       SelectedValue="{Binding DpsSetting.DpsInfo, UpdateSourceTrigger=PropertyChanged}" />
@@ -77,7 +73,7 @@
                      wpf:TextBoxHelper.SelectAllOnGotFocus="True"
                      Text="{Binding DpsSetting.Vol, Converter={StaticResource IntegerToDecimalConverter1000}, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Grid.Row="2"
-                       Grid.Column="4" 
+                       Grid.Column="4"
                        VerticalAlignment="Center">
                 <TextBlock.Text>
                     <MultiBinding Converter="{StaticResource RangeToStringConverter}"

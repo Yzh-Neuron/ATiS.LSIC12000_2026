@@ -33,6 +33,7 @@
     <sys:String x:Key="BelongChipSelectText">所属片选</sys:String>
     <sys:String x:Key="UsedDpsText">使用的电源</sys:String>
     <sys:String x:Key="LinkedDrText">关联的管脚</sys:String>
+    <sys:String x:Key="DrText">管脚</sys:String>
     <sys:String x:Key="CSText">片选</sys:String>
 
     <!--  主界面菜单  -->

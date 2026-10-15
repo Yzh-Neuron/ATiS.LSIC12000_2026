@@ -1,4 +1,5 @@
-﻿using TcpClient = ATiS.Sim.Communication.TcpClient;
+﻿using System.Net.NetworkInformation;
+using TcpClient = ATiS.Sim.Communication.TcpClient;
 
 namespace LSIC.App.Models
 {
@@ -539,6 +540,11 @@ namespace LSIC.App.Models
         protected override void SendUpgrade(byte[] payload)
         {
             _ = SendAsync(ZoneFunctionCode.Upgrade, payload);
+        }
+        public async ValueTask TriggerAsync(TriggerOutputType type, int dr)
+        {
+            byte[] data = [(byte)type, (byte)dr];
+            await SendAsync(ZoneFunctionCode.Trigger, data);
         }
         public async ValueTask StartBurnAsync(byte[] dutMask)
         {

@@ -1,7 +1,11 @@
-﻿namespace LSIC.App.Views
+﻿using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+
+namespace LSIC.App.Views
 {
     public partial class WinMainView : IRecipient<MsgArgs<WinMainMessage>>
     {
+        private const string PublicKey = "<RSAKeyValue><Modulus>6rnqXdAXYIgKCBIw2sfC5KWu3av0L9SQc7JdG9hWDIl/uKzPss4XyrdJkG/jXnUCODMukaSweLiAiDJzIHVYKJbDCoa5ul2YTYSlHm3SzzM2l1euIyNKlp7al+xWVQRImF73hDPtaOc8jHIDWWh8vT809tlCHM8Ix9GBXwgrKL0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
         public WinMainViewModel ViewModel { get; }
         public WinMainView()
         {
@@ -74,11 +78,40 @@
         }
         private void OnPatternConvertButtonClick(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
+            string content = "{" + "LSIC120000" + "|" + DateTime.Now.ToString("yyyyMMddHHmmss") + "|" + (LangProvider.Instance.CurrentLanguage == UiLanguage.English ? "en-us" : "zh-cn") + "}";
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(1024);
+            rsa.FromXmlString(PublicKey);
+            byte[] data = rsa.Encrypt(Encoding.ASCII.GetBytes(content), false);
+            string encrypted = Convert.ToBase64String(data);
+            System.Diagnostics.Process process = new();
+            ProcessStartInfo startInfo = new ProcessStartInfo(".\\HK.Pattern.App.exe")
+            {
+                Arguments = encrypted,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+            process.StartInfo = startInfo;
+            process.Start();
 
+            JobUtility.Instance.AddProcess(process.Handle);
         }
         private void OnSetTriggerChannelButtonClick(object sender, RoutedEventArgs e)
         {
+            PopTriggerSetView pop = new PopTriggerSetView()
+            {
+                Owner = this
+            };
+            pop.ShowDialog();
 
+            if (pop.SuccessMessage is not null)
+            {
+                Growl.Show(new GrowlInfo
+                {
+                    Message = pop.SuccessMessage,
+                    Type = MessageType.Success,
+                });
+            }
         }
     }
 }

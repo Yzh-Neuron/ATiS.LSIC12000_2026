@@ -562,6 +562,10 @@
         /// </summary>
         public string DpsCheckResultMessage => GetString("DpsCheckResultMessage");
         /// <summary>
+        /// 触发通道{0}设置成功
+        /// </summary>
+        public string TriggerDrSetSuccessMessage => GetString("TriggerDrSetSuccessMessage");
+        /// <summary>
         /// 见微知著·科技赋能·创造非凡价值
         /// </summary>
         public string ConceptText => GetString("ConceptText");
@@ -673,6 +677,10 @@
         /// 关联的管脚
         /// </summary>
         public string LinkedDrText => GetString("LinkedDrText");
+        /// <summary>
+        /// 管脚
+        /// </summary>
+        public string DrText => GetString("DrText");
         /// <summary>
         /// 片选
         /// </summary>
@@ -1280,6 +1288,7 @@
             OnPropertyChanged(nameof(StepRunInfoMessage));
             OnPropertyChanged(nameof(RunDpsCheckScriptMessage));
             OnPropertyChanged(nameof(DpsCheckResultMessage));
+            OnPropertyChanged(nameof(TriggerDrSetSuccessMessage));
             OnPropertyChanged(nameof(ConceptText));
             OnPropertyChanged(nameof(ConfirmText));
             OnPropertyChanged(nameof(CancelText));
@@ -1308,6 +1317,7 @@
             OnPropertyChanged(nameof(BelongChipSelectText));
             OnPropertyChanged(nameof(UsedDpsText));
             OnPropertyChanged(nameof(LinkedDrText));
+            OnPropertyChanged(nameof(DrText));
             OnPropertyChanged(nameof(CSText));
             OnPropertyChanged(nameof(IcNameText));
             OnPropertyChanged(nameof(IcEditText));
@@ -1986,6 +1996,10 @@
         /// </summary>
         public const string DpsCheckResultMessage = nameof(DpsCheckResultMessage);
          /// <summary>
+        /// 触发通道{0}设置成功
+        /// </summary>
+        public const string TriggerDrSetSuccessMessage = nameof(TriggerDrSetSuccessMessage);
+         /// <summary>
         /// 见微知著·科技赋能·创造非凡价值
         /// </summary>
         public const string ConceptText = nameof(ConceptText);
@@ -2097,6 +2111,10 @@
         /// 关联的管脚
         /// </summary>
         public const string LinkedDrText = nameof(LinkedDrText);
+         /// <summary>
+        /// 管脚
+        /// </summary>
+        public const string DrText = nameof(DrText);
          /// <summary>
         /// 片选
         /// </summary>
