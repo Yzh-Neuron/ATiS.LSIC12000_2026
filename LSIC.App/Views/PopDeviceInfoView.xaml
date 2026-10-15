@@ -39,9 +39,15 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Button Margin="5,0,0,0"
+                    wpf:IconHelper.Geometry="{StaticResource Geometry.QueryVersion}"
+                    wpf:IconHelper.Height="12"
+                    wpf:IconHelper.Width="12"
                     Command="{Binding QueryVersionCommand}"
                     Content="{app:Lang {x:Static app:LangKey.GetVersionInfoText}}" />
             <Button Margin="5,0,0,0"
+                    wpf:IconHelper.Geometry="{StaticResource Geometry.ExportCSV}"
+                    wpf:IconHelper.Height="12"
+                    wpf:IconHelper.Width="12"
                     Command="{Binding ExportCommand}"
                     Content="{app:Lang {x:Static app:LangKey.ExportVersionInfoText}}" />
         </StackPanel>

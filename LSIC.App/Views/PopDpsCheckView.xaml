@@ -8,8 +8,8 @@
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
                   Title="{app:Lang {x:Static app:LangKey.DpsCheckText}}"
-                  Width="760"
-                  Height="760"
+                  Width="600"
+                  Height="640"
                   d:DataContext="{d:DesignInstance vms:PopDpsCheckViewModel}"
                   Icon="/Resources/Icon/icon.ico"
                   ResizeMode="NoResize"
@@ -88,9 +88,9 @@
         <Button Grid.Row="3"
                 Margin="0,10,0,0"
                 HorizontalAlignment="Right"
-                wpf:IconHelper.Geometry="{StaticResource Geometry.StartBurn}"
-                wpf:IconHelper.Height="15"
-                wpf:IconHelper.Width="15"
+                wpf:IconHelper.Geometry="{StaticResource Geometry.RunScripte}"
+                wpf:IconHelper.Height="12"
+                wpf:IconHelper.Width="12"
                 Command="{Binding RunCommand}"
                 Content="{app:Lang {x:Static app:LangKey.RunScriptText}}" />
     </Grid>

@@ -50,6 +50,9 @@
                        Foreground="{Binding SelectedZone.State, Converter={StaticResource ZoneStateToBrushConverter}}"
                        Text="{Binding SelectedZone.State, Converter={StaticResource EnumToTextConverter}}" />
             <Button Grid.Column="2"
+                    wpf:IconHelper.Geometry="{StaticResource Geometry.SelfCheck}"
+                    wpf:IconHelper.Height="12"
+                    wpf:IconHelper.Width="12"
                     Command="{Binding StartCommand}"
                     Content="{app:Lang {x:Static app:LangKey.StartDeviceCheckText}}" />
         </Grid>
