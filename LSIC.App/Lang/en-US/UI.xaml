@@ -92,7 +92,7 @@
     <sys:String x:Key="CurrentPatternText">Pattern</sys:String>
     <sys:String x:Key="CurrentRegistersText">Register</sys:String>
     <sys:String x:Key="CurrentStepText">Step</sys:String>
-    <sys:String x:Key="CurrentDpsPlanText">Dps Plan</sys:String>
+    <sys:String x:Key="CurrentDpsPlanText">DPS Plan</sys:String>
 
     <sys:String x:Key="DutText">Dut</sys:String>
     <sys:String x:Key="RowText">Row</sys:String>
@@ -168,7 +168,7 @@
     <sys:String x:Key="DataLogText">Data Log</sys:String>
 
     
-    <sys:String x:Key="DpsEditText">Dps Edit</sys:String>
+    <sys:String x:Key="DpsEditText">DPS Edit</sys:String>
     <sys:String x:Key="DeviceCheckText">Device Check</sys:String>
     <sys:String x:Key="DpsCheckText">DPS Check</sys:String>
     <sys:String x:Key="StartDeviceCheckText">Start Check</sys:String>

@@ -257,7 +257,7 @@ namespace LSIC.App.Models
             try
             {
                 byte length = (byte)info.DpsPlans.Length;
-                await SendAsync(ZoneFunctionCode.DpsGroupCount, [length]);
+                await SendAsync(ZoneFunctionCode.DpsPlanCount, [length]);
                 foreach (BurnDpsPlan plan in info.DpsPlans)
                 {
                     using MemoryStream stream = new MemoryStream();
@@ -274,7 +274,7 @@ namespace LSIC.App.Models
                         stream.Write(dps.Delay.ToBytes(Endianness.Big), 0, 4);
                         stream.Write(dps.Raise.ToBytes(Endianness.Big), 0, 4);
                     }
-                    await SendAsync(ZoneFunctionCode.DpsGroup, stream.ToArray());
+                    await SendAsync(ZoneFunctionCode.DpsPlan, stream.ToArray());
 
                     progress?.Invoke((plan.Id + 1) * 100d / length);
                 }
@@ -874,7 +874,7 @@ namespace LSIC.App.Models
                             }
                             break;
                         }
-                    case ZoneFunctionCode.CurrentDpsGroup:
+                    case ZoneFunctionCode.CurrentDpsPlan:
                         {
                             int id = data[index++];
                             if (id != 0xFF && id < BurnInfo.DpsPlans.Length)

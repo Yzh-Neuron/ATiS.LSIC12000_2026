@@ -13,7 +13,7 @@
         public bool Enable { get; set; }
 
         /// <summary>
-        /// 上下电使用的电源组的下标
+        /// 上下电使用的电源方案的下标
         /// </summary>
         public byte DpsPlanIndex { get; }
 

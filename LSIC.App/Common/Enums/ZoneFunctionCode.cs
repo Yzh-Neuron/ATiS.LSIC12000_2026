@@ -14,8 +14,8 @@
         /// <remarks>电源状态查询 & 状态上报</remarks>
         DpsState = 0x03,
 
-        /// <remarks>上传当前使用的电源组</remarks>
-        CurrentDpsGroup = 0x04,
+        /// <remarks>上传当前使用的电源方案</remarks>
+        CurrentDpsPlan = 0x04,
 
         /// <remarks>上传老化进程</remarks>
         BurnState = 0x05,
@@ -26,11 +26,11 @@
         /// <remarks>切换 & 上报Trigger通道</remarks>
         Trigger = 0x07,
 
-        /// <remarks>配置电源组数量</remarks>
-        DpsGroupCount = 0x50,
+        /// <remarks>配置电源方案数量</remarks>
+        DpsPlanCount = 0x50,
 
-        /// <remarks>配置单个电源组</remarks>
-        DpsGroup = 0x51,
+        /// <remarks>配置单个电源方案</remarks>
+        DpsPlan = 0x51,
 
         /// <remarks>配置向量数量</remarks>
         PatternCount = 0x52,
