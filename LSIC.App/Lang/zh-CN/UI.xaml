@@ -20,6 +20,16 @@
     <sys:String x:Key="AllSelectText">全选</sys:String>
     <sys:String x:Key="HelpMenuText">帮助(_H)</sys:String>
     <sys:String x:Key="RefreshText">刷新</sys:String>
+    <sys:String x:Key="SystemMenuText">系统(_S)</sys:String>
+    <sys:String x:Key="ModeText">模式</sys:String>
+    <sys:String x:Key="PasswordText">密码</sys:String>
+    <sys:String x:Key="AdminPasswordText">管理员密码</sys:String>
+    <sys:String x:Key="SwitchLanguageText">切换语言</sys:String>
+    <sys:String x:Key="ChineseText">中文</sys:String>
+    <sys:String x:Key="EnglishText">English</sys:String>
+    <sys:String x:Key="LicenseCertificationText">许可认证</sys:String>
+    <sys:String x:Key="MachineCodeText">机器码</sys:String>
+    <sys:String x:Key="ChoseFileText">选择文件</sys:String>
 
     <!--  老化区与工位  -->
     <sys:String x:Key="ZoneText">区</sys:String>

@@ -56,26 +56,32 @@ namespace LSIC.App.Views
         }
         private void OnAboutButtonClick(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
             new PopAboutView { Owner = this }.ShowDialog();
         }
         private void OnDeviceInfoButtonClick(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
             new PopDeviceInfoView { Owner = this }.ShowDialog();
         }
         private void OnUpgradeButtonClick(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
             new PopUpgradeView { Owner = this }.ShowDialog();
         }
         private void OnDeviceCheckButtonClick(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
             new PopDeviceCheckView { Owner = this }.ShowDialog();
         }
         private void OnDpsCheckButtonClick(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
             new PopDpsCheckView { Owner = this }.ShowDialog();
         }
         private void OnOpenIcEditButtonClick(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
             WindowUtility.ShowOrActivate<PopIcEditView>();
         }
         private void OnPatternConvertButtonClick(object sender, RoutedEventArgs e)
@@ -100,6 +106,7 @@ namespace LSIC.App.Views
         }
         private void OnSetTriggerChannelButtonClick(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
             PopTriggerSetView pop = new PopTriggerSetView()
             {
                 Owner = this
@@ -113,6 +120,40 @@ namespace LSIC.App.Views
                     Message = pop.SuccessMessage,
                     Type = MessageType.Success,
                 });
+            }
+        }
+        private void OnProductionModeMenuClick(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (Device.Instance.Mode != DeviceMode.Production)
+            {
+                Device.Instance.Mode = DeviceMode.Production;
+                Growl.Info(DeviceMode.Production.GetString());
+            }
+        }
+        private void OnEngineeringModeMenuClick(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (Device.Instance.Mode != DeviceMode.Engineering)
+            {
+                Device.Instance.Mode = DeviceMode.Engineering;
+                Growl.Info(DeviceMode.Engineering.GetString());
+            }
+        }
+        private void OnAdministratorModeMenuClick(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            if (Device.Instance.Mode != DeviceMode.Administrator)
+            {
+                PopPermissionVerifyView pop = new PopPermissionVerifyView()
+                {
+                    Owner = this
+                };
+                if (pop.ShowDialog() == true)
+                {
+                    Device.Instance.Mode = DeviceMode.Administrator;
+                    Growl.Info(DeviceMode.Administrator.GetString());
+                }
             }
         }
     }

@@ -3,6 +3,7 @@
     public class WinMainViewModel : ObservableObject
     {
         private readonly Timer _timer;
+        public Device Device { get; }
         private DateTime _now;
         public DateTime Now
         {
@@ -11,6 +12,7 @@
         }
         public WinMainViewModel()
         {
+            Device = Device.Instance;
             _timer = new Timer(Tick, null, 0, 1000);
         }
         private void Tick(object _)

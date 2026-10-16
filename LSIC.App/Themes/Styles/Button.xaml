@@ -10,6 +10,7 @@
         <Setter Property="Padding" Value="0" />
         <Setter Property="Height" Value="{StaticResource DefaultControlHeight}" />
         <Setter Property="Width" Value="{StaticResource DefaultControlHeight}" />
+        <Setter Property="ToolTip" Value="{app:Lang {x:Static app:LangKey.ChoseFileText}}" />
     </Style>
 
     <Style x:Key="Button.Confirm"

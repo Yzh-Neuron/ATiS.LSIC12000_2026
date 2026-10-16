@@ -21,6 +21,8 @@ namespace LSIC.App.Models
             {
                 rule.Columns = SystemConfig.LogColumns.Where(i => i.RuleIds.Contains(rule.Id)).ToArray();
             }
+
+            GlobalLanguageManager.SwitchLanguage(SystemConfig.DeviceInfo.Language);
         }
 
         public SystemConfig SystemConfig { get; }

@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-
+    <sys:String x:Key="InvalidPasswordMessage">Invalid password</sys:String>
     <sys:String x:Key="UnhandledExceptionMessage">Unhandled Exception, {0}</sys:String>
 
     <sys:String x:Key="FileImportSuccessMessage">File imported successfully</sys:String>
@@ -17,7 +17,7 @@
     <sys:String x:Key="NameNotExceedMessage">Name cannot exceed {0} characters</sys:String>
     <sys:String x:Key="NameExistMessage">Name already exists</sys:String>
     <sys:String x:Key="DeviceConfigParseFailureMessage">Config File Error: {0}</sys:String>
-    <sys:String x:Key="MustBeInRangeMessage">The value must be between {0}</sys:String> 
+    <sys:String x:Key="MustBeInRangeMessage">The value must be between {0}</sys:String>
     <sys:String x:Key="ValidStringRuleMessage">Only letters, numbers and underscore</sys:String>
     <sys:String x:Key="FileParseErrorMessage">File [ {0} ] parse error; Line {1} Column {2}</sys:String>
     <sys:String x:Key="FileLengthErrorMessage">File [ {0} ] length error; Expected length {1} bytes</sys:String>
@@ -43,8 +43,10 @@
     <sys:String x:Key="DpsCheckIsNotPermittedMessage">Zone busy !</sys:String>
     <sys:String x:Key="DpsCheckAskMessage" xml:space="preserve">Burn-in board detected, running DPS check may damage the device&#x000A;Continue ?</sys:String>
 
-    <sys:String x:Key="ZoneDpsErrorMessage">DPS error: {0} -> [{1}]</sys:String>
-    <sys:String x:Key="ZoneVIHErrorMessage">DPS error: VIH{0} -> [{1}]</sys:String>
+    <sys:String x:Key="ZoneDpsErrorMessage">
+        DPS error: {0} ->[{1}]</sys:String>
+    <sys:String x:Key="ZoneVIHErrorMessage">
+        DPS error: VIH{0} ->[{1}]</sys:String>
     <sys:String x:Key="ZonePatternErrorMessage">Pattern error: [{0}] please check step {1} vector step {2}</sys:String>
     <sys:String x:Key="ZoneDeviceErrorMessage">Device error: please contact FAE! Error code [{0}]</sys:String>
     <sys:String x:Key="StepRunInfoMessage">Step: [{0}]&#x0009;Vector step: [{1}]</sys:String>

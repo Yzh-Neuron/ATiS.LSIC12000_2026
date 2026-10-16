@@ -201,7 +201,7 @@
                             <TabItem.Header>
                                 <StackPanel Orientation="Vertical">
                                     <Image Width="16" Source="{StaticResource Image.Monitor}" />
-                                    <TextBlock MaxWidth="12"
+                                    <TextBlock MaxWidth="11"
                                                Margin="0,5,0,0"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
@@ -217,7 +217,7 @@
                             <TabItem.Header>
                                 <StackPanel Orientation="Vertical">
                                     <Image Width="16" Source="{StaticResource Image.Dut}" />
-                                    <TextBlock MaxWidth="12"
+                                    <TextBlock MaxWidth="11"
                                                Margin="0,5,0,0"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
@@ -233,7 +233,7 @@
                             <TabItem.Header>
                                 <StackPanel Orientation="Vertical">
                                     <Image Width="16" Source="{StaticResource Image.LogViewer}" />
-                                    <TextBlock MaxWidth="12"
+                                    <TextBlock MaxWidth="11"
                                                Margin="0,5,0,0"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"

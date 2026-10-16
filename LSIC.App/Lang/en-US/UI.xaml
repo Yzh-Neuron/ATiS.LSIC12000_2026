@@ -20,6 +20,16 @@
     <sys:String x:Key="AllSelectText">All</sys:String>
     <sys:String x:Key="HelpMenuText">Help(_H)</sys:String>
     <sys:String x:Key="RefreshText">Refresh</sys:String>
+    <sys:String x:Key="SystemMenuText">System(_S)</sys:String>
+    <sys:String x:Key="ModeText">Mode</sys:String>
+    <sys:String x:Key="PasswordText">Password</sys:String>
+    <sys:String x:Key="AdminPasswordText">Admin Password</sys:String>
+    <sys:String x:Key="SwitchLanguageText">Switch Language</sys:String>
+    <sys:String x:Key="ChineseText">中文</sys:String>
+    <sys:String x:Key="EnglishText">English</sys:String>
+    <sys:String x:Key="LicenseCertificationText">License certification</sys:String>
+    <sys:String x:Key="MachineCodeText">Machine code</sys:String>
+    <sys:String x:Key="ChoseFileText">Choose File</sys:String>
 
     <!--  老化区与工位  -->
     <sys:String x:Key="ZoneText">Zone</sys:String>
@@ -162,7 +172,7 @@
     <sys:String x:Key="DeviceCheckResultText">Check Results</sys:String>
     <sys:String x:Key="DpsCheckText">Dps Check</sys:String>
     <sys:String x:Key="DpsCheckScriptText">Dps Check Script</sys:String>
-    <sys:String x:Key="RunScriptText">RUN</sys:String>
+    <sys:String x:Key="RunScriptText">Run</sys:String>
     <sys:String x:Key="SelectFileText">Select File</sys:String>
     <!--  Dut Mask  -->
     <sys:String x:Key="DutMaskText">Dut Mask</sys:String>

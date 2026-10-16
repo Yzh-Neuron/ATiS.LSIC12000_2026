@@ -386,6 +386,10 @@
         /// </summary>
         public string DeviceCheck_Result_14 => GetString("DeviceCheck.Result[14]");
         /// <summary>
+        /// 密码错误
+        /// </summary>
+        public string InvalidPasswordMessage => GetString("InvalidPasswordMessage");
+        /// <summary>
         /// 未捕获到的异常, {0}
         /// </summary>
         public string UnhandledExceptionMessage => GetString("UnhandledExceptionMessage");
@@ -534,11 +538,11 @@
         /// </summary>
         public string DpsCheckAskMessage => GetString("DpsCheckAskMessage");
         /// <summary>
-        /// 电源错误:{0} -> [{1}]
+        /// 电源错误:{0} ->[{1}]
         /// </summary>
         public string ZoneDpsErrorMessage => GetString("ZoneDpsErrorMessage");
         /// <summary>
-        /// 电源错误: VIH{0} -> [{1}]
+        /// 电源错误: VIH{0} ->[{1}]
         /// </summary>
         public string ZoneVIHErrorMessage => GetString("ZoneVIHErrorMessage");
         /// <summary>
@@ -562,7 +566,7 @@
         /// </summary>
         public string DpsCheckResultMessage => GetString("DpsCheckResultMessage");
         /// <summary>
-        /// 触发通道{0}设置成功
+        /// 触发通道 {0} 设置成功
         /// </summary>
         public string TriggerDrSetSuccessMessage => GetString("TriggerDrSetSuccessMessage");
         /// <summary>
@@ -633,6 +637,46 @@
         /// 刷新
         /// </summary>
         public string RefreshText => GetString("RefreshText");
+        /// <summary>
+        /// 系统(_S)
+        /// </summary>
+        public string SystemMenuText => GetString("SystemMenuText");
+        /// <summary>
+        /// 模式
+        /// </summary>
+        public string ModeText => GetString("ModeText");
+        /// <summary>
+        /// 密码
+        /// </summary>
+        public string PasswordText => GetString("PasswordText");
+        /// <summary>
+        /// 管理员密码
+        /// </summary>
+        public string AdminPasswordText => GetString("AdminPasswordText");
+        /// <summary>
+        /// 切换语言
+        /// </summary>
+        public string SwitchLanguageText => GetString("SwitchLanguageText");
+        /// <summary>
+        /// 中文
+        /// </summary>
+        public string ChineseText => GetString("ChineseText");
+        /// <summary>
+        /// English
+        /// </summary>
+        public string EnglishText => GetString("EnglishText");
+        /// <summary>
+        /// 许可认证
+        /// </summary>
+        public string LicenseCertificationText => GetString("LicenseCertificationText");
+        /// <summary>
+        /// 机器码
+        /// </summary>
+        public string MachineCodeText => GetString("MachineCodeText");
+        /// <summary>
+        /// 选择文件
+        /// </summary>
+        public string ChoseFileText => GetString("ChoseFileText");
         /// <summary>
         /// 区
         /// </summary>
@@ -1248,6 +1292,7 @@
             OnPropertyChanged(nameof(DeviceCheck_Result_12));
             OnPropertyChanged(nameof(DeviceCheck_Result_13));
             OnPropertyChanged(nameof(DeviceCheck_Result_14));
+            OnPropertyChanged(nameof(InvalidPasswordMessage));
             OnPropertyChanged(nameof(UnhandledExceptionMessage));
             OnPropertyChanged(nameof(FileImportSuccessMessage));
             OnPropertyChanged(nameof(FileImportFailureMessage));
@@ -1310,6 +1355,16 @@
             OnPropertyChanged(nameof(AllSelectText));
             OnPropertyChanged(nameof(HelpMenuText));
             OnPropertyChanged(nameof(RefreshText));
+            OnPropertyChanged(nameof(SystemMenuText));
+            OnPropertyChanged(nameof(ModeText));
+            OnPropertyChanged(nameof(PasswordText));
+            OnPropertyChanged(nameof(AdminPasswordText));
+            OnPropertyChanged(nameof(SwitchLanguageText));
+            OnPropertyChanged(nameof(ChineseText));
+            OnPropertyChanged(nameof(EnglishText));
+            OnPropertyChanged(nameof(LicenseCertificationText));
+            OnPropertyChanged(nameof(MachineCodeText));
+            OnPropertyChanged(nameof(ChoseFileText));
             OnPropertyChanged(nameof(ZoneText));
             OnPropertyChanged(nameof(ZoneFormatText));
             OnPropertyChanged(nameof(StateText));
@@ -1825,6 +1880,10 @@
         /// </summary>
         public const string DeviceCheck_Result_14 = nameof(DeviceCheck_Result_14);
          /// <summary>
+        /// 密码错误
+        /// </summary>
+        public const string InvalidPasswordMessage = nameof(InvalidPasswordMessage);
+         /// <summary>
         /// 未捕获到的异常, {0}
         /// </summary>
         public const string UnhandledExceptionMessage = nameof(UnhandledExceptionMessage);
@@ -1973,11 +2032,11 @@
         /// </summary>
         public const string DpsCheckAskMessage = nameof(DpsCheckAskMessage);
          /// <summary>
-        /// 电源错误:{0} -> [{1}]
+        /// 电源错误:{0} ->[{1}]
         /// </summary>
         public const string ZoneDpsErrorMessage = nameof(ZoneDpsErrorMessage);
          /// <summary>
-        /// 电源错误: VIH{0} -> [{1}]
+        /// 电源错误: VIH{0} ->[{1}]
         /// </summary>
         public const string ZoneVIHErrorMessage = nameof(ZoneVIHErrorMessage);
          /// <summary>
@@ -2001,7 +2060,7 @@
         /// </summary>
         public const string DpsCheckResultMessage = nameof(DpsCheckResultMessage);
          /// <summary>
-        /// 触发通道{0}设置成功
+        /// 触发通道 {0} 设置成功
         /// </summary>
         public const string TriggerDrSetSuccessMessage = nameof(TriggerDrSetSuccessMessage);
          /// <summary>
@@ -2072,6 +2131,46 @@
         /// 刷新
         /// </summary>
         public const string RefreshText = nameof(RefreshText);
+         /// <summary>
+        /// 系统(_S)
+        /// </summary>
+        public const string SystemMenuText = nameof(SystemMenuText);
+         /// <summary>
+        /// 模式
+        /// </summary>
+        public const string ModeText = nameof(ModeText);
+         /// <summary>
+        /// 密码
+        /// </summary>
+        public const string PasswordText = nameof(PasswordText);
+         /// <summary>
+        /// 管理员密码
+        /// </summary>
+        public const string AdminPasswordText = nameof(AdminPasswordText);
+         /// <summary>
+        /// 切换语言
+        /// </summary>
+        public const string SwitchLanguageText = nameof(SwitchLanguageText);
+         /// <summary>
+        /// 中文
+        /// </summary>
+        public const string ChineseText = nameof(ChineseText);
+         /// <summary>
+        /// English
+        /// </summary>
+        public const string EnglishText = nameof(EnglishText);
+         /// <summary>
+        /// 许可认证
+        /// </summary>
+        public const string LicenseCertificationText = nameof(LicenseCertificationText);
+         /// <summary>
+        /// 机器码
+        /// </summary>
+        public const string MachineCodeText = nameof(MachineCodeText);
+         /// <summary>
+        /// 选择文件
+        /// </summary>
+        public const string ChoseFileText = nameof(ChoseFileText);
          /// <summary>
         /// 区
         /// </summary>

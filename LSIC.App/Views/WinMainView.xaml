@@ -8,7 +8,7 @@
                   xmlns:views="clr-namespace:LSIC.App.Views"
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
-                  Title="WinMainView"
+                  Title="{Binding Device.SystemConfig.DeviceInfo.Title, Mode=OneWay}"
                   Width="1280"
                   Height="950"
                   MinWidth="1280"
@@ -42,15 +42,38 @@
                     <Menu x:Name="ToolsMenu"
                           Margin="5,0"
                           HorizontalAlignment="Left"
-                          VerticalAlignment="Center">
+                          VerticalAlignment="Center"
+                          IsMainMenu="True">
+                        <MenuItem Padding="10,0"
+                                  Header="{app:Lang {x:Static app:LangKey.SystemMenuText}}"
+                                  InputGestureText="Alt + S">
+                            <MenuItem Header="{app:Lang {x:Static app:LangKey.ModeText}}">
+                                <MenuItem Click="OnProductionModeMenuClick"
+                                          Header="{app:Lang {x:Static app:LangKey.Enum_DeviceMode_Production}}"
+                                          IsChecked="{Binding Device.Mode, Mode=OneWay, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter={x:Static app:DeviceMode.Production}}" />
+                                <MenuItem Click="OnEngineeringModeMenuClick"
+                                          Header="{app:Lang {x:Static app:LangKey.Enum_DeviceMode_Engineering}}"
+                                          IsChecked="{Binding Device.Mode, Mode=OneWay, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter={x:Static app:DeviceMode.Engineering}}" />
+                                <MenuItem Click="OnAdministratorModeMenuClick"
+                                          Header="{app:Lang {x:Static app:LangKey.Enum_DeviceMode_Administrator}}"
+                                          IsChecked="{Binding Device.Mode, Mode=OneWay, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter={x:Static app:DeviceMode.Administrator}}" />
+                            </MenuItem>
+                        </MenuItem>
                         <MenuItem Padding="10,0"
                                   Header="{app:Lang {x:Static app:LangKey.HelpMenuText}}"
                                   InputGestureText="Alt + H">
                             <MenuItem Click="OnAboutButtonClick" Header="{app:Lang {x:Static app:LangKey.AboutText}}" />
                             <MenuItem Click="OnDeviceInfoButtonClick" Header="{app:Lang {x:Static app:LangKey.DeviceInfoText}}" />
-                            <MenuItem Click="OnUpgradeButtonClick" Header="{app:Lang {x:Static app:LangKey.FirmwareUpgradeText}}" />
-                            <MenuItem Click="OnDeviceCheckButtonClick" Header="{app:Lang {x:Static app:LangKey.DeviceCheckText}}" />
-                            <MenuItem Click="OnDpsCheckButtonClick" Header="{app:Lang {x:Static app:LangKey.DpsCheckText}}" />
+                            <MenuItem Click="OnDeviceCheckButtonClick"
+                                      Header="{app:Lang {x:Static app:LangKey.DeviceCheckText}}"
+                                      Visibility="{Binding Device.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Engineering|Administrator'}" />
+                            <MenuItem Click="OnDpsCheckButtonClick"
+                                      Header="{app:Lang {x:Static app:LangKey.DpsCheckText}}"
+                                      Visibility="{Binding Device.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Engineering|Administrator'}" />
+                            <MenuItem Click="OnUpgradeButtonClick"
+                                      Header="{app:Lang {x:Static app:LangKey.FirmwareUpgradeText}}"
+                                      Visibility="{Binding Device.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Administrator'}" />
+
                         </MenuItem>
                     </Menu>
                 </Grid>
@@ -70,7 +93,8 @@
                                 wpf:IconHelper.Height="13"
                                 wpf:IconHelper.Width="13"
                                 Click="OnOpenIcEditButtonClick"
-                                ToolTip="{app:Lang {x:Static app:LangKey.IcEditText}}" />
+                                ToolTip="{app:Lang {x:Static app:LangKey.IcEditText}}"
+                                Visibility="{Binding Device.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Engineering|Administrator'}" />
 
                         <Button Width="32"
                                 Height="32"
@@ -80,7 +104,8 @@
                                 wpf:IconHelper.Height="13"
                                 wpf:IconHelper.Width="13"
                                 Click="OnPatternConvertButtonClick"
-                                ToolTip="{app:Lang {x:Static app:LangKey.PatternFormatConvertText}}" />
+                                ToolTip="{app:Lang {x:Static app:LangKey.PatternFormatConvertText}}"
+                                Visibility="{Binding Device.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Engineering|Administrator'}" />
 
                         <Button Width="32"
                                 Height="32"

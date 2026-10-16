@@ -22,8 +22,8 @@
         </Grid.RowDefinitions>
 
         <wpf:MatrixListBox Grid.Row="0"
-                           CellHeight="60"
-                           CellWidth="60"
+                           CellHeight="50"
+                           CellWidth="50"
                            Cols="{Binding Cols}"
                            HeaderHeight="30"
                            HeaderWidth="30"

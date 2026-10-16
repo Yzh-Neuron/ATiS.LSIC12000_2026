@@ -50,12 +50,7 @@ namespace LSIC.App.ViewModels
         }
         private void ClearBurnInfo()
         {
-#if DEBUG
-            var msgResult = MessageBus.Default.Send(MsgArgs.From(WinMainMessage.DutMask, [Zone.BurnInfo.BurnInBoard])).First();
-#else
             Zone.ResetStateToIdle();
-#endif
         }
-
     }
 }

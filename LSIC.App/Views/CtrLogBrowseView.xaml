@@ -30,7 +30,7 @@
             <Run Text=":" />
         </TextBlock>
         <wpf:TextBox Width="540"
-                     Margin="5,0,0,0"
+                     Margin="10,0,0,0"
                      wpf:WidgetHelper.HasReadonlyIcon="True"
                      IsReadOnly="True"
                      Text="{Binding CurrentFile, Converter={StaticResource FilePathToFileNameConverter}, Mode=OneWay}" />
@@ -60,7 +60,7 @@
             <Run Text=":" />
         </TextBlock>
         <DatePicker Width="120"
-                    Margin="5,0,0,0"
+                    Margin="10,0,0,0"
                     DisplayDateEnd="{Binding DisplayEndTime, Mode=OneWay}"
                     DisplayDateStart="{Binding DisplayStartTime, Mode=OneWay}"
                     SelectedDate="{Binding StartTime}" />

@@ -9,7 +9,8 @@
         <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-        <Setter Property="Width" Value="53" />
+        <Setter Property="MinWidth" Value="53" />
+        <Setter Property="Width" Value="Auto" />
         <Setter Property="Effect" Value="{x:Null}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Height" Value="45" />

@@ -87,6 +87,9 @@
 		<Compile Update="Views\CtrPrepareBurnView.xaml.cs">
 		  <SubType>Code</SubType>
 		</Compile>
+		<Compile Update="Views\PopPermissionVerifyView.xaml.cs">
+		  <SubType>Code</SubType>
+		</Compile>
 		<Compile Update="Views\PopTextBrowseView.xaml.cs">
 		  <SubType>Code</SubType>
 		</Compile>
