@@ -133,7 +133,9 @@
                 <wpf:UiVoid BorderThickness="1" />
             </wpf:StateBlock.UnCheckedContent>
             <wpf:StateBlock.CheckedContent>
-                <TabControl wpf:TabControlHelper.HeaderWidth="120" d:DataContext="{d:DesignInstance models:Ic}" DataContext="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedIc.Target}">
+                <TabControl d:DataContext="{d:DesignInstance models:Ic}"
+                            wpf:TabControlHelper.HeaderWidth="120"
+                            DataContext="{Binding Source={StaticResource MainDataContext}, Path=Data.SelectedIc.Target}">
 
                     <!--  基础设置  -->
                     <TabItem Header="{app:Lang {x:Static app:LangKey.BaseSettingText}}">
@@ -165,7 +167,6 @@
                                 <ComboBox Grid.Column="2"
                                           Width="75"
                                           Margin="5,0,0,0"
-                                          wpf:LanguageHelper.Auto="True"
                                           DisplayMemberPath="Value"
                                           DockPanel.Dock="Right"
                                           ItemsSource="{Binding Source={x:Type app:TimeUnit}, Converter={StaticResource EnumToTextPairsConverter}}"

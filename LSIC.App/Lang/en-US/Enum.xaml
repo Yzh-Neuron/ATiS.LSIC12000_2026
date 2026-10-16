@@ -107,4 +107,31 @@
     <sys:String x:Key="DeviceCheck.Result[12]">ADC error(SPI)</sys:String>
     <sys:String x:Key="DeviceCheck.Result[13]">COMPARE VREF error</sys:String>
     <sys:String x:Key="DeviceCheck.Result[14]">Dps VIN error</sys:String>
+
+    <!--  Zone function codes (frame filter)  -->
+    <sys:String x:Key="Enum.ZoneFunctionCode.Version">Version</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.ControlAndState">Burn Control &amp; State</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.BurnInBoardInsertState">Board Insert State</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.DpsState">Dps State</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.CurrentDpsPlan">Current Dps Plan</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.BurnState">Burn Progress</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.CompareError">Compare Error</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.Trigger">Trigger Channel</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.DpsPlanCount">Dps Plan Count</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.DpsPlan">Dps Plan Config</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.PatternCount">Pattern Count</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.Pattern">Pattern Config</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.RegisterCount">Register Count</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.Register">Register Config</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.UpSet">Power-Up Setting</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.StepSet">Step Setting</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.DownSet">Power-Down Setting</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.SpiSet">SPI Setting</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.ConfigFinish">Config Finish</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.Upgrade">Online Upgrade</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.UpgradeFinish">Upgrade Finish</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.DeviceCheck">Device Check</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.DpsCheck">Dps Check</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.Thermostat">Thermostat</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.ThermostatPID">Thermostat PID</sys:String>
 </ResourceDictionary>

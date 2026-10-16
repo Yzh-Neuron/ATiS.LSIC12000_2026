@@ -57,7 +57,6 @@
 
                 <ComboBox Width="75"
                           Margin="5,0,0,0"
-                          wpf:LanguageHelper.Auto="True"
                           DisplayMemberPath="Value"
                           ItemsSource="{Binding Source={x:Type app:TimeUnit}, Converter={StaticResource EnumToTextPairsConverter}}"
                           SelectedValue="{Binding ExecuteStrategy.Time.Unit, UpdateSourceTrigger=PropertyChanged}"

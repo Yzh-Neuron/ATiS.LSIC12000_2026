@@ -386,6 +386,106 @@
         /// </summary>
         public string DeviceCheck_Result_14 => GetString("DeviceCheck.Result[14]");
         /// <summary>
+        /// 版本信息
+        /// </summary>
+        public string Enum_ZoneFunctionCode_Version => GetString("Enum.ZoneFunctionCode.Version");
+        /// <summary>
+        /// 老化控制与状态
+        /// </summary>
+        public string Enum_ZoneFunctionCode_ControlAndState => GetString("Enum.ZoneFunctionCode.ControlAndState");
+        /// <summary>
+        /// 插板状态
+        /// </summary>
+        public string Enum_ZoneFunctionCode_BurnInBoardInsertState => GetString("Enum.ZoneFunctionCode.BurnInBoardInsertState");
+        /// <summary>
+        /// 电源状态
+        /// </summary>
+        public string Enum_ZoneFunctionCode_DpsState => GetString("Enum.ZoneFunctionCode.DpsState");
+        /// <summary>
+        /// 当前电源方案
+        /// </summary>
+        public string Enum_ZoneFunctionCode_CurrentDpsPlan => GetString("Enum.ZoneFunctionCode.CurrentDpsPlan");
+        /// <summary>
+        /// 老化进程
+        /// </summary>
+        public string Enum_ZoneFunctionCode_BurnState => GetString("Enum.ZoneFunctionCode.BurnState");
+        /// <summary>
+        /// 回检报错
+        /// </summary>
+        public string Enum_ZoneFunctionCode_CompareError => GetString("Enum.ZoneFunctionCode.CompareError");
+        /// <summary>
+        /// 触发通道
+        /// </summary>
+        public string Enum_ZoneFunctionCode_Trigger => GetString("Enum.ZoneFunctionCode.Trigger");
+        /// <summary>
+        /// 电源方案数量
+        /// </summary>
+        public string Enum_ZoneFunctionCode_DpsPlanCount => GetString("Enum.ZoneFunctionCode.DpsPlanCount");
+        /// <summary>
+        /// 电源方案配置
+        /// </summary>
+        public string Enum_ZoneFunctionCode_DpsPlan => GetString("Enum.ZoneFunctionCode.DpsPlan");
+        /// <summary>
+        /// 向量数量
+        /// </summary>
+        public string Enum_ZoneFunctionCode_PatternCount => GetString("Enum.ZoneFunctionCode.PatternCount");
+        /// <summary>
+        /// 向量配置
+        /// </summary>
+        public string Enum_ZoneFunctionCode_Pattern => GetString("Enum.ZoneFunctionCode.Pattern");
+        /// <summary>
+        /// 寄存器数量
+        /// </summary>
+        public string Enum_ZoneFunctionCode_RegisterCount => GetString("Enum.ZoneFunctionCode.RegisterCount");
+        /// <summary>
+        /// 寄存器配置
+        /// </summary>
+        public string Enum_ZoneFunctionCode_Register => GetString("Enum.ZoneFunctionCode.Register");
+        /// <summary>
+        /// 上电设置
+        /// </summary>
+        public string Enum_ZoneFunctionCode_UpSet => GetString("Enum.ZoneFunctionCode.UpSet");
+        /// <summary>
+        /// 步次设置
+        /// </summary>
+        public string Enum_ZoneFunctionCode_StepSet => GetString("Enum.ZoneFunctionCode.StepSet");
+        /// <summary>
+        /// 下电设置
+        /// </summary>
+        public string Enum_ZoneFunctionCode_DownSet => GetString("Enum.ZoneFunctionCode.DownSet");
+        /// <summary>
+        /// SPI设置
+        /// </summary>
+        public string Enum_ZoneFunctionCode_SpiSet => GetString("Enum.ZoneFunctionCode.SpiSet");
+        /// <summary>
+        /// 器件发送完成
+        /// </summary>
+        public string Enum_ZoneFunctionCode_ConfigFinish => GetString("Enum.ZoneFunctionCode.ConfigFinish");
+        /// <summary>
+        /// 在线升级
+        /// </summary>
+        public string Enum_ZoneFunctionCode_Upgrade => GetString("Enum.ZoneFunctionCode.Upgrade");
+        /// <summary>
+        /// 升级结束
+        /// </summary>
+        public string Enum_ZoneFunctionCode_UpgradeFinish => GetString("Enum.ZoneFunctionCode.UpgradeFinish");
+        /// <summary>
+        /// 设备自检
+        /// </summary>
+        public string Enum_ZoneFunctionCode_DeviceCheck => GetString("Enum.ZoneFunctionCode.DeviceCheck");
+        /// <summary>
+        /// 电源自检
+        /// </summary>
+        public string Enum_ZoneFunctionCode_DpsCheck => GetString("Enum.ZoneFunctionCode.DpsCheck");
+        /// <summary>
+        /// 温控信息
+        /// </summary>
+        public string Enum_ZoneFunctionCode_Thermostat => GetString("Enum.ZoneFunctionCode.Thermostat");
+        /// <summary>
+        /// 温控PID
+        /// </summary>
+        public string Enum_ZoneFunctionCode_ThermostatPID => GetString("Enum.ZoneFunctionCode.ThermostatPID");
+        /// <summary>
         /// 密码错误
         /// </summary>
         public string InvalidPasswordMessage => GetString("InvalidPasswordMessage");
@@ -657,6 +757,10 @@
         /// 切换语言
         /// </summary>
         public string SwitchLanguageText => GetString("SwitchLanguageText");
+        /// <summary>
+        /// 语言
+        /// </summary>
+        public string LanguageText => GetString("LanguageText");
         /// <summary>
         /// 中文
         /// </summary>
@@ -1292,6 +1396,31 @@
             OnPropertyChanged(nameof(DeviceCheck_Result_12));
             OnPropertyChanged(nameof(DeviceCheck_Result_13));
             OnPropertyChanged(nameof(DeviceCheck_Result_14));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_Version));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_ControlAndState));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_BurnInBoardInsertState));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_DpsState));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_CurrentDpsPlan));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_BurnState));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_CompareError));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_Trigger));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_DpsPlanCount));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_DpsPlan));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_PatternCount));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_Pattern));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_RegisterCount));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_Register));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_UpSet));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_StepSet));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_DownSet));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_SpiSet));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_ConfigFinish));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_Upgrade));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_UpgradeFinish));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_DeviceCheck));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_DpsCheck));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_Thermostat));
+            OnPropertyChanged(nameof(Enum_ZoneFunctionCode_ThermostatPID));
             OnPropertyChanged(nameof(InvalidPasswordMessage));
             OnPropertyChanged(nameof(UnhandledExceptionMessage));
             OnPropertyChanged(nameof(FileImportSuccessMessage));
@@ -1360,6 +1489,7 @@
             OnPropertyChanged(nameof(PasswordText));
             OnPropertyChanged(nameof(AdminPasswordText));
             OnPropertyChanged(nameof(SwitchLanguageText));
+            OnPropertyChanged(nameof(LanguageText));
             OnPropertyChanged(nameof(ChineseText));
             OnPropertyChanged(nameof(EnglishText));
             OnPropertyChanged(nameof(LicenseCertificationText));
@@ -1880,6 +2010,106 @@
         /// </summary>
         public const string DeviceCheck_Result_14 = nameof(DeviceCheck_Result_14);
          /// <summary>
+        /// 版本信息
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_Version = nameof(Enum_ZoneFunctionCode_Version);
+         /// <summary>
+        /// 老化控制与状态
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_ControlAndState = nameof(Enum_ZoneFunctionCode_ControlAndState);
+         /// <summary>
+        /// 插板状态
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_BurnInBoardInsertState = nameof(Enum_ZoneFunctionCode_BurnInBoardInsertState);
+         /// <summary>
+        /// 电源状态
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_DpsState = nameof(Enum_ZoneFunctionCode_DpsState);
+         /// <summary>
+        /// 当前电源方案
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_CurrentDpsPlan = nameof(Enum_ZoneFunctionCode_CurrentDpsPlan);
+         /// <summary>
+        /// 老化进程
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_BurnState = nameof(Enum_ZoneFunctionCode_BurnState);
+         /// <summary>
+        /// 回检报错
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_CompareError = nameof(Enum_ZoneFunctionCode_CompareError);
+         /// <summary>
+        /// 触发通道
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_Trigger = nameof(Enum_ZoneFunctionCode_Trigger);
+         /// <summary>
+        /// 电源方案数量
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_DpsPlanCount = nameof(Enum_ZoneFunctionCode_DpsPlanCount);
+         /// <summary>
+        /// 电源方案配置
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_DpsPlan = nameof(Enum_ZoneFunctionCode_DpsPlan);
+         /// <summary>
+        /// 向量数量
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_PatternCount = nameof(Enum_ZoneFunctionCode_PatternCount);
+         /// <summary>
+        /// 向量配置
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_Pattern = nameof(Enum_ZoneFunctionCode_Pattern);
+         /// <summary>
+        /// 寄存器数量
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_RegisterCount = nameof(Enum_ZoneFunctionCode_RegisterCount);
+         /// <summary>
+        /// 寄存器配置
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_Register = nameof(Enum_ZoneFunctionCode_Register);
+         /// <summary>
+        /// 上电设置
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_UpSet = nameof(Enum_ZoneFunctionCode_UpSet);
+         /// <summary>
+        /// 步次设置
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_StepSet = nameof(Enum_ZoneFunctionCode_StepSet);
+         /// <summary>
+        /// 下电设置
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_DownSet = nameof(Enum_ZoneFunctionCode_DownSet);
+         /// <summary>
+        /// SPI设置
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_SpiSet = nameof(Enum_ZoneFunctionCode_SpiSet);
+         /// <summary>
+        /// 器件发送完成
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_ConfigFinish = nameof(Enum_ZoneFunctionCode_ConfigFinish);
+         /// <summary>
+        /// 在线升级
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_Upgrade = nameof(Enum_ZoneFunctionCode_Upgrade);
+         /// <summary>
+        /// 升级结束
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_UpgradeFinish = nameof(Enum_ZoneFunctionCode_UpgradeFinish);
+         /// <summary>
+        /// 设备自检
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_DeviceCheck = nameof(Enum_ZoneFunctionCode_DeviceCheck);
+         /// <summary>
+        /// 电源自检
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_DpsCheck = nameof(Enum_ZoneFunctionCode_DpsCheck);
+         /// <summary>
+        /// 温控信息
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_Thermostat = nameof(Enum_ZoneFunctionCode_Thermostat);
+         /// <summary>
+        /// 温控PID
+        /// </summary>
+        public const string Enum_ZoneFunctionCode_ThermostatPID = nameof(Enum_ZoneFunctionCode_ThermostatPID);
+         /// <summary>
         /// 密码错误
         /// </summary>
         public const string InvalidPasswordMessage = nameof(InvalidPasswordMessage);
@@ -2151,6 +2381,10 @@
         /// 切换语言
         /// </summary>
         public const string SwitchLanguageText = nameof(SwitchLanguageText);
+         /// <summary>
+        /// 语言
+        /// </summary>
+        public const string LanguageText = nameof(LanguageText);
          /// <summary>
         /// 中文
         /// </summary>

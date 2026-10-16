@@ -5,7 +5,9 @@
     /// </summary>
     public class DeviceInfo
     {
-        public string Title { get; private set; }
+        public string ChineseTitle { get; private set; }
+
+        public string EnglishTitle { get; private set; }
 
         public UiLanguage Language { get; private set; }
     }

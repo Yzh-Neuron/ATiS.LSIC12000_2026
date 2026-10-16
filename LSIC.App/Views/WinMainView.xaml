@@ -8,7 +8,7 @@
                   xmlns:views="clr-namespace:LSIC.App.Views"
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
-                  Title="{Binding Device.SystemConfig.DeviceInfo.Title, Mode=OneWay}"
+                  Title="{Binding Device.DeviceName, Mode=OneWay}"
                   Width="1280"
                   Height="950"
                   MinWidth="1280"
@@ -57,6 +57,14 @@
                                 <MenuItem Click="OnAdministratorModeMenuClick"
                                           Header="{app:Lang {x:Static app:LangKey.Enum_DeviceMode_Administrator}}"
                                           IsChecked="{Binding Device.Mode, Mode=OneWay, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter={x:Static app:DeviceMode.Administrator}}" />
+                            </MenuItem>
+                            <MenuItem Header="{app:Lang {x:Static app:LangKey.LanguageText}}">
+                                <MenuItem Click="OnLanguageChineseClick"
+                                          Header="{app:Lang {x:Static app:LangKey.ChineseText}}"
+                                          IsChecked="{Binding Device.Language, Mode=OneWay, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter={x:Static wpf:UiLanguage.Chinese}}" />
+                                <MenuItem Click="OnLanguageEnglishClick"
+                                          Header="{app:Lang {x:Static app:LangKey.EnglishText}}"
+                                          IsChecked="{Binding Device.Language, Mode=OneWay, Converter={StaticResource IncludeValueToTrueConverter}, ConverterParameter={x:Static wpf:UiLanguage.English}}" />
                             </MenuItem>
                         </MenuItem>
                         <MenuItem Padding="10,0"

@@ -1,5 +1,4 @@
 ﻿using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 
 namespace LSIC.App.Views
 {
@@ -155,6 +154,16 @@ namespace LSIC.App.Views
                     Growl.Info(DeviceMode.Administrator.GetString());
                 }
             }
+        }
+        private void OnLanguageChineseClick(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            Device.Instance.Language = UiLanguage.Chinese;
+        }
+        private void OnLanguageEnglishClick(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            Device.Instance.Language = UiLanguage.English;
         }
     }
 }

@@ -25,6 +25,7 @@
     <sys:String x:Key="PasswordText">Password</sys:String>
     <sys:String x:Key="AdminPasswordText">Admin Password</sys:String>
     <sys:String x:Key="SwitchLanguageText">Switch Language</sys:String>
+    <sys:String x:Key="LanguageText">Language</sys:String>
     <sys:String x:Key="ChineseText">中文</sys:String>
     <sys:String x:Key="EnglishText">English</sys:String>
     <sys:String x:Key="LicenseCertificationText">License certification</sys:String>

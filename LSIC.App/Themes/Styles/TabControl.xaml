@@ -11,6 +11,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="MinWidth" Value="53" />
         <Setter Property="Width" Value="Auto" />
+        <Setter Property="Padding" Value="5,0" />
         <Setter Property="Effect" Value="{x:Null}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Height" Value="45" />

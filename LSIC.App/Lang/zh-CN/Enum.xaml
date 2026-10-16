@@ -107,4 +107,31 @@
     <sys:String x:Key="DeviceCheck.Result[12]">ADC通信错误(SPI)</sys:String>
     <sys:String x:Key="DeviceCheck.Result[13]">COMPARE VREF 打开错误</sys:String>
     <sys:String x:Key="DeviceCheck.Result[14]">Dps VIN 打开错误</sys:String>
+
+    <!--  老化区功能码（报文帧过滤器）  -->
+    <sys:String x:Key="Enum.ZoneFunctionCode.Version">版本信息</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.ControlAndState">老化控制与状态</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.BurnInBoardInsertState">插板状态</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.DpsState">电源状态</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.CurrentDpsPlan">当前电源方案</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.BurnState">老化进程</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.CompareError">回检报错</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.Trigger">触发通道</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.DpsPlanCount">电源方案数量</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.DpsPlan">电源方案配置</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.PatternCount">向量数量</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.Pattern">向量配置</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.RegisterCount">寄存器数量</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.Register">寄存器配置</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.UpSet">上电设置</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.StepSet">步次设置</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.DownSet">下电设置</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.SpiSet">SPI设置</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.ConfigFinish">器件发送完成</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.Upgrade">在线升级</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.UpgradeFinish">升级结束</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.DeviceCheck">设备自检</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.DpsCheck">电源自检</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.Thermostat">温控信息</sys:String>
+    <sys:String x:Key="Enum.ZoneFunctionCode.ThermostatPID">温控PID</sys:String>
 </ResourceDictionary>

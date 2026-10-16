@@ -2,18 +2,14 @@ using System.Data;
 
 namespace LSIC.App.Models
 {
-    /// <summary>
-    /// 设备类
-    /// </summary>
     public class Device : ObservableObject, IDisposable
     {
-        /// <summary>
-        /// 获取全局实例
-        /// </summary>
         public static Device Instance { get; private set; }
-
         private Device(SystemConfig systemConfig)
         {
+#if DEBUG
+            _mode = DeviceMode.Administrator;
+#endif
             SystemConfig = systemConfig;
             Zones = SystemConfig.ZoneInfos.Select(info => new Zone(info, CreateDps())).ToArray();
             BoardTypeCatalog.Initialize(systemConfig.BoardTypeInfos);
@@ -21,17 +17,10 @@ namespace LSIC.App.Models
             {
                 rule.Columns = SystemConfig.LogColumns.Where(i => i.RuleIds.Contains(rule.Id)).ToArray();
             }
-
-            GlobalLanguageManager.SwitchLanguage(SystemConfig.DeviceInfo.Language);
+            GlobalLanguageManager.SwitchLanguage(Language);
         }
-
         public SystemConfig SystemConfig { get; }
-
-#if DEBUG
-        private DeviceMode _mode = DeviceMode.Administrator;
-#else
         private DeviceMode _mode;
-#endif
         public DeviceMode Mode
         {
             get => _mode;
@@ -43,21 +32,47 @@ namespace LSIC.App.Models
                 }
             }
         }
-
-        public Zone[] Zones { get; private set; }
-        public static void Initialize(SystemConfig systemConfig)
+        private UiLanguage? _language;
+        public UiLanguage Language
         {
-            if (Instance is not null)
+            get
             {
-                Instance.Dispose();
-                Instance = null;
+                try
+                {
+                    if (_language is not null)
+                    {
+                        return _language.Value;
+                    }
+                    _language = SystemDatabase.Instance.GetConfig<UiLanguage?>($"{nameof(Device)}.{nameof(Language)}");
+                    _language ??= SystemConfig.DeviceInfo.Language;
+                    _language ??= UiLanguage.Chinese;
+                    return _language.Value;
+                }
+                finally
+                {
+                    DeviceName = _language == UiLanguage.Chinese ? SystemConfig.DeviceInfo.ChineseTitle : SystemConfig.DeviceInfo.EnglishTitle;
+                }
             }
-            Instance = new Device(systemConfig);
+            set
+            {
+                if (_language == value)
+                {
+                    return;
+                }
+                if (SetProperty(ref _language, value))
+                {
+                    SystemDatabase.Instance.SetConfig($"{nameof(Device)}.{nameof(Language)}", _language);
+                    GlobalLanguageManager.SwitchLanguage(value);
+                }
+            }
         }
-
-        /// <summary>
-        /// 启动所有老化区连接
-        /// </summary>
+        private string _deviceName;
+        public string DeviceName
+        {
+            get => _deviceName;
+            private set => SetProperty(ref _deviceName, value);
+        }
+        public Zone[] Zones { get; private set; }
         public void StartupZones()
         {
             foreach (Zone zone in Zones)
@@ -65,7 +80,6 @@ namespace LSIC.App.Models
                 zone.Startup();
             }
         }
-
         public void Dispose()
         {
             if (Zones is null)
@@ -79,12 +93,20 @@ namespace LSIC.App.Models
             }
             Zones = null;
         }
-
         public event Action ModeChanged;
-
         private Dps[] CreateDps()
         {
             return SystemConfig.DpsInfos.Select(i => new Dps(i)).ToArray();
         }
+        public static void Initialize(SystemConfig systemConfig)
+        {
+            if (Instance is not null)
+            {
+                Instance.Dispose();
+                Instance = null;
+            }
+            Instance = new Device(systemConfig);
+        }
+
     }
 }
