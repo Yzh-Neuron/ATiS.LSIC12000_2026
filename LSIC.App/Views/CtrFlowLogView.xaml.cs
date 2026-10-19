@@ -132,7 +132,7 @@
             {
                 LineHeight = 5,
             };
-            Run levelRun = new Run($"[ {flow.Time:HH:mm:ss:fff} {flow.Level.GetString()} ]")
+            Run levelRun = new Run($"[ {flow.Time:HH:mm:ss} {flow.Level.GetString()} ]")
             {
                 Foreground = LogLevelBrushes[(int)flow.Level]
             };

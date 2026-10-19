@@ -29,19 +29,19 @@ namespace LSIC.App
         {
             e.Handled = true;
             string message = string.Format(LangProvider.Instance.UnhandledExceptionMessage, e.Exception.Message + e.Exception.StackTrace);
-            SystemLog.Error(message);
+            SystemLog.LogError(message);
         }
         private void OnTaskSchedulerUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             e.SetObserved();
             string message = string.Format(LangProvider.Instance.UnhandledExceptionMessage, e.Exception.Message + e.Exception.StackTrace);
-            SystemLog.Error(message);
+            SystemLog.LogError(message);
         }
         private void OnCurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = e.ExceptionObject as Exception;
             string message = string.Format(LangProvider.Instance.UnhandledExceptionMessage, ex?.Message + ex?.StackTrace);
-            SystemLog.Error(message);
+            SystemLog.LogError(message);
 
             // 进程即将终止：排空系统日志，保证致命异常落盘
             if (e.IsTerminating)
@@ -114,7 +114,7 @@ namespace LSIC.App
             }
             catch
             {
-           
+
             }
             _checkDongleCts?.Dispose();
         }
@@ -139,14 +139,14 @@ namespace LSIC.App
             _mutex = new Mutex(true, appId, out _createdNew);
             if (!_createdNew)
             {
-                SystemLog.Error(LangProvider.Instance.AppHasLaunchedMessage);
+                SystemLog.LogError(LangProvider.Instance.AppHasLaunchedMessage);
                 MessagePop.Show(LangProvider.Instance.AppHasLaunchedMessage, MessageType.Error);
                 Shutdown();
                 return;
             }
 
             base.OnStartup(e);
-            SystemLog.Info(LangProvider.Instance.AppStartMessage);
+            SystemLog.LogInfo(LangProvider.Instance.AppStartMessage);
             CheckIniFile(ConfigFile);
 
             // 解析配置文件
@@ -164,7 +164,7 @@ namespace LSIC.App
             catch (Exception ex)
             {
                 string error = string.Format(LangProvider.Instance.DeviceConfigParseFailureMessage, ex.Message);
-                SystemLog.Error(error);
+                SystemLog.LogError(error);
                 MessagePop.Show(error, MessageType.Error);
                 Shutdown();
                 return;
@@ -198,7 +198,7 @@ namespace LSIC.App
                 return;
             }
             string error = $"{LangProvider.Instance.FileNotExistMessage}: {file.FullName}";
-            SystemLog.Error(error);
+            SystemLog.LogError(error);
             MessagePop.Show(error, messageType: MessageType.Error);
             Shutdown();
         }
@@ -219,7 +219,7 @@ namespace LSIC.App
                 _mutex?.Close();
             }
 
-            SystemLog.Info(LangProvider.Instance.AppExitMessage);
+            SystemLog.LogInfo(LangProvider.Instance.AppExitMessage);
             SystemLog.Dispose();
             Environment.Exit(0);
         }
@@ -228,7 +228,7 @@ namespace LSIC.App
             var thread = new Thread(() =>
             {
                 Thread.Sleep(timeout);
-                SystemLog.Error(LangProvider.Instance.ForceExitOnTimeoutMessage);
+                SystemLog.LogError(LangProvider.Instance.ForceExitOnTimeoutMessage);
                 SystemLog.Dispose();
                 Environment.Exit(1);
             })

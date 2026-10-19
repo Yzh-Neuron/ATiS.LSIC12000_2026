@@ -45,7 +45,7 @@ namespace LSIC.App.ViewModels
         }
         private void Confirm()
         {
-           MessageBus.Default.Send(MsgArgs.From(PopVectorEditMessage.Confirm, [Vector]));
+            MessageBus.Default.Send(MsgArgs.From(PopVectorEditMessage.Confirm, [Vector]));
         }
         private void Cancel()
         {

@@ -93,4 +93,11 @@
     <sys:String x:Key="Enum.ZoneFunctionCode.DpsCheck">电源自检</sys:String>
     <sys:String x:Key="Enum.ZoneFunctionCode.Thermostat">温控信息</sys:String>
     <sys:String x:Key="Enum.ZoneFunctionCode.ThermostatPID">温控PID</sys:String>
+
+    <sys:String x:Key="Enum.LogLevel.Trace">跟踪</sys:String>
+    <sys:String x:Key="Enum.LogLevel.Debug">调试</sys:String>
+    <sys:String x:Key="Enum.LogLevel.Info">消息</sys:String>
+    <sys:String x:Key="Enum.LogLevel.Warn">警告</sys:String>
+    <sys:String x:Key="Enum.LogLevel.Error">错误</sys:String>
+    <sys:String x:Key="Enum.LogLevel.Fatal">异常</sys:String>
 </ResourceDictionary>

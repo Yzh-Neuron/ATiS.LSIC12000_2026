@@ -1,5 +1,4 @@
-﻿using ATiS.Orm;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace LSIC.App.Views
 {

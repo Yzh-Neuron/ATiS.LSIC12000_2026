@@ -180,7 +180,7 @@ namespace LSIC.App.ViewModels
                     }
                     else
                     {
-                        MessageBus.Default.Send(MsgArgs.From(CtrLogBrowseMessage.Growl, [LangProvider.Instance.UnsupportedDataFileMessage,MessageType.Error]));
+                        MessageBus.Default.Send(MsgArgs.From(CtrLogBrowseMessage.Growl, [LangProvider.Instance.UnsupportedDataFileMessage, MessageType.Error]));
                     }
                 });
             }

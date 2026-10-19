@@ -1,5 +1,4 @@
-﻿using System.Net.NetworkInformation;
-using TcpClient = ATiS.Sim.Communication.TcpClient;
+﻿using TcpClient = ATiS.Sim.Communication.TcpClient;
 
 namespace LSIC.App.Models
 {
@@ -78,6 +77,15 @@ namespace LSIC.App.Models
         }
         public void Startup()
         {
+            try
+            {
+                BurnInfo = SystemDatabase.Instance.GetBurnInfo(Id);
+            }
+            catch 
+            {
+                BurnInfo = null;
+            }
+
             if (_client is not null)
             {
                 _client.StateChanged -= OnStateChanged;
@@ -92,6 +100,8 @@ namespace LSIC.App.Models
             _client.Start();
             _client.StartAutoReceive();
             //_timer = new Timer(Tick, null, 500, 500);
+
+            Logger.LogInfo(LangProvider.Instance.WorkerThreadStartedMessage);
         }
         private void UpdateZoneState(ZoneState state, ZoneErrorType? error = null, byte[] data = null)
         {

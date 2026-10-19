@@ -102,7 +102,7 @@
                             Message = e.Args[0] as string,
                             Type = (MessageType)e.Args[1]
                         });
-                        break;             
+                        break;
                     }
                 case PopIcEditMessage.Message:
                     {

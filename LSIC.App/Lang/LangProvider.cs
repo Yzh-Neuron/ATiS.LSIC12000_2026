@@ -417,6 +417,36 @@ namespace LSIC.App
         public string Enum_ZoneFunctionCode_ThermostatPID => GetString("Enum.ZoneFunctionCode.ThermostatPID");
 
         /// <summary>
+        /// 跟踪
+        /// </summary>
+        public string Enum_LogLevel_Trace => GetString("Enum.LogLevel.Trace");
+
+        /// <summary>
+        /// 调试
+        /// </summary>
+        public string Enum_LogLevel_Debug => GetString("Enum.LogLevel.Debug");
+
+        /// <summary>
+        /// 消息
+        /// </summary>
+        public string Enum_LogLevel_Info => GetString("Enum.LogLevel.Info");
+
+        /// <summary>
+        /// 警告
+        /// </summary>
+        public string Enum_LogLevel_Warn => GetString("Enum.LogLevel.Warn");
+
+        /// <summary>
+        /// 错误
+        /// </summary>
+        public string Enum_LogLevel_Error => GetString("Enum.LogLevel.Error");
+
+        /// <summary>
+        /// 异常
+        /// </summary>
+        public string Enum_LogLevel_Fatal => GetString("Enum.LogLevel.Fatal");
+
+        /// <summary>
         /// 主控板
         /// </summary>
         public string DeviceCheckItem_Type_00 => GetString("DeviceCheckItem.Type[00]");
@@ -950,6 +980,16 @@ namespace LSIC.App
         /// 将选中步骤设置为循环
         /// </summary>
         public string SetStepsAsLoopMessage => GetString("SetStepsAsLoopMessage");
+
+        /// <summary>
+        /// 工作线程已启动!
+        /// </summary>
+        public string WorkerThreadStartedMessage => GetString("WorkerThreadStartedMessage");
+
+        /// <summary>
+        /// 工作线程已退出!
+        /// </summary>
+        public string WorkerThreadEndedMessage => GetString("WorkerThreadEndedMessage");
 
         /// <summary>
         /// 见微知著·科技赋能·创造非凡价值
@@ -1901,6 +1941,18 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(Enum_ZoneFunctionCode_ThermostatPID));
 
+            OnPropertyChanged(nameof(Enum_LogLevel_Trace));
+
+            OnPropertyChanged(nameof(Enum_LogLevel_Debug));
+
+            OnPropertyChanged(nameof(Enum_LogLevel_Info));
+
+            OnPropertyChanged(nameof(Enum_LogLevel_Warn));
+
+            OnPropertyChanged(nameof(Enum_LogLevel_Error));
+
+            OnPropertyChanged(nameof(Enum_LogLevel_Fatal));
+
             OnPropertyChanged(nameof(DeviceCheckItem_Type_00));
 
             OnPropertyChanged(nameof(DeviceCheckItem_Type_10));
@@ -2114,6 +2166,10 @@ namespace LSIC.App
             OnPropertyChanged(nameof(ProcessStepTypeUnknownMessage));
 
             OnPropertyChanged(nameof(SetStepsAsLoopMessage));
+
+            OnPropertyChanged(nameof(WorkerThreadStartedMessage));
+
+            OnPropertyChanged(nameof(WorkerThreadEndedMessage));
 
             OnPropertyChanged(nameof(ConceptText));
 
@@ -2836,6 +2892,36 @@ namespace LSIC.App
         public const string Enum_ZoneFunctionCode_ThermostatPID = nameof(Enum_ZoneFunctionCode_ThermostatPID);
 
          /// <summary>
+        /// 跟踪
+        /// </summary>
+        public const string Enum_LogLevel_Trace = nameof(Enum_LogLevel_Trace);
+
+         /// <summary>
+        /// 调试
+        /// </summary>
+        public const string Enum_LogLevel_Debug = nameof(Enum_LogLevel_Debug);
+
+         /// <summary>
+        /// 消息
+        /// </summary>
+        public const string Enum_LogLevel_Info = nameof(Enum_LogLevel_Info);
+
+         /// <summary>
+        /// 警告
+        /// </summary>
+        public const string Enum_LogLevel_Warn = nameof(Enum_LogLevel_Warn);
+
+         /// <summary>
+        /// 错误
+        /// </summary>
+        public const string Enum_LogLevel_Error = nameof(Enum_LogLevel_Error);
+
+         /// <summary>
+        /// 异常
+        /// </summary>
+        public const string Enum_LogLevel_Fatal = nameof(Enum_LogLevel_Fatal);
+
+         /// <summary>
         /// 主控板
         /// </summary>
         public const string DeviceCheckItem_Type_00 = nameof(DeviceCheckItem_Type_00);
@@ -3369,6 +3455,16 @@ namespace LSIC.App
         /// 将选中步骤设置为循环
         /// </summary>
         public const string SetStepsAsLoopMessage = nameof(SetStepsAsLoopMessage);
+
+         /// <summary>
+        /// 工作线程已启动!
+        /// </summary>
+        public const string WorkerThreadStartedMessage = nameof(WorkerThreadStartedMessage);
+
+         /// <summary>
+        /// 工作线程已退出!
+        /// </summary>
+        public const string WorkerThreadEndedMessage = nameof(WorkerThreadEndedMessage);
 
          /// <summary>
         /// 见微知著·科技赋能·创造非凡价值

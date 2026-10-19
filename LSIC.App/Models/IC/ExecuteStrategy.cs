@@ -73,7 +73,7 @@
         #region validate methods
         private ValidationResult ValidateCount(int Count)
         {
-            if (Count <= 0|| Count> 2000000000)
+            if (Count <= 0 || Count > 2000000000)
             {
                 new ValidationResult(string.Format(LangProvider.Instance.MustBeInRangeMessage, $"1 ~ 2000000000 {LangProvider.Instance.TimesText}"));
             }
