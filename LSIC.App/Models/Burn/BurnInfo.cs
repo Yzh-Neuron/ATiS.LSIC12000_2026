@@ -126,7 +126,7 @@
 
             if (ic.BurnInBoardSetting is null)
             {
-                throw new InvalidOperationException("老化板配置未解析，无法进入老化界面");
+                throw new InvalidOperationException(LangProvider.Instance.BurnInBoardNotParsedMessage);
             }
             BurnInBoard = new BurnInBoard(ic.BurnInBoardSetting);
             BuildSteps(ic);
@@ -350,11 +350,7 @@
         /// </summary>
         public void Dispose()
         {
-            if (Logger is null)
-            {
-                return;
-            }
-            Logger.Dispose();
+            Logger?.Dispose();
             Logger = null;
         }
         #endregion

@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--  Device check result (DeviceCheckItem lookup by byte code)  -->
+    <!--  Board type  -->
+    <sys:String x:Key="DeviceCheckItem.Type[00]">MainBoard</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Type[10]">BaseBoard</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Type[20]">DigitalBoard</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Type[30]">DpsBoard</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Type[E0]">VerticalBoard</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Type[EA]">BurnInBoard</sys:String>
+    <!--  Check item  -->
+    <sys:String x:Key="DeviceCheckItem.Item[01]">Env variable</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[02]">Config</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[03]">EEPROM</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[04]">Extension I/O</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[05]">Dps</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[06]">DAC Check</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[07]">FPGA Check</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[08]">Dps Check(XADC)</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[09]">FLASH Check</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[0A]">PL Type Check</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[0B]">Temp Control Check</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[0C]">COMPARE VREF Check</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[0D]">Dps VIN Check</sys:String>
+    <!--  Check result  -->
+    <sys:String x:Key="DeviceCheckItem.Result[00]">OK</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[01]">Env variable lost</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[02]">Config not found</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[03]">Config error</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[04]">EEPROM error</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[05]">I/O extension error</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[06]">ADC error</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[07]">Dps Communication error</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[08]">Dps spec error</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[09]">Dps firmware error</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[0A]">LVDS reg error</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[0B]">LVDS data stream error</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[0C]">Dps Communication error</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[0D]">Dps output error</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[0E]">FLASH select error (open)</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[0F]">FLASH communication error</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[10]">FLASH select error (close)</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[11]">PL type error (AXIBUS)</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[12]">ADC error(SPI)</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[13]">COMPARE VREF error</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[14]">Dps VIN error</sys:String>
+</ResourceDictionary>

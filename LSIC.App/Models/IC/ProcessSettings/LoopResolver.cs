@@ -96,20 +96,20 @@
             {
                 if (!index.TryGetValue(loop.Start, out int start) || !index.TryGetValue(loop.End, out int end))
                 {
-                    throw new InvalidOperationException("循环引用了流程中不存在的条目。");
+                    throw new InvalidOperationException(LangProvider.Instance.LoopStepMissingMessage);
                 }
 
                 //该区间在 所有步骤的总和之内
                 var range = new IntClosedRange(start, end);
                 if (!range.IsValid(process.StepItems.Count))
                 {
-                    throw new InvalidOperationException("循环区间非法：首条目必须排在末条目之前，且不能越界。");
+                    throw new InvalidOperationException(LangProvider.Instance.LoopRangeInvalidMessage);
                 }
 
                 // 循环只能落在 [1,Count-1]（排除电源）
                 if (start <= 0 || end >= process.StepItems.Count - 1)
                 {
-                    throw new InvalidOperationException("循环不能包含固定的上电 / 下电块。");
+                    throw new InvalidOperationException(LangProvider.Instance.LoopContainsPowerMessage);
                 }
 
                 result.Add((loop, range));

@@ -38,17 +38,17 @@
         /// <summary>
         /// 板卡类型描述
         /// </summary>
-        public string TypeText => LangProvider.Instance.GetString($"DeviceCheck.Type[{Type:X2}]");
+        public string TypeText => LangProvider.Instance.GetString($"{nameof(DeviceCheckItem)}.Type[{Type:X2}]");
 
         /// <summary>
         /// 检测项描述
         /// </summary>
-        public string ItemText => LangProvider.Instance.GetString($"DeviceCheck.Item[{Item:X2}]");
+        public string ItemText => LangProvider.Instance.GetString($"{nameof(DeviceCheckItem)}.Item[{Item:X2}]");
 
         /// <summary>
         /// 检测结果描述
         /// </summary>
-        public string ResultText => LangProvider.Instance.GetString($"DeviceCheck.Result[{Result:X2}]");
+        public string ResultText => LangProvider.Instance.GetString($"{nameof(DeviceCheckItem)}.Result[{Result:X2}]");
 
         /// <summary>
         /// 展示文本：板卡类型 检测项 > 结果；失败时附带位置

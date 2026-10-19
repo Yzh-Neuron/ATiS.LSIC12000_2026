@@ -162,7 +162,7 @@ namespace LSIC.App
                 }
                 else
                 {
-                    throw new InvalidOperationException("无法识别的流程步骤类型。");
+                    throw new InvalidOperationException(LangProvider.Instance.ProcessStepTypeUnknownMessage);
                 }
                 reader.SkipWhiteSpace();
             }
@@ -276,9 +276,9 @@ namespace LSIC.App
             string endName = reader.ReadStringWrap('"');
 
             StepItem start = process.StepItems.FirstOrDefault(i => i.Name == startName)
-                ?? throw new InvalidOperationException($"循环起始步骤 \"{startName}\" 不存在。");
+                ?? throw new InvalidOperationException(string.Format(LangProvider.Instance.LoopStartNotFoundMessage, startName));
             StepItem end = process.StepItems.FirstOrDefault(i => i.Name == endName)
-                ?? throw new InvalidOperationException($"循环结束步骤 \"{endName}\" 不存在。");
+                ?? throw new InvalidOperationException(string.Format(LangProvider.Instance.LoopEndNotFoundMessage, endName));
 
             Loop loop = new Loop(start) { End = end };
             reader.SkipWhiteSpace();

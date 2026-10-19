@@ -1,8 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="AppHasLaunchedMessage">Application is already running</sys:String>
+    <sys:String x:Key="AppStartMessage">Application Start</sys:String>
+    <sys:String x:Key="AppExitMessage">Application Exit</sys:String>
     <sys:String x:Key="InvalidPasswordMessage">Invalid password</sys:String>
     <sys:String x:Key="UnhandledExceptionMessage">Unhandled Exception, {0}</sys:String>
+
+    <sys:String x:Key="InitMessage">Init...</sys:String>
+    <sys:String x:Key="ConntectionCheckingMessage">[{0}] Check...</sys:String>
+    <sys:String x:Key="ConntectSuccessMessage">[{0}] OK</sys:String>
+    <sys:String x:Key="ConntectFailureMessage">[{0}] Failure</sys:String>
 
     <sys:String x:Key="FileImportSuccessMessage">File imported successfully</sys:String>
     <sys:String x:Key="FileImportFailureMessage">File import failed</sys:String>
@@ -44,13 +52,38 @@
     <sys:String x:Key="DpsCheckAskMessage" xml:space="preserve">Burn-in board detected, running DPS check may damage the device&#x000A;Continue ?</sys:String>
 
     <sys:String x:Key="ZoneDpsErrorMessage">
-        DPS error: {0} ->[{1}]</sys:String>
+        DPS error: {0} ->[{1}]
+    </sys:String>
     <sys:String x:Key="ZoneVIHErrorMessage">
-        DPS error: VIH{0} ->[{1}]</sys:String>
+        DPS error: VIH{0} ->[{1}]
+    </sys:String>
     <sys:String x:Key="ZonePatternErrorMessage">Pattern error: [{0}] please check step {1} vector step {2}</sys:String>
     <sys:String x:Key="ZoneDeviceErrorMessage">Device error: please contact FAE! Error code [{0}]</sys:String>
     <sys:String x:Key="StepRunInfoMessage">Step: [{0}]&#x0009;Vector step: [{1}]</sys:String>
     <sys:String x:Key="RunDpsCheckScriptMessage">Run DPS diagnosis script: {0}</sys:String>
     <sys:String x:Key="DpsCheckResultMessage" xml:space="preserve">DPS Diagnosis [{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})</sys:String>
     <sys:String x:Key="TriggerDrSetSuccessMessage">Trigger Dr {0} set successfully.</sys:String>
+    <!-- Exit / release -->
+    <sys:String x:Key="ForceExitOnTimeoutMessage">Release timed out, force exiting</sys:String>
+
+    <!-- Separator -->
+    <sys:String x:Key="SplitCharUnsupportedMessage">Unsupported separator</sys:String>
+    <sys:String x:Key="SplitCharInvalidMessage">Invalid separator</sys:String>
+
+    <!-- Burn-in board -->
+    <sys:String x:Key="BurnInBoardNotParsedMessage">Burn-in board configuration not parsed, cannot enter burn-in interface</sys:String>
+
+    <!-- Process loop -->
+    <sys:String x:Key="LoopStepMissingMessage">The loop references a step that does not exist in the process.</sys:String>
+    <sys:String x:Key="LoopRangeInvalidMessage">Invalid loop range: the start step must precede the end step and stay within bounds.</sys:String>
+    <sys:String x:Key="LoopContainsPowerMessage">Loops cannot contain fixed power-up or power-down blocks.</sys:String>
+    <sys:String x:Key="LoopSelectConsecutiveMessage">Please select consecutive vector steps (power-up/power-down steps excluded).</sys:String>
+    <sys:String x:Key="LoopOverlapMessage">Loops can only be placed side by side; nesting or crossing is not allowed.</sys:String>
+    <sys:String x:Key="LoopStartNotFoundMessage">Loop start step &quot;{0}&quot; does not exist.</sys:String>
+    <sys:String x:Key="LoopEndNotFoundMessage">Loop end step &quot;{0}&quot; does not exist.</sys:String>
+
+    <!-- Zone and process -->
+    <sys:String x:Key="ZoneNotInBurnMessage">Burn-in not started, cannot send configuration</sys:String>
+    <sys:String x:Key="ProcessStepTypeUnknownMessage">Unrecognized process step type.</sys:String>
+    <sys:String x:Key="SetStepsAsLoopMessage">Set selected steps as a loop</sys:String>
 </ResourceDictionary>

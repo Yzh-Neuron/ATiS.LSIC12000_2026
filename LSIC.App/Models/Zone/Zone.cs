@@ -187,7 +187,7 @@ namespace LSIC.App.Models
             BurnInfo info = BurnInfo;
             if (info is null)
             {
-                throw new InvalidOperationException("尚未进入老化，无法下发配置");
+                throw new InvalidOperationException(LangProvider.Instance.ZoneNotInBurnMessage);
             }
 
             info.SendIc();
@@ -698,6 +698,7 @@ namespace LSIC.App.Models
         }
         public void ResetStateToIdle()
         {
+            BurnInfo?.Dispose();
             BurnInfo = null;
             if (State is ZoneState.Ready or ZoneState.Stop or ZoneState.IcError)
             {
@@ -1320,7 +1321,9 @@ namespace LSIC.App.Models
                 return;
             }
 
-            Logger?.Dispose();
+            // 老化区日志（Data/Error/SPI）先释放
+            BurnInfo?.Dispose();
+            BurnInfo = null;
 
             if (_client is not null)
             {
@@ -1329,6 +1332,10 @@ namespace LSIC.App.Models
                 _client.Dispose();
                 _client = null;
             }
+
+            // 流程日志最后释放（断开连接过程中可能再写日志）
+            Logger?.Dispose();
+
             _disposed = true;
             GC.SuppressFinalize(this);
         }

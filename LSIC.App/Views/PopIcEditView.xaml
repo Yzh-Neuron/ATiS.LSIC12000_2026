@@ -533,7 +533,7 @@
                                             HorizontalAlignment="Stretch"
                                             Command="{Binding Data.MakeLoopCommand, Source={StaticResource MainDataContext}}"
                                             CommandParameter="{Binding SelectedItems, Source={x:Reference StepListBox}}"
-                                            Content="将选中步骤设置为循环" />
+                                            Content="{app:Lang {x:Static app:LangKey.SetStepsAsLoopMessage}}" />
                                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                                         <Grid>
                                             <Grid.Resources>

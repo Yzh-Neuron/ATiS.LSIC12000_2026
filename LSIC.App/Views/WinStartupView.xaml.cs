@@ -9,7 +9,6 @@
             ViewModel = new WinStartupViewModel();
             DataContext = ViewModel;
             MessageBus.Default.Register(this);
-            Loaded += OnLoaded;
         }
         public MessageResult Receive(MsgArgs<WinStartupMessage> e)
         {
@@ -19,29 +18,18 @@
                 Application.Current.MainWindow = main;
                 main.Show();
                 main.Activate();
+                PopHelper.SetOwner(main);
                 Close();
             }
 
             return MessageResult.From(null);
-        }
-        private async void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            Loaded -= OnLoaded;
-            try
-            {
-                await ViewModel.StartCheck();
-            }
-            catch
-            {
-                // ignore
-            }
         }
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
             MessageBus.Default.UnregisterAll(this);
 
-            if (Application.Current.MainWindow is null)
+            if (Application.Current.MainWindow is not WinMainView)
             {
                 Application.Current.Shutdown();
             }

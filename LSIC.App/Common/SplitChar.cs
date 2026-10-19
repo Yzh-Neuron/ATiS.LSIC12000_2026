@@ -50,13 +50,13 @@
                 " " => ' ',
                 "\t" => '\t',
                 "|" => '|',
-                _ => throw new ArgumentOutOfRangeException(nameof(value), value, "不支持的分隔符")
+                _ => throw new ArgumentOutOfRangeException(nameof(value), value, LangProvider.Instance.SplitCharUnsupportedMessage)
             };
         }
 
         public char? Value { get; }
 
-        public char ToChar() => Value ?? throw new InvalidOperationException("分隔符无效");
+        public char ToChar() => Value ?? throw new InvalidOperationException(LangProvider.Instance.SplitCharInvalidMessage);
 
         public static implicit operator SplitCharEx(string value) => new SplitCharEx(value);
     }

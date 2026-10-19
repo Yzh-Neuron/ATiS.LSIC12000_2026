@@ -1,4 +1,4 @@
-using System.Data;
+﻿using System.Data;
 
 namespace LSIC.App.Models
 {
@@ -11,7 +11,7 @@ namespace LSIC.App.Models
             _mode = DeviceMode.Administrator;
 #endif
             SystemConfig = systemConfig;
-            Zones = SystemConfig.ZoneInfos.Select(info => new Zone(info, CreateDps())).ToArray();
+            Zones = SystemConfig.ZoneInfos.Select(info => new Zone(info, SystemConfig.DpsInfos.Select(i => new Dps(i)).ToArray())).ToArray();
             BoardTypeCatalog.Initialize(systemConfig.BoardTypeInfos);
             foreach (var rule in SystemConfig.LogRules)
             {
@@ -24,13 +24,7 @@ namespace LSIC.App.Models
         public DeviceMode Mode
         {
             get => _mode;
-            set
-            {
-                if (SetProperty(ref _mode, value))
-                {
-                    ModeChanged?.Invoke();
-                }
-            }
+            set => SetProperty(ref _mode, value);
         }
         private UiLanguage? _language;
         public UiLanguage Language
@@ -73,13 +67,6 @@ namespace LSIC.App.Models
             private set => SetProperty(ref _deviceName, value);
         }
         public Zone[] Zones { get; private set; }
-        public void StartupZones()
-        {
-            foreach (Zone zone in Zones)
-            {
-                zone.Startup();
-            }
-        }
         public void Dispose()
         {
             if (Zones is null)
@@ -87,16 +74,8 @@ namespace LSIC.App.Models
                 return;
             }
 
-            foreach (Zone zone in Zones)
-            {
-                zone.Dispose();
-            }
+            Zones.AsParallel().ForAll(zone => zone.Dispose());
             Zones = null;
-        }
-        public event Action ModeChanged;
-        private Dps[] CreateDps()
-        {
-            return SystemConfig.DpsInfos.Select(i => new Dps(i)).ToArray();
         }
         public static void Initialize(SystemConfig systemConfig)
         {

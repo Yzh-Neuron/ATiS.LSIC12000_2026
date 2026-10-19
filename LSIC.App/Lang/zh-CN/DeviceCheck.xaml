@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--  设备自检结果（DeviceCheckItem 按字节码查表）  -->
+    <!--  板卡类型  -->
+    <sys:String x:Key="DeviceCheckItem.Type[00]">主控板</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Type[10]">底板</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Type[20]">数字板</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Type[30]">电源板</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Type[E0]">竖向板</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Type[EA]">老化板</sys:String>
+    <!--  检测项  -->
+    <sys:String x:Key="DeviceCheckItem.Item[01]">环境变量</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[02]">配置文件</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[03]">EEPROM</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[04]">扩展I/O</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[05]">电源模块</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[06]">DAC自检</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[07]">FPGA自检</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[08]">电源自检(XADC)</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[09]">FLASH自检</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[0A]">PL机型自检</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[0B]">温控自检</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[0C]">COMPARE VREF自检</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Item[0D]">Dps VIN自检</sys:String>
+    <!--  检测结果  -->
+    <sys:String x:Key="DeviceCheckItem.Result[00]">通过</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[01]">环境变量丢失</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[02]">配置文件不存在</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[03]">配置文件格式错误</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[04]">EEPROM通信错误</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[05]">I/O扩展芯片通信错误</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[06]">ADC通信错误</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[07]">电源模块通信错误</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[08]">电源模块混插</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[09]">电源模块固件错误</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[0A]">LVDS寄存器通信错误</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[0B]">LVDS数据流通信错误</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[0C]">电源通信错误</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[0D]">电源电压错误</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[0E]">FLASH选择错误(打开)</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[0F]">FLASH通信错误</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[10]">FLASH选择错误(关闭)</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[11]">PL机型读取错误(AXIBUS)</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[12]">ADC通信错误(SPI)</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[13]">COMPARE VREF 打开错误</sys:String>
+    <sys:String x:Key="DeviceCheckItem.Result[14]">Dps VIN 打开错误</sys:String>
+</ResourceDictionary>

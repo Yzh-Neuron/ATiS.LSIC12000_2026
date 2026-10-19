@@ -17,7 +17,7 @@ namespace ATiS.Sim.Log
         /// <summary>
         /// 消息格式，花括号为参数：{level} 等级、{date:格式} 时间、{msg} 消息
         /// </summary>
-        public const string DefaultMessageFormat = "[{level}][{date:yyyy-MM-dd HH:mm:ss.fff}]{msg}";
+        public const string DefaultMessageFormat = "[{level}][{date:yyyy-MM-dd HH:mm:ss}]{msg}";
         private const int MaxBatch = 512;
         private const int BatchBufferSize = 128 * 1024;
         private const int StreamBufferSize = 64 * 1024;
@@ -153,13 +153,18 @@ namespace ATiS.Sim.Log
             string line = _template.Render(level, message, now);
             var entry = new Entry(line, now);
 
+            // 队列空说明写线程可能在等待，需要唤醒
+            bool needWake = _queue.Count == 0;
             SpinWait spin = default;
             while (_running && !_queue.TryEnqueue(entry))
             {
                 _wake.Set();
                 spin.SpinOnce();
             }
-            _wake.Set();
+            if (needWake)
+            {
+                _wake.Set();
+            }
         }
 
         /// <summary>
@@ -194,7 +199,7 @@ namespace ATiS.Sim.Log
 
             if (_writer.IsAlive)
             {
-                _writer.Join(10_000);
+                _writer.Join(5000);
             }
             _stream?.Dispose();
             _wake.Dispose();

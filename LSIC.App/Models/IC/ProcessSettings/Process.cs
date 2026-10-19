@@ -95,13 +95,13 @@
 
             if (range is null)
             {
-                throw new InvalidOperationException("请选择连续的向量步（不能包含上电/下电步）。");
+                throw new InvalidOperationException(LangProvider.Instance.LoopSelectConsecutiveMessage);
             }
 
             //判断是否有重叠
             if (this.IsBlocked(range.Value))
             {
-                throw new InvalidOperationException("循环只能并列，不能嵌套或交叉。");
+                throw new InvalidOperationException(LangProvider.Instance.LoopOverlapMessage);
             }
 
             var loop = new Loop(StepItems[range.Value.Start]) { End = StepItems[range.Value.End] };

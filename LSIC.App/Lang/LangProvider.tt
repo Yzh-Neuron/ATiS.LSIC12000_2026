@@ -14,6 +14,7 @@
     string[] xamlPaths =
     {
         Path.Combine(templateDir, @"..\..\LSIC.App\Lang\zh-CN\Enum.xaml"),
+        Path.Combine(templateDir, @"..\..\LSIC.App\Lang\zh-CN\DeviceCheck.xaml"),
         Path.Combine(templateDir, @"..\..\LSIC.App\Lang\zh-CN\Message.xaml"),
         Path.Combine(templateDir, @"..\..\LSIC.App\Lang\zh-CN\UI.xaml"),
     };

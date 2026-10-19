@@ -1,8 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="AppHasLaunchedMessage">程序已运行</sys:String>
+    <sys:String x:Key="AppStartMessage">程序启动</sys:String>
+    <sys:String x:Key="AppExitMessage">程序退出</sys:String>
     <sys:String x:Key="InvalidPasswordMessage">密码错误</sys:String>
     <sys:String x:Key="UnhandledExceptionMessage">未捕获到的异常, {0}</sys:String>
+
+    <sys:String x:Key="InitMessage">初始化中...</sys:String>
+    <sys:String x:Key="ConntectionCheckingMessage">[{0}] 区通信检测中...</sys:String>
+    <sys:String x:Key="ConntectSuccessMessage">[{0}] 区通信成功</sys:String>
+    <sys:String x:Key="ConntectFailureMessage">[{0}] 区通信失败</sys:String>
 
     <sys:String x:Key="FileImportSuccessMessage">文件导入成功</sys:String>
     <sys:String x:Key="FileImportFailureMessage">文件导入失败</sys:String>
@@ -44,13 +52,38 @@
     <sys:String x:Key="DpsCheckAskMessage" xml:space="preserve">检测到当前区已插老化板，运行电源自检可能会烧毁器件&#x000A;是否继续 ?</sys:String>
 
     <sys:String x:Key="ZoneDpsErrorMessage">
-        电源错误:{0} ->[{1}]</sys:String>
+        电源错误:{0} ->[{1}]
+    </sys:String>
     <sys:String x:Key="ZoneVIHErrorMessage">
-        电源错误: VIH{0} ->[{1}]</sys:String>
+        电源错误: VIH{0} ->[{1}]
+    </sys:String>
     <sys:String x:Key="ZonePatternErrorMessage">向量错误: [{0}] 请检查第{1}步 第{2}组向量配置</sys:String>
     <sys:String x:Key="ZoneDeviceErrorMessage">设备异常: 请联系售后人员! 错误码[{0}]</sys:String>
     <sys:String x:Key="StepRunInfoMessage">当前步次: [{0}]&#x0009;向量: [{1}]</sys:String>
     <sys:String x:Key="RunDpsCheckScriptMessage">运行电源自检脚本: {0}</sys:String>
     <sys:String x:Key="DpsCheckResultMessage" xml:space="preserve">电源自检[{0}/{1}] ->{2}    {3}V    {4}A    ({5}/{6})</sys:String>
     <sys:String x:Key="TriggerDrSetSuccessMessage">触发通道 {0} 设置成功</sys:String>
+    <!-- 退出释放 -->
+    <sys:String x:Key="ForceExitOnTimeoutMessage">释放超时，强制退出</sys:String>
+
+    <!-- 分隔符 -->
+    <sys:String x:Key="SplitCharUnsupportedMessage">不支持的分隔符</sys:String>
+    <sys:String x:Key="SplitCharInvalidMessage">分隔符无效</sys:String>
+
+    <!-- 老化板配置 -->
+    <sys:String x:Key="BurnInBoardNotParsedMessage">老化板配置未解析，无法进入老化界面</sys:String>
+
+    <!-- 流程循环 -->
+    <sys:String x:Key="LoopStepMissingMessage">循环引用了流程中不存在的条目。</sys:String>
+    <sys:String x:Key="LoopRangeInvalidMessage">循环区间非法：首条目必须排在末条目之前，且不能越界。</sys:String>
+    <sys:String x:Key="LoopContainsPowerMessage">循环不能包含固定的上电 / 下电块。</sys:String>
+    <sys:String x:Key="LoopSelectConsecutiveMessage">请选择连续的向量步（不能包含上电/下电步）。</sys:String>
+    <sys:String x:Key="LoopOverlapMessage">循环只能并列，不能嵌套或交叉。</sys:String>
+    <sys:String x:Key="LoopStartNotFoundMessage">循环起始步骤 &quot;{0}&quot; 不存在。</sys:String>
+    <sys:String x:Key="LoopEndNotFoundMessage">循环结束步骤 &quot;{0}&quot; 不存在。</sys:String>
+
+    <!-- 区与流程 -->
+    <sys:String x:Key="ZoneNotInBurnMessage">尚未进入老化，无法下发配置</sys:String>
+    <sys:String x:Key="ProcessStepTypeUnknownMessage">无法识别的流程步骤类型。</sys:String>
+    <sys:String x:Key="SetStepsAsLoopMessage">将选中步骤设置为循环</sys:String>
 </ResourceDictionary>
