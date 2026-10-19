@@ -38,6 +38,14 @@ namespace LSIC.App.Views
                         pop.ShowDialog();
                         return MessageResult.From(pop.DutMask);
                     }
+                case WinMainMessage.ThermostatMonitor:
+                    {
+                        Zone zone = e.Args[0] as Zone;
+                        BurnDut selectedDut = e.Args[1] as BurnDut;
+                        PopThermostatView pop = new PopThermostatView(zone, selectedDut) { Owner = this };
+                        pop.ShowDialog();
+                        break;
+                    }
                 default:
                     {
                         break;

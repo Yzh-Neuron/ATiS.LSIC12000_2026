@@ -39,6 +39,7 @@
     <sys:String x:Key="TypeText">类型</sys:String>
     <sys:String x:Key="SpecText">规格</sys:String>
     <sys:String x:Key="DutText">工位</sys:String>
+    <sys:String x:Key="DutFormatText">工位 {0}</sys:String>
     <sys:String x:Key="RowText">行</sys:String>
     <sys:String x:Key="ColumnText">列</sys:String>
     <sys:String x:Key="BelongChipSelectText">所属片选</sys:String>
@@ -67,6 +68,11 @@
     <sys:String x:Key="RunInTheLoopText">循环运行中</sys:String>
 
     <!--  烘箱与温控报警  -->
+    <sys:String x:Key="RealTemperatureText">实时温度</sys:String>
+    <sys:String x:Key="RealTemperatureWithUnitText">实时温度(℃)</sys:String>
+    <sys:String x:Key="TargetTemperatureText">目标温度</sys:String>
+    <sys:String x:Key="TargetTemperatureWithUnitText">目标温度(℃)</sys:String>
+    <sys:String x:Key="TemperatureText">温度</sys:String>
     <sys:String x:Key="TemperatureWithUnitText">温度(℃)</sys:String>
     <sys:String x:Key="AlarmMessageText">报警信息</sys:String>
     <sys:String x:Key="AlarmWindowText">报警窗口</sys:String>
@@ -75,6 +81,11 @@
     <sys:String x:Key="ThermostatIndexText">温控索引</sys:String>
     <sys:String x:Key="ThermostatMonitorText">独立温控监视</sys:String>
     <sys:String x:Key="ThermostatEnableText">温控使能</sys:String>
+    <sys:String x:Key="ThermostatEnableClosedText">独立温控使能关闭</sys:String>
+    <sys:String x:Key="ProportionalCoefficientText">比列系数(Kp)</sys:String>
+    <sys:String x:Key="IntegralCoefficientText">积分系数(Ki)</sys:String>
+    <sys:String x:Key="DerivativeCoefficientText">微分系数(Kd)</sys:String>
+    <sys:String x:Key="SetThermostatCoefficientText">设置温控系数</sys:String>
 
     <!--  Dps 电源参数  -->
     <sys:String x:Key="DpsText">电源</sys:String>

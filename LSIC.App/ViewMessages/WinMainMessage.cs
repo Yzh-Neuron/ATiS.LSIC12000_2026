@@ -4,6 +4,7 @@
     {
         Growl,
         DutMask,
-        ZoneListView
+        ZoneListView,
+        ThermostatMonitor
     }
 }

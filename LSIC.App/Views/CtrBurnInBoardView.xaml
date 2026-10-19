@@ -17,6 +17,9 @@
       d:Height="1080"
       d:Width="1920"
       mc:Ignorable="d">
+    <Grid.Resources>
+        <views:CtrBurnInBoardViewModelProxy x:Key="MainDataContext" Data="{Binding}" />
+    </Grid.Resources>
     <Grid.RowDefinitions>
         <RowDefinition Height="*" />
         <RowDefinition Height="Auto" />
@@ -62,11 +65,13 @@
                     <views:ThermostatBadge Margin="0,5,3,0"
                                            Temperature="{Binding BurnThermostat.Temperature, Mode=OneWay}"
                                            TemperatureEnabled="{Binding BurnThermostat.Enable, Mode=OneWay}" />
-                    <!--<wpf:SimplePanel.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="{app:Lang {x:Static app:LangKey.ThermostatMonitorText}}" />
+                    <wpf:SimplePanel.ContextMenu>
+                        <ContextMenu Visibility="{Binding BurnThermostat, Converter={StaticResource NotNullToVisibilityConverter}}">
+                            <MenuItem Command="{Binding Source={StaticResource MainDataContext}, Path=Data.ThermostatMonitorCommand}"
+                                      CommandParameter="{Binding BurnThermostat}"
+                                      Header="{app:Lang {x:Static app:LangKey.ThermostatMonitorText}}" />
                         </ContextMenu>
-                    </wpf:SimplePanel.ContextMenu>-->
+                    </wpf:SimplePanel.ContextMenu>
                 </wpf:SimplePanel>
             </DataTemplate>
         </wpf:MatrixListBox.ItemTemplate>

@@ -31,7 +31,9 @@
                     {
                         await Task.Delay(10);
                         times++;
+                        continue;
                     }
+                    break;
                 }
                 name = zone.Connected ? string.Format(LangProvider.Instance.ConntectSuccessMessage, zone.Id) : string.Format(LangProvider.Instance.ConntectFailureMessage, zone.Id);
                 item.Name = name;

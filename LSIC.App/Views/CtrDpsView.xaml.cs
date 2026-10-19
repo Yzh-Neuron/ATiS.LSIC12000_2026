@@ -5,7 +5,6 @@
         public CtrDpsView()
         {
             InitializeComponent();
-
         }
     }
 }

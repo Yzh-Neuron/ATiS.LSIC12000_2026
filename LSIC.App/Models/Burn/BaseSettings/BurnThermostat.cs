@@ -1,4 +1,7 @@
-﻿namespace LSIC.App.Models
+﻿using OxyPlot;
+using OxyPlot.Axes;
+
+namespace LSIC.App.Models
 {
     /// <summary>
     /// 独立温控（运行时）
@@ -54,6 +57,29 @@
         {
             get => _kd;
             set => SetProperty(ref _kd, value);
+        }
+        public ObservableCollection<DataPoint> PvData { get; } = new ObservableCollection<DataPoint>();
+        public TimeRange ChartDataTimeRange { get; } = new TimeRange();
+        public void Update(bool enable, int? temperature)
+        {
+            Enable = enable;
+            Temperature = enable ? temperature : null;
+
+            if (Enable)
+            {
+                while (PvData.Count >= 600) // 3s 一个点，最多保存 30 分钟数据
+                {
+                    PvData.RemoveAt(0);
+                }
+
+                DateTime now = DateTime.Now;
+                PvData.Add(DateTimeAxis.CreateDataPoint(now, (Temperature ?? 0) / 10d));
+
+                DateTime start = DateTimeAxis.ToDateTime(PvData.First().X);
+                ChartDataTimeRange.Start = start;
+                DateTime end = DateTimeAxis.ToDateTime(PvData.Last().X);
+                ChartDataTimeRange.End = end - start < TimeSpan.FromMinutes(30d) ? start.AddMinutes(30d) : end;
+            }
         }
     }
 }

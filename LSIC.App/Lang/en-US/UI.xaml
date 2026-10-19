@@ -39,6 +39,7 @@
     <sys:String x:Key="TypeText">Type</sys:String>
     <sys:String x:Key="SpecText">Spec</sys:String>
     <sys:String x:Key="DutText">Station</sys:String>
+    <sys:String x:Key="DutFormatText">Station {0}</sys:String>
     <sys:String x:Key="RowText">Row</sys:String>
     <sys:String x:Key="ColumnText">Column</sys:String>
     <sys:String x:Key="BelongChipSelectText">CS</sys:String>
@@ -67,6 +68,11 @@
     <sys:String x:Key="RunInTheLoopText">Run in loop</sys:String>
 
     <!--  烘箱与温控报警  -->
+    <sys:String x:Key="RealTemperatureText">PV</sys:String>
+    <sys:String x:Key="RealTemperatureWithUnitText">PV(℃)</sys:String>
+    <sys:String x:Key="TargetTemperatureText">SV</sys:String>
+    <sys:String x:Key="TargetTemperatureWithUnitText">SV(℃)</sys:String>
+    <sys:String x:Key="TemperatureText">Temp.</sys:String>
     <sys:String x:Key="TemperatureWithUnitText">Temp.(℃)</sys:String>
     <sys:String x:Key="AlarmMessageText">Alarm Message</sys:String>
     <sys:String x:Key="AlarmWindowText">Alarm Window</sys:String>
@@ -75,6 +81,11 @@
     <sys:String x:Key="ThermostatIndexText">Thermostat Index</sys:String>
     <sys:String x:Key="ThermostatMonitorText">Thermostat Monitor</sys:String>
     <sys:String x:Key="ThermostatEnableText">Thermostat Enable</sys:String>
+    <sys:String x:Key="ThermostatEnableClosedText">Thermostat disabled</sys:String>
+    <sys:String x:Key="ProportionalCoefficientText">Proportional Coefficient(Kp)</sys:String>
+    <sys:String x:Key="IntegralCoefficientText">Integral Coefficient(Ki)</sys:String>
+    <sys:String x:Key="DerivativeCoefficientText">Derivative Coefficient(Kd)</sys:String>
+    <sys:String x:Key="SetThermostatCoefficientText">Set Coefficient</sys:String>
 
     <!--  Dps 电源参数  -->
     <sys:String x:Key="DpsText">Dps</sys:String>

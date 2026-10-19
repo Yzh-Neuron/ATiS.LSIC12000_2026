@@ -25,7 +25,6 @@ namespace LSIC.App.Views
         {
             ViewModel.Zone = zone;
         }
-
         private void OnViewRegisterFileButtonClick(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;

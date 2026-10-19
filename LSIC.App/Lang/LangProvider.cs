@@ -1162,6 +1162,11 @@ namespace LSIC.App
         public string DutText => GetString("DutText");
 
         /// <summary>
+        /// 工位 {0}
+        /// </summary>
+        public string DutFormatText => GetString("DutFormatText");
+
+        /// <summary>
         /// 行
         /// </summary>
         public string RowText => GetString("RowText");
@@ -1282,6 +1287,31 @@ namespace LSIC.App
         public string RunInTheLoopText => GetString("RunInTheLoopText");
 
         /// <summary>
+        /// 实时温度
+        /// </summary>
+        public string RealTemperatureText => GetString("RealTemperatureText");
+
+        /// <summary>
+        /// 实时温度(℃)
+        /// </summary>
+        public string RealTemperatureWithUnitText => GetString("RealTemperatureWithUnitText");
+
+        /// <summary>
+        /// 目标温度
+        /// </summary>
+        public string TargetTemperatureText => GetString("TargetTemperatureText");
+
+        /// <summary>
+        /// 目标温度(℃)
+        /// </summary>
+        public string TargetTemperatureWithUnitText => GetString("TargetTemperatureWithUnitText");
+
+        /// <summary>
+        /// 温度
+        /// </summary>
+        public string TemperatureText => GetString("TemperatureText");
+
+        /// <summary>
         /// 温度(℃)
         /// </summary>
         public string TemperatureWithUnitText => GetString("TemperatureWithUnitText");
@@ -1320,6 +1350,31 @@ namespace LSIC.App
         /// 温控使能
         /// </summary>
         public string ThermostatEnableText => GetString("ThermostatEnableText");
+
+        /// <summary>
+        /// 独立温控使能关闭
+        /// </summary>
+        public string ThermostatEnableClosedText => GetString("ThermostatEnableClosedText");
+
+        /// <summary>
+        /// 比列系数(Kp)
+        /// </summary>
+        public string ProportionalCoefficientText => GetString("ProportionalCoefficientText");
+
+        /// <summary>
+        /// 积分系数(Ki)
+        /// </summary>
+        public string IntegralCoefficientText => GetString("IntegralCoefficientText");
+
+        /// <summary>
+        /// 微分系数(Kd)
+        /// </summary>
+        public string DerivativeCoefficientText => GetString("DerivativeCoefficientText");
+
+        /// <summary>
+        /// 设置温控系数
+        /// </summary>
+        public string SetThermostatCoefficientText => GetString("SetThermostatCoefficientText");
 
         /// <summary>
         /// 电源
@@ -2239,6 +2294,8 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(DutText));
 
+            OnPropertyChanged(nameof(DutFormatText));
+
             OnPropertyChanged(nameof(RowText));
 
             OnPropertyChanged(nameof(ColumnText));
@@ -2287,6 +2344,16 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(RunInTheLoopText));
 
+            OnPropertyChanged(nameof(RealTemperatureText));
+
+            OnPropertyChanged(nameof(RealTemperatureWithUnitText));
+
+            OnPropertyChanged(nameof(TargetTemperatureText));
+
+            OnPropertyChanged(nameof(TargetTemperatureWithUnitText));
+
+            OnPropertyChanged(nameof(TemperatureText));
+
             OnPropertyChanged(nameof(TemperatureWithUnitText));
 
             OnPropertyChanged(nameof(AlarmMessageText));
@@ -2302,6 +2369,16 @@ namespace LSIC.App
             OnPropertyChanged(nameof(ThermostatMonitorText));
 
             OnPropertyChanged(nameof(ThermostatEnableText));
+
+            OnPropertyChanged(nameof(ThermostatEnableClosedText));
+
+            OnPropertyChanged(nameof(ProportionalCoefficientText));
+
+            OnPropertyChanged(nameof(IntegralCoefficientText));
+
+            OnPropertyChanged(nameof(DerivativeCoefficientText));
+
+            OnPropertyChanged(nameof(SetThermostatCoefficientText));
 
             OnPropertyChanged(nameof(DpsText));
 
@@ -3637,6 +3714,11 @@ namespace LSIC.App
         public const string DutText = nameof(DutText);
 
          /// <summary>
+        /// 工位 {0}
+        /// </summary>
+        public const string DutFormatText = nameof(DutFormatText);
+
+         /// <summary>
         /// 行
         /// </summary>
         public const string RowText = nameof(RowText);
@@ -3757,6 +3839,31 @@ namespace LSIC.App
         public const string RunInTheLoopText = nameof(RunInTheLoopText);
 
          /// <summary>
+        /// 实时温度
+        /// </summary>
+        public const string RealTemperatureText = nameof(RealTemperatureText);
+
+         /// <summary>
+        /// 实时温度(℃)
+        /// </summary>
+        public const string RealTemperatureWithUnitText = nameof(RealTemperatureWithUnitText);
+
+         /// <summary>
+        /// 目标温度
+        /// </summary>
+        public const string TargetTemperatureText = nameof(TargetTemperatureText);
+
+         /// <summary>
+        /// 目标温度(℃)
+        /// </summary>
+        public const string TargetTemperatureWithUnitText = nameof(TargetTemperatureWithUnitText);
+
+         /// <summary>
+        /// 温度
+        /// </summary>
+        public const string TemperatureText = nameof(TemperatureText);
+
+         /// <summary>
         /// 温度(℃)
         /// </summary>
         public const string TemperatureWithUnitText = nameof(TemperatureWithUnitText);
@@ -3795,6 +3902,31 @@ namespace LSIC.App
         /// 温控使能
         /// </summary>
         public const string ThermostatEnableText = nameof(ThermostatEnableText);
+
+         /// <summary>
+        /// 独立温控使能关闭
+        /// </summary>
+        public const string ThermostatEnableClosedText = nameof(ThermostatEnableClosedText);
+
+         /// <summary>
+        /// 比列系数(Kp)
+        /// </summary>
+        public const string ProportionalCoefficientText = nameof(ProportionalCoefficientText);
+
+         /// <summary>
+        /// 积分系数(Ki)
+        /// </summary>
+        public const string IntegralCoefficientText = nameof(IntegralCoefficientText);
+
+         /// <summary>
+        /// 微分系数(Kd)
+        /// </summary>
+        public const string DerivativeCoefficientText = nameof(DerivativeCoefficientText);
+
+         /// <summary>
+        /// 设置温控系数
+        /// </summary>
+        public const string SetThermostatCoefficientText = nameof(SetThermostatCoefficientText);
 
          /// <summary>
         /// 电源

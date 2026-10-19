@@ -225,7 +225,8 @@
                                                TextWrapping="Wrap" />
                                 </StackPanel>
                             </TabItem.Header>
-                            <views:CtrBurnInBoardView BurnInBoard="{Binding ElementName=MainRegion, Path=DataContext.BurnInfo.BurnInBoard, Mode=OneWay}" />
+                            <views:CtrBurnInBoardView BurnInBoard="{Binding ElementName=MainRegion, Path=DataContext.BurnInfo.BurnInBoard, Mode=OneWay}" 
+                                                      Zone="{Binding ElementName=MainRegion, Path=DataContext, Mode=OneWay}" />
                         </TabItem>
 
                         <!--  日志  -->

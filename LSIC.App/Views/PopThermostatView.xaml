@@ -1,0 +1,206 @@
+﻿<wpf:ChromeWindow x:Class="LSIC.App.Views.PopThermostatView"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:app="clr-namespace:LSIC.App"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:models="clr-namespace:LSIC.App.Models"
+                  xmlns:oxy="http://oxyplot.org/wpf"
+                  xmlns:views="clr-namespace:LSIC.App.Views"
+                  xmlns:vms="clr-namespace:LSIC.App.ViewModels"
+                  xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
+                  Title="{app:Lang {x:Static app:LangKey.ThermostatMonitorText}}"
+                  Width="880"
+                  Height="600"
+                  d:DataContext="{d:DesignInstance vms:PopThermostatViewModel}"
+                  Icon="/Resources/Icon/icon.ico"
+                  ResizeMode="NoResize"
+                  WindowStartupLocation="CenterOwner"
+                  mc:Ignorable="d">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <ListBox x:Name="Dut_List"
+                 ItemsSource="{Binding Duts}"
+                 SelectedItem="{Binding SelectedDut}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                        <Ellipse x:Name="PART_State"
+                                 Width="8"
+                                 Height="8"
+                                 Fill="{Binding State, Converter={StaticResource DutStateToBrushConverter}}" />
+                        <TextBlock x:Name="PART_Text" Margin="5,0,0,0">
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource FormatTextConverter}">
+                                    <Binding Path="DutFormatText" Source="{x:Static app:LangProvider.Instance}" />
+                                    <Binding Path="Id" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid Grid.Column="1" Visibility="{Binding SelectedThermostat, Converter={StaticResource NotNullToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="120" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.ColumnSpan="2" Margin="10,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Grid Margin="0,0,0,0">
+                    <Border BorderBrush="{DynamicResource BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4" />
+                    <StackPanel Margin="10" Grid.IsSharedSizeScope="True">
+                        <Grid Height="24" Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="NameGroups" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{app:Lang {x:Static app:LangKey.ThermostatIndexText}}" />
+                            <TextBlock Grid.Column="1"
+                                       Margin="3,0,10,0"
+                                       Text=":" />
+                            <TextBlock Grid.Column="2" Text="{Binding SelectedThermostat.Id, Mode=OneWay, TargetNullValue='N/A'}" />
+                        </Grid>
+                        <Grid Height="24" Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="NameGroups" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{app:Lang {x:Static app:LangKey.RealTemperatureText}}" />
+                            <TextBlock Grid.Column="1"
+                                       Margin="3,0,10,0"
+                                       Text=":" />
+                            <TextBlock Grid.Column="2" Text="{Binding SelectedThermostat.Temperature, Converter={StaticResource IntegerToDecimalConverter10}, Mode=OneWay, TargetNullValue='N/A'}" />
+                            <TextBlock Grid.Column="3"
+                                       Margin="3,0"
+                                       Text="℃" />
+                        </Grid>
+                        <Grid Height="24" Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="NameGroups" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{app:Lang {x:Static app:LangKey.TargetTemperatureText}}" />
+                            <TextBlock Grid.Column="1"
+                                       Margin="3,0,10,0"
+                                       Text=":" />
+                            <TextBlock Grid.Column="2" Text="{Binding SelectedThermostat.TargetTemperature, Converter={StaticResource IntegerToDecimalConverter10}, Mode=OneWay, TargetNullValue='N/A'}" />
+                            <TextBlock Grid.Column="3"
+                                       Margin="3,0"
+                                       Text="℃" />
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="1" Margin="10,0,0,0">
+                    <Border BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4" />
+                    <StackPanel Margin="10" Grid.IsSharedSizeScope="True">
+                        <Grid Height="24" Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="NameGroups" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{app:Lang {x:Static app:LangKey.ProportionalCoefficientText}}" />
+                            <TextBlock Grid.Column="1"
+                                       Margin="3,0,10,0"
+                                       Text=":" />
+                            <TextBlock Grid.Column="2" Text="{Binding SelectedThermostat.Kp, Mode=OneWay, TargetNullValue='N/A'}" />
+                        </Grid>
+                        <Grid Height="24" Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="NameGroups" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{app:Lang {x:Static app:LangKey.IntegralCoefficientText}}" />
+                            <TextBlock Grid.Column="1"
+                                       Margin="3,0,10,0"
+                                       Text=":" />
+                            <TextBlock Grid.Column="2" Text="{Binding SelectedThermostat.Ki, Mode=OneWay, TargetNullValue='N/A'}" />
+                        </Grid>
+                        <Grid Height="24" Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="NameGroups" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{app:Lang {x:Static app:LangKey.DerivativeCoefficientText}}" />
+                            <TextBlock Grid.Column="1"
+                                       Margin="3,0,10,0"
+                                       Text=":" />
+                            <TextBlock Grid.Column="2" Text="{Binding SelectedThermostat.Kd, Mode=OneWay, TargetNullValue='N/A'}" />
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <oxy:Plot Grid.Row="1"
+                      Grid.Column="0"
+                      Margin="5,0,0,0"
+                      Background="Transparent"
+                      IsLegendVisible="True">
+                <oxy:Plot.Axes>
+                    <oxy:LinearAxis MajorGridlineColor="#10000000"
+                                    MajorGridlineStyle="Solid"
+                                    MajorGridlineThickness="1"
+                                    Maximum="200"
+                                    Minimum="0"
+                                    MinorGridlineColor="#08000000"
+                                    MinorGridlineStyle="Solid"
+                                    MinorGridlineThickness="1"
+                                    Position="Left" />
+                    <oxy:DateTimeAxis FirstDateTime="{Binding SelectedThermostat.ChartDataTimeRange.Start}"
+                                      LastDateTime="{Binding SelectedThermostat.ChartDataTimeRange.End}"
+                                      MajorGridlineColor="#10000000"
+                                      MajorGridlineStyle="Solid"
+                                      MajorGridlineThickness="1"
+                                      MinorGridlineColor="#08000000"
+                                      MinorGridlineStyle="Solid"
+                                      MinorGridlineThickness="1"
+                                      Position="Bottom" />
+                </oxy:Plot.Axes>
+                <oxy:Plot.Series>
+                    <oxy:LineSeries Title="{app:Lang {x:Static app:LangKey.RealTemperatureText}}"
+                                    InterpolationAlgorithm="{x:Null}"
+                                    ItemsSource="{Binding SelectedThermostat.PvData}"
+                                    StrokeThickness="1.5" />
+                </oxy:Plot.Series>
+            </oxy:Plot>
+            <StackPanel Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top">
+                <Button Width="90"
+                        Height="30"
+                        Command="{Binding SetPIDCommand}"
+                        CommandParameter="{Binding .}"
+                        Content="{app:Lang {x:Static app:LangKey.SetThermostatCoefficientText}}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</wpf:ChromeWindow>
