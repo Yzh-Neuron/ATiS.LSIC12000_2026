@@ -69,7 +69,7 @@ namespace LSIC.App.Models
             {
                 while (PvData.Count >= 600) // 3s 一个点，最多保存 30 分钟数据
                 {
-                    PvData.RemoveAt(0);
+                    this.InvokeOnUI(()=>PvData.RemoveAt(0));
                 }
 
                 DateTime now = DateTime.Now;

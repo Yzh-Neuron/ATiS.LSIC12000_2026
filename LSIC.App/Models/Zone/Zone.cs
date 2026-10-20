@@ -6,6 +6,7 @@ namespace LSIC.App.Models
     {
         private const ushort FrameHeader = 0x55AA;
         private const ushort FrameEnding = 0xEAA5;
+        private const int MaxPayloadLength = 4 * 1024 * 1024;
         public ObservableCollection<DeviceCheckItem> DeviceCheckItems { get; } = new();
         private bool _disposed;
         private TcpClient _client;
@@ -81,7 +82,7 @@ namespace LSIC.App.Models
             {
                 BurnInfo = SystemDatabase.Instance.GetBurnInfo(Id);
             }
-            catch 
+            catch
             {
                 BurnInfo = null;
             }
@@ -547,9 +548,9 @@ namespace LSIC.App.Models
             ClearBoards();
             await SendAsync(ZoneFunctionCode.Version);
         }
-        protected override void SendUpgrade(byte[] payload)
+        protected override Task SendUpgrade(byte[] payload)
         {
-            _ = SendAsync(ZoneFunctionCode.Upgrade, payload);
+            return SendAsync(ZoneFunctionCode.Upgrade, payload);
         }
         public async ValueTask TriggerAsync(TriggerOutputType type, int dr)
         {
@@ -574,7 +575,6 @@ namespace LSIC.App.Models
         public async ValueTask StartDpsCheckAsync(string script, DpsCommand[] commands)
         {
             Logger.LogInfo(string.Format(LangProvider.Instance.RunDpsCheckScriptMessage, script));
-
             using MemoryStream stream = new MemoryStream();
             stream.Write(commands.Length.ToBytes(Endianness.Big), 0, 4);
             foreach (DpsCommand command in commands)
@@ -754,7 +754,7 @@ namespace LSIC.App.Models
                 {
                     UpdateZoneState(ZoneState.Offline);
                     Pluged = false;
-                    Application.Current.Dispatcher.Invoke(DeviceCheckItems.Clear);
+                    this.InvokeOnUI(DeviceCheckItems.Clear);
                 }
             }
             catch (Exception ex)
@@ -786,6 +786,14 @@ namespace LSIC.App.Models
                     }
                     //获取数据长度
                     int length = _buffer.Slice(2 + 1, 4).ToInt32(0, Endianness.Big);
+
+                    //长度非法（负数或超出上限）时丢弃当前帧头并重同步，防止解析卡死与内存堆积
+                    if (length < 0 || length > MaxPayloadLength)
+                    {
+                        Logger.LogError(string.Format(LangProvider.Instance.AnalysisFrameErrorMessage, string.Format(LangProvider.Instance.InvalidFrameLengthMessage, length)));
+                        _buffer.RemoveAt(0);
+                        continue;
+                    }
                     int total = 2 + 1 + 4 + length + 4 + 2;//帧头 功能码 数据长度 数据数值 CRC校验 帧尾
                     if (_buffer.Count < total)
                     {
@@ -827,7 +835,7 @@ namespace LSIC.App.Models
         {
             if (FrameFilterUtility.Filter(Logger, code))
             {
-                Logger.LogInfo($"Rx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
+                Logger.LogDebug($"Rx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
             }
 
             try
@@ -1029,10 +1037,18 @@ namespace LSIC.App.Models
 
                             // 当前步次
                             int stepId = data[index++];
+                            if (stepId >= BurnInfo.Steps.Length)
+                            {
+                                return;
+                            }
                             string step = BurnInfo.Steps[stepId].Name;
 
                             // 当前子步
                             int vectorStepId = data[index++];
+                            if (vectorStepId >= BurnInfo.Steps[stepId].Vectors.Length)
+                            {
+                                return;
+                            }
                             BurnVector vectorStep = BurnInfo.Steps[stepId].Vectors[vectorStepId];
                             string pattern = vectorStep.PatternFile.FileName();
                             string register = vectorStep.RegisterFile.FileName();
@@ -1096,10 +1112,6 @@ namespace LSIC.App.Models
                             _ = SendPatternFile(id);
                             break;
                         }
-                    case ZoneFunctionCode.SpiSet:
-                        {
-                            break;
-                        }
                     case ZoneFunctionCode.Upgrade:
                         {
                             OnUpgradeProgress(data);
@@ -1113,7 +1125,7 @@ namespace LSIC.App.Models
                     case ZoneFunctionCode.DeviceCheck:
                         {
                             DeviceCheckItem checkItem = DeviceCheckItem.FromBytes(data);
-                            Application.Current.Dispatcher.Invoke(() => DeviceCheckItems.Add(checkItem));
+                            this.InvokeOnUI(() => DeviceCheckItems.Add(checkItem));
                             break;
                         }
                     case ZoneFunctionCode.DpsCheck:
@@ -1161,8 +1173,51 @@ namespace LSIC.App.Models
                                     Logger.LogError(string.Format(LangProvider.Instance.DpsCheckResultMessage, current, total, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
                                 }
                             }
+                            break;
                         }
-                        break;
+                    case ZoneFunctionCode.ThermostatPID:
+                        {
+                            int count = data[index++];
+                            for (int i = 0; i < count; i++)
+                            {
+                                byte id = data[index++];
+
+                                int kp = data.ToInt32(index, Endianness.Big);
+                                index += 4;
+
+                                int ki = data.ToInt32(index, Endianness.Big);
+                                index += 4;
+
+                                int kd = data.ToInt32(index, Endianness.Big);
+                                index += 4;
+
+                                var thermostat = BurnInfo?.BurnInBoard.Thermostats.FirstOrDefault(t => t.Id == id);
+                                if (thermostat != null)
+                                {
+                                    thermostat.Kp = kp;
+                                    thermostat.Ki = ki;
+                                    thermostat.Kd = kd;
+                                }
+                            }
+                            break;
+                        }
+                    case ZoneFunctionCode.Thermostat:
+                        {
+                            int count = data[index++];
+                            for (int i = 0; i < count; i++)
+                            {
+                                byte id = data[index++];
+                                bool enable = Convert.ToBoolean(data[index++]);
+                                int temperature = data.ToInt32(index, Endianness.Big);
+                                index += 4;
+                                var thermostat = BurnInfo?.BurnInBoard.Thermostats.FirstOrDefault(t => t.Id == id);
+                                if (thermostat != null)
+                                {
+                                    thermostat.Update(enable, temperature);
+                                }
+                            }
+                            break;
+                        }
                 }
 
             }
@@ -1220,7 +1275,7 @@ namespace LSIC.App.Models
 
                 if (FrameFilterUtility.Filter(Logger, code))
                 {
-                    Logger.LogInfo($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
+                    Logger.LogDebug($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
                 }
             }
             catch (Exception ex)
@@ -1366,6 +1421,10 @@ namespace LSIC.App.Models
 
             // 流程日志最后释放（断开连接过程中可能再写日志）
             Logger?.Dispose();
+
+            // 信号量最后释放；若仍有 fire-and-forget 接收任务收尾，其异常由事件 SafeInvoke 兜底
+            _semaphore.Dispose();
+            _receiveLock.Dispose();
 
             _disposed = true;
             GC.SuppressFinalize(this);

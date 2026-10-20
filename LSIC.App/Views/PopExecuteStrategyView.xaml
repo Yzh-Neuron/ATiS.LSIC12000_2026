@@ -55,7 +55,7 @@
 
                 <TextBox Width="100" Text="{Binding ExecuteStrategy.Time.Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToIntegerConverter}}" />
 
-                <ComboBox Width="75"
+                <ComboBox Width="85"
                           Margin="5,0,0,0"
                           DisplayMemberPath="Value"
                           ItemsSource="{Binding Source={x:Type app:TimeUnit}, Converter={StaticResource EnumToTextPairsConverter}}"

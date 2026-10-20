@@ -26,6 +26,7 @@
     <sys:String x:Key="AnalysisFrameErrorMessage">报文解析错误，{0}</sys:String>
     <sys:String x:Key="Crc32NotMatchMessage">CRC32不匹配，{0}</sys:String>
     <sys:String x:Key="FrameEndingNotMatchMessage">帧尾不匹配</sys:String>
+    <sys:String x:Key="InvalidFrameLengthMessage">数据长度非法 {0}</sys:String>
     <sys:String x:Key="PluggedMessage">老化板插入</sys:String>
     <sys:String x:Key="UnpluggedMessage">老化板卸下</sys:String>
     <sys:String x:Key="PleaseSetMessage">请设置 [ {0} ]</sys:String>
@@ -63,8 +64,8 @@
     <sys:String x:Key="LoopEndNotFoundMessage">循环结束步骤 &quot;{0}&quot; 不存在</sys:String>
     <sys:String x:Key="ZoneNotInBurnMessage">尚未进入老化，无法下发配置</sys:String>
     <sys:String x:Key="ProcessStepTypeUnknownMessage">无法识别的流程步骤类型</sys:String>
-    <sys:String x:Key="WorkerThreadStartedMessage">工作线程已启动！</sys:String>
-    <sys:String x:Key="WorkerThreadEndedMessage">工作线程已退出！</sys:String>
+    <sys:String x:Key="WorkerThreadStartedMessage">工作线程已启动</sys:String>
+    <sys:String x:Key="WorkerThreadEndedMessage">工作线程已退出</sys:String>
     <sys:String x:Key="PayloadLengthMessage">长度必须为 {0} 字节</sys:String>
     <sys:String x:Key="VisualChildIndexOutOfRangeMessage">可视子元素索引 '{0}' 超出范围</sys:String>
     <sys:String x:Key="JobObjectSetInformationFailedMessage">无法设置作业对象信息，错误码：{0}</sys:String>

@@ -772,6 +772,11 @@ namespace LSIC.App
         public string FrameEndingNotMatchMessage => GetString("FrameEndingNotMatchMessage");
 
         /// <summary>
+        /// 数据长度非法 {0}
+        /// </summary>
+        public string InvalidFrameLengthMessage => GetString("InvalidFrameLengthMessage");
+
+        /// <summary>
         /// 老化板插入
         /// </summary>
         public string PluggedMessage => GetString("PluggedMessage");
@@ -957,12 +962,12 @@ namespace LSIC.App
         public string ProcessStepTypeUnknownMessage => GetString("ProcessStepTypeUnknownMessage");
 
         /// <summary>
-        /// 工作线程已启动！
+        /// 工作线程已启动
         /// </summary>
         public string WorkerThreadStartedMessage => GetString("WorkerThreadStartedMessage");
 
         /// <summary>
-        /// 工作线程已退出！
+        /// 工作线程已退出
         /// </summary>
         public string WorkerThreadEndedMessage => GetString("WorkerThreadEndedMessage");
 
@@ -990,6 +995,11 @@ namespace LSIC.App
         /// 见微知著·科技赋能·创造非凡价值
         /// </summary>
         public string ConceptText => GetString("ConceptText");
+
+        /// <summary>
+        /// 从微观到宏观，以科技赋能，为客户创造非凡价值
+        /// </summary>
+        public string SloganText => GetString("SloganText");
 
         /// <summary>
         /// 确认
@@ -1134,17 +1144,17 @@ namespace LSIC.App
         /// <summary>
         /// [{0}] 区通信检测中...
         /// </summary>
-        public string ConntectionCheckingText => GetString("ConntectionCheckingText");
+        public string ConnectionCheckingText => GetString("ConnectionCheckingText");
 
         /// <summary>
         /// [{0}] 区通信成功
         /// </summary>
-        public string ConntectSuccessText => GetString("ConntectSuccessText");
+        public string ConnectSuccessText => GetString("ConnectSuccessText");
 
         /// <summary>
         /// [{0}] 区通信失败
         /// </summary>
-        public string ConntectFailureText => GetString("ConntectFailureText");
+        public string ConnectFailureText => GetString("ConnectFailureText");
 
         /// <summary>
         /// 区
@@ -1372,7 +1382,7 @@ namespace LSIC.App
         public string ThermostatEnableClosedText => GetString("ThermostatEnableClosedText");
 
         /// <summary>
-        /// 比列系数(Kp)
+        /// 比例系数(Kp)
         /// </summary>
         public string ProportionalCoefficientText => GetString("ProportionalCoefficientText");
 
@@ -1385,6 +1395,21 @@ namespace LSIC.App
         /// 微分系数(Kd)
         /// </summary>
         public string DerivativeCoefficientText => GetString("DerivativeCoefficientText");
+
+        /// <summary>
+        /// Kp
+        /// </summary>
+        public string KpText => GetString("KpText");
+
+        /// <summary>
+        /// Ki
+        /// </summary>
+        public string KiText => GetString("KiText");
+
+        /// <summary>
+        /// Kd
+        /// </summary>
+        public string KdText => GetString("KdText");
 
         /// <summary>
         /// 设置温控系数
@@ -1822,6 +1847,11 @@ namespace LSIC.App
         public string ResultText => GetString("ResultText");
 
         /// <summary>
+        /// 进度
+        /// </summary>
+        public string ProgressText => GetString("ProgressText");
+
+        /// <summary>
         /// 设备自检
         /// </summary>
         public string DeviceCheckText => GetString("DeviceCheckText");
@@ -1860,6 +1890,7 @@ namespace LSIC.App
         /// 工位屏蔽
         /// </summary>
         public string DutMaskText => GetString("DutMaskText");
+
 
         protected override void OnLanguageChanged()
         {
@@ -2167,6 +2198,8 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(FrameEndingNotMatchMessage));
 
+            OnPropertyChanged(nameof(InvalidFrameLengthMessage));
+
             OnPropertyChanged(nameof(PluggedMessage));
 
             OnPropertyChanged(nameof(UnpluggedMessage));
@@ -2255,6 +2288,8 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(ConceptText));
 
+            OnPropertyChanged(nameof(SloganText));
+
             OnPropertyChanged(nameof(ConfirmText));
 
             OnPropertyChanged(nameof(CancelText));
@@ -2311,11 +2346,11 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(InitText));
 
-            OnPropertyChanged(nameof(ConntectionCheckingText));
+            OnPropertyChanged(nameof(ConnectionCheckingText));
 
-            OnPropertyChanged(nameof(ConntectSuccessText));
+            OnPropertyChanged(nameof(ConnectSuccessText));
 
-            OnPropertyChanged(nameof(ConntectFailureText));
+            OnPropertyChanged(nameof(ConnectFailureText));
 
             OnPropertyChanged(nameof(ZoneText));
 
@@ -2412,6 +2447,12 @@ namespace LSIC.App
             OnPropertyChanged(nameof(IntegralCoefficientText));
 
             OnPropertyChanged(nameof(DerivativeCoefficientText));
+
+            OnPropertyChanged(nameof(KpText));
+
+            OnPropertyChanged(nameof(KiText));
+
+            OnPropertyChanged(nameof(KdText));
 
             OnPropertyChanged(nameof(SetThermostatCoefficientText));
 
@@ -2586,6 +2627,8 @@ namespace LSIC.App
             OnPropertyChanged(nameof(FirmwareUpgradePromptText));
 
             OnPropertyChanged(nameof(ResultText));
+
+            OnPropertyChanged(nameof(ProgressText));
 
             OnPropertyChanged(nameof(DeviceCheckText));
 
@@ -3365,6 +3408,11 @@ namespace LSIC.App
         public const string FrameEndingNotMatchMessage = nameof(FrameEndingNotMatchMessage);
 
          /// <summary>
+        /// 数据长度非法 {0}
+        /// </summary>
+        public const string InvalidFrameLengthMessage = nameof(InvalidFrameLengthMessage);
+
+         /// <summary>
         /// 老化板插入
         /// </summary>
         public const string PluggedMessage = nameof(PluggedMessage);
@@ -3550,12 +3598,12 @@ namespace LSIC.App
         public const string ProcessStepTypeUnknownMessage = nameof(ProcessStepTypeUnknownMessage);
 
          /// <summary>
-        /// 工作线程已启动！
+        /// 工作线程已启动
         /// </summary>
         public const string WorkerThreadStartedMessage = nameof(WorkerThreadStartedMessage);
 
          /// <summary>
-        /// 工作线程已退出！
+        /// 工作线程已退出
         /// </summary>
         public const string WorkerThreadEndedMessage = nameof(WorkerThreadEndedMessage);
 
@@ -3583,6 +3631,11 @@ namespace LSIC.App
         /// 见微知著·科技赋能·创造非凡价值
         /// </summary>
         public const string ConceptText = nameof(ConceptText);
+
+         /// <summary>
+        /// 从微观到宏观，以科技赋能，为客户创造非凡价值
+        /// </summary>
+        public const string SloganText = nameof(SloganText);
 
          /// <summary>
         /// 确认
@@ -3727,17 +3780,17 @@ namespace LSIC.App
          /// <summary>
         /// [{0}] 区通信检测中...
         /// </summary>
-        public const string ConntectionCheckingText = nameof(ConntectionCheckingText);
+        public const string ConnectionCheckingText = nameof(ConnectionCheckingText);
 
          /// <summary>
         /// [{0}] 区通信成功
         /// </summary>
-        public const string ConntectSuccessText = nameof(ConntectSuccessText);
+        public const string ConnectSuccessText = nameof(ConnectSuccessText);
 
          /// <summary>
         /// [{0}] 区通信失败
         /// </summary>
-        public const string ConntectFailureText = nameof(ConntectFailureText);
+        public const string ConnectFailureText = nameof(ConnectFailureText);
 
          /// <summary>
         /// 区
@@ -3965,7 +4018,7 @@ namespace LSIC.App
         public const string ThermostatEnableClosedText = nameof(ThermostatEnableClosedText);
 
          /// <summary>
-        /// 比列系数(Kp)
+        /// 比例系数(Kp)
         /// </summary>
         public const string ProportionalCoefficientText = nameof(ProportionalCoefficientText);
 
@@ -3978,6 +4031,21 @@ namespace LSIC.App
         /// 微分系数(Kd)
         /// </summary>
         public const string DerivativeCoefficientText = nameof(DerivativeCoefficientText);
+
+         /// <summary>
+        /// Kp
+        /// </summary>
+        public const string KpText = nameof(KpText);
+
+         /// <summary>
+        /// Ki
+        /// </summary>
+        public const string KiText = nameof(KiText);
+
+         /// <summary>
+        /// Kd
+        /// </summary>
+        public const string KdText = nameof(KdText);
 
          /// <summary>
         /// 设置温控系数
@@ -4413,6 +4481,11 @@ namespace LSIC.App
         /// 结果
         /// </summary>
         public const string ResultText = nameof(ResultText);
+
+         /// <summary>
+        /// 进度
+        /// </summary>
+        public const string ProgressText = nameof(ProgressText);
 
          /// <summary>
         /// 设备自检

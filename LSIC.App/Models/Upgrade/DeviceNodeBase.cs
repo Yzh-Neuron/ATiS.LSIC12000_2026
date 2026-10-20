@@ -16,28 +16,28 @@
             set => SetProperty(ref _session, value);
         }
         public abstract Task QueryVersionAsync();
-        public void SendFirmware(byte[] payload, int boardCount)
+        public async Task SendFirmware(byte[] payload, int boardCount)
         {
             Session = new UpgradeSession(boardCount);
-            SendUpgrade(payload);
+            await SendUpgrade(payload);
         }
-        protected abstract void SendUpgrade(byte[] payload);
+        protected abstract Task SendUpgrade(byte[] payload);
         protected void ClearBoards()
         {
-            Application.Current.Dispatcher.Invoke(Boards.Clear);
+            this.InvokeOnUI(Boards.Clear);
         }
         protected void AddBoard(byte[] data)
         {
             var board = Board.FromBytes(data, BoardTypeCatalog.ByCode);
-            Application.Current.Dispatcher.Invoke(() => Boards.Add(board));
+            this.InvokeOnUI(() => Boards.Add(board));
         }
         protected void OnUpgradeProgress(byte[] data)
         {
             int index = 0;
-            byte code = data[index++];
-            byte id = data[index++];
-            byte progress = data[index++];
-            var state = (UpgradeState)data[index];
+            byte code = data[index++];              // 板卡类型
+            byte id = data[index++];                // id
+            byte progress = data[index++];          // 进度
+            var state = (UpgradeState)data[index];  // 状态
             Session?.SetReport(code, id, progress, state);
         }
         protected void OnUpgradeFinish()

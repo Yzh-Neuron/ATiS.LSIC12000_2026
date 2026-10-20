@@ -87,10 +87,10 @@
         /// </summary>
         DownSet = 0x58,
 
-        /// <summary>
-        /// SPI设置
-        /// </summary>
-        SpiSet = 0x59,
+        ///// <summary>
+        ///// SPI设置
+        ///// </summary>
+        //SpiSet = 0x59,
 
         /// <summary>
         /// 器件发送标识

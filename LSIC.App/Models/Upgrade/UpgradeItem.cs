@@ -2,8 +2,10 @@
 {
     public class UpgradeItem : ObservableObject
     {
-        public UpgradeItem(BoardTypeInfo type) => Type = type;
-
+        public UpgradeItem(BoardTypeInfo type)
+        {
+            Type = type;
+        }
         public BoardTypeInfo Type { get; }
         public byte TypeCode => (byte)Type.TypeCode;
         public string DisplayName => LangProvider.Instance.GetString(Type.BoardKey);

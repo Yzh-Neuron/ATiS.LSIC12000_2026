@@ -3,6 +3,12 @@
     public class PopUpgradeViewModel : ObservableObject, IDisposable
     {
         public Zone[] Zones { get; private set; }
+        private Zone _selectedZone;
+        public Zone SelectedZone
+        {
+            get => _selectedZone;
+            set => SetProperty(ref _selectedZone, value);
+        }
         public UpgradeItem[] Items { get; }
         public ICommand BrowseCommand { get; }
         public ICommand UpgradeCommand { get; }
@@ -22,6 +28,14 @@
         public PopUpgradeViewModel()
         {
             Zones = Device.Instance.Zones;
+            Zones.ForEach(z =>
+            {
+                if (z.State != ZoneState.Upgrading)
+                {
+                    z.Session = null;
+                }
+            });
+
             Items = BoardTypeCatalog.ForNode(nameof(Zone)).Where(t => t.Upgradable).Select(t => new UpgradeItem(t)).ToArray();
 
             foreach (var z in Zones)
@@ -58,7 +72,7 @@
         }
         private bool CanUpgrade()
         {
-            return Zones?.Any(z => z.UpgradeSelected) == true && Items?.Any(i => !string.IsNullOrWhiteSpace(i.File)) == true;
+            return Zones?.Any(z => z.UpgradeSelected && z.State.CanUpgrade()) == true && Items?.Any(i => !string.IsNullOrWhiteSpace(i.File)) == true;
         }
         private void Upgrade()
         {
@@ -78,8 +92,11 @@
             byte[] payload = Build(ready);
             foreach (var z in zones)
             {
-                z.SendFirmware(payload, ready.Length);
-                z.UpgradeSelected = false;
+                if (z.State.CanUpgrade())
+                {
+                    _ = z.SendFirmware(payload, ready.Length);
+                    z.UpgradeSelected = false;
+                }
             }
         }
         private void OnZonePropertyChanged(object sender, PropertyChangedEventArgs e)

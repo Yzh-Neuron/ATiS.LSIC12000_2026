@@ -4,6 +4,7 @@
 
     <!--  品牌与通用  -->
     <sys:String x:Key="ConceptText">见微知著·科技赋能·创造非凡价值</sys:String>
+    <sys:String x:Key="SloganText">从微观到宏观，以科技赋能，为客户创造非凡价值</sys:String>
     <sys:String x:Key="ConfirmText">确认</sys:String>
     <sys:String x:Key="CancelText">取消</sys:String>
     <sys:String x:Key="CreateNewText">新建</sys:String>
@@ -34,9 +35,9 @@
 
     <!--  启动检查  -->
     <sys:String x:Key="InitText">初始化中...</sys:String>
-    <sys:String x:Key="ConntectionCheckingText">[{0}] 区通信检测中...</sys:String>
-    <sys:String x:Key="ConntectSuccessText">[{0}] 区通信成功</sys:String>
-    <sys:String x:Key="ConntectFailureText">[{0}] 区通信失败</sys:String>
+    <sys:String x:Key="ConnectionCheckingText">[{0}] 区通信检测中...</sys:String>
+    <sys:String x:Key="ConnectSuccessText">[{0}] 区通信成功</sys:String>
+    <sys:String x:Key="ConnectFailureText">[{0}] 区通信失败</sys:String>
     <!--  老化区与工位  -->
     <sys:String x:Key="ZoneText">区</sys:String>
     <sys:String x:Key="ZoneFormatText">{0} 区</sys:String>
@@ -87,9 +88,12 @@
     <sys:String x:Key="ThermostatMonitorText">独立温控监视</sys:String>
     <sys:String x:Key="ThermostatEnableText">温控使能</sys:String>
     <sys:String x:Key="ThermostatEnableClosedText">独立温控使能关闭</sys:String>
-    <sys:String x:Key="ProportionalCoefficientText">比列系数(Kp)</sys:String>
+    <sys:String x:Key="ProportionalCoefficientText">比例系数(Kp)</sys:String>
     <sys:String x:Key="IntegralCoefficientText">积分系数(Ki)</sys:String>
     <sys:String x:Key="DerivativeCoefficientText">微分系数(Kd)</sys:String>
+    <sys:String x:Key="KpText">Kp</sys:String>
+    <sys:String x:Key="KiText">Ki</sys:String>
+    <sys:String x:Key="KdText">Kd</sys:String>
     <sys:String x:Key="SetThermostatCoefficientText">设置温控系数</sys:String>
 
     <!--  Dps 电源参数  -->
@@ -185,6 +189,7 @@
     <sys:String x:Key="UpgradeText">升级</sys:String>
     <sys:String x:Key="FirmwareUpgradePromptText">注意：升级过程中请勿关闭上位机或设备电源！</sys:String>
     <sys:String x:Key="ResultText">结果</sys:String>
+    <sys:String x:Key="ProgressText">进度</sys:String>
 
     <!--  自检  -->
     <sys:String x:Key="DeviceCheckText">设备自检</sys:String>

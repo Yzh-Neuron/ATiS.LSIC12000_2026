@@ -72,7 +72,7 @@ namespace LSIC.App
             BurnInfoItem item = new BurnInfoItem()
             {
                 ZoneId = zoneId,
-                Ic = IcConfigManager.GetIcPath(ic),
+                Ic = ic.Name,
                 Lot = lot,
                 Operator = op,
             };

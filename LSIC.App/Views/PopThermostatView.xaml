@@ -177,7 +177,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock>
-                            <Run Text="Kp" />
+                            <Run Text="{app:Lang {x:Static app:LangKey.KpText}}" />
                             <Run Text=":" />
                         </TextBlock>
                         <TextBox Grid.Column="1"
@@ -197,7 +197,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock>
-                            <Run Text="Ki" />
+                            <Run Text="{app:Lang {x:Static app:LangKey.KiText}}" />
                             <Run Text=":" />
                         </TextBlock>
                         <TextBox Grid.Column="1"
@@ -217,7 +217,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock>
-                            <Run Text="Kd" />
+                            <Run Text="{app:Lang {x:Static app:LangKey.KdText}}" />
                             <Run Text=":" />
                         </TextBlock>
                         <TextBox Grid.Column="1"

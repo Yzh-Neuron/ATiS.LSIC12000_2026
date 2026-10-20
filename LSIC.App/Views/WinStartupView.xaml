@@ -201,11 +201,11 @@
                            Foreground="#21497D"
                            Text="{app:Lang {x:Static app:LangKey.ConceptText}}"
                            TextWrapping="Wrap" />
-                <TextBlock Margin="20,0"
+                <TextBlock Margin="10,0"
                            HorizontalAlignment="Center"
                            FontSize="16"
                            Foreground="Gray"
-                           Text="From the micro to the macro, empower by technology tocreate extraordinary valuefor our clientele"
+                           Text="{app:Lang {x:Static app:LangKey.SloganText}}"
                            TextAlignment="Justify"
                            TextWrapping="Wrap" />
             </StackPanel>

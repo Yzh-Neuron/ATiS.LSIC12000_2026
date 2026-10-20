@@ -4,6 +4,7 @@
 
     <!--  品牌与通用  -->
     <sys:String x:Key="ConceptText">See the Micro, Empower the Tech, Create Extraordinary Value</sys:String>
+    <sys:String x:Key="SloganText">From the micro to the macro, empowered by technology, to create extraordinary value for our clientele</sys:String>
     <sys:String x:Key="ConfirmText">Confirm</sys:String>
     <sys:String x:Key="CancelText">Cancel</sys:String>
     <sys:String x:Key="CreateNewText">New</sys:String>
@@ -34,9 +35,9 @@
 
     <!--  启动检查  -->
     <sys:String x:Key="InitText">Init...</sys:String>
-    <sys:String x:Key="ConntectionCheckingText">[{0}] Check...</sys:String>
-    <sys:String x:Key="ConntectSuccessText">[{0}] OK</sys:String>
-    <sys:String x:Key="ConntectFailureText">[{0}] Failure</sys:String>
+    <sys:String x:Key="ConnectionCheckingText">[{0}] Check...</sys:String>
+    <sys:String x:Key="ConnectSuccessText">[{0}] OK</sys:String>
+    <sys:String x:Key="ConnectFailureText">[{0}] Failure</sys:String>
     <!--  老化区与工位  -->
     <sys:String x:Key="ZoneText">Zone</sys:String>
     <sys:String x:Key="ZoneFormatText">Zone {0}</sys:String>
@@ -90,6 +91,9 @@
     <sys:String x:Key="ProportionalCoefficientText">Proportional Coefficient(Kp)</sys:String>
     <sys:String x:Key="IntegralCoefficientText">Integral Coefficient(Ki)</sys:String>
     <sys:String x:Key="DerivativeCoefficientText">Derivative Coefficient(Kd)</sys:String>
+    <sys:String x:Key="KpText">Kp</sys:String>
+    <sys:String x:Key="KiText">Ki</sys:String>
+    <sys:String x:Key="KdText">Kd</sys:String>
     <sys:String x:Key="SetThermostatCoefficientText">Set Coefficient</sys:String>
 
     <!--  Dps 电源参数  -->
@@ -185,7 +189,8 @@
     <sys:String x:Key="UpgradeText">Upgrade</sys:String>
     <sys:String x:Key="FirmwareUpgradePromptText">Note: Do not power off the PC or device when upgrading!</sys:String>
     <sys:String x:Key="ResultText">Result</sys:String>
-
+    <sys:String x:Key="ProgressText">Progress</sys:String>
+    
     <!--  自检  -->
     <sys:String x:Key="DeviceCheckText">Device Check</sys:String>
     <sys:String x:Key="StartDeviceCheckText">Start Check</sys:String>

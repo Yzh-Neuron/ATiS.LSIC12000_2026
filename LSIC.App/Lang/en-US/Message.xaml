@@ -26,6 +26,7 @@
     <sys:String x:Key="AnalysisFrameErrorMessage">Frame parsing error, {0}</sys:String>
     <sys:String x:Key="Crc32NotMatchMessage">CRC32 not match, {0}</sys:String>
     <sys:String x:Key="FrameEndingNotMatchMessage">Frame ending not match</sys:String>
+    <sys:String x:Key="InvalidFrameLengthMessage">invalid frame length {0}</sys:String>
     <sys:String x:Key="PluggedMessage">Burn-in Board Inserted</sys:String>
     <sys:String x:Key="UnpluggedMessage">Burn-in Board Removed</sys:String>
     <sys:String x:Key="PleaseSetMessage">Please set the [ {0} ]</sys:String>
@@ -40,7 +41,7 @@
     <sys:String x:Key="UpgradeFilePrefixMismatchMessage">Firmware file name must start with {0}, please select the correct firmware</sys:String>
     <sys:String x:Key="DpsCheckScriptDpsNotFoundMessage">DPS script: DPS{0} not found, Line {1}</sys:String>
     <sys:String x:Key="DpsCheckScriptParameterErrorMessage">DPS script: params error, Line {0}</sys:String>
-    <sys:String x:Key="DpsCheckIsNotPermittedMessage">Zone busy!</sys:String>
+    <sys:String x:Key="DpsCheckIsNotPermittedMessage">Current state does not permit power self-check</sys:String>
     <sys:String x:Key="DpsCheckAskMessage" xml:space="preserve">Burn-in board detected, running DPS check may damage the device&#x000A;Continue?</sys:String>
     <sys:String x:Key="ZoneDpsErrorMessage">DPS error: {0} ->[{1}]</sys:String>
     <sys:String x:Key="ZoneVIHErrorMessage">DPS error: VIH{0} ->[{1}]</sys:String>
@@ -63,8 +64,8 @@
     <sys:String x:Key="LoopEndNotFoundMessage">Loop end step &quot;{0}&quot; does not exist</sys:String>
     <sys:String x:Key="ZoneNotInBurnMessage">Burn-in not started, cannot send configuration</sys:String>
     <sys:String x:Key="ProcessStepTypeUnknownMessage">Unrecognized process step type</sys:String>
-    <sys:String x:Key="WorkerThreadStartedMessage">Worker thread started!</sys:String>
-    <sys:String x:Key="WorkerThreadEndedMessage">Worker thread ended!</sys:String>
+    <sys:String x:Key="WorkerThreadStartedMessage">Worker thread started</sys:String>
+    <sys:String x:Key="WorkerThreadEndedMessage">Worker thread ended</sys:String>
     <sys:String x:Key="PayloadLengthMessage">length must be {0}</sys:String>
     <sys:String x:Key="VisualChildIndexOutOfRangeMessage">Index of visual child '{0}' is out of range</sys:String>
     <sys:String x:Key="JobObjectSetInformationFailedMessage">Unable to set information, error: {0}</sys:String>

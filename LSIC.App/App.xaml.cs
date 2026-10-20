@@ -17,7 +17,6 @@ namespace LSIC.App
         public App()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            Dispatcher.UnhandledException += OnDispatcherUnhandledException;
             Current.DispatcherUnhandledException += OnDispatcherUnhandledException;
             TaskScheduler.UnobservedTaskException += OnTaskSchedulerUnobservedTaskException;
             AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
@@ -60,14 +59,14 @@ namespace LSIC.App
             }
             _checkDongleStart = true;
             _checkDongleCts = new CancellationTokenSource();
-            _checkDongleTask = Task.Factory.StartNew(async () =>
+            _checkDongleTask = Task.Run(async () =>
             {
                 while (_checkDongleStart)
                 {
                     CheckDongle(null);
                     await Task.Delay(5000, _checkDongleCts.Token);
                 }
-            }, TaskCreationOptions.LongRunning);
+            });
         }
         private void CheckDongle(object _)
         {

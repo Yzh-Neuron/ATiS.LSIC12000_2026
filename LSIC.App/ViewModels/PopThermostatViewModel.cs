@@ -24,9 +24,9 @@
             {
                 if (SetProperty(ref _selectedThermostat, value))
                 {
-                    Kp = value.Kp;
-                    Ki = value.Ki;
-                    Kd = value.Kd;
+                    Kp = value?.Kp;
+                    Ki = value?.Ki;
+                    Kd = value?.Kd;
                 }
             }
         }

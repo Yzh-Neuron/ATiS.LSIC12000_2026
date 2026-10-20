@@ -87,6 +87,12 @@
         }
         private void OnHistoryAppened(Flow flow)
         {
+            if (!CheckAccess())
+            {
+                Dispatcher.BeginInvoke(new Action<Flow>(OnHistoryAppened), flow);
+                return;
+            }
+
             if (_logsHost.Count >= _maxCount)
             {
                 _logsHost.Remove(_logsHost.FirstBlock);

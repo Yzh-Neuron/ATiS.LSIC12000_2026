@@ -12,6 +12,14 @@
             History = new ConcurrentQueue<Flow>();
             logger = new RollingFileLogger($@".\Log\Flow\Zone {zone.Id}\{{date:yyyyMMdd}}.log", RollingInterval.Day);
         }
+        public void LogDebug(string message)
+        {
+            //调试日志不记录本地
+            if (Device.Instance.Mode == DeviceMode.Administrator)
+            {
+                AddFlow(DateTime.Now, LogLevel.Info, message);
+            }
+        }
         public void LogInfo(string message)
         {
             logger.Info(message);

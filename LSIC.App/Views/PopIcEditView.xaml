@@ -165,7 +165,7 @@
                                          Text="{Binding LogInterval.Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToIntegerConverter}}" />
 
                                 <ComboBox Grid.Column="2"
-                                          Width="75"
+                                          Width="85"
                                           Margin="5,0,0,0"
                                           DisplayMemberPath="Value"
                                           DockPanel.Dock="Right"
@@ -193,7 +193,7 @@
                                          Text="{Binding ErrorLogInterval.Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerToIntegerConverter}}"
                                          Visibility="{Binding ErrorLogEnable, Converter={StaticResource TrueToVisibilityConverter}}" />
                                 <ComboBox Grid.Column="2"
-                                          Width="75"
+                                          Width="85"
                                           Margin="5,0"
                                           DisplayMemberPath="Value"
                                           DockPanel.Dock="Right"

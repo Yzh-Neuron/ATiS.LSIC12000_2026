@@ -27,7 +27,7 @@ namespace LSIC.App.Models
             if (report is null)
             {
                 report = new UpgradeReport(typeCode, id);
-                Application.Current.Dispatcher.Invoke(() => Reports.Add(report));
+                this.InvokeOnUI(() => Reports.Add(report));
             }
             report.Update(progress, state);
             Refresh();
@@ -40,16 +40,17 @@ namespace LSIC.App.Models
             }
             Refresh();
             var failed = Reports.FirstOrDefault(r => r.State != UpgradeState.Finish);
-            State = failed is null ? UpgradeState.Finish : failed.State;
+            State = failed is null ? UpgradeState.Finish : UpgradeState.Error;
             Progress = failed is null ? 100 : Progress;
         }
         private void Refresh()
         {
             Progress = Math.Min(100, Reports.Sum(r => r.Progress) / _expectedCount);
-            var failed = Reports.FirstOrDefault(r => r.State >= UpgradeState.SwitchBoardFail);
-            if (failed is not null)
+
+            var hasFail = Reports.Any(r => r.State >= UpgradeState.SwitchBoardFail);
+            if (hasFail)
             {
-                State = failed.State;
+                State = UpgradeState.Error;
             }
         }
     }

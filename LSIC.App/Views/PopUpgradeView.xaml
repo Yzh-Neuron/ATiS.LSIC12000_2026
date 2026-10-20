@@ -4,11 +4,12 @@
                   xmlns:app="clr-namespace:LSIC.App"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:models="clr-namespace:LSIC.App.Models"
                   xmlns:views="clr-namespace:LSIC.App.Views"
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
                   Title="{app:Lang {x:Static app:LangKey.FirmwareUpgradeText}}"
-                  Width="880"
+                  Width="850"
                   Height="680"
                   d:DataContext="{d:DesignInstance vms:PopUpgradeViewModel}"
                   Icon="/Resources/Icon/icon.ico"
@@ -27,10 +28,17 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" MinWidth="240" />
+                <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Border BorderBrush="{DynamicResource BorderBrush}"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="260" />
+            </Grid.RowDefinitions>
+
+            <Border Grid.RowSpan="2"
+                    BorderBrush="{DynamicResource BorderBrush}"
                     BorderThickness="1"
                     CornerRadius="{StaticResource DefaultCornerRadius}">
                 <Grid>
@@ -52,53 +60,58 @@
                                StrokeDashArray="3 3"
                                StrokeThickness="1" />
 
-                    <ScrollViewer Grid.Row="2">
-                        <ItemsControl ItemsSource="{Binding Zones}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="10,10,10,0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="40" />
-                                        </Grid.ColumnDefinitions>
-                                        <CheckBox Grid.Column="0" IsChecked="{Binding UpgradeSelected}" />
+                    <ListBox Grid.Row="2"
+                             HorizontalContentAlignment="Stretch"
+                             wpf:BorderHelper.CornerRadius="0,0,4,4"
+                             BorderThickness="0"
+                             Grid.IsSharedSizeScope="True"
+                             ItemsSource="{Binding Zones}"
+                             ScrollViewer.CanContentScroll="True"
+                             SelectedItem="{Binding SelectedZone}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:Zone}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="NameGroup" />
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="StateGroup" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="SessionStateGroup" />
+                                        <ColumnDefinition Width="35" />
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox Grid.Column="0" IsChecked="{Binding UpgradeSelected}" />
 
-                                        <TextBlock Grid.Column="1" Margin="10,0,0,0">
-                                            <TextBlock.Text>
-                                                <MultiBinding Converter="{StaticResource FormatTextConverter}">
-                                                    <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
-                                                    <Binding Path="Id" />
-                                                </MultiBinding>
-                                            </TextBlock.Text>
-                                        </TextBlock>
+                                    <TextBlock Grid.Column="1" Margin="10,0,0,0">
+                                        <TextBlock.Text>
+                                            <MultiBinding Converter="{StaticResource FormatTextConverter}">
+                                                <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
+                                                <Binding Path="Id" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
 
-                                        <TextBlock Grid.Column="2"
-                                                   Margin="10,0,0,0"
-                                                   Foreground="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}"
-                                                   Text="{Binding State, Converter={StaticResource EnumToTextConverter}}" />
+                                    <TextBlock Grid.Column="2"
+                                               Margin="10,0,0,0"
+                                               Text="{Binding State, Converter={StaticResource EnumToTextConverter}}" />
 
+                                    <TextBlock Grid.Column="4"
+                                               Margin="10,0,0,0"
+                                               HorizontalAlignment="Right"
+                                               Text="{Binding Session.State, Converter={StaticResource EnumToTextConverter}}" />
 
-                                        <TextBlock Grid.Column="3"
-                                                   HorizontalAlignment="Right"
-                                                   Text="{Binding Session.State, Converter={StaticResource EnumToTextConverter}}" />
-
-
-                                        <TextBlock Grid.Column="4"
-                                                   HorizontalAlignment="Right"
-                                                   Text="{Binding Session.Progress, StringFormat='{}{0}%'}" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
+                                    <TextBlock Grid.Column="5"
+                                               Margin="10,0,0,0"
+                                               HorizontalAlignment="Right"
+                                               Text="{Binding Session.Progress, StringFormat='{}{0}%'}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </Border>
 
-            <Border Grid.Column="1"
-                    Margin="10,0,0,0"
+            <Border Grid.Row="0"
+                    Grid.Column="2"
                     BorderBrush="{DynamicResource BorderBrush}"
                     BorderThickness="1"
                     CornerRadius="{StaticResource DefaultCornerRadius}">
@@ -120,81 +133,114 @@
                                StrokeDashArray="3 3"
                                StrokeThickness="1" />
 
-                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-                        <ItemsControl ItemsSource="{Binding Items}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <wpf:SimplePanel Margin="10,10,10,0">
-                                        <Border BorderBrush="{DynamicResource BorderBrush}"
-                                                BorderThickness="1"
-                                                CornerRadius="{StaticResource DefaultCornerRadius}">
-                                            <Grid Margin="10,5">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="120" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                                                    <TextBlock Text="{Binding DisplayName}" />
-                                                    <TextBlock Margin="0,5,0,0"
-                                                               FontSize="10"
-                                                               Foreground="{DynamicResource SecondForegroundBrush}"
-                                                               Text="{Binding TypeCode, StringFormat=0x{0:X2}}" />
-                                                </StackPanel>
+                    <ListBox Grid.Row="2"
+                             BorderThickness="0"
+                             Grid.IsSharedSizeScope="True"
+                             ItemsSource="{Binding Items}"
+                             ScrollViewer.CanContentScroll="True">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:UpgradeItem}">
+                                <wpf:SimplePanel Margin="10,10,10,0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="NameGroup" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
 
-                                                <StackPanel Grid.Column="1"
-                                                            Margin="10,0"
-                                                            HorizontalAlignment="Left"
-                                                            Orientation="Horizontal">
-                                                    <TextBlock VerticalAlignment="Center"
-                                                               Text="{Binding File, Converter={StaticResource FilePathToFileNameConverter}, TargetNullValue='--'}"
-                                                               TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Grid.Column="0">
+                                            <Run Text="{Binding DisplayName, Mode=OneTime}" />
+                                            <Run Text=":" />
+                                        </TextBlock>
 
-                                                    <Button Height="Auto"
-                                                            Margin="5,0,0,0"
-                                                            Padding="0"
-                                                            HorizontalAlignment="Right"
-                                                            wpf:IconHelper.Geometry="{StaticResource Geometry.CloseSmall}"
-                                                            wpf:IconHelper.Height="14"
-                                                            wpf:IconHelper.Width="14"
-                                                            Command="{Binding Source={StaticResource MainDataContext}, Path=Data.ClearUpgradeFileCommand}"
-                                                            CommandParameter="{Binding}"
-                                                            Cursor="Hand">
-                                                        <Button.Style>
-                                                            <Style BasedOn="{StaticResource Button.Icon}" TargetType="{x:Type Button}">
-                                                                <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding File, Converter={StaticResource StringEmptyToTrueConverter}}" Value="true">
-                                                                        <Setter Property="Visibility" Value="Collapsed" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Button.Style>
-                                                    </Button>
+                                        <wpf:TextBox Grid.Column="1"
+                                                     Margin="10,0,0,0"
+                                                     VerticalAlignment="Center"
+                                                     wpf:WidgetHelper.ShowClearButton="True"
+                                                     IsReadOnly="True"
+                                                     Text="{Binding File, Converter={StaticResource FilePathToFileNameConverter}, TargetNullValue='--'}" />
 
-                                                </StackPanel>
+                                        <Button Grid.Column="2"
+                                                Margin="10,0,0,0"
+                                                Command="{Binding Source={StaticResource MainDataContext}, Path=Data.BrowseCommand}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource Button.ChooseFile}" />
+                                    </Grid>
+                                </wpf:SimplePanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
 
-                                                <Button Grid.Column="2"
-                                                        Command="{Binding Source={StaticResource MainDataContext}, Path=Data.BrowseCommand}"
-                                                        CommandParameter="{Binding}"
-                                                        Style="{StaticResource Button.ChooseFile}" />
-                                            </Grid>
-                                        </Border>
+            <Border Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="0,10,0,0"
+                    BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource DefaultCornerRadius}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-                                        <Border x:Name="Tag_Border"
-                                                Width="5"
-                                                HorizontalAlignment="Left"
-                                                Background="{DynamicResource SuccessBrush}"
-                                                CornerRadius="4,0,0,4" />
-                                    </wpf:SimplePanel>
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding File, Converter={StaticResource StringEmptyToTrueConverter}}" Value="true">
-                                            <Setter TargetName="Tag_Border" Property="Background" Value="{DynamicResource ErrorBrush}" />
-                                        </DataTrigger>
-                                    </DataTemplate.Triggers>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
+                    <TextBlock Grid.Row="0"
+                               Margin="10"
+                               FontWeight="SemiBold"
+                               Text="{app:Lang {x:Static app:LangKey.ProgressText}}" />
+
+                    <Rectangle Grid.Row="1"
+                               Margin="10,1"
+                               Stroke="{DynamicResource BorderBrush}"
+                               StrokeDashArray="3 3"
+                               StrokeThickness="1" />
+
+                    <ListBox Grid.Row="2"
+                             BorderThickness="0"
+                             Grid.IsSharedSizeScope="True"
+                             ItemsSource="{Binding SelectedZone.Session.Reports}"
+                             ScrollViewer.CanContentScroll="True">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:UpgradeReport}">
+                                <TextBlock x:Name="Progress_TextBlock"
+                                           Margin="10,10,10,0"
+                                           Foreground="{DynamicResource ForegroundBrush}"
+                                           Text="{Binding Result}" />
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding State}" Value="{x:Static app:UpgradeState.Finish}">
+                                        <Setter TargetName="Progress_TextBlock" Property="Foreground" Value="{DynamicResource SuccessBrush}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding HasError}" Value="true">
+                                        <Setter TargetName="Progress_TextBlock" Property="Foreground" Value="{DynamicResource ErrorBrush}" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </Border>
         </Grid>

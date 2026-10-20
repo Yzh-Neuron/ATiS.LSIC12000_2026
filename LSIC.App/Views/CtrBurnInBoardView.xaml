@@ -66,11 +66,23 @@
                                            Temperature="{Binding BurnThermostat.Temperature, Mode=OneWay}"
                                            TemperatureEnabled="{Binding BurnThermostat.Enable, Mode=OneWay}" />
                     <wpf:SimplePanel.ContextMenu>
-                        <ContextMenu Visibility="{Binding BurnThermostat, Converter={StaticResource NotNullToVisibilityConverter}}">
+                        <ContextMenu>
+                            <ContextMenu.Style>
+                                <Style BasedOn="{StaticResource ContextMenu.Default}" TargetType="{x:Type ContextMenu}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding BurnThermostat.Enable}" Value="false">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding BurnThermostat}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContextMenu.Style>
                             <MenuItem Command="{Binding Source={StaticResource MainDataContext}, Path=Data.ThermostatMonitorCommand}"
                                       CommandParameter="{Binding BurnThermostat}"
-                                      Header="{app:Lang {x:Static app:LangKey.ThermostatMonitorText}}"
-                                      IsEnabled="{Binding BurnThermostat.Enable}">
+                                      Header="{app:Lang {x:Static app:LangKey.ThermostatMonitorText}}">
                                 <MenuItem.Icon>
                                     <Path x:Name="PathMain"
                                           Data="{StaticResource Geometry.Thermometer}"
