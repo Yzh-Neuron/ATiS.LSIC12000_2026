@@ -533,7 +533,7 @@
                                             HorizontalAlignment="Stretch"
                                             Command="{Binding Data.MakeLoopCommand, Source={StaticResource MainDataContext}}"
                                             CommandParameter="{Binding SelectedItems, Source={x:Reference StepListBox}}"
-                                            Content="{app:Lang {x:Static app:LangKey.SetStepsAsLoopMessage}}" />
+                                            Content="{app:Lang {x:Static app:LangKey.SetStepsAsLoopText}}" />
                                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                                         <Grid>
                                             <Grid.Resources>

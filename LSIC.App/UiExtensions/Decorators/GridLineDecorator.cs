@@ -132,7 +132,7 @@ namespace LSIC.App.Decorators
             {
                 0 => _target,
                 1 => _visual,
-                _ => throw new IndexOutOfRangeException($"Index of visual child '{index}' is out of range"),
+                _ => throw new IndexOutOfRangeException(string.Format(LangProvider.Instance.VisualChildIndexOutOfRangeMessage, index)),
             };
         }
 

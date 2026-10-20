@@ -32,7 +32,7 @@ namespace ATiS.Sim.Wpf
 
         private static void OnRefreshOnLostFocusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is TextBox textBox)
+            if (d is System.Windows.Controls.TextBox textBox)
             {
                 if ((bool)e.NewValue)
                     textBox.LostFocus += OnLostFocus;
@@ -43,13 +43,13 @@ namespace ATiS.Sim.Wpf
 
         private static void OnLostFocus(object sender, RoutedEventArgs e)
         {
-            var textBox = sender as TextBox;
-            textBox?.GetBindingExpression(TextBox.TextProperty)?.UpdateTarget();
+            var textBox = sender as System.Windows.Controls.TextBox;
+            textBox?.GetBindingExpression(System.Windows.Controls.TextBox.TextProperty)?.UpdateTarget();
         }
 
         private static void OnSelectAllOnGotFocusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is TextBox tb)
+            if (d is System.Windows.Controls.TextBox tb)
             {
                 if ((bool)e.NewValue)
                 {
@@ -64,7 +64,7 @@ namespace ATiS.Sim.Wpf
 
         private static void OnGotFocus(object sender, RoutedEventArgs e)
         {
-            if (sender is TextBox tb)
+            if (sender is System.Windows.Controls.TextBox tb)
             {
                 tb.Dispatcher.BeginInvoke(() =>
                 {

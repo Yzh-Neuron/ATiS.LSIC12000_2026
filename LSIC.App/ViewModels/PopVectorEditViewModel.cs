@@ -41,7 +41,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanConfirm()
         {
-            return Vector.GetAllExistingErrorsRecursive().Count == 0;
+            return !Vector.HasErrors;
         }
         private void Confirm()
         {

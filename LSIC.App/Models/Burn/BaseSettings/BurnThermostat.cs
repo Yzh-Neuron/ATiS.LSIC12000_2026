@@ -38,22 +38,22 @@ namespace LSIC.App.Models
             set => SetProperty(ref _temperature, value);
         }
 
-        private int? _kp;
-        public int? Kp
+        private double? _kp;
+        public double? Kp
         {
             get => _kp;
             set => SetProperty(ref _kp, value);
         }
 
-        private int? _ki;
-        public int? Ki
+        private double? _ki;
+        public double? Ki
         {
             get => _ki;
             set => SetProperty(ref _ki, value);
         }
 
-        private int? _kd;
-        public int? Kd
+        private double? _kd;
+        public double? Kd
         {
             get => _kd;
             set => SetProperty(ref _kd, value);

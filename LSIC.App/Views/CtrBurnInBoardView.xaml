@@ -69,7 +69,16 @@
                         <ContextMenu Visibility="{Binding BurnThermostat, Converter={StaticResource NotNullToVisibilityConverter}}">
                             <MenuItem Command="{Binding Source={StaticResource MainDataContext}, Path=Data.ThermostatMonitorCommand}"
                                       CommandParameter="{Binding BurnThermostat}"
-                                      Header="{app:Lang {x:Static app:LangKey.ThermostatMonitorText}}" />
+                                      Header="{app:Lang {x:Static app:LangKey.ThermostatMonitorText}}"
+                                      IsEnabled="{Binding BurnThermostat.Enable}">
+                                <MenuItem.Icon>
+                                    <Path x:Name="PathMain"
+                                          Data="{StaticResource Geometry.Thermometer}"
+                                          Fill="{DynamicResource ForegroundBrush}"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          Stretch="Uniform" />
+                                </MenuItem.Icon>
+                            </MenuItem>
                         </ContextMenu>
                     </wpf:SimplePanel.ContextMenu>
                 </wpf:SimplePanel>

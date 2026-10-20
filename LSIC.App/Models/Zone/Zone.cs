@@ -701,6 +701,27 @@ namespace LSIC.App.Models
                 Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
             }
         }
+        public async ValueTask SetThermostatPIDAsync(int id, double kp, double ki, double kd)
+        {
+            double kpScaled = Math.Round(kp * 100, MidpointRounding.AwayFromZero);
+            double kiScaled = Math.Round(ki * 100, MidpointRounding.AwayFromZero);
+            double kdScaled = Math.Round(kd * 100, MidpointRounding.AwayFromZero);
+
+            kpScaled = Math.Clamp(kpScaled, int.MinValue, int.MaxValue);
+            kiScaled = Math.Clamp(kiScaled, int.MinValue, int.MaxValue);
+            kdScaled = Math.Clamp(kdScaled, int.MinValue, int.MaxValue);
+
+            int kpRaw = (int)kpScaled;
+            int kiRaw = (int)kiScaled;
+            int kdRaw = (int)kdScaled;
+
+            byte[] data = new byte[13];
+            data[0] = (byte)id;
+            Array.Copy(kpRaw.ToBytes(Endianness.Big), 0, data, 1, 4);
+            Array.Copy(kiRaw.ToBytes(Endianness.Big), 0, data, 5, 4);
+            Array.Copy(kdRaw.ToBytes(Endianness.Big), 0, data, 9, 4);
+            await SendAsync(ZoneFunctionCode.ThermostatPID, data);
+        }
         public void ReloadBurnInfo(BurnInfo burnInfo)
         {
             BurnInfo?.Dispose();

@@ -15,7 +15,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanConfirm()
         {
-            return DpsSetting.GetAllExistingErrorsRecursive().Count == 0;
+            return !DpsSetting.HasErrors;
         }
         private void Confirm()
         {

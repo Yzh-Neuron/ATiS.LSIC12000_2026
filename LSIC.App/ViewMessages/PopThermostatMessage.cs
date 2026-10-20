@@ -2,6 +2,6 @@
 {
     public enum PopThermostatMessage
     {
-        SetPid
+        Growl
     }
 }

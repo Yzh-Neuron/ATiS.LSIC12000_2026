@@ -13,7 +13,7 @@ namespace LSIC.App.ViewModels
         }
         private bool CanConfirm()
         {
-            return ExecuteStrategy.GetAllExistingErrorsRecursive().Count == 0;
+            return !ExecuteStrategy.HasErrors && !ExecuteStrategy.Time.HasErrors;
         }
         private void Confirm()
         {

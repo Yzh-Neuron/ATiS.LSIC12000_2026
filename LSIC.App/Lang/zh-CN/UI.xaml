@@ -32,6 +32,11 @@
     <sys:String x:Key="MachineCodeText">机器码</sys:String>
     <sys:String x:Key="ChoseFileText">选择文件</sys:String>
 
+    <!--  启动检查  -->
+    <sys:String x:Key="InitText">初始化中...</sys:String>
+    <sys:String x:Key="ConntectionCheckingText">[{0}] 区通信检测中...</sys:String>
+    <sys:String x:Key="ConntectSuccessText">[{0}] 区通信成功</sys:String>
+    <sys:String x:Key="ConntectFailureText">[{0}] 区通信失败</sys:String>
     <!--  老化区与工位  -->
     <sys:String x:Key="ZoneText">区</sys:String>
     <sys:String x:Key="ZoneFormatText">{0} 区</sys:String>
@@ -109,6 +114,8 @@
     <sys:String x:Key="DpsEditText">电源编辑</sys:String>
 
     <!--  器件流程配置  -->
+    <sys:String x:Key="PowerOnStepText">上电</sys:String>
+    <sys:String x:Key="PowerOffStepText">下电</sys:String>
     <sys:String x:Key="BaseInfoText">基础信息</sys:String>
     <sys:String x:Key="BaseSettingText">基础设置</sys:String>
     <sys:String x:Key="ProcessSettingText">流程设置</sys:String>
@@ -116,6 +123,7 @@
     <sys:String x:Key="StepFormatText">步次[{0}]</sys:String>
     <sys:String x:Key="RunTimeText">运行时间</sys:String>
     <sys:String x:Key="RunTimesText">运行次数</sys:String>
+    <sys:String x:Key="SetStepsAsLoopText">将选中步骤设置为循环</sys:String>
     <sys:String x:Key="LoopModeText">循环模式</sys:String>
     <sys:String x:Key="LoopTimeText">循环时间</sys:String>
     <sys:String x:Key="LoopTimesText">循环次数</sys:String>

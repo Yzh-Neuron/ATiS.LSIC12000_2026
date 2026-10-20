@@ -667,29 +667,9 @@ namespace LSIC.App
         public string InvalidPasswordMessage => GetString("InvalidPasswordMessage");
 
         /// <summary>
-        /// 未捕获到的异常, {0}
+        /// 未捕获到的异常，{0}
         /// </summary>
         public string UnhandledExceptionMessage => GetString("UnhandledExceptionMessage");
-
-        /// <summary>
-        /// 初始化中...
-        /// </summary>
-        public string InitMessage => GetString("InitMessage");
-
-        /// <summary>
-        /// [{0}] 区通信检测中...
-        /// </summary>
-        public string ConntectionCheckingMessage => GetString("ConntectionCheckingMessage");
-
-        /// <summary>
-        /// [{0}] 区通信成功
-        /// </summary>
-        public string ConntectSuccessMessage => GetString("ConntectSuccessMessage");
-
-        /// <summary>
-        /// [{0}] 区通信失败
-        /// </summary>
-        public string ConntectFailureMessage => GetString("ConntectFailureMessage");
 
         /// <summary>
         /// 文件导入成功
@@ -717,17 +697,17 @@ namespace LSIC.App
         public string FileNotExistMessage => GetString("FileNotExistMessage");
 
         /// <summary>
-        /// 确定删除所选项目?
+        /// 确定删除所选项目？
         /// </summary>
         public string DeleteAskMessage => GetString("DeleteAskMessage");
 
         /// <summary>
-        /// 已存在同名器件文件, 是否覆盖?
+        /// 已存在同名器件文件，是否覆盖？
         /// </summary>
         public string ImportIcFileExistMessage => GetString("ImportIcFileExistMessage");
 
         /// <summary>
-        /// 存在与导入器件同名的器件 是否对导入器件重命名?
+        /// 存在与导入器件同名的器件 是否对导入器件重命名？
         /// </summary>
         public string ImportIcNameExistsMessage => GetString("ImportIcNameExistsMessage");
 
@@ -747,7 +727,7 @@ namespace LSIC.App
         public string NameExistMessage => GetString("NameExistMessage");
 
         /// <summary>
-        /// 设备配置文件解析失败, {0}
+        /// 设备配置文件解析失败，{0}
         /// </summary>
         public string DeviceConfigParseFailureMessage => GetString("DeviceConfigParseFailureMessage");
 
@@ -762,12 +742,12 @@ namespace LSIC.App
         public string ValidStringRuleMessage => GetString("ValidStringRuleMessage");
 
         /// <summary>
-        /// 文件 [ {0} ] 解析失败, 第 {1} 行 {2} 列
+        /// 文件 [ {0} ] 解析失败，第 {1} 行 {2} 列
         /// </summary>
         public string FileParseErrorMessage => GetString("FileParseErrorMessage");
 
         /// <summary>
-        /// 文件 [ {0} ] 长度不正确, 预期长度为 {1} 字节
+        /// 文件 [ {0} ] 长度不正确，预期长度为 {1} 字节
         /// </summary>
         public string FileLengthErrorMessage => GetString("FileLengthErrorMessage");
 
@@ -822,7 +802,7 @@ namespace LSIC.App
         public string StateMessage => GetString("StateMessage");
 
         /// <summary>
-        /// 器件配置错误, 请检查后重试! {0}
+        /// 器件配置错误，请检查后重试！{0}
         /// </summary>
         public string IcErrorMessage => GetString("IcErrorMessage");
 
@@ -852,12 +832,12 @@ namespace LSIC.App
         public string UpgradeFilePrefixMismatchMessage => GetString("UpgradeFilePrefixMismatchMessage");
 
         /// <summary>
-        /// 电源自检脚本: 找不到目标电源，编号{0}，位于{1}行
+        /// 电源自检脚本：找不到目标电源，编号{0}，位于{1}行
         /// </summary>
         public string DpsCheckScriptDpsNotFoundMessage => GetString("DpsCheckScriptDpsNotFoundMessage");
 
         /// <summary>
-        /// 电源自检脚本: 参数错误或数值超出范围，位于{0}行
+        /// 电源自检脚本：参数错误或数值超出范围，位于{0}行
         /// </summary>
         public string DpsCheckScriptParameterErrorMessage => GetString("DpsCheckScriptParameterErrorMessage");
 
@@ -867,37 +847,37 @@ namespace LSIC.App
         public string DpsCheckIsNotPermittedMessage => GetString("DpsCheckIsNotPermittedMessage");
 
         /// <summary>
-        /// 检测到当前区已插老化板，运行电源自检可能会烧毁器件 是否继续 ?
+        /// 检测到当前区已插老化板，运行电源自检可能会烧毁器件 是否继续？
         /// </summary>
         public string DpsCheckAskMessage => GetString("DpsCheckAskMessage");
 
         /// <summary>
-        /// 电源错误:{0} ->[{1}]
+        /// 电源错误：{0} ->[{1}]
         /// </summary>
         public string ZoneDpsErrorMessage => GetString("ZoneDpsErrorMessage");
 
         /// <summary>
-        /// 电源错误: VIH{0} ->[{1}]
+        /// 电源错误：VIH{0} ->[{1}]
         /// </summary>
         public string ZoneVIHErrorMessage => GetString("ZoneVIHErrorMessage");
 
         /// <summary>
-        /// 向量错误: [{0}] 请检查第{1}步 第{2}组向量配置
+        /// 向量错误：[{0}] 请检查第{1}步 第{2}组向量配置
         /// </summary>
         public string ZonePatternErrorMessage => GetString("ZonePatternErrorMessage");
 
         /// <summary>
-        /// 设备异常: 请联系售后人员! 错误码[{0}]
+        /// 设备异常：请联系售后人员！错误码[{0}]
         /// </summary>
         public string ZoneDeviceErrorMessage => GetString("ZoneDeviceErrorMessage");
 
         /// <summary>
-        /// 当前步次: [{0}]	向量: [{1}]
+        /// 当前步次：[{0}]	向量：[{1}]
         /// </summary>
         public string StepRunInfoMessage => GetString("StepRunInfoMessage");
 
         /// <summary>
-        /// 运行电源自检脚本: {0}
+        /// 运行电源自检脚本：{0}
         /// </summary>
         public string RunDpsCheckScriptMessage => GetString("RunDpsCheckScriptMessage");
 
@@ -932,37 +912,37 @@ namespace LSIC.App
         public string BurnInBoardNotParsedMessage => GetString("BurnInBoardNotParsedMessage");
 
         /// <summary>
-        /// 循环引用了流程中不存在的条目。
+        /// 循环引用了流程中不存在的条目
         /// </summary>
         public string LoopStepMissingMessage => GetString("LoopStepMissingMessage");
 
         /// <summary>
-        /// 循环区间非法：首条目必须排在末条目之前，且不能越界。
+        /// 循环区间非法：首条目必须排在末条目之前，且不能越界
         /// </summary>
         public string LoopRangeInvalidMessage => GetString("LoopRangeInvalidMessage");
 
         /// <summary>
-        /// 循环不能包含固定的上电 / 下电块。
+        /// 循环不能包含固定的上电 / 下电块
         /// </summary>
         public string LoopContainsPowerMessage => GetString("LoopContainsPowerMessage");
 
         /// <summary>
-        /// 请选择连续的向量步（不能包含上电/下电步）。
+        /// 请选择连续的向量步（不能包含上电/下电步）
         /// </summary>
         public string LoopSelectConsecutiveMessage => GetString("LoopSelectConsecutiveMessage");
 
         /// <summary>
-        /// 循环只能并列，不能嵌套或交叉。
+        /// 循环只能并列，不能嵌套或交叉
         /// </summary>
         public string LoopOverlapMessage => GetString("LoopOverlapMessage");
 
         /// <summary>
-        /// 循环起始步骤 "{0}" 不存在。
+        /// 循环起始步骤 "{0}" 不存在
         /// </summary>
         public string LoopStartNotFoundMessage => GetString("LoopStartNotFoundMessage");
 
         /// <summary>
-        /// 循环结束步骤 "{0}" 不存在。
+        /// 循环结束步骤 "{0}" 不存在
         /// </summary>
         public string LoopEndNotFoundMessage => GetString("LoopEndNotFoundMessage");
 
@@ -972,24 +952,39 @@ namespace LSIC.App
         public string ZoneNotInBurnMessage => GetString("ZoneNotInBurnMessage");
 
         /// <summary>
-        /// 无法识别的流程步骤类型。
+        /// 无法识别的流程步骤类型
         /// </summary>
         public string ProcessStepTypeUnknownMessage => GetString("ProcessStepTypeUnknownMessage");
 
         /// <summary>
-        /// 将选中步骤设置为循环
-        /// </summary>
-        public string SetStepsAsLoopMessage => GetString("SetStepsAsLoopMessage");
-
-        /// <summary>
-        /// 工作线程已启动!
+        /// 工作线程已启动！
         /// </summary>
         public string WorkerThreadStartedMessage => GetString("WorkerThreadStartedMessage");
 
         /// <summary>
-        /// 工作线程已退出!
+        /// 工作线程已退出！
         /// </summary>
         public string WorkerThreadEndedMessage => GetString("WorkerThreadEndedMessage");
+
+        /// <summary>
+        /// 长度必须为 {0} 字节
+        /// </summary>
+        public string PayloadLengthMessage => GetString("PayloadLengthMessage");
+
+        /// <summary>
+        /// 可视子元素索引 '{0}' 超出范围
+        /// </summary>
+        public string VisualChildIndexOutOfRangeMessage => GetString("VisualChildIndexOutOfRangeMessage");
+
+        /// <summary>
+        /// 无法设置作业对象信息，错误码：{0}
+        /// </summary>
+        public string JobObjectSetInformationFailedMessage => GetString("JobObjectSetInformationFailedMessage");
+
+        /// <summary>
+        /// 温控系数设置成功
+        /// </summary>
+        public string ThermostatCoefficientSetSuccessMessage => GetString("ThermostatCoefficientSetSuccessMessage");
 
         /// <summary>
         /// 见微知著·科技赋能·创造非凡价值
@@ -1130,6 +1125,26 @@ namespace LSIC.App
         /// 选择文件
         /// </summary>
         public string ChoseFileText => GetString("ChoseFileText");
+
+        /// <summary>
+        /// 初始化中...
+        /// </summary>
+        public string InitText => GetString("InitText");
+
+        /// <summary>
+        /// [{0}] 区通信检测中...
+        /// </summary>
+        public string ConntectionCheckingText => GetString("ConntectionCheckingText");
+
+        /// <summary>
+        /// [{0}] 区通信成功
+        /// </summary>
+        public string ConntectSuccessText => GetString("ConntectSuccessText");
+
+        /// <summary>
+        /// [{0}] 区通信失败
+        /// </summary>
+        public string ConntectFailureText => GetString("ConntectFailureText");
 
         /// <summary>
         /// 区
@@ -1472,6 +1487,16 @@ namespace LSIC.App
         public string DpsEditText => GetString("DpsEditText");
 
         /// <summary>
+        /// 上电
+        /// </summary>
+        public string PowerOnStepText => GetString("PowerOnStepText");
+
+        /// <summary>
+        /// 下电
+        /// </summary>
+        public string PowerOffStepText => GetString("PowerOffStepText");
+
+        /// <summary>
         /// 基础信息
         /// </summary>
         public string BaseInfoText => GetString("BaseInfoText");
@@ -1505,6 +1530,11 @@ namespace LSIC.App
         /// 运行次数
         /// </summary>
         public string RunTimesText => GetString("RunTimesText");
+
+        /// <summary>
+        /// 将选中步骤设置为循环
+        /// </summary>
+        public string SetStepsAsLoopText => GetString("SetStepsAsLoopText");
 
         /// <summary>
         /// 循环模式
@@ -1831,7 +1861,6 @@ namespace LSIC.App
         /// </summary>
         public string DutMaskText => GetString("DutMaskText");
 
-
         protected override void OnLanguageChanged()
         {
             OnPropertyChanged(nameof(CurrentLanguage));
@@ -2098,14 +2127,6 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(UnhandledExceptionMessage));
 
-            OnPropertyChanged(nameof(InitMessage));
-
-            OnPropertyChanged(nameof(ConntectionCheckingMessage));
-
-            OnPropertyChanged(nameof(ConntectSuccessMessage));
-
-            OnPropertyChanged(nameof(ConntectFailureMessage));
-
             OnPropertyChanged(nameof(FileImportSuccessMessage));
 
             OnPropertyChanged(nameof(FileImportFailureMessage));
@@ -2220,11 +2241,17 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(ProcessStepTypeUnknownMessage));
 
-            OnPropertyChanged(nameof(SetStepsAsLoopMessage));
-
             OnPropertyChanged(nameof(WorkerThreadStartedMessage));
 
             OnPropertyChanged(nameof(WorkerThreadEndedMessage));
+
+            OnPropertyChanged(nameof(PayloadLengthMessage));
+
+            OnPropertyChanged(nameof(VisualChildIndexOutOfRangeMessage));
+
+            OnPropertyChanged(nameof(JobObjectSetInformationFailedMessage));
+
+            OnPropertyChanged(nameof(ThermostatCoefficientSetSuccessMessage));
 
             OnPropertyChanged(nameof(ConceptText));
 
@@ -2281,6 +2308,14 @@ namespace LSIC.App
             OnPropertyChanged(nameof(MachineCodeText));
 
             OnPropertyChanged(nameof(ChoseFileText));
+
+            OnPropertyChanged(nameof(InitText));
+
+            OnPropertyChanged(nameof(ConntectionCheckingText));
+
+            OnPropertyChanged(nameof(ConntectSuccessText));
+
+            OnPropertyChanged(nameof(ConntectFailureText));
 
             OnPropertyChanged(nameof(ZoneText));
 
@@ -2418,6 +2453,10 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(DpsEditText));
 
+            OnPropertyChanged(nameof(PowerOnStepText));
+
+            OnPropertyChanged(nameof(PowerOffStepText));
+
             OnPropertyChanged(nameof(BaseInfoText));
 
             OnPropertyChanged(nameof(BaseSettingText));
@@ -2431,6 +2470,8 @@ namespace LSIC.App
             OnPropertyChanged(nameof(RunTimeText));
 
             OnPropertyChanged(nameof(RunTimesText));
+
+            OnPropertyChanged(nameof(SetStepsAsLoopText));
 
             OnPropertyChanged(nameof(LoopModeText));
 
@@ -3219,29 +3260,9 @@ namespace LSIC.App
         public const string InvalidPasswordMessage = nameof(InvalidPasswordMessage);
 
          /// <summary>
-        /// 未捕获到的异常, {0}
+        /// 未捕获到的异常，{0}
         /// </summary>
         public const string UnhandledExceptionMessage = nameof(UnhandledExceptionMessage);
-
-         /// <summary>
-        /// 初始化中...
-        /// </summary>
-        public const string InitMessage = nameof(InitMessage);
-
-         /// <summary>
-        /// [{0}] 区通信检测中...
-        /// </summary>
-        public const string ConntectionCheckingMessage = nameof(ConntectionCheckingMessage);
-
-         /// <summary>
-        /// [{0}] 区通信成功
-        /// </summary>
-        public const string ConntectSuccessMessage = nameof(ConntectSuccessMessage);
-
-         /// <summary>
-        /// [{0}] 区通信失败
-        /// </summary>
-        public const string ConntectFailureMessage = nameof(ConntectFailureMessage);
 
          /// <summary>
         /// 文件导入成功
@@ -3269,17 +3290,17 @@ namespace LSIC.App
         public const string FileNotExistMessage = nameof(FileNotExistMessage);
 
          /// <summary>
-        /// 确定删除所选项目?
+        /// 确定删除所选项目？
         /// </summary>
         public const string DeleteAskMessage = nameof(DeleteAskMessage);
 
          /// <summary>
-        /// 已存在同名器件文件, 是否覆盖?
+        /// 已存在同名器件文件，是否覆盖？
         /// </summary>
         public const string ImportIcFileExistMessage = nameof(ImportIcFileExistMessage);
 
          /// <summary>
-        /// 存在与导入器件同名的器件 是否对导入器件重命名?
+        /// 存在与导入器件同名的器件 是否对导入器件重命名？
         /// </summary>
         public const string ImportIcNameExistsMessage = nameof(ImportIcNameExistsMessage);
 
@@ -3299,7 +3320,7 @@ namespace LSIC.App
         public const string NameExistMessage = nameof(NameExistMessage);
 
          /// <summary>
-        /// 设备配置文件解析失败, {0}
+        /// 设备配置文件解析失败，{0}
         /// </summary>
         public const string DeviceConfigParseFailureMessage = nameof(DeviceConfigParseFailureMessage);
 
@@ -3314,12 +3335,12 @@ namespace LSIC.App
         public const string ValidStringRuleMessage = nameof(ValidStringRuleMessage);
 
          /// <summary>
-        /// 文件 [ {0} ] 解析失败, 第 {1} 行 {2} 列
+        /// 文件 [ {0} ] 解析失败，第 {1} 行 {2} 列
         /// </summary>
         public const string FileParseErrorMessage = nameof(FileParseErrorMessage);
 
          /// <summary>
-        /// 文件 [ {0} ] 长度不正确, 预期长度为 {1} 字节
+        /// 文件 [ {0} ] 长度不正确，预期长度为 {1} 字节
         /// </summary>
         public const string FileLengthErrorMessage = nameof(FileLengthErrorMessage);
 
@@ -3374,7 +3395,7 @@ namespace LSIC.App
         public const string StateMessage = nameof(StateMessage);
 
          /// <summary>
-        /// 器件配置错误, 请检查后重试! {0}
+        /// 器件配置错误，请检查后重试！{0}
         /// </summary>
         public const string IcErrorMessage = nameof(IcErrorMessage);
 
@@ -3404,12 +3425,12 @@ namespace LSIC.App
         public const string UpgradeFilePrefixMismatchMessage = nameof(UpgradeFilePrefixMismatchMessage);
 
          /// <summary>
-        /// 电源自检脚本: 找不到目标电源，编号{0}，位于{1}行
+        /// 电源自检脚本：找不到目标电源，编号{0}，位于{1}行
         /// </summary>
         public const string DpsCheckScriptDpsNotFoundMessage = nameof(DpsCheckScriptDpsNotFoundMessage);
 
          /// <summary>
-        /// 电源自检脚本: 参数错误或数值超出范围，位于{0}行
+        /// 电源自检脚本：参数错误或数值超出范围，位于{0}行
         /// </summary>
         public const string DpsCheckScriptParameterErrorMessage = nameof(DpsCheckScriptParameterErrorMessage);
 
@@ -3419,37 +3440,37 @@ namespace LSIC.App
         public const string DpsCheckIsNotPermittedMessage = nameof(DpsCheckIsNotPermittedMessage);
 
          /// <summary>
-        /// 检测到当前区已插老化板，运行电源自检可能会烧毁器件 是否继续 ?
+        /// 检测到当前区已插老化板，运行电源自检可能会烧毁器件 是否继续？
         /// </summary>
         public const string DpsCheckAskMessage = nameof(DpsCheckAskMessage);
 
          /// <summary>
-        /// 电源错误:{0} ->[{1}]
+        /// 电源错误：{0} ->[{1}]
         /// </summary>
         public const string ZoneDpsErrorMessage = nameof(ZoneDpsErrorMessage);
 
          /// <summary>
-        /// 电源错误: VIH{0} ->[{1}]
+        /// 电源错误：VIH{0} ->[{1}]
         /// </summary>
         public const string ZoneVIHErrorMessage = nameof(ZoneVIHErrorMessage);
 
          /// <summary>
-        /// 向量错误: [{0}] 请检查第{1}步 第{2}组向量配置
+        /// 向量错误：[{0}] 请检查第{1}步 第{2}组向量配置
         /// </summary>
         public const string ZonePatternErrorMessage = nameof(ZonePatternErrorMessage);
 
          /// <summary>
-        /// 设备异常: 请联系售后人员! 错误码[{0}]
+        /// 设备异常：请联系售后人员！错误码[{0}]
         /// </summary>
         public const string ZoneDeviceErrorMessage = nameof(ZoneDeviceErrorMessage);
 
          /// <summary>
-        /// 当前步次: [{0}]	向量: [{1}]
+        /// 当前步次：[{0}]	向量：[{1}]
         /// </summary>
         public const string StepRunInfoMessage = nameof(StepRunInfoMessage);
 
          /// <summary>
-        /// 运行电源自检脚本: {0}
+        /// 运行电源自检脚本：{0}
         /// </summary>
         public const string RunDpsCheckScriptMessage = nameof(RunDpsCheckScriptMessage);
 
@@ -3484,37 +3505,37 @@ namespace LSIC.App
         public const string BurnInBoardNotParsedMessage = nameof(BurnInBoardNotParsedMessage);
 
          /// <summary>
-        /// 循环引用了流程中不存在的条目。
+        /// 循环引用了流程中不存在的条目
         /// </summary>
         public const string LoopStepMissingMessage = nameof(LoopStepMissingMessage);
 
          /// <summary>
-        /// 循环区间非法：首条目必须排在末条目之前，且不能越界。
+        /// 循环区间非法：首条目必须排在末条目之前，且不能越界
         /// </summary>
         public const string LoopRangeInvalidMessage = nameof(LoopRangeInvalidMessage);
 
          /// <summary>
-        /// 循环不能包含固定的上电 / 下电块。
+        /// 循环不能包含固定的上电 / 下电块
         /// </summary>
         public const string LoopContainsPowerMessage = nameof(LoopContainsPowerMessage);
 
          /// <summary>
-        /// 请选择连续的向量步（不能包含上电/下电步）。
+        /// 请选择连续的向量步（不能包含上电/下电步）
         /// </summary>
         public const string LoopSelectConsecutiveMessage = nameof(LoopSelectConsecutiveMessage);
 
          /// <summary>
-        /// 循环只能并列，不能嵌套或交叉。
+        /// 循环只能并列，不能嵌套或交叉
         /// </summary>
         public const string LoopOverlapMessage = nameof(LoopOverlapMessage);
 
          /// <summary>
-        /// 循环起始步骤 "{0}" 不存在。
+        /// 循环起始步骤 "{0}" 不存在
         /// </summary>
         public const string LoopStartNotFoundMessage = nameof(LoopStartNotFoundMessage);
 
          /// <summary>
-        /// 循环结束步骤 "{0}" 不存在。
+        /// 循环结束步骤 "{0}" 不存在
         /// </summary>
         public const string LoopEndNotFoundMessage = nameof(LoopEndNotFoundMessage);
 
@@ -3524,24 +3545,39 @@ namespace LSIC.App
         public const string ZoneNotInBurnMessage = nameof(ZoneNotInBurnMessage);
 
          /// <summary>
-        /// 无法识别的流程步骤类型。
+        /// 无法识别的流程步骤类型
         /// </summary>
         public const string ProcessStepTypeUnknownMessage = nameof(ProcessStepTypeUnknownMessage);
 
          /// <summary>
-        /// 将选中步骤设置为循环
-        /// </summary>
-        public const string SetStepsAsLoopMessage = nameof(SetStepsAsLoopMessage);
-
-         /// <summary>
-        /// 工作线程已启动!
+        /// 工作线程已启动！
         /// </summary>
         public const string WorkerThreadStartedMessage = nameof(WorkerThreadStartedMessage);
 
          /// <summary>
-        /// 工作线程已退出!
+        /// 工作线程已退出！
         /// </summary>
         public const string WorkerThreadEndedMessage = nameof(WorkerThreadEndedMessage);
+
+         /// <summary>
+        /// 长度必须为 {0} 字节
+        /// </summary>
+        public const string PayloadLengthMessage = nameof(PayloadLengthMessage);
+
+         /// <summary>
+        /// 可视子元素索引 '{0}' 超出范围
+        /// </summary>
+        public const string VisualChildIndexOutOfRangeMessage = nameof(VisualChildIndexOutOfRangeMessage);
+
+         /// <summary>
+        /// 无法设置作业对象信息，错误码：{0}
+        /// </summary>
+        public const string JobObjectSetInformationFailedMessage = nameof(JobObjectSetInformationFailedMessage);
+
+         /// <summary>
+        /// 温控系数设置成功
+        /// </summary>
+        public const string ThermostatCoefficientSetSuccessMessage = nameof(ThermostatCoefficientSetSuccessMessage);
 
          /// <summary>
         /// 见微知著·科技赋能·创造非凡价值
@@ -3682,6 +3718,26 @@ namespace LSIC.App
         /// 选择文件
         /// </summary>
         public const string ChoseFileText = nameof(ChoseFileText);
+
+         /// <summary>
+        /// 初始化中...
+        /// </summary>
+        public const string InitText = nameof(InitText);
+
+         /// <summary>
+        /// [{0}] 区通信检测中...
+        /// </summary>
+        public const string ConntectionCheckingText = nameof(ConntectionCheckingText);
+
+         /// <summary>
+        /// [{0}] 区通信成功
+        /// </summary>
+        public const string ConntectSuccessText = nameof(ConntectSuccessText);
+
+         /// <summary>
+        /// [{0}] 区通信失败
+        /// </summary>
+        public const string ConntectFailureText = nameof(ConntectFailureText);
 
          /// <summary>
         /// 区
@@ -4024,6 +4080,16 @@ namespace LSIC.App
         public const string DpsEditText = nameof(DpsEditText);
 
          /// <summary>
+        /// 上电
+        /// </summary>
+        public const string PowerOnStepText = nameof(PowerOnStepText);
+
+         /// <summary>
+        /// 下电
+        /// </summary>
+        public const string PowerOffStepText = nameof(PowerOffStepText);
+
+         /// <summary>
         /// 基础信息
         /// </summary>
         public const string BaseInfoText = nameof(BaseInfoText);
@@ -4057,6 +4123,11 @@ namespace LSIC.App
         /// 运行次数
         /// </summary>
         public const string RunTimesText = nameof(RunTimesText);
+
+         /// <summary>
+        /// 将选中步骤设置为循环
+        /// </summary>
+        public const string SetStepsAsLoopText = nameof(SetStepsAsLoopText);
 
          /// <summary>
         /// 循环模式

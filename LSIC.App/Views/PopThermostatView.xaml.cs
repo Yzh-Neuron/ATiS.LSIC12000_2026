@@ -8,11 +8,12 @@
             ViewModel = new PopThermostatViewModel(zone, selectedDut);
             DataContext = ViewModel;
             InitializeComponent();
-            Loaded += PopThermostatView_Loaded;
+            MessageBus.Default.Register(this);
+            Loaded += OnLoaded;
         }
-        private void PopThermostatView_Loaded(object sender, RoutedEventArgs e)
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (Dut_List.SelectedItem!=null)
+            if (Dut_List.SelectedItem != null)
             {
                 Dut_List.ScrollIntoView(Dut_List.SelectedItem);
             }
@@ -21,21 +22,22 @@
         {
             switch (e.Message)
             {
-                case PopThermostatMessage.SetPid:
+                case PopThermostatMessage.Growl:
                     {
-
-
+                        Growl.Show(new GrowlInfo
+                        {
+                            Message = e.Args[0] as string,
+                            Type = (MessageType)e.Args[1]
+                        });
                         break;
                     }
-                default:
-                    break;
             }
             return MessageResult.Null();
         }
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            Loaded -= PopThermostatView_Loaded;
+            Loaded -= OnLoaded;
             MessageBus.Default.UnregisterAll(this);
         }
     }

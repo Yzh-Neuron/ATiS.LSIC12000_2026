@@ -82,7 +82,6 @@
             </TextBlock>
             <TextBox Grid.Row="4"
                      Grid.Column="2"
-                     wpf:TextBoxHelper.SelectAllOnGotFocus="True"
                      Text="{Binding Dr, Converter={StaticResource IntegerToIntegerConverter}, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
         <Button Grid.Row="2"

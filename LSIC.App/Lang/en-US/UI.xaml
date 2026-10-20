@@ -32,6 +32,11 @@
     <sys:String x:Key="MachineCodeText">Machine code</sys:String>
     <sys:String x:Key="ChoseFileText">Choose File</sys:String>
 
+    <!--  启动检查  -->
+    <sys:String x:Key="InitText">Init...</sys:String>
+    <sys:String x:Key="ConntectionCheckingText">[{0}] Check...</sys:String>
+    <sys:String x:Key="ConntectSuccessText">[{0}] OK</sys:String>
+    <sys:String x:Key="ConntectFailureText">[{0}] Failure</sys:String>
     <!--  老化区与工位  -->
     <sys:String x:Key="ZoneText">Zone</sys:String>
     <sys:String x:Key="ZoneFormatText">Zone {0}</sys:String>
@@ -109,6 +114,8 @@
     <sys:String x:Key="DpsEditText">Dps Edit</sys:String>
 
     <!--  器件流程配置  -->
+    <sys:String x:Key="PowerOnStepText">Power On</sys:String>
+    <sys:String x:Key="PowerOffStepText">Power Off</sys:String>
     <sys:String x:Key="BaseInfoText">Base Info</sys:String>
     <sys:String x:Key="BaseSettingText">Base Setting</sys:String>
     <sys:String x:Key="ProcessSettingText">Process Setting</sys:String>
@@ -116,6 +123,7 @@
     <sys:String x:Key="StepFormatText">Step[{0}]</sys:String>
     <sys:String x:Key="RunTimeText">Time</sys:String>
     <sys:String x:Key="RunTimesText">Times</sys:String>
+    <sys:String x:Key="SetStepsAsLoopText">Set selected steps as a loop</sys:String>
     <sys:String x:Key="LoopModeText">Mode</sys:String>
     <sys:String x:Key="LoopTimeText">Time</sys:String>
     <sys:String x:Key="LoopTimesText">Times</sys:String>

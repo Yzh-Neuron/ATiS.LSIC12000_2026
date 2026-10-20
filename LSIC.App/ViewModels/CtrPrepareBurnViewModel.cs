@@ -70,7 +70,6 @@ namespace LSIC.App.ViewModels
         {
             return SelectedIc?.Name is not null;
         }
-
         private void Confirm()
         {
             List<ValidationResult> errors = this.GetAllExistingErrorsRecursive();

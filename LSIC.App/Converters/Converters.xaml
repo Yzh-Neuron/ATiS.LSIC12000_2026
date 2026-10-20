@@ -8,6 +8,7 @@
     <cvt:EnumToTextConverter x:Key="EnumToTextConverter" />
     <cvt:EnumToHexConverter x:Key="EnumToHexConverter"/>
 
+    <cvt:DecimalToDecimalConverter x:Key="DecimalToDecimalConverter"/>
     <cvt:IntegerToIntegerConverter x:Key="IntegerToIntegerConverter" />
     <cvt:IntegerToDecimalConverter x:Key="IntegerToDecimalConverter1000000" Scale="1000000" />
     <cvt:IntegerToDecimalConverter x:Key="IntegerToDecimalConverter1000" Scale="1000" />

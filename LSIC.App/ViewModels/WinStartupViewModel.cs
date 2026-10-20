@@ -21,7 +21,7 @@
 
             foreach (Zone zone in Device.Zones)
             {
-                string name = string.Format(LangProvider.Instance.ConntectionCheckingMessage, zone.Id);
+                string name = string.Format(LangProvider.Instance.ConntectionCheckingText, zone.Id);
                 CheckItem item = new CheckItem(name);
                 this.InvokeOnUI(() => CheckItems.Add(item));
                 int times = 0;
@@ -35,11 +35,11 @@
                     }
                     break;
                 }
-                name = zone.Connected ? string.Format(LangProvider.Instance.ConntectSuccessMessage, zone.Id) : string.Format(LangProvider.Instance.ConntectFailureMessage, zone.Id);
+                name = zone.Connected ? string.Format(LangProvider.Instance.ConntectSuccessText, zone.Id) : string.Format(LangProvider.Instance.ConntectFailureText, zone.Id);
                 item.Name = name;
                 item.Connected = zone.Connected;
             }
-            CheckItem init = new CheckItem(LangProvider.Instance.InitMessage);
+            CheckItem init = new CheckItem(LangProvider.Instance.InitText);
             this.InvokeOnUI(() => CheckItems.Add(init));
             await Task.Delay(1000);
             this.InvokeOnUI(() => MessageBus.Default.Send(MsgArgs.From(WinStartupMessage.Initialized, [])));
