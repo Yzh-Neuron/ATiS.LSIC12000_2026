@@ -110,8 +110,15 @@
                                                VerticalAlignment="Center"
                                                Text="{TemplateBinding Title}" />
 
+                                    <!--  自定义区域：位于剩余空间内、靠右  -->
+                                    <ContentPresenter Grid.Column="2"
+                                                      HorizontalAlignment="Right"
+                                                      VerticalAlignment="Center"
+                                                      Content="{TemplateBinding TitleBarContent}"
+                                                      WindowChrome.IsHitTestVisibleInChrome="True" />
+
                                     <StackPanel Name="ButtonPanel"
-                                                Grid.Column="2"
+                                                Grid.Column="3"
                                                 HorizontalAlignment="Right"
                                                 VerticalAlignment="Stretch"
                                                 Orientation="Horizontal"

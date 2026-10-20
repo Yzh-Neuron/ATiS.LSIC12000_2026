@@ -19,6 +19,12 @@
                   UseLayoutRounding="True"
                   WindowStartupLocation="CenterScreen"
                   mc:Ignorable="d">
+    <wpf:ChromeWindow.TitleBarContent>
+        <Button wpf:IconHelper.Geometry="{StaticResource Geometry.Theme}"
+                wpf:IconHelper.Height="13"
+                wpf:IconHelper.Width="13"
+                Style="{StaticResource Button.TitleBar}" />
+    </wpf:ChromeWindow.TitleBarContent>
     <DockPanel>
         <!--  顶部工具栏  -->
         <Border Height="80"

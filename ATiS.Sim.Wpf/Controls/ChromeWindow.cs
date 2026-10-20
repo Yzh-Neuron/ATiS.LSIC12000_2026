@@ -9,6 +9,13 @@ namespace ATiS.Sim.Wpf
     public class ChromeWindow : Window
     {
         private const double ResizeGripWidth = 2.0d;
+        public object TitleBarContent
+        {
+            get { return (object)GetValue(TitleBarContentProperty); }
+            set { SetValue(TitleBarContentProperty, value); }
+        }
+        public static readonly DependencyProperty TitleBarContentProperty =
+            DependencyProperty.Register(nameof(TitleBarContent), typeof(object), typeof(ChromeWindow), new PropertyMetadata(null));
         public bool IsShowTitleBar
         {
             get { return (bool)GetValue(IsShowTitleBarProperty); }
