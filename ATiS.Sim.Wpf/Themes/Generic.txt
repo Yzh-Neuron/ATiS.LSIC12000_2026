@@ -1,5 +1,4 @@
-﻿Basic/Brushes.xaml
-Basic/Converters.xaml
+﻿Basic/Converters.xaml
 Basic/Effects.xaml
 Basic/Fonts.xaml
 Basic/Geometries.xaml
@@ -8,17 +7,18 @@ Basic/Sizes.xaml
 Styles/Bases/Control.Base.xaml
 Styles/Bases/ButtonBase.Base.xaml
 Styles/Bases/Input.Base.xaml
+Styles/UiVoid.xaml
 Styles/TextBlock.xaml
+Styles/ScrollViewer.xaml
+Styles/Menu.xaml
+Styles/Button.xaml
+Styles/CheckBox.xaml
 Styles/ToolTip.xaml
 Styles/Separator.xaml
-Styles/ScrollViewer.xaml
-Styles/CheckBox.xaml
-Styles/Button.xaml
 Styles/Calendar.xaml
 Styles/ChromeWindow.xaml
 Styles/ComboBox.xaml
 Styles/DatePicker.xaml
-Styles/Menu.xaml
 Styles/PasswordBox.xaml
 Styles/ProgressBar.xaml
 Styles/ToggleButton.xaml
@@ -31,4 +31,4 @@ Styles/StateBlock.xaml
 Styles/LoadingCircle.xaml
 Styles/Growl.xaml
 Styles/MessagePop.xaml
-Styles/UiVoid.xaml
+Styles/MatrixListBox.xaml

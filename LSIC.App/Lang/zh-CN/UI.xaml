@@ -5,6 +5,7 @@
     <!--  品牌与通用  -->
     <sys:String x:Key="ConceptText">见微知著·科技赋能·创造非凡价值</sys:String>
     <sys:String x:Key="SloganText">从微观到宏观，以科技赋能，为客户创造非凡价值</sys:String>
+    <sys:String x:Key="SwitchThemeText">切换主题</sys:String>
     <sys:String x:Key="ConfirmText">确认</sys:String>
     <sys:String x:Key="CancelText">取消</sys:String>
     <sys:String x:Key="CreateNewText">新建</sys:String>

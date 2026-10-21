@@ -1002,6 +1002,11 @@ namespace LSIC.App
         public string SloganText => GetString("SloganText");
 
         /// <summary>
+        /// 切换主题
+        /// </summary>
+        public string SwitchThemeText => GetString("SwitchThemeText");
+
+        /// <summary>
         /// 确认
         /// </summary>
         public string ConfirmText => GetString("ConfirmText");
@@ -1891,7 +1896,6 @@ namespace LSIC.App
         /// </summary>
         public string DutMaskText => GetString("DutMaskText");
 
-
         protected override void OnLanguageChanged()
         {
             OnPropertyChanged(nameof(CurrentLanguage));
@@ -2289,6 +2293,8 @@ namespace LSIC.App
             OnPropertyChanged(nameof(ConceptText));
 
             OnPropertyChanged(nameof(SloganText));
+
+            OnPropertyChanged(nameof(SwitchThemeText));
 
             OnPropertyChanged(nameof(ConfirmText));
 
@@ -3636,6 +3642,11 @@ namespace LSIC.App
         /// 从微观到宏观，以科技赋能，为客户创造非凡价值
         /// </summary>
         public const string SloganText = nameof(SloganText);
+
+         /// <summary>
+        /// 切换主题
+        /// </summary>
+        public const string SwitchThemeText = nameof(SwitchThemeText);
 
          /// <summary>
         /// 确认

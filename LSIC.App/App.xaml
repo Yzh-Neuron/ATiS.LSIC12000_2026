@@ -6,7 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Basic/Colors/Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Basic/Skins/SkinDark.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Generic.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>

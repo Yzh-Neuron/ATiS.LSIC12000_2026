@@ -4,6 +4,7 @@
     {
         private readonly Timer _timer;
         public Device Device { get; }
+        public ICommand ToggleThemeCommand { get; }
         private DateTime _now;
         public DateTime Now
         {
@@ -14,6 +15,7 @@
         {
             Device = Device.Instance;
             _timer = new Timer(Tick, null, 0, 1000);
+            ToggleThemeCommand = new RelayCommand(ThemeManager.Toggle);
         }
         private void Tick(object _)
         {

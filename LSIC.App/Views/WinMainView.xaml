@@ -23,6 +23,7 @@
         <Button wpf:IconHelper.Geometry="{StaticResource Geometry.Theme}"
                 wpf:IconHelper.Height="13"
                 wpf:IconHelper.Width="13"
+                Command="{Binding ToggleThemeCommand}"
                 Style="{StaticResource Button.TitleBar}" />
     </wpf:ChromeWindow.TitleBarContent>
     <DockPanel>

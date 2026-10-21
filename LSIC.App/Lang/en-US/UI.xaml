@@ -5,6 +5,7 @@
     <!--  品牌与通用  -->
     <sys:String x:Key="ConceptText">See the Micro, Empower the Tech, Create Extraordinary Value</sys:String>
     <sys:String x:Key="SloganText">From the micro to the macro, empowered by technology, to create extraordinary value for our clientele</sys:String>
+    <sys:String x:Key="SwitchThemeText">Switch Theme</sys:String>
     <sys:String x:Key="ConfirmText">Confirm</sys:String>
     <sys:String x:Key="CancelText">Cancel</sys:String>
     <sys:String x:Key="CreateNewText">New</sys:String>
