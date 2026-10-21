@@ -127,21 +127,21 @@
                           Background="Transparent"
                           IsLegendVisible="True">
                     <oxy:Plot.Axes>
-                        <oxy:LinearAxis MajorGridlineColor="#10000000"
+                        <oxy:LinearAxis MajorGridlineColor="{DynamicResource ChartGridlineMajorColor}"
                                         MajorGridlineStyle="Solid"
                                         MajorGridlineThickness="1"
                                         Maximum="200"
                                         Minimum="0"
-                                        MinorGridlineColor="#08000000"
+                                        MinorGridlineColor="{DynamicResource ChartGridlineMinorColor}"
                                         MinorGridlineStyle="Solid"
                                         MinorGridlineThickness="1"
                                         Position="Left" />
                         <oxy:DateTimeAxis FirstDateTime="{Binding SelectedThermostat.ChartDataTimeRange.Start}"
                                           LastDateTime="{Binding SelectedThermostat.ChartDataTimeRange.End}"
-                                          MajorGridlineColor="#10000000"
+                                          MajorGridlineColor="{DynamicResource ChartGridlineMajorColor}"
                                           MajorGridlineStyle="Solid"
                                           MajorGridlineThickness="1"
-                                          MinorGridlineColor="#08000000"
+                                          MinorGridlineColor="{DynamicResource ChartGridlineMinorColor}"
                                           MinorGridlineStyle="Solid"
                                           MinorGridlineThickness="1"
                                           Position="Bottom" />

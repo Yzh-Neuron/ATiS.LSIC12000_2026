@@ -2,22 +2,17 @@
 {
     public class DpsStateToBrushConverter : IValueConverter
     {
+        private static Brush Res(object key) => (Brush)Application.Current.FindResource(key);
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            DpsState state = (DpsState)value;
-            switch (state)
+            return (DpsState)value switch
             {
-                case DpsState.Output:
-                    return Brushes.LimeGreen;
-                case DpsState.Ovp:
-                case DpsState.Uvp:
-                case DpsState.Ocp:
-                    return Brushes.Red;
-                case DpsState.Idle:
-                    return Brushes.Gray;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                DpsState.Output => Res("SuccessBrush"),
+                DpsState.Ovp or DpsState.Uvp or DpsState.Ocp => Res("ErrorBrush"),
+                DpsState.Idle => Res("SecondForegroundBrush"),
+                _ => throw new ArgumentOutOfRangeException(nameof(value))
+            };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -2,35 +2,20 @@
 {
     public class ZoneStateToBrushConverter : IValueConverter
     {
+        private static Brush Res(object key) => (Brush)Application.Current.FindResource(key);
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ZoneState state = (ZoneState)value;
-            switch (state)
+            return (ZoneState)value switch
             {
-                case ZoneState.Init:
-                case ZoneState.Idle:
-                case ZoneState.Ready:
-                case ZoneState.Stop:
-                    return Brushes.RoyalBlue;
-                case ZoneState.PowerUp:
-                case ZoneState.Burning:
-                case ZoneState.PowerDown:
-                    return Brushes.LimeGreen;
-                case ZoneState.Sending:
-                case ZoneState.DeviceChecking:
-                case ZoneState.DpsChecking:
-                case ZoneState.Upgrading:
-                case ZoneState.Transition:
-                    return Brushes.Orange;
-                case ZoneState.Offline:
-                    return Brushes.Gray;
-                case ZoneState.DeviceCheckFail:
-                case ZoneState.IcError:
-                case ZoneState.Error:
-                    return Brushes.Red;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                ZoneState.Init or ZoneState.Idle or ZoneState.Ready or ZoneState.Stop => Res("PrimaryBrush"),
+                ZoneState.PowerUp or ZoneState.Burning or ZoneState.PowerDown => Res("SuccessBrush"),
+                ZoneState.Sending or ZoneState.DeviceChecking or ZoneState.DpsChecking
+                    or ZoneState.Upgrading or ZoneState.Transition => Res("WarningBrush"),
+                ZoneState.Offline => Res("SecondForegroundBrush"),
+                ZoneState.DeviceCheckFail or ZoneState.IcError or ZoneState.Error => Res("ErrorBrush"),
+                _ => throw new ArgumentOutOfRangeException(nameof(value))
+            };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

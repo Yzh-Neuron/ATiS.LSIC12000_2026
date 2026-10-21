@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <Color x:Key="LoopLineColor">#6b7684</Color>
+    <Color x:Key="LoopHoverColor">#2a3340</Color>
+    <Color x:Key="LoopPressedColor">#343e4d</Color>
+    <Color x:Key="AlarmBackgroundColor">#4a2428</Color>
+    <Color x:Key="WarningBackgroundColor">#3a3220</Color>
+    <Color x:Key="ChartGridlineMajorColor">#10FFFFFF</Color>
+    <Color x:Key="ChartGridlineMinorColor">#08FFFFFF</Color>
+    <Color x:Key="LoadingBackgroundColor">#4a4a4a</Color>
+</ResourceDictionary>

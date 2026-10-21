@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+    <SolidColorBrush x:Key="LoopLineBrush" Color="{DynamicResource LoopLineColor}" />
+    <SolidColorBrush x:Key="LoopHoverBrush" Color="{DynamicResource LoopHoverColor}" />
+    <SolidColorBrush x:Key="LoopPressedBrush" Color="{DynamicResource LoopPressedColor}" />
+    <SolidColorBrush x:Key="AlarmBackgroundBrush" Color="{DynamicResource AlarmBackgroundColor}" />
+    <SolidColorBrush x:Key="WarningBackgroundBrush" Color="{DynamicResource WarningBackgroundColor}" />
+    <SolidColorBrush x:Key="LoadingBackgroundBrush" Color="{DynamicResource LoadingBackgroundColor}" />
+    <SolidColorBrush x:Key="MaskBrush" Color="{DynamicResource MaskColor}" />
+</ResourceDictionary>

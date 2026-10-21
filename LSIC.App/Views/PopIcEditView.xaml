@@ -536,11 +536,6 @@
                                             Content="{app:Lang {x:Static app:LangKey.SetStepsAsLoopText}}" />
                                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                                         <Grid>
-                                            <Grid.Resources>
-                                                <SolidColorBrush x:Key="LoopLineBrush" Color="#8B98A8" />
-                                                <SolidColorBrush x:Key="LoopHoverBrush" Color="#F3F5F8" />
-                                                <SolidColorBrush x:Key="LoopPressedBrush" Color="#E3E6EA" />
-                                            </Grid.Resources>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="11*" />
                                                 <ColumnDefinition Width="20*" />
@@ -728,7 +723,7 @@
                                                         <Setter Property="attachs:ValidationWatcher.Source" Value="{Binding .}" />
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding IsInLoop}" Value="true">
-                                                                <Setter Property="Background" Value="{StaticResource LoopHoverBrush}" />
+                                                                <Setter Property="Background" Value="{DynamicResource LoopHoverBrush}" />
                                                             </DataTrigger>
                                                             <Trigger Property="IsSelected" Value="true">
                                                                 <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
@@ -769,7 +764,7 @@
 
                                 <!--  步骤详情  -->
                                 <wpf:SimplePanel>
-                                    <Border BorderBrush="{StaticResource BorderBrush}"
+                                    <Border BorderBrush="{DynamicResource BorderBrush}"
                                             BorderThickness="1"
                                             CornerRadius="{StaticResource DefaultCornerRadius}" />
                                     <TextBlock Height="24"

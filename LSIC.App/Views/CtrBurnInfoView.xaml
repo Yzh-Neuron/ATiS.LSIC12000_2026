@@ -310,7 +310,7 @@
                             Click="OnViewRegisterFileButtonClick"
                             Content="{app:Lang {x:Static app:LangKey.ViewText}}"
                             DockPanel.Dock="Left"
-                            Foreground="{StaticResource PrimaryBrush}"
+                            Foreground="{DynamicResource PrimaryBrush}"
                             Style="{StaticResource Button.Link}"
                             Tag="{Binding Zone.BurnInfo.CurrentVector.RegisterFile}"
                             Visibility="{Binding Zone.BurnInfo.CurrentVector, Converter={StaticResource NotNullToVisibilityConverter}}" />

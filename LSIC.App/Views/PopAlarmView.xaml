@@ -25,7 +25,7 @@
         <Grid Background="{DynamicResource ErrorBrush}">
             <TextBlock HorizontalAlignment="Center"
                        FontSize="22"
-                       Foreground="White"
+                       Foreground="{DynamicResource ContrastForegroundBrush}"
                        Text="{app:Lang {x:Static app:LangKey.AlarmMessageText}}">
                 <TextBlock.Triggers>
                     <EventTrigger RoutedEvent="Loaded">
@@ -44,7 +44,7 @@
             </TextBlock>
         </Grid>
         <wpf:SimplePanel Grid.Row="1" Margin="10">
-            <Border BorderBrush="{StaticResource BorderBrush}"
+            <Border BorderBrush="{DynamicResource BorderBrush}"
                     BorderThickness="1"
                     CornerRadius="{DynamicResource DefaultCornerRadius}" />
             <RichTextBox x:Name="LogBox"
@@ -63,29 +63,29 @@
             <Button Width="100"
                     Height="30"
                     Margin="10,0,0,0"
-                    Background="#FFD1D1"
+                    Background="{DynamicResource AlarmBackgroundBrush}"
                     Content="{app:Lang {x:Static app:LangKey.CloseAlarmText}}"
-                    Foreground="{StaticResource ForegroundBrush}" />
+                    Foreground="{DynamicResource ForegroundBrush}" />
             <Button Width="100"
                     Height="30"
                     Margin="10,0,0,0"
-                    Background="#FFD1D1"
+                    Background="{DynamicResource AlarmBackgroundBrush}"
                     Content="{app:Lang {x:Static app:LangKey.CloseOvenAlarmText}}"
-                    Foreground="{StaticResource ForegroundBrush}" />
+                    Foreground="{DynamicResource ForegroundBrush}" />
             <Button Width="100"
                     Height="30"
                     Margin="10,0,10,0"
                     Background="DarkOrange"
                     Content="{app:Lang {x:Static app:LangKey.StopBurnText}}"
                     DockPanel.Dock="Right"
-                    Foreground="{StaticResource ForegroundBrush}" />
+                    Foreground="{DynamicResource ForegroundBrush}" />
             <Button Width="100"
                     Height="30"
                     Margin="10,0,0,0"
                     Background="LightBlue"
                     Content="{app:Lang {x:Static app:LangKey.OneClickCoolText}}"
                     DockPanel.Dock="Right"
-                    Foreground="{StaticResource ForegroundBrush}" />
+                    Foreground="{DynamicResource ForegroundBrush}" />
             <Grid />
         </DockPanel>
     </Grid>

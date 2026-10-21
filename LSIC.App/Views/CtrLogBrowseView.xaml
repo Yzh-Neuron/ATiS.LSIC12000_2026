@@ -149,7 +149,7 @@
         <Grid>
             <Border Width="110"
                     Height="110"
-                    Background="#A1A1A1"
+                    Background="{DynamicResource LoadingBackgroundBrush}"
                     CornerRadius="20">
                 <wpf:SimplePanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <wpf:LoadingCircle Width="65"
@@ -162,12 +162,12 @@
                                        DotInterval="20"
                                        DotOffSet="60"
                                        DotSpeed="4"
-                                       Foreground="White" />
+                                       Foreground="{DynamicResource ContrastForegroundBrush}" />
 
                     <TextBlock HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                FontWeight="Bold"
-                               Foreground="White"
+                               Foreground="{DynamicResource ContrastForegroundBrush}"
                                Text="{Binding Progress, StringFormat={}{0:F1}%}" />
                 </wpf:SimplePanel>
             </Border>

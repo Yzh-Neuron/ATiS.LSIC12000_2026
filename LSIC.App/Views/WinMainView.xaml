@@ -138,14 +138,14 @@
                            Height="1"
                            VerticalAlignment="Bottom"
                            DockPanel.Dock="Top"
-                           Fill="{StaticResource BorderBrush}" />
+                           Fill="{DynamicResource BorderBrush}" />
 
                 <Rectangle Grid.RowSpan="2"
                            Grid.Column="1"
                            Width="1"
                            HorizontalAlignment="Left"
                            DockPanel.Dock="Top"
-                           Fill="{StaticResource BorderBrush}" />
+                           Fill="{DynamicResource BorderBrush}" />
             </Grid>
         </Border>
 

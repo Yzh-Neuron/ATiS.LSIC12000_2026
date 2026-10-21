@@ -105,7 +105,7 @@
                             <Grid Margin="0,0,0,10"
                                   TextBlock.FontSize="13"
                                   TextBlock.FontWeight="Bold"
-                                  TextBlock.Foreground="White">
+                                  TextBlock.Foreground="{DynamicResource ContrastForegroundBrush}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1*" />
                                     <ColumnDefinition Width="3*" />
@@ -160,10 +160,10 @@
                                                   IsHitTestVisible="False">
                                         <ToggleButton.Style>
                                             <Style BasedOn="{StaticResource ToggleButton.Icon}" TargetType="{x:Type ToggleButton}">
-                                                <Setter Property="Foreground" Value="Red" />
+                                                <Setter Property="Foreground" Value="{DynamicResource ErrorBrush}" />
                                                 <Style.Triggers>
                                                     <Trigger Property="IsChecked" Value="True">
-                                                        <Setter Property="Foreground" Value="Green" />
+                                                        <Setter Property="Foreground" Value="{DynamicResource SuccessBrush}" />
                                                     </Trigger>
                                                 </Style.Triggers>
                                             </Style>

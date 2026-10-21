@@ -240,9 +240,9 @@
                                     </Trigger>
 
                                     <Trigger Property="IsSelected" Value="true">
-                                        <Setter TargetName="MainContainer" Property="BorderBrush" Value="#F0AD4E" />
-                                        <Setter Property="BorderBrush" Value="#F0AD4E" />
-                                        <Setter Property="Background" Value="#FFFDF5" />
+                                        <Setter TargetName="MainContainer" Property="BorderBrush" Value="{DynamicResource WarningBrush}" />
+                                        <Setter Property="BorderBrush" Value="{DynamicResource WarningBrush}" />
+                                        <Setter Property="Background" Value="{DynamicResource WarningBackgroundBrush}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>

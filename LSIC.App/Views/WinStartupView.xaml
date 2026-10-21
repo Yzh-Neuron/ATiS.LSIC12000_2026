@@ -67,11 +67,9 @@
                                                   Duration="0:0:4" />
                     </Storyboard>
 
-                    <SolidColorBrush x:Key="IconBrush" Color="#1C49E3" />
-
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="FontFamily" Value="{StaticResource Fonts.Roboto}" />
-                        <Setter Property="Foreground" Value="{StaticResource IconBrush}" />
+                        <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
                     </Style>
                 </Grid.Resources>
                 <Grid.Triggers>
@@ -94,7 +92,7 @@
                            Height="40"
                            Margin="12,0,12,25"
                            VerticalAlignment="Bottom"
-                           Fill="{StaticResource IconBrush}" />
+                           Fill="{DynamicResource PrimaryBrush}" />
                 <TextBlock Grid.Column="4" Text="S" />
                 <Border Grid.Column="5"
                         Width="14"
@@ -149,7 +147,7 @@
                                                    DotInterval="20"
                                                    DotOffSet="60"
                                                    DotSpeed="4"
-                                                   Foreground="Gray" />
+                                                   Foreground="{DynamicResource SecondForegroundBrush}" />
                             </DataTemplate>
                         </Setter.Value>
                     </Setter>
@@ -161,7 +159,7 @@
                                 <Path HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       Data="M 1.9166054,8.2930691 A 0.88553157,0.88553157 0 1 0 0.66575293,9.5468764 L 6.6781036,15.540347 16.16924,4.1115655 A 0.88512236,0.88512236 0 1 0 14.807462,2.9804921 L 6.5541982,12.918272 Z"
-                                      Fill="Lime" />
+                                      Fill="{DynamicResource SuccessBrush}" />
                             </DataTemplate>
                         </Setter.Value>
                     </Setter>
@@ -173,7 +171,7 @@
                                 <Path HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       Data="M 7.8697429,7.0002879 13.807811,1.0617387 A 0.61557088,0.61511068 0 1 0 12.937262,0.19184115 L 6.9998112,6.1303905 1.0617435,0.19122485 A 0.61557066,0.61511047 0 1 0 0.19119516,1.0611224 L 6.1292628,6.9996716 0.19119516,12.938221 A 0.61557068,0.61511048 0 1 0 1.0617435,13.808118 L 6.9998112,7.8695691 12.937262,13.808118 a 0.61557068,0.61511049 0 1 0 0.870549,-0.869897 L 7.8697429,7.0002879 v 9.8e-6 z"
-                                      Fill="Red" />
+                                      Fill="{DynamicResource ErrorBrush}" />
                             </DataTemplate>
                         </Setter.Value>
                     </Setter>
@@ -198,13 +196,13 @@
                            HorizontalAlignment="Center"
                            FontSize="18"
                            FontWeight="Bold"
-                           Foreground="#21497D"
+                           Foreground="{DynamicResource PrimaryBrush}"
                            Text="{app:Lang {x:Static app:LangKey.ConceptText}}"
                            TextWrapping="Wrap" />
                 <TextBlock Margin="10,0"
                            HorizontalAlignment="Center"
                            FontSize="16"
-                           Foreground="Gray"
+                           Foreground="{DynamicResource SecondForegroundBrush}"
                            Text="{app:Lang {x:Static app:LangKey.SloganText}}"
                            TextAlignment="Justify"
                            TextWrapping="Wrap" />

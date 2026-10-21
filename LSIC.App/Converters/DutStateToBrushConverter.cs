@@ -2,24 +2,19 @@
 {
     internal class DutStateToBrushConverter : IValueConverter
     {
+        private static Brush Res(object key) => (Brush)Application.Current.FindResource(key);
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            DutState state = (DutState)value;
-            switch (state)
+            return (DutState)value switch
             {
-                case DutState.Idle:
-                    return Brushes.Gray;
-                case DutState.Test:
-                    return Brushes.RoyalBlue;
-                case DutState.Pass:
-                    return Brushes.LimeGreen;
-                case DutState.Fail:
-                    return Brushes.Red;
-                case DutState.Ignore:
-                    return Brushes.LightGray;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                DutState.Idle => Res("SecondForegroundBrush"),
+                DutState.Test => Res("InfoBrush"),
+                DutState.Pass => Res("SuccessBrush"),
+                DutState.Fail => Res("ErrorBrush"),
+                DutState.Ignore => Res("ThirdlyForegroundBrush"),
+                _ => throw new ArgumentOutOfRangeException(nameof(value))
+            };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

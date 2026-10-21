@@ -54,7 +54,7 @@
                     </wpf:SimplePanel>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding Masked}" Value="True">
-                            <Setter TargetName="IconPath" Property="Fill" Value="Gray" />
+                            <Setter TargetName="IconPath" Property="Fill" Value="{DynamicResource SecondForegroundBrush}" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
