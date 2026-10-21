@@ -22,10 +22,10 @@
     <wpf:ChromeWindow.TitleBarContent>
         <Button wpf:IconHelper.Geometry="{StaticResource Geometry.Theme}"
                 wpf:IconHelper.Height="13"
-                ToolTip="{app:Lang {x:Static app:LangKey.SwitchThemeText}}"
                 wpf:IconHelper.Width="13"
                 Click="OnToggleThemeClick"
-                Style="{StaticResource Button.TitleBar}" />
+                Style="{StaticResource Button.TitleBar}"
+                ToolTip="{app:Lang {x:Static app:LangKey.SwitchThemeText}}" />
     </wpf:ChromeWindow.TitleBarContent>
     <DockPanel>
         <!--  顶部工具栏  -->
@@ -42,10 +42,10 @@
                     <ColumnDefinition Width="200" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Image Grid.RowSpan="2"
-                       RenderOptions.BitmapScalingMode="HighQuality"
-                       Source="{StaticResource Image.ATiS}"
-                       UseLayoutRounding="True" />
+                <wpf:AtisLogo Grid.RowSpan="2"
+                              Height="45"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center" />
                 <Grid Grid.Row="0" Grid.Column="1">
                     <Menu x:Name="ToolsMenu"
                           Margin="5,0"
@@ -134,13 +134,11 @@
                                 ToolTip="{app:Lang {x:Static app:LangKey.TriggerSetText}}" />
                     </StackPanel>
                 </Grid>
-
                 <Rectangle Grid.Column="2"
                            Height="1"
                            VerticalAlignment="Bottom"
                            DockPanel.Dock="Top"
                            Fill="{DynamicResource BorderBrush}" />
-
                 <Rectangle Grid.RowSpan="2"
                            Grid.Column="1"
                            Width="1"

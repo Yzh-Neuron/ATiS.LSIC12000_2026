@@ -20,39 +20,31 @@
                   mc:Ignorable="d">
     <Window.Resources>
         <DataTemplate x:Key="LogoDataTemplate">
-            <Grid Height="96"
-                  HorizontalAlignment="Center"
-                  TextBlock.FontSize="80"
-                  TextBlock.FontWeight="Medium">
-                <Grid.Resources>
+            <wpf:SimplePanel>
+                <wpf:SimplePanel.Resources>
                     <PathGeometry x:Key="DotPath">
-                        <PathFigure StartPoint="84 48">
-                            <ArcSegment IsLargeArc="False"
-                                        Point="6 12"
-                                        Size="60 60"
+                        <PathFigure StartPoint="60,60">
+                            <ArcSegment IsLargeArc="True"
+                                        Point="87,-13"
+                                        RotationAngle="1"
+                                        Size="45,45"
                                         SweepDirection="Clockwise" />
-                            <ArcSegment IsLargeArc="False"
-                                        Point="52 4"
-                                        Size="30 30"
+                            <ArcSegment IsLargeArc="True"
+                                        Point="148,-4"
+                                        Size="20,15"
                                         SweepDirection="Clockwise" />
-                            <ArcSegment IsLargeArc="False"
-                                        Point="146 2.5"
-                                        Size="70 70"
-                                        SweepDirection="Clockwise" />
-                            <ArcSegment IsLargeArc="False"
-                                        Point="108 9"
-                                        Size="40 100"
+                            <ArcSegment Point="127,0"
+                                        Size="12,10"
                                         SweepDirection="Counterclockwise" />
                         </PathFigure>
                     </PathGeometry>
-
                     <Storyboard x:Key="DotStoryboard">
                         <DoubleAnimation Storyboard.TargetName="Dot"
-                                         Storyboard.TargetProperty="(FrameworkElement.Height)"
+                                         Storyboard.TargetProperty="(FrameworkElement.Width)"
                                          To="16"
                                          Duration="0:0:1.6" />
                         <DoubleAnimation Storyboard.TargetName="Dot"
-                                         Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                         Storyboard.TargetProperty="(FrameworkElement.Height)"
                                          To="16"
                                          Duration="0:0:1.6" />
                         <DoubleAnimationUsingPath PathGeometry="{StaticResource DotPath}"
@@ -66,58 +58,28 @@
                                                   Storyboard.TargetProperty="(Canvas.Top)"
                                                   Duration="0:0:4" />
                     </Storyboard>
-
-                    <Style TargetType="{x:Type TextBlock}">
-                        <Setter Property="FontFamily" Value="{StaticResource Fonts.Roboto}" />
-                        <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
-                    </Style>
-                </Grid.Resources>
-                <Grid.Triggers>
+                </wpf:SimplePanel.Resources>
+                <wpf:SimplePanel.Triggers>
                     <EventTrigger RoutedEvent="Control.Loaded">
                         <BeginStoryboard Storyboard="{StaticResource DotStoryboard}" />
                     </EventTrigger>
-                </Grid.Triggers>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="A" />
-                <TextBlock Grid.Column="1" Text="T" />
-                <Rectangle Grid.Column="2"
-                           Width="10"
-                           Height="40"
-                           Margin="12,0,12,25"
-                           VerticalAlignment="Bottom"
-                           Fill="{DynamicResource PrimaryBrush}" />
-                <TextBlock Grid.Column="4" Text="S" />
-                <Border Grid.Column="5"
-                        Width="14"
-                        Height="14"
-                        Margin="0,18,0,0"
-                        VerticalAlignment="Top"
-                        BorderBrush="Black"
-                        BorderThickness="1.2"
-                        CornerRadius="7">
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontSize="10"
-                               FontWeight="Bold"
-                               Foreground="Black"
-                               Text="R" />
-                </Border>
-                <Canvas Grid.Column="0" Grid.ColumnSpan="4">
-                    <Ellipse x:Name="Dot"
-                             Canvas.Left="50"
-                             Canvas.Top="20"
-                             Width="60"
-                             Height="60"
-                             Fill="Red" />
-                </Canvas>
-            </Grid>
+                </wpf:SimplePanel.Triggers>
+                <Viewbox Stretch="Uniform">
+                    <Grid Width="210.2" Height="73">
+                        <wpf:AtisLogo Width="210.2"
+                                      Height="73"
+                                      DotBrush="Transparent" />
+                        <Canvas>
+                            <Ellipse x:Name="Dot"
+                                     Canvas.Left="18"
+                                     Canvas.Top="66"
+                                     Width="60"
+                                     Height="60"
+                                     Fill="Red" />
+                        </Canvas>
+                    </Grid>
+                </Viewbox>
+            </wpf:SimplePanel>
         </DataTemplate>
         <DataTemplate x:Key="CheckItemDataTemplate" DataType="{x:Type models:CheckItem}">
             <Grid Width="270" Height="30">
@@ -191,7 +153,9 @@
             <StackPanel Grid.Row="1"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
-                <ContentControl ContentTemplate="{StaticResource LogoDataTemplate}" FocusVisualStyle="{x:Null}" />
+                <ContentControl Height="80"
+                                ContentTemplate="{StaticResource LogoDataTemplate}"
+                                FocusVisualStyle="{x:Null}" />
                 <TextBlock Margin="0,10"
                            HorizontalAlignment="Center"
                            FontSize="18"
@@ -208,6 +172,7 @@
                            TextWrapping="Wrap" />
             </StackPanel>
             <Image Grid.Row="1"
+                   d:Visibility="Collapsed"
                    Opacity=".32"
                    Source="{StaticResource TechnologyImage}" />
 

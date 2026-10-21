@@ -7,6 +7,7 @@ Basic/Sizes.xaml
 Styles/Bases/Control.Base.xaml
 Styles/Bases/ButtonBase.Base.xaml
 Styles/Bases/Input.Base.xaml
+Styles/AtisLogo.xaml
 Styles/UiVoid.xaml
 Styles/TextBlock.xaml
 Styles/ScrollViewer.xaml
@@ -32,3 +33,4 @@ Styles/LoadingCircle.xaml
 Styles/Growl.xaml
 Styles/MessagePop.xaml
 Styles/MatrixListBox.xaml
+

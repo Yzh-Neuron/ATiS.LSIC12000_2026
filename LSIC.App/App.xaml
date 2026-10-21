@@ -11,6 +11,26 @@
                 <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Generic.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!--<Color x:Key="ForegroundColor">White</Color>
+            <Color x:Key="SecondForegroundColor">#969696</Color>
+            <Color x:Key="ThirdlyForegroundColor">#6e6e6e</Color>
+            <Color x:Key="FourthForegroundColor">#c0c6cf</Color>
+            <Color x:Key="ContrastForegroundColor">White</Color>
+            <Color x:Key="BorderColor">#3f3f46</Color>
+            <Color x:Key="SecondBorderColor">#555555</Color>
+            <Color x:Key="WindowBorderColor">#262e2f</Color>
+            <Color x:Key="BackgroundColor">#1e1e1e</Color>
+            <Color x:Key="SecondBackgroundColor">#2d2d30</Color>
+            <Color x:Key="ThirdBackgroundColor">#333337</Color>
+            <Color x:Key="HighlighColor">#3f3f46</Color>
+            <Color x:Key="ErrorColor">#db3340</Color>
+            <Color x:Key="WarningColor">#e9af20</Color>
+            <Color x:Key="InfoColor">#00bcd4</Color>
+            <Color x:Key="SuccessColor">#2db84d</Color>
+            <Color x:Key="FatalColor">White</Color>
+            <Color x:Key="QuestionColor">#DB3340</Color>
+            <Color x:Key="MaskColor">#40000000</Color>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>
