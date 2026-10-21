@@ -9,6 +9,7 @@
     <SolidColorBrush x:Key="ContrastForegroundBrush" Color="{DynamicResource ContrastForegroundColor}" />
     <SolidColorBrush x:Key="BorderBrush" Color="{DynamicResource BorderColor}" />
     <SolidColorBrush x:Key="SecondBorderBrush" Color="{DynamicResource SecondBorderColor}" />
+    <SolidColorBrush x:Key="WindowBorderBrush" Color="{DynamicResource WindowBorderColor}" />
     <SolidColorBrush x:Key="BackgroundBrush" Color="{DynamicResource BackgroundColor}" />
     <SolidColorBrush x:Key="SecondBackgroundBrush" Color="{DynamicResource SecondBackgroundColor}" />
     <SolidColorBrush x:Key="ThirdBackgroundBrush" Color="{DynamicResource ThirdBackgroundColor}" />

@@ -9,6 +9,7 @@
     <Color x:Key="ContrastForegroundColor">White</Color>
     <Color x:Key="BorderColor">#3f3f46</Color>
     <Color x:Key="SecondBorderColor">#555555</Color>
+    <Color x:Key="WindowBorderColor">#1e1e1e</Color>
     <Color x:Key="BackgroundColor">#1e1e1e</Color>
     <Color x:Key="SecondBackgroundColor">#2d2d30</Color>
     <Color x:Key="ThirdBackgroundColor">#333337</Color>
