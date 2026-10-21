@@ -7,5 +7,9 @@
     <SolidColorBrush x:Key="AlarmBackgroundBrush" Color="{DynamicResource AlarmBackgroundColor}" />
     <SolidColorBrush x:Key="WarningBackgroundBrush" Color="{DynamicResource WarningBackgroundColor}" />
     <SolidColorBrush x:Key="LoadingBackgroundBrush" Color="{DynamicResource LoadingBackgroundColor}" />
-    <SolidColorBrush x:Key="MaskBrush" Color="{DynamicResource MaskColor}" />
+    <SolidColorBrush x:Key="LogDebugBrush" Color="{DynamicResource LogDebugColor}" />
+    <SolidColorBrush x:Key="LogInfoBrush"  Color="{DynamicResource LogInfoColor}" />
+    <SolidColorBrush x:Key="LogWarnBrush"  Color="{DynamicResource LogWarningColor}" />
+    <SolidColorBrush x:Key="LogErrorBrush" Color="{DynamicResource LogErrorColor}" />
+    <SolidColorBrush x:Key="LogFatalBrush" Color="{DynamicResource LogFatalColor}" />
 </ResourceDictionary>

@@ -2,10 +2,47 @@
 {
     public partial class CtrFlowLogView
     {
-        private static readonly Brush[] LogLevelBrushes;
         private readonly BlockCollection _logsHost;
         private bool _menuIsOpen;
         private readonly int _maxCount = 500;
+
+        #region 画刷
+        public Brush DebugBrush
+        {
+            get { return (Brush)GetValue(DebugBrushProperty); }
+            set { SetValue(DebugBrushProperty, value); }
+        }
+        public static readonly DependencyProperty DebugBrushProperty =
+            DependencyProperty.Register(nameof(DebugBrush), typeof(Brush), typeof(CtrFlowLogView), new PropertyMetadata(Brushes.Gray));
+        public Brush InfoBrush
+        {
+            get { return (Brush)GetValue(InfoBrushProperty); }
+            set { SetValue(InfoBrushProperty, value); }
+        }
+        public static readonly DependencyProperty InfoBrushProperty =
+            DependencyProperty.Register(nameof(InfoBrush), typeof(Brush), typeof(CtrFlowLogView), new PropertyMetadata(Brushes.Black));
+        public Brush WarnBrush
+        {
+            get { return (Brush)GetValue(WarnBrushProperty); }
+            set { SetValue(WarnBrushProperty, value); }
+        }
+        public static readonly DependencyProperty WarnBrushProperty =
+            DependencyProperty.Register(nameof(WarnBrush), typeof(Brush), typeof(CtrFlowLogView), new PropertyMetadata(Brushes.Orange));
+        public Brush ErrorBrush
+        {
+            get { return (Brush)GetValue(ErrorBrushProperty); }
+            set { SetValue(ErrorBrushProperty, value); }
+        }
+        public static readonly DependencyProperty ErrorBrushProperty =
+            DependencyProperty.Register(nameof(ErrorBrush), typeof(Brush), typeof(CtrFlowLogView), new PropertyMetadata(Brushes.Red));
+        public Brush FatalBrush
+        {
+            get { return (Brush)GetValue(FatalBrushProperty); }
+            set { SetValue(FatalBrushProperty, value); }
+        }
+        public static readonly DependencyProperty FatalBrushProperty =
+            DependencyProperty.Register(nameof(FatalBrush), typeof(Brush), typeof(CtrFlowLogView), new PropertyMetadata(Brushes.DarkRed));
+        #endregion
 
         #region FlowLogger 依赖属性
         public static readonly DependencyProperty LoggerProperty =
@@ -48,16 +85,6 @@
             set => SetValue(FilterItemsProperty, value);
         }
         #endregion
-        static CtrFlowLogView()
-        {
-            LogLevel[] levels = Enum.GetValues(typeof(LogLevel)).Cast<LogLevel>().OrderBy(i => i).ToArray();
-            LogLevelBrushes = new Brush[(byte)levels.Max() + 1];
-            LogLevelBrushes[(int)LogLevel.Debug] = Brushes.Gray;
-            LogLevelBrushes[(int)LogLevel.Info] = Brushes.Black;
-            LogLevelBrushes[(int)LogLevel.Warn] = Brushes.Orange;
-            LogLevelBrushes[(int)LogLevel.Error] = Brushes.Red;
-            LogLevelBrushes[(int)LogLevel.Fatal] = Brushes.DarkRed;
-        }
         public CtrFlowLogView()
         {
             InitializeComponent();
@@ -132,7 +159,7 @@
         {
             _menuIsOpen = (bool)e.NewValue;
         }
-        private static Paragraph LogToParagraph(Flow flow)
+        private Paragraph LogToParagraph(Flow flow)
         {
             Paragraph result = new Paragraph
             {
@@ -140,16 +167,27 @@
             };
             Run levelRun = new Run($"[ {flow.Time:HH:mm:ss} {flow.Level.GetString()} ]")
             {
-                Foreground = LogLevelBrushes[(int)flow.Level]
+                Foreground = GetBrush(flow.Level)
             };
             Run messageRun = new Run($" {flow.Message}")
             {
-                Foreground = Brushes.Black
+                Foreground = Foreground
             };
             result.Inlines.Add(levelRun);
             result.Inlines.Add(messageRun);
             return result;
         }
-
+        private Brush GetBrush(LogLevel logLevel)
+        {
+            return logLevel switch
+            {
+                LogLevel.Debug => DebugBrush,
+                LogLevel.Info => InfoBrush,
+                LogLevel.Warn => WarnBrush,
+                LogLevel.Error => ErrorBrush,
+                LogLevel.Fatal => FatalBrush,
+                _ => Foreground
+            };
+        }
     }
 }

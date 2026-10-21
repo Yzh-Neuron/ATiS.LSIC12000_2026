@@ -113,7 +113,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border Background="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}"
-                                        BorderBrush="{DynamicResource ForegroundBrush}"
+                                        BorderBrush="{DynamicResource  ForegroundBrush}"
                                         BorderThickness="1"
                                         CornerRadius="{StaticResource DefaultCornerRadius}">
                                     <TextBlock Grid.Column="0"
@@ -225,8 +225,7 @@
                                                TextWrapping="Wrap" />
                                 </StackPanel>
                             </TabItem.Header>
-                            <views:CtrBurnInBoardView BurnInBoard="{Binding ElementName=MainRegion, Path=DataContext.BurnInfo.BurnInBoard, Mode=OneWay}" 
-                                                      Zone="{Binding ElementName=MainRegion, Path=DataContext, Mode=OneWay}" />
+                            <views:CtrBurnInBoardView BurnInBoard="{Binding ElementName=MainRegion, Path=DataContext.BurnInfo.BurnInBoard, Mode=OneWay}" Zone="{Binding ElementName=MainRegion, Path=DataContext, Mode=OneWay}" />
                         </TabItem>
 
                         <!--  日志  -->

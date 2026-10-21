@@ -713,7 +713,7 @@
 	<Style x:Key="Button.Base" BasedOn="{StaticResource ButtonBase.Base}" TargetType="{x:Type Button}">
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="SnapsToDevicePixels" Value="True" />
-		<Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
+		<Setter Property="Background" Value="{DynamicResource ThirdBackgroundBrush}" />
 		<Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
 		<Setter Property="Template">
 			<Setter.Value>
@@ -851,7 +851,7 @@
 	<Style x:Key="ToolTip.ErrorBubble" BasedOn="{StaticResource Control.Base}" TargetType="{x:Type ToolTip}">
 		<Setter Property="Placement" Value="Top" />
 		<Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
-		<Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource ThirdBackgroundBrush}" />
 		<Setter Property="HorizontalContentAlignment" Value="Center" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="VerticalOffset" Value="-2" />
@@ -867,7 +867,7 @@
 	</Style>
 	<Style x:Key="ToolTip.Default" BasedOn="{StaticResource Control.Base}" TargetType="{x:Type ToolTip}">
 		<Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
-		<Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource ThirdBackgroundBrush}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
 		<Setter Property="Effect" Value="{x:Null}" />
@@ -896,7 +896,7 @@
 			<DataTrigger Binding="{Binding PlacementTarget.(Validation.HasError), RelativeSource={RelativeSource Self}}" Value="True">
 				<Setter Property="Placement" Value="Top" />
 				<Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
-				<Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
+				<Setter Property="Background" Value="{DynamicResource ThirdBackgroundBrush}" />
 				<Setter Property="HorizontalContentAlignment" Value="Center" />
 				<Setter Property="VerticalContentAlignment" Value="Center" />
 				<Setter Property="VerticalOffset" Value="-2" />

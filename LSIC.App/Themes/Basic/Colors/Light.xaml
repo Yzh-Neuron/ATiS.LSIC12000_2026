@@ -9,4 +9,9 @@
     <Color x:Key="ChartGridlineMajorColor">#10000000</Color>
     <Color x:Key="ChartGridlineMinorColor">#08000000</Color>
     <Color x:Key="LoadingBackgroundColor">#A1A1A1</Color>
+    <Color x:Key="LogDebugColor">#808080</Color>
+    <Color x:Key="LogInfoColor">#000000</Color>
+    <Color x:Key="LogWarningColor">#FFA500</Color>
+    <Color x:Key="LogErrorColor">#FF0000</Color>
+    <Color x:Key="LogFatalColor">#8B0000</Color>
 </ResourceDictionary>

@@ -6,7 +6,7 @@
            BasedOn="{StaticResource Control.Base}"
            TargetType="{x:Type TabItem}">
         <Setter Property="Margin" Value="0,0,5,0" />
-        <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource ThirdBackgroundBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="MinWidth" Value="53" />
@@ -38,11 +38,9 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
                             <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -54,7 +52,7 @@
     <Style x:Key="TabControl.Zone"
            BasedOn="{StaticResource Control.Base}"
            TargetType="{x:Type ctrs:ZonesTabControl}">
-        <Setter Property="wpf:BorderHelper.CornerRadius" Value="4" />
+        <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ctrs:ZonesTabControl}">

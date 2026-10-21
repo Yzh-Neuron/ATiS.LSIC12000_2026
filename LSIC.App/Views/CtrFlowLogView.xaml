@@ -16,10 +16,20 @@
              Background="Transparent"
              BorderThickness="0"
              Cursor="Arrow"
+             Foreground="{DynamicResource ForegroundBrush}"
              IsReadOnly="True"
              IsReadOnlyCaretVisible="False"
              VerticalScrollBarVisibility="Auto"
              mc:Ignorable="d">
+    <RichTextBox.Resources>
+        <Style TargetType="{x:Type views:CtrFlowLogView}">
+            <Setter Property="DebugBrush" Value="{DynamicResource LogDebugBrush}" />
+            <Setter Property="InfoBrush"  Value="{DynamicResource LogInfoBrush}" />
+            <Setter Property="WarnBrush"  Value="{DynamicResource LogWarnBrush}" />
+            <Setter Property="ErrorBrush" Value="{DynamicResource LogErrorBrush}" />
+            <Setter Property="FatalBrush" Value="{DynamicResource LogFatalBrush}" />
+        </Style>
+    </RichTextBox.Resources>
     <RichTextBox.ContextMenu>
         <ContextMenu wpf:MenuHelper.PopupMaxHeight="400" IsVisibleChanged="OnMenuVisibleChanged">
             <MenuItem Click="OnClearLogs" Header="{app:Lang {x:Static app:LangKey.ClearLogsText}}" />
@@ -37,5 +47,4 @@
             </MenuItem>
         </ContextMenu>
     </RichTextBox.ContextMenu>
-
 </RichTextBox>

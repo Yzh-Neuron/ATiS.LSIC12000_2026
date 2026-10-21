@@ -16,6 +16,7 @@
       d:DataContext="{d:DesignInstance vms:CtrBurnInBoardViewModel}"
       d:Height="1080"
       d:Width="1920"
+      Background="{DynamicResource ThirdBackgroundBrush}"
       mc:Ignorable="d">
     <Grid.Resources>
         <views:CtrBurnInBoardViewModelProxy x:Key="MainDataContext" Data="{Binding}" />
@@ -28,6 +29,7 @@
     <wpf:MatrixListBox x:Name="PART_DutsList"
                        Grid.Row="0"
                        wpf:BorderHelper.CornerRadius="0"
+                       Background="Transparent"
                        BorderThickness="0,0,0,1"
                        CellHeight="85"
                        CellWidth="85"
