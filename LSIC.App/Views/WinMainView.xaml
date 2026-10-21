@@ -22,8 +22,9 @@
     <wpf:ChromeWindow.TitleBarContent>
         <Button wpf:IconHelper.Geometry="{StaticResource Geometry.Theme}"
                 wpf:IconHelper.Height="13"
+                ToolTip="{app:Lang {x:Static app:LangKey.SwitchThemeText}}"
                 wpf:IconHelper.Width="13"
-                Command="{Binding ToggleThemeCommand}"
+                Click="OnToggleThemeClick"
                 Style="{StaticResource Button.TitleBar}" />
     </wpf:ChromeWindow.TitleBarContent>
     <DockPanel>

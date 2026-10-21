@@ -173,5 +173,11 @@ namespace LSIC.App.Views
             e.Handled = true;
             Device.Instance.Language = UiLanguage.English;
         }
+
+        private void OnToggleThemeClick(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            Device.Instance.ThemeType = Device.Instance.ThemeType == ThemeType.Light ? ThemeType.Dark : ThemeType.Light;
+        }
     }
 }

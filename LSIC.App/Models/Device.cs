@@ -18,6 +18,7 @@ namespace LSIC.App.Models
                 rule.Columns = SystemConfig.LogColumns.Where(i => i.RuleIds.Contains(rule.Id)).ToArray();
             }
             GlobalLanguageManager.SwitchLanguage(Language);
+            GlobalThemeManager.SwitchTheme(ThemeType);
         }
         public SystemConfig SystemConfig { get; }
         private DeviceMode _mode;
@@ -49,14 +50,32 @@ namespace LSIC.App.Models
             }
             set
             {
-                if (_language == value)
-                {
-                    return;
-                }
                 if (SetProperty(ref _language, value))
                 {
                     SystemDatabase.Instance.SetConfig($"{nameof(Device)}.{nameof(Language)}", _language);
                     GlobalLanguageManager.SwitchLanguage(value);
+                }
+            }
+        }
+        private ThemeType? _themeType;
+        public ThemeType ThemeType
+        {
+            get
+            {
+                if (_themeType is not null)
+                {
+                    return _themeType.Value;
+                }
+                _themeType = SystemDatabase.Instance.GetConfig<ThemeType?>($"{nameof(Device)}.{nameof(ThemeType)}");
+                _themeType ??= ThemeType.Light;
+                return _themeType.Value;
+            }
+            set
+            {
+                if (SetProperty(ref _themeType, value))
+                {
+                    SystemDatabase.Instance.SetConfig($"{nameof(Device)}.{nameof(ThemeType)}", value);
+                    GlobalThemeManager.SwitchTheme(value);
                 }
             }
         }

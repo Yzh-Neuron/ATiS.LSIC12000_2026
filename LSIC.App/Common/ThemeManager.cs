@@ -1,6 +1,6 @@
 ﻿namespace LSIC.App
 {
-    public static class ThemeManager
+    public static class GlobalThemeManager
     {
         private sealed record SkinPair(Uri Light, Uri Dark, string Marker);
         private static readonly SkinPair[] Skins =
@@ -18,9 +18,9 @@
         public static ThemeType Current => _current ?? DetectCurrent();
         public static void Toggle()
         {
-            Apply(Current == ThemeType.Light ? ThemeType.Dark : ThemeType.Light);
+            SwitchTheme(Current == ThemeType.Light ? ThemeType.Dark : ThemeType.Light);
         }
-        public static void Apply(ThemeType theme)
+        public static void SwitchTheme(ThemeType theme)
         {
             var dictionaries = Application.Current.Resources.MergedDictionaries;
 
