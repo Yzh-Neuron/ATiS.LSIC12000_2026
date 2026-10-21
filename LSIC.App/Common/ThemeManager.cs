@@ -2,8 +2,8 @@
 {
     public static class ThemeManager
     {
-        private const string SkinLightUri = "pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Skins/Basic/SkinLight.xaml";
-        private const string SkinDarkUri = "pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Skins/Basic/SkinDark.xaml";
+        private const string SkinLightUri = "pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Basic/Skins/SkinLight.xaml";
+        private const string SkinDarkUri = "pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Basic/Skins/SkinDark.xaml";
 
         private static ThemeType? _current;
 
