@@ -1,4 +1,5 @@
-﻿using TcpClient = ATiS.Sim.Communication.TcpClient;
+﻿using OxyPlot.Wpf;
+using TcpClient = ATiS.Sim.Communication.TcpClient;
 
 namespace LSIC.App.Models
 {
@@ -7,12 +8,15 @@ namespace LSIC.App.Models
         private const ushort FrameHeader = 0x55AA;
         private const ushort FrameEnding = 0xEAA5;
         private const int MaxPayloadLength = 4 * 1024 * 1024;
-        public ObservableCollection<DeviceCheckItem> DeviceCheckItems { get; } = new();
+        private CancellationTokenSource _tickCts;
+        private Task _tickTask;
+        private readonly PeriodicTimer _timer = new(TimeSpan.FromMilliseconds(500));
         private bool _disposed;
         private TcpClient _client;
         private List<byte> _buffer;
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
         private readonly SemaphoreSlim _receiveLock = new SemaphoreSlim(1, 1);
+        public ObservableCollection<DeviceCheckItem> DeviceCheckItems { get; } = new();
         public ZoneInfo Info { get; }
         public int Id
         {
@@ -56,8 +60,6 @@ namespace LSIC.App.Models
             get => _outputPin;
             private set => SetProperty(ref _outputPin, value);
         }
-        public Dps[] Dpss { get; }
-        public Vih[] Vihs { get; }
         private BurnInfo _burnInfo = null;
         public BurnInfo BurnInfo
         {
@@ -66,6 +68,8 @@ namespace LSIC.App.Models
         }
         public FlowLogger Logger { get; private set; }
         public ErrorDatabase ErrorDatabase { get; private set; }
+        public Dps[] Dpss { get; }
+        public Vih[] Vihs { get; }
         public Zone(ZoneInfo info, Dps[] dpss)
         {
             Info = info ?? throw new ArgumentNullException(nameof(info));
@@ -100,8 +104,8 @@ namespace LSIC.App.Models
             _client.ReceivedData += OnReceivedData;
             _client.Start();
             _client.StartAutoReceive();
-            //_timer = new Timer(Tick, null, 500, 500);
 
+            StartTicker();
             Logger.LogInfo(LangProvider.Instance.WorkerThreadStartedMessage);
         }
         private void UpdateZoneState(ZoneState state, ZoneErrorType? error = null, byte[] data = null)
@@ -191,6 +195,91 @@ namespace LSIC.App.Models
 
             State = state;
         }
+
+        #region 后台任务
+
+        private void StartTicker()
+        {
+            _tickCts = new CancellationTokenSource();
+            var token = _tickCts.Token;
+            _tickTask = Task.Factory.StartNew(
+                () => TickLoopAsync(token),
+                token,
+                TaskCreationOptions.LongRunning,
+                TaskScheduler.Default).Unwrap();
+        }
+        private void StopTicker()
+        {
+            _tickCts?.Cancel();
+
+            try
+            {
+                _tickTask?.Wait(TimeSpan.FromSeconds(3));
+            }
+            catch (AggregateException ae) when (ae.InnerException is OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                Logger?.LogError($"zone {Id} stop ticker error : " + ex.Message);
+            }
+
+            _tickCts?.Dispose();
+            _tickCts = null;
+            _tickTask = null;
+
+            _timer.Dispose();
+        }
+        private async Task TickLoopAsync(CancellationToken ct)
+        {
+            bool hasError = false;
+            Stopwatch stopwatch = new();
+            try
+            {
+                while (await _timer.WaitForNextTickAsync(ct).ConfigureAwait(false))
+                {
+                    try
+                    {
+                        if (Connected)
+                        {
+                            await GetDpsStateAsync().ConfigureAwait(false);
+                        }
+
+                        var burnInfo = BurnInfo;
+                        if (State == ZoneState.Burning && burnInfo != null)
+                        {
+                            double intervalMs = TimeSpan.FromSeconds(burnInfo.LogInterval.TotalSeconds).TotalMilliseconds;
+
+                            if (!stopwatch.IsRunning)
+                            {
+                                stopwatch.Restart();
+                            }
+                            else if (stopwatch.ElapsedMilliseconds >= intervalMs)
+                            {
+                                burnInfo.Logger.LogData(burnInfo.CurrentStep, burnInfo.CurrentVector, Dpss);
+                                stopwatch.Restart();
+                            }
+                        }
+                        else
+                        {
+                            stopwatch.Reset();
+                        }
+                        hasError = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        if (!hasError)
+                        {
+                            hasError = true;
+                            string msg = ex.GetBaseException().Message;
+                            Logger?.LogError(string.Format(LangProvider.Instance.ZoneBackgroundTaskErrorMessage, Id, msg));
+                        }
+                    }
+                }
+            }
+            catch (OperationCanceledException) { }
+            catch (ObjectDisposedException) { }
+        }
+
+        #endregion
 
         #region 下发器件
         public async ValueTask SendIcAsync()
@@ -1407,10 +1496,14 @@ namespace LSIC.App.Models
                 return;
             }
 
-            // 老化区日志（Data/Error/SPI）先释放
+            //循环任务的释放
+            StopTicker();
+
+            //释放老化信息中的老化日志
             BurnInfo?.Dispose();
             BurnInfo = null;
 
+            //释放连接
             if (_client is not null)
             {
                 _client.StateChanged -= OnStateChanged;
@@ -1419,10 +1512,11 @@ namespace LSIC.App.Models
                 _client = null;
             }
 
-            // 流程日志最后释放（断开连接过程中可能再写日志）
+            //释放区日志
             Logger?.Dispose();
+            Logger = null;
 
-            // 信号量最后释放；若仍有 fire-and-forget 接收任务收尾，其异常由事件 SafeInvoke 兜底
+            //释放信号和锁
             _semaphore.Dispose();
             _receiveLock.Dispose();
 

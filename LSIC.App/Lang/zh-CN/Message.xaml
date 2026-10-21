@@ -70,4 +70,5 @@
     <sys:String x:Key="VisualChildIndexOutOfRangeMessage">可视子元素索引 '{0}' 超出范围</sys:String>
     <sys:String x:Key="JobObjectSetInformationFailedMessage">无法设置作业对象信息，错误码：{0}</sys:String>
     <sys:String x:Key="ThermostatCoefficientSetSuccessMessage">温控系数设置成功</sys:String>
+    <sys:String x:Key="ZoneBackgroundTaskErrorMessage">{0} 区后台任务异常：{1}</sys:String>
 </ResourceDictionary>

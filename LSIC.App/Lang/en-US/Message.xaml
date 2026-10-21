@@ -70,4 +70,5 @@
     <sys:String x:Key="VisualChildIndexOutOfRangeMessage">Index of visual child '{0}' is out of range</sys:String>
     <sys:String x:Key="JobObjectSetInformationFailedMessage">Unable to set information, error: {0}</sys:String>
     <sys:String x:Key="ThermostatCoefficientSetSuccessMessage">Thermostat coefficient set successfully</sys:String>
+    <sys:String x:Key="ZoneBackgroundTaskErrorMessage">Zone {0} background task error: {1}</sys:String>
 </ResourceDictionary>

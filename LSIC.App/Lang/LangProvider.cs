@@ -992,6 +992,11 @@ namespace LSIC.App
         public string ThermostatCoefficientSetSuccessMessage => GetString("ThermostatCoefficientSetSuccessMessage");
 
         /// <summary>
+        /// {0} 区后台任务异常：{1}
+        /// </summary>
+        public string ZoneBackgroundTaskErrorMessage => GetString("ZoneBackgroundTaskErrorMessage");
+
+        /// <summary>
         /// 见微知著·科技赋能·创造非凡价值
         /// </summary>
         public string ConceptText => GetString("ConceptText");
@@ -1896,6 +1901,7 @@ namespace LSIC.App
         /// </summary>
         public string DutMaskText => GetString("DutMaskText");
 
+
         protected override void OnLanguageChanged()
         {
             OnPropertyChanged(nameof(CurrentLanguage));
@@ -2289,6 +2295,8 @@ namespace LSIC.App
             OnPropertyChanged(nameof(JobObjectSetInformationFailedMessage));
 
             OnPropertyChanged(nameof(ThermostatCoefficientSetSuccessMessage));
+
+            OnPropertyChanged(nameof(ZoneBackgroundTaskErrorMessage));
 
             OnPropertyChanged(nameof(ConceptText));
 
@@ -3632,6 +3640,11 @@ namespace LSIC.App
         /// 温控系数设置成功
         /// </summary>
         public const string ThermostatCoefficientSetSuccessMessage = nameof(ThermostatCoefficientSetSuccessMessage);
+
+         /// <summary>
+        /// {0} 区后台任务异常：{1}
+        /// </summary>
+        public const string ZoneBackgroundTaskErrorMessage = nameof(ZoneBackgroundTaskErrorMessage);
 
          /// <summary>
         /// 见微知著·科技赋能·创造非凡价值
