@@ -4,7 +4,7 @@
     <Style x:Key="CheckBox.Default"
            BasedOn="{StaticResource Control.Base}"
            TargetType="{x:Type CheckBox}">
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />

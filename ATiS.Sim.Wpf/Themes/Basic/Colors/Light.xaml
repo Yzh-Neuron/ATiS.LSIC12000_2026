@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
-    <Color x:Key="PrimaryColor">#1c49e3</Color>
+    <Color x:Key="PrimaryColor">#1C49E3</Color>
     <Color x:Key="ForegroundColor">#212121</Color>
     <Color x:Key="SecondForegroundColor">#757575</Color>
     <Color x:Key="ThirdlyForegroundColor">#bdbdbd</Color>

@@ -292,8 +292,7 @@
                                        Height="1"
                                        Margin="10,0,0,0"
                                        VerticalAlignment="Bottom"
-                                       Fill="#EEEEEE"
-                                       Opacity="0.8" />
+                                       Fill="{DynamicResource BorderBrush}" />
 
                             <Grid x:Name="PART_MonthView"
                                   Grid.Row="2"

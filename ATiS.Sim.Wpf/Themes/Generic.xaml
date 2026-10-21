@@ -236,9 +236,9 @@
 			<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ., StringFormat={}R{0}}" />
 		</Border>
 	</DataTemplate>
-	<DropShadowEffect x:Key="EffectShadow1" o:Freeze="True" BlurRadius="5" Direction="270" Opacity=".2" RenderingBias="Performance" ShadowDepth="1" Color="{StaticResource EffectShadowColor}" />
-	<DropShadowEffect x:Key="EffectShadow2" o:Freeze="True" BlurRadius="8" Direction="270" Opacity=".2" RenderingBias="Performance" ShadowDepth="1.5" Color="{StaticResource EffectShadowColor}" />
-	<DropShadowEffect x:Key="EffectShadow3" o:Freeze="True" BlurRadius="5" Direction="270" Opacity="0.8" ShadowDepth="0.6" Color="{StaticResource EffectShadowColor2}" />
+	<DropShadowEffect x:Key="EffectShadow1" BlurRadius="5" Direction="270" Opacity=".2" RenderingBias="Performance" ShadowDepth="1" Color="{StaticResource EffectShadowColor}" />
+	<DropShadowEffect x:Key="EffectShadow2" BlurRadius="8" Direction="270" Opacity=".2" RenderingBias="Performance" ShadowDepth="1.5" Color="{StaticResource EffectShadowColor}" />
+	<DropShadowEffect x:Key="EffectShadow3" BlurRadius="5" Direction="270" Opacity="0.8" ShadowDepth="0.6" Color="{StaticResource EffectShadowColor2}" />
 	<Style x:Key="Control.Base" TargetType="{x:Type Control}">
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 		<Setter Property="FontSize" Value="{StaticResource TextFontSize}" />
@@ -756,7 +756,7 @@
 	</Style>
 	<Style BasedOn="{StaticResource Button.Default}" TargetType="{x:Type Button}" />
 	<Style x:Key="CheckBox.Default" BasedOn="{StaticResource Control.Base}" TargetType="{x:Type CheckBox}">
-		<Setter Property="Background" Value="White" />
+		<Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -1083,7 +1083,7 @@
 								</Button.ContentTemplate>
 							</Button>
 							<Button x:Name="PART_NextButton" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" wpf:IconHelper.Geometry="{StaticResource Geometry.Next}" wpf:IconHelper.Height="12" wpf:IconHelper.Width="12" Focusable="False" Style="{StaticResource Button.Icon}" />
-							<Rectangle x:Name="PA_Line" Grid.Row="1" Grid.ColumnSpan="3" Height="1" Margin="10,0,0,0" VerticalAlignment="Bottom" Fill="#EEEEEE" Opacity="0.8" />
+							<Rectangle x:Name="PA_Line" Grid.Row="1" Grid.ColumnSpan="3" Height="1" Margin="10,0,0,0" VerticalAlignment="Bottom" Fill="{DynamicResource BorderBrush}" />
 							<Grid x:Name="PART_MonthView" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition />
@@ -2073,7 +2073,7 @@
 		</Setter>
 	</Style>
 	<Style x:Key="CheckBox.DataGridColumn" BasedOn="{StaticResource Control.Base}" TargetType="{x:Type CheckBox}">
-		<Setter Property="Background" Value="White" />
+		<Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
