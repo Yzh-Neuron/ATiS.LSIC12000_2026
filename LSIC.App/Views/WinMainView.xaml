@@ -42,6 +42,8 @@
                     <ColumnDefinition Width="200" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
+
+                <Border Grid.RowSpan="2" Background="{DynamicResource ThirdBackgroundBrush}" />
                 <wpf:AtisLogo Grid.RowSpan="2"
                               Height="45"
                               HorizontalAlignment="Center"
@@ -167,14 +169,14 @@
                     TabStripPlacement="Left">
             <TabItem>
                 <TabItem.Header>
-                    <Image Width="20" Source="{StaticResource Image.Blocks}" />
+                    <Image Width="20" Source="{DynamicResource Image.Blocks}" />
                 </TabItem.Header>
                 <!--  老化界面  -->
                 <views:CtrHomeView Margin="10" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <Image Width="20" Source="{StaticResource Image.DataView}" />
+                    <Image Width="20" Source="{DynamicResource Image.DataView}" />
                 </TabItem.Header>
                 <!--  数据记录界面  -->
                 <views:CtrLogBrowseView x:Name="LogBrowse" Margin="10" />

@@ -41,7 +41,7 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
+                            <Setter Property="Effect" Value="{DynamicResource EffectShadow3}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

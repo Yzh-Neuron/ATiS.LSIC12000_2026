@@ -2,6 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:wpf="clr-namespace:ATiS.Sim.Wpf">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/Bases/Themes.Basic.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/Bases/Control.Base.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <Style x:Key="TabItem.Default"
            BasedOn="{StaticResource Control.Base}"
            TargetType="{x:Type TabItem}">
@@ -81,8 +87,7 @@
                         <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}"
-                                Effect="{x:Null}" />
+                                CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}" />
                         <wpf:ClipBorder BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}">
                             <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
                                 <Grid.ColumnDefinitions>

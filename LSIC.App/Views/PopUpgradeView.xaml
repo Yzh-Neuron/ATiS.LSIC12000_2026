@@ -63,6 +63,7 @@
                     <ListBox Grid.Row="2"
                              HorizontalContentAlignment="Stretch"
                              wpf:BorderHelper.CornerRadius="0,0,4,4"
+                             Background="Transparent"
                              BorderThickness="0"
                              Grid.IsSharedSizeScope="True"
                              ItemsSource="{Binding Zones}"

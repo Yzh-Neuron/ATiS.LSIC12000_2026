@@ -16,7 +16,6 @@
       d:DataContext="{d:DesignInstance vms:CtrBurnInBoardViewModel}"
       d:Height="1080"
       d:Width="1920"
-      Background="{DynamicResource ThirdBackgroundBrush}"
       mc:Ignorable="d">
     <Grid.Resources>
         <views:CtrBurnInBoardViewModelProxy x:Key="MainDataContext" Data="{Binding}" />
@@ -100,7 +99,7 @@
         </wpf:MatrixListBox.ItemTemplate>
     </wpf:MatrixListBox>
 
-    <Grid Grid.Row="1"
+    <Grid Grid.Row="1" 
           Margin="10"
           VerticalAlignment="Top"
           DataContext="{Binding SelectedBurnDut}"

@@ -1,6 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:wpf="clr-namespace:ATiS.Sim.Wpf">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/Bases/Control.Base.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <ControlTemplate x:Key="ToolTip.ErrorBubble.Template" TargetType="ToolTip">
         <wpf:SimplePanel>
             <Border Margin="0,0,0,10"
@@ -8,7 +13,7 @@
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="1"
                     CornerRadius="{StaticResource DefaultCornerRadius}"
-                    Effect="{StaticResource EffectShadow3}">
+                    Effect="{DynamicResource EffectShadow3}">
                 <ContentPresenter Margin="{TemplateBinding Padding}"
                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -29,7 +34,7 @@
            TargetType="{x:Type ToolTip}">
         <Setter Property="Placement" Value="Top" />
         <Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
-        <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource ThirdBackgroundBrush}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="VerticalOffset" Value="-2" />
@@ -48,7 +53,7 @@
            BasedOn="{StaticResource Control.Base}"
            TargetType="{x:Type ToolTip}">
         <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
-        <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource ThirdBackgroundBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Effect" Value="{x:Null}" />
@@ -86,7 +91,7 @@
             <DataTrigger Binding="{Binding PlacementTarget.(Validation.HasError), RelativeSource={RelativeSource Self}}" Value="True">
                 <Setter Property="Placement" Value="Top" />
                 <Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}" />
-                <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
+                <Setter Property="Background" Value="{DynamicResource ThirdBackgroundBrush}" />
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="VerticalOffset" Value="-2" />

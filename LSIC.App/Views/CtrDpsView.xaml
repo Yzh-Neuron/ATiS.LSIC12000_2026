@@ -239,7 +239,7 @@
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
                                         <Setter TargetName="MainContainer" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                                        <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
+                                        <Setter Property="Effect" Value="{DynamicResource EffectShadow3}" />
                                     </Trigger>
 
                                     <Trigger Property="IsSelected" Value="true">

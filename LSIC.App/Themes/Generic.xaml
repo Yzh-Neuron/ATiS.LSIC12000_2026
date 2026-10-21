@@ -5,7 +5,6 @@
 
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Converters/Converters.xaml" />
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Geometries.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Image.xaml" />
 
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Styles/TextBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Styles/Button.xaml" />

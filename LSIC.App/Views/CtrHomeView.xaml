@@ -32,7 +32,7 @@
                     Command="{Binding ZoneListViewCommand}"
                     Cursor="Hand"
                     ToolTip="{app:Lang {x:Static app:LangKey.ViewListText}}">
-                <Image Width="25" Source="{StaticResource Image.ZoneListView}" />
+                <Image Width="25" Source="{DynamicResource Image.ZoneListView}" />
                 <Button.Style>
                     <Style BasedOn="{StaticResource Button.Base}" TargetType="{x:Type Button}">
                         <Style.Triggers>
@@ -113,8 +113,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border Background="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}"
-                                        BorderBrush="{DynamicResource  ForegroundBrush}"
-                                        BorderThickness="1"
+                                        BorderThickness="0"
                                         CornerRadius="{StaticResource DefaultCornerRadius}">
                                     <TextBlock Grid.Column="0"
                                                Margin="10,0,0,0"
@@ -131,8 +130,7 @@
 
                                 <wpf:SimplePanel Grid.Column="1" Margin="5,0,0,0">
                                     <Border Background="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}"
-                                            BorderBrush="{DynamicResource ForegroundBrush}"
-                                            BorderThickness="1"
+                                            BorderThickness="0"
                                             CornerRadius="{StaticResource DefaultCornerRadius}">
                                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                             <TextBlock FontSize="13">
@@ -153,9 +151,8 @@
                                                   wpf:IconHelper.Geometry="{StaticResource Geometry.SlotUninserted}"
                                                   wpf:IconHelper.Height="15"
                                                   wpf:IconHelper.Width="15"
-                                                  Background="{DynamicResource SecondBackgroundBrush}"
-                                                  BorderBrush="{DynamicResource ForegroundBrush}"
-                                                  BorderThickness="1"
+                                                  Background="{DynamicResource ThirdBackgroundBrush}"
+                                                  BorderThickness="0"
                                                   IsChecked="{Binding Pluged, Mode=OneWay}"
                                                   IsHitTestVisible="False">
                                         <ToggleButton.Style>
@@ -200,7 +197,7 @@
                         <TabItem Visibility="{Binding BurnInfo, Converter={StaticResource NotNullToVisibilityConverter}}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Vertical">
-                                    <Image Width="16" Source="{StaticResource Image.Monitor}" />
+                                    <Image Width="16" Source="{DynamicResource Image.Monitor}" />
                                     <TextBlock MaxWidth="11"
                                                Margin="0,5,0,0"
                                                HorizontalAlignment="Center"
@@ -216,7 +213,7 @@
                         <TabItem Visibility="{Binding BurnInfo, Converter={StaticResource NotNullToVisibilityConverter}}">
                             <TabItem.Header>
                                 <StackPanel Orientation="Vertical">
-                                    <Image Width="16" Source="{StaticResource Image.Dut}" />
+                                    <Image Width="16" Source="{DynamicResource Image.Dut}" />
                                     <TextBlock MaxWidth="11"
                                                Margin="0,5,0,0"
                                                HorizontalAlignment="Center"
@@ -232,7 +229,7 @@
                         <TabItem>
                             <TabItem.Header>
                                 <StackPanel Orientation="Vertical">
-                                    <Image Width="16" Source="{StaticResource Image.LogViewer}" />
+                                    <Image Width="16" Source="{DynamicResource Image.LogViewer}" />
                                     <TextBlock MaxWidth="11"
                                                Margin="0,5,0,0"
                                                HorizontalAlignment="Center"

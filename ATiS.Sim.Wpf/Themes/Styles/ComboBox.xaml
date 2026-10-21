@@ -2,6 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:wpf="clr-namespace:ATiS.Sim.Wpf">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/Bases/Input.Base.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
     <ControlTemplate x:Key="Template.ComboBoxEditable" TargetType="{x:Type ComboBox}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -79,8 +84,7 @@
                                     Background="{DynamicResource SecondBackgroundBrush}"
                                     BorderBrush="{DynamicResource BorderBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}"
-                                    Effect="{x:Null}">
+                                    CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}">
                         <wpf:StateBlock HorizontalContentAlignment="Stretch"
                                         VerticalContentAlignment="Stretch"
                                         IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
@@ -184,8 +188,7 @@
                                     Background="{DynamicResource SecondBackgroundBrush}"
                                     BorderBrush="{DynamicResource BorderBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}"
-                                    Effect="{x:Null}">
+                                    CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}">
                         <wpf:StateBlock HorizontalContentAlignment="Stretch"
                                         VerticalContentAlignment="Stretch"
                                         IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
@@ -299,12 +302,12 @@
 
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
+                <Setter Property="Effect" Value="{DynamicResource EffectShadow3}" />
             </Trigger>
 
             <Trigger Property="IsFocused" Value="true">
                 <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
+                <Setter Property="Effect" Value="{DynamicResource EffectShadow3}" />
             </Trigger>
         </Style.Triggers>
     </Style>

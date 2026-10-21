@@ -3,5 +3,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Colors/Light.xaml" />
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Brushes.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Image.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

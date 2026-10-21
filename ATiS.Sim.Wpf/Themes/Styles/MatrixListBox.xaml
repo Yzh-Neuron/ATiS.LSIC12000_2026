@@ -4,6 +4,12 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:wpf="clr-namespace:ATiS.Sim.Wpf"
                     mc:Ignorable="d">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/ScrollViewer.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ATiS.Sim.Wpf;component/Themes/Styles/ToggleButton.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
     <!--  列头默认模板 C{index}  -->
     <DataTemplate x:Key="MatrixListBox.ColumnHeader.Default">
         <Border Width="{Binding CellWidth, RelativeSource={RelativeSource AncestorType=wpf:MatrixListBox}}"

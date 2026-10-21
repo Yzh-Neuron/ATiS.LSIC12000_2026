@@ -7,9 +7,6 @@
     <Color x:Key="ThirdlyForegroundColor">#6e6e6e</Color>
     <Color x:Key="FourthForegroundColor">#c0c6cf</Color>
     <Color x:Key="ContrastForegroundColor">White</Color>
-    <Color x:Key="BorderColor">#4A4A54</Color>
-    <Color x:Key="SecondBorderColor">#232327</Color>
-    <Color x:Key="WindowBorderColor">#262e2f</Color>
     <Color x:Key="HighlighColor">#3f3f46</Color>
     <Color x:Key="ErrorColor">#FFACAC</Color>
     <Color x:Key="WarningColor">#FFC63F</Color>
@@ -19,7 +16,9 @@
     <Color x:Key="QuestionColor">#F0555F</Color>
     <Color x:Key="MaskColor">#40000000</Color>
 
-
+    <Color x:Key="BorderColor">#4A4A54</Color>
+    <Color x:Key="SecondBorderColor">#232327</Color>
+    <Color x:Key="WindowBorderColor">#5A5A63</Color>
     <Color x:Key="BackgroundColor">#2B2B31</Color>
     <Color x:Key="SecondBackgroundColor">#222228</Color>
     <Color x:Key="ThirdBackgroundColor">#2B2B31</Color>

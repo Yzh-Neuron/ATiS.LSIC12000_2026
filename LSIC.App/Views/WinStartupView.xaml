@@ -103,7 +103,7 @@
                             <DataTemplate>
                                 <wpf:LoadingCircle Width="20"
                                                    Height="20"
-                                                   DotCount="6"
+                                                   DotCount="5"
                                                    DotDelayTime="100"
                                                    DotDiameter="3.6"
                                                    DotInterval="20"

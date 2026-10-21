@@ -10,8 +10,7 @@
             {
                 ZoneState.Init or ZoneState.Idle or ZoneState.Ready or ZoneState.Stop => Res("PrimaryBrush"),
                 ZoneState.PowerUp or ZoneState.Burning or ZoneState.PowerDown => Res("SuccessBrush"),
-                ZoneState.Sending or ZoneState.DeviceChecking or ZoneState.DpsChecking
-                    or ZoneState.Upgrading or ZoneState.Transition => Res("WarningBrush"),
+                ZoneState.Sending or ZoneState.DeviceChecking or ZoneState.DpsChecking or ZoneState.Upgrading or ZoneState.Transition => Res("WarningBrush"),
                 ZoneState.Offline => Res("SecondForegroundBrush"),
                 ZoneState.DeviceCheckFail or ZoneState.IcError or ZoneState.Error => Res("ErrorBrush"),
                 _ => throw new ArgumentOutOfRangeException(nameof(value))
