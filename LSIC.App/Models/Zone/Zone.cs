@@ -1,5 +1,4 @@
-﻿using OxyPlot.Wpf;
-using TcpClient = ATiS.Sim.Communication.TcpClient;
+﻿using TcpClient = ATiS.Sim.Communication.TcpClient;
 
 namespace LSIC.App.Models
 {
@@ -922,7 +921,7 @@ namespace LSIC.App.Models
         }
         private async Task AnalysisFrame(ZoneFunctionCode code, byte[] data, byte[] checkBytes)
         {
-            if (FrameFilterUtility.Filter(Logger, code))
+            if (Device.Instance.Mode == DeviceMode.Administrator && FrameFilterUtility.Filter(Logger, code))
             {
                 Logger.LogDebug($"Rx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
             }
@@ -1362,7 +1361,7 @@ namespace LSIC.App.Models
                 await _client.SendAsync(frame);
 
 
-                if (FrameFilterUtility.Filter(Logger, code))
+                if (Device.Instance.Mode == DeviceMode.Administrator && FrameFilterUtility.Filter(Logger, code))
                 {
                     Logger.LogDebug($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
                 }

@@ -19,17 +19,46 @@
                 }
             }
         }
-
         public int? Vol => BurnDps?.Vol;
         public int? Uvp => BurnDps?.Uvp;
         public int? Ovp => BurnDps?.Ovp;
         public int? Ocp => BurnDps?.Ocp;
-        public DpsState State { get; private set; } = DpsState.Idle;
-        public int InputVoltage { get; private set; }
-        public int OutputVoltage { get; private set; }
-        public int OutputCurrent { get; private set; }
-        public int OutputPower => OutputVoltage * OutputCurrent;
-        public int Temperature { get; private set; }
+        private DpsState _state = DpsState.Idle;
+        public DpsState State
+        {
+            get => _state;
+            private set => SetProperty(ref _state, value);
+        }
+        private int _temperature;
+        public int Temperature
+        {
+            get => _temperature;
+            private set => SetProperty(ref _temperature, value);
+        }
+        private int _inputVoltage;
+        public int InputVoltage
+        {
+            get => _inputVoltage;
+            private set => SetProperty(ref _inputVoltage, value);
+        }
+        private int _outputVoltage;
+        public int OutputVoltage
+        {
+            get => _outputVoltage;
+            private set => SetProperty(ref _outputVoltage, value);
+        }
+        private int _outputCurrent;
+        public int OutputCurrent
+        {
+            get => _outputCurrent;
+            private set => SetProperty(ref _outputCurrent, value);
+        }
+        private int _outputPower;
+        public int OutputPower
+        {
+            get => _outputPower;
+            private set => SetProperty(ref _outputPower, value);
+        }
         public Dps(DpsInfo dpsInfo)
         {
             Id = dpsInfo.Id;
@@ -43,12 +72,10 @@
             OutputCurrent = outputCurrent;
             Temperature = temperature;
 
-            OnPropertyChanged(nameof(State));
-            OnPropertyChanged(nameof(InputVoltage));
-            OnPropertyChanged(nameof(OutputVoltage));
-            OnPropertyChanged(nameof(OutputCurrent));
-            OnPropertyChanged(nameof(OutputPower));
-            OnPropertyChanged(nameof(Temperature));
+            if (outputVoltage != _outputVoltage || outputCurrent != _outputCurrent)
+            {
+                OutputPower = OutputVoltage * OutputCurrent;
+            }
         }
     }
 }

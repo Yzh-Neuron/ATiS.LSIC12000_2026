@@ -44,7 +44,8 @@
             </TextBlock>
         </Grid>
         <wpf:SimplePanel Grid.Row="1" Margin="10">
-            <Border BorderBrush="{DynamicResource BorderBrush}"
+            <Border Background="{DynamicResource ThirdBackgroundBrush}"
+                    BorderBrush="{DynamicResource BorderBrush}"
                     BorderThickness="1"
                     CornerRadius="{DynamicResource DefaultCornerRadius}" />
             <RichTextBox x:Name="LogBox"
@@ -57,7 +58,7 @@
                 <FlowDocument x:Name="LogFlowDocument" LineHeight="2.4" />
             </RichTextBox>
         </wpf:SimplePanel>
-        <DockPanel Grid.Row="2"
+        <!--<DockPanel Grid.Row="2"
                    Height="36"
                    Margin="0,0,0,10">
             <Button Width="100"
@@ -87,6 +88,6 @@
                     DockPanel.Dock="Right"
                     Foreground="{DynamicResource ForegroundBrush}" />
             <Grid />
-        </DockPanel>
+        </DockPanel>-->
     </Grid>
 </wpf:ChromeWindow>

@@ -9,7 +9,18 @@
             {
                 Foreground = Brushes.Red
             };
-            LogFlowDocument.Blocks.Add(paragraph);
+
+            var blocks = LogFlowDocument.Blocks;
+            blocks.Add(paragraph);
+
+            if (blocks.Count > 500)
+            {
+                while (blocks.Count > 400)
+                {
+                    blocks.Remove(blocks.FirstBlock);
+                }
+            }
+
             TryScollToBottom();
         }
         private void TryScollToBottom()

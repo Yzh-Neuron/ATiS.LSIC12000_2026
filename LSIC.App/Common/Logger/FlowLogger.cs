@@ -14,11 +14,7 @@
         }
         public void LogDebug(string message)
         {
-            //调试日志不记录本地
-            if (Device.Instance.Mode == DeviceMode.Administrator)
-            {
-                AddFlow(DateTime.Now, LogLevel.Info, message);
-            }
+            AddFlow(DateTime.Now, LogLevel.Info, message);
         }
         public void LogInfo(string message)
         {

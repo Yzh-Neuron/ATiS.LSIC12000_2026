@@ -20,7 +20,7 @@ namespace LSIC.App.Attachs
         public static readonly DependencyProperty HasErrorsProperty = HasErrorsPropertyKey.DependencyProperty;
         public static bool GetHasErrors(DependencyObject obj) => (bool)obj.GetValue(HasErrorsProperty);
 
-        private static readonly ConditionalWeakTable<FrameworkElement, HashSet<INotifyDataErrorInfo>> Subscriptions = new();
+        private static readonly ConditionalWeakTable<FrameworkElement, Subscription> Subscriptions = new();
         private static readonly Dictionary<Type, PropertyInfo[]> PropertiesCache = new();
         private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -63,25 +63,29 @@ namespace LSIC.App.Attachs
         }
         private static void Subscribe(FrameworkElement element, object source)
         {
-            HashSet<INotifyDataErrorInfo> set = Subscriptions.GetOrCreateValue(element);
+            Subscription sub = Subscriptions.GetOrCreateValue(element);
             Traverse(source, info =>
             {
-                if (set.Add(info))
+                if (sub.Infos.Add(info))
                 {
-                    info.ErrorsChanged += (_, __) => UpdateValidationState(element);
+                    EventHandler<DataErrorsChangedEventArgs> handler = (_, __) => UpdateValidationState(element);
+                    sub.Handlers[info] = handler;
+                    info.ErrorsChanged += handler;
                 }
             });
             UpdateValidationState(element);
         }
         private static void Unsubscribe(FrameworkElement element)
         {
-            if (Subscriptions.TryGetValue(element, out HashSet<INotifyDataErrorInfo> set))
+            if (Subscriptions.TryGetValue(element, out Subscription sub))
             {
-                foreach (INotifyDataErrorInfo info in set)
+                foreach (INotifyDataErrorInfo info in sub.Infos)
                 {
-                    info.ErrorsChanged -= (_, __) => UpdateValidationState(element);
+                    if (sub.Handlers.TryGetValue(info, out EventHandler<DataErrorsChangedEventArgs> handler))
+                    {
+                        info.ErrorsChanged -= handler;
+                    }
                 }
-                set.Clear();
 
                 element.SetValue(ErrorsPropertyKey, string.Empty);
                 element.SetValue(HasErrorsPropertyKey, ValueBoxes.FalseBox);
@@ -155,6 +159,11 @@ namespace LSIC.App.Attachs
                 element.SetValue(ErrorsPropertyKey, string.Empty);
                 element.SetValue(HasErrorsPropertyKey, ValueBoxes.FalseBox);
             }
+        }
+        private sealed class Subscription
+        {
+            public HashSet<INotifyDataErrorInfo> Infos { get; } = [];
+            public Dictionary<INotifyDataErrorInfo, EventHandler<DataErrorsChangedEventArgs>> Handlers { get; } = [];
         }
     }
 }

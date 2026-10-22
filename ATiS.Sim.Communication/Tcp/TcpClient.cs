@@ -149,12 +149,13 @@ namespace ATiS.Sim.Communication
         public int Send(byte[] buffer, int offset, int count)
         {
             bool semaphoreHeld = false;
+            ClientConnectState state = null;
             try
             {
                 ThrowIfDisposed();
                 ThrowIfBufferArgsError(buffer, offset, count);
 
-                ClientConnectState state = ConnectState;
+                state = ConnectState;
                 if (state == null || state.Life.IsCancellationRequested)
                 {
                     return 0;
@@ -172,9 +173,7 @@ namespace ATiS.Sim.Communication
             }
             catch (Exception e)
             {
-                ConnectState?.Life?.Cancel();
-                Connected = false;
-                OnException(Socket.LocalEndPoint as IPEndPoint, RemoteEndPoint, e);
+                MarkConnectStateDead(state, e);
                 return 0;
             }
             finally
@@ -194,12 +193,13 @@ namespace ATiS.Sim.Communication
         public async ValueTask<int> SendAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken = default)
         {
             bool semaphoreHeld = false;
+            ClientConnectState state = null;
             try
             {
                 ThrowIfDisposed();
                 ThrowIfBufferArgsError(buffer, offset, count);
 
-                ClientConnectState state = ConnectState;
+                state = ConnectState;
                 if (state == null || state.Life.IsCancellationRequested)
                 {
                     return 0;
@@ -218,9 +218,7 @@ namespace ATiS.Sim.Communication
             }
             catch (Exception e)
             {
-                ConnectState?.Life?.Cancel();
-                Connected = false;
-                OnException(Socket.LocalEndPoint as IPEndPoint, RemoteEndPoint, e);
+                MarkConnectStateDead(state, e);
                 return 0;
             }
             finally
@@ -338,10 +336,49 @@ namespace ATiS.Sim.Communication
                 }
                 catch (Exception e)
                 {
-                    ConnectState?.Life?.Cancel();
-                    Connected = false;
-                    OnException(Socket.LocalEndPoint as IPEndPoint, RemoteEndPoint, e);
+                    MarkConnectStateDead(ConnectState, e);
                 }
+            }
+        }
+
+        /// <summary>
+        /// 标记连接为死连接并上报异常。该方法与 ConnectJob 重连并发执行，
+        /// 期间 CTS 可能已被 ConnectJob 释放、Socket 可能已被重建，
+        /// 清理动作必须吞掉二次异常，否则接收循环会被异常杀死，重连后永久收不到数据
+        /// </summary>
+        private void MarkConnectStateDead(ClientConnectState stateAtError, Exception e)
+        {
+            if (stateAtError is not null)
+            {
+                try
+                {
+                    stateAtError.Life.Cancel();
+                }
+                catch (ObjectDisposedException)
+                {
+                    // ConnectJob 已释放该连接，无需重复处理
+                }
+            }
+
+            // 仅当当前连接仍是报错的连接时才置断开，避免旧连接的延迟异常误杀已建立的新连接
+            if (ReferenceEquals(ConnectState, stateAtError))
+            {
+                try
+                {
+                    Connected = false;
+                }
+                catch
+                {
+                    // Socket 可能已被重建/释放，状态通知失败可忽略
+                }
+            }
+
+            try
+            {
+                OnException(Socket.LocalEndPoint as IPEndPoint, RemoteEndPoint, e);
+            }
+            catch
+            {
             }
         }
 
