@@ -9,14 +9,15 @@
              VerticalAlignment="Top"
              d:DesignHeight="450"
              d:DesignWidth="800"
+             Foreground="Black"
              mc:Ignorable="d">
     <UserControl.Style>
         <Style BasedOn="{StaticResource Control.Base}" TargetType="{x:Type UserControl}">
             <Setter Property="Padding" Value="2,0" />
             <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource SecondBorderBrush}" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="Black" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type UserControl}">

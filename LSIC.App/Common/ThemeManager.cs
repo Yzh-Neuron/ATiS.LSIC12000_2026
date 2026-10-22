@@ -16,10 +16,6 @@
 
         private static ThemeType? _current;
         public static ThemeType Current => _current ?? DetectCurrent();
-        public static void Toggle()
-        {
-            SwitchTheme(Current == ThemeType.Light ? ThemeType.Dark : ThemeType.Light);
-        }
         public static void SwitchTheme(ThemeType theme)
         {
             var dictionaries = Application.Current.Resources.MergedDictionaries;

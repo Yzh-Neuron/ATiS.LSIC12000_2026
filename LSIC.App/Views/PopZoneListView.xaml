@@ -16,7 +16,7 @@
                   ResizeMode="NoResize"
                   WindowStartupLocation="CenterOwner"
                   mc:Ignorable="d">
-    <DataGrid Margin="10" 
+    <DataGrid Margin="10"
               CanUserSortColumns="False"
               GridLinesVisibility="All"
               IsReadOnly="True"
@@ -37,9 +37,16 @@
                                     Header="{app:Lang {x:Static app:LangKey.StateText}}">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <TextBlock x:Name="State_TextBlock"
-                                   Foreground="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}"
-                                   Text="{Binding State, Converter={StaticResource EnumToTextConverter}}" />
+                        <TextBlock x:Name="State_TextBlock" Text="{Binding State, Converter={StaticResource EnumToTextConverter}}">
+                            <TextBlock.Foreground>
+                                <MultiBinding Converter="{StaticResource ZoneStateToBrushConverter}">
+                                    <Binding Mode="OneWay" Path="State" />
+                                    <Binding Mode="OneWay"
+                                             Path="ThemeType"
+                                             Source="{x:Static models:Device.Instance}" />
+                                </MultiBinding>
+                            </TextBlock.Foreground>
+                        </TextBlock>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>

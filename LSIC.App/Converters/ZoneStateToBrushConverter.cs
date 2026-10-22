@@ -1,23 +1,21 @@
 ﻿namespace LSIC.App.Converters
 {
-    public class ZoneStateToBrushConverter : IValueConverter
+    public class ZoneStateToBrushConverter : IMultiValueConverter
     {
-        private static Brush Res(object key) => (Brush)Application.Current.FindResource(key);
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return (ZoneState)value switch
+            return values[0] switch
             {
-                ZoneState.Init or ZoneState.Idle or ZoneState.Ready or ZoneState.Stop => Res("PrimaryBrush"),
-                ZoneState.PowerUp or ZoneState.Burning or ZoneState.PowerDown => Res("SuccessBrush"),
-                ZoneState.Sending or ZoneState.DeviceChecking or ZoneState.DpsChecking or ZoneState.Upgrading or ZoneState.Transition => Res("WarningBrush"),
-                ZoneState.Offline => Res("SecondForegroundBrush"),
-                ZoneState.DeviceCheckFail or ZoneState.IcError or ZoneState.Error => Res("ErrorBrush"),
-                _ => throw new ArgumentOutOfRangeException(nameof(value))
+                ZoneState.Init or ZoneState.Idle or ZoneState.Ready or ZoneState.Stop => "PrimaryBrush".Resource<Brush>(),
+                ZoneState.PowerUp or ZoneState.Burning or ZoneState.PowerDown => "SuccessBrush".Resource<Brush>(),
+                ZoneState.Sending or ZoneState.DeviceChecking or ZoneState.DpsChecking or ZoneState.Upgrading or ZoneState.Transition => "WarningBrush".Resource<Brush>(),
+                ZoneState.Offline => "SecondForegroundBrush".Resource<Brush>(),
+                ZoneState.DeviceCheckFail or ZoneState.IcError or ZoneState.Error => "ErrorBrush".Resource<Brush>(),
+                _ => null
             };
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

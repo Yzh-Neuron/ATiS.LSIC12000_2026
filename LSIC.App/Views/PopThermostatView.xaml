@@ -32,10 +32,19 @@
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal">
                         <Ellipse x:Name="PART_State"
-                                 Width="8"
-                                 Height="8"
-                                 Fill="{Binding State, Converter={StaticResource DutStateToBrushConverter}}" />
-                        <TextBlock x:Name="PART_Text" Margin="5,0,0,0">
+                                 Width="11"
+                                 Height="11"
+                                 Stroke="{Binding ElementName=PART_Text, Path=Foreground, Mode=OneWay}">
+                            <Ellipse.Fill>
+                                <MultiBinding Converter="{StaticResource DutStateToBrushConverter}">
+                                    <Binding Mode="OneWay" Path="State" />
+                                    <Binding Mode="OneWay"
+                                             Path="ThemeType"
+                                             Source="{x:Static models:Device.Instance}" />
+                                </MultiBinding>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <TextBlock x:Name="PART_Text" Margin="10,0,0,0">
                             <TextBlock.Text>
                                 <MultiBinding Converter="{StaticResource FormatTextConverter}">
                                     <Binding Path="DutFormatText" Source="{x:Static app:LangProvider.Instance}" />

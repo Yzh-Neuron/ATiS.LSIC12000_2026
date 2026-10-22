@@ -156,18 +156,18 @@
                                        Height="65"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
-                                       DotCount="8"
+                                       DotCount="6"
                                        DotDelayTime="100"
                                        DotDiameter="5"
                                        DotInterval="20"
                                        DotOffSet="60"
                                        DotSpeed="4"
-                                       Foreground="{DynamicResource ContrastForegroundBrush}" />
+                                       Foreground="White" />
 
                     <TextBlock HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                FontWeight="Bold"
-                               Foreground="{DynamicResource ContrastForegroundBrush}"
+                               Foreground="White"
                                Text="{Binding Progress, StringFormat={}{0:F1}%}" />
                 </wpf:SimplePanel>
             </Border>

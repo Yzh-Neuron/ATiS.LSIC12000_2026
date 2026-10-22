@@ -60,8 +60,16 @@
                           Height="20"
                           HorizontalAlignment="Center"
                           Data="{StaticResource Geometry.Burning}"
-                          Fill="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}"
-                          Stretch="Uniform" />
+                          Stretch="Uniform">
+                        <Path.Fill>
+                            <MultiBinding Converter="{StaticResource ZoneStateToBrushConverter}">
+                                <Binding Mode="OneWay" Path="State" />
+                                <Binding Mode="OneWay"
+                                         Path="ThemeType"
+                                         Source="{x:Static models:Device.Instance}" />
+                            </MultiBinding>
+                        </Path.Fill>
+                    </Path>
 
                     <TextBlock x:Name="PART_ZoneName"
                                Grid.Row="1"
@@ -112,9 +120,15 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Border Background="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}"
-                                        BorderThickness="0"
-                                        CornerRadius="{StaticResource DefaultCornerRadius}">
+                                <Border BorderThickness="0" CornerRadius="{StaticResource DefaultCornerRadius}">
+                                    <Border.Background>
+                                        <MultiBinding Converter="{StaticResource ZoneStateToBrushConverter}">
+                                            <Binding Mode="OneWay" Path="State" />
+                                            <Binding Mode="OneWay"
+                                                     Path="ThemeType"
+                                                     Source="{x:Static models:Device.Instance}" />
+                                        </MultiBinding>
+                                    </Border.Background>
                                     <TextBlock Grid.Column="0"
                                                Margin="10,0,0,0"
                                                HorizontalAlignment="Center"
@@ -129,9 +143,15 @@
                                 </Border>
 
                                 <wpf:SimplePanel Grid.Column="1" Margin="5,0,0,0">
-                                    <Border Background="{Binding State, Converter={StaticResource ZoneStateToBrushConverter}}"
-                                            BorderThickness="0"
-                                            CornerRadius="{StaticResource DefaultCornerRadius}">
+                                    <Border BorderThickness="0" CornerRadius="{StaticResource DefaultCornerRadius}">
+                                        <Border.Background>
+                                            <MultiBinding Converter="{StaticResource ZoneStateToBrushConverter}">
+                                                <Binding Mode="OneWay" Path="State" />
+                                                <Binding Mode="OneWay"
+                                                         Path="ThemeType"
+                                                         Source="{x:Static models:Device.Instance}" />
+                                            </MultiBinding>
+                                        </Border.Background>
                                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                             <TextBlock FontSize="13">
                                                 <Run Text="{app:Lang {x:Static app:LangKey.StateText}}" />
@@ -149,8 +169,8 @@
                                                   VerticalAlignment="Stretch"
                                                   wpf:IconHelper.CheckedGeometry="{StaticResource Geometry.SlotInserted}"
                                                   wpf:IconHelper.Geometry="{StaticResource Geometry.SlotUninserted}"
-                                                  wpf:IconHelper.Height="15"
-                                                  wpf:IconHelper.Width="15"
+                                                  wpf:IconHelper.Height="18"
+                                                  wpf:IconHelper.Width="18"
                                                   Background="{DynamicResource ThirdBackgroundBrush}"
                                                   BorderThickness="0"
                                                   IsChecked="{Binding Pluged, Mode=OneWay}"

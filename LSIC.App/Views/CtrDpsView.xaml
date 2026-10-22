@@ -138,9 +138,17 @@
                                                         Margin="5,2"
                                                         VerticalAlignment="Center"
                                                         Orientation="Horizontal">
-                                                <Ellipse Width="6"
-                                                         Height="6"
-                                                         Fill="{Binding State, Mode=OneWay, Converter={StaticResource DpsStateToBrushConverter}}" />
+                                                <Ellipse Width="6" Height="6">
+                                                    <Ellipse.Fill>
+                                                        <MultiBinding Converter="{StaticResource DpsStateToBrushConverter}">
+                                                            <Binding Mode="OneWay" Path="State" />
+                                                            <Binding Mode="OneWay"
+                                                                     Path="ThemeType"
+                                                                     Source="{x:Static models:Device.Instance}" />
+                                                        </MultiBinding>
+                                                    </Ellipse.Fill>
+                                                </Ellipse>
+
                                                 <TextBlock Margin="6,0,0,0"
                                                            FontWeight="Medium"
                                                            Foreground="{DynamicResource ForegroundBrush}"

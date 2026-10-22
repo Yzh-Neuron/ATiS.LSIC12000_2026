@@ -4,6 +4,7 @@
                   xmlns:app="clr-namespace:LSIC.App"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:models="clr-namespace:LSIC.App.Models"
                   xmlns:views="clr-namespace:LSIC.App.Views"
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
@@ -35,21 +36,46 @@
                       SelectedItem="{Binding SelectedZone}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding Converter="{StaticResource FormatTextConverter}">
-                                    <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
-                                    <Binding Path="Id" />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
+                        <StackPanel HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                            <Ellipse x:Name="PART_State"
+                                     Width="11"
+                                     Height="11"
+                                     Stroke="{Binding ElementName=PART_Text, Path=Foreground, Mode=OneWay}">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource ZoneStateToBrushConverter}">
+                                        <Binding Mode="OneWay" Path="State" />
+                                        <Binding Mode="OneWay"
+                                                 Path="ThemeType"
+                                                 Source="{x:Static models:Device.Instance}" />
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock x:Name="PART_Text" Margin="10,0,0,0">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource FormatTextConverter}">
+                                        <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
+                                        <Binding Path="Id" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <TextBlock Grid.Column="1"
                        Margin="10,0,0,0"
-                       Foreground="{Binding SelectedZone.State, Converter={StaticResource ZoneStateToBrushConverter}}"
-                       Text="{Binding SelectedZone.State, Converter={StaticResource EnumToTextConverter}}" />
+                       Text="{Binding SelectedZone.State, Converter={StaticResource EnumToTextConverter}}">
+                <TextBlock.Foreground>
+                    <MultiBinding Converter="{StaticResource ZoneStateToBrushConverter}">
+                        <Binding Mode="OneWay" Path="SelectedZone.State" />
+                        <Binding Mode="OneWay"
+                                 Path="ThemeType"
+                                 Source="{x:Static models:Device.Instance}" />
+                    </MultiBinding>
+                </TextBlock.Foreground>
+            </TextBlock>
         </Grid>
 
         <!--  脚本选择  -->

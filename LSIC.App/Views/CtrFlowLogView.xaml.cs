@@ -102,6 +102,10 @@
                 Logger.OnAddFlow -= OnHistoryAppened;
                 Logger.OnAddFlow += OnHistoryAppened;
             }
+
+            Device.Instance.ThemeTypeChanged -= OnThemeTypeChanged;
+            Device.Instance.ThemeTypeChanged += OnThemeTypeChanged;
+
             Refresh();
             TryScrollToEnd();
         }
@@ -111,6 +115,12 @@
             {
                 Logger.OnAddFlow -= OnHistoryAppened;
             }
+
+            Device.Instance.ThemeTypeChanged -= OnThemeTypeChanged;
+        }
+        private void OnThemeTypeChanged(ThemeType obj)
+        {
+            Refresh();
         }
         private void OnHistoryAppened(Flow flow)
         {

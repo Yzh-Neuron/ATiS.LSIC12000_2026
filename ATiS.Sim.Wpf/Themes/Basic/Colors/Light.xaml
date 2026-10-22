@@ -7,19 +7,23 @@
     <Color x:Key="ThirdlyForegroundColor">#bdbdbd</Color>
     <Color x:Key="FourthForegroundColor">#5E6C84</Color>
     <Color x:Key="ContrastForegroundColor">White</Color>
-    <Color x:Key="HighlighColor">#f5f5f5</Color>
-    <Color x:Key="ErrorColor">#db3340</Color>
-    <Color x:Key="WarningColor">#e9af20</Color>
-    <Color x:Key="InfoColor">#00bcd4</Color>
-    <Color x:Key="SuccessColor">#2db84d</Color>
-    <Color x:Key="FatalColor">#000000</Color>
-    <Color x:Key="QuestionColor">#DB3340</Color>
-    <Color x:Key="MaskColor">#20000000</Color>
 
     <Color x:Key="BorderColor">#CECBCB</Color>
     <Color x:Key="SecondBorderColor">#080808</Color>
     <Color x:Key="WindowBorderColor">#999999</Color>
+    
     <Color x:Key="BackgroundColor">#eeeeee</Color>
     <Color x:Key="SecondBackgroundColor">#ffffff</Color>
     <Color x:Key="ThirdBackgroundColor">#ffffff</Color>
+
+    <Color x:Key="ErrorColor">#C7000F</Color>
+    <Color x:Key="FatalColor">#000000</Color>
+    <Color x:Key="WarningColor">#E8A317</Color>
+    <Color x:Key="InfoColor">#00bcd4</Color>
+    <Color x:Key="SuccessColor">#22C200</Color>
+    <Color x:Key="QuestionColor">#7E57C2</Color>
+    <Color x:Key="IgnoreColor">#C7C7C7</Color>
+
+    <Color x:Key="HighlighColor">#f5f5f5</Color>
+    <Color x:Key="MaskColor">#20000000</Color>
 </ResourceDictionary>

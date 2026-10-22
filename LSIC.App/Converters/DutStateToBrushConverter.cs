@@ -1,23 +1,21 @@
 ﻿namespace LSIC.App.Converters
 {
-    internal class DutStateToBrushConverter : IValueConverter
+    internal class DutStateToBrushConverter : IMultiValueConverter
     {
-        private static Brush Res(object key) => (Brush)Application.Current.FindResource(key);
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return (DutState)value switch
+            return values[0] switch
             {
-                DutState.Idle => Res("SecondForegroundBrush"),
-                DutState.Test => Res("InfoBrush"),
-                DutState.Pass => Res("SuccessBrush"),
-                DutState.Fail => Res("ErrorBrush"),
-                DutState.Ignore => Res("ThirdlyForegroundBrush"),
-                _ => throw new ArgumentOutOfRangeException(nameof(value))
+                DutState.Idle => "SecondForegroundBrush".Resource<Brush>(),
+                DutState.Test => "PrimaryBrush".Resource<Brush>(),
+                DutState.Pass => "SuccessBrush".Resource<Brush>(),
+                DutState.Fail => "ErrorBrush".Resource<Brush>(),
+                DutState.Ignore => "IgnoreBrush".Resource<Brush>(),
+                _ => null
             };
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

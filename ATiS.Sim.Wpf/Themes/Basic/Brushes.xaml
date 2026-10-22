@@ -20,5 +20,6 @@
     <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}" />
     <SolidColorBrush x:Key="FatalBrush" Color="{DynamicResource FatalColor}"/>
     <SolidColorBrush x:Key="QuestionBrush" Color="{DynamicResource QuestionColor}"/>
+    <SolidColorBrush x:Key="IgnoreBrush" Color="{DynamicResource IgnoreColor}"/>
     <SolidColorBrush x:Key="MaskBrush" Color="{DynamicResource MaskColor}" />
 </ResourceDictionary>

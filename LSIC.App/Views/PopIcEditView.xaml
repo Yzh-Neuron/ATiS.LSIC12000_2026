@@ -15,10 +15,12 @@
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
                   Title="{app:Lang {x:Static app:LangKey.IcEditText}}"
                   Width="1150"
-                  Height="850"
+                  Height="950"
+                  MinWidth="1150"
+                  MinHeight="900"
                   d:DataContext="{d:DesignInstance vms:PopIcEditViewModel}"
                   Icon="/Resources/Icon/icon.ico"
-                  ResizeMode="NoResize"
+                  ResizeMode="CanResize"
                   WindowStartupLocation="CenterOwner"
                   mc:Ignorable="d">
     <Window.Resources>
@@ -248,10 +250,8 @@
                             </Grid>
 
                             <Grid Grid.Row="4"
-                                  MinWidth="600"
-                                  MaxWidth="750"
                                   Margin="0,20,0,0"
-                                  HorizontalAlignment="Left"
+                                  HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch"
                                   Visibility="{Binding BurnInBoardSetting, Converter={StaticResource NotNullToVisibilityConverter}}">
                                 <Grid.RowDefinitions>

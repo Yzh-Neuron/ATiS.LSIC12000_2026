@@ -8,8 +8,9 @@
     
     <Style x:Key="Growl.Default" BasedOn="{StaticResource Control.Base}" TargetType="{x:Type wpf:Growl}">
         <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource WindowBorderBrush}" />
         <Setter Property="Background" Value="{DynamicResource ThirdBackgroundBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Width" Value="300" />
         <Setter Property="Padding" Value="{StaticResource DefaultControlPadding}" />
@@ -22,6 +23,8 @@
                 <ControlTemplate TargetType="{x:Type wpf:Growl}">
                     <Grid x:Name="PART_MainGrid">
                         <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}"
                                 Effect="{DynamicResource EffectShadow3}" />
 

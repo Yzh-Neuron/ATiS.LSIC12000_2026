@@ -4,6 +4,7 @@
                   xmlns:app="clr-namespace:LSIC.App"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:models="clr-namespace:LSIC.App.Models"
                   xmlns:views="clr-namespace:LSIC.App.Views"
                   xmlns:vms="clr-namespace:LSIC.App.ViewModels"
                   xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
@@ -21,36 +22,78 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal">
-            <ComboBox Width="100"
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="0"
+                      Width="100"
                       ItemsSource="{Binding Zones}"
                       SelectedItem="{Binding SelectedZone}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding Converter="{StaticResource FormatTextConverter}">
-                                    <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
-                                    <Binding Path="Id" />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
+                        <StackPanel HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                            <Ellipse x:Name="PART_State"
+                                     Width="11"
+                                     Height="11"
+                                     Stroke="{Binding ElementName=PART_Text, Path=Foreground, Mode=OneWay}">
+                                <Ellipse.Fill>
+                                    <MultiBinding Converter="{StaticResource ZoneStateToBrushConverter}">
+                                        <Binding Mode="OneWay" Path="State" />
+                                        <Binding Mode="OneWay"
+                                                 Path="ThemeType"
+                                                 Source="{x:Static models:Device.Instance}" />
+                                    </MultiBinding>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock x:Name="PART_Text" Margin="10,0,0,0">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource FormatTextConverter}">
+                                        <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
+                                        <Binding Path="Id" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Margin="5,0,0,0"
+
+            <TextBlock Grid.Column="1"
+                       Margin="10,0,0,0"
+                       VerticalAlignment="Center"
+                       Text="{Binding SelectedZone.State, Converter={StaticResource EnumToTextConverter}}">
+                <TextBlock.Foreground>
+                    <MultiBinding Converter="{StaticResource ZoneStateToBrushConverter}">
+                        <Binding Mode="OneWay" Path="SelectedZone.State" />
+                        <Binding Mode="OneWay"
+                                 Path="ThemeType"
+                                 Source="{x:Static models:Device.Instance}" />
+                    </MultiBinding>
+                </TextBlock.Foreground>
+            </TextBlock>
+
+            <Button Grid.Column="3"
+                    Margin="5,0,0,0"
                     wpf:IconHelper.Geometry="{StaticResource Geometry.QueryVersion}"
                     wpf:IconHelper.Height="12"
                     wpf:IconHelper.Width="12"
                     Command="{Binding QueryVersionCommand}"
                     Content="{app:Lang {x:Static app:LangKey.GetVersionInfoText}}" />
-            <Button Margin="5,0,0,0"
+            <Button Grid.Column="4"
+                    Margin="5,0,0,0"
                     wpf:IconHelper.Geometry="{StaticResource Geometry.ExportCSV}"
                     wpf:IconHelper.Height="12"
                     wpf:IconHelper.Width="12"
                     Command="{Binding ExportCommand}"
                     Content="{app:Lang {x:Static app:LangKey.ExportVersionInfoText}}" />
-        </StackPanel>
+        </Grid>
 
         <DataGrid Grid.Row="1"
                   Margin="0,10,0,0"

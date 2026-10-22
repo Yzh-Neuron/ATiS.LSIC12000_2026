@@ -50,10 +50,12 @@ namespace LSIC.App.Models
             }
             set
             {
-                if (SetProperty(ref _language, value))
+                if (_language != value)
                 {
+                    _language = value;
                     SystemDatabase.Instance.SetConfig($"{nameof(Device)}.{nameof(Language)}", _language);
                     GlobalLanguageManager.SwitchLanguage(value);
+                    OnPropertyChanged(nameof(Language));
                 }
             }
         }
@@ -72,10 +74,13 @@ namespace LSIC.App.Models
             }
             set
             {
-                if (SetProperty(ref _themeType, value))
+                if (_themeType != value)
                 {
+                    _themeType = value;
                     SystemDatabase.Instance.SetConfig($"{nameof(Device)}.{nameof(ThemeType)}", value);
                     GlobalThemeManager.SwitchTheme(value);
+                    OnPropertyChanged(nameof(ThemeType));
+                    ThemeTypeChanged?.Invoke(value);
                 }
             }
         }
@@ -86,6 +91,7 @@ namespace LSIC.App.Models
             private set => SetProperty(ref _deviceName, value);
         }
         public Zone[] Zones { get; private set; }
+        public event Action<ThemeType> ThemeTypeChanged;
         public void Dispose()
         {
             if (Zones is null)

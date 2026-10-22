@@ -1,21 +1,19 @@
 ﻿namespace LSIC.App.Converters
 {
-    public class DpsStateToBrushConverter : IValueConverter
+    public class DpsStateToBrushConverter : IMultiValueConverter
     {
-        private static Brush Res(object key) => (Brush)Application.Current.FindResource(key);
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return (DpsState)value switch
+            return values[0] switch
             {
-                DpsState.Output => Res("SuccessBrush"),
-                DpsState.Ovp or DpsState.Uvp or DpsState.Ocp => Res("ErrorBrush"),
-                DpsState.Idle => Res("SecondForegroundBrush"),
-                _ => throw new ArgumentOutOfRangeException(nameof(value))
+                DpsState.Output => "SuccessBrush".Resource<Brush>(),
+                DpsState.Ovp or DpsState.Uvp or DpsState.Ocp => "ErrorBrush".Resource<Brush>(),
+                DpsState.Idle => "SecondForegroundBrush".Resource<Brush>(),
+                _ => null
             };
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
