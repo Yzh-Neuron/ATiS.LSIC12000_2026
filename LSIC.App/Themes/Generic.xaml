@@ -1,11 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
-        <!--<ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Language/en-US/Message.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Language/en-US/UI.xaml"/>-->
-
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Converters/Converters.xaml" />
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Basic/Geometries.xaml" />
-
+        <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Styles/OxyPlot.xaml" />
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Styles/TextBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Styles/Button.xaml" />
         <ResourceDictionary Source="pack://application:,,,/LSIC.App;component/Themes/Styles/TabControl.xaml" />

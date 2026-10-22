@@ -1,6 +1,5 @@
 using OxyPlot;
-using OxyPlot.Axes;
-using OxyPlot.Series;
+using OxyPlot.Wpf;
 
 namespace LSIC.App.Views
 {
@@ -11,37 +10,13 @@ namespace LSIC.App.Views
         {
             _data = data;
             InitializeComponent();
-            Loaded += OnLoaded;
-        }
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            PlotModel model = new PlotModel();
 
-            DateTimeAxis xAxis = new DateTimeAxis
+            xAxis.LabelFormatter = x =>
             {
-                LabelFormatter = x =>
-                {
-                    DateTime time = DateTimeAxis.ToDateTime(x);
-                    return time.ToString("yyyy-MM-dd\n   HH:mm:ss");
-                },
-                MajorGridlineColor = OxyColors.LightGray,
-                MajorGridlineThickness = 1,
-                MajorGridlineStyle = LineStyle.Solid,
-                MinorGridlineColor = OxyColors.LightGray,
-                MinorGridlineThickness = 1,
-                MinorGridlineStyle = LineStyle.Solid,
+                DateTime time = OxyPlot.Axes.DateTimeAxis.ToDateTime(x);
+                return time.ToString("yyyy-MM-dd\nHH:mm:ss", CultureInfo.InvariantCulture);
             };
-            model.Axes.Add(xAxis);
 
-            LinearAxis yAxis = new LinearAxis
-            {
-                MajorGridlineColor = OxyColors.LightGray,
-                MajorGridlineThickness = 1,
-                MajorGridlineStyle = LineStyle.Solid,
-                MinorGridlineColor = OxyColors.LightGray,
-                MinorGridlineThickness = 1,
-                MinorGridlineStyle = LineStyle.Solid,
-            };
             if (_data.Min <= _data.Max)
             {
                 double span = _data.Max - _data.Min;
@@ -67,7 +42,6 @@ namespace LSIC.App.Views
                 yAxis.Minimum = min;
                 yAxis.Maximum = max;
             }
-            model.Axes.Add(yAxis);
 
             foreach (KeyValuePair<LogColumn, List<DataPoint>> pair in _data.Columns)
             {
@@ -77,10 +51,9 @@ namespace LSIC.App.Views
                     ItemsSource = pair.Value,
                     StrokeThickness = 1.5
                 };
-                model.Series.Add(series);
+                PlotView.Series.Add(series);
             }
 
-            PlotView.Model = model;
         }
     }
 }

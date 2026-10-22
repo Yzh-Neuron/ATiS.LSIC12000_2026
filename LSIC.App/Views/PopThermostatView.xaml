@@ -67,11 +67,14 @@
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0"
+                    Background="{DynamicResource ThirdBackgroundBrush}"
                     BorderBrush="{DynamicResource BorderBrush}"
                     BorderThickness="1"
                     CornerRadius="{StaticResource DefaultCornerRadius}">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
@@ -123,43 +126,38 @@
                                    Margin="10,0,0,0"
                                    Text="{Binding SelectedThermostat.TargetTemperature, Converter={StaticResource IntegerToDecimalConverter10}, Mode=OneWay, TargetNullValue='N/A', StringFormat={}{0} ℃}" />
                     </Grid>
+                    <Rectangle Grid.Column="5"
+                               Width="1"
+                               Fill="{DynamicResource BorderBrush}" />
+                    <Button Grid.Column="6"
+                            Click="OnRestViewClick"
+                            Content="{app:Lang {x:Static app:LangKey.RestViewText}}" />
                 </Grid>
             </Border>
 
             <Border Grid.Row="1"
                     Grid.ColumnSpan="2"
                     Margin="0,10,0,0"
+                    Background="{DynamicResource ThirdBackgroundBrush}"
                     BorderBrush="{DynamicResource BorderBrush}"
                     BorderThickness="1"
                     CornerRadius="{StaticResource DefaultCornerRadius}">
-                <oxy:Plot Margin="10,10,20,10"
-                          Background="Transparent"
-                          IsLegendVisible="True">
+                <oxy:Plot x:Name="ThermostatPlot" Margin="10,10,20,10">
                     <oxy:Plot.Axes>
-                        <oxy:LinearAxis MajorGridlineColor="{DynamicResource ChartGridlineMajorColor}"
-                                        MajorGridlineStyle="Solid"
-                                        MajorGridlineThickness="1"
+                        <oxy:LinearAxis x:Name="yAxis"
                                         Maximum="200"
-                                        Minimum="0"
-                                        MinorGridlineColor="{DynamicResource ChartGridlineMinorColor}"
-                                        MinorGridlineStyle="Solid"
-                                        MinorGridlineThickness="1"
-                                        Position="Left" />
-                        <oxy:DateTimeAxis FirstDateTime="{Binding SelectedThermostat.ChartDataTimeRange.Start}"
-                                          LastDateTime="{Binding SelectedThermostat.ChartDataTimeRange.End}"
-                                          MajorGridlineColor="{DynamicResource ChartGridlineMajorColor}"
-                                          MajorGridlineStyle="Solid"
-                                          MajorGridlineThickness="1"
-                                          MinorGridlineColor="{DynamicResource ChartGridlineMinorColor}"
-                                          MinorGridlineStyle="Solid"
-                                          MinorGridlineThickness="1"
-                                          Position="Bottom" />
+                                        Minimum="0" />
+                        <oxy:DateTimeAxis x:Name="xAxis"
+                                          Maximum="{Binding SelectedThermostat.TimeAxisMax}"
+                                          Minimum="{Binding SelectedThermostat.TimeAxisMin}" />
                     </oxy:Plot.Axes>
                     <oxy:Plot.Series>
-                        <oxy:LineSeries Title="{app:Lang {x:Static app:LangKey.RealTemperatureText}}"
+                        <oxy:LineSeries Title="{app:Lang {x:Static app:LangKey.RealTemperatureWithUnitText}}"
+                                        BorderBrush="{DynamicResource ForegroundBrush}"
                                         InterpolationAlgorithm="{x:Null}"
                                         ItemsSource="{Binding SelectedThermostat.PvData}"
-                                        StrokeThickness="1.5" />
+                                        StrokeThickness="1.5"
+                                        Color="{DynamicResource SuccessColor}" />
                     </oxy:Plot.Series>
                 </oxy:Plot>
             </Border>
@@ -241,8 +239,7 @@
                                Fill="{DynamicResource BorderBrush}" />
                     <Button Grid.Column="6"
                             Command="{Binding SetPidCommand}"
-                            Content="{app:Lang {x:Static app:LangKey.SetThermostatCoefficientText}}"
-                            Style="{StaticResource Button.Confirm}" />
+                            Content="{app:Lang {x:Static app:LangKey.SetThermostatCoefficientText}}" />
                 </Grid>
             </Border>
         </Grid>

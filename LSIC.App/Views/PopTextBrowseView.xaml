@@ -16,6 +16,7 @@
                   mc:Ignorable="d">
     <TextBox Margin="10"
              Padding="5,5,10,10"
+             Background="{DynamicResource ThirdBackgroundBrush}"
              HorizontalContentAlignment="Left"
              VerticalContentAlignment="Top"
              AcceptsReturn="True"

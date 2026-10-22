@@ -96,6 +96,7 @@
     <sys:String x:Key="KiText">Ki</sys:String>
     <sys:String x:Key="KdText">Kd</sys:String>
     <sys:String x:Key="SetThermostatCoefficientText">设置温控系数</sys:String>
+    <sys:String x:Key="RestViewText">重置视图</sys:String>
 
     <!--  Dps 电源参数  -->
     <sys:String x:Key="DpsText">电源</sys:String>

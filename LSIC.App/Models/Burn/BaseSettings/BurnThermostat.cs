@@ -1,5 +1,5 @@
-﻿using OxyPlot;
-using OxyPlot.Axes;
+﻿using LSIC.App.Common;
+using OxyPlot;
 
 namespace LSIC.App.Models
 {
@@ -8,77 +8,82 @@ namespace LSIC.App.Models
     /// </summary>
     public class BurnThermostat : ObservableObject
     {
+        public double TimeAxisMin { get; private set; }
+        public double TimeAxisMax { get; private set; }
+        private readonly CircularBuffer<DataPoint> _pvBuffer = new CircularBuffer<DataPoint>(600);
+        public IEnumerable<DataPoint> PvData => _pvBuffer;
         public int Id { get; }
-
-        public BurnThermostat(ThermostatSetting setting)
-        {
-            Id = setting.Id;
-            Enable = setting.Enable;
-            TargetTemperature = setting.TargetTemperature;
-        }
-
         private bool _enable;
         public bool Enable
         {
             get => _enable;
             set => SetProperty(ref _enable, value);
         }
-
         private int _targetTemperature;
         public int TargetTemperature
         {
             get => _targetTemperature;
             set => SetProperty(ref _targetTemperature, value);
         }
-
         private int? _temperature = 0;
         public int? Temperature
         {
             get => _temperature;
             set => SetProperty(ref _temperature, value);
         }
-
         private double? _kp;
         public double? Kp
         {
             get => _kp;
             set => SetProperty(ref _kp, value);
         }
-
         private double? _ki;
         public double? Ki
         {
             get => _ki;
             set => SetProperty(ref _ki, value);
         }
-
         private double? _kd;
         public double? Kd
         {
             get => _kd;
             set => SetProperty(ref _kd, value);
         }
-        public ObservableCollection<DataPoint> PvData { get; } = new ObservableCollection<DataPoint>();
-        public TimeRange ChartDataTimeRange { get; } = new TimeRange();
+        public BurnThermostat(ThermostatSetting setting)
+        {
+            Id = setting.Id;
+            Enable = setting.Enable;
+            TargetTemperature = setting.TargetTemperature;
+
+//#if DEBUG
+//            if (Enable)
+//            {
+//                int temp = 0;
+//                Task.Run(async () =>
+//                {
+//                    while (true)
+//                    {
+//                        temp = (temp += 100) % 1000;
+//                        Update(Enable, temp);
+//                        await Task.Delay(3000);
+//                    }
+//                });
+//            }
+//#endif
+        }
         public void Update(bool enable, int? temperature)
         {
             Enable = enable;
             Temperature = enable ? temperature : null;
-
-            if (Enable)
             {
-                while (PvData.Count >= 600) // 3s 一个点，最多保存 30 分钟数据
-                {
-                    this.InvokeOnUI(()=>PvData.RemoveAt(0));
-                }
-
-                DateTime now = DateTime.Now;
-                PvData.Add(DateTimeAxis.CreateDataPoint(now, (Temperature ?? 0) / 10d));
-
-                DateTime start = DateTimeAxis.ToDateTime(PvData.First().X);
-                ChartDataTimeRange.Start = start;
-                DateTime end = DateTimeAxis.ToDateTime(PvData.Last().X);
-                ChartDataTimeRange.End = end - start < TimeSpan.FromMinutes(30d) ? start.AddMinutes(30d) : end;
+                var now = DateTime.Now;
+                var nowOa = now.ToOADate();
+                var y = (Temperature ?? 0) / 10d;
+                _pvBuffer.Add(new DataPoint(nowOa, y));
+                TimeAxisMax = nowOa + TimeSpan.FromMinutes(5).TotalDays; ;
+                TimeAxisMin = nowOa - TimeSpan.FromMinutes(10).TotalDays;
+                OnPropertyChanged(nameof(TimeAxisMin));
+                OnPropertyChanged(nameof(TimeAxisMax));
             }
         }
     }

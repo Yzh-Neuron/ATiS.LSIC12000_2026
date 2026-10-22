@@ -15,5 +15,16 @@
                   ResizeMode="NoResize"
                   WindowStartupLocation="CenterOwner"
                   mc:Ignorable="d">
-    <oxy:PlotView x:Name="PlotView" Margin="10" />
+    <Border Margin="10"
+            Background="{DynamicResource ThirdBackgroundBrush}"
+            BorderBrush="{DynamicResource BorderBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource DefaultCornerRadius}">
+        <oxy:Plot x:Name="PlotView" Margin="10,10,20,10">
+            <oxy:Plot.Axes>
+                <oxy:LinearAxis x:Name="yAxis" />
+                <oxy:DateTimeAxis x:Name="xAxis" />
+            </oxy:Plot.Axes>
+        </oxy:Plot>
+    </Border>
 </wpf:ChromeWindow>

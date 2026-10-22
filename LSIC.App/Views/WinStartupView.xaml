@@ -91,6 +91,7 @@
                 <TextBlock VerticalAlignment="Center"
                            FontSize="12.6"
                            FontWeight="Black"
+                           Foreground="{DynamicResource ForegroundBrush}"
                            Text="{Binding Name}" />
                 <Border Grid.Column="2" Margin="0,5">
                     <ContentControl x:Name="PART_Content" />
@@ -103,10 +104,10 @@
                             <DataTemplate>
                                 <wpf:LoadingCircle Width="20"
                                                    Height="20"
-                                                   DotCount="5"
+                                                   DotCount="4"
                                                    DotDelayTime="100"
                                                    DotDiameter="3.6"
-                                                   DotInterval="20"
+                                                   DotInterval="30"
                                                    DotOffSet="60"
                                                    DotSpeed="4"
                                                    Foreground="{DynamicResource SecondForegroundBrush}" />
@@ -159,7 +160,7 @@
                 <TextBlock Margin="0,10"
                            HorizontalAlignment="Center"
                            FontSize="18"
-                           FontWeight="Bold"
+                           FontWeight="SemiBold"
                            Foreground="{DynamicResource PrimaryBrush}"
                            Text="{app:Lang {x:Static app:LangKey.ConceptText}}"
                            TextWrapping="Wrap" />

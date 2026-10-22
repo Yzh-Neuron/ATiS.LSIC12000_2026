@@ -18,11 +18,6 @@
                     zone.Startup();
                 }
 
-#if DEBUG
-                await Task.Delay(2000);
-                this.InvokeOnUI(() => MessageBus.Default.Send(MsgArgs.From(WinStartupMessage.Initialized, [])));
-                return;
-#endif
                 foreach (Zone zone in Device.Zones)
                 {
                     string name = string.Format(LangProvider.Instance.ConnectionCheckingText, zone.Id);

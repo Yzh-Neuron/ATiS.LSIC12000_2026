@@ -6,8 +6,8 @@
     <Color x:Key="LoopPressedColor">#343e4d</Color>
     <Color x:Key="AlarmBackgroundColor">#4a2428</Color>
     <Color x:Key="WarningBackgroundColor">#3a3220</Color>
-    <Color x:Key="ChartGridlineMajorColor">#10FFFFFF</Color>
-    <Color x:Key="ChartGridlineMinorColor">#08FFFFFF</Color>
+    <Color x:Key="ChartGridlineMajorColor">#1FFFFFFF</Color>
+    <Color x:Key="ChartGridlineMinorColor">#12FFFFFF</Color>
     <Color x:Key="LoadingBackgroundColor">#4a4a4a</Color>
     <Color x:Key="LogDebugColor">#9E9E9E</Color>
     <Color x:Key="LogInfoColor">#F2F2F2</Color>

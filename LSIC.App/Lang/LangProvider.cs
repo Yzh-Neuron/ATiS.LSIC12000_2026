@@ -1427,6 +1427,11 @@ namespace LSIC.App
         public string SetThermostatCoefficientText => GetString("SetThermostatCoefficientText");
 
         /// <summary>
+        /// 重置视图
+        /// </summary>
+        public string RestViewText => GetString("RestViewText");
+
+        /// <summary>
         /// 电源
         /// </summary>
         public string DpsText => GetString("DpsText");
@@ -2469,6 +2474,8 @@ namespace LSIC.App
             OnPropertyChanged(nameof(KdText));
 
             OnPropertyChanged(nameof(SetThermostatCoefficientText));
+
+            OnPropertyChanged(nameof(RestViewText));
 
             OnPropertyChanged(nameof(DpsText));
 
@@ -4075,6 +4082,11 @@ namespace LSIC.App
         /// 设置温控系数
         /// </summary>
         public const string SetThermostatCoefficientText = nameof(SetThermostatCoefficientText);
+
+         /// <summary>
+        /// 重置视图
+        /// </summary>
+        public const string RestViewText = nameof(RestViewText);
 
          /// <summary>
         /// 电源
