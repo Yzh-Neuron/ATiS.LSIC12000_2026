@@ -66,16 +66,16 @@
         }
         public void Update(DpsState state, int inputVoltage, int outputVoltage, int outputCurrent, int temperature)
         {
+            if (outputVoltage != _outputVoltage || outputCurrent != _outputCurrent)
+            {
+                OutputPower = outputVoltage * outputCurrent;
+            }
+
             State = state;
             InputVoltage = inputVoltage;
             OutputVoltage = outputVoltage;
             OutputCurrent = outputCurrent;
             Temperature = temperature;
-
-            if (outputVoltage != _outputVoltage || outputCurrent != _outputCurrent)
-            {
-                OutputPower = OutputVoltage * OutputCurrent;
-            }
         }
     }
 }
