@@ -1483,11 +1483,6 @@ namespace LSIC.App.Models
         #endregion
 
         #region 资源释放
-
-        ~Zone()
-        {
-            Dispose();
-        }
         public void Dispose()
         {
             if (_disposed)

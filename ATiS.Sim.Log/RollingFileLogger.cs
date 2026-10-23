@@ -22,6 +22,7 @@ namespace ATiS.Sim.Log
         private const int BatchBufferSize = 128 * 1024;
         private const int StreamBufferSize = 64 * 1024;
         private const int IdleWaitMs = 2000;
+        private const int EnqueueSpinBudget = 16;
         private const string DateToken = "{date:";
 
         private readonly RingBuffer<Entry> _queue;
@@ -45,6 +46,7 @@ namespace ATiS.Sim.Log
         private volatile bool _running = true;
         private volatile bool _writerIdle;
         private bool _disposed;
+        private long _dropped;
 
         /// <summary>
         /// 最低输出等级，低于它的调用直接丢弃
@@ -155,16 +157,44 @@ namespace ATiS.Sim.Log
 
             // 队列空说明写线程可能在等待，需要唤醒
             bool needWake = _queue.Count == 0;
-            SpinWait spin = default;
-            while (_running && !_queue.TryEnqueue(entry))
+            if (!TryEnqueue(entry))
             {
+                // 队列持续满（磁盘卡顿/日志风暴），丢弃并计数，绝不阻塞调用方业务线程
+                Interlocked.Increment(ref _dropped);
                 _wake.Set();
-                spin.SpinOnce();
+                return;
             }
+
             if (needWake)
             {
                 _wake.Set();
             }
+        }
+
+        /// <summary>
+        /// 入队；队列满时仅做有限次自旋等待（毫秒级），超时即放弃，
+        /// 避免磁盘卡顿时把通信解析、定时、UI 等业务线程无限拖死
+        /// </summary>
+        private bool TryEnqueue(Entry entry)
+        {
+            if (_queue.TryEnqueue(entry))
+            {
+                return true;
+            }
+
+            _wake.Set();
+            SpinWait spin = default;
+            while (_running && spin.Count < EnqueueSpinBudget)
+            {
+                spin.SpinOnce();
+
+                if (_queue.TryEnqueue(entry))
+                {
+                    return true;
+                }
+            }
+
+            return _running && _queue.TryEnqueue(entry);
         }
 
         /// <summary>
@@ -222,6 +252,16 @@ namespace ATiS.Sim.Log
                     int used = 0;
                     try
                     {
+                        long dropped = Interlocked.Exchange(ref _dropped, 0);
+                        if (dropped > 0)
+                        {
+                            Entry notice = new Entry(_template.Render(LogLevel.Warn, $"日志队列已满，已丢弃 {dropped} 条日志", DateTimeOffset.Now), DateTimeOffset.Now);
+                            used += EncodeLine(notice.Line, ref batch, used);
+                            segEnds[count] = used;
+                            segTimes[count] = notice.Time;
+                            count++;
+                        }
+
                         while (count < MaxBatch && _queue.TryDequeue(out Entry entry))
                         {
                             used += EncodeLine(entry.Line, ref batch, used);

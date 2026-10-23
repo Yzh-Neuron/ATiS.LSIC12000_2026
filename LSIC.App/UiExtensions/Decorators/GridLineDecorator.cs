@@ -11,6 +11,13 @@ namespace LSIC.App.Decorators
 
         private Grid _target;
 
+        // 几何签名缓存：LayoutUpdated 触发频率极高，签名没变就不 RenderOpen
+        private double _gridWidth;
+        private double _gridHeight;
+        private Brush _brush;
+        private double[] _rowHeights;
+        private double[] _columnWidths;
+
         public Brush GridLineBrush
         {
             get => (Brush)GetValue(GridLineBrushProperty);
@@ -29,6 +36,7 @@ namespace LSIC.App.Decorators
                         _target.Loaded -= OnTargetLoaded;
                         _target.Unloaded -= OnTargetUnloaded;
                         _target.LayoutUpdated -= OnTargetLayoutUpdated;
+                        _target.IsVisibleChanged -= OnIsVisibleChanged;
                     }
 
                     RemoveVisualChild(_target);
@@ -77,27 +85,37 @@ namespace LSIC.App.Decorators
 
         private void DrawGridLines()
         {
-            DrawingContext drawingContext = _visual.RenderOpen();
             Grid target = Target;
             if (target is null || !target.IsVisible)
             {
-                drawingContext = _visual.RenderOpen();
-                drawingContext.Close();
+                // 不可见时清空旧线条并使签名失效，恢复可见后强制重绘
+                InvalidateGeometry();
+                using (DrawingContext empty = _visual.RenderOpen())
+                {
+                }
                 return;
             }
 
+            // RenderOpen 会清空已绘制内容，“几何未变”必须在打开 context 之前判断，
+            // 否则打开后不画直接 Close 会把已有网格线清空
+            if (IsGeometryUnchanged(target))
+            {
+                return;
+            }
+
+            using DrawingContext drawingContext = _visual.RenderOpen();
             Pen pen = new Pen(GridLineBrush, 1.0 * GetDpiFactor());
             double value = pen.Thickness / 2.0;
             GuidelineSet guidelineSet = new GuidelineSet();
             double num = 0.0;
-            if (Target.RowDefinitions.Count > 0)
+            if (target.RowDefinitions.Count > 0)
             {
-                for (int i = 0; i < Target.RowDefinitions.Count - 1; i++)
+                for (int i = 0; i < target.RowDefinitions.Count - 1; i++)
                 {
-                    num += Target.RowDefinitions[i].ActualHeight;
+                    num += target.RowDefinitions[i].ActualHeight;
                     double x = 0.0;
                     double num2 = num;
-                    double actualWidth = Target.ActualWidth;
+                    double actualWidth = target.ActualWidth;
                     double y = num2;
                     guidelineSet.GuidelinesY.Add(value);
                     drawingContext.PushGuidelineSet(guidelineSet);
@@ -107,15 +125,15 @@ namespace LSIC.App.Decorators
             }
 
             num = 0.0;
-            if (Target.ColumnDefinitions.Count > 0)
+            if (target.ColumnDefinitions.Count > 0)
             {
-                for (int j = 0; j < Target.ColumnDefinitions.Count - 1; j++)
+                for (int j = 0; j < target.ColumnDefinitions.Count - 1; j++)
                 {
-                    num += Target.ColumnDefinitions[j].ActualWidth;
+                    num += target.ColumnDefinitions[j].ActualWidth;
                     double x = num;
                     double num2 = 0.0;
                     double actualWidth = x;
-                    double y = Target.ActualHeight;
+                    double y = target.ActualHeight;
                     guidelineSet.GuidelinesX.Add(value);
                     drawingContext.PushGuidelineSet(guidelineSet);
                     drawingContext.DrawLine(pen, new Point(x, num2), new Point(actualWidth, y));
@@ -123,7 +141,67 @@ namespace LSIC.App.Decorators
                 }
             }
 
-            drawingContext.Close();
+            CaptureGeometry(target);
+        }
+
+        private bool IsGeometryUnchanged(Grid target)
+        {
+            int rowCount = target.RowDefinitions.Count;
+            int columnCount = target.ColumnDefinitions.Count;
+
+            if (_rowHeights is null
+                || _columnWidths is null
+                || _rowHeights.Length != rowCount
+                || _columnWidths.Length != columnCount
+                || _gridWidth != target.ActualWidth
+                || _gridHeight != target.ActualHeight
+                || !ReferenceEquals(_brush, GridLineBrush))
+            {
+                return false;
+            }
+
+            for (int i = 0; i < rowCount; i++)
+            {
+                if (_rowHeights[i] != target.RowDefinitions[i].ActualHeight)
+                {
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < columnCount; i++)
+            {
+                if (_columnWidths[i] != target.ColumnDefinitions[i].ActualWidth)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void CaptureGeometry(Grid target)
+        {
+            _gridWidth = target.ActualWidth;
+            _gridHeight = target.ActualHeight;
+            _brush = GridLineBrush;
+
+            _rowHeights = new double[target.RowDefinitions.Count];
+            for (int i = 0; i < _rowHeights.Length; i++)
+            {
+                _rowHeights[i] = target.RowDefinitions[i].ActualHeight;
+            }
+
+            _columnWidths = new double[target.ColumnDefinitions.Count];
+            for (int i = 0; i < _columnWidths.Length; i++)
+            {
+                _columnWidths[i] = target.ColumnDefinitions[i].ActualWidth;
+            }
+        }
+
+        private void InvalidateGeometry()
+        {
+            _rowHeights = null;
+            _columnWidths = null;
         }
 
         protected override Visual GetVisualChild(int index)
