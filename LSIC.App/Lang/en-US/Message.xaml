@@ -6,6 +6,9 @@
     <sys:String x:Key="AppExitMessage">Application Exit</sys:String>
     <sys:String x:Key="InvalidPasswordMessage">Invalid password</sys:String>
     <sys:String x:Key="UnhandledExceptionMessage">Unhandled Exception, {0}</sys:String>
+    <sys:String x:Key="SendIcFailureMessage">IC send failed: {0}</sys:String>
+    <sys:String x:Key="BurnStartFailureMessage">Burn start failed: {0}</sys:String>
+    <sys:String x:Key="BurnStopFailureMessage">Burn stop failed: {0}</sys:String>
     <sys:String x:Key="FileImportSuccessMessage">File imported successfully</sys:String>
     <sys:String x:Key="FileImportFailureMessage">File import failed</sys:String>
     <sys:String x:Key="FileExportSuccessMessage">File exported successfully</sys:String>

@@ -21,32 +21,53 @@ namespace LSIC.App.ViewModels
         }
         private async Task SendIcAsync()
         {
-            await Zone.SendIcAsync();
+            try
+            {
+                await Zone.SendIcAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBus.Default.Send(MsgArgs.From(WinMainMessage.Growl, [string.Format(LangProvider.Instance.SendIcFailureMessage, ex.Message), MessageType.Error]));
+            }
         }
         private async Task StartAsync()
         {
-            byte[] dutMask = null;
-
-            if (Zone.Pluged)
+            try
             {
-                var msgResult = MessageBus.Default.Send(MsgArgs.From(WinMainMessage.DutMask, [Zone.BurnInfo.BurnInBoard])).First();
+                byte[] dutMask = null;
 
-                if (msgResult.Result is byte[] d)
+                if (Zone.Pluged)
                 {
-                    dutMask = d;
+                    var msgResult = MessageBus.Default.Send(MsgArgs.From(WinMainMessage.DutMask, [Zone.BurnInfo.BurnInBoard])).First();
+
+                    if (msgResult.Result is byte[] d)
+                    {
+                        dutMask = d;
+                    }
+
+                    if (dutMask is null)
+                    {
+                        return;
+                    }
                 }
 
-                if (dutMask is null)
-                {
-                    return;
-                }
+                await Zone.StartBurnAsync(dutMask);
             }
-
-            await Zone.StartBurnAsync(dutMask);
+            catch (Exception ex)
+            {
+                MessageBus.Default.Send(MsgArgs.From(WinMainMessage.Growl, [string.Format(LangProvider.Instance.BurnStartFailureMessage, ex.Message), MessageType.Error]));
+            }
         }
         private async Task StopAsync()
         {
-            await Zone.StopBurnAsync();
+            try
+            {
+                await Zone.StopBurnAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBus.Default.Send(MsgArgs.From(WinMainMessage.Growl, [string.Format(LangProvider.Instance.BurnStopFailureMessage, ex.Message), MessageType.Error]));
+            }
         }
         private void ClearBurnInfo()
         {

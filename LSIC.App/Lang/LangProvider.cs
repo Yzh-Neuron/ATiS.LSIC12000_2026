@@ -672,6 +672,21 @@ namespace LSIC.App
         public string UnhandledExceptionMessage => GetString("UnhandledExceptionMessage");
 
         /// <summary>
+        /// 下发器件失败：{0}
+        /// </summary>
+        public string SendIcFailureMessage => GetString("SendIcFailureMessage");
+
+        /// <summary>
+        /// 老化启动失败：{0}
+        /// </summary>
+        public string BurnStartFailureMessage => GetString("BurnStartFailureMessage");
+
+        /// <summary>
+        /// 老化停止失败：{0}
+        /// </summary>
+        public string BurnStopFailureMessage => GetString("BurnStopFailureMessage");
+
+        /// <summary>
         /// 文件导入成功
         /// </summary>
         public string FileImportSuccessMessage => GetString("FileImportSuccessMessage");
@@ -2173,6 +2188,12 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(UnhandledExceptionMessage));
 
+            OnPropertyChanged(nameof(SendIcFailureMessage));
+
+            OnPropertyChanged(nameof(BurnStartFailureMessage));
+
+            OnPropertyChanged(nameof(BurnStopFailureMessage));
+
             OnPropertyChanged(nameof(FileImportSuccessMessage));
 
             OnPropertyChanged(nameof(FileImportFailureMessage));
@@ -3327,6 +3348,21 @@ namespace LSIC.App
         /// 未捕获到的异常，{0}
         /// </summary>
         public const string UnhandledExceptionMessage = nameof(UnhandledExceptionMessage);
+
+        /// <summary>
+        /// 下发器件失败：{0}
+        /// </summary>
+        public const string SendIcFailureMessage = nameof(SendIcFailureMessage);
+
+        /// <summary>
+        /// 老化启动失败：{0}
+        /// </summary>
+        public const string BurnStartFailureMessage = nameof(BurnStartFailureMessage);
+
+        /// <summary>
+        /// 老化停止失败：{0}
+        /// </summary>
+        public const string BurnStopFailureMessage = nameof(BurnStopFailureMessage);
 
          /// <summary>
         /// 文件导入成功
