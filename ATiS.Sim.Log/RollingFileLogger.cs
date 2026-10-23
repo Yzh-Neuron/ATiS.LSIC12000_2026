@@ -34,6 +34,7 @@ namespace ATiS.Sim.Log
 
         private readonly bool _timeRolling;
         private readonly long _maxSize;
+        private readonly TimeSpan? _retention;
         private readonly string _pathPrefix = string.Empty;
         private readonly string _pathSuffix = string.Empty;
         private readonly string _fileDateFormat = string.Empty;
@@ -64,7 +65,8 @@ namespace ATiS.Sim.Log
         /// <param name="minimumLevel">最低输出等级</param>
         /// <param name="messageFormat">消息格式，默认 [{level}][{date:Format}]{msg}，参数写错直接抛异常</param>
         /// <param name="ringCapacity">环形队列容量。</param>
-        public RollingFileLogger(string filePath, RollingInterval interval = RollingInterval.Infinite, long maxFileSizeBytes = 64L * 1024 * 1024, LogLevel minimumLevel = LogLevel.Debug, string messageFormat = null, int ringCapacity = 4096)
+        /// <param name="retentionPeriod">日志保留期：构造时及每次按时间滚动切换文件后，删除目标目录内最后写入时间早于该时长的 *.log 文件（含 _1/_2 等大小滚动归档）；null 表示永久保留</param>
+        public RollingFileLogger(string filePath, RollingInterval interval = RollingInterval.Infinite, long maxFileSizeBytes = 64L * 1024 * 1024, LogLevel minimumLevel = LogLevel.Debug, string messageFormat = null, int ringCapacity = 4096, TimeSpan? retentionPeriod = null)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
 
@@ -79,6 +81,7 @@ namespace ATiS.Sim.Log
 
             MinimumLevel = minimumLevel;
             _maxSize = maxFileSizeBytes;
+            _retention = retentionPeriod;
             _encoding = new UTF8Encoding(false);
             _newline = _encoding.GetBytes(Environment.NewLine);
             _template = new MessageTemplate(messageFormat ?? DefaultMessageFormat);
@@ -106,6 +109,12 @@ namespace ATiS.Sim.Log
             else
             {
                 EnsureDirectory(_pathPrefix); // 时间模式按写入时间惰性打开
+            }
+
+            if (_retention.HasValue)
+            {
+                // 构造时先清理一轮过期文件（Infinite 模式此后不再产生新目录文件，仅此一次）
+                RunRetentionSweep();
             }
 
             _writer = new Thread(WriterLoop)
@@ -347,6 +356,11 @@ namespace ATiS.Sim.Log
                     if (_stream == null || !string.Equals(want, _openPath, StringComparison.Ordinal))
                     {
                         SwitchFile(want);
+                        if (_retention.HasValue)
+                        {
+                            // 跨天切换文件时清理一轮过期文件（每实例每天至多一次）
+                            RunRetentionSweep();
+                        }
                     }
                 }
                 else if (_stream == null)
@@ -428,6 +442,55 @@ namespace ATiS.Sim.Log
             string name = Path.GetFileNameWithoutExtension(basePath) + "_" +
                           index.ToString(CultureInfo.InvariantCulture) + Path.GetExtension(basePath);
             return string.IsNullOrEmpty(dir) ? name : Path.Combine(dir, name);
+        }
+
+        /// <summary>
+        /// 保留期清理：删除目标目录中最后写入时间早于保留期的 *.log 文件。
+        /// 只扫描本实例的目标目录（不递归子目录），正在写入的当前文件因保留着写入句柄不会被删除。
+        /// </summary>
+        private void RunRetentionSweep()
+        {
+            try
+            {
+                string dir = _timeRolling
+                    ? Path.GetDirectoryName(_pathPrefix)
+                    : Path.GetDirectoryName(_staticPath);
+                if (string.IsNullOrEmpty(dir) || !Directory.Exists(dir))
+                {
+                    return;
+                }
+
+                DateTime cutoffUtc = DateTime.UtcNow - _retention!.Value;
+                int deleted = 0;
+                foreach (string file in Directory.EnumerateFiles(dir, "*.log", SearchOption.TopDirectoryOnly))
+                {
+                    try
+                    {
+                        if (File.GetLastWriteTimeUtc(file) >= cutoffUtc)
+                        {
+                            continue;
+                        }
+                        File.Delete(file);
+                        deleted++;
+                    }
+                    catch (IOException)
+                    {
+                        // 文件被其它进程/本进程占用（如日志浏览正在读取），跳过待下次清理
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                    }
+                }
+
+                if (deleted > 0)
+                {
+                    Log(LogLevel.Info, $"已按保留期 {_retention.Value.TotalDays:0} 天清理 {deleted} 个过期日志文件");
+                }
+            }
+            catch (Exception ex)
+            {
+                RaiseError(ex);
+            }
         }
 
         /// <summary>

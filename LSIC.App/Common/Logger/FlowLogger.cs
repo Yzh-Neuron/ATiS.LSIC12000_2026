@@ -9,7 +9,7 @@
         public FlowLogger(Zone zone)
         {
             History = new ConcurrentQueue<Flow>();
-            logger = new RollingFileLogger($@".\Log\Flow\Zone {zone.Id}\{{date:yyyyMMdd}}.log", RollingInterval.Day);
+            logger = new RollingFileLogger($@".\Log\Flow\Zone {zone.Id}\{{date:yyyyMMdd}}.log", RollingInterval.Day, retentionPeriod: SystemLog.RetentionPeriod);
         }
         public void LogDebug(string message)
         {
