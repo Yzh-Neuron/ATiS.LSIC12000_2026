@@ -2,7 +2,7 @@
 {
     public static class ObjectExtension
     {
-        public static void InvokeOnUI<T>(this object obj, Action<T> action, T arg)
+        public static void InvokeOnUI<T>(this object obj, Action<T> action, T arg, DispatcherPriority priority = DispatcherPriority.Normal)
         {
             if (action is not null)
             {
@@ -15,12 +15,12 @@
                     }
                     else
                     {
-                        dispatcher.BeginInvoke(DispatcherPriority.Normal, action, arg);
+                        dispatcher.BeginInvoke(priority, action, arg);
                     }
                 }
             }
         }
-        public static void InvokeOnUI(this object obj, Action action)
+        public static void InvokeOnUI(this object obj, Action action, DispatcherPriority priority = DispatcherPriority.Normal)
         {
             if (action is not null)
             {
@@ -33,7 +33,7 @@
                     }
                     else
                     {
-                        dispatcher.BeginInvoke(DispatcherPriority.Normal, action);
+                        dispatcher.BeginInvoke(priority, action);
                     }
                 }
             }

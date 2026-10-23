@@ -6,7 +6,6 @@
         private readonly RollingFileLogger logger;
         public ConcurrentQueue<Flow> History { get; private set; }
         public event AddFlowHandler OnAddFlow;
-        public event RemoveFlowHandler OnRemoveFlow;
         public FlowLogger(Zone zone)
         {
             History = new ConcurrentQueue<Flow>();
@@ -35,12 +34,7 @@
         {
             while (History.Count >= MaxCount)
             {
-                bool success = History.TryDequeue(out _);
-                if (success &&
-                    OnRemoveFlow is not null)
-                {
-                    OnRemoveFlow.Invoke();
-                }
+                History.TryDequeue(out _);
             }
             Flow flow = new Flow(time, level, message);
             History.Enqueue(flow);
@@ -58,15 +52,12 @@
             Time = time;
             Level = level;
             Message = message;
+            Header = $"[ {Time:HH:mm:ss} {Level.GetString()} ]";
         }
-        public DateTime Time { get; private set; }
-        public LogLevel Level { get; private set; }
-        public string Message { get; private set; }
-        public override string ToString()
-        {
-            return $"[{Time:yyyy-MM-dd HH:mm:ss}] {Message}";
-        }
+        public DateTime Time { get; }
+        public LogLevel Level { get; }
+        public string Message { get; }
+        public string Header { get; }
     }
     public delegate void AddFlowHandler(Flow flow);
-    public delegate void RemoveFlowHandler();
 }

@@ -1,203 +1,217 @@
-﻿namespace LSIC.App.Views
+﻿using System.Windows.Controls;
+
+namespace LSIC.App.Views
 {
     public partial class CtrFlowLogView
     {
-        private readonly BlockCollection _logsHost;
+        private const int MaxCount = 500;
+        private const double AutoScrollThreshold = 2.0;
+        private ObservableCollection<Flow> _flows = new ObservableCollection<Flow>();
+        private volatile bool _isActive;
+        private bool _autoScroll = true;
         private bool _menuIsOpen;
-        private readonly int _maxCount = 500;
-
-        #region 画刷
-        public Brush DebugBrush
+        private int _scrollScheduled;
+        private ScrollViewer _scrollViewer;
+        private ScrollViewer ScrollViewer
         {
-            get { return (Brush)GetValue(DebugBrushProperty); }
-            set { SetValue(DebugBrushProperty, value); }
-        }
-        public static readonly DependencyProperty DebugBrushProperty =
-            DependencyProperty.Register(nameof(DebugBrush), typeof(Brush), typeof(CtrFlowLogView), new PropertyMetadata(Brushes.Gray));
-        public Brush InfoBrush
-        {
-            get { return (Brush)GetValue(InfoBrushProperty); }
-            set { SetValue(InfoBrushProperty, value); }
-        }
-        public static readonly DependencyProperty InfoBrushProperty =
-            DependencyProperty.Register(nameof(InfoBrush), typeof(Brush), typeof(CtrFlowLogView), new PropertyMetadata(Brushes.Black));
-        public Brush WarnBrush
-        {
-            get { return (Brush)GetValue(WarnBrushProperty); }
-            set { SetValue(WarnBrushProperty, value); }
-        }
-        public static readonly DependencyProperty WarnBrushProperty =
-            DependencyProperty.Register(nameof(WarnBrush), typeof(Brush), typeof(CtrFlowLogView), new PropertyMetadata(Brushes.Orange));
-        public Brush ErrorBrush
-        {
-            get { return (Brush)GetValue(ErrorBrushProperty); }
-            set { SetValue(ErrorBrushProperty, value); }
-        }
-        public static readonly DependencyProperty ErrorBrushProperty =
-            DependencyProperty.Register(nameof(ErrorBrush), typeof(Brush), typeof(CtrFlowLogView), new PropertyMetadata(Brushes.Red));
-        public Brush FatalBrush
-        {
-            get { return (Brush)GetValue(FatalBrushProperty); }
-            set { SetValue(FatalBrushProperty, value); }
-        }
-        public static readonly DependencyProperty FatalBrushProperty =
-            DependencyProperty.Register(nameof(FatalBrush), typeof(Brush), typeof(CtrFlowLogView), new PropertyMetadata(Brushes.DarkRed));
-        #endregion
-
-        #region FlowLogger 依赖属性
-        public static readonly DependencyProperty LoggerProperty =
-            DependencyProperty.Register(nameof(Logger), typeof(FlowLogger), typeof(CtrFlowLogView), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnLoggerChanged));
-        private static void OnLoggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is not CtrFlowLogView view)
+            get
             {
-                return;
-            }
-
-            if (e.OldValue is FlowLogger oldLogger)
-            {
-                oldLogger.OnAddFlow -= view.OnHistoryAppened;
-                view._logsHost.Clear();
-            }
-
-            if (e.NewValue is FlowLogger newLogger)
-            {
-                view._logsHost.Clear();
-                view.FilterItems = new ObservableCollection<FrameFilterItem>(FrameFilterUtility.GetFilterItems(newLogger));
-                view.Refresh();
-                newLogger.OnAddFlow -= view.OnHistoryAppened;
-                newLogger.OnAddFlow += view.OnHistoryAppened;
+                return _scrollViewer ?? (_scrollViewer = this.GetDesendentChild<ScrollViewer>());
             }
         }
+
+        #region 依赖属性
         public FlowLogger Logger
         {
-            get => (FlowLogger)GetValue(LoggerProperty);
-            set => SetValue(LoggerProperty, value);
+            get { return (FlowLogger)GetValue(LoggerProperty); }
+            set { SetValue(LoggerProperty, value); }
         }
-        #endregion
+        public static readonly DependencyProperty LoggerProperty =
+             DependencyProperty.Register(nameof(Logger), typeof(FlowLogger), typeof(CtrFlowLogView), new FrameworkPropertyMetadata(null, OnLoggerChanged));
+        private static void OnLoggerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CtrFlowLogView)?.UpdateLogger((FlowLogger)e.OldValue, (FlowLogger)e.NewValue);
+        }
 
-        #region 过滤元素集合
-        public static readonly DependencyProperty FilterItemsProperty =
-            DependencyProperty.Register(nameof(FilterItems), typeof(ObservableCollection<FrameFilterItem>), typeof(CtrFlowLogView), new FrameworkPropertyMetadata(new ObservableCollection<FrameFilterItem>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         public ObservableCollection<FrameFilterItem> FilterItems
         {
-            get => (ObservableCollection<FrameFilterItem>)GetValue(FilterItemsProperty);
-            set => SetValue(FilterItemsProperty, value);
+            get { return (ObservableCollection<FrameFilterItem>)GetValue(FilterItemsProperty); }
+            set { SetValue(FilterItemsProperty, value); }
         }
+        public static readonly DependencyProperty FilterItemsProperty =
+            DependencyProperty.Register(nameof(FilterItems), typeof(ObservableCollection<FrameFilterItem>), typeof(CtrFlowLogView), new PropertyMetadata(null, OnFilterItemsChanged));
+        private static void OnFilterItemsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is CtrFlowLogView view)
+            {
+                view.Refresh();
+            }
+        }
+
         #endregion
         public CtrFlowLogView()
         {
             InitializeComponent();
 
-            _logsHost = LogView.Document.Blocks;
-            _logsHost.Clear();
+            ItemsSource = _flows;
 
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
+            IsVisibleChanged += OnIsVisibleChanged;
+        }
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            _scrollViewer = null;
+        }
+        private void UpdateLogger(FlowLogger oldLogger, FlowLogger newLogger)
+        {
+            Unsubscribe(oldLogger);
+
+            if (newLogger == null)
+            {
+                _flows.Clear();
+
+                return;
+            }
+
+            SetCurrentValue(FilterItemsProperty, new ObservableCollection<FrameFilterItem>(FrameFilterUtility.GetFilterItems(newLogger)));
+        }
+        private void OnHistoryAppened(Flow flow)
+        {
+            if (!_isActive || flow == null)
+            {
+                return;
+            }
+
+            this.InvokeOnUI(Append, flow, DispatcherPriority.Background);
         }
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (Logger is not null)
+            SetActive(IsVisible);
+        }
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            SetActive(false);
+        }
+        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            SetActive(IsLoaded && IsVisible);
+        }
+        private void Append(Flow flow)
+        {
+            _flows.Add(flow);
+
+            while (_flows.Count > MaxCount)
+            {
+                _flows.RemoveAt(0);
+            }
+        }
+
+        #region 核心方法
+        private void SetActive(bool active)
+        {
+            if (_isActive != active)
+            {
+                _isActive = active;
+
+                if (active)
+                {
+                    Refresh();
+                }
+                else
+                {
+                    Unsubscribe(Logger);
+                }
+            }
+        }
+        private void Refresh()
+        {
+            if (_isActive)
+            {
+                LoadHistory();
+                Subscribe();
+                RequestScrollToEnd();
+            }
+        }
+        private void LoadHistory()
+        {
+            if (Logger != null)
+            {
+                _flows = new ObservableCollection<Flow>(Logger.History);
+
+                SetCurrentValue(ItemsSourceProperty, _flows);
+            }
+        }
+        private void Subscribe()
+        {
+            if (Logger != null)
             {
                 Logger.OnAddFlow -= OnHistoryAppened;
                 Logger.OnAddFlow += OnHistoryAppened;
             }
-
-            Device.Instance.ThemeTypeChanged -= OnThemeTypeChanged;
-            Device.Instance.ThemeTypeChanged += OnThemeTypeChanged;
-
-            Refresh();
-            TryScrollToEnd();
         }
-        private void OnUnloaded(object sender, RoutedEventArgs e)
+        private void Unsubscribe(FlowLogger logger)
         {
-            if (Logger is not null)
+            if (logger != null)
             {
-                Logger.OnAddFlow -= OnHistoryAppened;
+                logger.OnAddFlow -= OnHistoryAppened;
             }
+        }
+        #endregion
 
-            Device.Instance.ThemeTypeChanged -= OnThemeTypeChanged;
-        }
-        private void OnThemeTypeChanged(ThemeType obj)
+        #region 界面滚动
+        private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            Refresh();
-        }
-        private void OnHistoryAppened(Flow flow)
-        {
-            if (!CheckAccess())
+            if (e.ExtentHeightChange != 0)
             {
-                Dispatcher.BeginInvoke(new Action<Flow>(OnHistoryAppened), flow);
+                RequestScrollToEnd();
+
                 return;
             }
 
-            if (_logsHost.Count >= _maxCount)
-            {
-                _logsHost.Remove(_logsHost.FirstBlock);
-            }
-            _logsHost.Add(LogToParagraph(flow));
-            TryScrollToEnd();
+            _autoScroll = e.VerticalOffset + e.ViewportHeight >= e.ExtentHeight - AutoScrollThreshold;
         }
-        private void TryScrollToEnd()
+        private void RequestScrollToEnd()
         {
-            if (!LogView.IsMouseOver && !_menuIsOpen)
+            if (!_autoScroll || _menuIsOpen)
             {
-                LogView.ScrollToEnd();
+                return;
             }
+
+            if (Interlocked.CompareExchange(ref _scrollScheduled, 1, 0) == 1)
+            {
+                return;
+            }
+
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                Volatile.Write(ref _scrollScheduled, 0);
+
+                if (_autoScroll && !_menuIsOpen)
+                {
+                    ScrollViewer?.ScrollToEnd();
+                }
+            }), DispatcherPriority.Loaded);
         }
+        #endregion
+
+        #region 菜单操作
         private void OnClearLogs(object sender, RoutedEventArgs e)
         {
             Logger?.History.Clear();
-            Refresh();
-        }
-        private void Refresh()
-        {
-            if (_logsHost is null || Logger is null)
-            {
-                return;
-            }
 
-            _logsHost.Clear();
+            _flows.Clear();
 
-            foreach (Flow log in Logger.History)
-            {
-                _logsHost.Add(LogToParagraph(log));
-            }
-
-            TryScrollToEnd();
+            _autoScroll = true;
         }
         private void OnMenuVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             _menuIsOpen = (bool)e.NewValue;
         }
-        private Paragraph LogToParagraph(Flow flow)
-        {
-            Paragraph result = new Paragraph
-            {
-                LineHeight = 5,
-            };
-            Run levelRun = new Run($"[ {flow.Time:HH:mm:ss} {flow.Level.GetString()} ]")
-            {
-                Foreground = GetBrush(flow.Level)
-            };
-            Run messageRun = new Run($" {flow.Message}")
-            {
-                Foreground = Foreground
-            };
-            result.Inlines.Add(levelRun);
-            result.Inlines.Add(messageRun);
-            return result;
-        }
-        private Brush GetBrush(LogLevel logLevel)
-        {
-            return logLevel switch
-            {
-                LogLevel.Debug => DebugBrush,
-                LogLevel.Info => InfoBrush,
-                LogLevel.Warn => WarnBrush,
-                LogLevel.Error => ErrorBrush,
-                LogLevel.Fatal => FatalBrush,
-                _ => Foreground
-            };
-        }
+        #endregion
     }
+
+
 }
