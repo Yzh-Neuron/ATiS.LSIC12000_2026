@@ -10,6 +10,19 @@ namespace ATiS.Sim.Communication
     {
         private readonly byte _slaveId;
         private readonly ConcurrentDictionary<string, List<byte>> _buffers = new ConcurrentDictionary<string, List<byte>>();
+        // 每客户端解析门闩：OnReceivedData 在 await 发送期间可能被下一包数据重入，
+        // 串行化同一客户端的解析，防止共享 List<byte> 并发损坏
+        private readonly ConcurrentDictionary<string, SemaphoreSlim> _gates = new ConcurrentDictionary<string, SemaphoreSlim>();
+
+        /// <summary>
+        /// MBAP length 字段合法下限（最小 PDU：站号+功能码+地址+数量 = 6 字节）
+        /// </summary>
+        private const ushort MinAduLength = 6;
+
+        /// <summary>
+        /// MBAP length 字段合法上限（遵循 Modbus ADU 260 字节上限）
+        /// </summary>
+        private const ushort MaxAduLength = 260;
 
         public ModbusTcpServer(byte slaveId = 0x01, ushort localPort = 502, int backlog = int.MaxValue, int receiveBufferSize = 4096)
             : base(localPort, backlog, receiveBufferSize)
@@ -31,18 +44,14 @@ namespace ATiS.Sim.Communication
             string key = $"{remote}";
             if (connected)
             {
-                List<byte> buffer = new List<byte>(2048);
-                while (!_buffers.TryAdd(key, buffer))
-                {
-                    Thread.Sleep(25);
-                }
+                // 直接 TryAdd：重复连接同一远端时保留既有缓冲，避免自旋等待拖住接受/接收循环
+                _buffers.TryAdd(key, new List<byte>(2048));
             }
             else
             {
-                while (!_buffers.TryRemove(key, out _))
-                {
-                    Thread.Sleep(25);
-                }
+                // 直接 TryRemove：不存在时无需自旋；门闩不主动 Dispose（可能仍有在途解析持有），交由 GC 回收
+                _buffers.TryRemove(key, out _);
+                _gates.TryRemove(key, out _);
             }
         }
 
@@ -56,87 +65,107 @@ namespace ATiS.Sim.Communication
                     return;
                 }
 
-                buffer.AddRange(data);
-                int index;
-                while (buffer.Count > 6)
+                SemaphoreSlim gate = _gates.GetOrAdd(key, _ => new SemaphoreSlim(1, 1));
+                await gate.WaitAsync().ConfigureAwait(false);
+                try
                 {
-                    index = 0;
-
-                    ushort sn = (ushort)(buffer[index++] << 8 | buffer[index++]);
-                    index += 2;
-                    ushort length = (ushort)(buffer[index++] << 8 | buffer[index++]);
-                    if (buffer.Count < length + index)
+                    buffer.AddRange(data);
+                    while (buffer.Count > 6)
                     {
-                        break;
-                    }
+                        int index = 0;
 
-                    byte station = buffer[index++];
-                    ModbusFunction func = (ModbusFunction)buffer[index++];
-                    ushort addr = (ushort)(buffer[index++] << 8 | buffer[index++]);
+                        ushort sn = (ushort)(buffer[index++] << 8 | buffer[index++]);
+                        index += 2;
+                        ushort length = (ushort)(buffer[index++] << 8 | buffer[index++]);
 
-                    byte[] resp;
-                    if (station != _slaveId)
-                    {
-                        resp = BuildExceptionFrame(sn, station, func, ModbusResponseCode.SlaveDeviceFailure);
-                        index = 6 + length;
-                    }
-                    else
-                    {
-                        ModbusResponseCode code;
-                        switch (func)
+                        // 长度非法：帧边界已不可信，丢弃整段缓冲重新同步，防止毒帧永久卡死该连接
+                        if (length < MinAduLength || length > MaxAduLength)
                         {
-                            case ModbusFunction.ReadCoils:
-                            case ModbusFunction.ReadDiscreteInputs:
-                            case ModbusFunction.ReadHoldingRegisters:
-                            case ModbusFunction.ReadInputRegisters:
-                                {
-                                    ushort quantity = (ushort)(buffer[index++] << 8 | buffer[index++]);
-                                    code = Read(func, addr, quantity, out resp);
-                                    resp = code == ModbusResponseCode.Success
-                                        ? BuildReadFrame(sn, station, func, resp)
-                                        : BuildExceptionFrame(sn, station, func, code);
-                                }
-                                break;
-                            case ModbusFunction.WriteSingleCoil:
-                            case ModbusFunction.WriteSingleRegister:
-                                {
-                                    data = new byte[length - 4];
-                                    for (int i = 0; i < data.Length; i++)
-                                    {
-                                        data[i] = buffer[index++];
-                                    }
-
-                                    code = Write(func, addr, 1, data, out resp);
-                                    resp = code == ModbusResponseCode.Success
-                                        ? BuildWriteSingleFrame(sn, station, func, addr, resp)
-                                        : BuildExceptionFrame(sn, station, func, code);
-                                }
-                                break;
-                            case ModbusFunction.WriteMultipleCoils:
-                            case ModbusFunction.WriteMultipleRegisters:
-                                {
-                                    ushort quantity = (ushort)(buffer[index++] << 8 | buffer[index++]);
-                                    byte thenLength = buffer[index++];
-                                    data = new byte[thenLength];
-                                    for (int i = 0; i < data.Length; i++)
-                                    {
-                                        data[i] = buffer[index++];
-                                    }
-
-                                    code = Write(func, addr, quantity, data, out _);
-                                    resp = code == ModbusResponseCode.Success
-                                        ? BuildWriteMultiFrame(sn, station, func, addr, quantity)
-                                        : BuildExceptionFrame(sn, station, func, code);
-                                }
-                                break;
-                            default:
-                                resp = BuildExceptionFrame(sn, station, func, ModbusResponseCode.IllegalFunction);
-                                break;
+                            OnException(local, remote, new Exception($"invalid modbus frame length {length}."));
+                            buffer.Clear();
+                            break;
                         }
-                    }
+                        if (buffer.Count < 6 + length)
+                        {
+                            break;
+                        }
 
-                    buffer.RemoveRange(0, index);
-                    await SendToAsync(remote, resp);
+                        // 先整体取出本帧并推进缓冲区：后续解析异常不会毒化剩余数据
+                        byte[] frame = new byte[6 + length];
+                        buffer.CopyTo(0, frame, 0, frame.Length);
+                        buffer.RemoveRange(0, frame.Length);
+
+                        index = 6;
+                        byte station = frame[index++];
+                        ModbusFunction func = (ModbusFunction)frame[index++];
+                        ushort addr = (ushort)(frame[index++] << 8 | frame[index++]);
+
+                        byte[] resp;
+                        if (station != _slaveId)
+                        {
+                            resp = BuildExceptionFrame(sn, station, func, ModbusResponseCode.SlaveDeviceFailure);
+                        }
+                        else
+                        {
+                            ModbusResponseCode code;
+                            switch (func)
+                            {
+                                case ModbusFunction.ReadCoils:
+                                case ModbusFunction.ReadDiscreteInputs:
+                                case ModbusFunction.ReadHoldingRegisters:
+                                case ModbusFunction.ReadInputRegisters:
+                                    {
+                                        ushort quantity = (ushort)(frame[index++] << 8 | frame[index++]);
+                                        code = Read(func, addr, quantity, out resp);
+                                        resp = code == ModbusResponseCode.Success
+                                            ? BuildReadFrame(sn, station, func, resp)
+                                            : BuildExceptionFrame(sn, station, func, code);
+                                    }
+                                    break;
+                                case ModbusFunction.WriteSingleCoil:
+                                case ModbusFunction.WriteSingleRegister:
+                                    {
+                                        data = new byte[length - 4];
+                                        for (int i = 0; i < data.Length; i++)
+                                        {
+                                            data[i] = frame[index++];
+                                        }
+
+                                        code = Write(func, addr, 1, data, out resp);
+                                        resp = code == ModbusResponseCode.Success
+                                            ? BuildWriteSingleFrame(sn, station, func, addr, resp)
+                                            : BuildExceptionFrame(sn, station, func, code);
+                                    }
+                                    break;
+                                case ModbusFunction.WriteMultipleCoils:
+                                case ModbusFunction.WriteMultipleRegisters:
+                                    {
+                                        ushort quantity = (ushort)(frame[index++] << 8 | frame[index++]);
+                                        byte thenLength = frame[index++];
+                                        data = new byte[thenLength];
+                                        for (int i = 0; i < data.Length; i++)
+                                        {
+                                            data[i] = frame[index++];
+                                        }
+
+                                        code = Write(func, addr, quantity, data, out _);
+                                        resp = code == ModbusResponseCode.Success
+                                            ? BuildWriteMultiFrame(sn, station, func, addr, quantity)
+                                            : BuildExceptionFrame(sn, station, func, code);
+                                    }
+                                    break;
+                                default:
+                                    resp = BuildExceptionFrame(sn, station, func, ModbusResponseCode.IllegalFunction);
+                                    break;
+                            }
+                        }
+
+                        await SendToAsync(remote, resp);
+                    }
+                }
+                finally
+                {
+                    gate.Release();
                 }
             }
             catch (Exception e)

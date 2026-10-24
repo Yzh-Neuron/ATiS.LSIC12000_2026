@@ -341,6 +341,12 @@ namespace ATiS.Sim.Communication
                         throw new Exception("response error.");
                     }
 
+                    // Modbus 异常响应（功能码最高位已置位）：消费剩余字节后按失败返回，不视为通信故障
+                    if (await TryConsumeExceptionResponseAsync(func, buffer, cancellationToken.Token).ConfigureAwait(false))
+                    {
+                        return null;
+                    }
+
                     if (buffer[index++] != (byte)func)
                     {
                         throw new Exception("response error.");
@@ -462,6 +468,12 @@ namespace ATiS.Sim.Communication
                     if (buffer[index++] != _station)
                     {
                         throw new Exception("response error.");
+                    }
+
+                    // Modbus 异常响应（功能码最高位已置位）：消费剩余字节后按失败返回，不视为通信故障
+                    if (await TryConsumeExceptionResponseAsync(ModbusFunction.WriteSingleCoil, buffer, cancellationToken.Token).ConfigureAwait(false))
+                    {
+                        return false;
                     }
 
                     if (buffer[index++] != (byte)ModbusFunction.WriteSingleCoil)
@@ -598,6 +610,12 @@ namespace ATiS.Sim.Communication
                         throw new Exception("response error.");
                     }
 
+                    // Modbus 异常响应（功能码最高位已置位）：消费剩余字节后按失败返回，不视为通信故障
+                    if (await TryConsumeExceptionResponseAsync(ModbusFunction.WriteMultipleCoils, buffer, cancellationToken.Token).ConfigureAwait(false))
+                    {
+                        return false;
+                    }
+
                     if (buffer[index++] != (byte)ModbusFunction.WriteMultipleCoils)
                     {
                         throw new Exception("response error.");
@@ -715,6 +733,12 @@ namespace ATiS.Sim.Communication
                     if (buffer[index++] != _station)
                     {
                         throw new Exception("response error.");
+                    }
+
+                    // Modbus 异常响应（功能码最高位已置位）：消费剩余字节后按失败返回，不视为通信故障
+                    if (await TryConsumeExceptionResponseAsync(ModbusFunction.WriteSingleRegister, buffer, cancellationToken.Token).ConfigureAwait(false))
+                    {
+                        return false;
                     }
 
                     if (buffer[index++] != (byte)ModbusFunction.WriteSingleRegister)
@@ -841,6 +865,13 @@ namespace ATiS.Sim.Communication
                     {
                         throw new Exception("response error.");
                     }
+
+                    // Modbus 异常响应（功能码最高位已置位）：消费剩余字节后按失败返回，不视为通信故障
+                    if (await TryConsumeExceptionResponseAsync(ModbusFunction.WriteMultipleRegisters, buffer, cancellationToken.Token).ConfigureAwait(false))
+                    {
+                        return false;
+                    }
+
                     if (buffer[index++] != (byte)ModbusFunction.WriteMultipleRegisters)
                     {
                         throw new Exception("response error.");
@@ -903,9 +934,45 @@ namespace ATiS.Sim.Communication
             }
         }
 
+        /// <summary>
+        /// 判断帧头（station + func）是否为 Modbus 异常响应（func 最高位置位）；
+        /// 是则消费完剩余的异常码与 CRC 字节并返回 true，保持接收流对齐
+        /// </summary>
+        private async Task<bool> TryConsumeExceptionResponseAsync(ModbusFunction func, byte[] head, CancellationToken cancellationToken)
+        {
+            if ((head[1] & 0x80) == 0)
+            {
+                return false;
+            }
+
+            if ((head[1] & 0x7F) != (byte)func)
+            {
+                // 功能码不匹配视为流错乱，按协议错误处理
+                throw new Exception("response error.");
+            }
+
+            // RTU 异常帧剩余 3 字节：异常码 1 + CRC16 2
+            byte[] rest = new byte[3];
+            int offset = 0;
+            while (offset < rest.Length)
+            {
+                ArraySegment<byte> segment = new ArraySegment<byte>(rest, offset, rest.Length - offset);
+                int received = await Socket.ReceiveAsync(segment, SocketFlags.None, cancellationToken).ConfigureAwait(false);
+                if (received == 0)
+                {
+                    throw new SocketException((int)SocketError.Shutdown);
+                }
+                offset += received;
+            }
+            return true;
+        }
+
         protected override async ValueTask InternalDisposeAsync()
         {
-            await _connectTask.ConfigureAwait(false);
+            if (_connectTask != null)
+            {
+                await _connectTask.ConfigureAwait(false);
+            }
             if (_connectLife != null)
             {
                 _connectLife.Cancel();
@@ -919,6 +986,9 @@ namespace ATiS.Sim.Communication
                     _connectLife = null;
                 }
             }
+            // 释放连接 Socket 与锁，避免句柄泄漏
+            Socket?.Dispose();
+            _socketLock.Dispose();
         }
 
         #region CRC16/modbus

@@ -43,13 +43,16 @@ namespace ATiS.Sim.Communication
 
         public int SendTo(IPEndPoint remote, byte[] buffer, int offset, int count)
         {
+            //在 try 外捕获 client 引用：异常路径 MarkClientDead 会将其移出 _clients，
+            //finally 必须对当初获取许可的同一实例 Release，否则许可永久丢失会挂死 DisposeAsync 的排干逻辑
+            ClientWrapper client = null;
             bool semaphoreHeld = false;
             try
             {
                 ThrowIfDisposed();
                 ThrowIfBufferArgsError(buffer, offset, count);
 
-                if (!_clients.TryGetValue(remote, out ClientWrapper client) || client.Life.IsCancellationRequested)
+                if (!_clients.TryGetValue(remote, out client) || client.Life.IsCancellationRequested)
                 {
                     return 0;
                 }
@@ -71,7 +74,7 @@ namespace ATiS.Sim.Communication
             }
             finally
             {
-                if (semaphoreHeld && _clients.TryGetValue(remote, out ClientWrapper client))
+                if (semaphoreHeld)
                 {
                     client.Semaphore.Release();
                 }
@@ -85,13 +88,16 @@ namespace ATiS.Sim.Communication
 
         public async Task<int> SendToAsync(IPEndPoint remote, byte[] buffer, int offset, int count, CancellationToken cancellationToken = default)
         {
+            //在 try 外捕获 client 引用：异常路径 MarkClientDead 会将其移出 _clients，
+            //finally 必须对当初获取许可的同一实例 Release，否则许可永久丢失会挂死 DisposeAsync 的排干逻辑
+            ClientWrapper client = null;
             bool semaphoreHeld = false;
             try
             {
                 ThrowIfDisposed();
                 ThrowIfBufferArgsError(buffer, offset, count);
 
-                if (!_clients.TryGetValue(remote, out ClientWrapper client) || client.Life.IsCancellationRequested)
+                if (!_clients.TryGetValue(remote, out client) || client.Life.IsCancellationRequested)
                 {
                     return 0;
                 }
@@ -114,7 +120,7 @@ namespace ATiS.Sim.Communication
             }
             finally
             {
-                if (semaphoreHeld && _clients.TryGetValue(remote, out ClientWrapper client))
+                if (semaphoreHeld)
                 {
                     client.Semaphore.Release();
                 }
@@ -123,9 +129,11 @@ namespace ATiS.Sim.Communication
 
         private async Task AcceptJob()
         {
-            try
+            //try/catch 在 while 内：单次接受异常（如瞬时端口耗尽）只影响一轮，
+            //延迟后继续接受，避免服务器永久停止接受连接、设备断电重启后无法重连
+            while (!LifeToken.IsCancellationRequested)
             {
-                while (!LifeToken.IsCancellationRequested)
+                try
                 {
                     Socket accept = await Socket.AcceptAsync(LifeToken).ConfigureAwait(false);
 
@@ -139,14 +147,30 @@ namespace ATiS.Sim.Communication
                     _clients[(IPEndPoint)accept.RemoteEndPoint] = client;
                     OnStateChanged(LocalEndPoint, accept.RemoteEndPoint as IPEndPoint, true);
                 }
-            }
-            catch (OperationCanceledException)
-            {
-                // ignore
-            }
-            catch (Exception e)
-            {
-                OnException(LocalEndPoint, null, e);
+                catch (OperationCanceledException)
+                {
+                    //服务器正在停止
+                    break;
+                }
+                catch (ObjectDisposedException)
+                {
+                    //监听 Socket 已释放
+                    break;
+                }
+                catch (Exception e)
+                {
+                    OnException(LocalEndPoint, null, e);
+
+                    //异常风暴时限流重试；期间服务器停止则立即退出
+                    try
+                    {
+                        await Task.Delay(CheckInterval, LifeToken).ConfigureAwait(false);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        break;
+                    }
+                }
             }
         }
 

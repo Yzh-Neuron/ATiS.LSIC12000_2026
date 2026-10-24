@@ -25,6 +25,7 @@ namespace ATiS.Sim.Communication
         private Task _connectTask;
         private Task _receiveTask;
         private volatile int _receiving; // 0 = no, 1 = yes
+        private CancellationTokenSource _receiveLife;
         private bool _isReportedDisconnect;
 
         public IPEndPoint RemoteEndPoint { get; }
@@ -73,18 +74,35 @@ namespace ATiS.Sim.Communication
             {
                 return;
             }
-            _receiveTask = ReceiveJob();
+            // 独立的接收生命周期：StopAutoReceive 可主动取消挂起的 ReceiveAsync，避免无数据时永久阻塞
+            CancellationTokenSource receiveLife = CancellationTokenSource.CreateLinkedTokenSource(LifeToken);
+            Volatile.Write(ref _receiveLife, receiveLife);
+            _receiveTask = ReceiveJob(receiveLife.Token);
         }
 
+        /// <summary>
+        /// 停止自动接收并等待接收任务退出。注意：取消瞬间到达的数据可能被丢弃。
+        /// </summary>
         public void StopAutoReceive()
         {
             if (Interlocked.Exchange(ref _receiving, 0) == 0)
             {
                 return;
             }
+            // 取消挂起的接收，令 ReceiveJob 及时退出，而不是等待下一包数据到达
+            CancellationTokenSource receiveLife = Volatile.Read(ref _receiveLife);
+            try
+            {
+                receiveLife?.Cancel();
+            }
+            catch (ObjectDisposedException)
+            {
+            }
             Task t = _receiveTask;
             t?.GetAwaiter().GetResult();
             _receiveTask = null;
+            receiveLife?.Dispose();
+            Volatile.Write(ref _receiveLife, null);
         }
 
         private async Task ConnectJob()
@@ -310,18 +328,18 @@ namespace ATiS.Sim.Communication
             }
         }
 
-        private async Task ReceiveJob()
+        private async Task ReceiveJob(CancellationToken receiveLife)
         {
-            while (!LifeToken.IsCancellationRequested && _receiving == 1)
+            while (!receiveLife.IsCancellationRequested && _receiving == 1)
             {
                 try
                 {
                     if (!Connected)
                     {
-                        await Task.Delay(CheckInterval, LifeToken).ConfigureAwait(false);
+                        await Task.Delay(CheckInterval, receiveLife).ConfigureAwait(false);
                         continue;
                     }
-                    int count = await Socket.ReceiveAsync(_receiveBuffer.AsMemory(0, _receiveBuffer.Length), SocketFlags.None, LifeToken).ConfigureAwait(false);
+                    int count = await Socket.ReceiveAsync(_receiveBuffer.AsMemory(0, _receiveBuffer.Length), SocketFlags.None, receiveLife).ConfigureAwait(false);
                     if (count == 0)
                     {
                         throw new SocketException((int)SocketError.ConnectionAborted);
@@ -391,7 +409,17 @@ namespace ATiS.Sim.Communication
             if (_receiveTask != null)
             {
                 Interlocked.Exchange(ref _receiving, 0);
+                CancellationTokenSource receiveLife = Volatile.Read(ref _receiveLife);
+                try
+                {
+                    receiveLife?.Cancel();
+                }
+                catch (ObjectDisposedException)
+                {
+                }
                 await _receiveTask.ConfigureAwait(false);
+                receiveLife?.Dispose();
+                Volatile.Write(ref _receiveLife, null);
             }
 
             ClientConnectState state = ConnectState;

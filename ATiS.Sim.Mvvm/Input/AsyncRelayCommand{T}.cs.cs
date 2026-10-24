@@ -50,7 +50,7 @@ namespace ATiS.Sim.Mvvm
                 RelayCommand<T>.ThrowArgumentExceptionForInvalidCommandArgument(parameter);
             }
 
-            return CanExecute(parameter);
+            return CanExecute(result);
         }
         public void Execute(T? parameter)
         {

@@ -363,6 +363,12 @@ namespace ATiS.Sim.Communication
                         offset += received;
                     }
 
+                    // Modbus 异常响应（功能码最高位已置位）：属正常协议交互，不断连，仅按失败返回
+                    if ((buffer[0] & 0x80) != 0 && (buffer[0] & 0x7F) == (byte)func)
+                    {
+                        return ModbusResponse.Fail();
+                    }
+
                     if (length != 1 + pdu)
                     {
                         throw new Exception("response error.");
@@ -493,6 +499,12 @@ namespace ATiS.Sim.Communication
                             throw new SocketException((int)SocketError.Shutdown);
                         }
                         offset += received;
+                    }
+
+                    // Modbus 异常响应（功能码最高位已置位）：属正常协议交互，不断连，仅按失败返回
+                    if ((buffer[0] & 0x80) != 0 && (buffer[0] & 0x7F) == (byte)ModbusFunction.WriteSingleCoil)
+                    {
+                        return false;
                     }
 
                     if (length != 1 + pdu)
@@ -641,6 +653,12 @@ namespace ATiS.Sim.Communication
                         offset += received;
                     }
 
+                    // Modbus 异常响应（功能码最高位已置位）：属正常协议交互，不断连，仅按失败返回
+                    if ((buffer[0] & 0x80) != 0 && (buffer[0] & 0x7F) == (byte)ModbusFunction.WriteMultipleCoils)
+                    {
+                        return false;
+                    }
+
                     if (length != 1 + pdu)
                     {
                         throw new Exception("response error.");
@@ -771,6 +789,12 @@ namespace ATiS.Sim.Communication
                             throw new SocketException((int)SocketError.Shutdown);
                         }
                         offset += received;
+                    }
+
+                    // Modbus 异常响应（功能码最高位已置位）：属正常协议交互，不断连，仅按失败返回
+                    if ((buffer[0] & 0x80) != 0 && (buffer[0] & 0x7F) == (byte)ModbusFunction.WriteSingleRegister)
+                    {
+                        return false;
                     }
 
                     if (length != 1 + pdu)
@@ -915,6 +939,12 @@ namespace ATiS.Sim.Communication
                         offset += received;
                     }
 
+                    // Modbus 异常响应（功能码最高位已置位）：属正常协议交互，不断连，仅按失败返回
+                    if ((buffer[0] & 0x80) != 0 && (buffer[0] & 0x7F) == (byte)ModbusFunction.WriteMultipleRegisters)
+                    {
+                        return false;
+                    }
+
                     if (length != 1 + pdu)
                     {
                         throw new Exception("response error.");
@@ -970,7 +1000,10 @@ namespace ATiS.Sim.Communication
 
         protected override async ValueTask InternalDisposeAsync()
         {
-            await _connectTask.ConfigureAwait(false);
+            if (_connectTask != null)
+            {
+                await _connectTask.ConfigureAwait(false);
+            }
             if (_connectLife != null)
             {
                 _connectLife.Cancel();
@@ -984,6 +1017,9 @@ namespace ATiS.Sim.Communication
                     _connectLife = null;
                 }
             }
+            // 释放连接 Socket 与锁，避免句柄泄漏
+            Socket?.Dispose();
+            _socketLock.Dispose();
         }
     }
 
