@@ -3,17 +3,18 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:app="clr-namespace:LSIC.App"
          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
          xmlns:log="clr-namespace:ATiS.Sim.Log;assembly=ATiS.Sim.Log"
+         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
          xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf"
          x:Name="LogView"
-         Padding="4,10"
+         Padding="10"
          d:DesignHeight="200"
          d:DesignWidth="400"
          Background="Transparent"
          BorderThickness="0"
          Cursor="Arrow"
          Foreground="{DynamicResource ForegroundBrush}"
+         Grid.IsSharedSizeScope="True"
          ScrollViewer.CanContentScroll="True"
          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
          ScrollViewer.ScrollChanged="OnScrollChanged"
@@ -51,14 +52,22 @@
 
     <ListBox.ItemTemplate>
         <DataTemplate>
-            <TextBlock SnapsToDevicePixels="True"
-                       TextTrimming="CharacterEllipsis"
-                       TextWrapping="NoWrap"
-                       ToolTip="{Binding Message, Mode=OneWay}">
-                <Run x:Name="PART_Header" Text="{Binding Header, Mode=OneWay}" />
-                <Run Text=" " />
-                <Run Text="{Binding Message, Mode=OneWay}" />
-            </TextBlock>
+            <Grid Margin="0,0,0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="HeaderGroup" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="PART_Header"
+                           VerticalAlignment="Top"
+                           LineHeight="22"
+                           Text="{Binding Header, Mode=OneWay}" />
+                <TextBlock Grid.Column="1"
+                           Margin="10,0,0,0"
+                           VerticalAlignment="Top"
+                           LineHeight="22"
+                           Text="{Binding Message, Mode=OneWay}"
+                           TextWrapping="WrapWithOverflow" />
+            </Grid>
 
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding Level}" Value="{x:Static log:LogLevel.Debug}">
@@ -81,10 +90,9 @@
     </ListBox.ItemTemplate>
 
     <ListBox.ContextMenu>
-        <ContextMenu wpf:MenuHelper.PopupMaxHeight="400" IsVisibleChanged="OnMenuVisibleChanged">
+        <ContextMenu wpf:MenuHelper.PopupMaxHeight="400">
             <MenuItem Click="OnClearLogs" Header="{app:Lang {x:Static app:LangKey.ClearLogsText}}" />
-            <MenuItem Header="{app:Lang {x:Static app:LangKey.FrameFilterText}}"
-                      ItemsSource="{Binding PlacementTarget.FilterItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
+            <MenuItem Header="{app:Lang {x:Static app:LangKey.FrameFilterText}}" ItemsSource="{Binding PlacementTarget.FilterItems, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
                 <MenuItem.ItemContainerStyle>
                     <Style BasedOn="{StaticResource {x:Type MenuItem}}" TargetType="MenuItem">
                         <Setter Property="Header" Value="{Binding FunctionCode, Converter={StaticResource EnumToTextConverter}}" />

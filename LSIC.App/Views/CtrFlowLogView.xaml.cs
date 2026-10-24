@@ -4,13 +4,15 @@ namespace LSIC.App.Views
 {
     public partial class CtrFlowLogView
     {
-        private const int MaxCount = 500;
+        private static readonly TimeSpan UserScrollResumeDelay = TimeSpan.FromSeconds(30);
+        private const long ProgramScrollGuardMs = 100;
+        private bool _atBottom = true;
+        private long _lastUserScrollTick;
+        private long _lastProgramScrollTick;
+        private const int MaxCount = 100;
         private const double AutoScrollThreshold = 2.0;
         private ObservableCollection<Flow> _flows = new ObservableCollection<Flow>();
         private volatile bool _isActive;
-        private bool _autoScroll = true;
-        private bool _menuIsOpen;
-        private int _scrollScheduled;
         private ScrollViewer _scrollViewer;
         private ScrollViewer ScrollViewer
         {
@@ -101,11 +103,28 @@ namespace LSIC.App.Views
         }
         private void Append(Flow flow)
         {
+            //不在底部且用户超过时限未滚动，回到底部
+            if (!_atBottom && Environment.TickCount64 - _lastUserScrollTick >= UserScrollResumeDelay.TotalMilliseconds)
+            {
+                _atBottom = true;
+                ScrollToEnd();
+            }
+
             _flows.Add(flow);
 
+            int removed = 0;
             while (_flows.Count > MaxCount)
             {
                 _flows.RemoveAt(0);
+                removed++;
+            }
+
+            //有移除说明满了：不在底部时回退偏移锁定可视内容
+            if (removed > 0 && !_atBottom && ScrollViewer != null)
+            {
+                //记为程序滚动，其回声事件不算用户活动
+                _lastProgramScrollTick = Environment.TickCount64;
+                ScrollViewer.ScrollToVerticalOffset(Math.Max(0, ScrollViewer.VerticalOffset - removed));
             }
         }
 
@@ -132,7 +151,7 @@ namespace LSIC.App.Views
             {
                 LoadHistory();
                 Subscribe();
-                RequestScrollToEnd();
+                ScrollToEnd();
             }
         }
         private void LoadHistory()
@@ -142,6 +161,7 @@ namespace LSIC.App.Views
                 _flows = new ObservableCollection<Flow>(Logger.History);
 
                 SetCurrentValue(ItemsSourceProperty, _flows);
+                _atBottom = true;
             }
         }
         private void Subscribe()
@@ -161,39 +181,41 @@ namespace LSIC.App.Views
         }
         #endregion
 
-        #region 界面滚动
+        #region 自动跟随滚动
         private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            if (e.ExtentHeightChange != 0)
+            if (e.ExtentHeightChange == 0)
             {
-                RequestScrollToEnd();
+                bool atBottom = e.VerticalOffset + e.ViewportHeight >= e.ExtentHeight - AutoScrollThreshold;
 
-                return;
+                if (atBottom)
+                {
+                    _atBottom = true;
+                }
+                else
+                {
+                    if (Environment.TickCount64 - _lastProgramScrollTick > ProgramScrollGuardMs)
+                    {
+                        _lastUserScrollTick = Environment.TickCount64;
+                    }
+                    _atBottom = false;
+                }
             }
-
-            _autoScroll = e.VerticalOffset + e.ViewportHeight >= e.ExtentHeight - AutoScrollThreshold;
+            else if (_atBottom)
+            {
+                ScrollToEnd();
+            }
         }
-        private void RequestScrollToEnd()
+        private void ScrollToEnd()
         {
-            if (!_autoScroll || _menuIsOpen)
-            {
-                return;
-            }
-
-            if (Interlocked.CompareExchange(ref _scrollScheduled, 1, 0) == 1)
-            {
-                return;
-            }
-
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                Volatile.Write(ref _scrollScheduled, 0);
-
-                if (_autoScroll && !_menuIsOpen)
+                if (_atBottom)
                 {
+                    _lastProgramScrollTick = Environment.TickCount64;
                     ScrollViewer?.ScrollToEnd();
                 }
-            }), DispatcherPriority.Loaded);
+            }));
         }
         #endregion
 
@@ -201,17 +223,9 @@ namespace LSIC.App.Views
         private void OnClearLogs(object sender, RoutedEventArgs e)
         {
             Logger?.History.Clear();
-
             _flows.Clear();
-
-            _autoScroll = true;
-        }
-        private void OnMenuVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            _menuIsOpen = (bool)e.NewValue;
+            _atBottom = true;
         }
         #endregion
     }
-
-
 }

@@ -13,7 +13,7 @@
         }
         public void LogDebug(string message)
         {
-            AddFlow(DateTime.Now, LogLevel.Info, message);
+            AddFlow(DateTime.Now, LogLevel.Debug, message);
         }
         public void LogInfo(string message)
         {
@@ -38,7 +38,17 @@
             }
             Flow flow = new Flow(time, level, message);
             History.Enqueue(flow);
-            OnAddFlow?.Invoke(flow);
+
+            try
+            {
+                OnAddFlow?.Invoke(flow);
+            }
+            catch (Exception ex)
+            {
+
+         
+            }
+   
         }
         public void Dispose()
         {
