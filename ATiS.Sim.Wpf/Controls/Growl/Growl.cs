@@ -1,5 +1,4 @@
-﻿using Microsoft.Xaml.Behaviors.Layout;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -10,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using Microsoft.Xaml.Behaviors.Layout;
 
 namespace ATiS.Sim.Wpf
 {

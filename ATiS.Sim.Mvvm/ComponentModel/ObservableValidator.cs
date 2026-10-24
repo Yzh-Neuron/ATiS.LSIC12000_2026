@@ -46,8 +46,8 @@ namespace ATiS.Sim.Mvvm
                 && cache.TryGetValue(propertyName, out ValidationMeta? meta)
                 && meta != null)
             {
-                object? value = meta.Property.GetValue(this);  
-                ValidateProperty(value, propertyName);         
+                object? value = meta.Property.GetValue(this);
+                ValidateProperty(value, propertyName);
             }
         }
 
@@ -87,7 +87,7 @@ namespace ATiS.Sim.Mvvm
             if (validationMeta is { ValidatorFunc: not null })
             {
                 ValidationResult result = validationMeta.ValidatorFunc.Invoke(this, value);
-                if (result!=null &&!string.IsNullOrEmpty(result.ErrorMessage))
+                if (result != null && !string.IsNullOrEmpty(result.ErrorMessage))
                 {
                     propertyErrors.Add(result);
                     hasNewError = true;

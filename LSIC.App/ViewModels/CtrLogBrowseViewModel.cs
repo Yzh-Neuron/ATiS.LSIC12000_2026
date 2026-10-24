@@ -1,6 +1,6 @@
-﻿using OxyPlot;
+﻿using System.Data;
+using OxyPlot;
 using OxyPlot.Axes;
-using System.Data;
 
 namespace LSIC.App.ViewModels
 {

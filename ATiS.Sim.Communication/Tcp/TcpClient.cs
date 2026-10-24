@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -54,7 +53,7 @@ namespace ATiS.Sim.Communication
                 if (_connected != value)
                 {
                     _connected = value;
-                    OnStateChanged(Socket.LocalEndPoint as IPEndPoint , RemoteEndPoint, _connected);
+                    OnStateChanged(Socket.LocalEndPoint as IPEndPoint, RemoteEndPoint, _connected);
                 }
             }
         }

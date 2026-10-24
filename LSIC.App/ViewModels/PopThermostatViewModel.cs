@@ -55,7 +55,7 @@
         public PopThermostatViewModel(Zone zone, BurnDut selectedDut)
         {
             Zone = zone;
-            Duts = zone.BurnInfo.BurnInBoard.Duts.Where(t => t.BurnThermostat?.Enable== true).OrderBy(d => d.Id).ToArray();
+            Duts = zone.BurnInfo.BurnInBoard.Duts.Where(t => t.BurnThermostat?.Enable == true).OrderBy(d => d.Id).ToArray();
             SelectedDut = Duts.FirstOrDefault(t => t == selectedDut);
             SetPidCommand = new AsyncRelayCommand(SetPidAsync, CanSetPid);
 

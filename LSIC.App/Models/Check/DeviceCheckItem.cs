@@ -69,7 +69,7 @@
         {
             if (bytes is null || bytes.Length != 4)
             {
-                throw new ArgumentException(string.Format(LangProvider.Instance.PayloadLengthMessage,4));
+                throw new ArgumentException(string.Format(LangProvider.Instance.PayloadLengthMessage, 4));
             }
 
             return new DeviceCheckItem(bytes[0], bytes[1], bytes[2], bytes[3]);

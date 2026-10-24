@@ -1,5 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-using TcpClient = ATiS.Sim.Communication.TcpClient;
+﻿using TcpClient = ATiS.Sim.Communication.TcpClient;
 
 namespace LSIC.App.Models
 {
@@ -18,7 +17,6 @@ namespace LSIC.App.Models
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
         private readonly SemaphoreSlim _receiveLock = new SemaphoreSlim(1, 1);
         private readonly Channel<(BurnInfo Info, CompareError Error)> _errorChannel;
-        private int _errorDropped;
         public ObservableCollection<DeviceCheckItem> DeviceCheckItems { get; } = new();
         public ZoneInfo Info { get; }
         public int Id
@@ -89,6 +87,16 @@ namespace LSIC.App.Models
             try
             {
                 BurnInfo = SystemDatabase.Instance.GetBurnInfo(Id);
+
+                var bib = BurnInfo?.BurnInBoard;
+                if (bib != null)
+                {
+                    KeyValuePair<int, int>[] pairs = ErrorDatabase.GetErrors();
+                    foreach (KeyValuePair<int, int> pair in pairs)
+                    {
+                        BurnInfo.BurnInBoard.CompareError(pair.Key, pair.Value);
+                    }
+                }
             }
             catch
             {
@@ -201,7 +209,6 @@ namespace LSIC.App.Models
         }
 
         #region 后台任务
-
         private void StartTicker()
         {
             _tickCts = new CancellationTokenSource();
@@ -1554,7 +1561,6 @@ namespace LSIC.App.Models
             _disposed = true;
             GC.SuppressFinalize(this);
         }
-
         #endregion
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ATiS.Sim.Mvvm
 {

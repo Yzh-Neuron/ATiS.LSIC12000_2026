@@ -1,6 +1,6 @@
-﻿using ATiS.Sim.Wpf;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Interop;
+using ATiS.Sim.Wpf;
 
 namespace System.Windows
 {
