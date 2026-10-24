@@ -9,6 +9,8 @@
     <sys:String x:Key="SendIcFailureMessage">IC send failed: {0}</sys:String>
     <sys:String x:Key="BurnStartFailureMessage">Burn start failed: {0}</sys:String>
     <sys:String x:Key="BurnStopFailureMessage">Burn stop failed: {0}</sys:String>
+    <sys:String x:Key="ReceiveBusyDropMessage">Receive parsing timed out, {0} bytes of data dropped</sys:String>
+    <sys:String x:Key="ErrorQueueFullMessage">Compare error queue is full, {0} entries dropped in total</sys:String>
     <sys:String x:Key="FileImportSuccessMessage">File imported successfully</sys:String>
     <sys:String x:Key="FileImportFailureMessage">File import failed</sys:String>
     <sys:String x:Key="FileExportSuccessMessage">File exported successfully</sys:String>

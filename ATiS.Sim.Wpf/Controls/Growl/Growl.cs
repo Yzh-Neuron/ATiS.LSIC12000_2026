@@ -28,10 +28,15 @@ namespace ATiS.Sim.Wpf
         private Button? _closeButton;
         private TranslateTransform? _renderTransform;
 
+        /// <summary>
+        /// 同一面板内常驻（不自动关闭）通知的数量上限，超出时关闭最旧的
+        /// </summary>
+        private const int MaxStayOpenCount = 5;
         private bool _isPanelDockLeft;
         private bool _showCloseButton = true;
         private int _waitSeconds = 2;
         private bool _stayOpen;
+        private bool _closing;
         private DispatcherTimer? _autoCloseTimer;
         private int _timerTickCount;
 
@@ -207,6 +212,13 @@ namespace ATiS.Sim.Wpf
         }
         private void Close(bool dialogResult)
         {
+            // 关闭动画期间可能再次触发关闭（自动定时器/用户点击/数量裁剪并发），只允许一次
+            if (_closing)
+            {
+                return;
+            }
+            _closing = true;
+
             if (_autoCloseTimer != null)
             {
                 _autoCloseTimer.Stop();
@@ -260,7 +272,6 @@ namespace ATiS.Sim.Wpf
                 }
             });
         }
-
         public static void Show(GrowlInfo info)
         {
             InitGrowlInfo(ref info);
@@ -291,9 +302,30 @@ namespace ATiS.Sim.Wpf
                         };
 
                         panel.Children.Insert(0, growl);
+
+                        // Fatal/Question 等常驻通知不自动关闭，无人值守的异常风暴场景下会无限堆积；
+                        // 超出上限时关闭最旧的常驻通知，保证最新的严重告警始终可见
+                        if (info.StayOpen)
+                        {
+                            TrimStayOpenGrowls(panel);
+                        }
                     }
                 }
             });
+        }
+        private static void TrimStayOpenGrowls(Panel panel)
+        {
+            // 新通知插入在 index 0，越靠后越旧；只裁剪常驻类型，自动关闭的不受影响
+            List<Growl> stayOpenGrowls = panel.Children.OfType<Growl>().Where(g => g._stayOpen).ToList();
+            if (stayOpenGrowls.Count <= MaxStayOpenCount)
+            {
+                return;
+            }
+
+            foreach (Growl oldest in stayOpenGrowls.Skip(MaxStayOpenCount))
+            {
+                oldest.Close(false);
+            }
         }
         private static Window GetActiveWindow()
         {

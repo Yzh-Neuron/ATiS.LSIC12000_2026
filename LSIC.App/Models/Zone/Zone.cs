@@ -1,4 +1,5 @@
-﻿using TcpClient = ATiS.Sim.Communication.TcpClient;
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+using TcpClient = ATiS.Sim.Communication.TcpClient;
 
 namespace LSIC.App.Models
 {
@@ -7,6 +8,7 @@ namespace LSIC.App.Models
         private const ushort FrameHeader = 0x55AA;
         private const ushort FrameEnding = 0xEAA5;
         private const int MaxPayloadLength = 4 * 1024 * 1024;
+        private const int MaxErrorWritesPerTick = 128;
         private CancellationTokenSource _tickCts;
         private Task _tickTask;
         private readonly PeriodicTimer _timer = new(TimeSpan.FromMilliseconds(500));
@@ -15,6 +17,8 @@ namespace LSIC.App.Models
         private List<byte> _buffer;
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
         private readonly SemaphoreSlim _receiveLock = new SemaphoreSlim(1, 1);
+        private readonly Channel<(BurnInfo Info, CompareError Error)> _errorChannel;
+        private int _errorDropped;
         public ObservableCollection<DeviceCheckItem> DeviceCheckItems { get; } = new();
         public ZoneInfo Info { get; }
         public int Id
@@ -75,6 +79,7 @@ namespace LSIC.App.Models
             Dpss = dpss;
             Vihs = [new Vih(0), new Vih(1)];
 
+            _errorChannel = Channel.CreateBounded<(BurnInfo, CompareError)>(new BoundedChannelOptions(4096) { SingleReader = true, FullMode = BoundedChannelFullMode.DropWrite });
             ErrorDatabase = new ErrorDatabase(this);
             Logger = new FlowLogger(this);
             FrameFilterUtility.Register<ZoneFunctionCode>(Logger, (code) => true);
@@ -261,6 +266,9 @@ namespace LSIC.App.Models
                         {
                             stopwatch.Reset();
                         }
+
+                        //比较错误串行入库：每轮限量清空积压
+                        DrainCompareErrors();
                         hasError = false;
                     }
                     catch (Exception ex)
@@ -277,7 +285,32 @@ namespace LSIC.App.Models
             catch (OperationCanceledException) { }
             catch (ObjectDisposedException) { }
         }
+        private void DrainCompareErrors()
+        {
+            //每轮 Tick 限量串行处理积压的比较错误
+            for (int i = 0; i < MaxErrorWritesPerTick && _errorChannel.Reader.TryRead(out (BurnInfo Info, CompareError Error) item); i++)
+            {
+                try
+                {
+                    var info = item.Info;
+                    var error = item.Error;
 
+                    if (ReferenceEquals(info, BurnInfo))
+                    {
+                        bool success = ErrorDatabase.TryAddError(error, info.ErrorLogTimeSpan);
+                        if (success)
+                        {
+                            info.BurnInBoard.CompareError(error.Cs, error.Dr);
+                            info.Logger.LogError(error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger?.LogError($"Compare error write failed: {ex.Message}");
+                }
+            }
+        }
         #endregion
 
         #region 下发器件
@@ -296,57 +329,57 @@ namespace LSIC.App.Models
             Logger.LogInfo(string.Format(LangProvider.Instance.SendIcDataMessage, info.Ic.Name));
 
             // 发送器件开始
-            await SendAsync(ZoneFunctionCode.ConfigFinish, 0x01, (byte)info.LoadMode);
+            await SendAsync(ZoneFunctionCode.ConfigFinish, 0x01, (byte)info.LoadMode).ConfigureAwait(false);
 
             // 设置电源方案
-            bool setResult = await SetDpsPlanAsync(info, percentage => UpdateProcess(0d, 5d, percentage));
+            bool setResult = await SetDpsPlanAsync(info, percentage => UpdateProcess(0d, 5d, percentage)).ConfigureAwait(false);
             if (!setResult)
             {
                 return;
             }
 
             // 设置寄存器
-            setResult = await SetRegisterAsync(info, percentage => UpdateProcess(5d, 5d, percentage));
+            setResult = await SetRegisterAsync(info, percentage => UpdateProcess(5d, 5d, percentage)).ConfigureAwait(false);
             if (!setResult)
             {
                 return;
             }
 
             // 设置向量
-            setResult = await SetPatternAsync(info, percentage => UpdateProcess(10d, 80d, percentage));
+            setResult = await SetPatternAsync(info, percentage => UpdateProcess(10d, 80d, percentage)).ConfigureAwait(false);
             if (!setResult)
             {
                 return;
             }
 
             // 设置上电方案
-            setResult = await SetPowerUpAsync(info, percentage => UpdateProcess(90d, 2.5d, percentage));
+            setResult = await SetPowerUpAsync(info, percentage => UpdateProcess(90d, 2.5d, percentage)).ConfigureAwait(false);
             if (!setResult)
             {
                 return;
             }
 
             // 设置步次
-            setResult = await SetStepAsync(info, percentage => UpdateProcess(92.5d, 2.5d, percentage));
+            setResult = await SetStepAsync(info, percentage => UpdateProcess(92.5d, 2.5d, percentage)).ConfigureAwait(false);
             if (!setResult)
             {
                 return;
             }
 
             // 设置下电方案
-            setResult = await SetPowerDownAsync(info, percentage => UpdateProcess(95d, 2.5d, percentage));
+            setResult = await SetPowerDownAsync(info, percentage => UpdateProcess(95d, 2.5d, percentage)).ConfigureAwait(false);
             if (!setResult)
             {
                 return;
             }
             // 发送恒温器配置
-            setResult = await SetThermostatAsync(info, percentage => UpdateProcess(97.5d, 2.5d, percentage));
+            setResult = await SetThermostatAsync(info, percentage => UpdateProcess(97.5d, 2.5d, percentage)).ConfigureAwait(false);
             if (!setResult)
             {
                 return;
             }
             // 发送器件结束
-            await SendAsync(ZoneFunctionCode.ConfigFinish, 0x00);
+            await SendAsync(ZoneFunctionCode.ConfigFinish, 0x00).ConfigureAwait(false);
         }
         private void UpdateProcess(double last, double current, double percentage)
         {
@@ -357,7 +390,7 @@ namespace LSIC.App.Models
             try
             {
                 byte length = (byte)info.DpsPlans.Length;
-                await SendAsync(ZoneFunctionCode.DpsPlanCount, [length]);
+                await SendAsync(ZoneFunctionCode.DpsPlanCount, [length]).ConfigureAwait(false);
                 foreach (BurnDpsPlan plan in info.DpsPlans)
                 {
                     using MemoryStream stream = new MemoryStream();
@@ -374,7 +407,7 @@ namespace LSIC.App.Models
                         stream.Write(dps.Delay.ToBytes(Endianness.Big), 0, 4);
                         stream.Write(dps.Raise.ToBytes(Endianness.Big), 0, 4);
                     }
-                    await SendAsync(ZoneFunctionCode.DpsPlan, stream.ToArray());
+                    await SendAsync(ZoneFunctionCode.DpsPlan, stream.ToArray()).ConfigureAwait(false);
 
                     progress?.Invoke((plan.Id + 1) * 100d / length);
                 }
@@ -393,7 +426,7 @@ namespace LSIC.App.Models
             try
             {
                 byte length = (byte)info.RegisterIndexByPath.Count;
-                await SendAsync(ZoneFunctionCode.RegisterCount, [length]);
+                await SendAsync(ZoneFunctionCode.RegisterCount, [length]).ConfigureAwait(false);
                 foreach (KeyValuePair<string, byte> pair in info.RegisterIndexByPath)
                 {
                     Register registers;
@@ -415,7 +448,7 @@ namespace LSIC.App.Models
                     stream.WriteByte(pair.Value);
                     stream.WriteByte((byte)count);
                     stream.Write(body, 0, body.Length);
-                    await SendAsync(ZoneFunctionCode.Register, stream.ToArray());
+                    await SendAsync(ZoneFunctionCode.Register, stream.ToArray()).ConfigureAwait(false);
 
                     progress?.Invoke((pair.Value + 1) * 100d / length);
                 }
@@ -458,7 +491,7 @@ namespace LSIC.App.Models
                 }
 
                 byte patternCount = (byte)info.PatternIndexByPath.Count;
-                await SendAsync(ZoneFunctionCode.PatternCount, [patternCount]);
+                await SendAsync(ZoneFunctionCode.PatternCount, [patternCount]).ConfigureAwait(false);
 
                 long sent = 0;
                 foreach (KeyValuePair<string, byte> pair in info.PatternIndexByPath)
@@ -469,7 +502,7 @@ namespace LSIC.App.Models
                     {
                         sent += read;
                         progress?.Invoke(sent * 100d / total);
-                    }, pair.Value);
+                    }, pair.Value).ConfigureAwait(false);
                 }
                 return true;
             }
@@ -487,7 +520,7 @@ namespace LSIC.App.Models
                 var burnStepPower = info.PowerOnStep;
                 if (burnStepPower.Enable == false)
                 {
-                    await SendAsync(ZoneFunctionCode.UpSet, 0x00);
+                    await SendAsync(ZoneFunctionCode.UpSet, 0x00).ConfigureAwait(false);
                 }
                 else
                 {
@@ -497,7 +530,7 @@ namespace LSIC.App.Models
                     data[2] = burnStepPower.Vector?.PatternIndex ?? 0xFF;
                     data[3] = burnStepPower.Vector?.RegisterIndex ?? 0xFF;
                     Array.Copy(burnStepPower.Timeout.ToBytes(Endianness.Big), 0, data, 4, 4);
-                    await SendAsync(ZoneFunctionCode.UpSet, data);
+                    await SendAsync(ZoneFunctionCode.UpSet, data).ConfigureAwait(false);
                 }
 
                 // 调用进度回调
@@ -518,7 +551,7 @@ namespace LSIC.App.Models
                 var burnStepPower = info.PowerOffStep;
                 if (burnStepPower.Enable == false)
                 {
-                    await SendAsync(ZoneFunctionCode.DownSet, 0x00);
+                    await SendAsync(ZoneFunctionCode.DownSet, 0x00).ConfigureAwait(false);
                 }
                 else
                 {
@@ -528,7 +561,7 @@ namespace LSIC.App.Models
                     data[2] = burnStepPower.Vector?.PatternIndex ?? 0xFF;
                     data[3] = burnStepPower.Vector?.RegisterIndex ?? 0xFF;
                     Array.Copy(burnStepPower.Timeout.ToBytes(Endianness.Big), 0, data, 4, 4);
-                    await SendAsync(ZoneFunctionCode.DownSet, data);
+                    await SendAsync(ZoneFunctionCode.DownSet, data).ConfigureAwait(false);
                 }
 
                 // 调用进度回调
@@ -581,7 +614,7 @@ namespace LSIC.App.Models
                     }
 
                     // 发送步次数据
-                    await SendAsync(ZoneFunctionCode.StepSet, stream.ToArray());
+                    await SendAsync(ZoneFunctionCode.StepSet, stream.ToArray()).ConfigureAwait(false);
 
                     // 调用进度回调
                     progress?.Invoke((i + 1) * 100d / length);
@@ -615,7 +648,7 @@ namespace LSIC.App.Models
                 }
 
                 // 发送恒温器配置
-                await SendAsync(ZoneFunctionCode.Thermostat, data);
+                await SendAsync(ZoneFunctionCode.Thermostat, data).ConfigureAwait(false);
 
                 // 调用进度回调
                 progress?.Invoke(100);
@@ -734,7 +767,7 @@ namespace LSIC.App.Models
                 {
                     sent += read;
                     BurnInfo.SendProcess = sent * 100d / total;
-                }, index);
+                }, index).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -781,7 +814,7 @@ namespace LSIC.App.Models
                 stream.WriteByte(index);
                 stream.WriteByte((byte)count);
                 stream.Write(body, 0, body.Length);
-                await SendAsync(ZoneFunctionCode.Register, stream.ToArray());
+                await SendAsync(ZoneFunctionCode.Register, stream.ToArray()).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -808,7 +841,7 @@ namespace LSIC.App.Models
             Array.Copy(kpRaw.ToBytes(Endianness.Big), 0, data, 1, 4);
             Array.Copy(kiRaw.ToBytes(Endianness.Big), 0, data, 5, 4);
             Array.Copy(kdRaw.ToBytes(Endianness.Big), 0, data, 9, 4);
-            await SendAsync(ZoneFunctionCode.ThermostatPID, data);
+            await SendAsync(ZoneFunctionCode.ThermostatPID, data).ConfigureAwait(false);
         }
         public void ReloadBurnInfo(BurnInfo burnInfo)
         {
@@ -854,6 +887,10 @@ namespace LSIC.App.Models
         {
             if (!await _receiveLock.WaitAsync(500).ConfigureAwait(false))
             {
+                if (Device.Instance.Mode == DeviceMode.Administrator)
+                {
+                    Logger.LogDebug(string.Format(LangProvider.Instance.ReceiveBusyDropMessage, e.Data?.Length ?? 0));
+                }
                 return;
             }
             try
@@ -941,9 +978,10 @@ namespace LSIC.App.Models
                             ZoneState state = (ZoneState)data[index++];
                             LoadMode mode = (LoadMode)data[index++];
 
-                            if (BurnInfo is not null)
+                            var burnInfo = BurnInfo;
+                            if (burnInfo is not null)
                             {
-                                BurnInfo.LoadMode = mode;
+                                burnInfo.LoadMode = mode;
                             }
 
                             byte[] temp = new byte[8];
@@ -1010,13 +1048,14 @@ namespace LSIC.App.Models
                         }
                     case ZoneFunctionCode.CurrentDpsPlan:
                         {
+                            var burnInfo = BurnInfo;
                             int id = data[index++];
-                            if (id != 0xFF && id < BurnInfo.DpsPlans.Length)
+                            if (id != 0xFF && id < burnInfo.DpsPlans.Length)
                             {
-                                var dpsPlan = BurnInfo.DpsPlans[id];
-                                if (BurnInfo.CurrentDpsPlan != dpsPlan)
+                                var dpsPlan = burnInfo.DpsPlans[id];
+                                if (burnInfo.CurrentDpsPlan != dpsPlan)
                                 {
-                                    BurnInfo.CurrentDpsPlan = dpsPlan;
+                                    burnInfo.CurrentDpsPlan = dpsPlan;
 
                                     foreach (Dps dps in Dpss)
                                     {
@@ -1028,70 +1067,72 @@ namespace LSIC.App.Models
                         }
                     case ZoneFunctionCode.BurnState:
                         {
-                            if (BurnInfo is null ||
-                                BurnInfo.Ic is null)
+                            var burnInfo = BurnInfo;
+
+                            if (burnInfo is null ||
+                                burnInfo.Ic is null)
                             {
                                 return;
                             }
                             int total = data.ToInt32(index, Endianness.Big);
                             index += 4;
-                            BurnInfo.TotalSeconds = total;
+                            burnInfo.TotalSeconds = total;
 
                             int id = data[index++];
 
                             int changed = 0;
 
-                            if (id < BurnInfo.Steps.Length)
+                            if (id < burnInfo.Steps.Length)
                             {
-                                if (BurnInfo.CurrentStep is null ||
-                                    BurnInfo.CurrentStep.Name != BurnInfo.Steps[id].Name)
+                                if (burnInfo.CurrentStep is null ||
+                                    burnInfo.CurrentStep.Name != burnInfo.Steps[id].Name)
                                 {
-                                    BurnInfo.CurrentStep = BurnInfo.Steps[id];
+                                    burnInfo.CurrentStep = burnInfo.Steps[id];
                                     changed++;
                                 }
                             }
 
-                            BurnInfo.RunInfo.Mode = (ExecuteMode)data[index++];
+                            burnInfo.RunInfo.Mode = (ExecuteMode)data[index++];
 
                             total = data.ToInt32(index, Endianness.Big);
                             index += 4;
 
                             int cost = data.ToInt32(index, Endianness.Big);
                             index += 4;
-                            BurnInfo.RunInfo.Progress.Update(total, cost);
+                            burnInfo.RunInfo.Progress.Update(total, cost);
 
-                            BurnInfo.LoopInfo.Enable = Convert.ToBoolean(data[index++]);
+                            burnInfo.LoopInfo.Enable = Convert.ToBoolean(data[index++]);
 
                             id = data[index++];
-                            if (id < BurnInfo.Steps.Length)
+                            if (id < burnInfo.Steps.Length)
                             {
-                                BurnInfo.LoopInfo.Start = BurnInfo.Steps[id];
+                                burnInfo.LoopInfo.Start = burnInfo.Steps[id];
                             }
 
                             id = data[index++];
-                            if (id < BurnInfo.Steps.Length)
+                            if (id < burnInfo.Steps.Length)
                             {
-                                BurnInfo.LoopInfo.End = BurnInfo.Steps[id];
+                                burnInfo.LoopInfo.End = burnInfo.Steps[id];
                             }
 
-                            BurnInfo.LoopInfo.Mode = (ExecuteMode)data[index++];
+                            burnInfo.LoopInfo.Mode = (ExecuteMode)data[index++];
 
                             total = data.ToInt32(index, Endianness.Big);
                             index += 4;
 
                             cost = data.ToInt32(index, Endianness.Big);
                             index += 4;
-                            BurnInfo.LoopInfo.Progress.Update(total, cost);
+                            burnInfo.LoopInfo.Progress.Update(total, cost);
 
                             id = data[index++];
-                            if (BurnInfo.CurrentStep is not null &&
-                                id < BurnInfo.CurrentStep.Vectors.Length)
+                            if (burnInfo.CurrentStep is not null &&
+                                id < burnInfo.CurrentStep.Vectors.Length)
                             {
-                                var vectorStep = BurnInfo.CurrentStep.Vectors[id];
-                                if (BurnInfo.CurrentVector != vectorStep)
+                                var vectorStep = burnInfo.CurrentStep.Vectors[id];
+                                if (burnInfo.CurrentVector != vectorStep)
                                 {
                                     changed++;
-                                    BurnInfo.CurrentVector = vectorStep;
+                                    burnInfo.CurrentVector = vectorStep;
                                     try
                                     {
                                         Register registers = RegisterParser.Parse(vectorStep.RegisterFile);
@@ -1111,33 +1152,34 @@ namespace LSIC.App.Models
                             }
                             if (changed > 0)
                             {
-                                Logger.LogInfo(string.Format(LangProvider.Instance.StepRunInfoMessage, BurnInfo.CurrentStep.Name, BurnInfo.CurrentVector.PatternFile.FileName()));
+                                Logger.LogInfo(string.Format(LangProvider.Instance.StepRunInfoMessage, burnInfo.CurrentStep.Name, burnInfo.CurrentVector.PatternFile.FileName()));
                             }
 
                             break;
                         }
                     case ZoneFunctionCode.CompareError:
                         {
-                            if (BurnInfo is null)
+                            var burnInfo = BurnInfo;
+                            if (burnInfo is null)
                             {
                                 return;
                             }
 
                             // 当前步次
                             int stepId = data[index++];
-                            if (stepId >= BurnInfo.Steps.Length)
+                            if (stepId >= burnInfo.Steps.Length)
                             {
                                 return;
                             }
-                            string step = BurnInfo.Steps[stepId].Name;
+                            string step = burnInfo.Steps[stepId].Name;
 
                             // 当前子步
                             int vectorStepId = data[index++];
-                            if (vectorStepId >= BurnInfo.Steps[stepId].Vectors.Length)
+                            if (vectorStepId >= burnInfo.Steps[stepId].Vectors.Length)
                             {
                                 return;
                             }
-                            BurnVector vectorStep = BurnInfo.Steps[stepId].Vectors[vectorStepId];
+                            BurnVector vectorStep = burnInfo.Steps[stepId].Vectors[vectorStepId];
                             string pattern = vectorStep.PatternFile.FileName();
                             string register = vectorStep.RegisterFile.FileName();
 
@@ -1170,12 +1212,7 @@ namespace LSIC.App.Models
                                         Line = line
                                     };
 
-                                    bool success = ErrorDatabase.TryAddError(error, BurnInfo.ErrorLogTimeSpan);
-                                    if (success)
-                                    {
-                                        BurnInfo.BurnInBoard.CompareError(cs, pin);
-                                        BurnInfo.Logger.LogError(error);
-                                    }
+                                    _errorChannel.Writer.TryWrite((burnInfo, error));
                                 }
                             }
                             break;
@@ -1324,7 +1361,7 @@ namespace LSIC.App.Models
             bool semaphoreHeld = false;
             try
             {
-                await _semaphore.WaitAsync();
+                await _semaphore.WaitAsync().ConfigureAwait(false);
                 semaphoreHeld = true;
 
                 int length = data?.Length ?? 0;
@@ -1358,7 +1395,7 @@ namespace LSIC.App.Models
                 Array.Copy(FrameEnding.ToBytes(Endianness.Big), 0, frame, index, 2);
 
                 // 发送
-                await _client.SendAsync(frame);
+                await _client.SendAsync(frame).ConfigureAwait(false);
 
 
                 if (Device.Instance.Mode == DeviceMode.Administrator && FrameFilterUtility.Filter(Logger, code))
@@ -1388,7 +1425,7 @@ namespace LSIC.App.Models
             bool semaphoreHeld = false;
             try
             {
-                await _semaphore.WaitAsync();
+                await _semaphore.WaitAsync().ConfigureAwait(false);
                 semaphoreHeld = true;
 
                 // 计算数据长度，超过 4096 字节则分多次发送，否则直接调用 SendAsync 发送
@@ -1403,19 +1440,19 @@ namespace LSIC.App.Models
                 // 大包：帧头 + 数据流式发送 + 帧尾
                 // 发送帧头
                 byte[] header = BuildFrameHeader(code, (uint)length);
-                await _client.SendAsync(header);
+                await _client.SendAsync(header).ConfigureAwait(false);
                 // 发送数据内容
                 uint check = SecurityUtil.CRC32(Array.Empty<byte>()); // 初始化 CRC32
                 if (beforeStream is { Length: > 0 })
                 {
                     check = SecurityUtil.CRC32(check, beforeStream);
-                    await _client.SendAsync(beforeStream);
+                    await _client.SendAsync(beforeStream).ConfigureAwait(false);
                 }
                 if (stream is not null)
                 {
                     byte[] buffer = new byte[1024];
                     int read;
-                    while ((read = await stream.ReadAsync(buffer)) > 0)
+                    while ((read = await stream.ReadAsync(buffer).ConfigureAwait(false)) > 0)
                     {
                         if (!Connected)
                         {
@@ -1424,14 +1461,14 @@ namespace LSIC.App.Models
                         if (read == buffer.Length)
                         {
                             check = SecurityUtil.CRC32(check, buffer);
-                            await _client.SendAsync(buffer);
+                            await _client.SendAsync(buffer).ConfigureAwait(false);
                         }
                         else
                         {
                             byte[] temp = new byte[read];
                             Array.Copy(buffer, 0, temp, 0, read);
                             check = SecurityUtil.CRC32(check, temp);
-                            await _client.SendAsync(temp);
+                            await _client.SendAsync(temp).ConfigureAwait(false);
                         }
                         readCallback?.Invoke(read);
                     }
@@ -1439,7 +1476,7 @@ namespace LSIC.App.Models
                 // 发送帧尾
                 byte[] checkBytes = check.ToBytes(Endianness.Big);
                 byte[] tail = BuildFrameTail(check);
-                await _client.SendAsync(tail);
+                await _client.SendAsync(tail).ConfigureAwait(false);
 
                 if (FrameFilterUtility.Filter(Logger, code))
                 {

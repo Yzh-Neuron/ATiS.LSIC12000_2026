@@ -1,6 +1,6 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -83,6 +83,12 @@ namespace ATiS.Sim.Mvvm
             }
         }
 
+        /// <summary>
+        /// 消息投递失败回调（收件者处理消息时抛出异常）：
+        /// 已订阅时回调应用层（用于记录日志/告警），未订阅时输出到调试器
+        /// </summary>
+        public static event Action<object, Exception>? DeliveryFailure;
+
         // 消息发送
         public MessageResult[] Send<TMessage>(TMessage message)
         {
@@ -113,14 +119,15 @@ namespace ATiS.Sim.Mvvm
         {
             List<object> snapshot = GetSnapshot<TMessage, TToken>(token);
             List<MessageResult> resultList = new();
+            InvalidOperationException? asyncMisuse = null;
 
             foreach (var recipient in snapshot)
             {
-                if (recipient is IRecipientAsync<TMessage> asyncRecipient)
+                if (recipient is IRecipientAsync<TMessage>)
                 {
                     var recType = recipient.GetType().FullName;
                     var msgType = typeof(TMessage).FullName;
-                    throw new InvalidOperationException($"MessageBus.Send: Recipient [{recType}] is IRecipientAsync<{msgType}>. Please use SendAsync instead of Send.");
+                    asyncMisuse ??= new InvalidOperationException($"MessageBus.Send: Recipient [{recType}] is IRecipientAsync<{msgType}>. Please use SendAsync instead of Send.");
                 }
                 else if (recipient is IRecipient<TMessage> syncRecipient)
                 {
@@ -133,12 +140,16 @@ namespace ATiS.Sim.Mvvm
                             resultList.Add(wrap);
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-
+                        OnDeliveryFailure(recipient, ex);
                     }
                 }
+            }
 
+            if (asyncMisuse != null)
+            {
+                throw asyncMisuse;
             }
 
             return resultList.ToArray();
@@ -172,13 +183,32 @@ namespace ATiS.Sim.Mvvm
                         }
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    OnDeliveryFailure(recipient, ex);
                 }
             }
 
             return resultList.ToArray();
+        }
+        private static void OnDeliveryFailure(object recipient, Exception ex)
+        {
+            try
+            {
+                var handler = DeliveryFailure;
+                if (handler != null)
+                {
+                    handler(recipient, ex);
+                }
+                else
+                {
+                    Debug.WriteLine($"MessageBus delivery failed, recipient [{recipient.GetType().FullName}]: {ex}");
+                }
+            }
+            catch
+            {
+
+            }
         }
         private List<object> GetSnapshot<TMessage, TToken>(TToken token)
             where TToken : IEquatable<TToken>

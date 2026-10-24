@@ -9,6 +9,8 @@
     <sys:String x:Key="SendIcFailureMessage">下发器件失败：{0}</sys:String>
     <sys:String x:Key="BurnStartFailureMessage">老化启动失败：{0}</sys:String>
     <sys:String x:Key="BurnStopFailureMessage">老化停止失败：{0}</sys:String>
+    <sys:String x:Key="ReceiveBusyDropMessage">接收解析超时，已丢弃 {0} 字节数据</sys:String>
+    <sys:String x:Key="ErrorQueueFullMessage">比较错误队列已满，累计丢弃 {0} 条</sys:String>
     <sys:String x:Key="FileImportSuccessMessage">文件导入成功</sys:String>
     <sys:String x:Key="FileImportFailureMessage">文件导入失败</sys:String>
     <sys:String x:Key="FileExportSuccessMessage">文件导出成功</sys:String>

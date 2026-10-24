@@ -20,6 +20,7 @@ namespace LSIC.App
             Current.DispatcherUnhandledException += OnDispatcherUnhandledException;
             TaskScheduler.UnobservedTaskException += OnTaskSchedulerUnobservedTaskException;
             AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;
+            MessageBus.DeliveryFailure += OnMessageBusDeliveryFailure;
             Exit += OnExit;
         }
 
@@ -47,6 +48,11 @@ namespace LSIC.App
             {
                 SystemLog.Dispose();
             }
+        }
+        private void OnMessageBusDeliveryFailure(object recipient, Exception ex)
+        {
+            string message = string.Format(LangProvider.Instance.UnhandledExceptionMessage, $"MessageBus [{recipient.GetType().Name}]: {ex.Message} {ex.StackTrace}");
+            SystemLog.LogError(message);
         }
         #endregion
 

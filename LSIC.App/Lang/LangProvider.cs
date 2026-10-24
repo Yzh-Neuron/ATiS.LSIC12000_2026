@@ -687,6 +687,16 @@ namespace LSIC.App
         public string BurnStopFailureMessage => GetString("BurnStopFailureMessage");
 
         /// <summary>
+        /// 接收解析超时，已丢弃 {0} 字节数据
+        /// </summary>
+        public string ReceiveBusyDropMessage => GetString("ReceiveBusyDropMessage");
+
+        /// <summary>
+        /// 比较错误队列已满，累计丢弃 {0} 条
+        /// </summary>
+        public string ErrorQueueFullMessage => GetString("ErrorQueueFullMessage");
+
+        /// <summary>
         /// 文件导入成功
         /// </summary>
         public string FileImportSuccessMessage => GetString("FileImportSuccessMessage");
@@ -2194,6 +2204,10 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(BurnStopFailureMessage));
 
+            OnPropertyChanged(nameof(ReceiveBusyDropMessage));
+
+            OnPropertyChanged(nameof(ErrorQueueFullMessage));
+
             OnPropertyChanged(nameof(FileImportSuccessMessage));
 
             OnPropertyChanged(nameof(FileImportFailureMessage));
@@ -3363,6 +3377,16 @@ namespace LSIC.App
         /// 老化停止失败：{0}
         /// </summary>
         public const string BurnStopFailureMessage = nameof(BurnStopFailureMessage);
+
+        /// <summary>
+        /// 接收解析超时，已丢弃 {0} 字节数据
+        /// </summary>
+        public const string ReceiveBusyDropMessage = nameof(ReceiveBusyDropMessage);
+
+        /// <summary>
+        /// 比较错误队列已满，累计丢弃 {0} 条
+        /// </summary>
+        public const string ErrorQueueFullMessage = nameof(ErrorQueueFullMessage);
 
          /// <summary>
         /// 文件导入成功
