@@ -89,7 +89,18 @@ namespace LSIC.App.Views
         private void OnOpenIcEditButtonClick(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
-            WindowUtility.ShowOrActivate<PopIcEditView>();
+            var pop = WindowUtility.ShowOrActivate<PopIcEditView>();
+            pop.Closed -= OnPopIcEditViewClosed;
+            pop.Closed += OnPopIcEditViewClosed;
+
+        }
+        private void OnPopIcEditViewClosed(object sender, EventArgs e)
+        {
+            if (sender is Window window)
+            {
+                window.Closed -= OnPopIcEditViewClosed;
+            }
+            HomeView.RefreshAllPrepareBurnViews();
         }
         private void OnPatternConvertButtonClick(object sender, RoutedEventArgs e)
         {
@@ -173,7 +184,6 @@ namespace LSIC.App.Views
             e.Handled = true;
             Device.Instance.Language = UiLanguage.English;
         }
-
         private void OnToggleThemeClick(object sender, RoutedEventArgs e)
         {
             e.Handled = true;

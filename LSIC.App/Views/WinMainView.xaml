@@ -172,7 +172,7 @@
                     <Image Width="20" Source="{DynamicResource Image.Blocks}" />
                 </TabItem.Header>
                 <!--  老化界面  -->
-                <views:CtrHomeView Margin="10" />
+                <views:CtrHomeView x:Name="HomeView" Margin="10" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>

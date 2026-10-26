@@ -5,7 +5,7 @@ namespace LSIC.App.ViewModels
     public class CtrPrepareBurnViewModel : ObservableValidator
     {
         private static readonly Regex regex = new Regex(@"^[_a-zA-Z0-9]*$");
-        private string _filter;
+        private string _filter = string.Empty;
         public string Filter
         {
             get => _filter;
@@ -62,7 +62,7 @@ namespace LSIC.App.ViewModels
 
             ValidateAllProperties();
         }
-        private void Refresh()
+        public void Refresh()
         {
             Ics = IcConfigManager.GetIcMetas<IcEntry>(Filter);
         }

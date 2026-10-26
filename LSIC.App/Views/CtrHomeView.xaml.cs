@@ -9,6 +9,13 @@
             ViewModel = new CtrHomeViewModel();
             DataContext = ViewModel;
         }
+        public void RefreshAllPrepareBurnViews()
+        {
+            foreach (var v in this.GetChildren<CtrPrepareBurnView>())
+            {
+                v.ViewModel.Refresh();
+            }
+        }
     }
 
     public class CtrHomeViewModelProxy : BindingProxy<CtrHomeViewModel>
