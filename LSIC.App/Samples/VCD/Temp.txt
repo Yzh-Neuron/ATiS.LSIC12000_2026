@@ -1,0 +1,9 @@
+CLK0	0	in
+CS0		2	in
+SDI0	4	out
+SDO0	6	in
+
+CLK1	1	in
+CS1		3	in
+SDI1	5	out
+SDO1 	7	in

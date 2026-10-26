@@ -247,19 +247,6 @@ namespace LSIC.App.Models
             {
                 while (await _timer.WaitForNextTickAsync(ct).ConfigureAwait(false))
                 {
-#if DEBUG
-                    var msg1 = string.Empty;
-                    for (int i = 0; i < 10; i++)
-                    {
-                        msg1 += string.Format(LangProvider.Instance.ReceiveBusyDropMessage, 5);
-                    }
-                    Logger.LogDebug(msg1);
-                    Logger.LogError(msg1);
-                    Logger.LogInfo(msg1);
-                    Logger.LogWarn(msg1);
-#endif
-
-
                     try
                     {
                         if (Connected)

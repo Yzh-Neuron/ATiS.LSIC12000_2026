@@ -1,0 +1,48 @@
+waveform Temp
+    signal
+	    CLK0 : Input Initialp[U];
+	    CS0  : Input Initialp[U];
+	    SDI0 : Output;
+	    SDO0 : Input Initialp[U];
+
+	    CLK1 : Input Initialp[U];
+	    CS1  : Input Initialp[U];
+	    SDI1 : Output;
+	    SDO1 : Input Initialp[U];
+    end
+    
+    timeplate timescan1 period 1 us
+    	CLK0 := Input[0ps:D, 500ns:S, 1us:D];
+    	CLK1 := Input[0ps:D, 500ns:S, 1us:D];
+    	CS0  := Input[0ps:S];
+    	CS1  := Input[0ps:S];
+    	SDI0 := Output[0ps:X, 750ns:Q, 800ns:X];
+    	SDI1 := Output[0ps:X, 750ns:Q, 800ns:X];
+    	SDO0 := Input[0ps:S];
+    	SDO1 := Input[0ps:S];
+    end
+    
+    pattern test(CLK0, CLK1, CS0, CS1, SDI0, SDI1, SDO0, SDO1)
+        vector(+) := [ 1 1 0 0 X X X X ];
+        
+        vector(+) := [ 1 1 0 0 X 1 1 X ];
+        vector(+) := [ 1 1 0 0 X 0 0 X ];
+        vector(+) := [ 1 1 0 0 X 1 1 X ];
+        vector(+) := [ 1 1 0 0 X 0 0 X ];
+        vector(+) := [ 1 1 0 0 X 1 1 X ];
+        vector(+) := [ 1 1 0 0 X 0 0 X ];
+        vector(+) := [ 1 1 0 0 X 1 1 X ];
+        vector(+) := [ 1 1 0 0 X 0 0 X ];
+
+        vector(+) := [ 1 1 0 0 X 0 0 X ];
+        vector(+) := [ 1 1 0 0 X 1 1 X ];
+        vector(+) := [ 1 1 0 0 X 0 0 X ];
+        vector(+) := [ 1 1 0 0 X 1 1 X ];
+        vector(+) := [ 1 1 0 0 X 0 0 X ];
+        vector(+) := [ 1 1 0 0 X 1 1 X ];
+        vector(+) := [ 1 1 0 0 X 0 0 X ];
+        vector(+) := [ 1 1 0 0 X 1 1 X ];
+        
+        vector(+) := [ 0 0 1 1 X X 0 X ];
+    end
+end

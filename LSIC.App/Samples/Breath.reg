@@ -1,0 +1,52 @@
+﻿#SETREG
+
+MODSTADR 0
+MODEOF 2
+
+;Set the number of groups and test rate
+RRADR 0
+REP_RATE 1000
+
+RRADR 1
+REP_RATE 1000
+
+RRADR 2
+REP_RATE 1000
+
+RRADR 3
+REP_RATE 1000
+
+RRADR 4
+REP_RATE 1000
+
+RRADR 5
+REP_RATE 1000
+
+RRADR 6
+REP_RATE 1000
+
+RRADR 7
+REP_RATE 1000
+
+;Level
+VIH,0 3.3
+VIH,1 3.3
+VH_SEL <ALL> 0
+VIHCLAMP,0 1 
+
+;High and low voltage
+VRH,0 3.0
+VRL,0 0.5
+
+;Set LE and TE
+CLOCK0 <ALL>  100,900
+CLOCK1 <ALL>  150,850
+CLOCK2 <ALL>  200,800
+CLOCK3 <ALL>  250,750
+CLOCK4 <ALL>  300,700
+CLOCK5 <ALL>  350,650
+CLOCK6 <ALL>  400,600
+CLOCK7 <ALL>  450,550
+
+;Set the output form of the waveform Output the value in the vector file
+FORMAT <ALL> NORMAL

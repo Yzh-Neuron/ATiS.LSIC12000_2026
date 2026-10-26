@@ -398,7 +398,7 @@ namespace LSIC.App.ViewModels
         }
         private void BatchExport()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
         private async Task RefreshAsync()
         {

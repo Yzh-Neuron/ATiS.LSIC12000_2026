@@ -11,6 +11,10 @@
             DataContext = ViewModel;
 
             MessageBus.Default.Register(this);
+
+#if DEBUG
+            AdminPassword.Password = ExpectedPassword;
+#endif
         }
         public MessageResult Receive(MsgArgs<PopPermissionVerifyMessage> e)
         {

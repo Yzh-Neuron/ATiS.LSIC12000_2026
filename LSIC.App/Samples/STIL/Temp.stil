@@ -1,0 +1,75 @@
+STIL 1.0;
+
+Signals {
+	// Write
+	CLK0 In;
+	CS0  In;
+	SDI0 Out;
+	SDO0 In;
+
+	// Read
+	CLK1 In;
+	CS1  In;
+	SDI1 Out;
+	SDO1 In;
+}
+
+SignalGroups {
+	CLK = 'CLK0 + CLK1';
+	CS = 'CS0 + CS1';
+	SDI = 'SDI0 + SDI1';
+	SDO = 'SDO0 + SDO1';
+
+	SPI0 = 'CLK0 + CS0 + SDI0 + SDO0';
+	SPI1 = 'CLK1 + CS1 + SDI1 + SDO1';
+}
+
+
+Timing {
+	WaveformTable WFT {
+		Period '1us';
+		Waveforms {
+			CLK { 01 { '0ns' D; '500ns' D/U; '1us' D;} }
+			CS { 01 { '0ns' D/U; } }
+			SDI { LHX { '0ns' X; '750ns' L/H/X; '800ns' X; }}
+			SDO { 01 { '0ns' D/U; } }
+		}
+	}
+}
+
+
+PatternBurst PB_test {
+	PatList{
+		test;
+	}
+}
+
+
+PatternExec {
+	PatternBurst PB_test;
+}
+
+Pattern test {
+	W WFT;
+	V { CS=00; CLK=11;}
+
+	// R/W 0xAA55
+	V { SDO0=1; SDI1=H; }
+	V { SDO0=0; SDI1=L; }
+	V { SDO0=1; SDI1=H; }
+	V { SDO0=0; SDI1=L; }
+	V { SDO0=1; SDI1=H; }
+	V { SDO0=0; SDI1=L; }
+	V { SDO0=1; SDI1=H; }
+	V { SDO0=0; SDI1=L; }
+	V { SDO0=0; SDI1=L; }
+	V { SDO0=1; SDI1=H; }
+	V { SDO0=0; SDI1=L; }
+	V { SDO0=1; SDI1=H; }
+	V { SDO0=0; SDI1=L; }
+	V { SDO0=1; SDI1=H; }
+	V { SDO0=0; SDI1=L; }
+	V { SDO0=1; SDI1=H; }
+
+	V { CS=11; CLK=00; SDO0=0; SDI1=X;}
+}
