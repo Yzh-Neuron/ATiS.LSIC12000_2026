@@ -43,7 +43,7 @@
             {
                 OnAddFlow?.Invoke(flow);
             }
-            catch (Exception ex)
+            catch
             {
 
          

@@ -26,11 +26,22 @@
         }
 
         private int _vol;
+
         [ValidationMetadata(Method = nameof(ValidateVol))]
         public int Vol
         {
             get => _vol;
-            set => SetProperty(ref _vol, value, true);
+            set
+            {
+                if (SetProperty(ref _vol, value, true))
+                {
+                    int threshold = (int)Math.Round(value * 0.2, MidpointRounding.AwayFromZero);
+                    int ovp = value + threshold;
+                    int uvp = value - threshold;
+                    Ovp = ovp;
+                    Uvp = uvp;
+                }
+            }
         }
 
         private int _uvp;

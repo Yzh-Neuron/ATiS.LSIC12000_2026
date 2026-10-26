@@ -151,6 +151,5 @@ namespace ATiS.Sim.Wpf
         {
             Close();
         }
-
     }
 }

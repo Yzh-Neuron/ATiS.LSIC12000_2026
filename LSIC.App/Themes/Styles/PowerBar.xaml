@@ -1,0 +1,46 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ctrs="clr-namespace:LSIC.App.Controls"
+                    xmlns:wpf="clr-namespace:ATiS.Sim.Wpf;assembly=ATiS.Sim.Wpf">
+
+    <Style TargetType="{x:Type ctrs:PowerBar}">
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SecondBackgroundBrush}" />
+        <Setter Property="TickBrush" Value="{DynamicResource SecondBorderBrush}" />
+        <Setter Property="HighColor" Value="{DynamicResource PowerHeighColor}" />
+        <Setter Property="MidColor" Value="{DynamicResource PowerMidColor}" />
+        <Setter Property="LowColor" Value="{DynamicResource PowerLowColor}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="wpf:BorderHelper.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ctrs:PowerBar}">
+                    <wpf:ClipBorder x:Name="PART_Track"
+                                    HorizontalAlignment="Stretch"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding wpf:BorderHelper.CornerRadius}">
+                        <Grid>
+                            <Rectangle x:Name="PART_Fill"
+                                       HorizontalAlignment="Right"
+                                       Fill="{TemplateBinding Background}" />
+
+                            <Line x:Name="PART_MaxTick"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top"
+                                  Stroke="{TemplateBinding TickBrush}"
+                                  StrokeThickness="3"
+                                  Visibility="Collapsed"
+                                  X1="0"
+                                  X2="0"
+                                  Y1="0"
+                                  Y2="0" />
+                        </Grid>
+                    </wpf:ClipBorder>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

@@ -14,4 +14,7 @@
     <Color x:Key="LogWarningColor">#FF7700</Color>
     <Color x:Key="LogErrorColor">#FF0000</Color>
     <Color x:Key="LogFatalColor">#8B0000</Color>
+    <Color x:Key="PowerLowColor">#60A5FA</Color>
+    <Color x:Key="PowerMidColor">#2563EB</Color>
+    <Color x:Key="PowerHeighColor">#1E3A8A</Color>
 </ResourceDictionary>

@@ -59,10 +59,17 @@
             get => _outputPower;
             private set => SetProperty(ref _outputPower, value);
         }
+        private int _maxPower;
+        public int MaxPower
+        {
+            get => _maxPower;
+            private set => SetProperty(ref _maxPower, value);
+        }
         public Dps(DpsInfo dpsInfo)
         {
             Id = dpsInfo.Id;
             Name = dpsInfo.Name;
+            MaxPower = dpsInfo.MaxPower;
         }
         public void Update(DpsState state, int inputVoltage, int outputVoltage, int outputCurrent, int temperature)
         {

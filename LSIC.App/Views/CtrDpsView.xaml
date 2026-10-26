@@ -3,6 +3,7 @@
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:app="clr-namespace:LSIC.App"
               xmlns:bhs="clr-namespace:LSIC.App.Behaviors"
+              xmlns:ctrs="clr-namespace:LSIC.App.Controls"
               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
               xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -41,7 +42,7 @@
                             CornerRadius="{StaticResource DefaultCornerRadius}">
                         <Grid Margin="10">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" MinWidth="67.5" />
+                                <ColumnDefinition Width="*" MinWidth="53" />
                                 <ColumnDefinition Width="Auto" MinWidth="100" />
                                 <ColumnDefinition Width="Auto" MinWidth="100" />
                             </Grid.ColumnDefinitions>
@@ -102,13 +103,13 @@
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
                     <Setter Property="Background" Value="{DynamicResource ThirdBackgroundBrush}" />
+                    <Setter Property="MinHeight" Value="220" />
+                    <Setter Property="Width" Value="190" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                 <wpf:SimplePanel Margin="0,0,10,10" d:DataContext="{d:DesignInstance models:Dps}">
                                     <Border x:Name="MainContainer"
-                                            Width="190"
-                                            Height="220"
                                             Background="{TemplateBinding Background}"
                                             BorderBrush="{TemplateBinding BorderBrush}"
                                             BorderThickness="1"
@@ -128,14 +129,25 @@
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
 
-                                            <TextBlock Grid.Column="0"
-                                                       FontSize="13"
-                                                       FontWeight="Bold"
-                                                       Foreground="{DynamicResource ForegroundBrush}"
-                                                       Text="{Binding Id, Mode=OneWay, StringFormat={}DPS{0}}" />
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Grid.Column="0"
+                                                           FontSize="13"
+                                                           FontWeight="Bold"
+                                                           Foreground="{DynamicResource ForegroundBrush}"
+                                                           Text="{Binding Id, Mode=OneWay, StringFormat={}DPS{0}}" />
+
+                                                <TextBlock Grid.Column="0"
+                                                           Margin="5,0,0,0"
+                                                           HorizontalAlignment="Right"
+                                                           FontSize="10"
+                                                           Foreground="{DynamicResource FourthForegroundBrush}">
+                                                    <Run Text="[" />
+                                                    <Run Text="{Binding ., Mode=OneWay, Converter={StaticResource DpsSpecConverter}}" />
+                                                    <Run Text="]" />
+                                                </TextBlock>
+                                            </StackPanel>
 
                                             <StackPanel Grid.Column="1"
-                                                        Margin="5,2"
                                                         VerticalAlignment="Center"
                                                         Orientation="Horizontal">
                                                 <Ellipse Width="6" Height="6">
@@ -149,7 +161,8 @@
                                                     </Ellipse.Fill>
                                                 </Ellipse>
 
-                                                <TextBlock Margin="6,0,0,0"
+                                                <TextBlock Margin="5,0,0,0"
+                                                           wpf:LanguageHelper.Auto="True"
                                                            FontWeight="Medium"
                                                            Foreground="{DynamicResource ForegroundBrush}"
                                                            Text="{Binding State, Mode=OneWay, Converter={StaticResource EnumToTextConverter}}" />
@@ -158,14 +171,17 @@
 
                                         <Rectangle Grid.Row="1"
                                                    Height="1"
-                                                   Margin="0,10,0,0"
+                                                   Margin="0,10"
                                                    Stroke="{TemplateBinding BorderBrush}" />
 
-                                        <Grid Grid.Row="2" Margin="0,10,0,0">
+                                        <Grid Grid.Row="2">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition />
+                                                <RowDefinition Height="10" />
                                                 <RowDefinition />
+                                                <RowDefinition Height="10" />
                                                 <RowDefinition />
+                                                <RowDefinition Height="10" />
                                                 <RowDefinition />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
@@ -181,15 +197,15 @@
                                             <TextBlock Grid.Row="0"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
-                                                       Foreground="{DynamicResource FourthForegroundBrush}"
+                                                       Foreground="{DynamicResource ForegroundBrush}"
                                                        Text="{Binding Vol, Mode=OneWay, Converter={StaticResource IntegerToDecimalConverter1000}, StringFormat={}{0:F3}, TargetNullValue='N/A'}" />
 
                                             <!--  电压  -->
-                                            <TextBlock Grid.Row="1"
+                                            <TextBlock Grid.Row="2"
                                                        Grid.Column="0"
                                                        Foreground="{DynamicResource FourthForegroundBrush}"
                                                        Text="{app:Lang {x:Static app:LangKey.RealVoltageWithUnitText}}" />
-                                            <TextBlock Grid.Row="1"
+                                            <TextBlock Grid.Row="2"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontWeight="Bold"
@@ -197,11 +213,11 @@
                                                        Text="{Binding OutputVoltage, Mode=OneWay, Converter={StaticResource IntegerToDecimalConverter1000}, StringFormat={}{0:F3}}" />
 
                                             <!--  电流  -->
-                                            <TextBlock Grid.Row="2"
+                                            <TextBlock Grid.Row="4"
                                                        Grid.Column="0"
                                                        Foreground="{DynamicResource FourthForegroundBrush}"
                                                        Text="{app:Lang {x:Static app:LangKey.RealCurrentWithUnitText}}" />
-                                            <TextBlock Grid.Row="2"
+                                            <TextBlock Grid.Row="4"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontWeight="Bold"
@@ -209,11 +225,11 @@
                                                        Text="{Binding OutputCurrent, Mode=OneWay, Converter={StaticResource IntegerToDecimalConverter1000}, StringFormat={}{0:F3}}" />
 
                                             <!--  功率  -->
-                                            <TextBlock Grid.Row="3"
+                                            <TextBlock Grid.Row="6"
                                                        Grid.Column="0"
                                                        Foreground="{DynamicResource FourthForegroundBrush}"
                                                        Text="{app:Lang {x:Static app:LangKey.RealPowerWithUnitText}}" />
-                                            <TextBlock Grid.Row="3"
+                                            <TextBlock Grid.Row="6"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontWeight="Bold"
@@ -223,24 +239,30 @@
 
                                         <Rectangle Grid.Row="3"
                                                    Height="1"
-                                                   Margin="0,10,0,0"
+                                                   Margin="0,10"
                                                    Stroke="{TemplateBinding BorderBrush}"
                                                    StrokeDashArray="3 6" />
 
-                                        <Grid Grid.Row="4" Margin="0,10,0,0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
+                                        <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition Height="5" />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <ctrs:PowerBar Height="10"
+                                                           BorderBrush="{DynamicResource SecondBorderBrush}"
+                                                           BorderThickness="1"
+                                                           MaxPower="{Binding MaxPower}"
+                                                           Value="{Binding OutputPower}" />
 
-                                            <!--  规格  -->
-                                            <TextBlock Grid.Column="0"
-                                                       Foreground="{DynamicResource FourthForegroundBrush}"
-                                                       Text="{app:Lang {x:Static app:LangKey.SpecText}}" />
-                                            <TextBlock Grid.Column="1"
+                                            <TextBlock Grid.Row="2"
+                                                       HorizontalAlignment="Left"
+                                                       Foreground="{DynamicResource ForegroundBrush}"
+                                                       Text="0W" />
+                                            <TextBlock Grid.Row="2"
                                                        HorizontalAlignment="Right"
-                                                       Foreground="{DynamicResource FourthForegroundBrush}"
-                                                       Text="{Binding ., Mode=OneWay, Converter={StaticResource DpsSpecConverter}}" />
+                                                       Foreground="{DynamicResource ForegroundBrush}"
+                                                       Text="{Binding MaxPower, StringFormat={}{0}W}" />
                                         </Grid>
                                     </Grid>
                                 </wpf:SimplePanel>
