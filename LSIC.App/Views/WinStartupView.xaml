@@ -147,7 +147,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition />
-                <RowDefinition Height="95" />
+                <RowDefinition Height="100" />
                 <RowDefinition Height="20" />
             </Grid.RowDefinitions>
             <Border Background="Transparent" />
