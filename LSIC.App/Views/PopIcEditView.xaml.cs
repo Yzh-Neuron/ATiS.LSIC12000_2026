@@ -26,6 +26,22 @@
                         pop.ShowDialog();
                         return MessageResult.From(pop.NameResult);
                     }
+                case PopIcEditMessage.Import:
+                    {
+                        string filter = e.Args[0] as string;
+                        OpenFileDialog dialog = new OpenFileDialog
+                        {
+                            Title = LangProvider.Instance.SelectFileText,
+                            Filter = filter,
+                            Multiselect = false,
+                            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)
+                        };
+                        if (dialog.ShowDialog() is true)
+                        {
+                            return MessageResult.From(dialog.FileName);
+                        }
+                        break;
+                    }
                 case PopIcEditMessage.Export:
                     {
                         string filter = e.Args[0] as string;

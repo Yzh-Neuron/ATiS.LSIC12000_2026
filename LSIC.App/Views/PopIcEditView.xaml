@@ -396,11 +396,17 @@
                                     <i:Interaction.Behaviors>
                                         <wpf:AutoSelectFirstBehavior />
                                     </i:Interaction.Behaviors>
+                                    <ListView.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Command="{Binding Data.ImportDpsPlanCommand, Source={StaticResource MainDataContext}}" Header="{app:Lang {x:Static app:LangKey.ImportDpsPlanText}}" />
+                                            <MenuItem Command="{Binding Data.ExportDpsPlanCommand, Source={StaticResource MainDataContext}}" Header="{app:Lang {x:Static app:LangKey.ExportDpsPlanText}}" />
+                                        </ContextMenu>
+                                    </ListView.ContextMenu>
                                     <ListView.View>
                                         <GridView AllowsColumnReorder="False">
-                                            <GridViewColumn Width="70"
+                                            <GridViewColumn Width="80"
                                                             DisplayMemberBinding="{Binding Name}"
-                                                            Header="{app:Lang {x:Static app:LangKey.NameText}}" />
+                                                            Header="{app:Lang {x:Static app:LangKey.DpsPlanText}}" />
                                             <GridViewColumn Width="70"
                                                             DisplayMemberBinding="{Binding DpssSettings.Count}"
                                                             Header="{app:Lang {x:Static app:LangKey.QuantityText}}" />

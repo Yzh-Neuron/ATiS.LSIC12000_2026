@@ -118,6 +118,9 @@
     <sys:String x:Key="DpsSettingText">电源设置</sys:String>
     <sys:String x:Key="DpsPlanText">电源方案</sys:String>
     <sys:String x:Key="DpsEditText">电源编辑</sys:String>
+    <sys:String x:Key="ExcelFileText">Excel文件</sys:String>
+    <sys:String x:Key="ImportDpsPlanText">导入方案...</sys:String>
+    <sys:String x:Key="ExportDpsPlanText">导出方案...</sys:String>
 
     <!--  器件流程配置  -->
     <sys:String x:Key="PowerOnStepText">上电</sys:String>

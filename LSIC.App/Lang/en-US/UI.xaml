@@ -118,6 +118,9 @@
     <sys:String x:Key="DpsSettingText">Dps Setting</sys:String>
     <sys:String x:Key="DpsPlanText">Dps Plan</sys:String>
     <sys:String x:Key="DpsEditText">Dps Edit</sys:String>
+    <sys:String x:Key="ExcelFileText">Excel File</sys:String>
+    <sys:String x:Key="ImportDpsPlanText">Import Plan...</sys:String>
+    <sys:String x:Key="ExportDpsPlanText">Export Plan...</sys:String>
 
     <!--  器件流程配置  -->
     <sys:String x:Key="PowerOnStepText">Power On</sys:String>

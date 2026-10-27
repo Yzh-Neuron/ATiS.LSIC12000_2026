@@ -1,4 +1,6 @@
-﻿namespace LSIC.App.ViewModels
+﻿using ClosedXML.Excel;
+
+namespace LSIC.App.ViewModels
 {
     public class PopIcEditViewModel : ObservableObject, IDisposable
     {
@@ -49,6 +51,8 @@
         public ICommand CreateDpsSettingCommand { get; private set; }
         public ICommand DeleteDpsSettingCommand { get; private set; }
         public ICommand EditDpsSettingCommand { get; private set; }
+        public ICommand ImportDpsPlanCommand { get; private set; }
+        public ICommand ExportDpsPlanCommand { get; private set; }
 
         //流程
         private StepItem _selectedStepItem;
@@ -110,6 +114,8 @@
             CreateVectorCommand = new RelayCommand(CreateVector, CanCreateVector);
             DeleteVectorCommand = new RelayCommand(DeleteVector, CanDeleteVector);
             EditVectorCommand = new RelayCommand<Vector>(EditVector);
+            ImportDpsPlanCommand = new RelayCommand(ImportDpsPlan, CanImportDpsPlan);
+            ExportDpsPlanCommand = new RelayCommand(ExportDpsPlan, CanExportDpsPlan);
 
             //编辑策略
             EditRunStrategyCommand = new RelayCommand<ExecuteStrategy>(EditRunStrategy);
@@ -367,6 +373,189 @@
             }
         }
 
+        private bool CanImportDpsPlan()
+        {
+            return SelectedIc?.Target is not null;
+        }
+        private void ImportDpsPlan()
+        {
+            string filter = $"{LangProvider.Instance.ExcelFileText}|*.xlsx";
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Import, [filter])).First();
+            if (msgResult.Result is string target)
+            {
+                try
+                {
+                    using var workbook = new XLWorkbook(target);
+                    List<DpsPlan> dpsPlans = new();
+
+                    foreach (var worksheet in workbook.Worksheets)
+                    {
+                        var dpsPlan = new DpsPlan(worksheet.Name);
+                        dpsPlans.Add(dpsPlan);
+
+                        var rows = worksheet.RowsUsed().Skip(1);
+                        foreach (var row in rows)
+                        {
+                            if (!row.Cell(1).TryGetValue(out int dpsId))
+                            {
+                                continue;
+                            }
+
+                            var dpsInfo = Device.Instance.SystemConfig.DpsInfos.FirstOrDefault(t => t.Id == dpsId);
+                            if (dpsInfo == null)
+                            {
+                                continue;
+                            }
+
+                            var setting = new DpsSetting(dpsInfo);
+
+                            if (row.Cell(3).TryGetValue(out double vol))
+                            {
+                                setting.Vol = (int)Math.Round(100000.0); // V 转 mV
+                            }
+
+                            if (row.Cell(4).TryGetValue(out double ovp))
+                            {
+                                setting.Ovp = (int)Math.Round(ovp * 1000);
+                            }
+
+                            if (row.Cell(5).TryGetValue(out double uvp))
+                            {
+                                setting.Uvp = (int)Math.Round(uvp * 1000);
+                            }
+
+                            if (row.Cell(6).TryGetValue(out double ocp))
+                            {
+                                setting.Ocp = (int)Math.Round(ocp * 1000);
+                            }
+
+                            if (row.Cell(7).TryGetValue(out int raise))
+                            {
+                                setting.Raise = raise;
+                            }
+
+                            if (row.Cell(8).TryGetValue(out int delay))
+                            {
+                                setting.Delay = delay;
+                            }
+
+                            var errors = setting.GetAllExistingErrorsRecursive();
+                            if (errors.Count > 0)
+                            {
+                                throw new Exception(errors.ToMessageString());
+                            }
+
+                            dpsPlan.DpssSettings.Add(setting);
+                        }
+                    }
+
+                    SelectedIc.Target.DpsPlans.Clear();
+                    dpsPlans.ForEach(SelectedIc.Target.DpsPlans.Add);
+                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [LangProvider.Instance.FileImportSuccessMessage, MessageType.Success]));
+                }
+                catch (Exception ex)
+                {
+                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [LangProvider.Instance.FileImportFailureMessage + $": {ex.Message}", MessageType.Error]));
+                }
+            }
+        }
+        private bool CanExportDpsPlan()
+        {
+            return SelectedIc?.Target?.DpsPlans.Count > 0;
+        }
+        private void ExportDpsPlan()
+        {
+            string fileName = $"{LangProvider.Instance.DpsPlanText}.xlsx";
+            string filter = "Excel 文件|*.xlsx";
+            var msgResult = MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Export, [filter, fileName])).First();
+            if (msgResult.Result is string target)
+            {
+                try
+                {
+                    using var workbook = new XLWorkbook();
+
+                    foreach (DpsPlan dpsPlan in SelectedIc.Target.DpsPlans)
+                    {
+                        string sheetName = dpsPlan.Name;
+                        sheetName = string.Concat(sheetName.Where(c => !"\\/*?:[]".Contains(c)));
+                        if (sheetName.Length > 31)
+                        {
+                            sheetName = sheetName.Substring(0, 31);
+                        }
+                        if (workbook.Worksheets.Any(ws => ws.Name == sheetName))
+                        {
+                            sheetName = $"{sheetName}_{workbook.Worksheets.Count}";
+                        }
+
+                        var worksheet = workbook.Worksheets.Add(sheetName);
+
+                        // 写入表头
+                        string[] headers =
+                        {
+                            "Id",
+                            LangProvider.Instance.DpsText,
+                            LangProvider.Instance.SetVoltageWithUnitText,
+                            LangProvider.Instance.VoltageCeilingWithUnitText,
+                            LangProvider.Instance.VoltageFloorWithUnitText,
+                            LangProvider.Instance.CurrentCeilingWithUnitText,
+                            LangProvider.Instance.RaiseTimeWithUnitText,
+                            LangProvider.Instance.DelayWithUnitText
+                         };
+
+                        for (int i = 0; i < headers.Length; i++)
+                        {
+                            var cell = worksheet.Cell(1, i + 1);
+                            cell.Value = headers[i];
+                            cell.Style.Font.Bold = true;
+                            cell.Style.Fill.BackgroundColor = XLColor.LightGray;
+
+                            cell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                            cell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                        }
+
+                        int row = 2;
+                        foreach (var dpsSetting in dpsPlan.DpssSettings)
+                        {
+                            worksheet.Cell(row, 1).Value = dpsSetting.Id;
+                            worksheet.Cell(row, 2).Value = dpsSetting.Name;
+                            worksheet.Cell(row, 3).Value = dpsSetting.Vol / 1000.0;
+                            worksheet.Cell(row, 4).Value = dpsSetting.Ovp / 1000.0;
+                            worksheet.Cell(row, 5).Value = dpsSetting.Uvp / 1000.0;
+                            worksheet.Cell(row, 6).Value = dpsSetting.Ocp / 1000.0;
+                            worksheet.Cell(row, 7).Value = dpsSetting.Raise;
+                            worksheet.Cell(row, 8).Value = dpsSetting.Delay;
+                            row++;
+                        }
+
+                        #region 美化Excel
+                        worksheet.Style.Font.FontName = "Microsoft YaHei";
+                        worksheet.Style.Font.FontSize = 10;
+                        worksheet.Columns(1, headers.Length).Width = 20;
+                        if (row > 2)
+                        {
+                            var dataRange = worksheet.Range(2, 1, row - 1, headers.Length);
+                            dataRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                            dataRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                        }
+
+                        worksheet.SheetView.FreezeRows(1);
+                        var range = worksheet.Range(1, 1, row - 1, 8);
+                        range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                        range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        worksheet.SheetView.FreezeRows(1);
+                        worksheet.ShowGridLines = false;
+                        #endregion
+                    }
+
+                    workbook.SaveAs(target);
+                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [LangProvider.Instance.FileExportSuccessMessage, MessageType.Success]));
+                }
+                catch
+                {
+                    MessageBus.Default.Send(MsgArgs.From(PopIcEditMessage.Growl, [LangProvider.Instance.FileExportFailureMessage, MessageType.Error]));
+                }
+            }
+        }
         #endregion
 
         #region 流程相关命令
