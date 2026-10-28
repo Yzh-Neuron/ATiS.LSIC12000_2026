@@ -129,49 +129,56 @@
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
 
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Grid.Column="0"
-                                                           FontSize="13"
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock FontSize="13"
                                                            FontWeight="Bold"
                                                            Foreground="{DynamicResource ForegroundBrush}"
                                                            Text="{Binding Id, Mode=OneWay, StringFormat={}DPS{0}}" />
 
-                                                <TextBlock Grid.Column="0"
-                                                           Margin="5,0,0,0"
-                                                           HorizontalAlignment="Right"
-                                                           FontSize="10"
-                                                           Foreground="{DynamicResource FourthForegroundBrush}">
-                                                    <Run Text="[" />
-                                                    <Run Text="{Binding ., Mode=OneWay, Converter={StaticResource DpsSpecConverter}}" />
-                                                    <Run Text="]" />
-                                                </TextBlock>
+                                                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                                    <Ellipse Width="6"
+                                                             Height="6"
+                                                             VerticalAlignment="Center">
+                                                        <Ellipse.Fill>
+                                                            <MultiBinding Converter="{StaticResource DpsStateToBrushConverter}">
+                                                                <Binding Mode="OneWay" Path="State" />
+                                                                <Binding Mode="OneWay"
+                                                                         Path="ThemeType"
+                                                                         Source="{x:Static models:Device.Instance}" />
+                                                            </MultiBinding>
+                                                        </Ellipse.Fill>
+                                                    </Ellipse>
+
+                                                    <TextBlock Margin="5,0,0,0"
+                                                               HorizontalAlignment="Left"
+                                                               VerticalAlignment="Center"
+                                                               wpf:LanguageHelper.Auto="True"
+                                                               FontSize="11"
+                                                               FontWeight="Medium"
+                                                               Text="{Binding State, Mode=OneWay, Converter={StaticResource EnumToTextConverter}}">
+                                                        <TextBlock.Foreground>
+                                                            <MultiBinding Converter="{StaticResource DpsStateToBrushConverter}">
+                                                                <Binding Mode="OneWay" Path="State" />
+                                                                <Binding Mode="OneWay"
+                                                                         Path="ThemeType"
+                                                                         Source="{x:Static models:Device.Instance}" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Foreground>
+                                                    </TextBlock>
+
+                                                </StackPanel>
                                             </StackPanel>
 
-                                            <StackPanel Grid.Column="1"
-                                                        VerticalAlignment="Center"
-                                                        Orientation="Horizontal">
-                                                <Ellipse Width="6" Height="6">
-                                                    <Ellipse.Fill>
-                                                        <MultiBinding Converter="{StaticResource DpsStateToBrushConverter}">
-                                                            <Binding Mode="OneWay" Path="State" />
-                                                            <Binding Mode="OneWay"
-                                                                     Path="ThemeType"
-                                                                     Source="{x:Static models:Device.Instance}" />
-                                                        </MultiBinding>
-                                                    </Ellipse.Fill>
-                                                </Ellipse>
-
-                                                <TextBlock Margin="5,0,0,0"
-                                                           wpf:LanguageHelper.Auto="True"
-                                                           FontWeight="Medium"
-                                                           Foreground="{DynamicResource ForegroundBrush}"
-                                                           Text="{Binding State, Mode=OneWay, Converter={StaticResource EnumToTextConverter}}" />
-                                            </StackPanel>
+                                            <TextBlock Grid.Column="1"
+                                                       HorizontalAlignment="Right"
+                                                       FontSize="10"
+                                                       Foreground="{DynamicResource FourthForegroundBrush}"
+                                                       Text="{Binding ., Mode=OneWay, Converter={StaticResource DpsSpecConverter}}" />
                                         </Grid>
 
                                         <Rectangle Grid.Row="1"
                                                    Height="1"
-                                                   Margin="0,10"
+                                                   Margin="0,5"
                                                    Stroke="{TemplateBinding BorderBrush}" />
 
                                         <Grid Grid.Row="2">
@@ -239,7 +246,7 @@
 
                                         <Rectangle Grid.Row="3"
                                                    Height="1"
-                                                   Margin="0,10"
+                                                   Margin="0,5,0,10"
                                                    Stroke="{TemplateBinding BorderBrush}"
                                                    StrokeDashArray="3 6" />
 
@@ -257,10 +264,12 @@
 
                                             <TextBlock Grid.Row="2"
                                                        HorizontalAlignment="Left"
+                                                       FontSize="11"
                                                        Foreground="{DynamicResource ForegroundBrush}"
                                                        Text="0W" />
                                             <TextBlock Grid.Row="2"
                                                        HorizontalAlignment="Right"
+                                                       FontSize="11"
                                                        Foreground="{DynamicResource ForegroundBrush}"
                                                        Text="{Binding MaxPower, StringFormat={}{0}W}" />
                                         </Grid>

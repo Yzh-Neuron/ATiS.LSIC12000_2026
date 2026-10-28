@@ -100,6 +100,7 @@
 
     <!--  Dps 电源参数  -->
     <sys:String x:Key="DpsText">Dps</sys:String>
+    <sys:String x:Key="DpsStateText">Dps State</sys:String>
     <sys:String x:Key="SetVoltageText">SV</sys:String>
     <sys:String x:Key="SetVoltageWithUnitText">Set V (V)</sys:String>
     <sys:String x:Key="RealVoltageWithUnitText">Read V (V)</sys:String>

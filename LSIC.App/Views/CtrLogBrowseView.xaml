@@ -45,6 +45,7 @@
                 Content="{app:Lang {x:Static app:LangKey.RefreshText}}" />
     </StackPanel>
     <Button HorizontalAlignment="Right"
+            Visibility="Collapsed"
             wpf:IconHelper.Geometry="{StaticResource Geometry.BatchExport}"
             wpf:IconHelper.Height="12"
             wpf:IconHelper.Width="12"

@@ -157,7 +157,8 @@
                                                 <Run Text="{app:Lang {x:Static app:LangKey.StateText}}" />
                                                 <Run Text="：" />
                                             </TextBlock>
-                                            <TextBlock wpf:LanguageHelper.Auto="True"
+                                            <TextBlock MaxWidth="200"
+                                                       wpf:LanguageHelper.Auto="True"
                                                        FontSize="13"
                                                        Text="{Binding State, Converter={StaticResource EnumToTextConverter}}" />
                                         </StackPanel>

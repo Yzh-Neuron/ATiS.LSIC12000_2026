@@ -4,13 +4,21 @@
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return values[0] switch
+            switch (values[0])
             {
-                DpsState.Output => "SuccessBrush".Resource<Brush>(),
-                DpsState.Ovp or DpsState.Uvp or DpsState.Ocp => "ErrorBrush".Resource<Brush>(),
-                DpsState.Idle => "SecondForegroundBrush".Resource<Brush>(),
-                _ => null
-            };
+                case DpsState.Off:
+                    {
+                        return "SecondForegroundBrush".Resource<Brush>();
+                    }
+                case DpsState.Runing:
+                    {
+                        return "SuccessBrush".Resource<Brush>();
+                    }
+                default:
+                    {
+                        return "ErrorBrush".Resource<Brush>();
+                    }
+            }
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

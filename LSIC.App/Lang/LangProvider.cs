@@ -182,29 +182,79 @@ namespace LSIC.App
         public string Enum_BoardType_BurnInBoard => GetString("Enum.BoardType.BurnInBoard");
 
         /// <summary>
-        /// 工作中
-        /// </summary>
-        public string Enum_DpsState_Output => GetString("Enum.DpsState.Output");
-
-        /// <summary>
-        /// 过压
-        /// </summary>
-        public string Enum_DpsState_Ovp => GetString("Enum.DpsState.Ovp");
-
-        /// <summary>
-        /// 欠压
-        /// </summary>
-        public string Enum_DpsState_Uvp => GetString("Enum.DpsState.Uvp");
-
-        /// <summary>
-        /// 过流
-        /// </summary>
-        public string Enum_DpsState_Ocp => GetString("Enum.DpsState.Ocp");
-
-        /// <summary>
         /// 关闭
         /// </summary>
-        public string Enum_DpsState_Idle => GetString("Enum.DpsState.Idle");
+        public string Enum_DpsState_Off => GetString("Enum.DpsState.Off");
+
+        /// <summary>
+        /// 输出过压
+        /// </summary>
+        public string Enum_DpsState_OutputOv => GetString("Enum.DpsState.OutputOv");
+
+        /// <summary>
+        /// 输出过流
+        /// </summary>
+        public string Enum_DpsState_OutputOc => GetString("Enum.DpsState.OutputOc");
+
+        /// <summary>
+        /// 输入电压OV/UV
+        /// </summary>
+        public string Enum_DpsState_InputOvUv => GetString("Enum.DpsState.InputOvUv");
+
+        /// <summary>
+        /// 芯片过温
+        /// </summary>
+        public string Enum_DpsState_ChipOt => GetString("Enum.DpsState.ChipOt");
+
+        /// <summary>
+        /// 通信/命令逻辑故障
+        /// </summary>
+        public string Enum_DpsState_CommLogicFault => GetString("Enum.DpsState.CommLogicFault");
+
+        /// <summary>
+        /// 厂商自定义故障
+        /// </summary>
+        public string Enum_DpsState_VendorCustomFault => GetString("Enum.DpsState.VendorCustomFault");
+
+        /// <summary>
+        /// PG电源异常
+        /// </summary>
+        public string Enum_DpsState_PgAbnormal => GetString("Enum.DpsState.PgAbnormal");
+
+        /// <summary>
+        /// 电源异常
+        /// </summary>
+        public string Enum_DpsState_FaultSummary => GetString("Enum.DpsState.FaultSummary");
+
+        /// <summary>
+        /// 输出欠压
+        /// </summary>
+        public string Enum_DpsState_OutputUv => GetString("Enum.DpsState.OutputUv");
+
+        /// <summary>
+        /// 输出电流告警
+        /// </summary>
+        public string Enum_DpsState_OutputCurrentWarning => GetString("Enum.DpsState.OutputCurrentWarning");
+
+        /// <summary>
+        /// 温度告警
+        /// </summary>
+        public string Enum_DpsState_TemperatureWarning => GetString("Enum.DpsState.TemperatureWarning");
+
+        /// <summary>
+        /// MOS管功率回路故障
+        /// </summary>
+        public string Enum_DpsState_MosPowerLoopFault => GetString("Enum.DpsState.MosPowerLoopFault");
+
+        /// <summary>
+        /// 其他故障
+        /// </summary>
+        public string Enum_DpsState_OtherFault => GetString("Enum.DpsState.OtherFault");
+
+        /// <summary>
+        /// 运行
+        /// </summary>
+        public string Enum_DpsState_Runing => GetString("Enum.DpsState.Runing");
 
         /// <summary>
         /// 向量加载错误
@@ -1462,6 +1512,11 @@ namespace LSIC.App
         public string DpsText => GetString("DpsText");
 
         /// <summary>
+        /// 电源状态
+        /// </summary>
+        public string DpsStateText => GetString("DpsStateText");
+
+        /// <summary>
         /// 设置电压
         /// </summary>
         public string SetVoltageText => GetString("SetVoltageText");
@@ -2017,15 +2072,35 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(Enum_BoardType_BurnInBoard));
 
-            OnPropertyChanged(nameof(Enum_DpsState_Output));
+            OnPropertyChanged(nameof(Enum_DpsState_Off));
 
-            OnPropertyChanged(nameof(Enum_DpsState_Ovp));
+            OnPropertyChanged(nameof(Enum_DpsState_OutputOv));
 
-            OnPropertyChanged(nameof(Enum_DpsState_Uvp));
+            OnPropertyChanged(nameof(Enum_DpsState_OutputOc));
 
-            OnPropertyChanged(nameof(Enum_DpsState_Ocp));
+            OnPropertyChanged(nameof(Enum_DpsState_InputOvUv));
 
-            OnPropertyChanged(nameof(Enum_DpsState_Idle));
+            OnPropertyChanged(nameof(Enum_DpsState_ChipOt));
+
+            OnPropertyChanged(nameof(Enum_DpsState_CommLogicFault));
+
+            OnPropertyChanged(nameof(Enum_DpsState_VendorCustomFault));
+
+            OnPropertyChanged(nameof(Enum_DpsState_PgAbnormal));
+
+            OnPropertyChanged(nameof(Enum_DpsState_FaultSummary));
+
+            OnPropertyChanged(nameof(Enum_DpsState_OutputUv));
+
+            OnPropertyChanged(nameof(Enum_DpsState_OutputCurrentWarning));
+
+            OnPropertyChanged(nameof(Enum_DpsState_TemperatureWarning));
+
+            OnPropertyChanged(nameof(Enum_DpsState_MosPowerLoopFault));
+
+            OnPropertyChanged(nameof(Enum_DpsState_OtherFault));
+
+            OnPropertyChanged(nameof(Enum_DpsState_Runing));
 
             OnPropertyChanged(nameof(Enum_PatternErrorType_Load));
 
@@ -2529,6 +2604,8 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(DpsText));
 
+            OnPropertyChanged(nameof(DpsStateText));
+
             OnPropertyChanged(nameof(SetVoltageText));
 
             OnPropertyChanged(nameof(SetVoltageWithUnitText));
@@ -2895,29 +2972,79 @@ namespace LSIC.App
         public const string Enum_BoardType_BurnInBoard = nameof(Enum_BoardType_BurnInBoard);
 
          /// <summary>
-        /// 工作中
-        /// </summary>
-        public const string Enum_DpsState_Output = nameof(Enum_DpsState_Output);
-
-         /// <summary>
-        /// 过压
-        /// </summary>
-        public const string Enum_DpsState_Ovp = nameof(Enum_DpsState_Ovp);
-
-         /// <summary>
-        /// 欠压
-        /// </summary>
-        public const string Enum_DpsState_Uvp = nameof(Enum_DpsState_Uvp);
-
-         /// <summary>
-        /// 过流
-        /// </summary>
-        public const string Enum_DpsState_Ocp = nameof(Enum_DpsState_Ocp);
-
-         /// <summary>
         /// 关闭
         /// </summary>
-        public const string Enum_DpsState_Idle = nameof(Enum_DpsState_Idle);
+        public const string Enum_DpsState_Off = nameof(Enum_DpsState_Off);
+
+         /// <summary>
+        /// 输出过压
+        /// </summary>
+        public const string Enum_DpsState_OutputOv = nameof(Enum_DpsState_OutputOv);
+
+         /// <summary>
+        /// 输出过流
+        /// </summary>
+        public const string Enum_DpsState_OutputOc = nameof(Enum_DpsState_OutputOc);
+
+         /// <summary>
+        /// 输入电压OV/UV
+        /// </summary>
+        public const string Enum_DpsState_InputOvUv = nameof(Enum_DpsState_InputOvUv);
+
+         /// <summary>
+        /// 芯片过温
+        /// </summary>
+        public const string Enum_DpsState_ChipOt = nameof(Enum_DpsState_ChipOt);
+
+         /// <summary>
+        /// 通信/命令逻辑故障
+        /// </summary>
+        public const string Enum_DpsState_CommLogicFault = nameof(Enum_DpsState_CommLogicFault);
+
+         /// <summary>
+        /// 厂商自定义故障
+        /// </summary>
+        public const string Enum_DpsState_VendorCustomFault = nameof(Enum_DpsState_VendorCustomFault);
+
+         /// <summary>
+        /// PG电源异常
+        /// </summary>
+        public const string Enum_DpsState_PgAbnormal = nameof(Enum_DpsState_PgAbnormal);
+
+         /// <summary>
+        /// 电源异常
+        /// </summary>
+        public const string Enum_DpsState_FaultSummary = nameof(Enum_DpsState_FaultSummary);
+
+         /// <summary>
+        /// 输出欠压
+        /// </summary>
+        public const string Enum_DpsState_OutputUv = nameof(Enum_DpsState_OutputUv);
+
+         /// <summary>
+        /// 输出电流告警
+        /// </summary>
+        public const string Enum_DpsState_OutputCurrentWarning = nameof(Enum_DpsState_OutputCurrentWarning);
+
+         /// <summary>
+        /// 温度告警
+        /// </summary>
+        public const string Enum_DpsState_TemperatureWarning = nameof(Enum_DpsState_TemperatureWarning);
+
+         /// <summary>
+        /// MOS管功率回路故障
+        /// </summary>
+        public const string Enum_DpsState_MosPowerLoopFault = nameof(Enum_DpsState_MosPowerLoopFault);
+
+         /// <summary>
+        /// 其他故障
+        /// </summary>
+        public const string Enum_DpsState_OtherFault = nameof(Enum_DpsState_OtherFault);
+
+         /// <summary>
+        /// 运行
+        /// </summary>
+        public const string Enum_DpsState_Runing = nameof(Enum_DpsState_Runing);
 
          /// <summary>
         /// 向量加载错误
@@ -4173,6 +4300,11 @@ namespace LSIC.App
         /// 电源
         /// </summary>
         public const string DpsText = nameof(DpsText);
+
+         /// <summary>
+        /// 电源状态
+        /// </summary>
+        public const string DpsStateText = nameof(DpsStateText);
 
          /// <summary>
         /// 设置电压

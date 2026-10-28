@@ -41,12 +41,22 @@
 
     <sys:String x:Key="Enum.BoardType.BurnInBoard">BIB</sys:String>
 
-    <sys:String x:Key="Enum.DpsState.Output">Normal</sys:String>
-    <sys:String x:Key="Enum.DpsState.Ovp">Ovp</sys:String>
-    <sys:String x:Key="Enum.DpsState.Uvp">Uvp</sys:String>
-    <sys:String x:Key="Enum.DpsState.Ocp">Ocp</sys:String>
-    <sys:String x:Key="Enum.DpsState.Idle">Idle</sys:String>
-
+    <sys:String x:Key="Enum.DpsState.Off">Off</sys:String>
+    <sys:String x:Key="Enum.DpsState.OutputOv">OVP</sys:String>
+    <sys:String x:Key="Enum.DpsState.OutputOc">OCP</sys:String>
+    <sys:String x:Key="Enum.DpsState.InputOvUv">Input OV/UV</sys:String>
+    <sys:String x:Key="Enum.DpsState.ChipOt">Chip OT</sys:String>
+    <sys:String x:Key="Enum.DpsState.CommLogicFault">Comm Fault</sys:String>
+    <sys:String x:Key="Enum.DpsState.VendorCustomFault">Vendor Fault</sys:String>
+    <sys:String x:Key="Enum.DpsState.PgAbnormal">PG Fault</sys:String>
+    <sys:String x:Key="Enum.DpsState.FaultSummary">Fault</sys:String>
+    <sys:String x:Key="Enum.DpsState.OutputUv">UVP</sys:String>
+    <sys:String x:Key="Enum.DpsState.OutputCurrentWarning">OC Warn</sys:String>
+    <sys:String x:Key="Enum.DpsState.TemperatureWarning">OT Warn</sys:String>
+    <sys:String x:Key="Enum.DpsState.MosPowerLoopFault">MOS Fault</sys:String>
+    <sys:String x:Key="Enum.DpsState.OtherFault">Other</sys:String>
+    <sys:String x:Key="Enum.DpsState.Runing">Runing</sys:String>
+    
     <sys:String x:Key="Enum.PatternErrorType.Load">Pattern Load Error</sys:String>
     <sys:String x:Key="Enum.PatternErrorType.Decode">Pattern Decode Error</sys:String>
     <sys:String x:Key="Enum.PatternErrorType.Timeout">Pattern Run Timeout</sys:String>

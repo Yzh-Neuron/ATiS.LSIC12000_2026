@@ -23,7 +23,7 @@
         public int? Uvp => BurnDps?.Uvp;
         public int? Ovp => BurnDps?.Ovp;
         public int? Ocp => BurnDps?.Ocp;
-        private DpsState _state = DpsState.Idle;
+        private DpsState _state = DpsState.Off;
         public DpsState State
         {
             get => _state;

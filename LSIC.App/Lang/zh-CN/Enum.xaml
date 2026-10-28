@@ -41,11 +41,21 @@
 
     <sys:String x:Key="Enum.BoardType.BurnInBoard">老化板</sys:String>
 
-    <sys:String x:Key="Enum.DpsState.Output">工作中</sys:String>
-    <sys:String x:Key="Enum.DpsState.Ovp">过压</sys:String>
-    <sys:String x:Key="Enum.DpsState.Uvp">欠压</sys:String>
-    <sys:String x:Key="Enum.DpsState.Ocp">过流</sys:String>
-    <sys:String x:Key="Enum.DpsState.Idle">关闭</sys:String>
+    <sys:String x:Key="Enum.DpsState.Off">关闭</sys:String>
+    <sys:String x:Key="Enum.DpsState.OutputOv">输出过压</sys:String>
+    <sys:String x:Key="Enum.DpsState.OutputOc">输出过流</sys:String>
+    <sys:String x:Key="Enum.DpsState.InputOvUv">输入电压OV/UV</sys:String>
+    <sys:String x:Key="Enum.DpsState.ChipOt">芯片过温</sys:String>
+    <sys:String x:Key="Enum.DpsState.CommLogicFault">通信/命令逻辑故障</sys:String>
+    <sys:String x:Key="Enum.DpsState.VendorCustomFault">厂商自定义故障</sys:String>
+    <sys:String x:Key="Enum.DpsState.PgAbnormal">PG电源异常</sys:String>
+    <sys:String x:Key="Enum.DpsState.FaultSummary">电源异常</sys:String>
+    <sys:String x:Key="Enum.DpsState.OutputUv">输出欠压</sys:String>
+    <sys:String x:Key="Enum.DpsState.OutputCurrentWarning">输出电流告警</sys:String>
+    <sys:String x:Key="Enum.DpsState.TemperatureWarning">温度告警</sys:String>
+    <sys:String x:Key="Enum.DpsState.MosPowerLoopFault">MOS管功率回路故障</sys:String>
+    <sys:String x:Key="Enum.DpsState.OtherFault">其他故障</sys:String>
+    <sys:String x:Key="Enum.DpsState.Runing">运行</sys:String>
 
     <sys:String x:Key="Enum.PatternErrorType.Load">向量加载错误</sys:String>
     <sys:String x:Key="Enum.PatternErrorType.Decode">向量解码错误</sys:String>

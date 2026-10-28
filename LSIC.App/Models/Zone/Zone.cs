@@ -1275,32 +1275,30 @@ namespace LSIC.App.Models
                             index += 4;
 
                             int id = data[index++];
-                            index++; // slot reserved by protocol (unused on 12000)
 
-                            index += 4; // input voltage reserved
-
-                            int outputVol = data.ToInt32(index, Endianness.Big);
+                            //int inputVol = data.ToInt32(index, Endianness.Big);   // 输入电压
                             index += 4;
 
-                            int outputCur = data.ToInt32(index, Endianness.Big);
+                            int outputVol = data.ToInt32(index, Endianness.Big);  // 输出电压
                             index += 4;
 
-                            int temperature = data.ToInt32(index, Endianness.Big);
+                            int outputCur = data.ToInt32(index, Endianness.Big);  // 输出电流
                             index += 4;
 
-                            DpsState state = (DpsState)data[index++];
+                            int temperature = data.ToInt32(index, Endianness.Big);// 电源温度
+                            index += 4;
+
+                            DpsState state = (DpsState)data[index++]; // 电源工作状态
 
                             var dps = Dpss.FirstOrDefault(j => j.Id == id);
 
                             if (dps is not null)
                             {
-                                if (state == DpsState.Output)
+                                if (state == DpsState.Runing)
                                 {
                                     Logger.LogInfo(string.Format(LangProvider.Instance.DpsCheckResultMessage, current, total, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
                                 }
-                                else if (state == DpsState.Ovp ||
-                                         state == DpsState.Uvp ||
-                                         state == DpsState.Ocp)
+                                else if (state > 0 && (byte)state < 13)
                                 {
                                     Logger.LogError(string.Format(LangProvider.Instance.DpsCheckResultMessage, current, total, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
                                 }
