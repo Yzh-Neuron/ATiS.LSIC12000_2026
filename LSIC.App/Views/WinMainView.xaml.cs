@@ -105,22 +105,7 @@ namespace LSIC.App.Views
         private void OnPatternConvertButtonClick(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
-            string content = "{" + "LSIC120000" + "|" + DateTime.Now.ToString("yyyyMMddHHmmss") + "|" + (LangProvider.Instance.CurrentLanguage == UiLanguage.English ? "en-us" : "zh-cn") + "}";
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(1024);
-            rsa.FromXmlString(PublicKey);
-            byte[] data = rsa.Encrypt(Encoding.ASCII.GetBytes(content), false);
-            string encrypted = Convert.ToBase64String(data);
-            System.Diagnostics.Process process = new();
-            ProcessStartInfo startInfo = new ProcessStartInfo(".\\HK.Pattern.App.exe")
-            {
-                Arguments = encrypted,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-            process.StartInfo = startInfo;
-            process.Start();
-
-            JobUtility.Instance.AddProcess(process.Handle);
+            new PopPatternConverterView { Owner = this }.ShowDialog();
         }
         private void OnSetTriggerChannelButtonClick(object sender, RoutedEventArgs e)
         {

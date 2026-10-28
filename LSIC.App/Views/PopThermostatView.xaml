@@ -44,7 +44,7 @@
                                 </MultiBinding>
                             </Ellipse.Fill>
                         </Ellipse>
-                        <TextBlock x:Name="PART_Text" Margin="10,0,0,0">
+                        <TextBlock x:Name="PART_Text" Margin="5,0,0,0">
                             <TextBlock.Text>
                                 <MultiBinding Converter="{StaticResource FormatTextConverter}">
                                     <Binding Path="DutFormatText" Source="{x:Static app:LangProvider.Instance}" />

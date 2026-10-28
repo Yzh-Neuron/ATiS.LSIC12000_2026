@@ -388,7 +388,7 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <ListView Width="140"
+                                <ListView Width="150"
                                           wpf:ListViewHelper.CanUserResizeColumns="False"
                                           ItemsSource="{Binding DpsPlans}"
                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
