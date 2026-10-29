@@ -134,6 +134,17 @@
                                 wpf:IconHelper.Width="13"
                                 Click="OnSetTriggerChannelButtonClick"
                                 ToolTip="{app:Lang {x:Static app:LangKey.TriggerSetText}}" />
+
+                        <Button Width="32"
+                                Height="32"
+                                Margin="5,0"
+                                Padding="0"
+                                wpf:IconHelper.Geometry="{StaticResource Geometry.AbmViewer}"
+                                wpf:IconHelper.Height="13"
+                                wpf:IconHelper.Width="13"
+                                Click="OnAbmViewerButtonClick"
+                                ToolTip="{app:Lang {x:Static app:LangKey.AbmFileViewerText}}"
+                                Visibility="{Binding Device.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter='Administrator'}" />
                     </StackPanel>
                 </Grid>
                 <Rectangle Grid.Column="2"

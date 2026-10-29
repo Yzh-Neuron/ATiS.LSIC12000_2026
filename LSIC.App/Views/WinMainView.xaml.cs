@@ -1,10 +1,7 @@
-﻿using System.Security.Cryptography;
-
-namespace LSIC.App.Views
+﻿namespace LSIC.App.Views
 {
     public partial class WinMainView : IRecipient<MsgArgs<WinMainMessage>>
     {
-        private const string PublicKey = "<RSAKeyValue><Modulus>6rnqXdAXYIgKCBIw2sfC5KWu3av0L9SQc7JdG9hWDIl/uKzPss4XyrdJkG/jXnUCODMukaSweLiAiDJzIHVYKJbDCoa5ul2YTYSlHm3SzzM2l1euIyNKlp7al+xWVQRImF73hDPtaOc8jHIDWWh8vT809tlCHM8Ix9GBXwgrKL0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
         public WinMainViewModel ViewModel { get; }
         public WinMainView()
         {
@@ -106,6 +103,11 @@ namespace LSIC.App.Views
         {
             e.Handled = true;
             new PopPatternConverterView { Owner = this }.ShowDialog();
+        }
+        private void OnAbmViewerButtonClick(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            new PopAbmViewerView { Owner = this }.ShowDialog();
         }
         private void OnSetTriggerChannelButtonClick(object sender, RoutedEventArgs e)
         {

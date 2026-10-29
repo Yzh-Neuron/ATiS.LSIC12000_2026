@@ -1332,6 +1332,21 @@ namespace LSIC.App
         public string PatternFormatConvertText => GetString("PatternFormatConvertText");
 
         /// <summary>
+        /// Abm 文件查看器
+        /// </summary>
+        public string AbmFileViewerText => GetString("AbmFileViewerText");
+
+        /// <summary>
+        /// Abm 文件
+        /// </summary>
+        public string AbmFileText => GetString("AbmFileText");
+
+        /// <summary>
+        /// 数字板
+        /// </summary>
+        public string DigitalBoardText => GetString("DigitalBoardText");
+
+        /// <summary>
         /// 曲线查看
         /// </summary>
         public string ChartViewText => GetString("ChartViewText");
@@ -2531,6 +2546,12 @@ namespace LSIC.App
             OnPropertyChanged(nameof(CurrentIcText));
 
             OnPropertyChanged(nameof(PatternFormatConvertText));
+
+            OnPropertyChanged(nameof(AbmFileViewerText));
+
+            OnPropertyChanged(nameof(AbmFileText));
+
+            OnPropertyChanged(nameof(DigitalBoardText));
 
             OnPropertyChanged(nameof(ChartViewText));
 
@@ -4120,6 +4141,21 @@ namespace LSIC.App
         /// 向量格式转换
         /// </summary>
         public const string PatternFormatConvertText = nameof(PatternFormatConvertText);
+
+         /// <summary>
+        /// Abm 文件查看器
+        /// </summary>
+        public const string AbmFileViewerText = nameof(AbmFileViewerText);
+
+         /// <summary>
+        /// Abm 文件
+        /// </summary>
+        public const string AbmFileText = nameof(AbmFileText);
+
+         /// <summary>
+        /// 数字板
+        /// </summary>
+        public const string DigitalBoardText = nameof(DigitalBoardText);
 
          /// <summary>
         /// 曲线查看

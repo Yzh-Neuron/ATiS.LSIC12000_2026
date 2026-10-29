@@ -60,6 +60,9 @@
     <sys:String x:Key="IcEditText">器件编辑</sys:String>
     <sys:String x:Key="CurrentIcText">当前器件</sys:String>
     <sys:String x:Key="PatternFormatConvertText">向量格式转换</sys:String>
+    <sys:String x:Key="AbmFileViewerText">Abm 文件查看器</sys:String>
+    <sys:String x:Key="AbmFileText">Abm 文件</sys:String>
+    <sys:String x:Key="DigitalBoardText">数字板</sys:String>
     <sys:String x:Key="ChartViewText">曲线查看</sys:String>
     <sys:String x:Key="TriggerSetText">触发设置</sys:String>
     <sys:String x:Key="SendParameterText">发送</sys:String>

@@ -60,6 +60,9 @@
     <sys:String x:Key="IcEditText">Ic Editor</sys:String>
     <sys:String x:Key="CurrentIcText">Ic</sys:String>
     <sys:String x:Key="PatternFormatConvertText">Pattern Converter</sys:String>
+    <sys:String x:Key="AbmFileViewerText">Abm File Viewer</sys:String>
+    <sys:String x:Key="AbmFileText">Abm File</sys:String>
+    <sys:String x:Key="DigitalBoardText">Digital Board</sys:String>
     <sys:String x:Key="ChartViewText">Chart View</sys:String>
     <sys:String x:Key="TriggerSetText">Trigger Set</sys:String>
     <sys:String x:Key="SendParameterText">Send</sys:String>
