@@ -182,6 +182,7 @@ namespace LSIC.App.Views
         #endregion
 
         #region 自动跟随滚动
+        private bool _scrollQueued;
         private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             if (e.ExtentHeightChange == 0)
@@ -208,8 +209,16 @@ namespace LSIC.App.Views
         }
         private void ScrollToEnd()
         {
+            if (_scrollQueued)
+            {
+                return;
+            }
+            _scrollQueued = true;
+
             Dispatcher.BeginInvoke(new Action(() =>
             {
+                _scrollQueued = false;
+
                 if (_atBottom)
                 {
                     _lastProgramScrollTick = Environment.TickCount64;

@@ -328,7 +328,9 @@
     <ProgressBar Grid.Row="4"
                  Margin="0,10,0,0"
                  Tag="{Binding Zone.State, Converter={StaticResource ZoneStateToSending}}"
-                 Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Tag, Converter={StaticResource TrueToVisibilityConverter}}" />
+                 Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Tag, Converter={StaticResource TrueToVisibilityConverter}}"
+                 Maximum="100"
+                 Value="{Binding Zone.BurnInfo.SendProcess}" />
 
     <!--  操作按钮  -->
     <WrapPanel Grid.Row="5"

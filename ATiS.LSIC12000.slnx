@@ -5,5 +5,8 @@
     <Project Path="ATiS.Sim.Mvvm/ATiS.Sim.Mvvm.csproj" />
     <Project Path="ATiS.Sim.Wpf/ATiS.Sim.Wpf.csproj" />
   </Folder>
+  <Folder Name="/Test/">
+    <Project Path="ZoneSimulator/ZoneSimulator.csproj" Id="e8e9df30-5720-4cbc-8cc9-800c6a634b23" />
+  </Folder>
   <Project Path="LSIC.App/LSIC.App.csproj" />
 </Solution>

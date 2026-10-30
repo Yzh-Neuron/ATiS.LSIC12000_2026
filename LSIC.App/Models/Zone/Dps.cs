@@ -75,7 +75,7 @@
         {
             if (outputVoltage != _outputVoltage || outputCurrent != _outputCurrent)
             {
-                OutputPower = outputVoltage * outputCurrent;
+                OutputPower = outputVoltage * outputCurrent / 1000000;
             }
 
             State = state;

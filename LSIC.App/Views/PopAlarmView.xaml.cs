@@ -3,6 +3,10 @@
     public partial class PopAlarmView
     {
         public bool IsExiting { get; set; }
+        public PopAlarmView()
+        {
+            InitializeComponent();
+        }
         public void Add(Alarm alarm)
         {
             Paragraph paragraph = new Paragraph(new Run(alarm.ToString()))

@@ -390,7 +390,7 @@ namespace LSIC.App.Models
         }
         private void UpdateProcess(double last, double current, double percentage)
         {
-            BurnInfo.SendProcess = last + Math.Round(current * percentage, 2);
+            BurnInfo.SendProcess = last + Math.Round(current * percentage / 100d, 2);
         }
         private async ValueTask<bool> SetDpsPlanAsync(BurnInfo info, Action<double> progress)
         {
