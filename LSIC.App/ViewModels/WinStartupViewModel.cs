@@ -17,10 +17,6 @@
                 {
                     zone.Startup();
                 }
-#if DEBUG
-                this.InvokeOnUI(() => MessageBus.Default.Send(MsgArgs.From(WinStartupMessage.Initialized, [])));
-                return;
-#endif
 
                 foreach (Zone zone in Device.Zones)
                 {
