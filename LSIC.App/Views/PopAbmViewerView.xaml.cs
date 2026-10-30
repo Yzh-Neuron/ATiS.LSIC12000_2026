@@ -7,11 +7,19 @@ namespace LSIC.App.Views
         public PopAbmViewerViewModel ViewModel { get; }
         public PopAbmViewerView()
         {
+            if (GlobalLanguageManager.CurrentLanguage == UiLanguage.English)
+            {
+                PatternLanguage.Notify(PatternLanguage.English);
+            }
+            else
+            {
+                PatternLanguage.Notify(PatternLanguage.Chinese);
+            }
+
             InitializeComponent();
             ViewModel = new PopAbmViewerViewModel();
             DataContext = ViewModel;
 
-            AbmText.English = GlobalLanguageManager.CurrentLanguage == UiLanguage.English;
             MessageBus.Default.Register(this);
         }
         public MessageResult Receive(MsgArgs<PopAbmViewerMessage> e)
