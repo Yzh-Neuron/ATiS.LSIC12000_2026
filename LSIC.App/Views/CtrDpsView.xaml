@@ -34,7 +34,8 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:Vih}">
-                    <Border Height="Auto"
+                    <Border Width="290"
+                            Height="Auto"
                             Margin="0,0,10,0"
                             Background="{DynamicResource ThirdBackgroundBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
@@ -42,17 +43,54 @@
                             CornerRadius="{StaticResource DefaultCornerRadius}">
                         <Grid Margin="10">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" MinWidth="53" />
-                                <ColumnDefinition Width="Auto" MinWidth="100" />
-                                <ColumnDefinition Width="Auto" MinWidth="100" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock FontSize="13"
-                                       FontWeight="Bold"
-                                       Text="{Binding Id, StringFormat={}VIH{0}}" />
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock FontSize="13"
+                                           FontWeight="Bold"
+                                           Text="{Binding Id, StringFormat={}VIH{0}}" />
+
+                                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                    <Ellipse Width="6"
+                                             Height="6"
+                                             VerticalAlignment="Center">
+                                        <Ellipse.Fill>
+                                            <MultiBinding Converter="{StaticResource DpsStateToBrushConverter}">
+                                                <Binding Mode="OneWay" Path="State" />
+                                                <Binding Mode="OneWay"
+                                                         Path="ThemeType"
+                                                         Source="{x:Static models:Device.Instance}" />
+                                            </MultiBinding>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+
+                                    <TextBlock Width="95"
+                                               Margin="5,0,0,0"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               wpf:LanguageHelper.Auto="True"
+                                               FontSize="11"
+                                               FontWeight="Medium"
+                                               Text="{Binding State, Mode=OneWay, Converter={StaticResource EnumToTextConverter}}"
+                                               TextTrimming="CharacterEllipsis"
+                                               TextWrapping="NoWrap"
+                                               ToolTip="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Text}">
+                                        <TextBlock.Foreground>
+                                            <MultiBinding Converter="{StaticResource DpsStateToBrushConverter}">
+                                                <Binding Mode="OneWay" Path="State" />
+                                                <Binding Mode="OneWay"
+                                                         Path="ThemeType"
+                                                         Source="{x:Static models:Device.Instance}" />
+                                            </MultiBinding>
+                                        </TextBlock.Foreground>
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
 
                             <StackPanel Grid.Column="1"
-                                        Margin="10,0,0,0"
                                         HorizontalAlignment="Right"
                                         Orientation="Vertical">
                                 <TextBlock HorizontalAlignment="Right"
@@ -104,7 +142,7 @@
                     <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
                     <Setter Property="Background" Value="{DynamicResource ThirdBackgroundBrush}" />
                     <Setter Property="MinHeight" Value="220" />
-                    <Setter Property="Width" Value="190" />
+                    <Setter Property="Width" Value="200" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">

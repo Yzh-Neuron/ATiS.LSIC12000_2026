@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using ATIS.Pattern;
 
 namespace LSIC.App.Models
 {

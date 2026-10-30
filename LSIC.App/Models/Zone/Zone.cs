@@ -1039,15 +1039,14 @@ namespace LSIC.App.Models
                                 {
                                     Dps dps = Dpss.FirstOrDefault(j => j.Id == id);
                                     dps?.Update(state, inputVol, outputVol, current, temp);
-                                    continue;
                                 }
-
-                                if (type == DpsType.VIH)
+                                else if (type == DpsType.VIH)
                                 {
                                     Vih vih = Vihs.FirstOrDefault(j => j.Id == id);
                                     if (vih is not null)
                                     {
                                         vih.OutputVoltage = outputVol;
+                                        vih.State = state;
                                     }
                                 }
                             }

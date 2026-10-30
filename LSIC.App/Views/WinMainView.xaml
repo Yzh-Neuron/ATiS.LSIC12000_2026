@@ -166,9 +166,44 @@
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="0,1,0,0"
                 DockPanel.Dock="Bottom">
-            <TextBlock Margin="0,0,10,0"
-                       HorizontalAlignment="Right"
-                       Text="{Binding Now, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss}'}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Margin="10,0,0,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource FormatTextConverter}">
+                            <Binding Path="ZoneFormatText" Source="{x:Static app:LangProvider.Instance}" />
+                            <Binding ElementName="HomeView" Path="DataContext.CurrentZone.Id" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <StackPanel Grid.Column="1"
+                            Margin="10,0,0,0"
+                            Orientation="Horizontal">
+                    <TextBlock FontSize="13">
+                        <Run Text="{app:Lang {x:Static app:LangKey.StateText}}" />
+                        <Run Text="：" />
+                    </TextBlock>
+                    <TextBlock MaxWidth="200"
+                               wpf:LanguageHelper.Auto="True"
+                               FontSize="13"
+                               Text="{Binding DataContext.CurrentZone.State, ElementName=HomeView, Converter={StaticResource EnumToTextConverter}}" />
+                </StackPanel>
+
+                <TextBlock Grid.Column="3"
+                           Margin="0,0,10,0"
+                           HorizontalAlignment="Right"
+                           Text="{Binding Now, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss}'}" />
+            </Grid>
         </Border>
 
         <!--  主界面  -->

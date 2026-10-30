@@ -22,5 +22,12 @@
             get => _outputVoltage;
             set => SetProperty(ref _outputVoltage, value);
         }
+
+        private DpsState _state = DpsState.Off;
+        public DpsState State
+        {
+            get => _state;
+            set => SetProperty(ref _state, value);
+        }
     }
 }
