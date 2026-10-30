@@ -132,13 +132,15 @@ namespace LSIC.App
             new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/zh-CN/Message.xaml")},
             new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/zh-CN/UI.xaml")},
             new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/zh-CN/Enum.xaml")},
-            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/zh-CN/DeviceCheck.xaml")}]);
+            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/zh-CN/DeviceCheckItem.xaml")},
+            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/zh-CN/BoardType.xaml")}]);
 
             GlobalLanguageManager.RegisterLanguageResources(UiLanguage.English, [
             new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/en-US/Message.xaml")},
             new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/en-US/UI.xaml")},
             new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/en-US/Enum.xaml")},
-            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/en-US/DeviceCheck.xaml")}]);
+            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/zh-CN/DeviceCheckItem.xaml")},
+            new ResourceDictionary(){ Source=new Uri("pack://application:,,,/LSIC.App;component/Lang/en-US/BoardType.xaml")}]);
 
             string appId = AssemblyUtility.GetGuid();
             _mutex = new Mutex(true, appId, out _createdNew);

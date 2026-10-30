@@ -17,6 +17,261 @@ namespace LSIC.App
 
 
         /// <summary>
+        /// 主控板
+        /// </summary>
+        public string MainBoard => GetString("MainBoard");
+
+        /// <summary>
+        /// 全砖10V10A
+        /// </summary>
+        public string FULL10V10A => GetString("FULL10V10A");
+
+        /// <summary>
+        /// 全砖6V25A
+        /// </summary>
+        public string FULL6V25A => GetString("FULL6V25A");
+
+        /// <summary>
+        /// 全砖6V50A
+        /// </summary>
+        public string FULL6V50A => GetString("FULL6V50A");
+
+        /// <summary>
+        /// 全砖36V5A
+        /// </summary>
+        public string FULL36V05A => GetString("FULL36V05A");
+
+        /// <summary>
+        /// 底板
+        /// </summary>
+        public string BaseBoard => GetString("BaseBoard");
+
+        /// <summary>
+        /// 数字板
+        /// </summary>
+        public string DigitalBoard => GetString("DigitalBoard");
+
+        /// <summary>
+        /// 模拟板
+        /// </summary>
+        public string AnalogBoard => GetString("AnalogBoard");
+
+        /// <summary>
+        /// 电源板
+        /// </summary>
+        public string PowerBoard => GetString("PowerBoard");
+
+        /// <summary>
+        /// 温控板
+        /// </summary>
+        public string TempControlBoard => GetString("TempControlBoard");
+
+        /// <summary>
+        /// 老化板
+        /// </summary>
+        public string BurnInBoard => GetString("BurnInBoard");
+
+        /// <summary>
+        /// 主控板
+        /// </summary>
+        public string DeviceCheckItem_Type_00 => GetString("DeviceCheckItem.Type[00]");
+
+        /// <summary>
+        /// 底板
+        /// </summary>
+        public string DeviceCheckItem_Type_10 => GetString("DeviceCheckItem.Type[10]");
+
+        /// <summary>
+        /// 数字板
+        /// </summary>
+        public string DeviceCheckItem_Type_20 => GetString("DeviceCheckItem.Type[20]");
+
+        /// <summary>
+        /// 电源板
+        /// </summary>
+        public string DeviceCheckItem_Type_30 => GetString("DeviceCheckItem.Type[30]");
+
+        /// <summary>
+        /// 竖向板
+        /// </summary>
+        public string DeviceCheckItem_Type_E0 => GetString("DeviceCheckItem.Type[E0]");
+
+        /// <summary>
+        /// 老化板
+        /// </summary>
+        public string DeviceCheckItem_Type_EA => GetString("DeviceCheckItem.Type[EA]");
+
+        /// <summary>
+        /// 环境变量
+        /// </summary>
+        public string DeviceCheckItem_Item_01 => GetString("DeviceCheckItem.Item[01]");
+
+        /// <summary>
+        /// 配置文件
+        /// </summary>
+        public string DeviceCheckItem_Item_02 => GetString("DeviceCheckItem.Item[02]");
+
+        /// <summary>
+        /// EEPROM
+        /// </summary>
+        public string DeviceCheckItem_Item_03 => GetString("DeviceCheckItem.Item[03]");
+
+        /// <summary>
+        /// 扩展I/O
+        /// </summary>
+        public string DeviceCheckItem_Item_04 => GetString("DeviceCheckItem.Item[04]");
+
+        /// <summary>
+        /// 电源模块
+        /// </summary>
+        public string DeviceCheckItem_Item_05 => GetString("DeviceCheckItem.Item[05]");
+
+        /// <summary>
+        /// DAC自检
+        /// </summary>
+        public string DeviceCheckItem_Item_06 => GetString("DeviceCheckItem.Item[06]");
+
+        /// <summary>
+        /// FPGA自检
+        /// </summary>
+        public string DeviceCheckItem_Item_07 => GetString("DeviceCheckItem.Item[07]");
+
+        /// <summary>
+        /// 电源自检(XADC)
+        /// </summary>
+        public string DeviceCheckItem_Item_08 => GetString("DeviceCheckItem.Item[08]");
+
+        /// <summary>
+        /// FLASH自检
+        /// </summary>
+        public string DeviceCheckItem_Item_09 => GetString("DeviceCheckItem.Item[09]");
+
+        /// <summary>
+        /// PL机型自检
+        /// </summary>
+        public string DeviceCheckItem_Item_0A => GetString("DeviceCheckItem.Item[0A]");
+
+        /// <summary>
+        /// 温控自检
+        /// </summary>
+        public string DeviceCheckItem_Item_0B => GetString("DeviceCheckItem.Item[0B]");
+
+        /// <summary>
+        /// COMPARE VREF自检
+        /// </summary>
+        public string DeviceCheckItem_Item_0C => GetString("DeviceCheckItem.Item[0C]");
+
+        /// <summary>
+        /// Dps VIN自检
+        /// </summary>
+        public string DeviceCheckItem_Item_0D => GetString("DeviceCheckItem.Item[0D]");
+
+        /// <summary>
+        /// 通过
+        /// </summary>
+        public string DeviceCheckItem_Result_00 => GetString("DeviceCheckItem.Result[00]");
+
+        /// <summary>
+        /// 环境变量丢失
+        /// </summary>
+        public string DeviceCheckItem_Result_01 => GetString("DeviceCheckItem.Result[01]");
+
+        /// <summary>
+        /// 配置文件不存在
+        /// </summary>
+        public string DeviceCheckItem_Result_02 => GetString("DeviceCheckItem.Result[02]");
+
+        /// <summary>
+        /// 配置文件格式错误
+        /// </summary>
+        public string DeviceCheckItem_Result_03 => GetString("DeviceCheckItem.Result[03]");
+
+        /// <summary>
+        /// EEPROM通信错误
+        /// </summary>
+        public string DeviceCheckItem_Result_04 => GetString("DeviceCheckItem.Result[04]");
+
+        /// <summary>
+        /// I/O扩展芯片通信错误
+        /// </summary>
+        public string DeviceCheckItem_Result_05 => GetString("DeviceCheckItem.Result[05]");
+
+        /// <summary>
+        /// ADC通信错误
+        /// </summary>
+        public string DeviceCheckItem_Result_06 => GetString("DeviceCheckItem.Result[06]");
+
+        /// <summary>
+        /// 电源模块通信错误
+        /// </summary>
+        public string DeviceCheckItem_Result_07 => GetString("DeviceCheckItem.Result[07]");
+
+        /// <summary>
+        /// 电源模块混插
+        /// </summary>
+        public string DeviceCheckItem_Result_08 => GetString("DeviceCheckItem.Result[08]");
+
+        /// <summary>
+        /// 电源模块固件错误
+        /// </summary>
+        public string DeviceCheckItem_Result_09 => GetString("DeviceCheckItem.Result[09]");
+
+        /// <summary>
+        /// LVDS寄存器通信错误
+        /// </summary>
+        public string DeviceCheckItem_Result_0A => GetString("DeviceCheckItem.Result[0A]");
+
+        /// <summary>
+        /// LVDS数据流通信错误
+        /// </summary>
+        public string DeviceCheckItem_Result_0B => GetString("DeviceCheckItem.Result[0B]");
+
+        /// <summary>
+        /// 电源通信错误
+        /// </summary>
+        public string DeviceCheckItem_Result_0C => GetString("DeviceCheckItem.Result[0C]");
+
+        /// <summary>
+        /// 电源电压错误
+        /// </summary>
+        public string DeviceCheckItem_Result_0D => GetString("DeviceCheckItem.Result[0D]");
+
+        /// <summary>
+        /// FLASH选择错误(打开)
+        /// </summary>
+        public string DeviceCheckItem_Result_0E => GetString("DeviceCheckItem.Result[0E]");
+
+        /// <summary>
+        /// FLASH通信错误
+        /// </summary>
+        public string DeviceCheckItem_Result_0F => GetString("DeviceCheckItem.Result[0F]");
+
+        /// <summary>
+        /// FLASH选择错误(关闭)
+        /// </summary>
+        public string DeviceCheckItem_Result_10 => GetString("DeviceCheckItem.Result[10]");
+
+        /// <summary>
+        /// PL机型读取错误(AXIBUS)
+        /// </summary>
+        public string DeviceCheckItem_Result_11 => GetString("DeviceCheckItem.Result[11]");
+
+        /// <summary>
+        /// ADC通信错误(SPI)
+        /// </summary>
+        public string DeviceCheckItem_Result_12 => GetString("DeviceCheckItem.Result[12]");
+
+        /// <summary>
+        /// COMPARE VREF 打开错误
+        /// </summary>
+        public string DeviceCheckItem_Result_13 => GetString("DeviceCheckItem.Result[13]");
+
+        /// <summary>
+        /// Dps VIN 打开错误
+        /// </summary>
+        public string DeviceCheckItem_Result_14 => GetString("DeviceCheckItem.Result[14]");
+
+        /// <summary>
         /// 生产模式
         /// </summary>
         public string Enum_DeviceMode_Production => GetString("Enum.DeviceMode.Production");
@@ -495,206 +750,6 @@ namespace LSIC.App
         /// 异常
         /// </summary>
         public string Enum_LogLevel_Fatal => GetString("Enum.LogLevel.Fatal");
-
-        /// <summary>
-        /// 主控板
-        /// </summary>
-        public string DeviceCheckItem_Type_00 => GetString("DeviceCheckItem.Type[00]");
-
-        /// <summary>
-        /// 底板
-        /// </summary>
-        public string DeviceCheckItem_Type_10 => GetString("DeviceCheckItem.Type[10]");
-
-        /// <summary>
-        /// 数字板
-        /// </summary>
-        public string DeviceCheckItem_Type_20 => GetString("DeviceCheckItem.Type[20]");
-
-        /// <summary>
-        /// 电源板
-        /// </summary>
-        public string DeviceCheckItem_Type_30 => GetString("DeviceCheckItem.Type[30]");
-
-        /// <summary>
-        /// 竖向板
-        /// </summary>
-        public string DeviceCheckItem_Type_E0 => GetString("DeviceCheckItem.Type[E0]");
-
-        /// <summary>
-        /// 老化板
-        /// </summary>
-        public string DeviceCheckItem_Type_EA => GetString("DeviceCheckItem.Type[EA]");
-
-        /// <summary>
-        /// 环境变量
-        /// </summary>
-        public string DeviceCheckItem_Item_01 => GetString("DeviceCheckItem.Item[01]");
-
-        /// <summary>
-        /// 配置文件
-        /// </summary>
-        public string DeviceCheckItem_Item_02 => GetString("DeviceCheckItem.Item[02]");
-
-        /// <summary>
-        /// EEPROM
-        /// </summary>
-        public string DeviceCheckItem_Item_03 => GetString("DeviceCheckItem.Item[03]");
-
-        /// <summary>
-        /// 扩展I/O
-        /// </summary>
-        public string DeviceCheckItem_Item_04 => GetString("DeviceCheckItem.Item[04]");
-
-        /// <summary>
-        /// 电源模块
-        /// </summary>
-        public string DeviceCheckItem_Item_05 => GetString("DeviceCheckItem.Item[05]");
-
-        /// <summary>
-        /// DAC自检
-        /// </summary>
-        public string DeviceCheckItem_Item_06 => GetString("DeviceCheckItem.Item[06]");
-
-        /// <summary>
-        /// FPGA自检
-        /// </summary>
-        public string DeviceCheckItem_Item_07 => GetString("DeviceCheckItem.Item[07]");
-
-        /// <summary>
-        /// 电源自检(XADC)
-        /// </summary>
-        public string DeviceCheckItem_Item_08 => GetString("DeviceCheckItem.Item[08]");
-
-        /// <summary>
-        /// FLASH自检
-        /// </summary>
-        public string DeviceCheckItem_Item_09 => GetString("DeviceCheckItem.Item[09]");
-
-        /// <summary>
-        /// PL机型自检
-        /// </summary>
-        public string DeviceCheckItem_Item_0A => GetString("DeviceCheckItem.Item[0A]");
-
-        /// <summary>
-        /// 温控自检
-        /// </summary>
-        public string DeviceCheckItem_Item_0B => GetString("DeviceCheckItem.Item[0B]");
-
-        /// <summary>
-        /// COMPARE VREF自检
-        /// </summary>
-        public string DeviceCheckItem_Item_0C => GetString("DeviceCheckItem.Item[0C]");
-
-        /// <summary>
-        /// Dps VIN自检
-        /// </summary>
-        public string DeviceCheckItem_Item_0D => GetString("DeviceCheckItem.Item[0D]");
-
-        /// <summary>
-        /// 通过
-        /// </summary>
-        public string DeviceCheckItem_Result_00 => GetString("DeviceCheckItem.Result[00]");
-
-        /// <summary>
-        /// 环境变量丢失
-        /// </summary>
-        public string DeviceCheckItem_Result_01 => GetString("DeviceCheckItem.Result[01]");
-
-        /// <summary>
-        /// 配置文件不存在
-        /// </summary>
-        public string DeviceCheckItem_Result_02 => GetString("DeviceCheckItem.Result[02]");
-
-        /// <summary>
-        /// 配置文件格式错误
-        /// </summary>
-        public string DeviceCheckItem_Result_03 => GetString("DeviceCheckItem.Result[03]");
-
-        /// <summary>
-        /// EEPROM通信错误
-        /// </summary>
-        public string DeviceCheckItem_Result_04 => GetString("DeviceCheckItem.Result[04]");
-
-        /// <summary>
-        /// I/O扩展芯片通信错误
-        /// </summary>
-        public string DeviceCheckItem_Result_05 => GetString("DeviceCheckItem.Result[05]");
-
-        /// <summary>
-        /// ADC通信错误
-        /// </summary>
-        public string DeviceCheckItem_Result_06 => GetString("DeviceCheckItem.Result[06]");
-
-        /// <summary>
-        /// 电源模块通信错误
-        /// </summary>
-        public string DeviceCheckItem_Result_07 => GetString("DeviceCheckItem.Result[07]");
-
-        /// <summary>
-        /// 电源模块混插
-        /// </summary>
-        public string DeviceCheckItem_Result_08 => GetString("DeviceCheckItem.Result[08]");
-
-        /// <summary>
-        /// 电源模块固件错误
-        /// </summary>
-        public string DeviceCheckItem_Result_09 => GetString("DeviceCheckItem.Result[09]");
-
-        /// <summary>
-        /// LVDS寄存器通信错误
-        /// </summary>
-        public string DeviceCheckItem_Result_0A => GetString("DeviceCheckItem.Result[0A]");
-
-        /// <summary>
-        /// LVDS数据流通信错误
-        /// </summary>
-        public string DeviceCheckItem_Result_0B => GetString("DeviceCheckItem.Result[0B]");
-
-        /// <summary>
-        /// 电源通信错误
-        /// </summary>
-        public string DeviceCheckItem_Result_0C => GetString("DeviceCheckItem.Result[0C]");
-
-        /// <summary>
-        /// 电源电压错误
-        /// </summary>
-        public string DeviceCheckItem_Result_0D => GetString("DeviceCheckItem.Result[0D]");
-
-        /// <summary>
-        /// FLASH选择错误(打开)
-        /// </summary>
-        public string DeviceCheckItem_Result_0E => GetString("DeviceCheckItem.Result[0E]");
-
-        /// <summary>
-        /// FLASH通信错误
-        /// </summary>
-        public string DeviceCheckItem_Result_0F => GetString("DeviceCheckItem.Result[0F]");
-
-        /// <summary>
-        /// FLASH选择错误(关闭)
-        /// </summary>
-        public string DeviceCheckItem_Result_10 => GetString("DeviceCheckItem.Result[10]");
-
-        /// <summary>
-        /// PL机型读取错误(AXIBUS)
-        /// </summary>
-        public string DeviceCheckItem_Result_11 => GetString("DeviceCheckItem.Result[11]");
-
-        /// <summary>
-        /// ADC通信错误(SPI)
-        /// </summary>
-        public string DeviceCheckItem_Result_12 => GetString("DeviceCheckItem.Result[12]");
-
-        /// <summary>
-        /// COMPARE VREF 打开错误
-        /// </summary>
-        public string DeviceCheckItem_Result_13 => GetString("DeviceCheckItem.Result[13]");
-
-        /// <summary>
-        /// Dps VIN 打开错误
-        /// </summary>
-        public string DeviceCheckItem_Result_14 => GetString("DeviceCheckItem.Result[14]");
 
         /// <summary>
         /// 程序已运行
@@ -2021,6 +2076,108 @@ namespace LSIC.App
         {
             OnPropertyChanged(nameof(CurrentLanguage));
 
+            OnPropertyChanged(nameof(MainBoard));
+
+            OnPropertyChanged(nameof(FULL10V10A));
+
+            OnPropertyChanged(nameof(FULL6V25A));
+
+            OnPropertyChanged(nameof(FULL6V50A));
+
+            OnPropertyChanged(nameof(FULL36V05A));
+
+            OnPropertyChanged(nameof(BaseBoard));
+
+            OnPropertyChanged(nameof(DigitalBoard));
+
+            OnPropertyChanged(nameof(AnalogBoard));
+
+            OnPropertyChanged(nameof(PowerBoard));
+
+            OnPropertyChanged(nameof(TempControlBoard));
+
+            OnPropertyChanged(nameof(BurnInBoard));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Type_00));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Type_10));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Type_20));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Type_30));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Type_E0));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Type_EA));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Item_01));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Item_02));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Item_03));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Item_04));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Item_05));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Item_06));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Item_07));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Item_08));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Item_09));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Item_0A));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Item_0B));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Item_0C));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Item_0D));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_00));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_01));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_02));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_03));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_04));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_05));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_06));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_07));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_08));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_09));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_0A));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_0B));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_0C));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_0D));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_0E));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_0F));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_10));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_11));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_12));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_13));
+
+            OnPropertyChanged(nameof(DeviceCheckItem_Result_14));
+
             OnPropertyChanged(nameof(Enum_DeviceMode_Production));
 
             OnPropertyChanged(nameof(Enum_DeviceMode_Engineering));
@@ -2212,86 +2369,6 @@ namespace LSIC.App
             OnPropertyChanged(nameof(Enum_LogLevel_Error));
 
             OnPropertyChanged(nameof(Enum_LogLevel_Fatal));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Type_00));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Type_10));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Type_20));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Type_30));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Type_E0));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Type_EA));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Item_01));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Item_02));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Item_03));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Item_04));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Item_05));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Item_06));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Item_07));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Item_08));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Item_09));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Item_0A));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Item_0B));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Item_0C));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Item_0D));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_00));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_01));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_02));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_03));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_04));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_05));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_06));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_07));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_08));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_09));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_0A));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_0B));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_0C));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_0D));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_0E));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_0F));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_10));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_11));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_12));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_13));
-
-            OnPropertyChanged(nameof(DeviceCheckItem_Result_14));
 
             OnPropertyChanged(nameof(AppHasLaunchedMessage));
 
@@ -2828,6 +2905,261 @@ namespace LSIC.App
     {
 
          /// <summary>
+        /// 主控板
+        /// </summary>
+        public const string MainBoard = nameof(MainBoard);
+
+         /// <summary>
+        /// 全砖10V10A
+        /// </summary>
+        public const string FULL10V10A = nameof(FULL10V10A);
+
+         /// <summary>
+        /// 全砖6V25A
+        /// </summary>
+        public const string FULL6V25A = nameof(FULL6V25A);
+
+         /// <summary>
+        /// 全砖6V50A
+        /// </summary>
+        public const string FULL6V50A = nameof(FULL6V50A);
+
+         /// <summary>
+        /// 全砖36V5A
+        /// </summary>
+        public const string FULL36V05A = nameof(FULL36V05A);
+
+         /// <summary>
+        /// 底板
+        /// </summary>
+        public const string BaseBoard = nameof(BaseBoard);
+
+         /// <summary>
+        /// 数字板
+        /// </summary>
+        public const string DigitalBoard = nameof(DigitalBoard);
+
+         /// <summary>
+        /// 模拟板
+        /// </summary>
+        public const string AnalogBoard = nameof(AnalogBoard);
+
+         /// <summary>
+        /// 电源板
+        /// </summary>
+        public const string PowerBoard = nameof(PowerBoard);
+
+         /// <summary>
+        /// 温控板
+        /// </summary>
+        public const string TempControlBoard = nameof(TempControlBoard);
+
+         /// <summary>
+        /// 老化板
+        /// </summary>
+        public const string BurnInBoard = nameof(BurnInBoard);
+
+         /// <summary>
+        /// 主控板
+        /// </summary>
+        public const string DeviceCheckItem_Type_00 = nameof(DeviceCheckItem_Type_00);
+
+         /// <summary>
+        /// 底板
+        /// </summary>
+        public const string DeviceCheckItem_Type_10 = nameof(DeviceCheckItem_Type_10);
+
+         /// <summary>
+        /// 数字板
+        /// </summary>
+        public const string DeviceCheckItem_Type_20 = nameof(DeviceCheckItem_Type_20);
+
+         /// <summary>
+        /// 电源板
+        /// </summary>
+        public const string DeviceCheckItem_Type_30 = nameof(DeviceCheckItem_Type_30);
+
+         /// <summary>
+        /// 竖向板
+        /// </summary>
+        public const string DeviceCheckItem_Type_E0 = nameof(DeviceCheckItem_Type_E0);
+
+         /// <summary>
+        /// 老化板
+        /// </summary>
+        public const string DeviceCheckItem_Type_EA = nameof(DeviceCheckItem_Type_EA);
+
+         /// <summary>
+        /// 环境变量
+        /// </summary>
+        public const string DeviceCheckItem_Item_01 = nameof(DeviceCheckItem_Item_01);
+
+         /// <summary>
+        /// 配置文件
+        /// </summary>
+        public const string DeviceCheckItem_Item_02 = nameof(DeviceCheckItem_Item_02);
+
+         /// <summary>
+        /// EEPROM
+        /// </summary>
+        public const string DeviceCheckItem_Item_03 = nameof(DeviceCheckItem_Item_03);
+
+         /// <summary>
+        /// 扩展I/O
+        /// </summary>
+        public const string DeviceCheckItem_Item_04 = nameof(DeviceCheckItem_Item_04);
+
+         /// <summary>
+        /// 电源模块
+        /// </summary>
+        public const string DeviceCheckItem_Item_05 = nameof(DeviceCheckItem_Item_05);
+
+         /// <summary>
+        /// DAC自检
+        /// </summary>
+        public const string DeviceCheckItem_Item_06 = nameof(DeviceCheckItem_Item_06);
+
+         /// <summary>
+        /// FPGA自检
+        /// </summary>
+        public const string DeviceCheckItem_Item_07 = nameof(DeviceCheckItem_Item_07);
+
+         /// <summary>
+        /// 电源自检(XADC)
+        /// </summary>
+        public const string DeviceCheckItem_Item_08 = nameof(DeviceCheckItem_Item_08);
+
+         /// <summary>
+        /// FLASH自检
+        /// </summary>
+        public const string DeviceCheckItem_Item_09 = nameof(DeviceCheckItem_Item_09);
+
+         /// <summary>
+        /// PL机型自检
+        /// </summary>
+        public const string DeviceCheckItem_Item_0A = nameof(DeviceCheckItem_Item_0A);
+
+         /// <summary>
+        /// 温控自检
+        /// </summary>
+        public const string DeviceCheckItem_Item_0B = nameof(DeviceCheckItem_Item_0B);
+
+         /// <summary>
+        /// COMPARE VREF自检
+        /// </summary>
+        public const string DeviceCheckItem_Item_0C = nameof(DeviceCheckItem_Item_0C);
+
+         /// <summary>
+        /// Dps VIN自检
+        /// </summary>
+        public const string DeviceCheckItem_Item_0D = nameof(DeviceCheckItem_Item_0D);
+
+         /// <summary>
+        /// 通过
+        /// </summary>
+        public const string DeviceCheckItem_Result_00 = nameof(DeviceCheckItem_Result_00);
+
+         /// <summary>
+        /// 环境变量丢失
+        /// </summary>
+        public const string DeviceCheckItem_Result_01 = nameof(DeviceCheckItem_Result_01);
+
+         /// <summary>
+        /// 配置文件不存在
+        /// </summary>
+        public const string DeviceCheckItem_Result_02 = nameof(DeviceCheckItem_Result_02);
+
+         /// <summary>
+        /// 配置文件格式错误
+        /// </summary>
+        public const string DeviceCheckItem_Result_03 = nameof(DeviceCheckItem_Result_03);
+
+         /// <summary>
+        /// EEPROM通信错误
+        /// </summary>
+        public const string DeviceCheckItem_Result_04 = nameof(DeviceCheckItem_Result_04);
+
+         /// <summary>
+        /// I/O扩展芯片通信错误
+        /// </summary>
+        public const string DeviceCheckItem_Result_05 = nameof(DeviceCheckItem_Result_05);
+
+         /// <summary>
+        /// ADC通信错误
+        /// </summary>
+        public const string DeviceCheckItem_Result_06 = nameof(DeviceCheckItem_Result_06);
+
+         /// <summary>
+        /// 电源模块通信错误
+        /// </summary>
+        public const string DeviceCheckItem_Result_07 = nameof(DeviceCheckItem_Result_07);
+
+         /// <summary>
+        /// 电源模块混插
+        /// </summary>
+        public const string DeviceCheckItem_Result_08 = nameof(DeviceCheckItem_Result_08);
+
+         /// <summary>
+        /// 电源模块固件错误
+        /// </summary>
+        public const string DeviceCheckItem_Result_09 = nameof(DeviceCheckItem_Result_09);
+
+         /// <summary>
+        /// LVDS寄存器通信错误
+        /// </summary>
+        public const string DeviceCheckItem_Result_0A = nameof(DeviceCheckItem_Result_0A);
+
+         /// <summary>
+        /// LVDS数据流通信错误
+        /// </summary>
+        public const string DeviceCheckItem_Result_0B = nameof(DeviceCheckItem_Result_0B);
+
+         /// <summary>
+        /// 电源通信错误
+        /// </summary>
+        public const string DeviceCheckItem_Result_0C = nameof(DeviceCheckItem_Result_0C);
+
+         /// <summary>
+        /// 电源电压错误
+        /// </summary>
+        public const string DeviceCheckItem_Result_0D = nameof(DeviceCheckItem_Result_0D);
+
+         /// <summary>
+        /// FLASH选择错误(打开)
+        /// </summary>
+        public const string DeviceCheckItem_Result_0E = nameof(DeviceCheckItem_Result_0E);
+
+         /// <summary>
+        /// FLASH通信错误
+        /// </summary>
+        public const string DeviceCheckItem_Result_0F = nameof(DeviceCheckItem_Result_0F);
+
+         /// <summary>
+        /// FLASH选择错误(关闭)
+        /// </summary>
+        public const string DeviceCheckItem_Result_10 = nameof(DeviceCheckItem_Result_10);
+
+         /// <summary>
+        /// PL机型读取错误(AXIBUS)
+        /// </summary>
+        public const string DeviceCheckItem_Result_11 = nameof(DeviceCheckItem_Result_11);
+
+         /// <summary>
+        /// ADC通信错误(SPI)
+        /// </summary>
+        public const string DeviceCheckItem_Result_12 = nameof(DeviceCheckItem_Result_12);
+
+         /// <summary>
+        /// COMPARE VREF 打开错误
+        /// </summary>
+        public const string DeviceCheckItem_Result_13 = nameof(DeviceCheckItem_Result_13);
+
+         /// <summary>
+        /// Dps VIN 打开错误
+        /// </summary>
+        public const string DeviceCheckItem_Result_14 = nameof(DeviceCheckItem_Result_14);
+
+         /// <summary>
         /// 生产模式
         /// </summary>
         public const string Enum_DeviceMode_Production = nameof(Enum_DeviceMode_Production);
@@ -3306,206 +3638,6 @@ namespace LSIC.App
         /// 异常
         /// </summary>
         public const string Enum_LogLevel_Fatal = nameof(Enum_LogLevel_Fatal);
-
-         /// <summary>
-        /// 主控板
-        /// </summary>
-        public const string DeviceCheckItem_Type_00 = nameof(DeviceCheckItem_Type_00);
-
-         /// <summary>
-        /// 底板
-        /// </summary>
-        public const string DeviceCheckItem_Type_10 = nameof(DeviceCheckItem_Type_10);
-
-         /// <summary>
-        /// 数字板
-        /// </summary>
-        public const string DeviceCheckItem_Type_20 = nameof(DeviceCheckItem_Type_20);
-
-         /// <summary>
-        /// 电源板
-        /// </summary>
-        public const string DeviceCheckItem_Type_30 = nameof(DeviceCheckItem_Type_30);
-
-         /// <summary>
-        /// 竖向板
-        /// </summary>
-        public const string DeviceCheckItem_Type_E0 = nameof(DeviceCheckItem_Type_E0);
-
-         /// <summary>
-        /// 老化板
-        /// </summary>
-        public const string DeviceCheckItem_Type_EA = nameof(DeviceCheckItem_Type_EA);
-
-         /// <summary>
-        /// 环境变量
-        /// </summary>
-        public const string DeviceCheckItem_Item_01 = nameof(DeviceCheckItem_Item_01);
-
-         /// <summary>
-        /// 配置文件
-        /// </summary>
-        public const string DeviceCheckItem_Item_02 = nameof(DeviceCheckItem_Item_02);
-
-         /// <summary>
-        /// EEPROM
-        /// </summary>
-        public const string DeviceCheckItem_Item_03 = nameof(DeviceCheckItem_Item_03);
-
-         /// <summary>
-        /// 扩展I/O
-        /// </summary>
-        public const string DeviceCheckItem_Item_04 = nameof(DeviceCheckItem_Item_04);
-
-         /// <summary>
-        /// 电源模块
-        /// </summary>
-        public const string DeviceCheckItem_Item_05 = nameof(DeviceCheckItem_Item_05);
-
-         /// <summary>
-        /// DAC自检
-        /// </summary>
-        public const string DeviceCheckItem_Item_06 = nameof(DeviceCheckItem_Item_06);
-
-         /// <summary>
-        /// FPGA自检
-        /// </summary>
-        public const string DeviceCheckItem_Item_07 = nameof(DeviceCheckItem_Item_07);
-
-         /// <summary>
-        /// 电源自检(XADC)
-        /// </summary>
-        public const string DeviceCheckItem_Item_08 = nameof(DeviceCheckItem_Item_08);
-
-         /// <summary>
-        /// FLASH自检
-        /// </summary>
-        public const string DeviceCheckItem_Item_09 = nameof(DeviceCheckItem_Item_09);
-
-         /// <summary>
-        /// PL机型自检
-        /// </summary>
-        public const string DeviceCheckItem_Item_0A = nameof(DeviceCheckItem_Item_0A);
-
-         /// <summary>
-        /// 温控自检
-        /// </summary>
-        public const string DeviceCheckItem_Item_0B = nameof(DeviceCheckItem_Item_0B);
-
-         /// <summary>
-        /// COMPARE VREF自检
-        /// </summary>
-        public const string DeviceCheckItem_Item_0C = nameof(DeviceCheckItem_Item_0C);
-
-         /// <summary>
-        /// Dps VIN自检
-        /// </summary>
-        public const string DeviceCheckItem_Item_0D = nameof(DeviceCheckItem_Item_0D);
-
-         /// <summary>
-        /// 通过
-        /// </summary>
-        public const string DeviceCheckItem_Result_00 = nameof(DeviceCheckItem_Result_00);
-
-         /// <summary>
-        /// 环境变量丢失
-        /// </summary>
-        public const string DeviceCheckItem_Result_01 = nameof(DeviceCheckItem_Result_01);
-
-         /// <summary>
-        /// 配置文件不存在
-        /// </summary>
-        public const string DeviceCheckItem_Result_02 = nameof(DeviceCheckItem_Result_02);
-
-         /// <summary>
-        /// 配置文件格式错误
-        /// </summary>
-        public const string DeviceCheckItem_Result_03 = nameof(DeviceCheckItem_Result_03);
-
-         /// <summary>
-        /// EEPROM通信错误
-        /// </summary>
-        public const string DeviceCheckItem_Result_04 = nameof(DeviceCheckItem_Result_04);
-
-         /// <summary>
-        /// I/O扩展芯片通信错误
-        /// </summary>
-        public const string DeviceCheckItem_Result_05 = nameof(DeviceCheckItem_Result_05);
-
-         /// <summary>
-        /// ADC通信错误
-        /// </summary>
-        public const string DeviceCheckItem_Result_06 = nameof(DeviceCheckItem_Result_06);
-
-         /// <summary>
-        /// 电源模块通信错误
-        /// </summary>
-        public const string DeviceCheckItem_Result_07 = nameof(DeviceCheckItem_Result_07);
-
-         /// <summary>
-        /// 电源模块混插
-        /// </summary>
-        public const string DeviceCheckItem_Result_08 = nameof(DeviceCheckItem_Result_08);
-
-         /// <summary>
-        /// 电源模块固件错误
-        /// </summary>
-        public const string DeviceCheckItem_Result_09 = nameof(DeviceCheckItem_Result_09);
-
-         /// <summary>
-        /// LVDS寄存器通信错误
-        /// </summary>
-        public const string DeviceCheckItem_Result_0A = nameof(DeviceCheckItem_Result_0A);
-
-         /// <summary>
-        /// LVDS数据流通信错误
-        /// </summary>
-        public const string DeviceCheckItem_Result_0B = nameof(DeviceCheckItem_Result_0B);
-
-         /// <summary>
-        /// 电源通信错误
-        /// </summary>
-        public const string DeviceCheckItem_Result_0C = nameof(DeviceCheckItem_Result_0C);
-
-         /// <summary>
-        /// 电源电压错误
-        /// </summary>
-        public const string DeviceCheckItem_Result_0D = nameof(DeviceCheckItem_Result_0D);
-
-         /// <summary>
-        /// FLASH选择错误(打开)
-        /// </summary>
-        public const string DeviceCheckItem_Result_0E = nameof(DeviceCheckItem_Result_0E);
-
-         /// <summary>
-        /// FLASH通信错误
-        /// </summary>
-        public const string DeviceCheckItem_Result_0F = nameof(DeviceCheckItem_Result_0F);
-
-         /// <summary>
-        /// FLASH选择错误(关闭)
-        /// </summary>
-        public const string DeviceCheckItem_Result_10 = nameof(DeviceCheckItem_Result_10);
-
-         /// <summary>
-        /// PL机型读取错误(AXIBUS)
-        /// </summary>
-        public const string DeviceCheckItem_Result_11 = nameof(DeviceCheckItem_Result_11);
-
-         /// <summary>
-        /// ADC通信错误(SPI)
-        /// </summary>
-        public const string DeviceCheckItem_Result_12 = nameof(DeviceCheckItem_Result_12);
-
-         /// <summary>
-        /// COMPARE VREF 打开错误
-        /// </summary>
-        public const string DeviceCheckItem_Result_13 = nameof(DeviceCheckItem_Result_13);
-
-         /// <summary>
-        /// Dps VIN 打开错误
-        /// </summary>
-        public const string DeviceCheckItem_Result_14 = nameof(DeviceCheckItem_Result_14);
 
          /// <summary>
         /// 程序已运行

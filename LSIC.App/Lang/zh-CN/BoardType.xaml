@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="MainBoard">主控板</sys:String>
+    <sys:String x:Key="FULL10V10A">全砖10V10A</sys:String>
+    <sys:String x:Key="FULL6V25A">全砖6V25A</sys:String>
+    <sys:String x:Key="FULL6V50A">全砖6V50A</sys:String>
+    <sys:String x:Key="FULL36V05A">全砖36V5A</sys:String>
+    <sys:String x:Key="BaseBoard">底板</sys:String>
+    <sys:String x:Key="DigitalBoard">数字板</sys:String>
+    <sys:String x:Key="AnalogBoard">模拟板</sys:String>
+    <sys:String x:Key="PowerBoard">电源板</sys:String>
+    <sys:String x:Key="TempControlBoard">温控板</sys:String>
+    <sys:String x:Key="BurnInBoard">老化板</sys:String>
+</ResourceDictionary>
