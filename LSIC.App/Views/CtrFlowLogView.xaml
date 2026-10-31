@@ -20,10 +20,11 @@
          ScrollViewer.ScrollChanged="OnScrollChanged"
          ScrollViewer.VerticalScrollBarVisibility="Auto"
          SelectionMode="Single"
+         Style="{x:Null}"
          VirtualizingPanel.CacheLength="2,2"
          VirtualizingPanel.CacheLengthUnit="Page"
          VirtualizingPanel.IsVirtualizing="True"
-         VirtualizingPanel.ScrollUnit="Item"
+         VirtualizingPanel.ScrollUnit="Pixel"
          VirtualizingPanel.VirtualizationMode="Recycling"
          mc:Ignorable="d">
 
@@ -31,8 +32,9 @@
         <Style TargetType="{x:Type ListBoxItem}">
             <Setter Property="Padding" Value="0" />
             <Setter Property="Margin" Value="0" />
-            <Setter Property="Focusable" Value="False" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="Focusable" Value="False" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -44,7 +46,7 @@
     </ListBox.ItemContainerStyle>
 
     <ListBox.ItemTemplate>
-        <DataTemplate>
+        <DataTemplate DataType="{x:Type app:Flow}">
             <Grid Margin="0,0,0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" SharedSizeGroup="HeaderGroup" />
@@ -54,16 +56,12 @@
                            VerticalAlignment="Top"
                            LineHeight="20"
                            Text="{Binding Header, Mode=OneWay}" />
-                <TextBox Grid.Column="1"
-                         Margin="10,0,0,0"
-                         VerticalAlignment="Top"
-                         BorderThickness="0"
-                         IsReadOnly="True"
-                         IsReadOnlyCaretVisible="True"
-                         Style="{x:Null}"
-                         Text="{Binding Message, Mode=OneWay}"
-                         TextBlock.LineHeight="20"
-                         TextWrapping="WrapWithOverflow" />
+                <TextBlock Grid.Column="1"
+                           Margin="5,0,0,0"
+                           VerticalAlignment="Top"
+                           LineHeight="20"
+                           Text="{Binding Message, Mode=OneWay}"
+                           TextWrapping="WrapWithOverflow" />
             </Grid>
 
             <DataTemplate.Triggers>

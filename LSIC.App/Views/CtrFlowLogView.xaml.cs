@@ -1,18 +1,17 @@
-﻿using System.Windows.Controls;
+﻿using System.Runtime.ExceptionServices;
+using System.Windows.Controls;
 
 namespace LSIC.App.Views
 {
     public partial class CtrFlowLogView
     {
-        private static readonly TimeSpan UserScrollResumeDelay = TimeSpan.FromSeconds(30);
-        private const long ProgramScrollGuardMs = 100;
-        private bool _atBottom = true;
-        private long _lastUserScrollTick;
-        private long _lastProgramScrollTick;
-        private const int MaxCount = 100;
-        private const double AutoScrollThreshold = 2.0;
-        private ObservableCollection<Flow> _flows = new ObservableCollection<Flow>();
+        private const int MaxCount = 600; //上限值
+        private const int RemainCount = 300; //每次删除保留300条
+        private const int HardLimit = 3000; //最大限制条数
+        private const long UserScrollResumeDelayMs = 10000;
         private volatile bool _isActive;
+        private ObservableCollection<Flow> _flows = new ObservableCollection<Flow>();
+        private long _lastUserScrollTick;
         private ScrollViewer _scrollViewer;
         private ScrollViewer ScrollViewer
         {
@@ -34,39 +33,13 @@ namespace LSIC.App.Views
         {
             (d as CtrFlowLogView)?.UpdateLogger((FlowLogger)e.OldValue, (FlowLogger)e.NewValue);
         }
-
         public ObservableCollection<FrameFilterItem> FilterItems
         {
             get { return (ObservableCollection<FrameFilterItem>)GetValue(FilterItemsProperty); }
             set { SetValue(FilterItemsProperty, value); }
         }
         public static readonly DependencyProperty FilterItemsProperty =
-            DependencyProperty.Register(nameof(FilterItems), typeof(ObservableCollection<FrameFilterItem>), typeof(CtrFlowLogView), new PropertyMetadata(null, OnFilterItemsChanged));
-        private static void OnFilterItemsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is CtrFlowLogView view)
-            {
-                view.Refresh();
-            }
-        }
-
-        #endregion
-        public CtrFlowLogView()
-        {
-            InitializeComponent();
-
-            ItemsSource = _flows;
-
-            Loaded += OnLoaded;
-            Unloaded += OnUnloaded;
-            IsVisibleChanged += OnIsVisibleChanged;
-        }
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-
-            _scrollViewer = null;
-        }
+            DependencyProperty.Register(nameof(FilterItems), typeof(ObservableCollection<FrameFilterItem>), typeof(CtrFlowLogView), new PropertyMetadata(null));
         private void UpdateLogger(FlowLogger oldLogger, FlowLogger newLogger)
         {
             Unsubscribe(oldLogger);
@@ -79,15 +52,18 @@ namespace LSIC.App.Views
             }
 
             SetCurrentValue(FilterItemsProperty, new ObservableCollection<FrameFilterItem>(FrameFilterUtility.GetFilterItems(newLogger)));
+            Refresh();
         }
-        private void OnHistoryAppened(Flow flow)
+        #endregion
+        public CtrFlowLogView()
         {
-            if (!_isActive || flow == null)
-            {
-                return;
-            }
+            InitializeComponent();
 
-            this.InvokeOnUI(Append, flow, DispatcherPriority.Background);
+            ItemsSource = _flows;
+
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
+            IsVisibleChanged += OnIsVisibleChanged;
         }
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -101,31 +77,40 @@ namespace LSIC.App.Views
         {
             SetActive(IsLoaded && IsVisible);
         }
-        private void Append(Flow flow)
+        private void OnHistoryAppened(Flow flow)
         {
-            //不在底部且用户超过时限未滚动，回到底部
-            if (!_atBottom && Environment.TickCount64 - _lastUserScrollTick >= UserScrollResumeDelay.TotalMilliseconds)
+            if (!_isActive || flow == null)
             {
-                _atBottom = true;
-                ScrollToEnd();
+                return;
             }
 
-            _flows.Add(flow);
-
-            int removed = 0;
-            while (_flows.Count > MaxCount)
+            Dispatcher.Invoke(() =>
             {
-                _flows.RemoveAt(0);
-                removed++;
-            }
+                _flows.Add(flow);
 
-            //有移除说明满了：不在底部时回退偏移锁定可视内容
-            if (removed > 0 && !_atBottom && ScrollViewer != null)
-            {
-                //记为程序滚动，其回声事件不算用户活动
-                _lastProgramScrollTick = Environment.TickCount64;
-                ScrollViewer.ScrollToVerticalOffset(Math.Max(0, ScrollViewer.VerticalOffset - removed));
-            }
+                bool follow = Environment.TickCount64 - _lastUserScrollTick > UserScrollResumeDelayMs;
+
+                if (!follow && _flows.Count > HardLimit)
+                {
+                    _lastUserScrollTick = 0;
+                    follow = true;
+                }
+
+                if (follow)
+                {
+                    if (_flows.Count > MaxCount)
+                    {
+                        int removeCount = _flows.Count - RemainCount;
+                        for (int i = 0; i < removeCount; i++)
+                        {
+                            _flows.RemoveAt(0);
+                        }
+                    }
+
+                    ScrollViewer?.ScrollToEnd();
+                }
+
+            }, DispatcherPriority.Background);
         }
 
         #region 核心方法
@@ -138,6 +123,7 @@ namespace LSIC.App.Views
                 if (active)
                 {
                     Refresh();
+                    ScrollViewer?.ScrollToEnd();
                 }
                 else
                 {
@@ -151,17 +137,20 @@ namespace LSIC.App.Views
             {
                 LoadHistory();
                 Subscribe();
-                ScrollToEnd();
             }
         }
         private void LoadHistory()
         {
+            _lastUserScrollTick = 0;
+
             if (Logger != null)
             {
-                _flows = new ObservableCollection<Flow>(Logger.History);
+                _flows.Clear();
 
-                SetCurrentValue(ItemsSourceProperty, _flows);
-                _atBottom = true;
+                foreach (var history in Logger.History)
+                {
+                    _flows.Add(history);
+                }
             }
         }
         private void Subscribe()
@@ -181,60 +170,30 @@ namespace LSIC.App.Views
         }
         #endregion
 
-        #region 自动跟随滚动
-        private bool _scrollQueued;
-        private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
-        {
-            if (e.ExtentHeightChange == 0)
-            {
-                bool atBottom = e.VerticalOffset + e.ViewportHeight >= e.ExtentHeight - AutoScrollThreshold;
-
-                if (atBottom)
-                {
-                    _atBottom = true;
-                }
-                else
-                {
-                    if (Environment.TickCount64 - _lastProgramScrollTick > ProgramScrollGuardMs)
-                    {
-                        _lastUserScrollTick = Environment.TickCount64;
-                    }
-                    _atBottom = false;
-                }
-            }
-            else if (_atBottom)
-            {
-                ScrollToEnd();
-            }
-        }
-        private void ScrollToEnd()
-        {
-            if (_scrollQueued)
-            {
-                return;
-            }
-            _scrollQueued = true;
-
-            Dispatcher.BeginInvoke(new Action(() =>
-            {
-                _scrollQueued = false;
-
-                if (_atBottom)
-                {
-                    _lastProgramScrollTick = Environment.TickCount64;
-                    ScrollViewer?.ScrollToEnd();
-                }
-            }));
-        }
-        #endregion
-
         #region 菜单操作
         private void OnClearLogs(object sender, RoutedEventArgs e)
         {
             Logger?.History.Clear();
             _flows.Clear();
-            _atBottom = true;
+            _lastUserScrollTick = 0;
         }
         #endregion
+        private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (!(e.OriginalSource is ScrollViewer sv) || sv.TemplatedParent != this)
+            {
+                return;
+            }
+
+            if (e.ExtentHeightChange != 0)
+            {
+                return;
+            }
+
+            if (e.VerticalOffset + e.ViewportHeight < e.ExtentHeight - 1)
+            {
+                _lastUserScrollTick = Environment.TickCount64;
+            }
+        }
     }
 }
