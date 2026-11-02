@@ -43,11 +43,11 @@
             for (int k = 0; k < firmwareCount; k++)
             {
                 FirmwareType ft = (FirmwareType)data[index++];
-                int version = data.ToInt32(index, Endianness.Big);
+                int version = data.ToInt32(index, Endianness.Little);
                 index += 4;
-                long compile = data.ToInt64(index, Endianness.Big);
+                long compile = data.ToInt64(index, Endianness.Little);
                 index += 8;
-                long upgrade = data.ToInt64(index, Endianness.Big);
+                long upgrade = data.ToInt64(index, Endianness.Little);
                 index += 8;
                 firmwares[k] = new FirmwareInfo(
                     ft, version,
