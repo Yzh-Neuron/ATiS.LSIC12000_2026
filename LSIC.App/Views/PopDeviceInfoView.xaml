@@ -132,10 +132,44 @@
                                     MinWidth="70"
                                     Binding="{Binding HardwareVersion}"
                                     Header="{app:Lang {x:Static app:LangKey.HardwareVersionText}}" />
-                <DataGridTextColumn Width="*"
-                                    MinWidth="240"
-                                    Binding="{Binding Firmwares, Converter={StaticResource EnumerableToStringConverter}}"
-                                    Header="{app:Lang {x:Static app:LangKey.FirmwareVersionText}}" />
+                <DataGridTemplateColumn Width="*"
+                                        MinWidth="240"
+                                        Header="{app:Lang {x:Static app:LangKey.FirmwareVersionText}}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ItemsControl HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
+                                          FontSize="10"
+                                          IsHitTestVisible="False"
+                                          ItemsSource="{Binding Firmwares}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,2,16,2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="28" />
+                                                <ColumnDefinition Width="6" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="6" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.RowSpan="2"
+                                                       VerticalAlignment="Center"
+                                                       Text="{Binding Type}" />
+                                            <TextBlock Grid.Column="2"
+                                                       VerticalAlignment="Center"
+                                                       Text="{Binding Version, Converter={StaticResource IntegerToVersionConverter}}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

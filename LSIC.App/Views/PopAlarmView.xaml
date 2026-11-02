@@ -14,7 +14,6 @@
                   Height="380"
                   Icon="/Resources/Icon/icon.ico"
                   ResizeMode="NoResize"
-                  WindowStartupLocation="CenterOwner"
                   mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -52,6 +51,7 @@
                          Margin="5"
                          BorderThickness="0"
                          FontSize="15"
+                         Background="{DynamicResource ThirdBackgroundBrush}"
                          IsReadOnly="True"
                          IsReadOnlyCaretVisible="True"
                          VerticalScrollBarVisibility="Auto">

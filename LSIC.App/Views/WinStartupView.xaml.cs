@@ -18,6 +18,7 @@
                 Application.Current.MainWindow = main;
                 main.Show();
                 main.Activate();
+                PopHelper.Init();
                 PopHelper.SetOwner(main);
                 Close();
             }

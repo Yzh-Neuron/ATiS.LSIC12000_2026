@@ -183,8 +183,6 @@ namespace LSIC.App
             ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata { DefaultValue = 250 });
             ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata { DefaultValue = 6000 });
 
-            PopHelper.Init();
-
             CheckDongle(null);
 
             new WinStartupView().Show();
