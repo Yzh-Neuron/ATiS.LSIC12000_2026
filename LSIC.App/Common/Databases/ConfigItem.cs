@@ -1,14 +1,14 @@
-﻿using ATiS.Orm;
+﻿using SqlSugar;
 
 namespace LSIC.App
 {
-    [OrmTable("Config")]
+    [SugarTable("Config")]
     public class ConfigItem
     {
-        [OrmColumn(IsPrimaryKey = true, Length = 255)]
+        [SugarColumn(IsPrimaryKey = true, Length = 255)]
         public string Key { get; set; }
 
-        [OrmColumn(Length = 255)]
+        [SugarColumn(Length = 255)]
         public string Value { get; set; }
     }
 }

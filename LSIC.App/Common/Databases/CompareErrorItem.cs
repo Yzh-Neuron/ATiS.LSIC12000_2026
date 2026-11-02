@@ -1,26 +1,26 @@
-﻿using ATiS.Orm;
+﻿using SqlSugar;
 
 namespace LSIC.App
 {
-    [OrmTable("CompareError")]
+    [SugarTable("CompareError")]
     public class CompareErrorItem
     {
-        [OrmColumn(IsPrimaryKey = true)]
+        [SugarColumn(IsPrimaryKey = true)]
         public ulong Id { get; set; }
 
-        [OrmColumn]
+        [SugarColumn]
         public int Cs { get; set; }
 
-        [OrmColumn]
+        [SugarColumn]
         public int Dr { get; set; }
 
-        [OrmColumn(Length = 255)]
+        [SugarColumn(Length = 255)]
         public string Step { get; set; }
 
-        [OrmColumn]
+        [SugarColumn]
         public int Line { get; set; }
 
-        [OrmColumn]
+        [SugarColumn]
         public DateTime Time { get; set; }
     }
 }

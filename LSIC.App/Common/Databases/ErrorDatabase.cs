@@ -1,4 +1,4 @@
-﻿using ATiS.Orm;
+﻿using SqlSugar;
 
 namespace LSIC.App
 {
@@ -18,20 +18,20 @@ namespace LSIC.App
             ConnectionConfig config = new ConnectionConfig
             {
                 IsAutoCloseConnection = true,
-                DataBaseType = DataBaseType.Sqlite,
+                DbType = DbType.Sqlite,
                 ConnectionString = $"datasource={_directory}/{nameof(Zone)}{zone.Id:D2}.db",
             };
-            _db = new OrmClient(config, it =>
+            _db = new SqlSugarClient(config, it =>
             {
                 it.Aop.OnLogExecuting = (sql, para) =>
                 {
-                    Console.WriteLine(MethodUtility.GetNativeSql(sql, para));
+                    Console.WriteLine(UtilMethods.GetNativeSql(sql, para));
                 };
             });
 
             CreateTables();
         }
-        private readonly OrmClient _db;
+        private readonly SqlSugarClient _db;
         private void CreateTables()
         {
             _db.CodeFirst.InitTables<CompareErrorItem>();
@@ -40,7 +40,7 @@ namespace LSIC.App
         {
             DateTime now = DateTime.Now;
 
-            OrmClient db = _db.CopyNew();
+            SqlSugarClient db = _db.CopyNew();
             CompareErrorItem item = db.CopyNew().Queryable<CompareErrorItem>().First(o => o.Id == error.Id);
             if (item is null)
             {

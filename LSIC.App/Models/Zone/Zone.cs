@@ -249,11 +249,6 @@ namespace LSIC.App.Models
                 {
                     try
                     {
-                        if (Connected)
-                        {
-                            await GetDpsStateAsync().ConfigureAwait(false);
-                        }
-
                         var burnInfo = BurnInfo;
                         if (State == ZoneState.Burning && burnInfo != null)
                         {
@@ -1014,7 +1009,6 @@ namespace LSIC.App.Models
                         }
                     case ZoneFunctionCode.DpsState:
                         {
-                            byte mask = data[index++];
                             int count = data[index++];
                             for (int i = 0; i < count; i++)
                             {

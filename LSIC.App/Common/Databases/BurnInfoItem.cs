@@ -1,26 +1,26 @@
-﻿using ATiS.Orm;
+﻿using SqlSugar;
 
 namespace LSIC.App
 {
-    [OrmTable("BurnInfo")]
+    [SugarTable("BurnInfo")]
     public class BurnInfoItem
     {
-        [OrmColumn(IsPrimaryKey = true)]
+        [SugarColumn(IsPrimaryKey = true)]
         public int ZoneId { get; set; }
 
-        [OrmColumn(Length = 32)]
+        [SugarColumn(Length = 32)]
         public string Ic { get; set; }
 
-        [OrmColumn(Length = 32, IsNullable = true)]
+        [SugarColumn(Length = 32, IsNullable = true)]
         public string Lot { get; set; }
 
-        [OrmColumn(Length = 32, IsNullable = true)]
+        [SugarColumn(Length = 32, IsNullable = true)]
         public string Operator { get; set; }
 
-        [OrmColumn(IsNullable = true)]
+        [SugarColumn(IsNullable = true)]
         public DateTime? Start { get; set; }
 
-        [OrmColumn(ColumnDataType = "BLOB", IsNullable = true)]
+        [SugarColumn(ColumnDataType = "BLOB", IsNullable = true)]
         public byte[] DutMask { get; set; }
     }
 }
