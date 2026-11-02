@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using ATiS.Dongle;
 
 namespace LSIC.App
 {
@@ -83,7 +84,7 @@ namespace LSIC.App
             if (!success)
             {
                 string machine = DongleHelper.MachineCode;
-                Current.Dispatcher.Invoke(() =>
+                this.InvokeOnUI(() =>
                 {
                     if (now.HasValue && deadline.HasValue && deadline.Value < now.Value)
                     {

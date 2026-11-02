@@ -1127,6 +1127,16 @@ namespace LSIC.App
         public string ZoneBackgroundTaskErrorMessage => GetString("ZoneBackgroundTaskErrorMessage");
 
         /// <summary>
+        /// 加密锁和设备不匹配, 请联系售后人员
+        /// </summary>
+        public string IllegalDongleMessage => GetString("IllegalDongleMessage");
+
+        /// <summary>
+        /// 设备授权已到期 [ {0:yyyy/MM/dd HH:mm:ss} ], 请联系售后人员
+        /// </summary>
+        public string DongleExpireMessage => GetString("DongleExpireMessage");
+
+        /// <summary>
         /// 见微知著·科技赋能·创造非凡价值
         /// </summary>
         public string ConceptText => GetString("ConceptText");
@@ -1275,6 +1285,16 @@ namespace LSIC.App
         /// 选择文件
         /// </summary>
         public string ChoseFileText => GetString("ChoseFileText");
+
+        /// <summary>
+        /// 复制
+        /// </summary>
+        public string CopyText => GetString("CopyText");
+
+        /// <summary>
+        /// 粘贴
+        /// </summary>
+        public string PasteText => GetString("PasteText");
 
         /// <summary>
         /// 初始化中...
@@ -2520,6 +2540,10 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(ZoneBackgroundTaskErrorMessage));
 
+            OnPropertyChanged(nameof(IllegalDongleMessage));
+
+            OnPropertyChanged(nameof(DongleExpireMessage));
+
             OnPropertyChanged(nameof(ConceptText));
 
             OnPropertyChanged(nameof(SloganText));
@@ -2579,6 +2603,10 @@ namespace LSIC.App
             OnPropertyChanged(nameof(MachineCodeText));
 
             OnPropertyChanged(nameof(ChoseFileText));
+
+            OnPropertyChanged(nameof(CopyText));
+
+            OnPropertyChanged(nameof(PasteText));
 
             OnPropertyChanged(nameof(InitText));
 
@@ -4015,6 +4043,16 @@ namespace LSIC.App
         public const string ZoneBackgroundTaskErrorMessage = nameof(ZoneBackgroundTaskErrorMessage);
 
          /// <summary>
+        /// 加密锁和设备不匹配, 请联系售后人员
+        /// </summary>
+        public const string IllegalDongleMessage = nameof(IllegalDongleMessage);
+
+         /// <summary>
+        /// 设备授权已到期 [ {0:yyyy/MM/dd HH:mm:ss} ], 请联系售后人员
+        /// </summary>
+        public const string DongleExpireMessage = nameof(DongleExpireMessage);
+
+         /// <summary>
         /// 见微知著·科技赋能·创造非凡价值
         /// </summary>
         public const string ConceptText = nameof(ConceptText);
@@ -4163,6 +4201,16 @@ namespace LSIC.App
         /// 选择文件
         /// </summary>
         public const string ChoseFileText = nameof(ChoseFileText);
+
+         /// <summary>
+        /// 复制
+        /// </summary>
+        public const string CopyText = nameof(CopyText);
+
+         /// <summary>
+        /// 粘贴
+        /// </summary>
+        public const string PasteText = nameof(PasteText);
 
          /// <summary>
         /// 初始化中...

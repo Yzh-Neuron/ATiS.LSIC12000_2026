@@ -33,6 +33,8 @@
     <sys:String x:Key="LicenseCertificationText">许可认证</sys:String>
     <sys:String x:Key="MachineCodeText">机器码</sys:String>
     <sys:String x:Key="ChoseFileText">选择文件</sys:String>
+    <sys:String x:Key="CopyText">复制</sys:String>
+    <sys:String x:Key="PasteText">粘贴</sys:String>
 
     <!--  启动检查  -->
     <sys:String x:Key="InitText">初始化中...</sys:String>

@@ -33,6 +33,8 @@
     <sys:String x:Key="LicenseCertificationText">License certification</sys:String>
     <sys:String x:Key="MachineCodeText">Machine code</sys:String>
     <sys:String x:Key="ChoseFileText">Choose File</sys:String>
+    <sys:String x:Key="CopyText">Copy</sys:String>
+    <sys:String x:Key="PasteText">Paste</sys:String>
 
     <!--  启动检查  -->
     <sys:String x:Key="InitText">Init...</sys:String>

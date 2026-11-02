@@ -156,6 +156,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="ATiS.Base" Version="1.1.6" />
+		<PackageReference Include="ATiS.Dongle" Version="1.0.5" />
 		<PackageReference Include="ATiS.Orm" Version="1.0.4" />
 		<PackageReference Include="ATIS.Pattern" Version="5.1.5" />
 		<PackageReference Include="ClosedXML" Version="0.105.1" />

@@ -48,8 +48,10 @@
     <sys:String x:Key="DpsCheckScriptParameterErrorMessage">电源自检脚本：参数错误或数值超出范围，位于{0}行</sys:String>
     <sys:String x:Key="DpsCheckIsNotPermittedMessage">当前状态不允许运行电源自检</sys:String>
     <sys:String x:Key="DpsCheckAskMessage" xml:space="preserve">检测到当前区已插老化板，运行电源自检可能会烧毁器件&#x000A;是否继续？</sys:String>
-    <sys:String x:Key="ZoneDpsErrorMessage">电源错误：{0} ->[{1}]</sys:String>
-    <sys:String x:Key="ZoneVIHErrorMessage">电源错误：VIH{0} ->[{1}]</sys:String>
+    <sys:String x:Key="ZoneDpsErrorMessage">
+        电源错误：{0} ->[{1}]</sys:String>
+    <sys:String x:Key="ZoneVIHErrorMessage">
+        电源错误：VIH{0} ->[{1}]</sys:String>
     <sys:String x:Key="ZonePatternErrorMessage">向量错误：[{0}] 请检查第{1}步 第{2}组向量配置</sys:String>
     <sys:String x:Key="ZoneDeviceErrorMessage">设备异常：请联系售后人员！错误码[{0}]</sys:String>
     <sys:String x:Key="StepRunInfoMessage">当前步次：[{0}]&#x0009;向量：[{1}]</sys:String>
@@ -76,4 +78,6 @@
     <sys:String x:Key="JobObjectSetInformationFailedMessage">无法设置作业对象信息，错误码：{0}</sys:String>
     <sys:String x:Key="ThermostatCoefficientSetSuccessMessage">温控系数设置成功</sys:String>
     <sys:String x:Key="ZoneBackgroundTaskErrorMessage">{0} 区后台任务异常：{1}</sys:String>
+    <sys:String x:Key="IllegalDongleMessage">加密锁和设备不匹配, 请联系售后人员</sys:String>
+    <sys:String x:Key="DongleExpireMessage">设备授权已到期 [ {0:yyyy/MM/dd HH:mm:ss} ], 请联系售后人员</sys:String>
 </ResourceDictionary>

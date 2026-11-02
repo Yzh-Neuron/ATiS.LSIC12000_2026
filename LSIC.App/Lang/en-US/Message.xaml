@@ -48,8 +48,10 @@
     <sys:String x:Key="DpsCheckScriptParameterErrorMessage">DPS script: params error, Line {0}</sys:String>
     <sys:String x:Key="DpsCheckIsNotPermittedMessage">Current state does not permit power self-check</sys:String>
     <sys:String x:Key="DpsCheckAskMessage" xml:space="preserve">Burn-in board detected, running DPS check may damage the device&#x000A;Continue?</sys:String>
-    <sys:String x:Key="ZoneDpsErrorMessage">DPS error: {0} ->[{1}]</sys:String>
-    <sys:String x:Key="ZoneVIHErrorMessage">DPS error: VIH{0} ->[{1}]</sys:String>
+    <sys:String x:Key="ZoneDpsErrorMessage">
+        DPS error: {0} ->[{1}]</sys:String>
+    <sys:String x:Key="ZoneVIHErrorMessage">
+        DPS error: VIH{0} ->[{1}]</sys:String>
     <sys:String x:Key="ZonePatternErrorMessage">Pattern error: [{0}] please check step {1} vector step {2}</sys:String>
     <sys:String x:Key="ZoneDeviceErrorMessage">Device error: please contact FAE! Error code [{0}]</sys:String>
     <sys:String x:Key="StepRunInfoMessage">Step: [{0}]&#x0009;Vector step: [{1}]</sys:String>
@@ -76,4 +78,6 @@
     <sys:String x:Key="JobObjectSetInformationFailedMessage">Unable to set information, error: {0}</sys:String>
     <sys:String x:Key="ThermostatCoefficientSetSuccessMessage">Thermostat coefficient set successfully</sys:String>
     <sys:String x:Key="ZoneBackgroundTaskErrorMessage">Zone {0} background task error: {1}</sys:String>
+    <sys:String x:Key="IllegalDongleMessage">Dongle and device do not match, please contact FAE</sys:String>
+    <sys:String x:Key="DongleExpireMessage">Device authorization has expired [ {0:yyyy/MM/dd HH:mm:ss} ], please contact FAE</sys:String>
 </ResourceDictionary>
