@@ -152,6 +152,9 @@
     <sys:String x:Key="CurrentPatternLeftTimeText">Left Time</sys:String>
     <sys:String x:Key="CurrentPatternCostTimeText">Cost Time</sys:String>
     <sys:String x:Key="CurrentPatternSetTimeText">Set Time</sys:String>
+    <sys:String x:Key="CurrentPatternLeftTimesText">Left Times</sys:String>
+    <sys:String x:Key="CurrentPatternCostTimesText">Cost Times</sys:String>
+    <sys:String x:Key="CurrentPatternSetTimesText">Set Times</sys:String>
     <sys:String x:Key="CurrentStepText">Step</sys:String>
     <sys:String x:Key="CurrentRegistersText">Register</sys:String>
     <sys:String x:Key="CurrentDpsPlanText">Dps Plan</sys:String>

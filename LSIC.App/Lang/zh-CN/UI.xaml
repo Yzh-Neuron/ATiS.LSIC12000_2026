@@ -152,6 +152,9 @@
     <sys:String x:Key="CurrentPatternLeftTimeText">当前向量剩余时间</sys:String>
     <sys:String x:Key="CurrentPatternCostTimeText">当前向量运行时间</sys:String>
     <sys:String x:Key="CurrentPatternSetTimeText">当前向量设定时间</sys:String>
+    <sys:String x:Key="CurrentPatternLeftTimesText">当前向量剩余次数</sys:String>
+    <sys:String x:Key="CurrentPatternCostTimesText">当前向量运行次数</sys:String>
+    <sys:String x:Key="CurrentPatternSetTimesText">当前向量设定次数</sys:String>
     <sys:String x:Key="CurrentStepText">当前步次</sys:String>
     <sys:String x:Key="CurrentRegistersText">当前寄存器</sys:String>
     <sys:String x:Key="CurrentDpsPlanText">当前电源方案</sys:String>

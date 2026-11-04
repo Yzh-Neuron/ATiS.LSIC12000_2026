@@ -1452,7 +1452,7 @@ namespace LSIC.App
         public string EnterBurnViewText => GetString("EnterBurnViewText");
 
         /// <summary>
-        /// 重置
+        /// 重选器件
         /// </summary>
         public string ReSelectIcText => GetString("ReSelectIcText");
 
@@ -1825,6 +1825,21 @@ namespace LSIC.App
         /// 当前向量设定时间
         /// </summary>
         public string CurrentPatternSetTimeText => GetString("CurrentPatternSetTimeText");
+
+        /// <summary>
+        /// 当前向量剩余次数
+        /// </summary>
+        public string CurrentPatternLeftTimesText => GetString("CurrentPatternLeftTimesText");
+
+        /// <summary>
+        /// 当前向量运行次数
+        /// </summary>
+        public string CurrentPatternCostTimesText => GetString("CurrentPatternCostTimesText");
+
+        /// <summary>
+        /// 当前向量设定次数
+        /// </summary>
+        public string CurrentPatternSetTimesText => GetString("CurrentPatternSetTimesText");
 
         /// <summary>
         /// 当前步次
@@ -2824,6 +2839,12 @@ namespace LSIC.App
             OnPropertyChanged(nameof(CurrentPatternCostTimeText));
 
             OnPropertyChanged(nameof(CurrentPatternSetTimeText));
+
+            OnPropertyChanged(nameof(CurrentPatternLeftTimesText));
+
+            OnPropertyChanged(nameof(CurrentPatternCostTimesText));
+
+            OnPropertyChanged(nameof(CurrentPatternSetTimesText));
 
             OnPropertyChanged(nameof(CurrentStepText));
 
@@ -4375,7 +4396,7 @@ namespace LSIC.App
         public const string EnterBurnViewText = nameof(EnterBurnViewText);
 
          /// <summary>
-        /// 重置
+        /// 重选器件
         /// </summary>
         public const string ReSelectIcText = nameof(ReSelectIcText);
 
@@ -4748,6 +4769,21 @@ namespace LSIC.App
         /// 当前向量设定时间
         /// </summary>
         public const string CurrentPatternSetTimeText = nameof(CurrentPatternSetTimeText);
+
+         /// <summary>
+        /// 当前向量剩余次数
+        /// </summary>
+        public const string CurrentPatternLeftTimesText = nameof(CurrentPatternLeftTimesText);
+
+         /// <summary>
+        /// 当前向量运行次数
+        /// </summary>
+        public const string CurrentPatternCostTimesText = nameof(CurrentPatternCostTimesText);
+
+         /// <summary>
+        /// 当前向量设定次数
+        /// </summary>
+        public const string CurrentPatternSetTimesText = nameof(CurrentPatternSetTimesText);
 
          /// <summary>
         /// 当前步次

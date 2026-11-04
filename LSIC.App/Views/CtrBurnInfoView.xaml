@@ -34,11 +34,13 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
+        <!--  时间  -->
         <Border Grid.Column="0"
                 Background="{DynamicResource ThirdBackgroundBrush}"
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="1"
-                CornerRadius="{StaticResource DefaultCornerRadius}">
+                CornerRadius="{StaticResource DefaultCornerRadius}"
+                Visibility="{Binding Zone.BurnInfo.RunInfo.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter={x:Static app:ExecuteMode.Time}}">
             <Grid Margin="10,5">
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -56,7 +58,8 @@
                 Background="{DynamicResource ThirdBackgroundBrush}"
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="1"
-                CornerRadius="{StaticResource DefaultCornerRadius}">
+                CornerRadius="{StaticResource DefaultCornerRadius}"
+                Visibility="{Binding Zone.BurnInfo.RunInfo.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter={x:Static app:ExecuteMode.Time}}">
             <Grid Margin="10,5">
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -67,6 +70,45 @@
                            Margin="0,5,0,0"
                            FontSize="20"
                            Text="{Binding Zone.BurnInfo.RunInfo.Progress.Cost, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
+            </Grid>
+        </Border>
+
+        <!--  次数  -->
+        <Border Grid.Column="0"
+                Background="{DynamicResource ThirdBackgroundBrush}"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource DefaultCornerRadius}"
+                Visibility="{Binding Zone.BurnInfo.RunInfo.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter={x:Static app:ExecuteMode.Times}}">
+            <Grid Margin="10,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternSetTimeText}}" />
+                <TextBlock Grid.Row="1"
+                           Margin="0,5,0,0"
+                           FontSize="20"
+                           Text="{Binding Zone.BurnInfo.RunInfo.Progress.Total}" />
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="2"
+                Background="{DynamicResource ThirdBackgroundBrush}"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource DefaultCornerRadius}"
+                Visibility="{Binding Zone.BurnInfo.RunInfo.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter={x:Static app:ExecuteMode.Times}}">
+            <Grid Margin="10,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternCostTimeText}}" />
+                <TextBlock Grid.Row="1"
+                           Margin="0,5,0,0"
+                           FontSize="20"
+                           Text="{Binding Zone.BurnInfo.RunInfo.Progress.Cost}" />
             </Grid>
         </Border>
     </Grid>
@@ -81,7 +123,8 @@
                 Background="{DynamicResource ThirdBackgroundBrush}"
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="1"
-                CornerRadius="{StaticResource DefaultCornerRadius}">
+                CornerRadius="{StaticResource DefaultCornerRadius}"
+                Visibility="{Binding Zone.BurnInfo.RunInfo.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter={x:Static app:ExecuteMode.Time}}">
             <Grid Margin="10,5">
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -92,6 +135,24 @@
                            Margin="0,5,0,0"
                            FontSize="20"
                            Text="{Binding Zone.BurnInfo.RunInfo.Progress.Left, Converter={StaticResource TimeSecondToTimeStringConverter}}" />
+            </Grid>
+        </Border>
+        <Border Grid.Column="0"
+                Background="{DynamicResource ThirdBackgroundBrush}"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource DefaultCornerRadius}"
+                Visibility="{Binding Zone.BurnInfo.RunInfo.Mode, Converter={StaticResource IncludeValueToVisibilityConverter}, ConverterParameter={x:Static app:ExecuteMode.Times}}">
+            <Grid Margin="10,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="{app:Lang {x:Static app:LangKey.CurrentPatternLeftTimeText}}" />
+                <TextBlock Grid.Row="1"
+                           Margin="0,5,0,0"
+                           FontSize="20"
+                           Text="{Binding Zone.BurnInfo.RunInfo.Progress.Left}" />
             </Grid>
         </Border>
 
@@ -131,7 +192,7 @@
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
-                <TextBlock Text="{DynamicResource RunInTheLoopText}" />
+                <TextBlock Text="{app:Lang {x:Static app:LangKey.RunInTheLoopText}}" />
                 <TextBlock Margin="6,0,0,0">
                     <Run Text="{Binding Zone.BurnInfo.LoopInfo.Start.Name, Mode=OneWay}" />
                     <Run Text="→" />

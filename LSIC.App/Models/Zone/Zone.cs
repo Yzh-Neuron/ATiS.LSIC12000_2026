@@ -1077,6 +1077,7 @@ namespace LSIC.App.Models
                             {
                                 return;
                             }
+                            //已老化时间
                             int total = data.ToInt32(index, Endianness.Big);
                             index += 4;
                             burnInfo.TotalSeconds = total;
@@ -1095,6 +1096,7 @@ namespace LSIC.App.Models
                                 }
                             }
 
+                            //当前向量运行模式
                             burnInfo.RunInfo.Mode = (ExecuteMode)data[index++];
 
                             total = data.ToInt32(index, Endianness.Big);
@@ -1102,6 +1104,8 @@ namespace LSIC.App.Models
 
                             int cost = data.ToInt32(index, Endianness.Big);
                             index += 4;
+
+                            ////当前向量设定运行 时间/次数,已经消费 时间/次数
                             burnInfo.RunInfo.Progress.Update(total, cost);
 
                             burnInfo.LoopInfo.Enable = Convert.ToBoolean(data[index++]);
