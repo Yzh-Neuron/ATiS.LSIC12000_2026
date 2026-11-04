@@ -776,7 +776,7 @@ namespace LSIC.App.Models
             {
                 UpdateZoneState(ZoneState.IcError);
                 Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
-                _ = SendAsync(ZoneFunctionCode.ControlAndState, 0x03);
+                _ = SendAsync(ZoneFunctionCode.ControlAndState, 0x02);
             }
         }
         public async ValueTask SendRegisterFileAsync(byte index)
@@ -824,7 +824,7 @@ namespace LSIC.App.Models
             {
                 UpdateZoneState(ZoneState.IcError);
                 Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
-                _ = SendAsync(ZoneFunctionCode.ControlAndState, 0x03);
+                _ = SendAsync(ZoneFunctionCode.ControlAndState, 0x02);
             }
         }
         public async ValueTask SetThermostatPIDAsync(int id, double kp, double ki, double kd)
