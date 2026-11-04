@@ -84,7 +84,9 @@
 
         private static byte[] Serialize(Command command, int[] channels, int arg0, int arg1, int arg2)
         {
-            byte[] data = new byte[32];
+            // 32：4(命令) + 4(arg0) + 16(2板掩码) + 4(arg1) + 4(arg2)
+            // 48：4(命令) + 4(arg0) + 32(4板掩码) + 4(arg1) + 4(arg2)
+            byte[] data = new byte[48];
 
             int index = 0;
             Array.Copy(((int)command).ToBytes(Endianness.Big), 0, data, index, 4);
@@ -93,16 +95,18 @@
             Array.Copy(arg0.ToBytes(Endianness.Big), 0, data, index, 4);
             index += 4;
 
-            long[] boards = new long[2];
+            // 4 张板卡，每张 64 通道
+            long[] boards = new long[4];
             if (channels is not null)
             {
-                foreach (byte channel in channels)
+                foreach (int channel in channels)   
                 {
-                    int i = channel / 64;
-                    int bits = channel % 64;
+                    int i = channel / 64;           
+                    int bits = channel % 64;        
                     boards[i] |= (long)1 << bits;
                 }
             }
+            // 4 个 long，大端序拍平 = 32 字节
             byte[] mask = boards.Select(i => i.ToBytes(Endianness.Big)).Flatten().ToArray();
             Array.Copy(mask, 0, data, index, mask.Length);
             index += mask.Length;

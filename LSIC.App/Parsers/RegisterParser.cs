@@ -2,7 +2,7 @@
 {
     public static class RegisterParser
     {
-        private const int MaxChannel = 128;
+        private const int MaxChannel = 4 * 64;
 
         public static Register Parse(string file)
         {

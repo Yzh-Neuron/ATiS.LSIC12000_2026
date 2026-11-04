@@ -59,7 +59,7 @@
                 byte[] temp = new byte[4];
                 stream.ReadExactly(temp, 0, temp.Length);
                 int block = temp.ToInt32(0, Endianness.Big);
-                if (2L * (block + 4) + 4 != stream.Length)
+                if (4L * (block + 4) + 4 != stream.Length)
                 {
                     errorMessage = string.Format(LangProvider.Instance.AbmFileNotMatchMessage, file);
                     error = true;

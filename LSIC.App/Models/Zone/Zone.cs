@@ -485,7 +485,7 @@ namespace LSIC.App.Models
                     byte[] head = new byte[4];
                     stream.ReadExactly(head, 0, head.Length);
                     int block = head.ToInt32(0, Endianness.Big);
-                    if (2L * (block + 4) + 4 != stream.Length)
+                    if (4L * (block + 4) + 4 != stream.Length)
                     {
                         throw new Exception(string.Format(LangProvider.Instance.AbmFileNotMatchMessage, file));
                     }
@@ -757,7 +757,7 @@ namespace LSIC.App.Models
                 byte[] head = new byte[4];
                 stream.ReadExactly(head, 0, head.Length);
                 int block = head.ToInt32(0, Endianness.Big);
-                if (2L * (block + 4) + 4 != stream.Length)
+                if (4L * (block + 4) + 4 != stream.Length)
                 {
                     throw new Exception(string.Format(LangProvider.Instance.AbmFileNotMatchMessage, file));
                 }
