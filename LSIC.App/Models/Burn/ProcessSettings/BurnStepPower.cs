@@ -30,16 +30,19 @@
         public BurnStepPower(string name, byte dpsPlanIndex, BurnVector vector, int timeout)
         {
             Name = name;
-            Enable = true;
-            DpsPlanIndex = dpsPlanIndex;
-            Vector = vector;
-            Timeout = timeout;
+
+            if (dpsPlanIndex!=0xFF)
+            {
+                Enable = true;
+                DpsPlanIndex = dpsPlanIndex;
+                Vector = vector;
+                Timeout = timeout;
+            }
         }
 
         public BurnStepPower(string name)
         {
             Name = name;
-            Enable = false;
         }
     }
 }

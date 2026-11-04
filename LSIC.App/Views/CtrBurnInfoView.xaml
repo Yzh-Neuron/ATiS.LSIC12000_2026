@@ -325,12 +325,25 @@
     </Border>
 
     <!--  发送进度  -->
-    <ProgressBar Grid.Row="4"
-                 Margin="0,10,0,0"
-                 Tag="{Binding Zone.State, Converter={StaticResource ZoneStateToSending}}"
-                 Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Tag, Converter={StaticResource TrueToVisibilityConverter}}"
-                 Maximum="100"
-                 Value="{Binding Zone.BurnInfo.SendProcess}" />
+    <Grid Grid.Row="4"
+          Margin="0,10,0,0"
+          VerticalAlignment="Center"
+          Tag="{Binding Zone.State, Converter={StaticResource ZoneStateToSending}}"
+          Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Tag, Converter={StaticResource TrueToVisibilityConverter}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock VerticalAlignment="Center">
+            <Run Text="{app:Lang {x:Static app:LangKey.IcSendProgressText}}" />
+            <Run Text=":" />
+        </TextBlock>
+        <ProgressBar Grid.Column="1"
+                     Margin="10,0,0,0"
+                     Maximum="100"
+                     Value="{Binding Zone.BurnInfo.SendProcess}" />
+    </Grid>
+
 
     <!--  操作按钮  -->
     <WrapPanel Grid.Row="5"

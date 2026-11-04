@@ -1487,6 +1487,11 @@ namespace LSIC.App
         public string RunInTheLoopText => GetString("RunInTheLoopText");
 
         /// <summary>
+        /// 器件发送进度
+        /// </summary>
+        public string IcSendProgressText => GetString("IcSendProgressText");
+
+        /// <summary>
         /// 实时温度
         /// </summary>
         public string RealTemperatureText => GetString("RealTemperatureText");
@@ -2683,6 +2688,8 @@ namespace LSIC.App
             OnPropertyChanged(nameof(LoopStrategyText));
 
             OnPropertyChanged(nameof(RunInTheLoopText));
+
+            OnPropertyChanged(nameof(IcSendProgressText));
 
             OnPropertyChanged(nameof(RealTemperatureText));
 
@@ -4401,6 +4408,11 @@ namespace LSIC.App
         /// 循环运行中
         /// </summary>
         public const string RunInTheLoopText = nameof(RunInTheLoopText);
+
+         /// <summary>
+        /// 器件发送进度
+        /// </summary>
+        public const string IcSendProgressText = nameof(IcSendProgressText);
 
          /// <summary>
         /// 实时温度

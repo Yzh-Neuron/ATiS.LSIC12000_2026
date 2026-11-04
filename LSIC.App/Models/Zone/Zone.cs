@@ -581,12 +581,15 @@ namespace LSIC.App.Models
         {
             try
             {
+                using MemoryStream stream = new MemoryStream();
+
                 int length = info.Steps.Length;
+                stream.WriteByte((byte)length);
+
                 for (int i = 0; i < length; i++)
                 {
                     BurnStepVector step = info.Steps[i];
-                    using MemoryStream stream = new MemoryStream();
-
+                
                     // 基础信息 索引、运行模式、运行时间、电源方案等
                     stream.WriteByte((byte)i);
                     stream.WriteByte((byte)step.Strategy.Mode);
@@ -614,13 +617,13 @@ namespace LSIC.App.Models
                         stream.WriteByte(vector.PatternIndex);
                         stream.WriteByte(vector.RegisterIndex);
                     }
-
-                    // 发送步次数据
-                    await SendAsync(ZoneFunctionCode.StepSet, stream.ToArray()).ConfigureAwait(false);
-
-                    // 调用进度回调
-                    progress?.Invoke((i + 1) * 100d / length);
                 }
+
+                // 发送步次数据
+                await SendAsync(ZoneFunctionCode.StepSet, stream.ToArray()).ConfigureAwait(false);
+
+                // 调用进度回调
+                progress?.Invoke(100);
                 return true;
             }
             catch (Exception e)

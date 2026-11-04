@@ -78,7 +78,8 @@
     <sys:String x:Key="RunModeText">Mode</sys:String>
     <sys:String x:Key="LoopStrategyText">Loop</sys:String>
     <sys:String x:Key="RunInTheLoopText">Run in loop</sys:String>
-
+    <sys:String x:Key="IcSendProgressText">Ic Tx Progress</sys:String>
+    
     <!--  烘箱与温控报警  -->
     <sys:String x:Key="RealTemperatureText">PV</sys:String>
     <sys:String x:Key="RealTemperatureWithUnitText">PV(℃)</sys:String>

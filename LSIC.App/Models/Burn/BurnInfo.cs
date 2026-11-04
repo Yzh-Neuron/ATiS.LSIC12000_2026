@@ -288,7 +288,7 @@
         /// </summary>
         private BurnStepPower MapPowerStep(StepPower stepPower, Dictionary<string, byte> patternMap, Dictionary<string, byte> registerMap, BurnDpsPlan[] dpsPlans)
         {
-            if (stepPower.DpsPlan is not null)
+            if (!string.IsNullOrEmpty(stepPower.DpsPlan))
             {
                 byte dpsPlanIndex = ResolveDpsPlanIndex(stepPower.DpsPlan, dpsPlans);
 
