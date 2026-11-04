@@ -591,7 +591,6 @@ namespace LSIC.App.Models
                     BurnStepVector step = info.Steps[i];
                 
                     // 基础信息 索引、运行模式、运行时间、电源方案等
-                    stream.WriteByte((byte)i);
                     stream.WriteByte((byte)step.Strategy.Mode);
                     stream.Write(step.Strategy.TotalSecondsOrCount.ToBytes(Endianness.Big), 0, 4);
                     stream.WriteByte(step.DpsPlanIndex);
