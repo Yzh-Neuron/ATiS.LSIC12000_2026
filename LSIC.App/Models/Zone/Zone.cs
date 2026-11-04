@@ -326,7 +326,6 @@ namespace LSIC.App.Models
 
             info.SendIc();
             LoadMode mode = info.LoadMode;
-            UpdateZoneState(ZoneState.Sending);
 
             Logger.LogInfo(string.Format(LangProvider.Instance.SendIcDataMessage, info.Ic.Name));
 
@@ -589,7 +588,7 @@ namespace LSIC.App.Models
                 for (int i = 0; i < length; i++)
                 {
                     BurnStepVector step = info.Steps[i];
-                
+
                     // 基础信息 索引、运行模式、运行时间、电源方案等
                     stream.WriteByte((byte)step.Strategy.Mode);
                     stream.Write(step.Strategy.TotalSecondsOrCount.ToBytes(Endianness.Big), 0, 4);
@@ -723,7 +722,7 @@ namespace LSIC.App.Models
         {
             await SendAsync(ZoneFunctionCode.DpsState);
         }
-        public async ValueTask SendPatternFile(byte index)
+        public async ValueTask SendPatternFileAsync(byte index)
         {
             try
             {
@@ -777,9 +776,10 @@ namespace LSIC.App.Models
             {
                 UpdateZoneState(ZoneState.IcError);
                 Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
+                _ = SendAsync(ZoneFunctionCode.ControlAndState, 0x03);
             }
         }
-        public async ValueTask SendRegisterFile(byte index)
+        public async ValueTask SendRegisterFileAsync(byte index)
         {
             try
             {
@@ -824,6 +824,7 @@ namespace LSIC.App.Models
             {
                 UpdateZoneState(ZoneState.IcError);
                 Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
+                _ = SendAsync(ZoneFunctionCode.ControlAndState, 0x03);
             }
         }
         public async ValueTask SetThermostatPIDAsync(int id, double kp, double ki, double kd)
@@ -1229,14 +1230,14 @@ namespace LSIC.App.Models
                         {
                             // 单个寄存器数据请求
                             byte id = data[index];
-                            _ = SendRegisterFile(id);
+                            _ = SendRegisterFileAsync(id);
                             break;
                         }
                     case ZoneFunctionCode.Pattern:
                         {
                             // 单个向量数据请求
                             byte id = data[index];
-                            _ = SendPatternFile(id);
+                            _ = SendPatternFileAsync(id);
                             break;
                         }
                     case ZoneFunctionCode.Upgrade:

@@ -60,9 +60,7 @@
         }
         public static bool Sending(this ZoneState state)
         {
-            return state == ZoneState.Sending ||
-                   state == ZoneState.Transition ||
-                   state == ZoneState.IcError;
+            return state == ZoneState.Transition;
         }
     }
 }

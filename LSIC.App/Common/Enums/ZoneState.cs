@@ -23,8 +23,6 @@ namespace LSIC.App
 
         //非协议段
         Offline = 0xE0,
-        Sending = 0xE1,
         IcError = 0xFE,
-
     }
 }

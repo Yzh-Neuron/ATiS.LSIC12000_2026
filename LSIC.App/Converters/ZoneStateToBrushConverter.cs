@@ -8,7 +8,7 @@
             {
                 ZoneState.Init or ZoneState.Idle or ZoneState.Ready or ZoneState.Stop => "PrimaryBrush".Resource<Brush>(),
                 ZoneState.PowerUp or ZoneState.Burning or ZoneState.PowerDown => "SuccessBrush".Resource<Brush>(),
-                ZoneState.Sending or ZoneState.DeviceChecking or ZoneState.DpsChecking or ZoneState.Upgrading or ZoneState.Transition => "WarningBrush".Resource<Brush>(),
+                ZoneState.DeviceChecking or ZoneState.DpsChecking or ZoneState.Upgrading or ZoneState.Transition => "WarningBrush".Resource<Brush>(),
                 ZoneState.Offline => "SecondForegroundBrush".Resource<Brush>(),
                 ZoneState.DeviceCheckFail or ZoneState.IcError or ZoneState.Error => "ErrorBrush".Resource<Brush>(),
                 _ => null
