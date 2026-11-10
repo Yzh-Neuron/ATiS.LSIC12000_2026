@@ -4,7 +4,7 @@
     /// 三色灯状态
     /// </summary>
     [Flags]
-    internal enum LightAlarmState
+    public enum LightAlarmState
     {
         Red = 0x01,
         Yellow = 0x02,
@@ -12,9 +12,9 @@
         Alarming = 0x08
     }
 
-    internal static class LightAlarmStateExtension
+    public static class LightAlarmStateExtension
     {
-        public static string ToResourceString(this LightAlarmState state)
+        public static string GetText(this LightAlarmState state)
         {
             List<string> states = new List<string>();
             if (state.HasFlag(LightAlarmState.Red))

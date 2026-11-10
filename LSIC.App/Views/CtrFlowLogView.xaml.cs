@@ -1,5 +1,4 @@
-﻿using System.Runtime.ExceptionServices;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace LSIC.App.Views
 {

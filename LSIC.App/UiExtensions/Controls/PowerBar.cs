@@ -1,5 +1,5 @@
-﻿using System.Windows.Shapes;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace LSIC.App.Controls
 {

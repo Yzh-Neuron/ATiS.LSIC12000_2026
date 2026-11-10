@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-namespace LSIC.App.Converters
+﻿namespace LSIC.App.Converters
 {
     public class IntegerToVersionConverter : IValueConverter
     {

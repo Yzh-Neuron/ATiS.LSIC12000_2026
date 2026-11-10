@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using ATiS.Dongle;
 
 namespace LSIC.App
 {

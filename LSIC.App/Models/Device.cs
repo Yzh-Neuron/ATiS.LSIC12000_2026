@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using ATIS.Pattern;
 
 namespace LSIC.App.Models
 {
@@ -13,6 +12,8 @@ namespace LSIC.App.Models
 #endif
             SystemConfig = systemConfig;
             Zones = SystemConfig.ZoneInfos.Select(info => new Zone(info, SystemConfig.DpsInfos.Select(i => new Dps(i)).ToArray())).ToArray();
+
+
             BoardTypeCatalog.Initialize(systemConfig.BoardTypeInfos);
             foreach (var rule in SystemConfig.LogRules)
             {

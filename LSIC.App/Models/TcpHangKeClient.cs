@@ -13,6 +13,7 @@ namespace LSIC.App.Models
         protected List<byte> _buffer;
         protected readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1); // 发送锁
         protected readonly SemaphoreSlim _receiveLock = new SemaphoreSlim(1, 1); // 接收锁
+        public FlowLogger Logger { get; protected set; }
         public int Id { get; protected set; }
         public string Ip { get; protected set; }
         public ushort Port { get; protected set; }
@@ -22,7 +23,6 @@ namespace LSIC.App.Models
             get => _connected;
             private set => SetProperty(ref _connected, value);
         }
-        public FlowLogger Logger { get; protected set; }
         public TcpHangKeClient(int id, string ip, ushort port)
         {
             _name = GetType().Name;
@@ -70,7 +70,7 @@ namespace LSIC.App.Models
         {
             if (!await _receiveLock.WaitAsync(500).ConfigureAwait(false))
             {
-                if (Device.Instance.Mode == DeviceMode.Administrator)
+                if (Logger.IsValid())
                 {
                     Logger?.LogDebug(string.Format(LangProvider.Instance.ReceiveBusyDropMessage, e.Data?.Length ?? 0));
                 }
@@ -128,7 +128,23 @@ namespace LSIC.App.Models
 
                     byte code = _buffer[2];
                     _buffer.RemoveRange(0, total);
-                    await OnFrameReceivedAsync(code, data, receiveCrc32.ToBytes(Endianness.Big)).ConfigureAwait(false);
+
+                    if (code is TEnum funcCode)
+                    {
+                        if (Logger.IsValid(funcCode))
+                        {
+                            Logger?.LogDebug($"Rx: [ {funcCode.GetString()} ](0x{code:X2}) [ CRC32 {receiveCrc32.ToBytes(Endianness.Big).ToHex()} ] {data?.ToHex()}");
+                        }
+
+                        try
+                        {
+                            await OnAnalysisFrameAsync(funcCode, data).ConfigureAwait(false);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception($"Rx: [ {funcCode.GetString()} ](0x{code:X2}) {data?.ToHex()} {ex.Message}");
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -140,7 +156,7 @@ namespace LSIC.App.Models
                 _receiveLock.Release();
             }
         }
-        protected async Task SendAsync(TEnum code, params byte[] data)
+        protected async ValueTask SendAsync(TEnum funcCode, params byte[] data)
         {
             if (!Connected)
             {
@@ -161,7 +177,7 @@ namespace LSIC.App.Models
                 Array.Copy(FrameHeader.ToBytes(Endianness.Big), 0, frame, index, 2);
                 index += 2;
                 // 功能代码
-                frame[index++] = Convert.ToByte(code);
+                frame[index++] = Convert.ToByte(funcCode);
                 // 数据长度
                 Array.Copy(length.ToBytes(Endianness.Big), 0, frame, index, 4);
                 index += 4;
@@ -186,15 +202,14 @@ namespace LSIC.App.Models
                 // 发送
                 await _client.SendAsync(frame).ConfigureAwait(false);
 
-
-                if (Logger is not null && Device.Instance.Mode == DeviceMode.Administrator && FrameFilterUtility.Filter(Logger, code))
+                if (Logger.IsValid(funcCode))
                 {
-                    Logger?.LogDebug($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
+                    Logger?.LogDebug($"Tx: [ {funcCode.GetString()} ](0x{Convert.ToUInt64(funcCode):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
                 }
             }
             catch (Exception ex)
             {
-                Logger?.LogError($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) Error: {ex.Message}");
+                Logger?.LogError($"Tx: [ {funcCode.GetString()} ](0x{Convert.ToUInt64(funcCode):X2}) Error: {ex.Message}");
             }
             finally
             {
@@ -204,7 +219,7 @@ namespace LSIC.App.Models
                 }
             }
         }
-        protected async Task SendAsync(TEnum code, Stream stream, Action<int> readCallback, params byte[] beforeStream)
+        protected async ValueTask SendAsync(TEnum funcCode, Stream stream, Action<int> readCallback, params byte[] beforeStream)
         {
             if (!Connected)
             {
@@ -228,7 +243,7 @@ namespace LSIC.App.Models
 
                 // 大包：帧头 + 数据流式发送 + 帧尾
                 // 发送帧头
-                byte[] header = BuildFrameHeader(code, (uint)length);
+                byte[] header = BuildFrameHeader(funcCode, (uint)length);
                 await _client.SendAsync(header).ConfigureAwait(false);
                 // 发送数据内容
                 uint check = SecurityUtil.CRC32(Array.Empty<byte>()); // 初始化 CRC32
@@ -267,14 +282,14 @@ namespace LSIC.App.Models
                 byte[] tail = BuildFrameTail(check);
                 await _client.SendAsync(tail).ConfigureAwait(false);
 
-                if (Logger is not null && FrameFilterUtility.Filter(Logger, code))
+                if (Logger.IsValid(funcCode))
                 {
-                    Logger?.LogInfo($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {beforeStream?.ToHex()}");
+                    Logger?.LogDebug($"Tx: [ {funcCode.GetString()} ](0x{Convert.ToUInt64(funcCode):X2}) [ CRC32 {checkBytes.ToHex()} ] {beforeStream?.ToHex()}");
                 }
             }
             catch (Exception ex)
             {
-                Logger?.LogError($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) Error: {ex.Message}");
+                Logger?.LogError($"Tx: [ {funcCode.GetString()} ](0x{Convert.ToUInt64(funcCode):X2}) Error: {ex.Message}");
             }
             finally
             {
@@ -284,12 +299,12 @@ namespace LSIC.App.Models
                 }
             }
         }
-        protected static byte[] BuildFrameHeader(TEnum code, uint length)
+        protected static byte[] BuildFrameHeader(TEnum funcCode, uint length)
         {
             byte[] header = new byte[7];
             int index = 0;
             Array.Copy(FrameHeader.ToBytes(Endianness.Big), 0, header, index, 2); index += 2;
-            header[index++] = Convert.ToByte(code);
+            header[index++] = Convert.ToByte(funcCode);
             Array.Copy(length.ToBytes(Endianness.Big), 0, header, index, 4);
             return header;
         }
@@ -306,39 +321,49 @@ namespace LSIC.App.Models
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        //子类实现
+
+        /// <summary>
+        /// 释放
+        /// </summary>
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed) return;
-            if (disposing)
+            if (!_disposed)
             {
-                if (_client is not null)
+                if (disposing)
                 {
-                    _client.StateChanged -= OnStateChanged;
-                    _client.ReceivedData -= OnReceivedData;
-                    _client.Dispose();
-                    _client = null;
+                    if (_client is not null)
+                    {
+                        _client.StateChanged -= OnStateChanged;
+                        _client.ReceivedData -= OnReceivedData;
+                        _client.Dispose();
+                        _client = null;
+                    }
+
+                    Logger?.Dispose();
+                    Logger = null;
+
+                    _semaphore.Dispose();
+                    _receiveLock.Dispose();
                 }
-                Logger?.Dispose();
-                Logger = null;
-                _semaphore.Dispose();
-                _receiveLock.Dispose();
+                _disposed = true;
             }
-            _disposed = true;
         }
 
         /// <summary>
-        /// 由派生类实现连接后的动作
+        /// 连接后的动作
         /// </summary>
-        protected abstract Task OnConnectedAsync();
+        protected abstract ValueTask OnConnectedAsync();
 
         /// <summary>
-        /// 由派生类实现断开后的清理
+        /// 断开后的清理
         /// </summary>
-        protected abstract Task OnDisconnectedAsync();
+        protected abstract ValueTask OnDisconnectedAsync();
 
         /// <summary>
-        /// 由派生类实现具体的报文解析
+        /// 具体的报文解析
         /// </summary>
-        protected abstract Task OnFrameReceivedAsync(byte code, byte[] data, byte[] crcBytes);
+        protected abstract ValueTask OnAnalysisFrameAsync(TEnum funcCode, byte[] data);
     }
 }

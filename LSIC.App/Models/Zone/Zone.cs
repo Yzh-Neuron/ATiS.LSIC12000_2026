@@ -5,10 +5,10 @@
         private Task _tickTask;
         private CancellationTokenSource _tickCts;
         private const int MaxErrorWritesPerTick = 128;
+        private readonly ErrorDatabase _errorDatabase;
         private readonly PeriodicTimer _timer = new(TimeSpan.FromMilliseconds(500));
         private readonly Channel<(BurnInfo Info, CompareError Error)> _errorChannel;
         public ObservableCollection<DeviceCheckItem> DeviceCheckItems { get; } = new();
-        public ZoneInfo Info { get; }
         private ZoneState _state = ZoneState.Offline;
         public ZoneState State
         {
@@ -39,17 +39,17 @@
             get => _burnInfo;
             private set => SetProperty(ref _burnInfo, value);
         }
-        public ErrorDatabase ErrorDatabase { get; private set; }
         public Dps[] Dpss { get; }
         public Vih[] Vihs { get; }
+        public WaterCoolingPipe WaterCoolingPipe { get; }
         public Zone(ZoneInfo info, Dps[] dpss) : base(info.Id, info.Ip, info.Port)
         {
-            Info = info ?? throw new ArgumentNullException(nameof(info));
+            _errorChannel = Channel.CreateBounded<(BurnInfo, CompareError)>(new BoundedChannelOptions(4096) { SingleReader = true, FullMode = BoundedChannelFullMode.DropWrite });
+            _errorDatabase = new ErrorDatabase(this);
+
             Dpss = dpss;
             Vihs = [new Vih(0), new Vih(1)];
-
-            _errorChannel = Channel.CreateBounded<(BurnInfo, CompareError)>(new BoundedChannelOptions(4096) { SingleReader = true, FullMode = BoundedChannelFullMode.DropWrite });
-            ErrorDatabase = new ErrorDatabase(this);
+            WaterCoolingPipe = new WaterCoolingPipe();
             Logger = new FlowLogger(new RollingFileLogger($@".\Log\Flow\Zone {Id}\{{date:yyyyMMdd}}.log", RollingInterval.Day, retentionPeriod: SystemLog.RetentionPeriod));
             FrameFilterUtility.Register<ZoneFunctionCode>(Logger, (code) => true);
         }
@@ -62,7 +62,7 @@
                 var bib = BurnInfo?.BurnInBoard;
                 if (bib != null)
                 {
-                    KeyValuePair<int, int>[] pairs = ErrorDatabase.GetErrors();
+                    KeyValuePair<int, int>[] pairs = _errorDatabase.GetErrors();
                     foreach (KeyValuePair<int, int> pair in pairs)
                     {
                         BurnInfo.BurnInBoard.CompareError(pair.Key, pair.Value);
@@ -76,7 +76,7 @@
 
             base.Startup();
             StartTicker();
-            Logger.LogInfo(LangProvider.Instance.WorkerThreadStartedMessage);
+            Logger?.LogInfo(LangProvider.Instance.WorkerThreadStartedMessage);
         }
         protected override void Dispose(bool disposing)
         {
@@ -95,40 +95,418 @@
             base.Dispose(disposing);
             _disposed = true;
         }
-        protected override Task OnConnectedAsync()
+        protected override async ValueTask OnConnectedAsync()
         {
-            return QueryVersionAsync();
+            await QueryVersionAsync();
         }
-        protected override Task OnDisconnectedAsync()
+        protected override ValueTask OnDisconnectedAsync()
         {
             UpdateZoneState(ZoneState.Offline);
             Pluged = false;
             this.InvokeOnUI(DeviceCheckItems.Clear);
-            return Task.CompletedTask;
+            return ValueTask.CompletedTask;
         }
-        protected override Task OnFrameReceivedAsync(byte functionCode, byte[] data, byte[] checkBytes)
+        protected override async ValueTask OnAnalysisFrameAsync(ZoneFunctionCode funcCode, byte[] data)
         {
-            return AnalysisFrame((ZoneFunctionCode)functionCode, data, checkBytes);
+            int index = 0;
+            switch (funcCode)
+            {
+                case ZoneFunctionCode.Version:
+                    {
+                        AddBoard(data);
+                        break;
+                    }
+                case ZoneFunctionCode.ControlAndState:
+                    {
+                        ZoneState state = (ZoneState)data[index++];
+                        LoadMode mode = (LoadMode)data[index++];
+
+                        var burnInfo = BurnInfo;
+                        if (burnInfo is not null)
+                        {
+                            burnInfo.LoadMode = mode;
+                        }
+
+                        byte[] temp = new byte[8];
+                        if (state is not ZoneState.Error)
+                        {
+                            UpdateZoneState(state, null, temp);
+                        }
+                        else
+                        {
+                            ZoneErrorType error = (ZoneErrorType)data[index++];
+                            Array.Copy(data, index, temp, 0, temp.Length);
+                            UpdateZoneState(state, error, temp);
+                        }
+
+                        break;
+                    }
+                case ZoneFunctionCode.BurnInBoardInsertState:
+                    {
+                        byte value = data[index];
+                        Pluged = (value & 0x3) == 0x3;
+                        Logger?.LogInfo(Pluged ? LangProvider.Instance.PluggedMessage : LangProvider.Instance.UnpluggedMessage);
+                        break;
+                    }
+                case ZoneFunctionCode.DpsState:
+                    {
+                        int count = data[index++];
+                        for (int i = 0; i < count; i++)
+                        {
+                            int id = data[index++];
+                            int slot = data[index++];
+                            DpsType type = (DpsType)data[index++];
+
+                            int inputVol = data.ToInt32(index, Endianness.Big);
+                            index += 4;
+
+                            int outputVol = data.ToInt32(index, Endianness.Big);
+                            index += 4;
+
+                            int current = data.ToInt32(index, Endianness.Big);
+                            index += 4;
+
+                            int temp = data.ToInt32(index, Endianness.Big);
+                            index += 4;
+                            DpsState state = (DpsState)data[index++];
+
+                            if (type == DpsType.DPS)
+                            {
+                                Dps dps = Dpss.FirstOrDefault(j => j.Id == id);
+                                dps?.Update(state, inputVol, outputVol, current, temp);
+                            }
+                            else if (type == DpsType.VIH)
+                            {
+                                Vih vih = Vihs.FirstOrDefault(j => j.Id == id);
+                                if (vih is not null)
+                                {
+                                    vih.OutputVoltage = outputVol;
+                                    vih.State = state;
+                                }
+                            }
+                        }
+                        break;
+                    }
+                case ZoneFunctionCode.CurrentDpsPlan:
+                    {
+                        var burnInfo = BurnInfo;
+                        int id = data[index++];
+                        if (id != 0xFF && id < burnInfo.DpsPlans.Length)
+                        {
+                            var dpsPlan = burnInfo.DpsPlans[id];
+                            if (burnInfo.CurrentDpsPlan != dpsPlan)
+                            {
+                                burnInfo.CurrentDpsPlan = dpsPlan;
+
+                                foreach (Dps dps in Dpss)
+                                {
+                                    dps.BurnDps = dpsPlan.Dpss.FirstOrDefault(t => t.Id == dps.Id);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                case ZoneFunctionCode.BurnState:
+                    {
+                        var burnInfo = BurnInfo;
+
+                        if (burnInfo is null ||
+                            burnInfo.Ic is null)
+                        {
+                            return;
+                        }
+                        //已老化时间
+                        int total = data.ToInt32(index, Endianness.Big);
+                        index += 4;
+                        burnInfo.TotalSeconds = total;
+
+                        int id = data[index++];
+
+                        int changed = 0;
+
+                        if (id < burnInfo.Steps.Length)
+                        {
+                            if (burnInfo.CurrentStep is null ||
+                                burnInfo.CurrentStep.Name != burnInfo.Steps[id].Name)
+                            {
+                                burnInfo.CurrentStep = burnInfo.Steps[id];
+                                changed++;
+                            }
+                        }
+
+                        //当前向量运行模式
+                        burnInfo.RunInfo.Mode = (ExecuteMode)data[index++];
+
+                        total = data.ToInt32(index, Endianness.Big);
+                        index += 4;
+
+                        int cost = data.ToInt32(index, Endianness.Big);
+                        index += 4;
+
+                        ////当前向量设定运行 时间/次数,已经消费 时间/次数
+                        burnInfo.RunInfo.Progress.Update(total, cost);
+
+                        burnInfo.LoopInfo.Enable = Convert.ToBoolean(data[index++]);
+
+                        id = data[index++];
+                        if (id < burnInfo.Steps.Length)
+                        {
+                            burnInfo.LoopInfo.Start = burnInfo.Steps[id];
+                        }
+
+                        id = data[index++];
+                        if (id < burnInfo.Steps.Length)
+                        {
+                            burnInfo.LoopInfo.End = burnInfo.Steps[id];
+                        }
+
+                        burnInfo.LoopInfo.Mode = (ExecuteMode)data[index++];
+
+                        total = data.ToInt32(index, Endianness.Big);
+                        index += 4;
+
+                        cost = data.ToInt32(index, Endianness.Big);
+                        index += 4;
+                        burnInfo.LoopInfo.Progress.Update(total, cost);
+
+                        id = data[index++];
+                        if (burnInfo.CurrentStep is not null &&
+                            id < burnInfo.CurrentStep.Vectors.Length)
+                        {
+                            var vectorStep = burnInfo.CurrentStep.Vectors[id];
+                            if (burnInfo.CurrentVector != vectorStep)
+                            {
+                                changed++;
+                                burnInfo.CurrentVector = vectorStep;
+                                try
+                                {
+                                    Register registers = RegisterParser.Parse(vectorStep.RegisterFile);
+                                    foreach (Vih vih in Vihs)
+                                    {
+                                        vih.SetVoltage = registers.VIH.TryGetValue(vih.Id, out float value) ? (int)(value * 1000) : 0;
+                                    }
+                                }
+                                catch
+                                {
+                                    foreach (Vih vih in Vihs)
+                                    {
+                                        vih.SetVoltage = 0;
+                                    }
+                                }
+                            }
+                        }
+                        if (changed > 0)
+                        {
+                            Logger?.LogInfo(string.Format(LangProvider.Instance.StepRunInfoMessage, burnInfo.CurrentStep.Name, burnInfo.CurrentVector.PatternFile.FileName()));
+                        }
+
+                        break;
+                    }
+                case ZoneFunctionCode.CompareError:
+                    {
+                        var burnInfo = BurnInfo;
+                        if (burnInfo is null)
+                        {
+                            return;
+                        }
+
+                        // 当前步次
+                        int stepId = data[index++];
+                        if (stepId >= burnInfo.Steps.Length)
+                        {
+                            return;
+                        }
+                        string step = burnInfo.Steps[stepId].Name;
+
+                        // 当前子步
+                        int vectorStepId = data[index++];
+                        if (vectorStepId >= burnInfo.Steps[stepId].Vectors.Length)
+                        {
+                            return;
+                        }
+                        BurnVector vectorStep = burnInfo.Steps[stepId].Vectors[vectorStepId];
+                        string pattern = vectorStep.PatternFile.FileName();
+                        string register = vectorStep.RegisterFile.FileName();
+
+                        // 错误数量
+                        int count = data.ToInt16(index, Endianness.Big);
+                        index += 2;
+
+                        for (int i = 0; i < count; i++)
+                        {
+                            int cs = data[index++];  // 片选
+                            int line = data.ToInt32(index, Endianness.Big);    // 向量所在行数
+                            index += 4;
+
+                            byte[] mask = new byte[32];
+                            Array.Copy(data, index, mask, 0, mask.Length);
+                            index += 32;
+
+                            int[] pins = mask.MaskToIntegers();
+                            foreach (int pin in pins)
+                            {
+                                ulong id = CompareError.CreateCompareErrorId(stepId, vectorStepId, cs, line, pin);
+                                CompareError error = new CompareError
+                                {
+                                    Id = id,
+                                    Cs = cs,
+                                    Dr = pin,
+                                    Step = step,
+                                    Pattern = pattern,
+                                    Register = register,
+                                    Line = line
+                                };
+
+                                _errorChannel.Writer.TryWrite((burnInfo, error));
+                            }
+                        }
+                        break;
+                    }
+                case ZoneFunctionCode.Trigger:
+                    {
+                        OutputType = (TriggerOutputType)data[index++];
+                        OutputPin = OutputType == TriggerOutputType.Signal ? data[index++] : null;
+                        break;
+                    }
+                case ZoneFunctionCode.Register:
+                    {
+                        // 单个寄存器数据请求
+                        byte id = data[index];
+                        _ = SendRegisterFileAsync(id);
+                        break;
+                    }
+                case ZoneFunctionCode.Pattern:
+                    {
+                        // 单个向量数据请求
+                        byte id = data[index];
+                        _ = SendPatternFileAsync(id);
+                        break;
+                    }
+                case ZoneFunctionCode.Upgrade:
+                    {
+                        OnUpgradeProgress(data);
+                        break;
+                    }
+                case ZoneFunctionCode.UpgradeFinish:
+                    {
+                        OnUpgradeFinish();
+                        break;
+                    }
+                case ZoneFunctionCode.DeviceCheck:
+                    {
+                        DeviceCheckItem checkItem = DeviceCheckItem.FromBytes(data);
+                        this.InvokeOnUI(() => DeviceCheckItems.Add(checkItem));
+                        break;
+                    }
+                case ZoneFunctionCode.DpsCheck:
+                    {
+                        int current = data.ToInt32(index, Endianness.Big) + 1;
+                        index += 4;
+
+                        int total = data.ToInt32(index, Endianness.Big);
+                        index += 4;
+
+                        int readTimes = data.ToInt32(index, Endianness.Big) + 1;
+                        index += 4;
+
+                        int setTimes = data.ToInt32(index, Endianness.Big);
+                        index += 4;
+
+                        int id = data[index++];
+
+                        //int inputVol = data.ToInt32(index, Endianness.Big);   // 输入电压
+                        index += 4;
+
+                        int outputVol = data.ToInt32(index, Endianness.Big);  // 输出电压
+                        index += 4;
+
+                        int outputCur = data.ToInt32(index, Endianness.Big);  // 输出电流
+                        index += 4;
+
+                        int temperature = data.ToInt32(index, Endianness.Big);// 电源温度
+                        index += 4;
+
+                        DpsState state = (DpsState)data[index++]; // 电源工作状态
+
+                        var dps = Dpss.FirstOrDefault(j => j.Id == id);
+
+                        if (dps is not null)
+                        {
+                            if (state == DpsState.Runing)
+                            {
+                                Logger?.LogInfo(string.Format(LangProvider.Instance.DpsCheckResultMessage, current, total, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
+                            }
+                            else if (state > 0 && (byte)state < 13)
+                            {
+                                Logger?.LogError(string.Format(LangProvider.Instance.DpsCheckResultMessage, current, total, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
+                            }
+                        }
+                        break;
+                    }
+                case ZoneFunctionCode.ThermostatPID:
+                    {
+                        int count = data[index++];
+                        for (int i = 0; i < count; i++)
+                        {
+                            byte id = data[index++];
+
+                            int kp = data.ToInt32(index, Endianness.Big);
+                            index += 4;
+
+                            int ki = data.ToInt32(index, Endianness.Big);
+                            index += 4;
+
+                            int kd = data.ToInt32(index, Endianness.Big);
+                            index += 4;
+
+                            var thermostat = BurnInfo?.BurnInBoard.Thermostats.FirstOrDefault(t => t.Id == id);
+                            if (thermostat != null)
+                            {
+                                thermostat.Kp = kp;
+                                thermostat.Ki = ki;
+                                thermostat.Kd = kd;
+                            }
+                        }
+                        break;
+                    }
+                case ZoneFunctionCode.Thermostat:
+                    {
+                        int count = data[index++];
+                        for (int i = 0; i < count; i++)
+                        {
+                            byte id = data[index++];
+                            bool enable = Convert.ToBoolean(data[index++]);
+                            int temperature = data.ToInt32(index, Endianness.Big);
+                            index += 4;
+                            var thermostat = BurnInfo?.BurnInBoard.Thermostats.FirstOrDefault(t => t.Id == id);
+                            if (thermostat != null)
+                            {
+                                thermostat.Update(enable, temperature);
+                            }
+                        }
+                        break;
+                    }
+            }
         }
         private void UpdateZoneState(ZoneState state, ZoneErrorType? error = null, byte[] data = null)
         {
             if (state == ZoneState.DeviceCheckFail)
             {
                 string failMessage = string.Format(LangProvider.Instance.StateMessage, state.GetString());
-                Logger.LogError(failMessage);
+                Logger?.LogError(failMessage);
                 PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, failMessage);
             }
             else if (state == ZoneState.Error)
             {
-                Logger.LogError(string.Format(LangProvider.Instance.StateMessage, state.GetString()));
+                Logger?.LogError(string.Format(LangProvider.Instance.StateMessage, state.GetString()));
             }
             else if (state == ZoneState.Offline)
             {
-                Logger.LogWarn(string.Format(LangProvider.Instance.StateMessage, state.GetString()));
+                Logger?.LogWarn(string.Format(LangProvider.Instance.StateMessage, state.GetString()));
             }
             else
             {
-                Logger.LogInfo(string.Format(LangProvider.Instance.StateMessage, state.GetString()));
+                Logger?.LogInfo(string.Format(LangProvider.Instance.StateMessage, state.GetString()));
             }
 
             if (state == ZoneState.Burning)
@@ -158,7 +536,7 @@
                                         if (dps is not null)
                                         {
                                             string message = string.Format(LangProvider.Instance.ZoneDpsErrorMessage, dps.Name, dpsState.GetString());
-                                            Logger.LogError(message);
+                                            Logger?.LogError(message);
                                             PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
                                         }
                                     }
@@ -166,7 +544,7 @@
                                 case DpsType.VIH:
                                     {
                                         string message = string.Format(LangProvider.Instance.ZoneVIHErrorMessage, id, dpsState.GetString());
-                                        Logger.LogError(message);
+                                        Logger?.LogError(message);
                                         PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
                                     }
                                     break;
@@ -181,14 +559,14 @@
                             int stepId = data[index++];
                             int vectorStepId = data[index++];
                             string message = string.Format(LangProvider.Instance.ZonePatternErrorMessage, patternErrorType.GetString(), stepId, vectorStepId);
-                            Logger.LogError(message);
+                            Logger?.LogError(message);
                             PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
                         }
                         break;
                     case ZoneErrorType.Device:
                         {
                             string message = string.Format(LangProvider.Instance.ZoneDeviceErrorMessage, data.ToHex());
-                            Logger.LogError(message);
+                            Logger?.LogError(message);
                             PopHelper.ShowAlarm(Id + LangProvider.Instance.ZoneText, message);
                         }
                         break;
@@ -289,7 +667,7 @@
 
                     if (ReferenceEquals(info, BurnInfo))
                     {
-                        bool success = ErrorDatabase.TryAddError(error, info.ErrorLogTimeSpan);
+                        bool success = _errorDatabase.TryAddError(error, info.ErrorLogTimeSpan);
                         if (success)
                         {
                             info.BurnInBoard.CompareError(error.Cs, error.Dr);
@@ -317,7 +695,7 @@
             info.SendIc();
             LoadMode mode = info.LoadMode;
 
-            Logger.LogInfo(string.Format(LangProvider.Instance.SendIcDataMessage, info.Ic.Name));
+            Logger?.LogInfo(string.Format(LangProvider.Instance.SendIcDataMessage, info.Ic.Name));
 
             // 发送器件开始
             await SendAsync(ZoneFunctionCode.ConfigFinish, 0x01, (byte)info.LoadMode).ConfigureAwait(false);
@@ -372,10 +750,6 @@
             // 发送器件结束
             await SendAsync(ZoneFunctionCode.ConfigFinish, 0x00).ConfigureAwait(false);
         }
-        private void UpdateProcess(double last, double current, double percentage)
-        {
-            BurnInfo.SendProcess = last + Math.Round(current * percentage / 100d, 2);
-        }
         private async ValueTask<bool> SetDpsPlanAsync(BurnInfo info, Action<double> progress)
         {
             try
@@ -408,7 +782,7 @@
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
+                Logger?.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
@@ -448,7 +822,7 @@
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
+                Logger?.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
@@ -500,7 +874,7 @@
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
+                Logger?.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
@@ -531,7 +905,7 @@
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
+                Logger?.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
@@ -562,7 +936,7 @@
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
+                Logger?.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
@@ -617,7 +991,7 @@
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
+                Logger?.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
@@ -650,21 +1024,22 @@
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
+                Logger?.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 return false;
             }
         }
+        private void UpdateProcess(double last, double current, double percentage)
+        {
+            BurnInfo.SendProcess = last + Math.Round(current * percentage / 100d, 2);
+        }
+
         #endregion
 
         #region 老化功能
-        public async Task QueryVersionAsync()
+        public async ValueTask QueryVersionAsync()
         {
             ClearBoards();
             await SendAsync(ZoneFunctionCode.Version);
-        }
-        public Task SendUpgrade(byte[] payload)
-        {
-            return SendAsync(ZoneFunctionCode.Upgrade, payload);
         }
         public async ValueTask TriggerAsync(TriggerOutputType type, int dr)
         {
@@ -673,7 +1048,7 @@
         }
         public async ValueTask StartBurnAsync(byte[] dutMask)
         {
-            ErrorDatabase.Clear();
+            _errorDatabase.Clear();
             BurnInfo.StartBurn(Id, DateTime.Now, dutMask);
             await SendAsync(ZoneFunctionCode.ControlAndState, 0x01);
         }
@@ -688,7 +1063,7 @@
         }
         public async ValueTask StartDpsCheckAsync(string script, DpsCommand[] commands)
         {
-            Logger.LogInfo(string.Format(LangProvider.Instance.RunDpsCheckScriptMessage, script));
+            Logger?.LogInfo(string.Format(LangProvider.Instance.RunDpsCheckScriptMessage, script));
             using MemoryStream stream = new MemoryStream();
             stream.Write(commands.Length.ToBytes(Endianness.Big), 0, 4);
             foreach (DpsCommand command in commands)
@@ -765,7 +1140,7 @@
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
+                Logger?.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 _ = SendAsync(ZoneFunctionCode.ControlAndState, 0x02);
             }
         }
@@ -813,7 +1188,7 @@
             catch (Exception e)
             {
                 UpdateZoneState(ZoneState.IcError);
-                Logger.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
+                Logger?.LogError(string.Format(LangProvider.Instance.IcErrorMessage, [e.Message]));
                 _ = SendAsync(ZoneFunctionCode.ControlAndState, 0x02);
             }
         }
@@ -851,411 +1226,8 @@
             {
                 UpdateZoneState(ZoneState.Idle);
             }
-            ErrorDatabase.Clear();
+            _errorDatabase.Clear();
         }
-        #endregion
-
-        #region 通信相关
-        private async Task AnalysisFrame(ZoneFunctionCode code, byte[] data, byte[] checkBytes)
-        {
-            if (Device.Instance.Mode == DeviceMode.Administrator && FrameFilterUtility.Filter(Logger, code))
-            {
-                Logger.LogDebug($"Rx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
-            }
-
-            try
-            {
-                int index = 0;
-                switch (code)
-                {
-                    case ZoneFunctionCode.Version:
-                        {
-                            AddBoard(data);
-                            break;
-                        }
-                    case ZoneFunctionCode.ControlAndState:
-                        {
-                            ZoneState state = (ZoneState)data[index++];
-                            LoadMode mode = (LoadMode)data[index++];
-
-                            var burnInfo = BurnInfo;
-                            if (burnInfo is not null)
-                            {
-                                burnInfo.LoadMode = mode;
-                            }
-
-                            byte[] temp = new byte[8];
-                            if (state is not ZoneState.Error)
-                            {
-                                UpdateZoneState(state, null, temp);
-                            }
-                            else
-                            {
-                                ZoneErrorType error = (ZoneErrorType)data[index++];
-                                Array.Copy(data, index, temp, 0, temp.Length);
-                                UpdateZoneState(state, error, temp);
-                            }
-
-                            break;
-                        }
-                    case ZoneFunctionCode.BurnInBoardInsertState:
-                        {
-                            byte value = data[index];
-                            Pluged = (value & 0x3) == 0x3;
-                            Logger.LogInfo(Pluged ? LangProvider.Instance.PluggedMessage : LangProvider.Instance.UnpluggedMessage);
-                            break;
-                        }
-                    case ZoneFunctionCode.DpsState:
-                        {
-                            int count = data[index++];
-                            for (int i = 0; i < count; i++)
-                            {
-                                int id = data[index++];
-                                int slot = data[index++];
-                                DpsType type = (DpsType)data[index++];
-
-                                int inputVol = data.ToInt32(index, Endianness.Big);
-                                index += 4;
-
-                                int outputVol = data.ToInt32(index, Endianness.Big);
-                                index += 4;
-
-                                int current = data.ToInt32(index, Endianness.Big);
-                                index += 4;
-
-                                int temp = data.ToInt32(index, Endianness.Big);
-                                index += 4;
-                                DpsState state = (DpsState)data[index++];
-
-                                if (type == DpsType.DPS)
-                                {
-                                    Dps dps = Dpss.FirstOrDefault(j => j.Id == id);
-                                    dps?.Update(state, inputVol, outputVol, current, temp);
-                                }
-                                else if (type == DpsType.VIH)
-                                {
-                                    Vih vih = Vihs.FirstOrDefault(j => j.Id == id);
-                                    if (vih is not null)
-                                    {
-                                        vih.OutputVoltage = outputVol;
-                                        vih.State = state;
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                    case ZoneFunctionCode.CurrentDpsPlan:
-                        {
-                            var burnInfo = BurnInfo;
-                            int id = data[index++];
-                            if (id != 0xFF && id < burnInfo.DpsPlans.Length)
-                            {
-                                var dpsPlan = burnInfo.DpsPlans[id];
-                                if (burnInfo.CurrentDpsPlan != dpsPlan)
-                                {
-                                    burnInfo.CurrentDpsPlan = dpsPlan;
-
-                                    foreach (Dps dps in Dpss)
-                                    {
-                                        dps.BurnDps = dpsPlan.Dpss.FirstOrDefault(t => t.Id == dps.Id);
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                    case ZoneFunctionCode.BurnState:
-                        {
-                            var burnInfo = BurnInfo;
-
-                            if (burnInfo is null ||
-                                burnInfo.Ic is null)
-                            {
-                                return;
-                            }
-                            //已老化时间
-                            int total = data.ToInt32(index, Endianness.Big);
-                            index += 4;
-                            burnInfo.TotalSeconds = total;
-
-                            int id = data[index++];
-
-                            int changed = 0;
-
-                            if (id < burnInfo.Steps.Length)
-                            {
-                                if (burnInfo.CurrentStep is null ||
-                                    burnInfo.CurrentStep.Name != burnInfo.Steps[id].Name)
-                                {
-                                    burnInfo.CurrentStep = burnInfo.Steps[id];
-                                    changed++;
-                                }
-                            }
-
-                            //当前向量运行模式
-                            burnInfo.RunInfo.Mode = (ExecuteMode)data[index++];
-
-                            total = data.ToInt32(index, Endianness.Big);
-                            index += 4;
-
-                            int cost = data.ToInt32(index, Endianness.Big);
-                            index += 4;
-
-                            ////当前向量设定运行 时间/次数,已经消费 时间/次数
-                            burnInfo.RunInfo.Progress.Update(total, cost);
-
-                            burnInfo.LoopInfo.Enable = Convert.ToBoolean(data[index++]);
-
-                            id = data[index++];
-                            if (id < burnInfo.Steps.Length)
-                            {
-                                burnInfo.LoopInfo.Start = burnInfo.Steps[id];
-                            }
-
-                            id = data[index++];
-                            if (id < burnInfo.Steps.Length)
-                            {
-                                burnInfo.LoopInfo.End = burnInfo.Steps[id];
-                            }
-
-                            burnInfo.LoopInfo.Mode = (ExecuteMode)data[index++];
-
-                            total = data.ToInt32(index, Endianness.Big);
-                            index += 4;
-
-                            cost = data.ToInt32(index, Endianness.Big);
-                            index += 4;
-                            burnInfo.LoopInfo.Progress.Update(total, cost);
-
-                            id = data[index++];
-                            if (burnInfo.CurrentStep is not null &&
-                                id < burnInfo.CurrentStep.Vectors.Length)
-                            {
-                                var vectorStep = burnInfo.CurrentStep.Vectors[id];
-                                if (burnInfo.CurrentVector != vectorStep)
-                                {
-                                    changed++;
-                                    burnInfo.CurrentVector = vectorStep;
-                                    try
-                                    {
-                                        Register registers = RegisterParser.Parse(vectorStep.RegisterFile);
-                                        foreach (Vih vih in Vihs)
-                                        {
-                                            vih.SetVoltage = registers.VIH.TryGetValue(vih.Id, out float value) ? (int)(value * 1000) : 0;
-                                        }
-                                    }
-                                    catch
-                                    {
-                                        foreach (Vih vih in Vihs)
-                                        {
-                                            vih.SetVoltage = 0;
-                                        }
-                                    }
-                                }
-                            }
-                            if (changed > 0)
-                            {
-                                Logger.LogInfo(string.Format(LangProvider.Instance.StepRunInfoMessage, burnInfo.CurrentStep.Name, burnInfo.CurrentVector.PatternFile.FileName()));
-                            }
-
-                            break;
-                        }
-                    case ZoneFunctionCode.CompareError:
-                        {
-                            var burnInfo = BurnInfo;
-                            if (burnInfo is null)
-                            {
-                                return;
-                            }
-
-                            // 当前步次
-                            int stepId = data[index++];
-                            if (stepId >= burnInfo.Steps.Length)
-                            {
-                                return;
-                            }
-                            string step = burnInfo.Steps[stepId].Name;
-
-                            // 当前子步
-                            int vectorStepId = data[index++];
-                            if (vectorStepId >= burnInfo.Steps[stepId].Vectors.Length)
-                            {
-                                return;
-                            }
-                            BurnVector vectorStep = burnInfo.Steps[stepId].Vectors[vectorStepId];
-                            string pattern = vectorStep.PatternFile.FileName();
-                            string register = vectorStep.RegisterFile.FileName();
-
-                            // 错误数量
-                            int count = data.ToInt16(index, Endianness.Big);
-                            index += 2;
-
-                            for (int i = 0; i < count; i++)
-                            {
-                                int cs = data[index++];  // 片选
-                                int line = data.ToInt32(index, Endianness.Big);    // 向量所在行数
-                                index += 4;
-
-                                byte[] mask = new byte[32];
-                                Array.Copy(data, index, mask, 0, mask.Length);
-                                index += 32;
-
-                                int[] pins = mask.MaskToIntegers();
-                                foreach (int pin in pins)
-                                {
-                                    ulong id = CompareError.CreateCompareErrorId(stepId, vectorStepId, cs, line, pin);
-                                    CompareError error = new CompareError
-                                    {
-                                        Id = id,
-                                        Cs = cs,
-                                        Dr = pin,
-                                        Step = step,
-                                        Pattern = pattern,
-                                        Register = register,
-                                        Line = line
-                                    };
-
-                                    _errorChannel.Writer.TryWrite((burnInfo, error));
-                                }
-                            }
-                            break;
-                        }
-                    case ZoneFunctionCode.Trigger:
-                        {
-                            OutputType = (TriggerOutputType)data[index++];
-                            OutputPin = OutputType == TriggerOutputType.Signal ? data[index++] : null;
-                            break;
-                        }
-                    case ZoneFunctionCode.Register:
-                        {
-                            // 单个寄存器数据请求
-                            byte id = data[index];
-                            _ = SendRegisterFileAsync(id);
-                            break;
-                        }
-                    case ZoneFunctionCode.Pattern:
-                        {
-                            // 单个向量数据请求
-                            byte id = data[index];
-                            _ = SendPatternFileAsync(id);
-                            break;
-                        }
-                    case ZoneFunctionCode.Upgrade:
-                        {
-                            OnUpgradeProgress(data);
-                            break;
-                        }
-                    case ZoneFunctionCode.UpgradeFinish:
-                        {
-                            OnUpgradeFinish();
-                            break;
-                        }
-                    case ZoneFunctionCode.DeviceCheck:
-                        {
-                            DeviceCheckItem checkItem = DeviceCheckItem.FromBytes(data);
-                            this.InvokeOnUI(() => DeviceCheckItems.Add(checkItem));
-                            break;
-                        }
-                    case ZoneFunctionCode.DpsCheck:
-                        {
-                            int current = data.ToInt32(index, Endianness.Big) + 1;
-                            index += 4;
-
-                            int total = data.ToInt32(index, Endianness.Big);
-                            index += 4;
-
-                            int readTimes = data.ToInt32(index, Endianness.Big) + 1;
-                            index += 4;
-
-                            int setTimes = data.ToInt32(index, Endianness.Big);
-                            index += 4;
-
-                            int id = data[index++];
-
-                            //int inputVol = data.ToInt32(index, Endianness.Big);   // 输入电压
-                            index += 4;
-
-                            int outputVol = data.ToInt32(index, Endianness.Big);  // 输出电压
-                            index += 4;
-
-                            int outputCur = data.ToInt32(index, Endianness.Big);  // 输出电流
-                            index += 4;
-
-                            int temperature = data.ToInt32(index, Endianness.Big);// 电源温度
-                            index += 4;
-
-                            DpsState state = (DpsState)data[index++]; // 电源工作状态
-
-                            var dps = Dpss.FirstOrDefault(j => j.Id == id);
-
-                            if (dps is not null)
-                            {
-                                if (state == DpsState.Runing)
-                                {
-                                    Logger.LogInfo(string.Format(LangProvider.Instance.DpsCheckResultMessage, current, total, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
-                                }
-                                else if (state > 0 && (byte)state < 13)
-                                {
-                                    Logger.LogError(string.Format(LangProvider.Instance.DpsCheckResultMessage, current, total, dps.Name, (outputVol * 1F / 1000).ToString("F3").PadLeft(6, ' '), (outputCur * 1F / 1000).ToString("F3").PadLeft(6, ' '), readTimes, setTimes));
-                                }
-                            }
-                            break;
-                        }
-                    case ZoneFunctionCode.ThermostatPID:
-                        {
-                            int count = data[index++];
-                            for (int i = 0; i < count; i++)
-                            {
-                                byte id = data[index++];
-
-                                int kp = data.ToInt32(index, Endianness.Big);
-                                index += 4;
-
-                                int ki = data.ToInt32(index, Endianness.Big);
-                                index += 4;
-
-                                int kd = data.ToInt32(index, Endianness.Big);
-                                index += 4;
-
-                                var thermostat = BurnInfo?.BurnInBoard.Thermostats.FirstOrDefault(t => t.Id == id);
-                                if (thermostat != null)
-                                {
-                                    thermostat.Kp = kp;
-                                    thermostat.Ki = ki;
-                                    thermostat.Kd = kd;
-                                }
-                            }
-                            break;
-                        }
-                    case ZoneFunctionCode.Thermostat:
-                        {
-                            int count = data[index++];
-                            for (int i = 0; i < count; i++)
-                            {
-                                byte id = data[index++];
-                                bool enable = Convert.ToBoolean(data[index++]);
-                                int temperature = data.ToInt32(index, Endianness.Big);
-                                index += 4;
-                                var thermostat = BurnInfo?.BurnInBoard.Thermostats.FirstOrDefault(t => t.Id == id);
-                                if (thermostat != null)
-                                {
-                                    thermostat.Update(enable, temperature);
-                                }
-                            }
-                            break;
-                        }
-                }
-
-            }
-            catch (Exception e)
-            {
-                throw new Exception($"Rx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) {data?.ToHex()} {e.Message}");
-            }
-        }
-
-        #endregion
-
-        #region 资源释放
-
         #endregion
 
         #region 固件升级
@@ -1272,10 +1244,10 @@
             get => _session;
             set => SetProperty(ref _session, value);
         }
-        public async Task SendFirmware(byte[] payload, int boardCount)
+        public async ValueTask SendFirmware(byte[] payload, int boardCount)
         {
             Session = new UpgradeSession(boardCount);
-            await SendUpgrade(payload);
+            await SendAsync(ZoneFunctionCode.Upgrade, payload);
         }
         private void ClearBoards()
         {

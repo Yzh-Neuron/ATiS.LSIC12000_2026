@@ -3,7 +3,7 @@
     /// <summary>
     /// 控制卡功能码
     /// </summary>
-    internal enum ControllerFunctionCode : byte
+    public enum ControllerFunctionCode : byte
     {
         /// <summary>
         /// 预留控制板状态

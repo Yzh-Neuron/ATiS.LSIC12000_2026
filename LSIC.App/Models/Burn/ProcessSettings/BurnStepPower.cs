@@ -31,7 +31,7 @@
         {
             Name = name;
 
-            if (dpsPlanIndex!=0xFF)
+            if (dpsPlanIndex != 0xFF)
             {
                 Enable = true;
                 DpsPlanIndex = dpsPlanIndex;

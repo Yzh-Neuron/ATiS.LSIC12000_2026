@@ -99,10 +99,10 @@
             long[] boards = new long[4];
             if (channels is not null)
             {
-                foreach (int channel in channels)   
+                foreach (int channel in channels)
                 {
-                    int i = channel / 64;           
-                    int bits = channel % 64;        
+                    int i = channel / 64;
+                    int bits = channel % 64;
                     boards[i] |= (long)1 << bits;
                 }
             }

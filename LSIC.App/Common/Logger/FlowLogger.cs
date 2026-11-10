@@ -46,13 +46,24 @@
             catch
             {
 
-         
+
             }
-   
+
         }
         public void Dispose()
         {
             logger.Dispose();
+        }
+    }
+    public static class FlowLoggerExtension
+    {
+        public static bool IsValid(this FlowLogger logger)
+        {
+            return logger != null && Device.Instance.Mode == DeviceMode.Administrator;
+        }
+        public static bool IsValid<TEnum>(this FlowLogger logger, TEnum code) where TEnum : Enum
+        {
+            return logger != null && Device.Instance.Mode == DeviceMode.Administrator && FrameFilterUtility.Filter(logger, code);
         }
     }
     public class Flow

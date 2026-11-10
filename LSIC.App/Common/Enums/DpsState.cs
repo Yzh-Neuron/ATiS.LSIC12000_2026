@@ -3,7 +3,7 @@
     /// <summary>
     /// DPS 状态位
     /// </summary>
-    public enum DpsState:byte
+    public enum DpsState : byte
     {
         /// <summary>
         /// 关闭
