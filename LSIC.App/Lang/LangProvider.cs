@@ -752,6 +752,26 @@ namespace LSIC.App
         public string Enum_LogLevel_Fatal => GetString("Enum.LogLevel.Fatal");
 
         /// <summary>
+        /// 红灯
+        /// </summary>
+        public string Enum_LightAlarmState_Red => GetString("Enum.LightAlarmState.Red");
+
+        /// <summary>
+        /// 黄灯
+        /// </summary>
+        public string Enum_LightAlarmState_Yellow => GetString("Enum.LightAlarmState.Yellow");
+
+        /// <summary>
+        /// 绿灯
+        /// </summary>
+        public string Enum_LightAlarmState_Green => GetString("Enum.LightAlarmState.Green");
+
+        /// <summary>
+        /// 报警
+        /// </summary>
+        public string Enum_LightAlarmState_Alarming => GetString("Enum.LightAlarmState.Alarming");
+
+        /// <summary>
         /// 程序已运行
         /// </summary>
         public string AppHasLaunchedMessage => GetString("AppHasLaunchedMessage");
@@ -2410,6 +2430,14 @@ namespace LSIC.App
 
             OnPropertyChanged(nameof(Enum_LogLevel_Fatal));
 
+            OnPropertyChanged(nameof(Enum_LightAlarmState_Red));
+
+            OnPropertyChanged(nameof(Enum_LightAlarmState_Yellow));
+
+            OnPropertyChanged(nameof(Enum_LightAlarmState_Green));
+
+            OnPropertyChanged(nameof(Enum_LightAlarmState_Alarming));
+
             OnPropertyChanged(nameof(AppHasLaunchedMessage));
 
             OnPropertyChanged(nameof(AppStartMessage));
@@ -3694,6 +3722,26 @@ namespace LSIC.App
         /// 异常
         /// </summary>
         public const string Enum_LogLevel_Fatal = nameof(Enum_LogLevel_Fatal);
+
+         /// <summary>
+        /// 红灯
+        /// </summary>
+        public const string Enum_LightAlarmState_Red = nameof(Enum_LightAlarmState_Red);
+
+         /// <summary>
+        /// 黄灯
+        /// </summary>
+        public const string Enum_LightAlarmState_Yellow = nameof(Enum_LightAlarmState_Yellow);
+
+         /// <summary>
+        /// 绿灯
+        /// </summary>
+        public const string Enum_LightAlarmState_Green = nameof(Enum_LightAlarmState_Green);
+
+         /// <summary>
+        /// 报警
+        /// </summary>
+        public const string Enum_LightAlarmState_Alarming = nameof(Enum_LightAlarmState_Alarming);
 
          /// <summary>
         /// 程序已运行

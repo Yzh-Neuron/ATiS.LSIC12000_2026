@@ -110,4 +110,9 @@
     <sys:String x:Key="Enum.LogLevel.Warn">WAR</sys:String>
     <sys:String x:Key="Enum.LogLevel.Error">ERR</sys:String>
     <sys:String x:Key="Enum.LogLevel.Fatal">FAT</sys:String>
+
+    <sys:String x:Key="Enum.LightAlarmState.Red">Red</sys:String>
+    <sys:String x:Key="Enum.LightAlarmState.Yellow">Yellow</sys:String>
+    <sys:String x:Key="Enum.LightAlarmState.Green">Green</sys:String>
+    <sys:String x:Key="Enum.LightAlarmState.Alarming">Alarm</sys:String>
 </ResourceDictionary>

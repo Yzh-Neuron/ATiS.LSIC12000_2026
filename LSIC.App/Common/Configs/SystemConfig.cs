@@ -23,6 +23,11 @@
         public DpsInfo[] DpsInfos { get; private set; }
 
         /// <summary>
+        /// 辅助控制板信息
+        /// </summary>
+        public ControllerInfo ControllerInfo { get; private set; }
+
+        /// <summary>
         /// 独立温控信息
         /// </summary>
         public ThermostatInfo ThermostatInfo { get; private set; }

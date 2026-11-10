@@ -6,10 +6,10 @@
         private readonly RollingFileLogger logger;
         public ConcurrentQueue<Flow> History { get; private set; }
         public event AddFlowHandler OnAddFlow;
-        public FlowLogger(Zone zone)
+        public FlowLogger(RollingFileLogger fileLogger)
         {
+            logger = fileLogger ?? throw new ArgumentNullException(nameof(fileLogger));
             History = new ConcurrentQueue<Flow>();
-            logger = new RollingFileLogger($@".\Log\Flow\Zone {zone.Id}\{{date:yyyyMMdd}}.log", RollingInterval.Day, retentionPeriod: SystemLog.RetentionPeriod);
         }
         public void LogDebug(string message)
         {

@@ -110,4 +110,9 @@
     <sys:String x:Key="Enum.LogLevel.Warn">警告</sys:String>
     <sys:String x:Key="Enum.LogLevel.Error">错误</sys:String>
     <sys:String x:Key="Enum.LogLevel.Fatal">异常</sys:String>
+
+    <sys:String x:Key="Enum.LightAlarmState.Red">红灯</sys:String>
+    <sys:String x:Key="Enum.LightAlarmState.Yellow">黄灯</sys:String>
+    <sys:String x:Key="Enum.LightAlarmState.Green">绿灯</sys:String>
+    <sys:String x:Key="Enum.LightAlarmState.Alarming">报警</sys:String>
 </ResourceDictionary>

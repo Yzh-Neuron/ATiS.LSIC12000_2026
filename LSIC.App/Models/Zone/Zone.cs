@@ -1,42 +1,14 @@
-﻿using TcpClient = ATiS.Sim.Communication.TcpClient;
-
-namespace LSIC.App.Models
+﻿namespace LSIC.App.Models
 {
-    public class Zone : DeviceNodeBase, IDisposable
+    public class Zone : TcpHangKeClient<ZoneFunctionCode>
     {
-        private const ushort FrameHeader = 0x55AA;
-        private const ushort FrameEnding = 0xEAA5;
-        private const int MaxPayloadLength = 4 * 1024 * 1024;
-        private const int MaxErrorWritesPerTick = 128;
-        private CancellationTokenSource _tickCts;
         private Task _tickTask;
+        private CancellationTokenSource _tickCts;
+        private const int MaxErrorWritesPerTick = 128;
         private readonly PeriodicTimer _timer = new(TimeSpan.FromMilliseconds(500));
-        private bool _disposed;
-        private TcpClient _client;
-        private List<byte> _buffer;
-        private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
-        private readonly SemaphoreSlim _receiveLock = new SemaphoreSlim(1, 1);
         private readonly Channel<(BurnInfo Info, CompareError Error)> _errorChannel;
         public ObservableCollection<DeviceCheckItem> DeviceCheckItems { get; } = new();
         public ZoneInfo Info { get; }
-        public int Id
-        {
-            get => Info.Id;
-        }
-        public string Ip
-        {
-            get => Info.Ip;
-        }
-        public ushort Port
-        {
-            get => Info.Port;
-        }
-        private bool _connected = false;
-        public bool Connected
-        {
-            get => _connected;
-            private set => SetProperty(ref _connected, value);
-        }
         private ZoneState _state = ZoneState.Offline;
         public ZoneState State
         {
@@ -67,11 +39,10 @@ namespace LSIC.App.Models
             get => _burnInfo;
             private set => SetProperty(ref _burnInfo, value);
         }
-        public FlowLogger Logger { get; private set; }
         public ErrorDatabase ErrorDatabase { get; private set; }
         public Dps[] Dpss { get; }
         public Vih[] Vihs { get; }
-        public Zone(ZoneInfo info, Dps[] dpss)
+        public Zone(ZoneInfo info, Dps[] dpss) : base(info.Id, info.Ip, info.Port)
         {
             Info = info ?? throw new ArgumentNullException(nameof(info));
             Dpss = dpss;
@@ -79,10 +50,10 @@ namespace LSIC.App.Models
 
             _errorChannel = Channel.CreateBounded<(BurnInfo, CompareError)>(new BoundedChannelOptions(4096) { SingleReader = true, FullMode = BoundedChannelFullMode.DropWrite });
             ErrorDatabase = new ErrorDatabase(this);
-            Logger = new FlowLogger(this);
+            Logger = new FlowLogger(new RollingFileLogger($@".\Log\Flow\Zone {Id}\{{date:yyyyMMdd}}.log", RollingInterval.Day, retentionPeriod: SystemLog.RetentionPeriod));
             FrameFilterUtility.Register<ZoneFunctionCode>(Logger, (code) => true);
         }
-        public void Startup()
+        public override void Startup()
         {
             try
             {
@@ -103,22 +74,41 @@ namespace LSIC.App.Models
                 BurnInfo = null;
             }
 
-            if (_client is not null)
-            {
-                _client.StateChanged -= OnStateChanged;
-                _client.ReceivedData -= OnReceivedData;
-                _client.Dispose();
-                _client = null;
-            }
-
-            _client = new TcpClient(Ip, Port);
-            _client.StateChanged += OnStateChanged;
-            _client.ReceivedData += OnReceivedData;
-            _client.Start();
-            _client.StartAutoReceive();
-
+            base.Startup();
             StartTicker();
             Logger.LogInfo(LangProvider.Instance.WorkerThreadStartedMessage);
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                StopTicker();
+                BurnInfo?.Dispose();
+                BurnInfo = null;
+            }
+
+            base.Dispose(disposing);
+            _disposed = true;
+        }
+        protected override Task OnConnectedAsync()
+        {
+            return QueryVersionAsync();
+        }
+        protected override Task OnDisconnectedAsync()
+        {
+            UpdateZoneState(ZoneState.Offline);
+            Pluged = false;
+            this.InvokeOnUI(DeviceCheckItems.Clear);
+            return Task.CompletedTask;
+        }
+        protected override Task OnFrameReceivedAsync(byte functionCode, byte[] data, byte[] checkBytes)
+        {
+            return AnalysisFrame((ZoneFunctionCode)functionCode, data, checkBytes);
         }
         private void UpdateZoneState(ZoneState state, ZoneErrorType? error = null, byte[] data = null)
         {
@@ -667,12 +657,12 @@ namespace LSIC.App.Models
         #endregion
 
         #region 老化功能
-        public override async Task QueryVersionAsync()
+        public async Task QueryVersionAsync()
         {
             ClearBoards();
             await SendAsync(ZoneFunctionCode.Version);
         }
-        protected override Task SendUpgrade(byte[] payload)
+        public Task SendUpgrade(byte[] payload)
         {
             return SendAsync(ZoneFunctionCode.Upgrade, payload);
         }
@@ -866,101 +856,6 @@ namespace LSIC.App.Models
         #endregion
 
         #region 通信相关
-        private async Task OnStateChanged(object sender, SocketStateChangedArgs e)
-        {
-            try
-            {
-                Connected = e.Connected;
-                _buffer = Connected ? new List<byte>(1024) : null;
-                if (e.Connected)
-                {
-                    await QueryVersionAsync();
-                }
-                else
-                {
-                    UpdateZoneState(ZoneState.Offline);
-                    Pluged = false;
-                    this.InvokeOnUI(DeviceCheckItems.Clear);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError($"Zone {Id} Error: {ex.Message}");
-            }
-        }
-        private async Task OnReceivedData(object sender, SocketDataReceivedArgs e)
-        {
-            if (!await _receiveLock.WaitAsync(500).ConfigureAwait(false))
-            {
-                if (Device.Instance.Mode == DeviceMode.Administrator)
-                {
-                    Logger.LogDebug(string.Format(LangProvider.Instance.ReceiveBusyDropMessage, e.Data?.Length ?? 0));
-                }
-                return;
-            }
-            try
-            {
-                if (_buffer is null)
-                {
-                    return;
-                }
-                _buffer.AddRange(e.Data);
-                while (_buffer.Count > 7)//缓冲区字节数量至少大于7个才能组成有效的报文帧格式
-                {
-                    //如果前两个字节无法组成有效帧头，移除第一个字节
-                    ushort header = _buffer.Slice(0, 2).ToUInt16(0, Endianness.Big);
-                    if (header != FrameHeader)
-                    {
-                        _buffer.RemoveAt(0);
-                        continue;
-                    }
-                    //获取数据长度
-                    int length = _buffer.Slice(2 + 1, 4).ToInt32(0, Endianness.Big);
-
-                    //长度非法（负数或超出上限）时丢弃当前帧头并重同步，防止解析卡死与内存堆积
-                    if (length < 0 || length > MaxPayloadLength)
-                    {
-                        Logger.LogError(string.Format(LangProvider.Instance.AnalysisFrameErrorMessage, string.Format(LangProvider.Instance.InvalidFrameLengthMessage, length)));
-                        _buffer.RemoveAt(0);
-                        continue;
-                    }
-                    int total = 2 + 1 + 4 + length + 4 + 2;//帧头 功能码 数据长度 数据数值 CRC校验 帧尾
-                    if (_buffer.Count < total)
-                    {
-                        break;//终止对本次接收到数据解析，保留缓冲区数据到下次数据接收
-                    }
-                    //CRC32一致性验证
-                    byte[] data = _buffer.Slice(2 + 1 + 4, length).ToArray();
-                    uint receiveCrc32 = _buffer.Slice(7 + length, 4).ToUInt32(0, Endianness.Big);
-                    uint calcCrc32 = SecurityUtil.CRC32(data);
-                    if (calcCrc32 != receiveCrc32)
-                    {
-                        Logger.LogError(string.Format(LangProvider.Instance.AnalysisFrameErrorMessage, string.Format(LangProvider.Instance.Crc32NotMatchMessage, $"Rx: {data.ToHex()} RxCRC32: {receiveCrc32.ToBytes(Endianness.Big).ToHex()} CaCRC32: {calcCrc32.ToBytes(Endianness.Big).ToHex()}")));
-                        _buffer.RemoveRange(0, total);
-                        continue;
-                    }
-
-                    ushort ending = _buffer.Slice(2 + 1 + 4 + length + 4, 2).ToUInt16(0, Endianness.Big);
-                    if (ending != FrameEnding)
-                    {
-                        Logger.LogError(string.Format(LangProvider.Instance.AnalysisFrameErrorMessage, LangProvider.Instance.FrameEndingNotMatchMessage));
-                        _buffer.RemoveRange(0, total);
-                        continue;
-                    }
-                    ZoneFunctionCode code = (ZoneFunctionCode)_buffer[2];
-                    _buffer.RemoveRange(0, total);
-                    await AnalysisFrame(code, data, receiveCrc32.ToBytes(Endianness.Big));
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError(string.Format(LangProvider.Instance.AnalysisFrameErrorMessage, $"{ex.Message}"));
-            }
-            finally
-            {
-                _receiveLock.Release();
-            }
-        }
         private async Task AnalysisFrame(ZoneFunctionCode code, byte[] data, byte[] checkBytes)
         {
             if (Device.Instance.Mode == DeviceMode.Administrator && FrameFilterUtility.Filter(Logger, code))
@@ -1356,208 +1251,53 @@ namespace LSIC.App.Models
                 throw new Exception($"Rx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) {data?.ToHex()} {e.Message}");
             }
         }
-        private async Task SendAsync(ZoneFunctionCode code, params byte[] data)
-        {
-            if (!Connected)
-            {
-                return;
-            }
 
-            bool semaphoreHeld = false;
-            try
-            {
-                await _semaphore.WaitAsync().ConfigureAwait(false);
-                semaphoreHeld = true;
-
-                int length = data?.Length ?? 0;
-                byte[] frame = new byte[length + 13];
-
-                int index = 0;
-                // 帧头
-                Array.Copy(FrameHeader.ToBytes(Endianness.Big), 0, frame, index, 2);
-                index += 2;
-                // 功能代码
-                frame[index++] = (byte)code;
-                // 数据长度
-                Array.Copy(length.ToBytes(Endianness.Big), 0, frame, index, 4);
-                index += 4;
-                // 数据内容
-                if (data is not null)
-                {
-                    Array.Copy(data, 0, frame, index, data.Length);
-                    index += data.Length;
-                }
-                // CRC32校验
-                uint check = 0u;
-                if (data is not null)
-                {
-                    check = SecurityUtil.CRC32(data);
-                }
-                byte[] checkBytes = check.ToBytes(Endianness.Big);
-                Array.Copy(checkBytes, 0, frame, index, 4);
-                index += 4;
-                // 帧尾
-                Array.Copy(FrameEnding.ToBytes(Endianness.Big), 0, frame, index, 2);
-
-                // 发送
-                await _client.SendAsync(frame).ConfigureAwait(false);
-
-
-                if (Device.Instance.Mode == DeviceMode.Administrator && FrameFilterUtility.Filter(Logger, code))
-                {
-                    Logger.LogDebug($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {data?.ToHex()}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) Error: {ex.Message}");
-            }
-            finally
-            {
-                if (semaphoreHeld)
-                {
-                    _semaphore.Release();
-                }
-            }
-        }
-        private async Task SendAsync(ZoneFunctionCode code, Stream stream, Action<int> readCallback, params byte[] beforeStream)
-        {
-            if (!Connected)
-            {
-                return;
-            }
-
-            bool semaphoreHeld = false;
-            try
-            {
-                await _semaphore.WaitAsync().ConfigureAwait(false);
-                semaphoreHeld = true;
-
-                // 计算数据长度，超过 4096 字节则分多次发送，否则直接调用 SendAsync 发送
-                long beforeLength = beforeStream?.Length ?? 0;
-                long streamLength = stream?.Length ?? 0;
-                long length = beforeLength + streamLength;
-                if (length > uint.MaxValue)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(length));
-                }
-
-                // 大包：帧头 + 数据流式发送 + 帧尾
-                // 发送帧头
-                byte[] header = BuildFrameHeader(code, (uint)length);
-                await _client.SendAsync(header).ConfigureAwait(false);
-                // 发送数据内容
-                uint check = SecurityUtil.CRC32(Array.Empty<byte>()); // 初始化 CRC32
-                if (beforeStream is { Length: > 0 })
-                {
-                    check = SecurityUtil.CRC32(check, beforeStream);
-                    await _client.SendAsync(beforeStream).ConfigureAwait(false);
-                }
-                if (stream is not null)
-                {
-                    byte[] buffer = new byte[1024];
-                    int read;
-                    while ((read = await stream.ReadAsync(buffer).ConfigureAwait(false)) > 0)
-                    {
-                        if (!Connected)
-                        {
-                            return;
-                        }
-                        if (read == buffer.Length)
-                        {
-                            check = SecurityUtil.CRC32(check, buffer);
-                            await _client.SendAsync(buffer).ConfigureAwait(false);
-                        }
-                        else
-                        {
-                            byte[] temp = new byte[read];
-                            Array.Copy(buffer, 0, temp, 0, read);
-                            check = SecurityUtil.CRC32(check, temp);
-                            await _client.SendAsync(temp).ConfigureAwait(false);
-                        }
-                        readCallback?.Invoke(read);
-                    }
-                }
-                // 发送帧尾
-                byte[] checkBytes = check.ToBytes(Endianness.Big);
-                byte[] tail = BuildFrameTail(check);
-                await _client.SendAsync(tail).ConfigureAwait(false);
-
-                if (FrameFilterUtility.Filter(Logger, code))
-                {
-                    Logger.LogInfo($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) [ CRC32 {checkBytes.ToHex()} ] {beforeStream?.ToHex()}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError($"Tx: [ {code.GetString()} ](0x{Convert.ToUInt64(code):X2}) Error: {ex.Message}");
-            }
-            finally
-            {
-                if (semaphoreHeld)
-                {
-                    _semaphore.Release();
-                }
-            }
-        }
-        private static byte[] BuildFrameHeader(ZoneFunctionCode code, uint length)
-        {
-            byte[] header = new byte[7];
-            int index = 0;
-            //帧头
-            Array.Copy(FrameHeader.ToBytes(Endianness.Big), 0, header, index, 2);
-            index += 2;
-            //功能码
-            header[index++] = (byte)code;
-            //数据长度
-            Array.Copy(length.ToBytes(Endianness.Big), 0, header, index, 4);
-            return header;
-        }
-        private static byte[] BuildFrameTail(uint check)
-        {
-            byte[] tail = new byte[6];
-            int index = 0;
-            Array.Copy(check.ToBytes(Endianness.Big), 0, tail, index, 4);
-            index += 4;
-            Array.Copy(FrameEnding.ToBytes(Endianness.Big), 0, tail, index, 2);
-            return tail;
-        }
         #endregion
 
         #region 资源释放
-        public void Dispose()
+
+        #endregion
+
+        #region 固件升级
+        public ObservableCollection<Board> Boards { get; } = new();
+        private bool _upgradeSelected;
+        public bool UpgradeSelected
         {
-            if (_disposed)
-            {
-                return;
-            }
-
-            //循环任务的释放
-            StopTicker();
-
-            //释放老化信息中的老化日志
-            BurnInfo?.Dispose();
-            BurnInfo = null;
-
-            //释放连接
-            if (_client is not null)
-            {
-                _client.StateChanged -= OnStateChanged;
-                _client.ReceivedData -= OnReceivedData;
-                _client.Dispose();
-                _client = null;
-            }
-
-            //释放区日志
-            Logger?.Dispose();
-            Logger = null;
-
-            //释放信号和锁
-            _semaphore.Dispose();
-            _receiveLock.Dispose();
-
-            _disposed = true;
-            GC.SuppressFinalize(this);
+            get => _upgradeSelected;
+            set => SetProperty(ref _upgradeSelected, value);
+        }
+        private UpgradeSession _session;
+        public UpgradeSession Session
+        {
+            get => _session;
+            set => SetProperty(ref _session, value);
+        }
+        public async Task SendFirmware(byte[] payload, int boardCount)
+        {
+            Session = new UpgradeSession(boardCount);
+            await SendUpgrade(payload);
+        }
+        private void ClearBoards()
+        {
+            this.InvokeOnUI(Boards.Clear);
+        }
+        private void AddBoard(byte[] data)
+        {
+            var board = Board.FromBytes(data, BoardTypeCatalog.ByCode);
+            this.InvokeOnUI(() => Boards.Add(board));
+        }
+        private void OnUpgradeProgress(byte[] data)
+        {
+            int index = 0;
+            byte code = data[index++];              // 板卡类型
+            byte id = data[index++];                // id
+            byte progress = data[index++];          // 进度
+            var state = (UpgradeState)data[index];  // 状态
+            Session?.SetReport(code, id, progress, state);
+        }
+        private void OnUpgradeFinish()
+        {
+            Session?.Finish();
         }
         #endregion
     }
