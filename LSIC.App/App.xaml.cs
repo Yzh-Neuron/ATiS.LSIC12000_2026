@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using ATiS.Dongle;
 
 namespace LSIC.App
 {
@@ -191,7 +192,7 @@ namespace LSIC.App
             FileInfo file = new FileInfo(path);
             if (!file.Exists)
             {
-                FileInfo defaultFile = new FileInfo(Path.Combine("DefaultConfig", path));
+                FileInfo defaultFile = new FileInfo(Path.Combine("DefaultConfigs", path));
                 if (defaultFile.Exists)
                 {
                     defaultFile.CopyTo(file.FullName);

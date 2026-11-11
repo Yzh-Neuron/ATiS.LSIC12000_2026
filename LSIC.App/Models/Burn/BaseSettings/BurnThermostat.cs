@@ -54,22 +54,6 @@ namespace LSIC.App.Models
             Id = setting.Id;
             Enable = setting.Enable;
             TargetTemperature = setting.TargetTemperature;
-
-            //#if DEBUG
-            //            if (Enable)
-            //            {
-            //                int temp = 0;
-            //                Task.Run(async () =>
-            //                {
-            //                    while (true)
-            //                    {
-            //                        temp = (temp += 100) % 1000;
-            //                        Update(Enable, temp);
-            //                        await Task.Delay(3000);
-            //                    }
-            //                });
-            //            }
-            //#endif
         }
         public void Update(bool enable, int? temperature)
         {

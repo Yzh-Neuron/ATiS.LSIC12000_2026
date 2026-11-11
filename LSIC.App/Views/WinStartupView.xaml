@@ -147,7 +147,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition />
-                <RowDefinition Height="100" />
+                <RowDefinition Height="110" />
                 <RowDefinition Height="20" />
             </Grid.RowDefinitions>
             <Border Background="Transparent" />
@@ -186,6 +186,7 @@
                      ItemTemplate="{StaticResource CheckItemDataTemplate}"
                      ItemsSource="{Binding CheckItems}"
                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     ScrollViewer.CanContentScroll="True"
                      Style="{x:Null}">
                 <i:Interaction.Behaviors>
                     <wpf:ListBoxScrollToBottomBehavior />
