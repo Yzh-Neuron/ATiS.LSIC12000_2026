@@ -2,10 +2,10 @@
 
 namespace LSIC.App.Views
 {
-    public partial class PopAbmViewerView : IRecipient<MsgArgs<PopAbmViewerMessage>>
+    public partial class PopAbmViewerView
     {
         public PopAbmViewerViewModel ViewModel { get; }
-        public PopAbmViewerView()
+        public PopAbmViewerView(string title, string file)
         {
             if (GlobalLanguageManager.CurrentLanguage == UiLanguage.English)
             {
@@ -17,49 +17,29 @@ namespace LSIC.App.Views
             }
 
             InitializeComponent();
+            Title = title;
             ViewModel = new PopAbmViewerViewModel();
             DataContext = ViewModel;
 
-            MessageBus.Default.Register(this);
-        }
-        public MessageResult Receive(MsgArgs<PopAbmViewerMessage> e)
-        {
-            switch (e.Message)
+            try
             {
-                case PopAbmViewerMessage.OpenFile:
-                    {
-                        string filter = e.Args[0] as string;
-                        string current = e.Args[1] as string;
-                        string initialDirectory = Path.Exists(current) ? Path.GetDirectoryName(current) : Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-                        OpenFileDialog dialog = new OpenFileDialog
-                        {
-                            Title = LangProvider.Instance.SelectFileText,
-                            Filter = filter,
-                            Multiselect = false,
-                            InitialDirectory = initialDirectory
-                        };
-                        if (dialog.ShowDialog() is true)
-                        {
-                            return MessageResult.From(dialog.FileName);
-                        }
-                        break;
-                    }
-                case PopAbmViewerMessage.Growl:
-                    {
-                        Growl.Show(new GrowlInfo
-                        {
-                            Message = e.Args[0] as string,
-                            Type = (MessageType)e.Args[1]
-                        });
-                        break;
-                    }
+                AbmReader abmReader = new AbmReader(file);
+                List<Segment> segments = new List<Segment>(abmReader.Boards.Count + 1);
+
+                var head = new Segment(abmReader.ToString(), LangProvider.Instance.AbmFileText);
+                segments.Add(head);
+
+                foreach (var abmBoard in abmReader.Boards)
+                {
+                    segments.Add(new Segment(abmBoard.ToString(), LangProvider.Instance.DigitalBoardText + $" {abmBoard.Index}"));
+                }
+                ViewModel.Segments = segments;
+                ViewModel.SelectedSegments = head;
             }
-            return MessageResult.Null();
-        }
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            MessageBus.Default.UnregisterAll(this);
+            catch (Exception ex)
+            {
+                Growl.Show(new GrowlInfo { Message = ex.Message, Type = MessageType.Error });
+            }
         }
     }
 }

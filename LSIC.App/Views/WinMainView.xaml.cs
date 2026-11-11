@@ -104,11 +104,6 @@
             e.Handled = true;
             new PopPatternConverterView { Owner = this }.ShowDialog();
         }
-        private void OnAbmViewerButtonClick(object sender, RoutedEventArgs e)
-        {
-            e.Handled = true;
-            new PopAbmViewerView { Owner = this }.ShowDialog();
-        }
         private void OnControllerButtonClick(object sender, RoutedEventArgs e)
         {
             e.Handled = true;

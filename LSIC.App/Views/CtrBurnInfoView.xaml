@@ -344,15 +344,30 @@
                            VerticalAlignment="Center"
                            FontWeight="Bold"
                            Text="{app:Lang {x:Static app:LangKey.CurrentPatternText}}" />
-                <TextBlock Grid.Row="7"
-                           Grid.Column="1"
-                           Margin="10,0,0,0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Background="Transparent"
-                           Text="{Binding Zone.BurnInfo.CurrentVector.PatternFile}"
-                           TextTrimming="CharacterEllipsis"
-                           ToolTip="{Binding Zone.BurnInfo.CurrentVector.PatternFile}" />
+                <Grid Grid.Row="7"
+                      Grid.Column="1"
+                      Margin="10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Background="Transparent"
+                               Text="{Binding Zone.BurnInfo.CurrentVector.PatternFile, Converter={StaticResource FilePathToFileNameConverter}}"
+                               TextTrimming="CharacterEllipsis"
+                               ToolTip="{Binding Zone.BurnInfo.CurrentVector.PatternFile}" />
+                    <Button Grid.Column="1"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Left"
+                            Click="OnViewPatternFileButtonClick"
+                            Content="{app:Lang {x:Static app:LangKey.ViewText}}"
+                            Foreground="{DynamicResource PrimaryBrush}"
+                            Style="{StaticResource Button.Link}"
+                            Tag="{Binding Zone.BurnInfo.CurrentVector.PatternFile}"
+                            Visibility="{Binding Zone.BurnInfo.CurrentVector, Converter={StaticResource NotNullToVisibilityConverter}}" />
+
+                </Grid>
+
 
                 <TextBlock Grid.Row="8"
                            Margin="10,0"
@@ -360,27 +375,28 @@
                            VerticalAlignment="Center"
                            FontWeight="Bold"
                            Text="{app:Lang {x:Static app:LangKey.CurrentRegistersText}}" />
-                <DockPanel Grid.Row="8"
-                           Grid.Column="1"
-                           LastChildFill="False">
-                    <TextBlock MaxWidth="350"
-                               Margin="10,0,0,0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
+                <Grid Grid.Row="8"
+                      Grid.Column="1"
+                      Margin="10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
                                Background="Transparent"
-                               DockPanel.Dock="Left"
-                               Text="{Binding Zone.BurnInfo.CurrentVector.RegisterFile}"
+                               Text="{Binding Zone.BurnInfo.CurrentVector.RegisterFile, Converter={StaticResource FilePathToFileNameConverter}}"
                                TextTrimming="CharacterEllipsis"
                                ToolTip="{Binding Zone.BurnInfo.CurrentVector.RegisterFile}" />
-                    <Button Margin="5,0,0,0"
+                    <Button Grid.Column="1"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Left"
                             Click="OnViewRegisterFileButtonClick"
                             Content="{app:Lang {x:Static app:LangKey.ViewText}}"
-                            DockPanel.Dock="Left"
                             Foreground="{DynamicResource PrimaryBrush}"
                             Style="{StaticResource Button.Link}"
                             Tag="{Binding Zone.BurnInfo.CurrentVector.RegisterFile}"
                             Visibility="{Binding Zone.BurnInfo.CurrentVector, Converter={StaticResource NotNullToVisibilityConverter}}" />
-                </DockPanel>
+                </Grid>
             </Grid>
         </decos:GridLineDecorator>
     </Border>

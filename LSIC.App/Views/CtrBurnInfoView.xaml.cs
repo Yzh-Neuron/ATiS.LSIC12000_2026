@@ -37,5 +37,17 @@ namespace LSIC.App.Views
                 window.ShowDialog();
             }
         }
+        private void OnViewPatternFileButtonClick(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button.Tag is string path && File.Exists(path))
+            {
+                PopAbmViewerView window = new PopAbmViewerView(path.FileName(), path)
+                {
+                    Owner = WindowExtension.GetActiveWindow()
+                };
+                window.ShowDialog();
+            }
+        }
     }
 }
