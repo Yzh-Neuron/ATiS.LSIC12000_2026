@@ -20,7 +20,7 @@
 
         public static void ShowAlarm(string source, string message)
         {
-            ObjectExtension.InvokeOnUI(null, () =>
+            ObjectExtension.BeginInvokeOnUI(null, () =>
             {
                 // 如果窗口已被关闭，重新创建
                 if (AlarmWindow == null || !AlarmWindow.IsLoaded)

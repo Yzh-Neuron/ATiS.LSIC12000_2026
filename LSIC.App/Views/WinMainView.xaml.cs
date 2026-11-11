@@ -9,6 +9,11 @@
             ViewModel = new WinMainViewModel();
             DataContext = ViewModel;
             MessageBus.Default.Register(this);
+            Loaded += OnLoaded;
+        }
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            (Application.Current as App)?.StartCheckDongle();
         }
         public MessageResult Receive(MsgArgs<WinMainMessage> e)
         {

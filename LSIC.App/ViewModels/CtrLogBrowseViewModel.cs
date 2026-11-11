@@ -136,7 +136,7 @@ namespace LSIC.App.ViewModels
                         {
                             _matchedRule = rule;
 
-                            this.InvokeOnUI(() =>
+                            this.BeginInvokeOnUI(() =>
                             {
                                 Lines = null;
                                 MessageBus.Default.Send(MsgArgs.From(CtrLogBrowseMessage.LogRuleChanged, [rule]));
@@ -389,7 +389,7 @@ namespace LSIC.App.ViewModels
 
                     LogPlot plotData = new LogPlot(min, max, data);
 
-                    this.InvokeOnUI(() =>
+                    this.BeginInvokeOnUI(() =>
                     {
                         MessageBus.Default.Send(MsgArgs.From(CtrLogBrowseMessage.Plot, [plotData, MessageType.Info]));
                     });

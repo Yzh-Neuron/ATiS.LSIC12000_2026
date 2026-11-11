@@ -27,7 +27,7 @@ namespace LSIC.App.Models
             if (report is null)
             {
                 report = new UpgradeReport(typeCode, id);
-                this.InvokeOnUI(() => Reports.Add(report));
+                this.BeginInvokeOnUI(() => Reports.Add(report));
             }
             report.Update(progress, state);
             Refresh();

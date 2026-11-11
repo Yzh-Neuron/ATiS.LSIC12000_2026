@@ -103,7 +103,7 @@
         {
             UpdateZoneState(ZoneState.Offline);
             Pluged = false;
-            this.InvokeOnUI(DeviceCheckItems.Clear);
+            this.BeginInvokeOnUI(DeviceCheckItems.Clear);
             return ValueTask.CompletedTask;
         }
         protected override async ValueTask OnAnalysisFrameAsync(ZoneFunctionCode funcCode, byte[] data)
@@ -395,7 +395,7 @@
                 case ZoneFunctionCode.DeviceCheck:
                     {
                         DeviceCheckItem checkItem = DeviceCheckItem.FromBytes(data);
-                        this.InvokeOnUI(() => DeviceCheckItems.Add(checkItem));
+                        this.BeginInvokeOnUI(() => DeviceCheckItems.Add(checkItem));
                         break;
                     }
                 case ZoneFunctionCode.DpsCheck:
@@ -1058,7 +1058,7 @@
         }
         public async ValueTask StartDeviceCheckAsync()
         {
-            this.InvokeOnUI(DeviceCheckItems.Clear);
+            this.BeginInvokeOnUI(DeviceCheckItems.Clear);
             await SendAsync(ZoneFunctionCode.DeviceCheck);
         }
         public async ValueTask StartDpsCheckAsync(string script, DpsCommand[] commands)
@@ -1251,12 +1251,12 @@
         }
         private void ClearBoards()
         {
-            this.InvokeOnUI(Boards.Clear);
+            this.BeginInvokeOnUI(Boards.Clear);
         }
         private void AddBoard(byte[] data)
         {
             var board = Board.FromBytes(data, BoardTypeCatalog.ByCode);
-            this.InvokeOnUI(() => Boards.Add(board));
+            this.BeginInvokeOnUI(() => Boards.Add(board));
         }
         private void OnUpgradeProgress(byte[] data)
         {

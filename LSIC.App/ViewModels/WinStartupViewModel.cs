@@ -24,7 +24,7 @@
                 {
                     string name = string.Format(LangProvider.Instance.ConnectionCheckingText, zone.Id);
                     CheckItem item = new CheckItem(name);
-                    this.InvokeOnUI(() => CheckItems.Add(item));
+                    this.BeginInvokeOnUI(() => CheckItems.Add(item));
                     int times = 0;
                     while (times < 30)
                     {
@@ -42,9 +42,9 @@
                 }
 
                 CheckItem init = new CheckItem(LangProvider.Instance.InitText);
-                this.InvokeOnUI(() => CheckItems.Add(init));
+                this.BeginInvokeOnUI(() => CheckItems.Add(init));
                 await Task.Delay(1000);
-                this.InvokeOnUI(() => MessageBus.Default.Send(MsgArgs.From(WinStartupMessage.Initialized, [])));
+                this.BeginInvokeOnUI(() => MessageBus.Default.Send(MsgArgs.From(WinStartupMessage.Initialized, [])));
             });
         }
     }
