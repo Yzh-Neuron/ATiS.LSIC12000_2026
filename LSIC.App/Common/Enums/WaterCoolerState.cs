@@ -5,7 +5,7 @@
     /// </summary>
     public enum WaterCoolerState : byte
     {
-     
+
         Idle = 0x00, // 空闲
         Running = 0x01, // 运行中
         Fault = 0xFF  // 异常

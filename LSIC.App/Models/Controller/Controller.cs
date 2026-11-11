@@ -1,6 +1,4 @@
-﻿using System.Net.Mail;
-
-namespace LSIC.App.Models
+﻿namespace LSIC.App.Models
 {
     public class Controller : TcpHangKeClient<ControllerFunctionCode>
     {
@@ -35,7 +33,7 @@ namespace LSIC.App.Models
                 {
                     if (value.HasValue)
                     {
-                        if (value == WaterCoolerState.Fault)
+                        if (StopBurnWhenChillerAlarm && value == WaterCoolerState.Fault)
                         {
                             PopHelper.ShowAlarm(LangProvider.Instance.ControllerText, WaterCoolerState.Fault.GetString());
                             var runningZones = Device.Instance.Zones.Where(z => z.State.Running()).ToList();
@@ -134,7 +132,7 @@ namespace LSIC.App.Models
         }
         protected override ValueTask OnConnectedAsync()
         {
-            Logger.LogInfo(LangProvider.Instance.ConnectedText);
+            Logger?.LogInfo(LangProvider.Instance.ConnectedText);
             return ValueTask.CompletedTask;
         }
         protected override ValueTask OnDisconnectedAsync()
@@ -149,7 +147,7 @@ namespace LSIC.App.Models
                 zones.ForEach(z => z.WaterCoolingPipe.Reset());
             }
 
-            Logger.LogInfo(LangProvider.Instance.DisconnectedText);
+            Logger?.LogInfo(LangProvider.Instance.DisconnectedText);
             return ValueTask.CompletedTask;
         }
 
