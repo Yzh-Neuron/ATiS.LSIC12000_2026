@@ -37,7 +37,14 @@
                 states.Add(LangProvider.Instance.Enum_LightAlarmState_Alarming);
             }
 
-            return string.Join(" | ", states);
+            if (states.Count > 0)
+            {
+                return string.Join(" | ", states);
+            }
+            else
+            {
+                return "--";
+            }
         }
     }
 }

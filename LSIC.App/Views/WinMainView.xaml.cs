@@ -109,6 +109,11 @@
             e.Handled = true;
             new PopAbmViewerView { Owner = this }.ShowDialog();
         }
+        private void OnControllerButtonClick(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+            new PopControllerView { Owner = this }.ShowDialog();
+        }
         private void OnSetTriggerChannelButtonClick(object sender, RoutedEventArgs e)
         {
             e.Handled = true;

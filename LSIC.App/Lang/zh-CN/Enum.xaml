@@ -115,4 +115,13 @@
     <sys:String x:Key="Enum.LightAlarmState.Yellow">黄灯</sys:String>
     <sys:String x:Key="Enum.LightAlarmState.Green">绿灯</sys:String>
     <sys:String x:Key="Enum.LightAlarmState.Alarming">报警</sys:String>
+
+    <sys:String x:Key="Enum.WaterCoolerState.Running">运行中</sys:String>
+    <sys:String x:Key="Enum.WaterCoolerState.Idle">空闲</sys:String>
+    <sys:String x:Key="Enum.WaterCoolerState.Fault">异常</sys:String>
+
+    <sys:String x:Key="Enum.ControllerFunctionCode.ChillerFeedback">水冷机状态</sys:String>
+    <sys:String x:Key="Enum.ControllerFunctionCode.WaterValveControlFeedback">水阀控制</sys:String>
+    <sys:String x:Key="Enum.ControllerFunctionCode.DoorControlFeedback">老化门控制</sys:String>
+    <sys:String x:Key="Enum.ControllerFunctionCode.AlarmLightControlFeedback">报警灯控制</sys:String>
 </ResourceDictionary>

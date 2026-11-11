@@ -1,6 +1,6 @@
 ﻿namespace LSIC.App.ViewModels
 {
-    public class PopAboutViewModel : ObservableObject
+    public class PopAboutViewModel
     {
         public PopAboutViewModel()
         {

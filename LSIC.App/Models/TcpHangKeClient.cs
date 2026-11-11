@@ -1,8 +1,9 @@
-﻿using TcpClient = ATiS.Sim.Communication.TcpClient;
+﻿
+using TcpClient = ATiS.Sim.Communication.TcpClient;
 
 namespace LSIC.App.Models
 {
-    public abstract class TcpHangKeClient<TEnum> : ObservableObject, IDisposable where TEnum : Enum
+    public abstract class TcpHangKeClient<TEnum> : ObservableObject, IDisposable where TEnum : struct, Enum
     {
         protected const ushort FrameHeader = 0x55AA;
         protected const ushort FrameEnding = 0xEAA5;
@@ -129,8 +130,10 @@ namespace LSIC.App.Models
                     byte code = _buffer[2];
                     _buffer.RemoveRange(0, total);
 
-                    if (code is TEnum funcCode)
+                    if (EnumCache<TEnum>.Defined.Contains(code))
                     {
+                        TEnum funcCode = EnumCache<TEnum>.ToEnum(code);
+
                         if (Logger.IsValid(funcCode))
                         {
                             Logger?.LogDebug($"Rx: [ {funcCode.GetString()} ](0x{code:X2}) [ CRC32 {receiveCrc32.ToBytes(Endianness.Big).ToHex()} ] {data?.ToHex()}");

@@ -243,7 +243,7 @@
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        Foreground="{DynamicResource ForegroundBrush}"
-                                                       Text="{Binding Vol, Mode=OneWay, Converter={StaticResource IntegerToDecimalConverter1000}, StringFormat={}{0:F3}, TargetNullValue='N/A'}" />
+                                                       Text="{Binding Vol, Mode=OneWay, Converter={StaticResource IntegerToDecimalConverter1000}, StringFormat={}{0:F3}, TargetNullValue='--'}" />
 
                                             <!--  电压  -->
                                             <TextBlock Grid.Row="2"

@@ -41,7 +41,9 @@
     <sys:String x:Key="ConnectionCheckingText">[{0}] 区通信检测中...</sys:String>
     <sys:String x:Key="ConnectSuccessText">[{0}] 区通信成功</sys:String>
     <sys:String x:Key="ConnectFailureText">[{0}] 区通信失败</sys:String>
+    
     <!--  老化区与工位  -->
+    <sys:String x:Key="ZoneIndexText">老化区索引</sys:String>
     <sys:String x:Key="ZoneText">区</sys:String>
     <sys:String x:Key="ZoneFormatText">{0} 区</sys:String>
     <sys:String x:Key="StateText">状态</sys:String>
@@ -56,6 +58,7 @@
     <sys:String x:Key="LinkedDrText">关联的管脚</sys:String>
     <sys:String x:Key="DrText">管脚</sys:String>
     <sys:String x:Key="CSText">片选</sys:String>
+    <sys:String x:Key="DutMaskText">工位屏蔽</sys:String>
 
     <!--  主界面菜单  -->
     <sys:String x:Key="IcNameText">器件名称</sys:String>
@@ -108,20 +111,20 @@
     <sys:String x:Key="DpsText">电源</sys:String>
     <sys:String x:Key="DpsStateText">电源状态</sys:String>
     <sys:String x:Key="SetVoltageText">设置电压</sys:String>
-    <sys:String x:Key="SetVoltageWithUnitText">设置电压(V)</sys:String>
-    <sys:String x:Key="RealVoltageWithUnitText">实时电压(V)</sys:String>
-    <sys:String x:Key="RealCurrentWithUnitText">实时电流(A)</sys:String>
-    <sys:String x:Key="RealPowerWithUnitText">实时功率(W)</sys:String>
+    <sys:String x:Key="SetVoltageWithUnitText">设置电压 (V)</sys:String>
+    <sys:String x:Key="RealVoltageWithUnitText">实时电压 (V)</sys:String>
+    <sys:String x:Key="RealCurrentWithUnitText">实时电流 (A)</sys:String>
+    <sys:String x:Key="RealPowerWithUnitText">实时功率 (W)</sys:String>
     <sys:String x:Key="VoltageFloorText">电压下限</sys:String>
-    <sys:String x:Key="VoltageFloorWithUnitText">电压下限(V)</sys:String>
+    <sys:String x:Key="VoltageFloorWithUnitText">电压下限 (V)</sys:String>
     <sys:String x:Key="VoltageCeilingText">电压上限</sys:String>
-    <sys:String x:Key="VoltageCeilingWithUnitText">电压上限(V)</sys:String>
+    <sys:String x:Key="VoltageCeilingWithUnitText">电压上限 (V)</sys:String>
     <sys:String x:Key="CurrentCeilingText">电流上限</sys:String>
-    <sys:String x:Key="CurrentCeilingWithUnitText">电流上限(A)</sys:String>
+    <sys:String x:Key="CurrentCeilingWithUnitText">电流上限 (A)</sys:String>
     <sys:String x:Key="RaiseTimeText">上升时间</sys:String>
-    <sys:String x:Key="RaiseTimeWithUnitText">上升时间(ms)</sys:String>
+    <sys:String x:Key="RaiseTimeWithUnitText">上升时间 (ms)</sys:String>
     <sys:String x:Key="DelayText">延时时间</sys:String>
-    <sys:String x:Key="DelayWithUnitText">延时时间(ms)</sys:String>
+    <sys:String x:Key="DelayWithUnitText">延时时间 (ms)</sys:String>
     <sys:String x:Key="DpsSettingText">电源设置</sys:String>
     <sys:String x:Key="DpsPlanText">电源方案</sys:String>
     <sys:String x:Key="DpsEditText">电源编辑</sys:String>
@@ -214,6 +217,23 @@
     <sys:String x:Key="DpsCheckScriptText">电源自检脚本</sys:String>
     <sys:String x:Key="RunScriptText">运行脚本</sys:String>
     <sys:String x:Key="SelectFileText">选择文件</sys:String>
+    
     <!--  工位屏蔽  -->
-    <sys:String x:Key="DutMaskText">工位屏蔽</sys:String>
+    <sys:String x:Key="ControllerText">辅助控制板</sys:String>
+    <sys:String x:Key="WaterChillerText">水冷机</sys:String>
+    <sys:String x:Key="WaterChillerStatusText">水冷机状态</sys:String>
+    <sys:String x:Key="WaterChillerAlarmAutoStopBurnInText">水冷机报警自动停止老化流程</sys:String>
+    <sys:String x:Key="ValveFeedbackWithUnitText">阀位 (%)</sys:String>
+    <sys:String x:Key="ValveControlWithUnitText">阀位控制 (%)</sys:String>
+    <sys:String x:Key="FlowRateWithUnitText">流量 (L/min)</sys:String>
+    <sys:String x:Key="DoorText">老化门</sys:String>
+    <sys:String x:Key="DoorOpenedText">已打开</sys:String>
+    <sys:String x:Key="DoorClosedText">已关闭</sys:String>
+    <sys:String x:Key="AlarmLightText">三色灯</sys:String>
+    <sys:String x:Key="AlarmLightStatusText">三色灯状态</sys:String>
+    <sys:String x:Key="OpenText">打开</sys:String>
+    <sys:String x:Key="CloseText">关闭</sys:String>
+    <sys:String x:Key="ApplyText">应用</sys:String>
+    <sys:String x:Key="ConnectedText">连接成功</sys:String>
+    <sys:String x:Key="DisconnectedText">断开连接</sys:String>
 </ResourceDictionary>

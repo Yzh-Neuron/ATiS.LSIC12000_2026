@@ -8,7 +8,7 @@
         public event AddFlowHandler OnAddFlow;
         public FlowLogger(RollingFileLogger fileLogger)
         {
-            logger = fileLogger ?? throw new ArgumentNullException(nameof(fileLogger));
+            logger = fileLogger;
             History = new ConcurrentQueue<Flow>();
         }
         public void LogDebug(string message)
@@ -17,17 +17,17 @@
         }
         public void LogInfo(string message)
         {
-            logger.Info(message);
+            logger?.Info(message);
             AddFlow(DateTime.Now, LogLevel.Info, message);
         }
         public void LogWarn(string message)
         {
-            logger.Warn(message);
+            logger?.Warn(message);
             AddFlow(DateTime.Now, LogLevel.Warn, message);
         }
         public void LogError(string message)
         {
-            logger.Error(message);
+            logger?.Error(message);
             AddFlow(DateTime.Now, LogLevel.Error, message);
         }
         private void AddFlow(DateTime time, LogLevel level, string message)
@@ -52,7 +52,7 @@
         }
         public void Dispose()
         {
-            logger.Dispose();
+            logger?.Dispose();
         }
     }
     public static class FlowLoggerExtension

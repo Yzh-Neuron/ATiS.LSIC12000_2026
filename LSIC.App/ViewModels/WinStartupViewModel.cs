@@ -13,6 +13,8 @@
         {
             Task.Run(async () =>
             {
+                Device.Controller?.Startup();
+
                 foreach (Zone zone in Device.Zones)
                 {
                     zone.Startup();

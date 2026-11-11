@@ -6,11 +6,6 @@
     public enum ControllerFunctionCode : byte
     {
         /// <summary>
-        /// 预留控制板状态
-        /// </summary>
-        ReservedBoardStatus = 0x00,
-
-        /// <summary>
         /// 水冷机状态反馈
         /// </summary>
         ChillerFeedback = 0x01,
@@ -23,7 +18,7 @@
         /// <summary>
         /// 老化门控制 &amp; 状态反馈 
         /// </summary>
-        AgingDoorControlFeedback = 0x03,
+        DoorControlFeedback = 0x03,
 
         /// <summary>
         /// 报警灯控制 &amp; 状态反馈

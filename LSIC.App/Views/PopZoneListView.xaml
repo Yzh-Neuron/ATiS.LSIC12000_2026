@@ -53,27 +53,27 @@
 
             <DataGridTextColumn Width="*"
                                 MinWidth="80"
-                                Binding="{Binding BurnInfo.Ic.Name, TargetNullValue='N/A'}"
+                                Binding="{Binding BurnInfo.Ic.Name, TargetNullValue='--'}"
                                 Header="{app:Lang {x:Static app:LangKey.IcNameText}}" />
 
             <DataGridTextColumn Width="*"
                                 MinWidth="80"
-                                Binding="{Binding BurnInfo.Lot, TargetNullValue='N/A'}"
+                                Binding="{Binding BurnInfo.Lot, TargetNullValue='--'}"
                                 Header="{app:Lang {x:Static app:LangKey.LotText}}" />
 
             <DataGridTextColumn Width="*"
                                 MinWidth="80"
-                                Binding="{Binding BurnInfo.Operator, TargetNullValue='N/A'}"
+                                Binding="{Binding BurnInfo.Operator, TargetNullValue='--'}"
                                 Header="{app:Lang {x:Static app:LangKey.OperatorText}}" />
 
             <DataGridTextColumn Width="*"
                                 MinWidth="80"
-                                Binding="{Binding BurnInfo.Start, StringFormat='yyyy-MM-dd HH:mm:ss', TargetNullValue='N/A'}"
+                                Binding="{Binding BurnInfo.Start, StringFormat='yyyy-MM-dd HH:mm:ss', TargetNullValue='--'}"
                                 Header="{app:Lang {x:Static app:LangKey.StartTimeText}}" />
 
             <DataGridTextColumn Width="*"
                                 MinWidth="80"
-                                Binding="{Binding BurnInfo.TotalSeconds, TargetNullValue='N/A'}"
+                                Binding="{Binding BurnInfo.TotalSeconds, TargetNullValue='--'}"
                                 Header="{app:Lang {x:Static app:LangKey.TotalTimeBeforeDpsUpText}}" />
         </DataGrid.Columns>
     </DataGrid>

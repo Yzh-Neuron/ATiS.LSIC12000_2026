@@ -1,4 +1,6 @@
-﻿namespace LSIC.App.Models
+﻿using System.Net.Mail;
+
+namespace LSIC.App.Models
 {
     public class Controller : TcpHangKeClient<ControllerFunctionCode>
     {
@@ -12,16 +14,56 @@
         public LightAlarmState? LightAlarm
         {
             get => _lightAlarm;
-            set => SetProperty(ref _lightAlarm, value);
+            set
+            {
+                if (SetProperty(ref _lightAlarm, value))
+                {
+                    if (value.HasValue)
+                    {
+                        Logger?.LogInfo(LangProvider.Instance.AlarmLightStatusText + "：" + value.Value.GetText());
+                    }
+                }
+            }
         }
         private WaterCoolerState? _chillerState;
         public WaterCoolerState? ChillerState
         {
             get => _chillerState;
-            set => SetProperty(ref _chillerState, value);
+            set
+            {
+                if (SetProperty(ref _chillerState, value))
+                {
+                    if (value.HasValue)
+                    {
+                        if (value == WaterCoolerState.Fault)
+                        {
+                            PopHelper.ShowAlarm(LangProvider.Instance.ControllerText, WaterCoolerState.Fault.GetString());
+                            var runningZones = Device.Instance.Zones.Where(z => z.State.Running()).ToList();
+                            runningZones.ForEach(z => _ = z.StopBurnAsync());
+                        }
+
+                        Logger?.LogInfo(LangProvider.Instance.WaterChillerStatusText + "：" + value.Value.GetString());
+                    }
+                }
+            }
+        }
+        private bool _stopBurnWhenChillerAlarm;
+        public bool StopBurnWhenChillerAlarm
+        {
+            get => _stopBurnWhenChillerAlarm;
+            set
+            {
+                if (SetProperty(ref _stopBurnWhenChillerAlarm, value))
+                {
+                    SystemDatabase.Instance.SetConfig($"{nameof(Controller)}.{nameof(StopBurnWhenChillerAlarm)}", value);
+                }
+            }
         }
         public Controller(ControllerInfo info) : base(info.Id, info.Ip, info.Port)
         {
+            Logger = new FlowLogger(null);
+            FrameFilterUtility.Register<ControllerFunctionCode>(Logger, (code) => true);
+            StopBurnWhenChillerAlarm = SystemDatabase.Instance.GetConfig($"{nameof(Controller)}.{nameof(StopBurnWhenChillerAlarm)}", false);
         }
         protected override ValueTask OnAnalysisFrameAsync(ControllerFunctionCode funcCode, byte[] data)
         {
@@ -31,9 +73,8 @@
                 case ControllerFunctionCode.ChillerFeedback:
                     {
                         ChillerState = (WaterCoolerState)data[index++];
+                        Zone[] zones = Device.Instance.Zones;
                         byte count = data[index++];
-                        var zones = Device.Instance.Zones;
-
                         if (zones != null)
                         {
                             for (byte i = 0; i < count; i++)
@@ -71,7 +112,7 @@
                         }
                         break;
                     }
-                case ControllerFunctionCode.AgingDoorControlFeedback:
+                case ControllerFunctionCode.DoorControlFeedback:
                     {
                         DoorOpened = data[index] switch
                         {
@@ -93,6 +134,7 @@
         }
         protected override ValueTask OnConnectedAsync()
         {
+            Logger.LogInfo(LangProvider.Instance.ConnectedText);
             return ValueTask.CompletedTask;
         }
         protected override ValueTask OnDisconnectedAsync()
@@ -100,6 +142,14 @@
             ChillerState = null;
             DoorOpened = null;
             LightAlarm = null;
+
+            var zones = Device.Instance.Zones;
+            if (zones?.Length > 0)
+            {
+                zones.ForEach(z => z.WaterCoolingPipe.Reset());
+            }
+
+            Logger.LogInfo(LangProvider.Instance.DisconnectedText);
             return ValueTask.CompletedTask;
         }
 
@@ -120,10 +170,10 @@
         /// </summary>
         /// <param name="open"></param>
         /// <returns></returns>
-        public async ValueTask SendAgingDoorControlAsync(bool open)
+        public async ValueTask SendDoorControlAsync(bool open)
         {
             var data = new[] { open ? (byte)0x01 : (byte)0x00 };
-            await SendAsync(ControllerFunctionCode.AgingDoorControlFeedback, data);
+            await SendAsync(ControllerFunctionCode.DoorControlFeedback, data);
         }
 
         /// <summary>

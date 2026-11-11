@@ -29,6 +29,8 @@
     <cvt:DpsSpecConverter x:Key="DpsSpecConverter"/>
     <cvt:DpsStateToBrushConverter x:Key="DpsStateToBrushConverter"/>
     <cvt:IntegerToVersionConverter x:Key="IntegerToVersionConverter"/>
+    <cvt:WaterCoolerStateToBrushConverter x:Key="WaterCoolerStateToBrushConverter"/>
+    <cvt:LightAlarmHasFlagConverter x:Key="LightAlarmHasFlagConverter"/>
 
     <cvt:ZoneStateToEnableConverter x:Key="ZoneStateToCanSendIc" Func="{x:Static app:ZoneStateExtension.CanSendIcFunc}" />
     <cvt:ZoneStateToEnableConverter x:Key="ZoneStateToCanStart" Func="{x:Static app:ZoneStateExtension.CanStartFunc}" />

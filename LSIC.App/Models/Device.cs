@@ -12,6 +12,7 @@ namespace LSIC.App.Models
 #endif
             SystemConfig = systemConfig;
             Zones = SystemConfig.ZoneInfos.Select(info => new Zone(info, SystemConfig.DpsInfos.Select(i => new Dps(i)).ToArray())).ToArray();
+            Controller = SystemConfig.ControllerInfo == null ? null : new Controller(SystemConfig.ControllerInfo);
 
 
             BoardTypeCatalog.Initialize(systemConfig.BoardTypeInfos);
@@ -93,6 +94,7 @@ namespace LSIC.App.Models
             private set => SetProperty(ref _deviceName, value);
         }
         public Zone[] Zones { get; private set; }
+        public Controller Controller { get; private set; }
         public event Action<ThemeType> ThemeTypeChanged;
         public void Dispose()
         {
@@ -103,6 +105,9 @@ namespace LSIC.App.Models
 
             Zones.AsParallel().ForAll(zone => zone.Dispose());
             Zones = null;
+
+            Controller?.Dispose();
+            Controller = null;
         }
         public static void Initialize(SystemConfig systemConfig)
         {

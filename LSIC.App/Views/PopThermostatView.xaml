@@ -92,7 +92,7 @@
                         </TextBlock>
                         <TextBlock Grid.Column="1"
                                    Margin="10,0,0,0"
-                                   Text="{Binding SelectedThermostat.Id, Mode=OneWay, TargetNullValue='N/A'}" />
+                                   Text="{Binding SelectedThermostat.Id, Mode=OneWay, TargetNullValue='--'}" />
                     </Grid>
                     <Rectangle Grid.Column="1"
                                Width="1"
@@ -108,7 +108,7 @@
                         </TextBlock>
                         <TextBlock Grid.Column="1"
                                    Margin="10,0,0,0"
-                                   Text="{Binding SelectedThermostat.Temperature, Converter={StaticResource IntegerToDecimalConverter10}, Mode=OneWay, TargetNullValue='N/A', StringFormat={}{0} ℃}" />
+                                   Text="{Binding SelectedThermostat.Temperature, Converter={StaticResource IntegerToDecimalConverter10}, Mode=OneWay, TargetNullValue='--', StringFormat={}{0} ℃}" />
                     </Grid>
                     <Rectangle Grid.Column="3"
                                Width="1"
@@ -124,7 +124,7 @@
                         </TextBlock>
                         <TextBlock Grid.Column="1"
                                    Margin="10,0,0,0"
-                                   Text="{Binding SelectedThermostat.TargetTemperature, Converter={StaticResource IntegerToDecimalConverter10}, Mode=OneWay, TargetNullValue='N/A', StringFormat={}{0} ℃}" />
+                                   Text="{Binding SelectedThermostat.TargetTemperature, Converter={StaticResource IntegerToDecimalConverter10}, Mode=OneWay, TargetNullValue='--', StringFormat={}{0} ℃}" />
                     </Grid>
                     <Rectangle Grid.Column="5"
                                Width="1"
