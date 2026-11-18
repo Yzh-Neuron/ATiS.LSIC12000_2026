@@ -696,6 +696,7 @@
             LoadMode mode = info.LoadMode;
 
             Logger?.LogInfo(string.Format(LangProvider.Instance.SendIcDataMessage, info.Ic.Name));
+            UpdateZoneState(ZoneState.Transition);
 
             // 发送器件开始
             await SendAsync(ZoneFunctionCode.ConfigFinish, 0x01, (byte)info.LoadMode).ConfigureAwait(false);
