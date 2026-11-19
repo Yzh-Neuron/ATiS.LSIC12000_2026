@@ -164,7 +164,11 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 ; 整体拷贝编译输出目录所有文件（递归子目录），排除需要加密的自家 dll、排除混淆输出目录与打包工具自身
-Source: "..\*"; DestDir: "{app}"; Excludes: "\ATIS.Pattern.dll;\ATiS.Base.dll;\ATiS.Dongle.dll;\ATiS.Sim.Communication.dll;\ATiS.Sim.Log.dll;\ATiS.Sim.Mvvm.dll;\ATiS.Sim.Wpf.dll;\LSIC.App.dll;\Confused\*;\PackageToolkit\*"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\*"; DestDir: "{app}"; Excludes: "ATIS.Pattern.dll,ATiS.Base.dll,ATiS.Dongle.dll,ATiS.Sim.Communication.dll,ATiS.Sim.Log.dll,ATiS.Sim.Mvvm.dll,ATiS.Sim.Wpf.dll,LSIC.App.dll,Confused\*,PackageToolkit\*"; Flags: ignoreversion
+Source: "..\zh-Hans\*"; DestDir: "{app}\zh-Hans"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\Scripts\*"; DestDir: "{app}\Scripts"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\Samples\*"; DestDir: "{app}\Samples"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\DefaultConfigs\*"; DestDir: "{app}\DefaultConfigs"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 ; 从 Confused 目录拷贝加密（混淆）后的自家 dll，覆盖到安装根目录
 Source: "..\Confused\LSIC.App.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -178,6 +182,7 @@ Source: "..\Confused\ATiS.Sim.Wpf.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; .NET Desktop Runtime 安装包（仅解压到临时目录供安装时运行，不拷入目标目录）
 Source: "{#MyEnviroment}"; DestDir: "{app}"; Flags: dontcopy ignoreversion
+
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
